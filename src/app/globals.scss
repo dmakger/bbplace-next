@@ -60,6 +60,29 @@
   // --callout-border-rgb: 172, 175, 176;
   // --card-rgb: 180, 185, 188;
   // --card-border-rgb: 131, 134, 135;
+
+  // ===={ FONT }====
+
+  //FONT-FAMILY
+  --font-family: "Inter", sans-serif;
+
+  --second-family: "Roboto", sans-serif;
+  
+  --third-family: "Segoe UI Variable", sans-serif;
+
+  //FONT-SIZE
+  --font-size-xs: 13px;
+  --font-size-s: 14px;
+  --font-size-sreg: 15px;
+  --font-size-reg: 16px;
+  --font-size-sm: 18px;
+
+  //FONT-WEIGHT
+  --font-weight-reg: 400;
+  --font-weight-med: 500;
+  --font-weight-sb: 600;
+  --font-weight-bold: 700;
+  --font-weight-eb: 800;
 }
 
 @media (prefers-color-scheme: dark) {
