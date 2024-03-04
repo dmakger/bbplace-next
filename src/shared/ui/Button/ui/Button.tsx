@@ -24,7 +24,7 @@ export const Button = ({ children,
     onClick = () => { },
     disabled = false,
     loading = false,
-    variant = ButtonVariant.CLEAR
+    variant = ButtonVariant.BORDERED_RED_WIDE
 }: IButton) => {
     
     return (
