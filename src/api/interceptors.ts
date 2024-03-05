@@ -1,15 +1,16 @@
 import { getAccessToken, removeFromStorage } from '@/entities/Auth/lib/auth-token.lib'
-import axios, {type CreateAxiosDefaults} from 'axios'
+import axios, {CreateAxiosDefaults} from 'axios'
 import { EErrorsApi, errorCatch } from './error'
 import { authAPI } from '@/entities/Auth/api/auth.api'
 
-const options:CreateAxiosDefaults = {
+const options: CreateAxiosDefaults = {
     baseURL: process.env.API_URL,
     headers: {
         'Content-Type': 'application/json',
     },
     withCredentials: true,
 }
+
 
 // Запросы БЕЗ токена
 const axiosClassic = axios.create(options)
