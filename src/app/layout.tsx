@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.scss";
 import { AppProvider } from "./_providers/app-provider";
-import { SITE_NAME } from "@/constans/seo.constans";
+import { SITE_NAME } from "@/shared/data/seo.data";
 
 const inter = Inter({ subsets: ["latin", "cyrillic"], variable: '--inter-font'});
 

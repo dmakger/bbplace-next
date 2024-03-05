@@ -1,4 +1,4 @@
-import { cls } from '@/lib/classes';
+import { cls } from '@/shared/lib/classes.data';
 import cl from './_HeaderBottom.module.scss';
 
 interface HeaderTopProps {

@@ -1,4 +1,4 @@
-import { ComposeChildren } from "@/shared/lib/react";
+import { ComposeChildren } from "@/shared/lib/react.data";
 import { ReactNode } from "react";
 
 export function AppProvider({ children }: {children: ReactNode}) {

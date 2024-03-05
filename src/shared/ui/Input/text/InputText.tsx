@@ -1,6 +1,4 @@
-'use client';
-
-import { cls } from '@/lib/classes'
+import { cls } from '@/shared/lib/classes.data'
 import cl from './_InputText.module.scss'
 
 interface InputTextProps {
