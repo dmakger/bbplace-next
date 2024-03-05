@@ -6,7 +6,7 @@
     background-color: var(--white);
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
     border-radius: 20px 20px 0 0;
-    font-size: var(--font-size-reg);
+    font-size: var(--font-size-s);
     font-weight: var(--font-weight-reg);
 
     @media (width < 600px) {
@@ -28,20 +28,27 @@
     }
 }
 .leftContainer {
-    
-
     & img {
         width: 271px;
         height: 271px;
         border-radius: 3px;
-        width: 100%;
 
         @media (width < 600px) {
             width: 145px;
             height: 145px;
         }
     }
+    // height: 100%;
+    // & img {
+    //     max-width: 100%;
+    //     min-width: 200px;
+    //     border-radius: 3px;
+    //     object-fit: cover;
 
+    //     @media (max-width: 600px) {
+    //         max-width: 145px;
+    //     }
+    // }
 
 }
 
@@ -49,6 +56,7 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+    width: 100%;
 }
 
 
@@ -80,8 +88,16 @@
 
 .cardTitle {
     font-family: var(--font-family);
+    font-size: var(--font-size-reg);
     color: var(--dark-2);
-}
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+    @media (max-width: 600px) { 
+        white-space: nowrap;
+        max-width: 200px;
+    }
+    }
 
 .cardPrice {
     font-weight: var(--font-weight-sb);
@@ -146,13 +162,56 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 36px;
+    margin-top: 20px;
 
-    @media (width < 600px) {
+    @media (max-width:600px) {
         display: none;
-       
     }
 }
+
+.leftBlock{
+    display: flex;
+    background-color: var(--gray-3);
+    border-radius: 100px;
+    padding: 5px 10px 5px 16px;
+
+}
+
+.supplierInfo{
+   display: flex;
+   flex-direction: column;
+   gap: 2px;
+}
+
+.bottomBlock{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 99px;
+    & span{
+        font-size: var( --font-size-xxs);
+    }
+}
+
+.supplierName{
+    max-width: 250px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: color 0.3s;
+    &:hover{
+        color:  var(--red-1);
+        transition: color 0.3s;
+    }
+}
+
+.supplierStatus{
+        font-weight:var(--font-weight-sb);
+        letter-spacing: -0.03em;
+        color: #43b0ff;
+}
+
 
 .buttonContainerMobile{
     display: none;
@@ -160,6 +219,5 @@
         display: flex;
         align-items: center;
         gap: 10px;
-       
     }
 }

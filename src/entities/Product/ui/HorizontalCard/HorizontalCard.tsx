@@ -35,7 +35,6 @@ const HorizontalCard:FC<IHorizontalCard> = ({}) => {
                                 <FavouriteIcon variant={FavouriteIconVariant.EMPTY}/>
                             </div>
                         </div>
-
                         <p className={cl.cardPrice}>
                             305,80 RUB - 9 237 RUB<span> /шт.</span>
                         </p>
@@ -69,7 +68,25 @@ const HorizontalCard:FC<IHorizontalCard> = ({}) => {
                         </div>
                     </div>
                     <div className={cl.buttonContainer}>
-                        <SubscribeIcon  />
+                        <div className={cl.leftBlock}>
+                            <div className={cl.supplierInfo}>
+                                <p className={cl.supplierName}>
+                                    ТОО «Standard Mittal»ТОО asdasdadsdsdsd
+                                </p>
+                                <div className={cl.bottomBlock}>
+                                    <span className={cl.supplierStatus}>
+                                        Verified
+                                    </span>
+                                    <span>
+                                        &#8226;
+                                    </span>
+                                    <span>
+                                        Россия
+                                    </span>
+                                </div>
+                            </div>
+                            <SubscribeIcon  />
+                        </div>
                         <Button variant={ButtonVariant.BORDERED_RED_WIDE}>
                             Связаться с поставщиком
                         </Button>
