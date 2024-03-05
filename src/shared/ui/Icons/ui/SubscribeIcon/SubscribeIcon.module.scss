@@ -15,31 +15,25 @@
     }
 }
 
-.clearIconContainer{
-    width: 31px;
+.empty-icon{
+    width: 57px;
     height: 31px;
     background-color: var(--gray-3);
-    transition: all 0.3s;
-}
-
-.fullIconContainer{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    width: 148px;
-    height: 36px;
-}
-
-
-
-.blackIconClear{
-    width: 57px;
     transition: all 0.3s;
     &:hover{
         width: 31px;
         transition: all 0.3s;
     }
+}
+
+.emptyIconSubscribed{
+    width: 31px;
+}
+
+.w-text-icon{
+    gap: 10px;
+    width: 148px;
+    height: 36px;
 }
 
 

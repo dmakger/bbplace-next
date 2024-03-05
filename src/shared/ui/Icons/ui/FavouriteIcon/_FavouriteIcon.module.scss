@@ -1,6 +1,6 @@
 @import url('/src/app/globals.scss');
 
-.heartContainer {
+.in-circle-heart{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -22,7 +22,6 @@
 
 .likedEmptyHeart{
     cursor: pointer;
-
 }
 
 .likedHeartContainer{
@@ -37,7 +36,7 @@
     cursor: pointer;
 }
 
-.emptyHeart {
+.emptyHeart{
     fill: #CCCCCC;
     cursor: pointer;
     transition: fill 0.3s;

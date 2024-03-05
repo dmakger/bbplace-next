@@ -4,7 +4,7 @@ import productImage from '@/shared/assets/img/productImage.jpg'
 import { Button } from '@/shared/ui/Button'
 import { ButtonVariant } from '@/shared/ui/Button/model/model'
 import { FC } from 'react'
-import { FavouriteIcon, SubscribeIcon } from '@/shared/ui/Icons'
+import { FavouriteIcon, FavouriteIconVariant, SubscribeIcon } from '@/shared/ui/Icons'
 
 interface IHorizontalCard{
 
@@ -32,7 +32,7 @@ const HorizontalCard:FC<IHorizontalCard> = ({}) => {
                                 2023 зима новинка 350 GSM Мужские2023 зима новинка 350 ad2023
                             </h4>
                             <div className={cl.favourite}>
-                                <FavouriteIcon />
+                                <FavouriteIcon variant={FavouriteIconVariant.EMPTY}/>
                             </div>
                         </div>
 
@@ -78,7 +78,7 @@ const HorizontalCard:FC<IHorizontalCard> = ({}) => {
                         <Button variant={ButtonVariant.BORDERED_RED_NARROW}>
                             Написать
                         </Button>
-                        <FavouriteIcon isEmptyHeart={false} />
+                        <FavouriteIcon variant={FavouriteIconVariant.IN_CIRCLE_HEART}/>
                     </div>
                 </div>
             </div>
