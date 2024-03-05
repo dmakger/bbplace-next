@@ -3,10 +3,14 @@ import cl from './_HorizontalCard.module.scss'
 import productImage from '@/shared/assets/img/productImage.jpg'
 import { Button } from '@/shared/ui/Button'
 import { ButtonVariant } from '@/shared/ui/Button/model/model'
-import Heart from '@/shared/assets/img/Heart.svg'
-import { FavouriteIcon } from '@/shared/ui/FavouriteIcon/FavouriteIcon'
+import { FC } from 'react'
+import { FavouriteIcon, FavouriteIconVariant, SubscribeIcon } from '@/shared/ui/Icons'
 
-const HorizontalCard = () => {
+interface IHorizontalCard{
+
+}
+
+const HorizontalCard:FC<IHorizontalCard> = ({}) => {
 
     const additionalInfoOptions: string[] = [
         'Страна изготовитель:',
@@ -24,16 +28,16 @@ const HorizontalCard = () => {
                 <div className={cl.rightContainer}>
                     <div className={cl.mainInfo}>
                         <div className={cl.topContainer}>
-                            <p className={cl.cardTitle}>
+                            <h4 className={cl.cardTitle}>
                                 2023 зима новинка 350 GSM Мужские2023 зима новинка 350 ad2023
-                            </p>
+                            </h4>
                             <div className={cl.favourite}>
-                                <FavouriteIcon />
+                                <FavouriteIcon variant={FavouriteIconVariant.EMPTY}/>
                             </div>
                         </div>
 
                         <p className={cl.cardPrice}>
-                            305,80 RUB <span> /шт.</span>
+                            305,80 RUB - 9 237 RUB<span> /шт.</span>
                         </p>
                         <p className={cl.cardQuantity}>
                             Мин. Кол-во: <span>10 кг</span>
@@ -65,6 +69,7 @@ const HorizontalCard = () => {
                         </div>
                     </div>
                     <div className={cl.buttonContainer}>
+                        <SubscribeIcon  />
                         <Button variant={ButtonVariant.BORDERED_RED_WIDE}>
                             Связаться с поставщиком
                         </Button>
@@ -73,7 +78,7 @@ const HorizontalCard = () => {
                         <Button variant={ButtonVariant.BORDERED_RED_NARROW}>
                             Написать
                         </Button>
-                        <FavouriteIcon isEmptyHeart={false} />
+                        <FavouriteIcon variant={FavouriteIconVariant.IN_CIRCLE_HEART}/>
                     </div>
                 </div>
             </div>

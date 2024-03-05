@@ -1,0 +1,47 @@
+.iconContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    background-color: var(--gray-3);
+    cursor: pointer;
+    font-family: var(--font-family);
+    color: var(--dark-2);
+    transition: all 0.3s;
+
+    &:hover{
+        background-color: var(--gray-4);
+        transition: all 0.3s;
+    }
+}
+
+.empty-icon{
+    width: 57px;
+    height: 31px;
+    background-color: var(--gray-3);
+    transition: all 0.3s;
+    &:hover{
+        width: 31px;
+        transition: all 0.3s;
+    }
+}
+
+.emptyIconSubscribed{
+    width: 31px;
+}
+
+.w-text-icon{
+    gap: 10px;
+    width: 148px;
+    height: 36px;
+}
+
+
+.toSubscribeIcon {
+    & circle{
+        stroke: var(--dark-2);
+    }
+    & path{
+        fill: var(--dark-2)
+    }
+}
