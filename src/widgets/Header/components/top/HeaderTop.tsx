@@ -1,7 +1,7 @@
 import { cls } from '@/lib/classes';
 import cl from './_HeaderTop.module.scss';
 import Logo from '@/shared/ui/Logo/Logo';
-import Search from '@/features/Search/Search';
+import Search from '@/features/Search/ui/Search';
 
 interface HeaderTopProps {
     className?: string

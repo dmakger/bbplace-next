@@ -1,5 +1,6 @@
 import { ReactNode } from "react"
-import InputText from "./text/InputText"
+import InputText from "./Text/InputText"
+import InputSelect from "./Select/InputSelect"
 
 interface InputProps {
     children: ReactNode
@@ -12,3 +13,4 @@ export default async function Input({children}: InputProps) {
 }
 
 Input.Text = InputText
+Input.Select = InputSelect

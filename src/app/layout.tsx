@@ -4,7 +4,7 @@ import "./globals.scss";
 import { AppProvider } from "./_providers/app-provider";
 import { SITE_NAME } from "@/constans/seo.constans";
 
-const inter = Inter({ subsets: ["latin", "cyrillic"] });
+const inter = Inter({ subsets: ["latin", "cyrillic"], variable: '--inter-font'});
 
 export const metadata: Metadata = {
 	title: {

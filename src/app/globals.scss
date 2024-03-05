@@ -131,6 +131,11 @@ body {
   input {
     color: var(--foreground);
     background-color: var(--white);
+    font-family: var(--inter-font);
+
+    &::placeholder {
+      color: var(--gray-5);
+    }
   }
 }
 
