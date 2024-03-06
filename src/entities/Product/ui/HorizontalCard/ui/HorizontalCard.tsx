@@ -5,12 +5,13 @@ import { Button } from '@/shared/ui/Button'
 import { ButtonVariant } from '@/shared/ui/Button/model/model'
 import { FC } from 'react'
 import { FavouriteIcon, FavouriteIconVariant, SubscribeIcon } from '@/shared/ui/Icons'
+import { SupplierInfo } from '@/shared/ui/SupplierInfo'
 
 interface IHorizontalCard{
 
 }
 
-const HorizontalCard:FC<IHorizontalCard> = ({}) => {
+export const HorizontalCard:FC<IHorizontalCard> = ({}) => {
 
     const additionalInfoOptions: string[] = [
         'Страна изготовитель:',
@@ -69,22 +70,7 @@ const HorizontalCard:FC<IHorizontalCard> = ({}) => {
                     </div>
                     <div className={cl.buttonContainer}>
                         <div className={cl.leftBlock}>
-                            <div className={cl.supplierInfo}>
-                                <p className={cl.supplierName}>
-                                    ТОО «Standard Mittal»ТОО asdasdadsdsdsd
-                                </p>
-                                <div className={cl.bottomBlock}>
-                                    <span className={cl.supplierStatus}>
-                                        Verified
-                                    </span>
-                                    <span>
-                                        &#8226;
-                                    </span>
-                                    <span>
-                                        Россия
-                                    </span>
-                                </div>
-                            </div>
+                            <SupplierInfo />
                             <SubscribeIcon  />
                         </div>
                         <Button variant={ButtonVariant.BORDERED_RED_WIDE}>
@@ -99,13 +85,8 @@ const HorizontalCard:FC<IHorizontalCard> = ({}) => {
                     </div>
                 </div>
             </div>
-
-
-
         </section>
     )
 }
-
-export default HorizontalCard
 
 

@@ -1,9 +1,9 @@
-import HorizontalCard from "@/entities/Product/ui/HorizontalCard/HorizontalCard";
+import { VerticalCard } from "@/entities/Product/ui/VerticalCard";
 
 export default async function MainPage() {
     return (
         <div>
-            <HorizontalCard/>
+            <VerticalCard/>
         </div>
     )
 }

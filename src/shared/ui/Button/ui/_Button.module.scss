@@ -34,3 +34,26 @@
         transition: all 0.3s;
     }
 }
+
+.background-red{
+    padding: 8px 18px;
+    color: var(--dark-2);
+    transition: all 0.3s;
+    &:hover{
+        color: var(--white);
+        background-color: var(--red-1);
+        transition: all 0.3s;
+    }
+}
+
+.clear{
+    padding: 6px 45px;
+    background-color: transparent;
+    color: var(--dark-2);
+    transition: all 0.3s;
+
+    &:hover{
+        background-color: var(--gray-3);
+        transition: all 0.3s;
+    }
+}
