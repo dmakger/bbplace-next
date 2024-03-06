@@ -7,7 +7,7 @@ interface InputProps {
     children: ReactNode
 }
 
-export default async function Input({children}: InputProps) {
+export default function Input({children}: InputProps) {
     return (
         {children}
     )

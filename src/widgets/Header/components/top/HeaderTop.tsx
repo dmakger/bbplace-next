@@ -7,7 +7,7 @@ interface HeaderTopProps {
     className?: string
 }
 
-export default async function HeaderTop({className}: HeaderTopProps) {
+export default function HeaderTop({className}: HeaderTopProps) {
     return (
         <div className={cls(cl.wrapper, className)}>
             <div className={cl.block}>

@@ -1,32 +1,28 @@
-'use client'
+import Image from 'next/image'
 
 import { cls } from "@/shared/lib/classes.data"
 import cl from './_InputRadio.module.scss'
 import { IOption } from "@/shared/model/option.model"
-import { useEffect, useState } from "react"
 
 interface InputRadioProps {
     option: IOption
     isActive?: boolean
     name?: string
     required?: boolean
+    onClick?: Function
     className?: string
 }
 
-export default async function InputRadio({option, isActive=false, name, required=false, className}: InputRadioProps) {
-    const [value, setValue] = useState<IOption['value']>()
-
-    useEffect(() => {
-        setValue(option.value ? option.value : option.id)
-    }, [option])
+export default function InputRadio({option, isActive=false, name, required=false, onClick, className}: InputRadioProps) {
+    const handleOnClick = () => {
+        if (onClick) onClick()
+    }
     
     return (
-        <label className={cls(cl.block, isActive ? cl.active : '', className)}>
-            <input type="radio" name={name} value={value} defaultChecked={isActive} required={required}>InputRadio</input>
-            <span className={cl.circle}>
-                 <span className={cl.fillCircle} />
-             </span>
-             <span className={cl.text}>{option.name}</span>
+        <label onClick={handleOnClick} className={cls(cl.block, isActive ? cl.active : '', className)}>
+            <input type="radio" name={name} value={option.value ? option.value : option.id} defaultChecked={isActive} required={required} className={cl.radio} />
+            <span className={cl.text}>{option.name}</span>
+            <Image src={'check-mark.svg'} alt={'check'} width={8} height={8} className={cl.image} />
         </label>
     )
 }

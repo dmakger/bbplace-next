@@ -4,7 +4,7 @@ import Input from "@/shared/ui/Input/Input";
 import ButtonSearch from "@/shared/ui/Button/Search/ButtonSearch";
 import PTCSelect from "@/features/Select/PTC/PTCSelect";
 
-export default async function Search() {
+export default function Search() {
     const handleOnSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const formData = new FormData(e.currentTarget)

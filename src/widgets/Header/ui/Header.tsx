@@ -6,7 +6,7 @@ interface HeaderProps {
     className?: string
 }
 
-export default async function Header({className}: HeaderProps) {
+export default function Header({className}: HeaderProps) {
     return (
         <div className={className}>
             <HeaderTop />
