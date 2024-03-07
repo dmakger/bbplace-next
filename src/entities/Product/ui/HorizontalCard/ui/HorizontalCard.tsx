@@ -6,19 +6,13 @@ import { ButtonVariant } from '@/shared/ui/Button/model/model'
 import { FC } from 'react'
 import { FavouriteIcon, FavouriteIconVariant, SubscribeIcon } from '@/shared/ui/Icons'
 import { SupplierInfo } from '@/shared/ui/SupplierInfo'
+import { additionalInfoOptions } from '../model/horizontalCard.data'
 
 interface IHorizontalCard{
 
 }
 
 export const HorizontalCard:FC<IHorizontalCard> = ({}) => {
-
-    const additionalInfoOptions: string[] = [
-        'Страна изготовитель:',
-        'Статус:',
-        'Склад:',
-        'Описание:'
-    ]
 
     return (
         <section className={cl.HorizontalCard}>

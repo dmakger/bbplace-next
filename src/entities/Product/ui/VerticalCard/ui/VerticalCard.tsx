@@ -21,11 +21,11 @@ export const VerticalCard:FC<IVerticalCard> = ({}) => {
       <div className={cl.bottomContainer}>
         <div className={cl.mainInfo}>
           <h4 className={cl.cardTitle}>
-            2023 зима новинка 350 GSM ужские негабаритные... 
+            2023 зима новинка 350 GSM мужские негабаритные dsadsdsad jsklajdlsklj adljsalkjdlkajsl djslajdja sljdlasdjasjd 
           </h4>
           <div className={cl.priceAndQuantity}>
             <p className={cl.cardPrice}>
-              305,80 RUB - 9 237 RUB<span> /шт.</span>
+              305,80 RUB - 9 237 RUB<span>&nbsp;/шт.</span>
             </p>
             <p className={cl.cardQuantity}>
               Мин. Кол-во: <span>10 кг</span>
@@ -34,9 +34,9 @@ export const VerticalCard:FC<IVerticalCard> = ({}) => {
         </div>
         <div className={cl.bottomBlock}>
           <SupplierInfo/>
-          <div className={cl.supplierInfoMobile}>
+          <p className={cl.supplierInfoMobile}>
             ООО "Древние Русы"
-          </div>
+          </p>
           <div className={cl.buttonsContainer}>
               <Button variant={ButtonVariant.BACKGROUND_RED}>
                 Связаться с поставщиком
@@ -49,7 +49,6 @@ export const VerticalCard:FC<IVerticalCard> = ({}) => {
               </Button>
           </div>
         </div>
-
       </div>
     </section>
   )
