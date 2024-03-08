@@ -1,0 +1,66 @@
+.NavBarPTC {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    border-radius: 16px;
+    background-color: var(--white);
+}
+
+.leftContainer{
+    display: flex;
+    gap: 40px;
+    padding: 26px 26px 0 26px;
+}
+
+.switchItem{
+    border-radius: 4px;
+    border-bottom: 5px solid transparent;
+    padding-bottom: 20px;
+    cursor: pointer;
+    font-weight: var(--font-weight-reg);
+    color: var(--gray-7);
+    transition: all 0.3s; 
+
+    &:hover{
+        color: var(--red-1);
+        transition: all 0.3s;
+    }
+}
+
+.selected{
+    border-bottom: 5px solid var(--red-1);
+    font-weight: var(--font-weight-med);
+    color: var(--dark-2);
+    transition: all 0.3s; 
+}
+
+.rightContainer{
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    padding-right: 26px;
+}
+
+.resultNumber{
+    font-size: var(--font-size-s);
+}
+
+.iconsContainer{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.sortButton{
+    cursor: pointer;
+}
+
+.icon path{
+    transition: all 0.3s; 
+}
+
+.icon:hover path {
+    transition: all 0.3s; 
+    stroke: var(--red-1); 
+}
