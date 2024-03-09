@@ -3,6 +3,7 @@ class MAIN {
     private root = '/'
 
     HOME = this.root
+    CATALOG = `${this.root}/catalog`
     PRODUCTS = `${this.root}/product`
     TENDERS = `${this.root}/tender`
     COMPANIES = `${this.root}/company`
