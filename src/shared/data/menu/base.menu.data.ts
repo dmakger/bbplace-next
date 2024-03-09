@@ -8,19 +8,19 @@ import CompanySVG from '@/shared/assets/img/company.svg'
 
 // ===={ MENU DATA }====
 
-export const PRODUCTS_MENU_DATA: IMenuItem = {
+export const PRODUCTS_ITEM_MENU_DATA: IMenuItem = {
     link: MAIN_PAGES.PRODUCTS,
     title: "Товары",
     image: ProductSVG,
 }
 
-export const TENDERS_MENU_DATA: IMenuItem = {
+export const TENDERS_ITEM_MENU_DATA: IMenuItem = {
     link: MAIN_PAGES.TENDERS,
     title: "Тендеры",
     image: TenderSVG,
 }
 
-export const COMPANIES_MENU_DATA: IMenuItem = {
+export const COMPANIES_ITEM_MENU_DATA: IMenuItem = {
     link: MAIN_PAGES.COMPANIES,
     title: "Поставщики",
     image: CompanySVG,
@@ -29,7 +29,7 @@ export const COMPANIES_MENU_DATA: IMenuItem = {
 
 // DATA
 export const MENU_DATA: IMenuItem[] = [
-    PRODUCTS_MENU_DATA,
-    TENDERS_MENU_DATA,
-    COMPANIES_MENU_DATA,
+    PRODUCTS_ITEM_MENU_DATA,
+    TENDERS_ITEM_MENU_DATA,
+    COMPANIES_ITEM_MENU_DATA,
 ]
