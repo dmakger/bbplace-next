@@ -4,9 +4,10 @@ import Image from 'next/image'
 
 import { IOption } from '@/shared/model/option.model'
 import cl from './_InputSelect.module.scss'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Input from '../Input'
 import { cls } from '@/shared/lib/classes.data'
+import WrapperClickOutside from '../../Wrapper/ClickOutside/WrapperClickOutside'
 
 interface InputSelectProps {
     options: IOption[]
@@ -23,6 +24,9 @@ export default function InputSelect({defaultOption, options, name, onClickOption
     const [showOptions, setShowOptions] = useState(false)
     const [activeOption, setActiveOption] = useState<IOption | undefined>()
 
+    // REF
+    const inputSelectRef = useRef<HTMLDivElement>(null);
+
     // EFFECT
     useEffect(() => {
         setActiveOption(defaultOption)
@@ -30,6 +34,10 @@ export default function InputSelect({defaultOption, options, name, onClickOption
 
 
     // ==={ CLICK }===
+    const toggleShowOptions = () => {
+        setShowOptions(!showOptions)
+    }
+
     const handleOnTitle = () => {
         setShowOptions(prevState => !prevState)
     }
@@ -37,11 +45,11 @@ export default function InputSelect({defaultOption, options, name, onClickOption
     const handleOnItem = (it: IOption) => {
         setActiveOption(it)
         if (onClickOption) onClickOption(it)
-    }
-
+        setShowOptions(false)
+    }    
     
     return (
-        <div className={cls(cl.block, showOptions ? cl.show : '', className)}>
+        <WrapperClickOutside _ref={inputSelectRef} isShow={showOptions} handle={toggleShowOptions} className={cls(cl.block, showOptions ? cl.show : '', className)}>
             <button type={'button'} onClick={handleOnTitle} className={cls(cl.button, classNameTitle)}>
                 <span className={cl.title}>{activeOption?.name}</span>
                 <Image src={'arrow.svg'} alt={'arrow'} width={10} height={10} />
@@ -51,6 +59,6 @@ export default function InputSelect({defaultOption, options, name, onClickOption
                                 name={name} 
                                 onClickOption={handleOnItem} 
                                 className={cls(cl.options, classNameOptions)} />
-        </div>
+        </WrapperClickOutside>
     )
 }

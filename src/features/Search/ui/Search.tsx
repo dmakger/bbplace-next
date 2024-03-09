@@ -14,7 +14,7 @@ export default function Search() {
     return (
         // <form onSubmit={handleOnSubmit} className={cl.search}>
         <form className={cl.search}>
-            <PTCSelect />
+            <PTCSelect classNameTitle={cl.select} />
             <div className={cl.line} />
             <Input.Text name={'search'} placeholder="Поиск..." className={cl.text} />
             <ButtonSearch className={cl.button} />
