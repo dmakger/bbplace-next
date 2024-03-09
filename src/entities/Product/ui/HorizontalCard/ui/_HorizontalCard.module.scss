@@ -32,6 +32,7 @@
         width: 271px;
         height: 271px;
         border-radius: 3px;
+        object-fit: contain;
 
         @media (width < 600px) {
             width: 145px;
