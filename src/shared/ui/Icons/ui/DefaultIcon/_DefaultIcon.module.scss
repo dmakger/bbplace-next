@@ -1,0 +1,46 @@
+.DefaultIcon{
+    cursor: pointer;
+}
+
+.viewButton{
+    & svg path{
+        stroke: var(--gray-7);
+        transition: all 0.3s; 
+    }
+
+    & svg:hover path {
+        transition: all 0.3s; 
+        stroke: var(--red-1); 
+    }
+}
+
+
+.sortButton {
+    display: none;
+
+    @media screen and (max-width: 1280px) and (min-width: 1000px) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 100px;
+        border: 1px solid var(--gray-5);
+        cursor: pointer;
+        transition: all 0.3s;
+
+        &:hover {
+            border: 1px solid transparent;
+            background-color: var(--gray-4);
+            transition: all 0.3s;
+        }
+    }
+}
+
+
+.selectedView{
+    & svg path{
+        stroke: var(--dark-2); 
+        transition: all 0.3s; 
+    }
+}
