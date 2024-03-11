@@ -1,25 +1,40 @@
 import { FC, ReactNode } from "react"
 import cl from './_DefaultIcon.module.scss'
+import Link from "next/link"
 
 interface IDefaultIconProps{
     className?: string,
     classNameSelected?: string,
+    classNameText?: string,
     isSelected?: boolean,
     onClick: () => void,
-    children?: ReactNode;
+    children?: ReactNode,
+    link?: string,
+    textLink?: string
 }
 
 export const DefaultIcon: FC<IDefaultIconProps> = ({ 
     isSelected,
     className = '',
     classNameSelected = '',
+    classNameText = '',
     onClick,
-    children
+    children,
+    link,
+    textLink
+
 }) => {
     return (
-        <button className={`${cl.DefaultIcon} ${cl[className]} ${isSelected ? cl[classNameSelected] : ''}`}
-            onClick={onClick}>
+        <>
+            {!link ? <button className={`${cl.DefaultIcon} ${cl[className]} ${isSelected ? cl[classNameSelected] : ''}`}
+                onClick={onClick}>
                 {children}
-            </button>
+            </button> : 
+            <Link href={link} className={cl.linkButton}>
+                {children}
+                <p className={cl[classNameText]}>{textLink}</p>
+            </Link>}
+        </>
+        
     )
 }
