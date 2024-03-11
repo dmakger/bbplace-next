@@ -10,8 +10,9 @@ interface HeaderTopProps {
 
 export default function HeaderBottom({className}: HeaderTopProps) {
     return (
-        <Wrapper1280 classNameWrapper={cls(cl.wrapper, className)}>
+        <Wrapper1280 classNameWrapper={cls(cl.wrapper, className)} classNameContent={cl.content}>
             <SmartSidebar />
+            <div className={cl.line} />
             <CategorySmartLine />
         </Wrapper1280>
     )

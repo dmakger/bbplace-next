@@ -9,6 +9,9 @@
     }
 
     .name {
-        font-size: 0.925rem;
+        font-size: 0.875rem;
+        overflow: hidden;
+        transition: all .15s;
+        white-space: nowrap;
     }
 }
