@@ -4,12 +4,10 @@ import { useCategoryAll } from "@/entities/Metrics/hooks/useCategory.hooks"
 import CategoryLine from "@/entities/Metrics/ui/Category/Line/CategoryLine";
 
 import cl from './_CategorySmartLine.module.scss'
-import { cls } from "@/shared/lib/classes.data";
+import { ICategory } from "@/entities/Metrics/model/category.metrics.model";
 
 export default function CategorySmartLine() {
     const { data: categoryList, setData: setCategoryList } = useCategoryAll()
-    console.log(categoryList);
-    
 
     return (
         <div className={cl.line}>
