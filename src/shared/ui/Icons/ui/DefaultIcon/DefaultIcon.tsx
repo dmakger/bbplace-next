@@ -1,24 +1,25 @@
-import { FC } from "react"
+import { FC, ReactNode } from "react"
 import cl from './_DefaultIcon.module.scss'
 
 interface IDefaultIconProps{
     className?: string,
     classNameSelected?: string,
-    image: string,
     isSelected?: boolean,
-    onClick: () => void
+    onClick: () => void,
+    children?: ReactNode;
 }
 
 export const DefaultIcon: FC<IDefaultIconProps> = ({ 
-    image,
     isSelected,
     className = '',
     classNameSelected = '',
-    onClick
+    onClick,
+    children
 }) => {
     return (
         <button className={`${cl.DefaultIcon} ${cl[className]} ${isSelected ? cl[classNameSelected] : ''}`}
-            dangerouslySetInnerHTML={{ __html: image }}
-            onClick={onClick} />
+            onClick={onClick}>
+                {children}
+            </button>
     )
 }

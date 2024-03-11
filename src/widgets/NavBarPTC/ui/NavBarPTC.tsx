@@ -2,20 +2,19 @@
 
 import { FC, useState } from "react";
 import cl from './_NavBarPTC.module.scss';
-import { INavBarPTCOptions, IIconVariants, NavBarPTCOptions, viewVariants, sortVariant, mobileSortIcon } from "../model/navBarPTC.data";
+import { INavBarPTCOptions, IIconVariants, NavBarPTCOptions, viewVariants, SortIcon, MobileSortIcon } from "../model/navBarPTC.data";
 import { DefaultIcon } from "@/shared/ui/Icons";
 
 interface INavBarPTC {
 
 }
 
-export const NavBarPTC: FC<INavBarPTC> = ({}) => {
+export const NavBarPTC: FC<INavBarPTC> = ({ }) => {
 
     //STATE
     const [selectedOption, setSelectedOption] = useState<INavBarPTCOptions | null>(NavBarPTCOptions[0]);
 
     const [selectedView, setSelectedView] = useState<IIconVariants>(viewVariants[0])
-        
 
     return (
         <section className={cl.NavBarPTC}>
@@ -33,10 +32,11 @@ export const NavBarPTC: FC<INavBarPTC> = ({}) => {
                     ))}
                 </div>
                 <div className={cl.mobileSortContainer}>
-                    <DefaultIcon image={mobileSortIcon.image} onClick={() => {}}/>
+                    <DefaultIcon className={cl.mobileSortButton} onClick={() => { }}>
+                        <MobileSortIcon />
+                    </DefaultIcon>
                 </div>
             </div>
-            
             <div className={cl.rightContainer}>
                 <p className={cl.resultNumber}>
                     125 результатов <span>в товарах</span>
@@ -47,11 +47,14 @@ export const NavBarPTC: FC<INavBarPTC> = ({}) => {
                             className='viewButton'
                             classNameSelected='selectedView'
                             isSelected={selectedView.id === el.id}
-                            image={el.image}
-                            onClick={() => setSelectedView(el)} />
+                            onClick={() => setSelectedView(el)}>
+                            {el.image}
+                        </DefaultIcon>
                     ))}
                 </div>
-                <DefaultIcon className="sortButton" image={sortVariant.image} onClick={() => {}}/>
+                <DefaultIcon className="sortButton" onClick={() => { }}>
+                    <SortIcon />
+                </DefaultIcon>
             </div>
         </section>
     );
