@@ -3,6 +3,8 @@ import cl from './_HeaderBottom.module.scss';
 import Wrapper1280 from '@/shared/ui/Wrapper/1280/Wrapper1280';
 import CategorySmartLine from '@/widgets/Category/SmartLine/CategorySmartLine';
 import { SmartSidebar } from '@/widgets/Category/SmartSidebar/SmartSidebar';
+import { MenuButtonSupport } from '@/features/Button/Menu/Support/MenuButtonSupport';
+import { LangSelect } from '@/features/Select/Lang/LangSelect';
 
 interface HeaderTopProps {
     className?: string
@@ -14,6 +16,8 @@ export default function HeaderBottom({className}: HeaderTopProps) {
             <SmartSidebar />
             <div className={cl.line} />
             <CategorySmartLine />
+            <MenuButtonSupport className={cl.support} />
+            <LangSelect />
         </Wrapper1280>
     )
 }

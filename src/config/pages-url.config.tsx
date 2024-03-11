@@ -7,6 +7,8 @@ class MAIN {
     PRODUCTS = `${this.root}/product`
     TENDERS = `${this.root}/tender`
     COMPANIES = `${this.root}/company`
+
+    SUPPORT = `${this.root}/support`
 }
 
 export const MAIN_PAGES = new MAIN()
