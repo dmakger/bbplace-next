@@ -1,0 +1,12 @@
+.wrapper {
+    width: 100%;
+    display: flex;
+
+    .content {
+        display: flex;
+        align-items: center;
+        margin: 0 auto;
+        max-width: var(--max-width);
+        width: 100%;
+    }
+}

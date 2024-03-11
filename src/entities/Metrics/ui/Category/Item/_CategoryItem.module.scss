@@ -1,0 +1,14 @@
+.category {
+    padding: 10px 15px;
+    border-radius: 20px;
+    background-color: var(--gray-3);
+    transition: all .2s;
+
+    &:hover {
+        background-color: var(--gray-4);
+    }
+
+    .name {
+        font-size: 0.925rem;
+    }
+}

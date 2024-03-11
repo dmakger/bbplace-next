@@ -1,8 +1,8 @@
 // ======={ MAIN }=======
 class MAIN {
-    private root = '/'
+    private root = ''
 
-    HOME = this.root
+    HOME = `${this.root}/`
     CATALOG = `${this.root}/catalog`
     PRODUCTS = `${this.root}/product`
     TENDERS = `${this.root}/tender`
