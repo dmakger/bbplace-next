@@ -1,5 +1,5 @@
 import { cls } from '@/shared/lib/classes.data';
-import cl from './_HeaderTop.module.scss';
+import cl from './_HeaderTop.module.scss'
 import Logo from '@/shared/ui/Logo/Logo';
 import Search from '@/features/Search/ui/Search';
 import MenuWEB from '@/widgets/Menu/WEB/MenuWEB';

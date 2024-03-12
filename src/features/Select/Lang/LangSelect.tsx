@@ -16,6 +16,8 @@ export const LangSelect:FC<LangSelectProps> = ({className}) => {
     const [defaultOption, setDefaultOption] = useState(RUS_LANG_ITEM_DATA)
 
     return (
-        <Input.Select defaultOption={defaultOption} options={options} className={cls(className)} />
+        <Input.Select defaultOption={defaultOption} 
+                      options={options} 
+                      className={cls(className)} />
     )
 }
