@@ -4,7 +4,7 @@ import productImage from '@/shared/assets/img/productImage.jpg'
 import { Button } from '@/shared/ui/Button'
 import { ButtonVariant } from '@/shared/ui/Button/model/model'
 import { FC } from 'react'
-import { FavouriteIcon, FavouriteIconVariant, SubscribeIcon } from '@/shared/ui/Icons'
+import { FavouriteIcon, FavouriteIconVariant, SubscribeIcon } from '@/shared/ui/Icon'
 
 interface IHorizontalCard{
 
