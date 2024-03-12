@@ -23,14 +23,14 @@ export const NavBarPTC: FC<INavBarPTC> = ({ }) => {
             <div className={cl.leftContainer}>
                 <div className={cl.navBarPTCItemContainer}>
                     {NavBarPTCOptions.map(el => (
-                        <div key={el.id} className={cl.navBarItem}>
+                        <button key={el.id} className={cl.navBarItem}>
                             <p
                                 className={cls(cl.switchItem, selectedOption?.id === el.id ? cl.selected : '')}
                                 onClick={() => setSelectedOption(el)}>
                                 {el.name}
                             </p>
                             <span className={cls(cl.switchItemBorderBottom, selectedOption?.id === el.id ? cl.selectedSpan : '')} />
-                        </div>
+                        </button>
                     ))}
                 </div>
                 <div className={cl.mobileSortContainer}>

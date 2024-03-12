@@ -1,23 +1,27 @@
 import { FC } from "react";
 import { IIconVariants, IIcons, INavBarPTCOptions } from "../model/model";
 
-const HorizontalIcon: FC<IIcons> = ({ width = 36, height = 36 }) => (
-    <svg width={width} height={height} viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M19 10.9999H27.0007" stroke="#979399" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M19 15H24.0004" stroke="#979399" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M19 21H27.0007" stroke="#979399" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M19 25.0001H24.0004" stroke="#979399" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M9 11C9 10.7348 9.10537 10.4804 9.29292 10.2929C9.48047 10.1054 9.73485 10 10.0001 10H14.0004C14.2657 10 14.52 10.1054 14.7076 10.2929C14.8952 10.4804 15.0005 10.7348 15.0005 11V15C15.0005 15.2652 14.8952 15.5196 14.7076 15.7071C14.52 15.8947 14.2657 16 14.0004 16H10.0001C9.73485 16 9.48047 15.8947 9.29292 15.7071C9.10537 15.5196 9 15.2652 9 15V11Z" stroke="#979399" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M9 21C9 20.7348 9.10537 20.4804 9.29292 20.2929C9.48047 20.1054 9.73485 20 10.0001 20H14.0004C14.2657 20 14.52 20.1054 14.7076 20.2929C14.8952 20.4804 15.0005 20.7348 15.0005 21V25C15.0005 25.2652 14.8952 25.5196 14.7076 25.7071C14.52 25.8947 14.2657 26 14.0004 26H10.0001C9.73485 26 9.48047 25.8947 9.29292 25.7071C9.10537 25.5196 9 25.2652 9 25V21Z" stroke="#979399" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+const HorizontalIcon: FC<IIcons> = ({ width = 26, height = 25 }) => (
+    <svg width={width} height={height} viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0_902_2445)">
+            <path d="M13.9658 5.2085H21.9905" stroke="#979399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M13.9658 9.375H18.9813" stroke="#979399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M13.9658 15.625H21.9905" stroke="#979399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M13.9658 19.7915H18.9813" stroke="#979399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M3.93457 5.20817C3.93457 4.9319 4.04025 4.66695 4.22837 4.4716C4.41648 4.27625 4.67162 4.1665 4.93766 4.1665H8.95C9.21604 4.1665 9.47118 4.27625 9.65929 4.4716C9.84741 4.66695 9.95309 4.9319 9.95309 5.20817V9.37484C9.95309 9.6511 9.84741 9.91606 9.65929 10.1114C9.47118 10.3068 9.21604 10.4165 8.95 10.4165H4.93766C4.67162 10.4165 4.41648 10.3068 4.22837 10.1114C4.04025 9.91606 3.93457 9.6511 3.93457 9.37484V5.20817Z" stroke="#979399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M3.93457 15.6252C3.93457 15.3489 4.04025 15.0839 4.22837 14.8886C4.41648 14.6932 4.67162 14.5835 4.93766 14.5835H8.95C9.21604 14.5835 9.47118 14.6932 9.65929 14.8886C9.84741 15.0839 9.95309 15.3489 9.95309 15.6252V19.7918C9.95309 20.0681 9.84741 20.3331 9.65929 20.5284C9.47118 20.7238 9.21604 20.8335 8.95 20.8335H4.93766C4.67162 20.8335 4.41648 20.7238 4.22837 20.5284C4.04025 20.3331 3.93457 20.0681 3.93457 19.7918V15.6252Z" stroke="#979399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </g>
     </svg>
 );
 
-const VerticalIcon: FC<IIcons> = ({ width = 36, height = 36 }) => (
-    <svg width={width} height={height} viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M10 10H16V16H10V10Z" stroke="#979399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-        <path d="M20 10H26V16H20V10Z" stroke="#979399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-        <path d="M10 20H16V26H10V20Z" stroke="#979399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-        <path d="M19.7773 20H25.7773V26H19.7773V20Z" stroke="#979399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+const VerticalIcon: FC<IIcons> = ({ width = 26, height = 25 }) => (
+    <svg width={width} height={height} viewBox="0 0 26 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0_902_2439)">
+            <path d="M5.09277 4.1665H11.3428V10.4165H5.09277V4.1665Z" stroke="#28252E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M15.5088 4.1665H21.7588V10.4165H15.5088V4.1665Z" stroke="#28252E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M5.09277 14.5835H11.3428V20.8335H5.09277V14.5835Z" stroke="#28252E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M15.2773 14.5835H21.5273V20.8335H15.2773V14.5835Z" stroke="#28252E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </g>
     </svg>
 );
 
@@ -57,14 +61,14 @@ const MobileSortIcon: FC<IIcons> = ({ width = 29, height = 29 }) => (
 
 )
 
-export const HORIZONTAL_VIEW:IIconVariants = {
+export const HORIZONTAL_VIEW: IIconVariants = {
     id: 1, name: 'Horizontal', image: <HorizontalIcon />,
 }
-export const VERTICAL_VIEW:IIconVariants = {
+export const VERTICAL_VIEW: IIconVariants = {
     id: 2, name: 'Vertical', image: <VerticalIcon />
 }
 
-export const SORT_MOBILE_ICON:IIconVariants = {
+export const SORT_MOBILE_ICON: IIconVariants = {
     id: 3, name: 'SortMobile', image: <MobileSortIcon />
 }
 
@@ -73,21 +77,22 @@ export const SORT_ICON: IIconVariants = {
 }
 
 export const ITEMS: INavBarPTCOptions = {
-     id: 1, name: 'Товары' 
-}
-
-export const SUPPLIERS: INavBarPTCOptions = {
-    id: 2, name: 'Поставщики' 
+    id: 1, name: 'Товары'
 }
 
 export const TENDERS: INavBarPTCOptions = {
-    id: 3, name: 'Тендеры' 
+    id: 2, name: 'Тендеры'
 }
+
+export const SUPPLIERS: INavBarPTCOptions = {
+    id: 3, name: 'Поставщики'
+}
+
 
 export const NavBarPTCOptions: INavBarPTCOptions[] = [
     ITEMS,
-    SUPPLIERS,
-    TENDERS
+    TENDERS,
+    SUPPLIERS
 ]
 
 export const viewVariants: IIconVariants[] = [
