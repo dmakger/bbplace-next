@@ -4,6 +4,7 @@ export default function MainPage() {
     return (
         <div>
             <HorizontalCard/>
+            <VerticalCard/>
         </div>
     )
 }

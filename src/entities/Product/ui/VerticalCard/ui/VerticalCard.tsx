@@ -3,7 +3,7 @@ import VerticalProductImage from '@/shared/assets/img/VerticalProductImage.jpg'
 import cl from './_VerticalCard.module.scss'
 import { Button } from '@/shared/ui/Button'
 import { ButtonVariant } from '@/shared/ui/Button/model/model'
-import { FavouriteIcon, FavouriteIconVariant, SubscribeIcon, SubscribeIconVariant } from '@/shared/ui/Icons'
+import { FavouriteIcon, FavouriteIconVariant, SubscribeIcon, SubscribeIconVariant } from '@/shared/ui/Icon/index'
 import { SupplierInfo } from '@/shared/ui/SupplierInfo'
 import { FC } from 'react'
 
