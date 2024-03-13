@@ -9,7 +9,7 @@ import { SupplierInfo } from '@/shared/ui/SupplierInfo'
 import { additionalInfoOptions } from '../model/horizontalCard.data'
 
 interface IHorizontalCard{
-
+    
 }
 
 export const HorizontalCard:FC<IHorizontalCard> = ({}) => {
