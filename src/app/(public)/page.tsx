@@ -1,6 +1,6 @@
 import { HorizontalCard } from "@/entities/Product/ui/HorizontalCard";
-
-export default async function MainPage() {
+import { VerticalCard } from "@/entities/Product/ui/VerticalCard";
+export default function MainPage() {
     return (
         <div>
             <HorizontalCard/>
