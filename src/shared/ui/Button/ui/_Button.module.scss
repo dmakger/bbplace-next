@@ -1,0 +1,59 @@
+@import url('/src/app/globals.scss');
+
+.button {
+    cursor: pointer;
+    border: 1px solid var(--gray-5);
+    border-radius: 100px;
+    font-weight: var( --font-weight-reg);
+    font-size:  var(--font-size-s);
+    text-align: center;
+}
+
+.bordered-red-wide {
+    padding: 8px 18px;
+    background-color: transparent;
+    color: var(--dark-2);
+    transition: all 0.3s;
+
+    &:hover{
+        border-color: var(--red-1);
+        color: var(--red-1) ;
+        transition: all 0.3s;
+    }
+}
+
+.bordered-red-narrow {
+    padding: 6px 45px;
+    background-color: transparent;
+    color: var(--dark-2);
+    transition: all 0.3s;
+
+    &:hover{
+        border-color: var(--red-1);
+        color: var(--red-1) ;
+        transition: all 0.3s;
+    }
+}
+
+.background-red{
+    padding: 8px 18px;
+    color: var(--dark-2);
+    transition: all 0.3s;
+    &:hover{
+        color: var(--white);
+        background-color: var(--red-1);
+        transition: all 0.3s;
+    }
+}
+
+.clear{
+    padding: 6px 45px;
+    background-color: transparent;
+    color: var(--dark-2);
+    transition: all 0.3s;
+
+    &:hover{
+        background-color: var(--gray-3);
+        transition: all 0.3s;
+    }
+}
