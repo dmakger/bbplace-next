@@ -5,18 +5,21 @@
     font-weight: var( --font-weight-reg);
     font-size:  var(--font-size-s);
     text-align: center;
+    transition: all 0.3s;
+    
+    &:hover{
+        transition: all 0.3s;  
+    }
 }
 
 .bordered-red-wide {
     padding: 8px 18px;
     background-color: transparent;
     color: var(--dark-2);
-    transition: all 0.3s;
 
     &:hover{
         border-color: var(--red-1);
         color: var(--red-1) ;
-        transition: all 0.3s;
     }
 }
 
@@ -24,11 +27,82 @@
     padding: 6px 45px;
     background-color: transparent;
     color: var(--dark-2);
-    transition: all 0.3s;
 
     &:hover{
         border-color: var(--red-1);
         color: var(--red-1) ;
-        transition: all 0.3s;
+    }
+}
+
+.background-white-wide {
+    padding: 13px 68px;
+    background-color: transparent;
+    color: var(--dark-2);
+
+    &:hover{
+        background-color: var(--white);
+    }
+}
+
+.background-white-narrow {
+    padding: 10px 44px;
+    background-color: transparent;
+    color: var(--dark-2);
+
+    &:hover{
+        background-color: var(--white);
+    }
+}
+
+.background-red{
+    background-color: var(--red-1);
+    padding: 15px 58px;
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-s);
+    color: var(--white);
+
+    &:hover{
+        color: var(--white);
+        background-color: var(--red-2);
+    }
+}
+
+.almost-rectangular{
+    padding: 11px 15px;
+    border-radius: 10px;
+    border-color: transparent;
+    font-weight: var(--font-weight-reg);
+    font-size: var(--font-size-s);
+    color: #666c71;
+
+    &:hover{
+        background-color: var(--gray-4);
+        color: var(--dark-2);
+    }
+}
+
+.clear{
+    padding: 6px 45px;
+    background-color: transparent;
+    color: var(--dark-2);
+
+    &:hover{
+        background-color: var(--gray-3);
+    }
+}
+
+.w-arrow-red {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    padding: 0px 8px 0 13px;
+    background-color: var(--red-1);
+    font-weight: var(--font-weight-sb);
+    font-size: var(--font-size-s);
+    color: var(--white);
+
+    &:hover{
+        background-color: var(--red-2);
     }
 }

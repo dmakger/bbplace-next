@@ -1,0 +1,34 @@
+.block {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    // background-color: var(--gray-5);
+    background-color: var(--gray-4);
+    padding: 5px 10px 5px 8px;
+    border-radius: 10px;
+    transition: all .2s;
+    
+    &:hover {
+        background-color: var(--white);
+    }
+
+    .radio {
+        position: absolute;
+        z-index: -1;
+    }
+
+    .text {
+        font-size: 14px;
+    }
+
+    .image {
+        opacity: 0;
+        margin-left: auto;
+    }
+}
+
+.active {
+    .image {
+        opacity: 1;
+    }
+}

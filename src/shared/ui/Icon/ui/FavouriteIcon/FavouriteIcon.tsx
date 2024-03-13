@@ -5,18 +5,19 @@ import cl from './_FavouriteIcon.module.scss';
 import { FavouriteIconVariant } from '../..';
 
 interface IFavouriteIcon{
-    variant: FavouriteIconVariant
+    variant: FavouriteIconVariant,
+    className?: string
 }
 
-export const FavouriteIcon:FC<IFavouriteIcon> = ({variant = FavouriteIconVariant.IN_CIRCLE_HEART}) => {
+export const FavouriteIcon:FC<IFavouriteIcon> = ({variant = FavouriteIconVariant.IN_CIRCLE_HEART, className = ''}) => {
 
     const [liked, setLiked] = useState<boolean>(false);
     return (
         <div
-            className={cl.FavouriteIcon}
+            className={`${cl.FavouriteIcon} ${[className]}`}
         >
             {!liked ?
-                <button className={cl[variant]} onClick={() => setLiked(!liked)}>
+                <button className={`${cl[variant]} `} onClick={() => setLiked(!liked)}>
                     <svg className={`${variant ===  FavouriteIconVariant.EMPTY ? cl.emptyHeart : cl.fullHeart}`} width="18" height="16" viewBox="0 0 18 16" xmlns="http://www.w3.org/2000/svg">
                         <path d="M0 5.43463C0 8.91505 3.23401 12.3382 8.34324 15.2794C8.53348 15.3856 8.81424 15.5 8.99544 15.5C9.18568 15.5 9.45748 15.3856 9.65676 15.2794C14.766 12.3382 18 8.91505 18 5.43463C18 2.54248 15.7987 0.5 12.8545 0.5C11.1786 0.5 9.81979 1.21895 8.99544 2.32189C8.18925 1.22712 6.82133 0.5 5.13638 0.5C2.20131 0.5 0 2.54248 0 5.43463ZM1.45848 5.43463C1.45848 3.26143 3.0166 1.81536 5.11826 1.81536C6.83039 1.81536 7.79965 2.77124 8.38854 3.58823C8.63312 3.91503 8.78711 4.0049 8.99544 4.0049C9.21289 4.0049 9.34879 3.90686 9.61146 3.58823C10.2365 2.78758 11.1786 1.81536 12.8726 1.81536C14.9834 1.81536 16.5415 3.26143 16.5415 5.43463C16.5415 8.47381 12.9814 11.75 9.18568 14.0212C9.09508 14.0784 9.03169 14.1193 8.99544 14.1193C8.96831 14.1193 8.90484 14.0784 8.81424 14.0212C5.01861 11.75 1.45848 8.47381 1.45848 5.43463Z" />
                     </svg> 

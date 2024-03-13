@@ -5,5 +5,6 @@ export enum FavouriteIconVariant{
 
 export enum SubscribeIconVariant{
     EMPTY = 'empty-icon',
-    WTEXT = 'w-text-icon'
+    WTEXT_CLEAR = 'w-text-clear',
+    WTEXT_GRAY = 'w-text-gray'
 }

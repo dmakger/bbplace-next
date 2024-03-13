@@ -19,8 +19,8 @@ export const SubscribeIcon:FC<ISubscribeIcon> = ({variant = SubscribeIconVariant
 
   return (
       <div className={cl.SubscribeIcon}>
-          {!isSubscribed ? <button className={cls(cl.iconContainer, cl[variant])} onClick={() => setIsSubscribed(!isSubscribed)}>
-              <svg className={variant === SubscribeIconVariant.WTEXT ? '' : cl.toSubscribeIcon} width="17" height="17" viewBox="0 0 17 17" fill='none' xmlns="http://www.w3.org/2000/svg">
+          {!isSubscribed ? <button className={`${cl.iconContainer} ${cl[variant]}`} onClick={() => setIsSubscribed(!isSubscribed)}>
+              <svg className={`${variant.includes('w-text') ? '' : cl.toSubscribeIcon}`} width="17" height="17" viewBox="0 0 17 17" fill='none' xmlns="http://www.w3.org/2000/svg">
                   <circle cx="8.5" cy="8.5" r="7.5" stroke="#979399" />
                   <path d="M8.00284 12.9375V4.5H9.43466V12.9375H8.00284ZM4.5 9.43466V8.00284H12.9375V9.43466H4.5Z" fill="#979399" />
               </svg>
