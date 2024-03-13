@@ -15,8 +15,12 @@ export const VerticalCard:FC<IVerticalCard> = ({}) => {
   return (
     <section className={cl.VerticalCard}>
       <div className={cl.topContainer}>
-        <Image src={VerticalProductImage} alt='VerticalProductImage'  layout='responsive'/>
-        <FavouriteIcon variant={FavouriteIconVariant.IN_CIRCLE_HEART} className={cl.verticalCard}/>
+        <div className={cl.imageContainer}>
+          <Image src={VerticalProductImage} alt='VerticalProductImage' className={cl.blurBackground} />
+          <Image src={VerticalProductImage} alt='VerticalProductImage'  className={cl.frontImage} />
+          <FavouriteIcon variant={FavouriteIconVariant.IN_CIRCLE_HEART} className={cl.iconForVertCard} />
+        </div>
+        
       </div>
       <div className={cl.bottomContainer}>
         <div className={cl.mainInfo}>
