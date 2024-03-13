@@ -1,4 +1,4 @@
-export default async function MainPage() {
+export default function MainPage() {
     return (
         <div>MainPage</div>
     )

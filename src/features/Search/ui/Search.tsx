@@ -1,11 +1,10 @@
-'use client'
-
 import {FormEvent} from "react";
 import cl from './_Search.module.scss'
 import Input from "@/shared/ui/Input/Input";
 import ButtonSearch from "@/shared/ui/Button/Search/ButtonSearch";
+import PTCSelect from "@/features/Select/PTC/PTCSelect";
 
-export default async function Search() {
+export default function Search() {
     const handleOnSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const formData = new FormData(e.currentTarget)
@@ -13,7 +12,10 @@ export default async function Search() {
     }
 
     return (
-        <form onSubmit={handleOnSubmit} className={cl.search}>
+        // <form onSubmit={handleOnSubmit} className={cl.search}>
+        <form className={cl.search}>
+            <PTCSelect classNameTitle={cl.select} />
+            <div className={cl.line} />
             <Input.Text name={'search'} placeholder="Поиск..." className={cl.text} />
             <ButtonSearch className={cl.button} />
         </form>

@@ -7,6 +7,7 @@
 
   // ===={ COLORS }====
   // base
+  --empty: #FFFFFF00;
   --white: #FFFFFF;
   --white_50: rgba(--white, 0.5);
 
@@ -18,6 +19,7 @@
   --gray-6: #ACACB2;
   --gray-7: #979399;
   --gray-8: #939399;
+  --gray-9: #666C71;
   
   --dark-1: #2E2E33;
   --dark-2: #28252E;
@@ -28,8 +30,13 @@
 
 
   // specify
-  --foreground-rgb: var(--gray-5);
+  --foreground: var(--gray-5);
   --background: var(--dark-2);
+  --hover: var(--gray-3);
+
+
+   // ===={ SIZES }====
+  //  --empty: #FFFFFF00;
 
   // --primary-glow: conic-gradient(
   //   from 180deg at 50% 50%,
@@ -103,6 +110,7 @@
 html,
 body {
   max-width: 100vw;
+  height: 100vh;
   overflow-x: hidden;
   
   input {
