@@ -5,6 +5,7 @@ import cl from './SubscribeIcon.module.scss'
 import SubscribedIcon from '@/shared/assets/img/SubscribedIcon.svg'
 import Image from 'next/image'
 import { SubscribeIconVariant } from '../..'
+import { cls } from '@/lib/classes'
 
 
 interface ISubscribeIcon{
@@ -15,7 +16,6 @@ interface ISubscribeIcon{
 export const SubscribeIcon:FC<ISubscribeIcon> = ({variant = SubscribeIconVariant.EMPTY}) => {
 
     const [isSubscribed, setIsSubscribed] = useState<boolean>(false)
-        
 
   return (
       <div className={cl.SubscribeIcon}>
@@ -24,11 +24,11 @@ export const SubscribeIcon:FC<ISubscribeIcon> = ({variant = SubscribeIconVariant
                   <circle cx="8.5" cy="8.5" r="7.5" stroke="#979399" />
                   <path d="M8.00284 12.9375V4.5H9.43466V12.9375H8.00284ZM4.5 9.43466V8.00284H12.9375V9.43466H4.5Z" fill="#979399" />
               </svg>
-              {variant.includes('w-text') ? 'Подписаться' : ''}
+              {(variant === SubscribeIconVariant.WTEXT) ? 'Подписаться' : ''}
           </button> :
-              <button className={`${cl.iconContainer} ${cl[variant]} ${cl.emptyIconSubscribed}`} onClick={() => setIsSubscribed(!isSubscribed)} style={{borderColor: 'transparent'}}>
+              <button className={cls(cl.iconContainer, cl[variant], cl.emptyIconSubscribed)} onClick={() => setIsSubscribed(!isSubscribed)}>
                   <Image src={SubscribedIcon} alt='SubscribeIcon' />
-                  {(variant.includes('w-text')) ? 'Вы подписаны' : ''}
+                  {(variant === SubscribeIconVariant.WTEXT) ? 'Вы подписаны' : ''}
               </button>
           }
       </div>

@@ -1,0 +1,121 @@
+.NavBarPTC {
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    align-items: center;
+    max-width: var(--max-width);
+    border-radius: 16px;
+    background-color: var(--white);
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: normal;
+        border-radius: 0px;
+    }
+}
+
+.leftContainer {
+    display: flex;
+    padding: 26px 26px 0 26px;
+
+    @media (max-width: 768px) {
+        padding-left: 16px;
+        padding-right: 16px;
+        align-items: flex-start;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--gray-7);
+    }
+}
+
+.navBarPTCItemContainer {
+    display: flex;
+    gap: 40px;
+
+    @media (max-width: 768px) {
+        gap: 30px;
+    }
+}
+
+.mobileSortContainer {
+    display: flex;
+
+    @media (min-width: 768px) {
+        display: none;
+    }
+}
+
+.navBarItem{
+    display: flex;
+    flex-direction: column;
+}
+
+.switchItem {
+    border-radius: 4px;
+    border-bottom: 5px solid transparent;
+    padding-bottom: 20px;
+    cursor: pointer;
+    font-weight: var(--font-weight-reg);
+    font-size: var(--font-size-reg) ;
+    color: var(--gray-7);
+    transition: all 0.3s;
+
+    &:hover {
+        color: var(--red-1);
+        transition: all 0.3s;
+    }
+}
+
+.switchItemBorderBottom{
+    height: 5px;
+    width: 100%;
+    border-radius: 15px;
+    background-color: transparent;
+    transition: all 0.3s;
+}
+
+.selected{
+    font-weight: var(--font-weight-med);
+    color: var(--dark-2);
+    transition: all 0.3s; 
+}
+
+.selectedSpan{
+    transition: all 0.3s;
+    background-color: var(--red-1);
+}
+
+.rightContainer {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    padding-right: 26px;
+
+    @media (max-width: 768px) {
+        justify-content: space-between;
+        padding: 26px 16px;
+    }
+}
+
+.resultNumber {
+    font-size: var(--font-size-s);
+
+    @media (max-width:768px) {
+        font-size: var(--font-size-reg);
+        color: #666c71;
+
+        & span {
+            display: none;
+        }
+    }
+}
+
+.viewIconsContainer {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    @media (max-width: 768px) {
+        gap: 17px;
+    }
+
+}

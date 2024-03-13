@@ -59,7 +59,6 @@ export const HorizontalCard:FC<IHorizontalCard> = ({}) => {
                             <p>
                                 Описание (несколько слов чтобы лазило) потом
                             </p>
-
                         </div>
                     </div>
                     <div className={cl.buttonContainer}>

@@ -78,6 +78,7 @@
   --third-family: "Segoe UI Variable", sans-serif;
 
   //FONT-SIZE
+  --font-size-xxxs: 11px;
   --font-size-xxs: 12px;
   --font-size-xs: 13px;
   --font-size-s: 14px;
@@ -173,6 +174,7 @@ button{
   border: none;
   outline: none;
   background-color: transparent;
+  font-family: inherit;
 }
 
 h1,h2,h3,h4,h5,h6{
