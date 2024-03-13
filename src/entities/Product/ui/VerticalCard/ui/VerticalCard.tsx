@@ -42,7 +42,7 @@ export const VerticalCard:FC<IVerticalCard> = ({}) => {
             ООО "Древние Русы"
           </p>
           <div className={cl.buttonsContainer}>
-              <Button variant={ButtonVariant.BACKGROUND_RED}>
+              <Button variant={ButtonVariant.BORDERED_RED_WIDE}>
                 Связаться с поставщиком
               </Button>
               <SubscribeIcon variant={SubscribeIconVariant.EMPTY} />

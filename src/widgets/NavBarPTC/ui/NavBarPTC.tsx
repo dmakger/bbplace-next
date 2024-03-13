@@ -2,10 +2,12 @@
 
 import { FC, useState } from "react";
 import cl from './_NavBarPTC.module.scss';
-import { INavBarPTCOptions, IIconVariants } from "../model/model";
+import { IIconVariants } from "../model/model";
 import { DefaultIcon } from "@/shared/ui/Icon";
-import { cls } from "@/lib/classes";
-import { HORIZONTAL_VIEW, ITEMS, NavBarPTCOptions, SORT_ICON, SORT_MOBILE_ICON, viewVariants } from "../data/navBarPTC.data";
+import { HORIZONTAL_VIEW, SORT_ICON, SORT_MOBILE_ICON, viewVariants } from "../data/navBarPTC.data";
+import { cls } from "@/shared/lib/classes.data";
+import { MENU_DATA, PRODUCTS_ITEM_MENU_DATA } from "@/shared/data/menu/base.menu.data";
+import { IMenuItem } from "@/shared/model/menu.model";
 
 interface INavBarPTC {
 
@@ -14,7 +16,7 @@ interface INavBarPTC {
 export const NavBarPTC: FC<INavBarPTC> = ({ }) => {
 
     //STATE
-    const [selectedOption, setSelectedOption] = useState<INavBarPTCOptions | null>(ITEMS);
+    const [selectedOption, setSelectedOption] = useState<IMenuItem>(PRODUCTS_ITEM_MENU_DATA);
 
     const [selectedView, setSelectedView] = useState<IIconVariants>(HORIZONTAL_VIEW)
 
@@ -22,14 +24,14 @@ export const NavBarPTC: FC<INavBarPTC> = ({ }) => {
         <section className={cl.NavBarPTC}>
             <div className={cl.leftContainer}>
                 <div className={cl.navBarPTCItemContainer}>
-                    {NavBarPTCOptions.map(el => (
-                        <button key={el.id} className={cl.navBarItem}>
+                    {MENU_DATA.map(el => (
+                        <button key={el.link} className={cl.navBarItem}>
                             <p
-                                className={cls(cl.switchItem, selectedOption?.id === el.id ? cl.selected : '')}
+                                className={cls(cl.switchItem, selectedOption?.link === el.link ? cl.selected : '')}
                                 onClick={() => setSelectedOption(el)}>
-                                {el.name}
+                                {el.title}
                             </p>
-                            <span className={cls(cl.switchItemBorderBottom, selectedOption?.id === el.id ? cl.selectedSpan : '')} />
+                            <span className={cls(cl.switchItemBorderBottom, selectedOption?.link === el.link ? cl.selectedSpan : '')} />
                         </button>
                     ))}
                 </div>

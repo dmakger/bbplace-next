@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { IIconVariants, IIcons, INavBarPTCOptions } from "../model/model";
+import { IIconVariants, IIcons } from "../model/model";
 
 const HorizontalIcon: FC<IIcons> = ({ width = 26, height = 25 }) => (
     <svg width={width} height={height} viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -75,25 +75,6 @@ export const SORT_MOBILE_ICON: IIconVariants = {
 export const SORT_ICON: IIconVariants = {
     id: 4, name: 'Sort', image: <SortIcon />
 }
-
-export const ITEMS: INavBarPTCOptions = {
-    id: 1, name: 'Товары'
-}
-
-export const TENDERS: INavBarPTCOptions = {
-    id: 2, name: 'Тендеры'
-}
-
-export const SUPPLIERS: INavBarPTCOptions = {
-    id: 3, name: 'Поставщики'
-}
-
-
-export const NavBarPTCOptions: INavBarPTCOptions[] = [
-    ITEMS,
-    TENDERS,
-    SUPPLIERS
-]
 
 export const viewVariants: IIconVariants[] = [
     HORIZONTAL_VIEW,
