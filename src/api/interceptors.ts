@@ -4,11 +4,12 @@ import { EErrorsApi, errorCatch } from './error'
 import { authAPI } from '@/entities/Auth/api/auth.api'
 
 const options: CreateAxiosDefaults = {
-    baseURL: process.env.API_URL,
+    // baseURL: process.env.API_URL,
+    baseURL: "https://bbplace.ru/",
     headers: {
         'Content-Type': 'application/json',
     },
-    withCredentials: true,
+    // withCredentials: true,
 }
 
 

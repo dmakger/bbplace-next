@@ -1,6 +1,5 @@
 import { VerticalCard } from "@/entities/Product/ui/VerticalCard";
-
-export default async function MainPage() {
+export default function MainPage() {
     return (
         <div>
             <VerticalCard/>

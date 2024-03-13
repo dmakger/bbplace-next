@@ -1,0 +1,24 @@
+.line {
+    display: flex;
+    overflow: hidden;
+    gap: 10px;
+    
+    &:hover .list {
+        animation-play-state: paused;
+    }
+}
+
+.list {
+    animation: slide 10000s linear infinite;
+    // animation: slide 70s linear infinite;
+    white-space: nowrap;
+}
+
+@keyframes slide {
+    from {
+      transform: translateX(0%);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }

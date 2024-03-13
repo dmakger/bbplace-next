@@ -3,7 +3,6 @@
 
     .block {
         width: var(--max-width);
-        margin: 0 auto;
         padding: 14.5px 16px;
         display: flex;
         align-items: center;
@@ -13,6 +12,7 @@
             display: flex;
             align-items: center;
             gap: 30px;
+            width: 100%;
         }
     }
 }
