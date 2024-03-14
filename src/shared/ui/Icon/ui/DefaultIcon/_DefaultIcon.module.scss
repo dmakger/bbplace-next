@@ -14,6 +14,28 @@
     }
 }
 
+.menuItemButton{
+    gap: 4px;
+    & svg path{
+        stroke: var(--dark-2);
+        transition: all 0.3s; 
+    }
+
+    & p{
+        color: var(--dark-2);
+    }
+
+    &:hover{
+        & svg path {
+            transition: all 0.3s; 
+            stroke: var(--red-1); 
+        }
+        & p{
+            transition: all 0.3s; 
+            color: var(--red-1);
+        }
+    }
+}
 
 .sortButton {
     display: none;
@@ -49,11 +71,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
 }
 
 .headerText {
     font-size: var(--font-size-xxs);
     line-height: 1.08em;
     color: var(--dark-2b);
+}
+
+.menuItem{
+    font-size: var(--font-size-xxs);
 }

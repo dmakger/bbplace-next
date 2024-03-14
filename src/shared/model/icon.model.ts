@@ -2,12 +2,12 @@ import { ReactNode } from "react";
 
 export interface IIconVariants {
     id: number,
-    name: string,
-    image: ReactNode
+    title?: string,
+    image: ReactNode,
+    link?: string
 }
 
 export interface IIcons {
     width?: number,
     height?: number
 }
-

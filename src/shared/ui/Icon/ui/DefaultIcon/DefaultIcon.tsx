@@ -8,7 +8,7 @@ interface IDefaultIconProps{
     classNameSelected?: string,
     classNameText?: string,
     isSelected?: boolean,
-    onClick: () => void,
+    onClick?: () => void,
     children?: ReactNode,
     link?: string,
     textLink?: string
@@ -31,9 +31,11 @@ export const DefaultIcon: FC<IDefaultIconProps> = ({
                 onClick={onClick}>
                 {children}
             </button> : 
-            <Link href={link} className={cl.linkButton}>
+            <Link href={link} className={cls(cl.linkButton, cl[className])}>
                 {children}
-                <p className={cl[classNameText]}>{textLink}</p>
+                <p className={cl[classNameText]}>
+                    {textLink}
+                </p>
             </Link>}
         </>
         

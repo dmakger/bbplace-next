@@ -2,12 +2,12 @@
 
 import { FC, useState } from "react";
 import cl from './_NavBarPTC.module.scss';
-import { IIconVariants } from "../model/model";
 import { DefaultIcon } from "@/shared/ui/Icon";
-import { HORIZONTAL_VIEW, SORT_ICON, SORT_MOBILE_ICON, viewVariants } from "../data/navBarPTC.data";
+import { SORT_ICON, SORT_MOBILE_ICON, viewVariants } from "../data/navBarPTC.data";
 import { cls } from "@/shared/lib/classes.data";
-import { MENU_DATA, PRODUCTS_ITEM_MENU_DATA } from "@/shared/data/menu/base.menu.data";
-import { IMenuItem } from "@/shared/model/menu.model";
+import { HORIZONTAL_VIEW } from "@/shared/data/menu/base.menu.data";
+import { IIconVariants } from "@/shared/model/icon.model";
+import { MENU_DATA, PRODUCTS_ITEM_MENU_DATA } from "@/widgets/Menu/WEB";
 
 interface INavBarPTC {
 
@@ -16,7 +16,7 @@ interface INavBarPTC {
 export const NavBarPTC: FC<INavBarPTC> = ({ }) => {
 
     //STATE
-    const [selectedOption, setSelectedOption] = useState<IMenuItem>(PRODUCTS_ITEM_MENU_DATA);
+    const [selectedOption, setSelectedOption] = useState<IIconVariants>(PRODUCTS_ITEM_MENU_DATA);
 
     const [selectedView, setSelectedView] = useState<IIconVariants>(HORIZONTAL_VIEW)
 
