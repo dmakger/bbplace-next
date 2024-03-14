@@ -1,0 +1,39 @@
+.MobileNavbar{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    background-color: var(--white);
+    @media (min-width: 768px) {
+        
+    }
+}
+
+.navBarParent{
+    display: flex;
+    align-items: center;
+    gap: 120px;
+
+    & button{
+        cursor: pointer;
+        list-style-type: none;
+
+        &:hover{
+            & svg path {
+                transition: all 0.3s; 
+                stroke: var(--red-1); 
+            }
+            & p{
+                transition: all 0.3s; 
+                color: var(--red-1);
+            }
+        }
+        & p{
+            font-weight: var(--font-weight-med);
+            font-size: var(--font-size-xxxs);
+            line-height: 1.18em;
+        }
+    }
+}
