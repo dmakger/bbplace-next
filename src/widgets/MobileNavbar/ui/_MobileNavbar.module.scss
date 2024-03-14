@@ -1,39 +1,78 @@
-.MobileNavbar{
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    background-color: var(--white);
-    @media (min-width: 768px) {
-        
+.MobileNavbar {
+    display: none;
+
+    @media (max-width: 768px) {
+        position: fixed;
+        bottom: 0;
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+        background-color: var(--white);
+        padding: 0 16px;
+        height: 65px;
+    }
+    
+    @media (max-width: 390px) {
+        height: 60px;
+    }
+
+    @media (max-width: 330px) {
+        padding: 0 12px;
     }
 }
 
 .navBarParent{
+    width: 100%;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 120px;
 
-    & button{
+    & a{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
         cursor: pointer;
-        list-style-type: none;
+        transition: all 0.3s; 
 
-        &:hover{
-            & svg path {
-                transition: all 0.3s; 
-                stroke: var(--red-1); 
-            }
-            & p{
-                transition: all 0.3s; 
-                color: var(--red-1);
-            }
-        }
-        & p{
-            font-weight: var(--font-weight-med);
-            font-size: var(--font-size-xxxs);
-            line-height: 1.18em;
+        &:active{
+            transition: all 0.3s; 
+            margin-bottom: -8px
         }
     }
+
+}
+
+.mobileNavbarButton{
+    & p{
+        font-weight: var(--font-weight-med);
+        font-size: var(--font-size-xxxs);
+        line-height: 1.18em;
+    }
+
+    &:hover{
+        & svg path {
+            transition: all 0.3s; 
+            stroke: var(--red-1);
+        }
+        & p{
+            transition: all 0.3s; 
+            color: var(--red-1);
+        }
+    }
+}
+
+.noHover{  
+    & p{
+        font-weight: var(--font-weight-med);
+        font-size: var(--font-size-xxxs);
+        line-height: 1.18em;
+    }
+
+    &:hover{
+        & p{
+            transition: all 0.3s; 
+            color: var(--red-1);
+        }
+    } 
 }
