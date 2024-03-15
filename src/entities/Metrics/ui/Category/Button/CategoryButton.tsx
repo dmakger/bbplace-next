@@ -8,10 +8,11 @@ import CategorySVG from '@/shared/assets/img/category.svg'
 
 interface CategoryButtonProps {
     onClick?: Function
-    className?: string
+    className?: string,
+    isMobile?: boolean
 }
 
-export default function CategoryButton({onClick, className}: CategoryButtonProps) {
+export default function CategoryButton({onClick, className, isMobile = false}: CategoryButtonProps) {
     const handleOnClick = () => {
         if (onClick) onClick()
     }
@@ -19,7 +20,11 @@ export default function CategoryButton({onClick, className}: CategoryButtonProps
     return (
         <button onClick={handleOnClick} className={cls(cl.button, className)}>
             <Image src={CategorySVG} alt='category' width={31} height={31} />
-            <span className={cl.title}>Категории</span>
+            {!isMobile ?
+                <span className={cl.title}>
+                    Категории
+                </span>
+                : null}
         </button>
     )
 }

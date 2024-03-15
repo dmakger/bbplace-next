@@ -14,5 +14,34 @@
             gap: 30px;
             width: 100%;
         }
+        .right{
+            display: flex;
+            align-items: center;
+            gap: 30px;
+
+            @media (max-width: 768px) {
+                display: none;
+            }
+        }
     }
+    
+}
+
+.logo{
+    @media (max-width: 768px) {
+        display: none;
+    }
+}
+
+.categoryButton{
+    display: none;
+    @media (max-width: 768px) {
+        display: block;
+    }
+}
+
+.mobileButton{
+    padding: 7px;
+    border: 1px solid var(--gray-5);
+    border-radius: 25px;
 }

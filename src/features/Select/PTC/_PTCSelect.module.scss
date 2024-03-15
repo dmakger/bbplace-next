@@ -6,3 +6,10 @@
         background-color: var(--gray-5);
     }
 }
+
+.selectContainer{
+    border-right: 1px solid var(--gray-5);
+    @media (max-width: 768px) {
+        display: none;
+    }
+}

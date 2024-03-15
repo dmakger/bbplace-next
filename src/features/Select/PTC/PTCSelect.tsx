@@ -6,14 +6,18 @@ import { cls } from "@/shared/lib/classes.data";
 interface PTCSelectProps {
     classNameTitle?: string
     classNameOptions?: string
-    className?: string
+    className?: string,
+    classNameButton?: string
 }
 
-export default function PTCSelect({classNameTitle, classNameOptions, className}: PTCSelectProps) {
+export default function PTCSelect({classNameTitle, classNameOptions, className, classNameButton}: PTCSelectProps) {
     return (
-        <Input.Select defaultOption={PRODUCT_PTC_ITEM_DATA} options={PTC_LIST_DATA} 
-                      classNameTitle={cls(cl.select, classNameTitle)} 
-                      classNameOptions={classNameOptions} 
-                      className={className} />
+        <div className={cl.selectContainer}>
+            <Input.Select defaultOption={PRODUCT_PTC_ITEM_DATA} options={PTC_LIST_DATA}
+                classNameTitle={cls(cl.select, classNameTitle)}
+                classNameOptions={classNameOptions}
+                className={className}
+                classNameButton={classNameButton} />
+        </div>    
     )
 }
