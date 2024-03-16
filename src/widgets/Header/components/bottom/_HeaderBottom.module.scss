@@ -12,11 +12,11 @@
         }
 
         .support {
-        margin-left: auto;
+            margin-left: auto;
         }
+    }
 
-        @media (max-width: 768px) {
-            display: none;
-        }
+    @media (max-width: 768px) {
+        display: none;
     }
 }
