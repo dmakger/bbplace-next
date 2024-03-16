@@ -1,7 +1,7 @@
 'use client'
 import React, {ReactNode} from 'react'
 import cl from './_Button.module.scss'
-import { ButtonVariant } from '../model/model'
+import { ButtonVariant } from '..'
 
 interface IButton {
     children: ReactNode

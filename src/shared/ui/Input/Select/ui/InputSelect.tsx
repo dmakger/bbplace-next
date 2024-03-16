@@ -5,9 +5,9 @@ import Image from 'next/image'
 import { IOption } from '@/shared/model/option.model'
 import cl from './_InputSelect.module.scss'
 import { useEffect, useRef, useState } from 'react'
-import Input from '../Input'
+import Input from '../../Input'
 import { cls } from '@/shared/lib/classes.data'
-import WrapperClickOutside from '../../Wrapper/ClickOutside/WrapperClickOutside'
+import WrapperClickOutside from '../../../Wrapper/ClickOutside/WrapperClickOutside'
 
 interface InputSelectProps {
     options: IOption[]
@@ -19,7 +19,7 @@ interface InputSelectProps {
     classNameOptions?: string
 }
 
-export default function InputSelect({defaultOption, options, name, onClickOption, className, classNameTitle, classNameOptions}: InputSelectProps) {
+export function InputSelect({defaultOption, options, name, onClickOption, className, classNameTitle, classNameOptions}: InputSelectProps) {
     // STATE
     const [showOptions, setShowOptions] = useState(false)
     const [activeOption, setActiveOption] = useState<IOption | undefined>()

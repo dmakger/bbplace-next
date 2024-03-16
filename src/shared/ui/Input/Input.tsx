@@ -1,8 +1,8 @@
 import { ReactNode } from "react"
-import InputText from "./Text/InputText"
-import InputSelect from "./Select/InputSelect"
-import InputRadio from "./Radio/InputRadio"
 import InputList from "./List/InputList"
+import { InputSelect } from "./Select"
+import { InputText } from "./Text"
+import { InputRadio } from "./Radio"
 
 interface InputProps {
     children: ReactNode

@@ -7,7 +7,7 @@ interface InputTextProps {
     className?: string
 }
 
-export default function InputText({className, ...rest}: InputTextProps) {
+export function InputText({className, ...rest}: InputTextProps) {
     return (
         <input type="text" {...rest}
                className={cls(cl.input, className)} />
