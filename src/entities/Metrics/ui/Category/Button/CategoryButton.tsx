@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 
-import { cls } from '@/shared/lib/classes.data'
+import { cls } from '@/shared/lib/classes.lib'
 import cl from './_CategoryButton.module.scss'
 import CategorySVG from '@/shared/assets/img/category.svg'
 

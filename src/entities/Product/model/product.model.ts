@@ -1,25 +1,38 @@
-// export type IProduct = {
-//     id: number
-//     groupId: number | null
-//     name: string
-//     ownerId: string
-//     categoryId: number
-//     country: string
-//     certification: boolean
-//     delivery: string[]
-//     paymentConditions: string
-//     deliveryTime: string
-//     packagingLength: number
-//     packagingWidth: number
-//     packagingHeight: number
-//     packageType: string
-//     vat: number
-//     isCustomDesign: false
-//     isHasTestProbe: false
-//     status: string
-//     warehouses: string[]
-//     media: IItemColor
-//     characteristics: ICharacteristics
-//     createdAt: string
-//     deletedAt: string | null
-// }
+import { IMediaProduct } from "./media.product.model"
+import { ICharacteristic } from "./characteristic.product.model"
+
+interface IBaseProduct {
+    id: number
+    groupId: number | null
+    name: string | null
+    ownerId: string | null
+    categoryId:	number
+    country: string | null
+    certification: boolean
+    delivery: string[] | null
+    paymentConditions: string | null
+    deliveryTime: string | null
+    packagingLength: number
+    packagingWidth: number
+    packagingHeight: number
+    packageType: string | null
+    vat: number
+    isCustomDesign:	boolean
+    isHasTestProbe:	boolean
+    status: string | null
+    warehouses:	string[] | null
+    createdAt: string
+    deletedAt: string | null
+}
+
+
+
+export interface IProductAPI extends IBaseProduct {
+    media: string
+    characteristics: string
+}
+
+export interface IProduct extends IBaseProduct {
+    media: IMediaProduct
+    characteristics: ICharacteristic
+}

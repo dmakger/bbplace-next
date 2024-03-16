@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import cl from './_Wrapper1280.module.scss'
-import { cls } from '@/shared/lib/classes.data'
+import { cls } from '@/shared/lib/classes.lib'
 
 interface Wrapper1280Props {
     children?: ReactNode

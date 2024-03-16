@@ -1,17 +1,17 @@
 import Image from 'next/image'
 import VerticalProductImage from '@/shared/assets/img/VerticalProductImage.jpg'
-import cl from './_VerticalCard.module.scss'
+import cl from './_ProductV.module.scss'
 import { Button } from '@/shared/ui/Button'
 import { ButtonVariant } from '@/shared/ui/Button/model/model'
 import { FavouriteIcon, FavouriteIconVariant, SubscribeIcon, SubscribeIconVariant } from '@/shared/ui/Icon/index'
 import { SupplierInfo } from '@/shared/ui/SupplierInfo'
 import { FC } from 'react'
 
-interface IVerticalCard{
+interface ProductVProps{
 
 }
 
-export const VerticalCard:FC<IVerticalCard> = ({}) => {
+export const ProductV:FC<ProductVProps> = ({}) => {
   return (
     <section className={cl.VerticalCard}>
       <div className={cl.topContainer}>

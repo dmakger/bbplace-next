@@ -5,7 +5,7 @@ import cl from './_NavBarPTC.module.scss';
 import { IIconVariants } from "../model/model";
 import { DefaultIcon } from "@/shared/ui/Icon";
 import { HORIZONTAL_VIEW, SORT_ICON, SORT_MOBILE_ICON, viewVariants } from "../data/navBarPTC.data";
-import { cls } from "@/shared/lib/classes.data";
+import { cls } from "@/shared/lib/classes.lib";
 import { MENU_DATA, PRODUCTS_ITEM_MENU_DATA } from "@/shared/data/menu/base.menu.data";
 import { IMenuItem } from "@/shared/model/menu.model";
 
