@@ -13,7 +13,7 @@ interface InputRadioProps {
     className?: string
 }
 
-export default function InputRadio({option, isActive=false, name, required=false, onClick, className}: InputRadioProps) {
+export function InputRadio({option, isActive=false, name, required=false, onClick, className}: InputRadioProps) {
     const handleOnClick = () => {
         if (onClick) onClick()
     }
