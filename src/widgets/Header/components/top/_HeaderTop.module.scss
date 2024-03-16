@@ -5,6 +5,7 @@
         width: var(--max-width);
         padding: 14.5px 16px;
         display: flex;
+        flex-direction: row !important;
         align-items: center;
         gap: 40px;
 

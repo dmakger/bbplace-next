@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-import { cls } from "@/shared/lib/classes.data"
+import { cls } from "@/shared/lib/classes.lib"
 import cl from './_InputRadio.module.scss'
 import { IOption } from "@/shared/model/option.model"
 

@@ -6,7 +6,7 @@ import { IOption } from '@/shared/model/option.model'
 import cl from './_InputSelect.module.scss'
 import { useEffect, useRef, useState } from 'react'
 import Input from '../Input'
-import { cls } from '@/shared/lib/classes.data'
+import { cls } from '@/shared/lib/classes.lib'
 import WrapperClickOutside from '../../Wrapper/ClickOutside/WrapperClickOutside'
 
 interface InputSelectProps {

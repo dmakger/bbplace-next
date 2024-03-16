@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import cl from './_MenuButton.module.scss'
 import { IMenuItem } from '@/shared/model/menu.model'
-import { cls } from '@/shared/lib/classes.data'
+import { cls } from '@/shared/lib/classes.lib'
 import { useState } from 'react'
 
 interface MenuButtonProps {

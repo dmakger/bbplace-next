@@ -1,0 +1,1 @@
+export {ProductV} from './ui/ProductV';

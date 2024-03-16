@@ -3,11 +3,10 @@
 import { FC, useState } from "react";
 import cl from './_NavBarPTC.module.scss';
 import { DefaultIcon } from "@/shared/ui/Icon";
-import { SORT_ICON, SORT_MOBILE_ICON, viewVariants } from "../data/navBarPTC.data";
-import { cls } from "@/shared/lib/classes.data";
-import { HORIZONTAL_VIEW } from "@/shared/data/menu/base.menu.data";
-import { IIconVariants } from "@/shared/model/icon.model";
-import { MENU_DATA, PRODUCTS_ITEM_MENU_DATA } from "@/widgets/Menu/WEB";
+import { HORIZONTAL_VIEW, SORT_ICON, SORT_MOBILE_ICON, viewVariants } from "../data/navBarPTC.data";
+import { cls } from "@/shared/lib/classes.lib";
+import { MENU_DATA, PRODUCTS_ITEM_MENU_DATA } from "@/shared/data/menu/base.menu.data";
+import { IMenuItem } from "@/shared/model/menu.model";
 
 interface INavBarPTC {
 

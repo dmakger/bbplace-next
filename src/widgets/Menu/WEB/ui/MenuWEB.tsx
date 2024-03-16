@@ -1,4 +1,4 @@
-import { cls } from '@/shared/lib/classes.data'
+import { cls } from '@/shared/lib/classes.lib'
 import cl from './_MenuWEB.module.scss'
 import MenuButton from '@/shared/ui/Button/Menu/MenuButton'
 import { DASHBOARD_WOT_MENU_DATA } from '@/shared/data/menu/dashboard.menu.data'
