@@ -15,3 +15,13 @@
         background-color: var(--gray-5);
     }
 }
+
+.iconsMenu{
+    display: flex;
+    gap: 40px;
+    align-items: center;
+
+    @media (max-width:900px) {
+        display: none;
+    }
+}

@@ -22,6 +22,7 @@ export const MenuWEB = ({className}: MenuWEBProps) => {
                     </DefaultIcon>
                 ))}
                 <div className={cl.line} />
+                <div className={cl.iconsMenu}>
                     {MENU_DATA.map(el => (
                         <DefaultIcon key={el.id}
                             link={el.link}
@@ -29,6 +30,8 @@ export const MenuWEB = ({className}: MenuWEBProps) => {
                             {el.image}
                         </DefaultIcon>
                     ))}
+                </div>
+                    
             </div>
         </div>
     )
