@@ -13,13 +13,25 @@ interface InputSelectProps {
     options: IOption[]
     defaultOption?: IOption
     name?: string
-    onClickOption?: Function
+    onClickOption?: Function,
+    width?:number,
+    height?:number,
     className?: string
     classNameTitle?: string
-    classNameOptions?: string
+    classNameOptions?: string,
 }
 
-export function InputSelect({defaultOption, options, name, onClickOption, className, classNameTitle, classNameOptions}: InputSelectProps) {
+export function InputSelect({ 
+    defaultOption,
+    options,
+    name,
+    onClickOption,
+    width = 10,
+    height = 10,
+    className,
+    classNameTitle,
+    classNameOptions
+}: InputSelectProps) {
     // STATE
     const [showOptions, setShowOptions] = useState(false)
     const [activeOption, setActiveOption] = useState<IOption | undefined>()
@@ -52,7 +64,7 @@ export function InputSelect({defaultOption, options, name, onClickOption, classN
         <WrapperClickOutside _ref={inputSelectRef} isShow={showOptions} handle={toggleShowOptions} className={cls(cl.block, showOptions ? cl.show : '', className)}>
             <button type={'button'} onClick={handleOnTitle} className={cls(cl.button, classNameTitle)}>
                 <span className={cl.title}>{activeOption?.name}</span>
-                <Image src={'arrow.svg'} alt={'arrow'} width={10} height={10} />
+                <Image className={showOptions ? cl.arrowOpen : cl.arrow} src={'arrow.svg'} alt={'arrow'} width={width} height={height} />
             </button>
             <Input.List.Radio options={options} 
                                 defaultOption={activeOption} 

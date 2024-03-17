@@ -1,9 +1,9 @@
 import { FC } from "react"
 import cl from './_SortFilterSidebar.module.scss'
-import { cls } from "@/shared/lib/classes.data"
 import { Sort } from "@/features/Sort"
 import { Button, ButtonVariant } from "@/shared/ui/Button"
 import { Filter } from "@/features/Filter"
+import { cls } from "@/shared/lib/classes.lib"
 
 interface ISortFilterSidebar{
     className?: string,

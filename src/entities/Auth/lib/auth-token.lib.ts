@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie'
-import { IAuthForm, IAuthResponse } from '../model/auth.model'
+import { IAuthResponse } from '../model/auth.model'
 
 // ===={ ENUM }====
 export enum ETokens {

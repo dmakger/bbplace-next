@@ -1,9 +1,11 @@
 .Filter{
+    overflow: hidden;
     button{
         display: flex;
         justify-content: space-between;
         gap: 130px;
         align-items: center;
+        margin-bottom: 30px;
 
         h3 {
             font-weight: var(--font-weight-med);
@@ -11,4 +13,38 @@
         }
     }
     
+}
+
+.arrowOpen{
+    rotate: 180deg;
+    transition: rotate 0.3s;
+}
+
+.arrow{
+    rotate: 0deg;
+    transition: rotate 0.3s;
+}
+
+.inputsList{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    opacity: 1;
+    transition: all 0.3s;
+}
+
+
+.select{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    h4{
+        color: #666c71;
+        font-size: var(--font-size-s);
+    }
+}
+
+.countryOptions{
+    max-height: 250px;
+    overflow-y: scroll;
 }

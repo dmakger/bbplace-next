@@ -1,0 +1,1 @@
+export const DEFAULT_COUNTRY_OPTION = {id: -1, name: 'Все страны'}
