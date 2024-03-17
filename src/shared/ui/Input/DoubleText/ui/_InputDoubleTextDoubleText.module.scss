@@ -1,0 +1,13 @@
+.InputDoubleText{
+    width: 100%;
+    display: flex;
+    gap: 20px;
+}
+
+.inputsText{
+    border-radius: 15px;
+    padding: 6.5px 20px;
+    &::placeholder{
+        color: #666c71;
+    }
+}

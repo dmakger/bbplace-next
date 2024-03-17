@@ -18,6 +18,7 @@ export const Sort:FC<ISort> = ({className}) => {
             <Input.Select
                 options={sortOptions}
                 defaultOption={DEFAULT_SORT}
+                classNameTitle={cl.sortSelect}
                 width={14}
                 height={12}
             />

@@ -1,18 +1,18 @@
 .Filter{
-    overflow: hidden;
-    button{
-        display: flex;
-        justify-content: space-between;
-        gap: 130px;
-        align-items: center;
-        margin-bottom: 30px;
+    overflow: hidden;    
+}
 
-        h3 {
-            font-weight: var(--font-weight-med);
-            font-size: var(--font-size-reg);
-        }
+.button{
+    display: flex;
+    justify-content: space-between;
+    gap: 130px;
+    align-items: center;
+    margin-bottom: 30px;
+
+    h3 {
+        font-weight: var(--font-weight-med);
+        font-size: var(--font-size-reg);
     }
-    
 }
 
 .arrowOpen{
@@ -25,26 +25,37 @@
     transition: rotate 0.3s;
 }
 
-.inputsList{
+.inputsList {
     display: flex;
     flex-direction: column;
     gap: 25px;
     opacity: 1;
     transition: all 0.3s;
+
+    > div {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        h4 {
+            color: #666c71;
+            font-size: var(--font-size-s);
+        }
+    }
 }
 
-
-.select{
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    h4{
-        color: #666c71;
-        font-size: var(--font-size-s);
-    }
+.filterSelect{
+    background-color: var(--gray-2);
 }
 
 .countryOptions{
     max-height: 250px;
     overflow-y: scroll;
 }
+
+.filterInput{
+    padding: 6.5px 20px;
+    border-radius: 15px;
+    font-size: var(--font-size-s);
+}
+
