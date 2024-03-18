@@ -1,0 +1,33 @@
+.inputsList {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    opacity: 1;
+    transition: all 0.3s;
+}
+
+.doubleInputsContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    h4 {
+        color: #666c71;
+        font-size: var(--font-size-s);
+    }
+}
+
+.filterSelect{
+    background-color: var(--gray-2);
+}
+
+.countryOptions{
+    max-height: 250px;
+    overflow-y: scroll;
+}
+
+.filterInput{
+    padding: 6.5px 20px;
+    border-radius: 15px;
+    font-size: var(--font-size-s);
+}

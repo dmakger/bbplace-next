@@ -1,27 +1,45 @@
-import { FC } from "react"
+'use client'
+
 import cl from './_Sort.module.scss'
-import { cls } from "@/shared/lib/classes.lib"
 import Input from "@/shared/ui/Input/Input"
 import { DEFAULT_SORT, sortOptions } from "../data/sort.data"
+import { FormEvent, useRef, useState } from 'react'
+import { IOption } from '@/shared/model/option.model'
 
-interface ISort{
-    className?: string,
+export const Sort = () => {
 
-}
+    //STATE
+    const [sortByDate, setSortByDate] = useState<IOption>()
 
-export const Sort:FC<ISort> = ({className}) => {
+    //REF
+    const sortForm = useRef<HTMLFormElement>(null)
+
+    const addSortOption = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
+        if (sortForm.current) {
+            const formData = new FormData(sortForm.current)
+            const tempDataStorage: Record<string, any> = {}
+            formData.forEach((value, key) => tempDataStorage[key] = value)
+            setSortByDate(tempDataStorage['selectSort'])            
+        }
+    }
+
+
+
     return (
-        <div className={cls(cl.Sort, className)}>
+        <form className={cl.Sort} ref={sortForm} onChange={addSortOption}>
             <h3>
                 Сортировка
             </h3>
             <Input.Select
+                name='selectSort'
                 options={sortOptions}
                 defaultOption={DEFAULT_SORT}
                 classNameTitle={cl.sortSelect}
                 width={14}
                 height={12}
             />
-        </div>
+        </form>
     )
 }
