@@ -54,6 +54,7 @@ export const Filter = () => {
                 setIsFiltersOpen={setIsFiltersOpen}
             />
             <FilterForm
+                isFiltersOpen={isFiltersOpen}
                 countriesAsOptions={countriesAsOptions}
                 inputListRef={inputListRef}
                 onChange={handleSubmit}

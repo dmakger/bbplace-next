@@ -9,8 +9,8 @@ export const SortFilterSidebar = () => {
         <aside className={cl.SortFilterSidebar}>
             <Sort />
             <Filter />
-            <Button variant={ButtonVariant.BACKGROUND_WHITE_WIDE}>
-                Подписаться
+            <Button variant={ButtonVariant.BACKGROUND_WHITE_NARROW}>
+                Очистить фильтры
             </Button>
         </aside>
     )
