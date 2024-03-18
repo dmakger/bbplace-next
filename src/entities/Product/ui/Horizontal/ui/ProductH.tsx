@@ -33,7 +33,7 @@ export const ProductH:FC<ProductHProps> = ({product, className}) => {
                             </div>
                         </div>
                         <Wholesale wholesales={product.media.wholesalePrices} 
-                                   currency={product.media.currency?.toString()} className={cl.cardPrice} />
+                                   currency={product.media.currency} className={cl.cardPrice} />
                         {/* <p className={cl.cardPrice}>
                             305,80 RUB - 9 237 RUB<span> /шт.</span>
                         </p> */}

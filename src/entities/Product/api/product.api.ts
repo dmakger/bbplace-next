@@ -11,7 +11,7 @@ class ProductAPI {
       return args ?? PRODUCT_ARGS_REQUEST
     }
 
-    async all(args?: IArgsRequest) {            
+    async all(args?: IArgsRequest) {
       const response = await axiosClassic.get<IProductAPI[]>(
         getURL(`${this.BASE_URL}/GetItems/Filter/`, this.getArgs(args))
       )
