@@ -1,6 +1,5 @@
 import cl from './_FilterTitleButton.module.scss'
 import Image from 'next/image'
-import { FC } from 'react'
 
 interface IFilterTitleButton{
     isFiltersOpen: boolean,
@@ -8,10 +7,10 @@ interface IFilterTitleButton{
 }
 
 
-export const FilterTitleButton:FC<IFilterTitleButton> = ({
+export function FilterTitleButton ({
     isFiltersOpen,
     setIsFiltersOpen
-}) => {
+}: IFilterTitleButton) {
     return (
         <button type={'button'} className={cl.button} onClick={() => setIsFiltersOpen(!isFiltersOpen)}>
             <h3>

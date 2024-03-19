@@ -8,7 +8,7 @@
     align-items: center;
     gap: 15px;
     width: 100%;
-    background-color: var(--empty);
+    background-color: var(--gray-3);
     border: none;
     font-size: 14px;
     // color: var(--foreground);
@@ -19,12 +19,13 @@
     transition: .2s;
 
     &:hover {
-        background-color: var(--hover);
+        background-color: var(--gray-4);
         border-color: var(--hover);
     }
 }
 
 .options {
+    border-radius: 16px;
     position: absolute;
     z-index: -1;
     top: 40px;

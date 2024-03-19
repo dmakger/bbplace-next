@@ -7,11 +7,12 @@ interface InputTextProps {
     placeholder?: string
     className?: string,
     onChange?: (e:ChangeEvent<HTMLInputElement>) => void
+    type?: string
 }
 
-export function InputText({className, ...rest}: InputTextProps) {
+export function InputText({className, type = 'text', ...rest}: InputTextProps) {
     return (
-        <input type="text" {...rest}
+        <input type={type} {...rest}
                className={cls(cl.input, className)} />
     )
 }

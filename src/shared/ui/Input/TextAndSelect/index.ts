@@ -1,1 +1,1 @@
-export {TextAndSelectInput} from './ui/TextAndSelectInput'
+export {TextAndSelectInput} from './ui/InputTextAndSelect'

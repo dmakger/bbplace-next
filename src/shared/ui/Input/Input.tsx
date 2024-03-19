@@ -4,6 +4,7 @@ import { InputSelect } from "./Select"
 import { InputText } from "./Text"
 import { InputRadio } from "./Radio"
 import { InputDoubleText } from "./DoubleText"
+import { TextAndSelectInput } from "./TextAndSelect"
 
 interface InputProps {
     children: ReactNode
@@ -18,5 +19,6 @@ export default function Input({children}: InputProps) {
 Input.Text = InputText
 Input.DoubleText = InputDoubleText
 Input.Select = InputSelect
+Input.TextAndSelect = TextAndSelectInput
 Input.Radio = InputRadio
 Input.List = InputList

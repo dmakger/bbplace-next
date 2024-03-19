@@ -1,33 +1,45 @@
 'use client'
 
-import { FC, useEffect, useRef, useState } from 'react'
-import cl from './_TextAndSelectInput.module.scss'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import Image from 'next/image'
+import cl from './_InputTextAndSelect.module.scss'
 import { IOption } from '@/shared/model/option.model'
 import { cls } from '@/shared/lib/classes.lib'
 import InputList from '../../List/InputList'
 import WrapperClickOutside from '@/shared/ui/Wrapper/ClickOutside/WrapperClickOutside'
-import Image from 'next/image'
 
 interface ITextAndSelectInput {
     className?: string,
+    classNameOptions?: string,
     listOptions?: IOption[],
     defaultOption: IOption,
     onClickOption?: Function,
-    name?: string
+    name?: string,
+    imageWidth?: number,
+    imageHeight?: number
 }
 
-export const TextAndSelectInput: FC<ITextAndSelectInput> = ({
+export function TextAndSelectInput ({
     className,
+    classNameOptions,
     listOptions,
     defaultOption,
     onClickOption,
-    name
-}) => {
+    name,
+    imageWidth,
+    imageHeight
+}: ITextAndSelectInput) {
 
     //STATE
     const [searchQuery, setSearchQuery] = useState<string>('')
     const [showOptions, setShowOptions] = useState(false)
     const [activeOption, setActiveOption] = useState<IOption | undefined>()
+
+    //MEMO
+    const filteredCountries = useMemo(() => {
+        if (!listOptions) return [];
+        return listOptions.filter(option => option.name.toLowerCase().includes(searchQuery.toLowerCase()));  
+    }, [listOptions, searchQuery])  
 
     //REF
     const inputSelectRef = useRef<HTMLDivElement>(null);
@@ -37,63 +49,65 @@ export const TextAndSelectInput: FC<ITextAndSelectInput> = ({
         setActiveOption(defaultOption)
     }, [defaultOption])
 
-    //EFFECT
     useEffect(() => {
         setSearchQuery('')
     }, [showOptions])
 
 
     // ==={ CLICK }===
-    const toggleShowOptions = () => {
-        setShowOptions(!showOptions)
-    }
+    const toggleShowOptions = useCallback(() => {
+        setShowOptions((prevShowOptions) => !prevShowOptions);
+    }, []);
 
-    const handleOnItem = (it: IOption) => {
+    const handleOnItem = useCallback((it: IOption) => {
         setActiveOption(it)
         if (onClickOption) onClickOption(it)
         setShowOptions(false)
-    }
+    }, [setActiveOption, onClickOption, setShowOptions])
 
-    const filteredCountries = listOptions && listOptions.filter(option =>
-        option.name.toLowerCase().includes(searchQuery.toLowerCase()));        
+    // ==={ CHANGE }===
+    const handleInputChange = useCallback(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+            setSearchQuery(e.target.value.toLowerCase().replaceAll('  ', ' ').trim());
+        },[]);
 
 
     return (
         <WrapperClickOutside _ref={inputSelectRef} isShow={showOptions} handle={toggleShowOptions} className={cls(cl.block, showOptions ? cl.show : '', className)}>
             <div
-                onClick={() => setShowOptions(!showOptions)}
+                onClick={toggleShowOptions}
                 className={cl.visible}>
                 
-                <div className={cl.button}>
+                <div className={cl.mainInput}>
                 {showOptions ? <input
                         type="text"
                         className={cl.input}
                         onClick={(e) => {
                             e.stopPropagation();
                         }}
-                        onChange={(e) => {
-                            setSearchQuery(e.target.value.toLowerCase().replaceAll('  ', ' ').trim());
-                        }}
-                        value={showOptions ? searchQuery : activeOption?.name}
+                        onChange={handleInputChange}
+                        value={searchQuery}
                         autoFocus
                     />
                     :
                     <p className={cl.selectedOption}>
                         {activeOption?.name}
                     </p>}
-                    <Image className={showOptions ? cl.arrowOpen : cl.arrow} src={'arrow.svg'} alt={'arrow'} width={14} height={12} />
+                    <Image className={showOptions ? cl.arrowOpen : cl.arrow} src={'arrow.svg'} alt={'arrow'} width={imageWidth} height={imageHeight} />
                 </div>
             </div>
 
-            {filteredCountries && filteredCountries.length ?
-                <InputList.Radio options={filteredCountries ? filteredCountries : []}
-                    className={cls(cl.options, showOptions ? cl.show : '')}
+            {filteredCountries.length ? (
+                <InputList.Radio
+                    options={filteredCountries}
+                    className={cls(cl.options, classNameOptions, showOptions ? cl.show : '')}
                     defaultOption={activeOption}
                     name={name}
                     onClickOption={handleOnItem}
-                /> : <p className={cl.noResult}>
-                    К сожалению, такой страны нет (X_X)
-                </p>}
+                />
+            ) : (
+                <p className={cl.noResult}>К сожалению, такой страны нет (X_X)</p>
+            )}
         </WrapperClickOutside>
     )
 }
