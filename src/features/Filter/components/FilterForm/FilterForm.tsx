@@ -2,8 +2,9 @@ import cl from './_FilterForm.module.scss'
 import Input from "@/shared/ui/Input/Input"
 import { ChangeEvent, FC, RefObject } from "react"
 import { IOption } from '@/shared/model/option.model'
-import { DEFAULT_COUNTRY_OPTION, DEFAULT_STATUS_OPTION, STATUS_OPTIONS } from '../../data/filter.data'
 import { cls } from '@/shared/lib/classes.lib'
+import { DEFAULT_COUNTRY_OPTION, DEFAULT_STATUS_OPTION, STATUS_OPTIONS } from '../../data/filter.data'
+import { TextAndSelectInput } from '@/shared/ui/Input/TextAndSelect'
 
 interface IFilterFormProps {
     isFiltersOpen: boolean,
@@ -20,7 +21,7 @@ export const FilterForm: FC<IFilterFormProps> = ({
 }) => {
     return (
         <form ref={inputListRef} className={cls(cl.inputsList, isFiltersOpen ? cl.withMarginTop : '')} onChange={onChange}>
-            <div className={cl.doubleInputsContainer}>
+            <div className={cl.inputsContainer}>
                 <h4>Страна</h4>
                 <Input.Select
                     name="selectCountry"
@@ -32,7 +33,17 @@ export const FilterForm: FC<IFilterFormProps> = ({
                     height={12}
                 />
             </div>
-            <div className={cl.doubleInputsContainer}>
+
+            <div className={cl.inputsContainer}>
+                <h4>Страна</h4>
+                <TextAndSelectInput
+                    listOptions={countriesAsOptions}
+                    defaultOption={DEFAULT_COUNTRY_OPTION}
+                />
+            </div>
+
+
+            <div className={cl.inputsContainer}>
                 <h4>Статус товара</h4>
                 <Input.Select
                     name="selectStatus"
@@ -44,7 +55,7 @@ export const FilterForm: FC<IFilterFormProps> = ({
                     height={12}
                 />
             </div>
-            <div className={cl.doubleInputsContainer}>
+            <div className={cl.inputsContainer}>
                 <h4>Минимальный заказ</h4>
                 <Input.Text
                     name="minOrder"
