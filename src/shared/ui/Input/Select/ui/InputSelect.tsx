@@ -16,10 +16,11 @@ interface InputSelectProps {
     onClickOption?: Function
     className?: string
     classNameTitle?: string
-    classNameOptions?: string
+    classNameOptions?: string,
+    classNameButton?: string
 }
 
-export function InputSelect({defaultOption, options, name, onClickOption, className, classNameTitle, classNameOptions}: InputSelectProps) {
+export default function InputSelect({defaultOption, options, name, onClickOption, className, classNameTitle = '', classNameOptions, classNameButton = ''}: InputSelectProps) {
     // STATE
     const [showOptions, setShowOptions] = useState(false)
     const [activeOption, setActiveOption] = useState<IOption | undefined>()
@@ -50,8 +51,8 @@ export function InputSelect({defaultOption, options, name, onClickOption, classN
     
     return (
         <WrapperClickOutside _ref={inputSelectRef} isShow={showOptions} handle={toggleShowOptions} className={cls(cl.block, showOptions ? cl.show : '', className)}>
-            <button type={'button'} onClick={handleOnTitle} className={cls(cl.button, classNameTitle)}>
-                <span className={cl.title}>{activeOption?.name}</span>
+            <button type={'button'} onClick={handleOnTitle} className={cls(cl.button, cl[classNameButton])}>
+                <span className={cls(cl.title, cl[classNameTitle])}>{activeOption?.name}</span>
                 <Image src={'arrow.svg'} alt={'arrow'} width={10} height={10} />
             </button>
             <Input.List.Radio options={options} 

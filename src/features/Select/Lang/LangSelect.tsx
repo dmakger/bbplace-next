@@ -18,6 +18,6 @@ export const LangSelect:FC<LangSelectProps> = ({className}) => {
     return (
         <Input.Select defaultOption={defaultOption} 
                       options={options} 
-                      className={cls(className)} />
+                      className={cls(cl.langSelect,className)} />
     )
 }

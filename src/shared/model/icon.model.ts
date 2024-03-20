@@ -9,5 +9,6 @@ export interface IIconVariants {
 
 export interface IIcons {
     width?: number,
-    height?: number
+    height?: number,
+    className?: string
 }
