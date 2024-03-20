@@ -8,6 +8,7 @@ export default function Layout({ children }: PropsWithChildren<unknown>) {
         <div>
             <Header/>
             <NavBarPTC/>
+            <Header />
             {children}
             <MobileNavbar/>
         </div>

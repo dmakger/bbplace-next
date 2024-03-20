@@ -4,7 +4,7 @@ import { IOption } from '@/shared/model/option.model'
 import cl from './_InputListRadio.module.scss'
 import Input from '../../Input'
 import { useEffect, useState } from 'react'
-import { cls } from '@/shared/lib/classes.data'
+import { cls } from '@/shared/lib/classes.lib'
 
 interface InputListRadioProps {
     options: IOption[]

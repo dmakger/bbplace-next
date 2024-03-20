@@ -1,5 +1,7 @@
 :root {
   --max-width: 1280px;
+  --max-width-2: 992px;
+
   --border-radius: 12px;
   --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
     "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
@@ -30,9 +32,10 @@
 
 
   // specify
-  --foreground: var(--gray-5);
-  --background: var(--dark-2);
-  --hover: var(--gray-3);
+  --foreground: var(--dark-1);
+  --background: var(--gray-3);
+  --background-2: var(--white);
+  --hover: var(--gray-4);
 
 
    // ===={ SIZES }====
@@ -96,8 +99,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground: var(--dark-2);
-    --background: var(--gray-5);
+    // --foreground: var(--dark-2);
+    // --background: var(--gray-5);
 
     // --primary-glow: radial-gradient(rgba(1, 65, 255, 0.4), rgba(1, 65, 255, 0));
     // --secondary-glow: linear-gradient(
@@ -139,8 +142,8 @@ body {
   overflow-x: hidden;
   
   input {
-    // color: var(--foreground);
-    background-color: var(--white);
+    background-color: var(--background-2);
+    color: var(--foreground);
     font-family: var(--inter-font);
 
     &::placeholder {
@@ -151,6 +154,7 @@ body {
 
 body {
   background-color: var(--background);
+  color: var(--foreground);
   font-weight: var(--font-weight-reg);
 }
 
@@ -176,6 +180,7 @@ button{
   cursor: pointer;
   font-family: inherit;
   transition: all 0.3s;
+  color: var(--foreground);
 }
 
 h1,h2,h3,h4,h5,h6{

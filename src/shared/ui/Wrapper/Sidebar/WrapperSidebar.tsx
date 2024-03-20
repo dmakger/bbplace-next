@@ -1,6 +1,6 @@
 import { FC } from "react"
 
-import { cls } from '@/shared/lib/classes.data';
+import { cls } from '@/shared/lib/classes.lib';
 import cl from './_WrapperSidebar.module.scss'
 
 interface WrapperSidebarProps{

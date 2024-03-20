@@ -1,4 +1,4 @@
-import { cls } from '@/shared/lib/classes.data';
+import { cls } from '@/shared/lib/classes.lib';
 import cl from './_HeaderBottom.module.scss';
 import Wrapper1280 from '@/shared/ui/Wrapper/1280/Wrapper1280';
 import CategorySmartLine from '@/widgets/Category/SmartLine/CategorySmartLine';

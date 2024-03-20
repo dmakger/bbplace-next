@@ -1,7 +1,7 @@
 import { FC, ReactNode } from "react"
 import cl from './_DefaultIcon.module.scss'
 import Link from "next/link"
-import { cls } from "@/shared/lib/classes.data"
+import { cls } from "@/shared/lib/classes.lib"
 
 interface IDefaultIconProps{
     className?: string,

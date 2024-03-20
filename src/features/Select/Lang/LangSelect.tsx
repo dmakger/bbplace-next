@@ -2,7 +2,7 @@
 
 import { FC, useState } from "react"
 
-import { cls } from '@/shared/lib/classes.data';
+import { cls } from '@/shared/lib/classes.lib';
 import cl from './_LangSelect.module.scss'
 import Input from "@/shared/ui/Input/Input";
 import { LANG_LIST_DATA, RUS_LANG_ITEM_DATA } from "@/shared/data/menu/lang.menu.data";

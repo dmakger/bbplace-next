@@ -5,7 +5,7 @@ import cl from './SubscribeIcon.module.scss'
 import SubscribedIcon from '@/shared/assets/img/SubscribedIcon.svg'
 import Image from 'next/image'
 import { SubscribeIconVariant } from '../..'
-import { cls } from '@/shared/lib/classes.data'
+import { cls } from '@/shared/lib/classes.lib'
 
 
 interface ISubscribeIcon{

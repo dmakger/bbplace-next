@@ -1,4 +1,4 @@
-import { cls } from '@/shared/lib/classes.data';
+import { cls } from '@/shared/lib/classes.lib';
 import cl from './_ButtonSearch.module.scss'
 import Image from 'next/image';
 

@@ -1,0 +1,9 @@
+.SortFilterSidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+    background-color: var(--white);
+    border-radius: 16px;
+    padding: 16px 15px;
+    max-height: 705px;
+}

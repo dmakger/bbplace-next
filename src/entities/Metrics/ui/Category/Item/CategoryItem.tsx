@@ -1,6 +1,6 @@
 import { ICategory } from '@/entities/Metrics/model/category.metrics.model'
 import cl from './_CategoryItem.module.scss'
-import { cls } from '@/shared/lib/classes.data'
+import { cls } from '@/shared/lib/classes.lib'
 import Link from 'next/link'
 
 interface CategoryItemProps {

@@ -1,0 +1,47 @@
+.block {
+    position: relative;
+    .options {
+        position: absolute;
+        z-index: -1;
+        top: 40px;
+        left: 0;
+        right: 0;
+
+        opacity: 0;
+        transition: all .3s;
+    }   
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background-color: var(--empty);
+    border: none;
+    font-size: 14px;
+    // color: var(--foreground);
+
+    padding: 10px 10px 10px 15px;
+    border-radius: 40px;
+    border: 1px var(--gray-5) solid;
+    transition: .3s;
+
+    &:hover {
+        background-color: var(--hover);
+        border-color: var(--hover);
+    }
+}
+
+.show {
+    .options {
+        z-index: 1;
+        opacity: 1;
+    }
+}
+
+.headerSelect{
+    gap: 12px;
+    border: none;
+    border-radius: 40px 0px 0px 40px; 
+    padding: 15px 10px 14px 15px;
+  }
