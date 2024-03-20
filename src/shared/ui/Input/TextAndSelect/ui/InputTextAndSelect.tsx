@@ -36,7 +36,7 @@ export function TextAndSelectInput ({
     const [activeOption, setActiveOption] = useState<IOption | undefined>()
 
     //MEMO
-    const filteredCountries = useMemo(() => {
+    const filteredOptions = useMemo(() => {
         if (!listOptions) return [];
         return listOptions.filter(option => option.name.toLowerCase().includes(searchQuery.toLowerCase()));  
     }, [listOptions, searchQuery])  
@@ -97,9 +97,9 @@ export function TextAndSelectInput ({
                 </div>
             </div>
 
-            {filteredCountries.length ? (
+            {filteredOptions.length ? (
                 <InputList.Radio
-                    options={filteredCountries}
+                    options={filteredOptions}
                     className={cls(cl.options, classNameOptions, showOptions ? cl.show : '')}
                     defaultOption={activeOption}
                     name={name}
