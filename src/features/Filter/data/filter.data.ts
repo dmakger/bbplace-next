@@ -1,5 +1,4 @@
 import { IOption } from "@/shared/model/option.model"
-import { IFilterValues } from "../model/filter.model"
 
 export const DEFAULT_COUNTRY_OPTION: IOption = {
     id: -1,
@@ -34,10 +33,4 @@ export const STATUS_OPTIONS: IOption[] = [
     BY_ORDER_STATUS_OPTION
 ]
 
-
-export const DEFAULT_FILTER_VALUES: IFilterValues = {
-    country: DEFAULT_COUNTRY_OPTION,
-    status: DEFAULT_STATUS_OPTION,
-    minOrder: ''
-}
 

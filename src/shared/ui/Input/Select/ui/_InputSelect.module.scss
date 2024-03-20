@@ -1,5 +1,5 @@
 .block {
-    position: relative;    
+    position: relative;
 }
 
 .button {
@@ -16,7 +16,7 @@
     padding: 10px 10px 10px 15px;
     border-radius: 40px;
     border: 1px var(--gray-5) solid;
-    transition: .2s;
+    transition: .3s;
 
     &:hover {
         background-color: var(--gray-4);
@@ -33,7 +33,7 @@
     right: 0;
 
     opacity: 0;
-    transition: all .2s;
+    transition: all .3s;
 }
 
 

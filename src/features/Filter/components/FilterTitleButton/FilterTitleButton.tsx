@@ -7,10 +7,10 @@ interface IFilterTitleButton{
 }
 
 
-export function FilterTitleButton ({
+export const FilterTitleButton = ({
     isFiltersOpen,
     setIsFiltersOpen
-}: IFilterTitleButton) {
+}: IFilterTitleButton) => {
     return (
         <button type={'button'} className={cl.button} onClick={() => setIsFiltersOpen(!isFiltersOpen)}>
             <h3>

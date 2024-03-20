@@ -1,15 +1,13 @@
 import cl from './_FilterForm.module.scss'
 import Input from "@/shared/ui/Input/Input"
-import { ChangeEvent, RefObject } from "react"
+import { RefObject } from "react"
 import { IOption } from '@/shared/model/option.model'
 import { cls } from '@/shared/lib/classes.lib'
-import { DEFAULT_COUNTRY_OPTION, DEFAULT_STATUS_OPTION, STATUS_OPTIONS } from '../../data/filter.data'
-import { IFilterValues } from '../../model/filter.model'
+import { STATUS_OPTIONS } from '../../data/filter.data'
 
 interface IFilterForm {
     isFiltersOpen: boolean,
-    inputListRef: RefObject<HTMLFormElement>,
-    onChange: (e: ChangeEvent<HTMLFormElement>) => void,
+    inputListRef: RefObject<HTMLDivElement>,
     countriesAsOptions: IOption[],
     selectedCountry: IOption,
     setSelectedCountry: Function,
@@ -17,15 +15,11 @@ interface IFilterForm {
     setMinOrder: Function,
     status: IOption, 
     setStatus: Function,
-    setFilter:Function,
-    filterValues: IFilterValues,
-    setFilterValues: Function
 }
 
-export function FilterForm ({
+export const FilterForm = ({
     isFiltersOpen,
     inputListRef,
-    onChange,
     countriesAsOptions,
     selectedCountry,
     setSelectedCountry,
@@ -33,13 +27,10 @@ export function FilterForm ({
     setMinOrder,
     status,
     setStatus,
-    setFilter,
-    filterValues,
-    setFilterValues
-}: IFilterForm) {
+}: IFilterForm) => {
     
     return (
-        <form ref={inputListRef} className={cls(cl.inputsList, isFiltersOpen ? cl.withMarginTop : '')} onChange={onChange}>
+        <div ref={inputListRef} className={cls(cl.inputsList, isFiltersOpen ? cl.withMarginTop : '')}>
             <div className={cl.inputsContainer}>
                 <h4>Страна</h4>
                 <Input.TextAndSelect
@@ -68,14 +59,14 @@ export function FilterForm ({
             <div className={cl.inputsContainer}>
                 <h4>Минимальный заказ</h4>
                 <Input.Text
-                    value={minOrder}
+                    defaultValue={minOrder}
                     name="minOrder"
                     type='number'
                     className={cl.filterInput}
-                    placeholder='Введите число мин заказа'
+                    placeholder='Введите число'
                     onChange={setMinOrder}
                 />
             </div>
-        </form>
+        </div>
     )
 }

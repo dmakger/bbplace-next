@@ -10,7 +10,6 @@ interface InputTextProps {
     className?: string,
     onChange?: Function,
     defaultValue?: string,
-    value?: string,
     type?: string
 }
 
@@ -19,7 +18,6 @@ export function InputText({
     type = 'text',
     onChange = () => {},
     defaultValue = '',
-    value,
     ...rest }: InputTextProps) {
 
     const inputRef = useRef<HTMLInputElement>(null)
@@ -32,7 +30,6 @@ export function InputText({
 
     return (
         <input className={cls(cl.input, className)}
-            value={value}
             ref={inputRef}
             type={type}
             defaultValue={defaultValue}
