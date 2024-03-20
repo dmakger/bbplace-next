@@ -81,13 +81,13 @@
   --third-family: "Segoe UI Variable", sans-serif;
 
   //FONT-SIZE
-  --font-size-xxxs: 0.69rem;
-  --font-size-xxs: 0.75rem;
-  --font-size-xs: 0.81rem;
-  --font-size-s: 0.88rem;
-  --font-size-sreg: 0.94rem;
-  --font-size-reg: 1rem;
-  --font-size-sm: 1.13rem;
+  --font-size-xxxs: 0.69rem; //11px
+  --font-size-xxs: 0.75rem; //12px
+  --font-size-xs: 0.81rem; //13px
+  --font-size-s: 0.88rem; //14px
+  --font-size-sreg: 0.94rem; //15px
+  --font-size-reg: 1rem; //16px
+  --font-size-sm: 1.13rem; //18px
 
   //FONT-WEIGHT
   --font-weight-reg: 400;
@@ -177,8 +177,10 @@ button{
   border: none;
   outline: none;
   background-color: transparent;
+  cursor: pointer;
   font-family: inherit;
   color: var(--foreground);
+  transition: all 0.3s;
 }
 
 h1,h2,h3,h4,h5,h6{

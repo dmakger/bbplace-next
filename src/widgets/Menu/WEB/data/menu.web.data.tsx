@@ -1,9 +1,8 @@
 import { MAIN_PAGES } from "@/config/pages-url.config"
-import { HorizontalIcon } from "@/shared/data/menu/base.menu.data"
+import { HorizontalIcon } from "@/shared/data/icons.data"
 import { IIconVariants, IIcons } from "@/shared/model/icon.model"
-import { FC } from "react"
 
-const ItemsIcon:FC<IIcons>  = ({width = 28, height = 27}) => (
+const ItemsIcon = ({width = 28, height = 27}: IIcons) => (
     <svg width={width} height={height} viewBox="0 0 28 27" fill="none" xmlns="http://www.w3.org/2000/svg">
   <g clip-path="url(#clip0_939_5871)">
     <path d="M3.875 6.75C3.875 6.15326 4.11205 5.58097 4.53401 5.15901C4.95597 4.73705 5.52826 4.5 6.125 4.5H21.875C22.4717 4.5 23.044 4.73705 23.466 5.15901C23.8879 5.58097 24.125 6.15326 24.125 6.75C24.125 7.34674 23.8879 7.91903 23.466 8.34099C23.044 8.76295 22.4717 9 21.875 9H6.125C5.52826 9 4.95597 8.76295 4.53401 8.34099C4.11205 7.91903 3.875 7.34674 3.875 6.75Z" stroke="#28252E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -18,7 +17,7 @@ const ItemsIcon:FC<IIcons>  = ({width = 28, height = 27}) => (
 </svg>
 )
 
-const CompanyIcon:FC<IIcons> = ({width = 30, height = 29}) => (
+const CompanyIcon = ({width = 30, height = 29}: IIcons) => (
     <svg width={width} height={height} viewBox="0 0 30 29" fill="none" xmlns="http://www.w3.org/2000/svg">
   <g clip-path="url(#clip0_939_5004)">
     <path d="M6.5415 20.5417C6.5415 21.1826 6.79612 21.7973 7.24933 22.2505C7.70254 22.7037 8.31723 22.9583 8.95817 22.9583C9.59911 22.9583 10.2138 22.7037 10.667 22.2505C11.1202 21.7973 11.3748 21.1826 11.3748 20.5417C11.3748 19.9007 11.1202 19.286 10.667 18.8328C10.2138 18.3796 9.59911 18.125 8.95817 18.125C8.31723 18.125 7.70254 18.3796 7.24933 18.8328C6.79612 19.286 6.5415 19.9007 6.5415 20.5417Z" stroke="#28252E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -33,21 +32,21 @@ const CompanyIcon:FC<IIcons> = ({width = 30, height = 29}) => (
 </svg>
 )
 
-export const PRODUCTS_ITEM_MENU_DATA: IIconVariants = {
+export const PRODUCTS_ITEM_MENU_WEB_DATA: IIconVariants = {
     id: 1,
     link: MAIN_PAGES.PRODUCTS,
     title: "Товары",
     image: <ItemsIcon/>
 }
 
-export const TENDERS_ITEM_MENU_DATA: IIconVariants = {
+export const TENDERS_ITEM_MENU_WEB_DATA: IIconVariants = {
     id: 2,
     link: MAIN_PAGES.TENDERS,
     title: "Тендеры",
     image: <HorizontalIcon width={27} height={27}/>,
 }
 
-export const COMPANIES_ITEM_MENU_DATA: IIconVariants = {
+export const COMPANIES_ITEM_MENU_WEB_DATA: IIconVariants = {
     id: 3,
     link: MAIN_PAGES.COMPANIES,
     title: "Поставщики",
@@ -56,8 +55,8 @@ export const COMPANIES_ITEM_MENU_DATA: IIconVariants = {
 
 
 // DATA
-export const MENU_DATA: IIconVariants[] = [
-    PRODUCTS_ITEM_MENU_DATA,
-    TENDERS_ITEM_MENU_DATA,
-    COMPANIES_ITEM_MENU_DATA,
+export const MENU_WEB_DATA: IIconVariants[] = [
+    PRODUCTS_ITEM_MENU_WEB_DATA,
+    TENDERS_ITEM_MENU_WEB_DATA,
+    COMPANIES_ITEM_MENU_WEB_DATA,
 ]

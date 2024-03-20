@@ -14,6 +14,17 @@
     }
 }
 
+.menuWebButton{
+    & svg path{
+        transition: all 0.3s; 
+    }
+
+    & svg:hover path {
+        transition: all 0.3s; 
+        stroke: var(--red-1); 
+    }
+}
+
 .menuItemButton{
     gap: 4px;
     & svg path{

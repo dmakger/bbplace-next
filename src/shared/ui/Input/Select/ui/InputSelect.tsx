@@ -19,6 +19,7 @@ interface InputSelectProps {
     className?: string
     classNameTitle?: string
     classNameOptions?: string,
+<<<<<<< HEAD
 }
 
 export function InputSelect({ 
@@ -32,6 +33,12 @@ export function InputSelect({
     classNameTitle,
     classNameOptions
 }: InputSelectProps) {
+=======
+    classNameButton?: string
+}
+
+export default function InputSelect({defaultOption, options, name, onClickOption, className, classNameTitle = '', classNameOptions, classNameButton = ''}: InputSelectProps) {
+>>>>>>> f96f684fd3ef4bf7b0a990ecbe3ec1bb962a6816
     // STATE
     const [showOptions, setShowOptions] = useState(false)
     const [activeOption, setActiveOption] = useState<IOption | undefined>()

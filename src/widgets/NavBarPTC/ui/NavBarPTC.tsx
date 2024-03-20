@@ -8,7 +8,7 @@ import { cls } from "@/shared/lib/classes.lib";
 import { HORIZONTAL_VIEW } from "@/shared/data/menu/base.menu.data";
 import { IMenuItem } from "@/shared/model/menu.model";
 import { IIconVariants } from "@/shared/model/icon.model";
-import { MENU_DATA, PRODUCTS_ITEM_MENU_DATA } from "@/widgets/Menu/WEB";
+import { MENU_WEB_DATA, PRODUCTS_ITEM_MENU_WEB_DATA } from "@/widgets/Menu/WEB";
 
 interface INavBarPTC {
 
@@ -17,7 +17,7 @@ interface INavBarPTC {
 export const NavBarPTC: FC<INavBarPTC> = ({ }) => {
 
     //STATE
-    const [selectedOption, setSelectedOption] = useState<IIconVariants>(PRODUCTS_ITEM_MENU_DATA);
+    const [selectedOption, setSelectedOption] = useState<IIconVariants>(PRODUCTS_ITEM_MENU_WEB_DATA);
 
     const [selectedView, setSelectedView] = useState<IIconVariants>(HORIZONTAL_VIEW)
 
@@ -25,7 +25,7 @@ export const NavBarPTC: FC<INavBarPTC> = ({ }) => {
         <section className={cl.NavBarPTC}>
             <div className={cl.leftContainer}>
                 <div className={cl.navBarPTCItemContainer}>
-                    {MENU_DATA.map(el => (
+                    {MENU_WEB_DATA.map(el => (
                         <button key={el.link} className={cl.navBarItem}>
                             <p
                                 className={cls(cl.switchItem, selectedOption?.link === el.link ? cl.selected : '')}
