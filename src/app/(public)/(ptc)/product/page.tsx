@@ -9,7 +9,8 @@ import { Product } from "@/entities/Product/ui/Product";
 import Wrapper1280 from "@/shared/ui/Wrapper/1280/Wrapper1280";
 
 export default function ProductPage() {
-    const args: IArgsRequest = {page: 13, limit: PRODUCT_LIMIT}
+    // const args: IArgsRequest = {page: 13, limit: PRODUCT_LIMIT}
+    const args: IArgsRequest = {page: 0, limit: PRODUCT_LIMIT}
     const { data: productList, setData: setProductList } = useProductAll(args)
 
     console.log(productList?.findIndex(it => it.id === 151));

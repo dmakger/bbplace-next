@@ -10,7 +10,8 @@ import { IProductProps } from '@/entities/Product/model/props.product.model'
 import { getImage } from '@/shared/lib/image.lib'
 import { ImageAPI } from '@/shared/ui/Image/ImageAPI'
 import { Wholesale } from '@/entities/Metrics/ui/Wholesale/Wholesale'
-import { getParameterByName } from '@/entities/Metrics/lib/metrics.metrics.lib'
+import { getDiapason, getParameterByName } from '@/entities/Metrics/lib/metrics.metrics.lib'
+import { QuantityMetrics } from '@/shared/ui/QuantityMetrics/QuantityMetrics'
 
 interface ProductHProps extends IProductProps {
 
@@ -19,7 +20,8 @@ interface ProductHProps extends IProductProps {
 export const ProductH:FC<ProductHProps> = ({product, className}) => {
     // const image = getImage(product.media.attachments[0])
     console.log(product);
-    getParameterByName('Миллиметры')
+    // const [minPrice, maxPrice] = getDiapason(product.media.wholesalePrices, product.media.priceUnits)
+    // console.log(minPrice, maxPrice);
     
     return (
         <section className={cl.block}>
@@ -41,7 +43,7 @@ export const ProductH:FC<ProductHProps> = ({product, className}) => {
                         </p> */}
 
                         <p className={cl.cardQuantity}>
-                            {/* Мин. Кол-во: <Quantity quantity={product.media.wholesalePrices} /><span>10 кг</span> */}
+                            {/* Мин. Кол-во: <QuantityMetrics quantity={product.media.wholesalePrices} metrics={product.media.priceUnits}/><span>10 кг</span> */}
                             {/* Мин. Кол-во: <Quantity quantity={product.media.wholesalePrices} /><span>10 кг</span> */}
                         </p>
                         <p className={cl.cardSupplier}>
