@@ -30,6 +30,7 @@ export const FilterTendersCatalog = ({
                 width={14}
                 height={12}
                 onClickOption={setApplication}
+                classNameOptions={cl.filterOptions}
             />
         </div>
     )

@@ -6,11 +6,14 @@ import { useCountryAll } from "@/entities/Metrics/hooks/useCountry.hooks"
 import { IOption } from "@/shared/model/option.model"
 import { FilterCompaniesCatalog, FilterProductsCatalog, FilterTendersCatalog, FilterTitleButton } from "../components"
 import { ECatalogVariants } from "@/widgets/SortFilterSidebar"
-import { useCategoryAll } from "@/entities/Metrics/hooks/useCategory.hooks"
-import { getCategoriesAsSelected, getCountriesAsSelected } from "../lib/filter.lib"
+import { getCategoriesAsSelected, getCountriesAsSelected, updateCategoriesAsOptions } from "../lib/filter.lib"
+import { cls } from "@/shared/lib/classes.lib"
+import { useCategoryForFilter } from "@/entities/Product/hooks/useProduct.hooks"
 
 interface IFilter{
     variant: ECatalogVariants,
+    category: IOption,
+    setCategory: Function,
     country: IOption,
     setCountry: Function,
     minOrder: string,
@@ -25,6 +28,8 @@ interface IFilter{
 export const Filter = ({
     variant,
     country,
+    category,
+    setCategory,
     setCountry,
     minOrder,
     setMinOrder,
@@ -45,8 +50,7 @@ export const Filter = ({
 
     //API
     const { data: countries } = useCountryAll()
-    const { data: categories } = useCategoryAll()
-
+    const { data: categories } = variant === ECatalogVariants.COMPANIES ? useCategoryForFilter() : { data: undefined };
     
     //EFFECT
     useEffect(() => {
@@ -54,26 +58,20 @@ export const Filter = ({
     }, [countries])
 
     useEffect(() => {
-        categories && setCategoriesAsOptions(getCategoriesAsSelected(categories))
-        console.log(categoriesAsOptions);
-        
-    }, [categories])
-
+        if (variant === ECatalogVariants.COMPANIES) {
+            categories?.length && updateCategoriesAsOptions(categories, setCategoriesAsOptions);
+        }
+    }, [variant, categories]);
 
 
     useEffect(() => {
         if (inputListRef.current) {
-            if (isFiltersOpen) {
-                inputListRef.current.style.maxHeight = `${inputListRef.current.scrollHeight}px`;
-            } else {
-                inputListRef.current.style.maxHeight = '0';
-            }
+            inputListRef.current.style.maxHeight = isFiltersOpen ? `${inputListRef.current.scrollHeight}px` : '0';
         }
-
     }, [isFiltersOpen]);
 
     return (
-        <article className={cl.Filter}>
+        <article className={cls(cl.Filter, variant !== ECatalogVariants.PRODUCTS && isFiltersOpen ? cl.FilterTenders : '')}>
             <FilterTitleButton
                 isFiltersOpen={isFiltersOpen}
                 setIsFiltersOpen={setIsFiltersOpen}
@@ -99,6 +97,9 @@ export const Filter = ({
 
             {variant === ECatalogVariants.COMPANIES && <FilterCompaniesCatalog
                 isFiltersOpen={isFiltersOpen}
+                categoryDefaultOption={category}
+                categoryListOptions={categoriesAsOptions}
+                categoryOnClickOption={setCategory}
                 countryDefaultOption={country}
                 countryListOptions={countriesAsOptions}
                 countryOnClickOption={setCountry}

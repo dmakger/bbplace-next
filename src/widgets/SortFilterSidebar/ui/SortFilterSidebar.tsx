@@ -3,7 +3,7 @@
 import cl from './_SortFilterSidebar.module.scss'
 import { Button, ButtonVariant } from "@/shared/ui/Button"
 import { Filter } from "@/features/Filter"
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { IOption } from '@/shared/model/option.model'
 import { DEFAULT_APPLICATION_OPTION, DEFAULT_CATEGORY_OPTION, DEFAULT_COUNTRY_OPTION, DEFAULT_STATUS_OPTION } from '@/features/Filter/data/filter.data'
 import { useProductAll } from '@/entities/Product/hooks/useProduct.hooks'
@@ -24,7 +24,7 @@ export const SortFilterSidebar = ({
     const [country, setCountry] = useState<IOption>(DEFAULT_COUNTRY_OPTION)
     const [minOrder, setMinOrder] = useState<string>('')
     const [status, setStatus] = useState<IOption>(DEFAULT_STATUS_OPTION)
-    const [categories, setCategories] = useState<IOption>(DEFAULT_CATEGORY_OPTION)
+    const [category, setCategory] = useState<IOption>(DEFAULT_CATEGORY_OPTION)
     const [application, setApplication] = useState<IOption>(DEFAULT_APPLICATION_OPTION)
     //SORT
     const [sortByDate, setSortByDate] = useState<IOption>(DEFAULT_DATE_SORT)
@@ -50,14 +50,15 @@ export const SortFilterSidebar = ({
     }, [country, minOrder, status, sortByDate, sortByAlphabetical]);
     
 
-    const clearFilters = () => {
+    const clearFilters = useCallback(() => {
         setCountry(DEFAULT_COUNTRY_OPTION)
         setMinOrder('')
         setStatus(DEFAULT_STATUS_OPTION)
         setSortByDate(DEFAULT_DATE_SORT)
         setSortByAlphabetical(DEFAULT_ALPHABETICAL_SORT)
         setApplication(DEFAULT_APPLICATION_OPTION)
-    }
+        setCategory(DEFAULT_CATEGORY_OPTION)
+    },[ ])
 
     const { data: productList, setData: setProductList } = useProductAll({page: 0, limit: 16, filter})
 
@@ -74,6 +75,8 @@ export const SortFilterSidebar = ({
             />}
             <Filter
                 variant={variant}
+                category={category}
+                setCategory={setCategory}
                 country={country}
                 setCountry={setCountry}
                 status={status}

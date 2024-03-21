@@ -8,7 +8,7 @@ export const getCountriesAsSelected = (countries: ICountry[] | undefined) => {
     if (countries === undefined) return result;
 
     let filteredCountries: IOption[] = countries
-        .map((it) => ({
+        .map(it => ({
             id: it.id,
             name: it.name,
         }))
@@ -19,27 +19,24 @@ export const getCountriesAsSelected = (countries: ICountry[] | undefined) => {
 const unsuitableCategories = [0]
 
 
-export const getCategories = (categories: ICategory[]) => {
-    if (categories === undefined)
-        return []
-
-    return categories
-        .filter((category) => !unsuitableCategories.includes(category.id))
-        .sort((a, b) => a.name.localeCompare(b.name))
-}
-
 export const getCategoriesAsSelected = (categories: ICategory[]) => {
     if (categories === undefined) return [];
 
     let filteredCategories: IOption[] = categories
-        .filter((category) => !unsuitableCategories.includes(category.id))
+        .filter(category => !unsuitableCategories.includes(category.id))
         .sort((a, b) => a.name.localeCompare(b.name))
-        .map((category) => ({
+        .map(category => ({
             id: category.id,
             name: category.name,
         }));
 
-    filteredCategories = [{ id: -1, name: 'Любая' }, ...filteredCategories];
+    filteredCategories = [DEFAULT_CATEGORY_OPTION, ...filteredCategories];
 
     return filteredCategories;
 }
+
+export const updateCategoriesAsOptions = async (categories: ICategory[], setCategoriesAsOptions: Function) => {
+    if (categories.length) {
+        await setCategoriesAsOptions(getCategoriesAsSelected(categories));
+    }
+};

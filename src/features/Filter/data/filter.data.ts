@@ -39,12 +39,10 @@ export const STATUS_OPTIONS: IOption[] = [
 
 // ==={ CATEGORY_FILTER }===
 
-
 export const DEFAULT_CATEGORY_OPTION: IOption = { 
     id: -1,
     name: 'Любая'
 }
-
 
 // ==={ APPLICATION_FILTER }===
 

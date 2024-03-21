@@ -38,14 +38,8 @@ export const Sort = ({
         onClickOption: setSortByAlphabetical
     }
 
-    const PRODUCTS_SORT: ICatalogSort[] = [
-        SORT_BY_DATE
-    ]
+    const sorts: ICatalogSort[] = variant === ECatalogVariants.PRODUCTS ? [SORT_BY_DATE] : [SORT_BY_DATE, SORT_BY_ALPHABETICAL];
 
-    const COMPANIES_SORT: ICatalogSort[] = [
-        SORT_BY_DATE,
-        SORT_BY_ALPHABETICAL
-    ]
 
     return (
         <div className={cl.Sort}>
@@ -53,7 +47,7 @@ export const Sort = ({
                 Сортировка
             </h3>
             <div className={cl.sortContainer}>
-                {(variant === ECatalogVariants.PRODUCTS ? PRODUCTS_SORT : COMPANIES_SORT).map(it => (
+                {sorts.map(it => (
                     <SortBy
                         key={it.title}
                         title={it.title}
