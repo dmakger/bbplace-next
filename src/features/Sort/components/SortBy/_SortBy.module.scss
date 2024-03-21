@@ -1,0 +1,10 @@
+.inputsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    h4 {
+        color: #666c71;
+        font-size: var(--font-size-s);
+    }
+}

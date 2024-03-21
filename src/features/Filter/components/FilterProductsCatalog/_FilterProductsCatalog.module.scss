@@ -1,0 +1,44 @@
+.FilterProductsCatalog {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    opacity: 1;
+    transition: all 0.3s;
+}
+
+.withMarginTop {
+    margin-top: 30px;
+}
+
+
+.inputsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    h4 {
+        color: #666c71;
+        font-size: var(--font-size-s);
+    }
+}
+
+.filterOptions {
+    max-height: 250px;
+    overflow-y: scroll;
+}
+
+
+.filterInput {
+    padding: 10px 10px 10px 15px;
+    background-color: var(--gray-3);
+    border-radius: 15px;
+    font-size: var(--font-size-s);
+
+    &::placeholder {
+        color: var(--dark-1);
+    }
+
+    &:hover {
+        background-color: var(--gray-4);
+    }
+}

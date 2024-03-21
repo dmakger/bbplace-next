@@ -1,4 +1,4 @@
-.inputsList {
+.FilterCompaniesCatalog {
     display: flex;
     flex-direction: column;
     gap: 25px;
@@ -6,10 +6,10 @@
     transition: all 0.3s;
 }
 
-
 .withMarginTop {
-    margin-top: 30px;
+    margin-top: 20px;
 }
+
 
 .inputsContainer {
     display: flex;
@@ -22,11 +22,11 @@
     }
 }
 
-
-.countryOptions {
+.filterOptions {
     max-height: 250px;
     overflow-y: scroll;
 }
+
 
 .filterInput {
     padding: 10px 10px 10px 15px;

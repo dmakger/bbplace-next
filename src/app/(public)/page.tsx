@@ -1,9 +1,9 @@
-import { SortFilterSidebar } from "@/widgets/SortFilterSidebar";
+import { ECatalogVariants, SortFilterSidebar } from "@/widgets/SortFilterSidebar";
 
 export default function MainPage() {
     return (
         <div>
-            <SortFilterSidebar/>
+            <SortFilterSidebar variant={ECatalogVariants.TENDERS}/>
         </div>
     )
 }
