@@ -3,7 +3,7 @@ import { DEFAULT_CATEGORY_OPTION, DEFAULT_COUNTRY_OPTION } from "../data/filter.
 import { IOption } from "@/shared/model/option.model";
 import { ICategory } from "@/entities/Metrics/model/category.metrics.model";
 
-export const getCountriesAsSelected = (countries: ICountry[] | undefined) => {
+export const getCountriesAsOption = (countries: ICountry[] | undefined) => {
     const result = [DEFAULT_COUNTRY_OPTION];
     if (countries === undefined) return result;
 
@@ -19,7 +19,7 @@ export const getCountriesAsSelected = (countries: ICountry[] | undefined) => {
 const unsuitableCategories = [0]
 
 
-export const getCategoriesAsSelected = (categories: ICategory[]) => {
+export const getCategoriesAsOption = (categories: ICategory[]) => {
     if (categories === undefined) return [];
 
     let filteredCategories: IOption[] = categories
@@ -37,6 +37,6 @@ export const getCategoriesAsSelected = (categories: ICategory[]) => {
 
 export const updateCategoriesAsOptions = async (categories: ICategory[], setCategoriesAsOptions: Function) => {
     if (categories.length) {
-        await setCategoriesAsOptions(getCategoriesAsSelected(categories));
+        await setCategoriesAsOptions(getCategoriesAsOption(categories));
     }
 };

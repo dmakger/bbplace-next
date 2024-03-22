@@ -32,10 +32,12 @@
 }
 
 .selectedOption{
-    transition: all .3s;
-    outline: none;
-    border-radius: 15px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     font-size: var(--font-size-s);
+    transition: all .3s;
+
     &:hover {
         background-color: var(--gray-4);
     }

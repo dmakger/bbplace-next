@@ -6,17 +6,18 @@ import { Filter } from "@/features/Filter"
 import { useCallback, useEffect, useState } from 'react'
 import { IOption } from '@/shared/model/option.model'
 import { DEFAULT_APPLICATION_OPTION, DEFAULT_CATEGORY_OPTION, DEFAULT_COUNTRY_OPTION, DEFAULT_STATUS_OPTION } from '@/features/Filter/data/filter.data'
-import { useProductAll } from '@/entities/Product/hooks/useProduct.hooks'
 import { DEFAULT_ALPHABETICAL_SORT, DEFAULT_DATE_SORT, Sort } from '@/features/Sort'
 import { ECatalogVariants } from '..'
 
 interface ISortFilterSidebar{
-    variant: ECatalogVariants
+    variant: ECatalogVariants,
+    // setFilter: Function,
 }
 
 
 export const SortFilterSidebar = ({
-    variant
+    variant,
+    // setFilter
 }:ISortFilterSidebar) => {
 
     //STATE
@@ -36,18 +37,24 @@ export const SortFilterSidebar = ({
     useEffect(() => {
         const filterAccum: string[] = [];
 
-        if (sortByDate.id !== -1) filterAccum.push(`SortBy=${sortByDate.value}`);
+        sortByDate.id !== -1 && filterAccum.push(`SortByDate=${sortByDate.value}`);
 
-        if (sortByAlphabetical.id !== -1) filterAccum.push(`SortBy=${sortByAlphabetical.value}`);
+        if(variant === ECatalogVariants.COMPANIES){
+            sortByAlphabetical.id !== -1 && filterAccum.push(`SortByAlphabetical=${sortByAlphabetical.value}`);
+            category.id && filterAccum.push(`CategoryId=${category.id}`);
+        }
 
-        if (country.id) filterAccum.push(`Country=${country.name}`);
+        if(variant !== ECatalogVariants.TENDERS){
+            country.id && filterAccum.push(`Country=${country.name}`);
+            minOrder !== '' && !isNaN(Number(minOrder)) &&  filterAccum.push(`MinOrderQuantity=${minOrder}`);
+        }
+    
+        variant === ECatalogVariants.PRODUCTS && status.id !== -1 && filterAccum.push(`Status=${status.name}`);
 
-        if (status.id !== -1) filterAccum.push(`Status=${status.name}`);
-
-        if (minOrder !== '' && !isNaN(Number(minOrder))) filterAccum.push(`MinOrderQuantity=${minOrder}`);
+        variant === ECatalogVariants.TENDERS && application.name !== '' && filterAccum.push(`filter=${application.id}`)
 
         setFilter(filterAccum.join('&'));
-    }, [country, minOrder, status, sortByDate, sortByAlphabetical]);
+    }, [category, country, minOrder, status, application, sortByDate, sortByAlphabetical]);
     
 
     const clearFilters = useCallback(() => {
@@ -58,11 +65,7 @@ export const SortFilterSidebar = ({
         setSortByAlphabetical(DEFAULT_ALPHABETICAL_SORT)
         setApplication(DEFAULT_APPLICATION_OPTION)
         setCategory(DEFAULT_CATEGORY_OPTION)
-    },[ ])
-
-    const { data: productList, setData: setProductList } = useProductAll({page: 0, limit: 16, filter})
-
-
+    },[ ])    
     
     return (
         <aside className={cl.SortFilterSidebar}>

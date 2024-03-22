@@ -6,7 +6,7 @@ import { useCountryAll } from "@/entities/Metrics/hooks/useCountry.hooks"
 import { IOption } from "@/shared/model/option.model"
 import { FilterCompaniesCatalog, FilterProductsCatalog, FilterTendersCatalog, FilterTitleButton } from "../components"
 import { ECatalogVariants } from "@/widgets/SortFilterSidebar"
-import { getCategoriesAsSelected, getCountriesAsSelected, updateCategoriesAsOptions } from "../lib/filter.lib"
+import { getCountriesAsOption, updateCategoriesAsOptions } from "../lib/filter.lib"
 import { cls } from "@/shared/lib/classes.lib"
 import { useCategoryForFilter } from "@/entities/Product/hooks/useProduct.hooks"
 
@@ -54,7 +54,7 @@ export const Filter = ({
     
     //EFFECT
     useEffect(() => {
-        countries && setCountriesAsOptions(getCountriesAsSelected(countries))
+        countries && setCountriesAsOptions(getCountriesAsOption(countries))
     }, [countries])
 
     useEffect(() => {

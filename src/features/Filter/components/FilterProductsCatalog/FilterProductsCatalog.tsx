@@ -57,7 +57,7 @@ export const FilterProductsCatalog = ({
                 />
             </div>
             <div className={cl.inputsContainer}>
-                <h4>Минимальный заказ</h4>
+                <h4>Минимальный заказ от</h4>
                 <Input.Text
                     defaultValue={minOrderDefaultValue}
                     name="minOrder"
