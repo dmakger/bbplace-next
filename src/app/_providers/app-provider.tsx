@@ -2,9 +2,15 @@
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import { PropsWithChildren, useState } from 'react'
+import { PropsWithChildren, useEffect, useState } from 'react'
+import {Provider} from "react-redux";
+import { Setters } from '@/storage/Setters';
+import { setupStore } from '@/storage';
+
+const store = setupStore()
 
 export function Providers({ children }: PropsWithChildren) {
+	// tanstack
 	const [client] = useState(
 		new QueryClient({
 			defaultOptions: {
@@ -16,9 +22,12 @@ export function Providers({ children }: PropsWithChildren) {
 	)
 
 	return (
-		<QueryClientProvider client={client}>
-			{children}
-			<ReactQueryDevtools initialIsOpen={false} />
-		</QueryClientProvider>
+		<Provider store={store}>
+			<QueryClientProvider client={client}>
+				<Setters />
+				{children}
+				<ReactQueryDevtools initialIsOpen={false} />
+			</QueryClientProvider>
+		</Provider>
 	)
 }

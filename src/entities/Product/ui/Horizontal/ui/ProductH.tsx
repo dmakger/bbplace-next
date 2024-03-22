@@ -12,6 +12,7 @@ import { ImageAPI } from '@/shared/ui/Image/ImageAPI'
 import { Wholesale } from '@/entities/Metrics/ui/Wholesale/Wholesale'
 import { getDiapason, getParameterByName } from '@/entities/Metrics/lib/metrics.metrics.lib'
 import { QuantityMetrics } from '@/shared/ui/QuantityMetrics/QuantityMetrics'
+import { useAppSelector } from '@/storage/hooks'
 
 interface ProductHProps extends IProductProps {
 
@@ -21,7 +22,7 @@ export const ProductH:FC<ProductHProps> = ({product, className}) => {
     // const image = getImage(product.media.attachments[0])
     console.log(product);
     // const [minPrice, maxPrice] = getDiapason(product.media.wholesalePrices, product.media.priceUnits)
-    // console.log(minPrice, maxPrice);
+    // console.log(minPrice, maxPrice);    
     
     return (
         <section className={cl.block}>
