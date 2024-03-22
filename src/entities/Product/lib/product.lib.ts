@@ -34,14 +34,14 @@ export const productToProductAPI = (product: IProduct): IProductAPI => {
 // ============={ PROCESS }================
 export const processProduct = (product: IProduct) => {
     const _product = {...product}
-    const wholesalePricesWMetrics = _product.media.wholesalePrices.filter(it => it.metrics !== undefined)
-    // if (typeof _product.media.priceUnits === "number") {
-    //     _product.media.priceUnits = metricsToObject(_product.media.priceUnits)
-    // }
-    if (wholesalePricesWMetrics.length > 0) {
-        const metrics = wholesalePricesWMetrics[0].metrics
-        _product.media.priceUnits = metricsToObject(metrics)
-    }
+    const wholesalePricesWMetrics = _product.media.wholesalePrices
+    let priceUnits = metricsToObject(_product.media.priceUnits)
+    wholesalePricesWMetrics.map(it => {
+        if (it.metrics === undefined)
+            return priceUnits
+        return metricsToObject(it.metrics)
+    })
+    _product.media.wholesalePrices = wholesalePricesWMetrics
 
     return _product
 }

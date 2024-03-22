@@ -4,12 +4,12 @@ import { useMetricsAll } from "../hooks/useMetrics.hooks";
 import { IMetrics } from "../model/metric.metrics.model"
 import { IWholesale } from "../model/wholesale.metrics.model";
 import { metricsToObject } from "@/entities/Product/lib/product.lib";
+import { useAppSelector } from "@/storage/hooks";
 
 
 export const getMetricsById = (id: number) => {
-    const {data: metricsList} = useMetricsAll()    
-    if (metricsList === undefined) return
-    return metricsList.find(it => it.id === id)!
+    const metrics = useAppSelector(state => state.metrics);
+    return metrics.find(it => it.id === id)
 }
 
 

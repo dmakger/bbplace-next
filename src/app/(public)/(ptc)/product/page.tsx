@@ -16,12 +16,6 @@ export default function ProductPage() {
     const args: IArgsRequest = {page: 0, limit: PRODUCT_LIMIT}
     const { data: productList } = useProductAll(args)
 
-    console.log(productList?.findIndex(it => it.id === 151));
-    
-    const metrics = useAppSelector(state => state.metrics);
-    console.log('metrics', metrics);
-    
-
     return (
         <Wrapper1280>
             {productList?.map(it => (
