@@ -9,8 +9,6 @@ export const MetricsSlice = createSlice({
     initialState,
     reducers: {
         saveMetrics(state, action: PayloadAction<IMetrics[]>) {
-            console.log('save metrics', action.payload);
-            
             state.splice(0, state.length, ...action.payload);
         },
     }

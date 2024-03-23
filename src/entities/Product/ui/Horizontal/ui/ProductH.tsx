@@ -6,8 +6,8 @@ import { SupplierInfo } from '@/shared/ui/SupplierInfo'
 import { additionalInfoOptions } from '../model/horizontalCard.data'
 import { IProductProps } from '@/entities/Product/model/props.product.model'
 import { ImageAPI } from '@/shared/ui/Image/ImageAPI'
-import { Wholesale } from '@/entities/Metrics/ui/Wholesale/Wholesale'
 import { getDiapason, getParameterByName } from '@/entities/Metrics/lib/metrics.metrics.lib'
+import { WholesaleDiapason } from '@/entities/Metrics/ui/Wholesale/Diapason/WholesaleDiapason'
 
 interface ProductHProps extends IProductProps {
 
@@ -16,8 +16,8 @@ interface ProductHProps extends IProductProps {
 export const ProductH:FC<ProductHProps> = ({product, className}) => {
     // const image = getImage(product.media.attachments[0])
     console.log(product);
-    // const [minPrice, maxPrice] = getDiapason(product.media.wholesalePrices)
-    // console.log(minPrice, maxPrice);    
+    const [minWholesale, maxWholesale] = getDiapason(product.media.wholesalePrices)
+    console.log(minWholesale, maxWholesale);    
     
     return (
         <section className={cl.block}>
@@ -32,8 +32,8 @@ export const ProductH:FC<ProductHProps> = ({product, className}) => {
                                 <FavouriteIcon variant={FavouriteIconVariant.EMPTY}/>
                             </div>
                         </div>
-                        <Wholesale wholesales={product.media.wholesalePrices} 
-                                   currency={product.media.currency} className={cl.cardPrice} />
+                        <WholesaleDiapason minWholesale={minWholesale} maxWholesale={maxWholesale}
+                                            currency={product.media.currency} className={cl.cardPrice} />
                         {/* <p className={cl.cardPrice}>
                             305,80 RUB - 9 237 RUB<span> /шт.</span>
                         </p> */}
