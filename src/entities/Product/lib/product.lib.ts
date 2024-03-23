@@ -48,6 +48,7 @@ export const processProduct = (product: IProduct, metrics?: IMetrics[], currency
 // 1. Если в {wholesalePrices}, {metrics} является id-шником, то превращает её в объект {IMetrics}
 // 2. Если в {wholesalePrices} нет {metrics}, то добавляет его как объект {IMetrics}
 // 3. Если {price} строка, то превращает её в {Float}
+// 4. Превращает {currency} из (number | string) в {ICurrency}
 const processProductWholesalePrices = (product: IProduct, metrics?: IMetrics[], currencyList?: ICurrency[]) => {
     const _product = {...product}
     if (!metrics)

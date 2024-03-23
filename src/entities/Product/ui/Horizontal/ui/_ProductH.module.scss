@@ -23,18 +23,6 @@
 }
 
 
-.mainContainer{
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 16px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid var(--gray-5);
-
-    @media (width < 600px) {
-        padding-bottom: 26px;
-    }
-}
 
 .leftContainer {
     & img {
@@ -48,25 +36,13 @@
             height: 145px;
         }
     }
-    // height: 100%;
-    // & img {
-    //     max-width: 100%;
-    //     min-width: 200px;
-    //     border-radius: 3px;
-    //     object-fit: cover;
-
-    //     @media (max-width: 600px) {
-    //         max-width: 145px;
-    //     }
-    // }
-
 }
 
-.rightContainer {
+.right {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    width: 100%;
+    width: calc(100% - 287px);
 }
 
 
@@ -78,12 +54,11 @@
     margin-bottom: 16px;
 }
 
-.favourite {
-
+.favorite {
     display: block;
+
     @media (width < 600px) {
         display: none;
-       
     }
     & img {
         cursor: pointer;
@@ -107,9 +82,9 @@
     text-overflow: ellipsis;   
 }
 
-.cardPrice {
+.price {
     font-weight: var(--font-weight-sb);
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-sm) !important;
     margin-bottom: 10px;
 
     @media (width < 600px) {
@@ -120,12 +95,8 @@
     }
 }
 
-.cardQuantity {
-    font-size: var(--font-size-s);
-
-    & span {
-        font-size: var(--font-size-sreg);
-    }
+.quantityText {
+    font-size: var(--font-size-sreg);
 }
 
 .cardSupplier {

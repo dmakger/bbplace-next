@@ -14,20 +14,20 @@ interface WholesaleDiapasonProps{
     classNameText?: string,
 }
 
-export const WholesaleDiapason:FC<WholesaleDiapasonProps> = ({minWholesale, maxWholesale, currency, className}) => {
+export const WholesaleDiapason:FC<WholesaleDiapasonProps> = ({minWholesale, maxWholesale, currency, className, classNameText}) => {
 
     if (minWholesale === undefined || maxWholesale === undefined)
-        return "По запросу"
+        return <p>По запросу</p>
 
     return (
         <div className={cls(cl.wholesale, className)}>
-            <PriceCurrency price={minWholesale.price} currency={currency}  />
+            <PriceCurrency price={minWholesale.price} currency={currency} classNameText={classNameText} />
             {minWholesale.price !== maxWholesale.price && (
                 <>
                     &nbsp;
-                    <span className={cl.line}>{'-'}</span>
+                    <span className={cls(cl.line, classNameText)}>{'-'}</span>
                     &nbsp;
-                    <PriceCurrency price={maxWholesale.price} currency={currency}  />
+                    <PriceCurrency price={maxWholesale.price} currency={currency} classNameText={classNameText} />
                 </>
             )}
             <span>&nbsp;/{minWholesale.metrics?.shortName}.</span>

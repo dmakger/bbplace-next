@@ -10,8 +10,8 @@ import Wrapper1280 from "@/shared/ui/Wrapper/1280/Wrapper1280";
 import { useAppSelector } from "@/storage/hooks";
 
 export default function ProductPage() {
-    const args: IArgsRequest = {page: 209, limit: 1}
-    // const args: IArgsRequest = {page: 13, limit: PRODUCT_LIMIT}
+    // const args: IArgsRequest = {page: 209, limit: 1}
+    const args: IArgsRequest = {page: 13, limit: PRODUCT_LIMIT}
     // const args: IArgsRequest = {page: 0, limit: PRODUCT_LIMIT}
     const { data: productList } = useProductAll(args)
     const metrics = useAppSelector(state => state.metrics);
