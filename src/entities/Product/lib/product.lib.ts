@@ -1,12 +1,15 @@
+import { ICurrency } from "@/entities/Metrics/model/currency.metrics.model";
 import { ICharacteristic } from "../model/characteristic.product.model";
 import { IMediaProduct } from "../model/media.product.model";
 import { IProduct, IProductAPI } from "../model/product.model";
 import { IMetrics } from "@/entities/Metrics/model/metric.metrics.model";
+import { currencyToObject } from "@/entities/Metrics/lib/currency.metrics.lib";
+import { metricsToObject } from "@/entities/Metrics/lib/metrics/base.metrics.metrics.lib";
 
 
 // PRODUCT API => PRODUCT 
 // Из {IProductAPI} ===> {IProduct}
-export const productApiToProduct = (productAPI: IProductAPI, metrics?: IMetrics[]): IProduct => {
+export const productApiToProduct = (productAPI: IProductAPI, metrics?: IMetrics[], currencyList?: ICurrency[]): IProduct => {
     const media = JSON.parse(productAPI.media) as IMediaProduct
     const characteristics = JSON.parse(productAPI.characteristics) as ICharacteristic
     
@@ -14,7 +17,7 @@ export const productApiToProduct = (productAPI: IProductAPI, metrics?: IMetrics[
         ...productAPI, 
         media, 
         characteristics,
-    }, metrics)
+    }, metrics, currencyList)
 }
 
 
@@ -35,7 +38,7 @@ export const productToProductAPI = (product: IProduct): IProductAPI => {
 
 // ============={ PROCESS }================
 // Обработка
-export const processProduct = (product: IProduct, metrics?: IMetrics[]) => {
+export const processProduct = (product: IProduct, metrics?: IMetrics[], currencyList?: ICurrency[]) => {
     let _product = {...product}
     _product = processProductWholesalePrices(_product, metrics)
     return _product
@@ -45,12 +48,13 @@ export const processProduct = (product: IProduct, metrics?: IMetrics[]) => {
 // 1. Если в {wholesalePrices}, {metrics} является id-шником, то превращает её в объект {IMetrics}
 // 2. Если в {wholesalePrices} нет {metrics}, то добавляет его как объект {IMetrics}
 // 3. Если {price} строка, то превращает её в {Float}
-const processProductWholesalePrices = (product: IProduct, metrics?: IMetrics[]) => {
+const processProductWholesalePrices = (product: IProduct, metrics?: IMetrics[], currencyList?: ICurrency[]) => {
     const _product = {...product}
     if (!metrics)
         return _product
     let wholesalePricesWMetrics = [..._product.media.wholesalePrices]
     let priceUnits = metricsToObject(_product.media.priceUnits, metrics)
+    let currency = currencyToObject(_product.media.currency, currencyList)
     wholesalePricesWMetrics = wholesalePricesWMetrics.map(it => {
         const price = typeof it.price === 'string' ? parseFloat(it.price) : it.price
         const ans = {...it, price: price}
@@ -62,13 +66,8 @@ const processProductWholesalePrices = (product: IProduct, metrics?: IMetrics[]) 
         ..._product,
         media: {
             ..._product.media,
+            priceUnits, currency,
             wholesalePrices: wholesalePricesWMetrics,
         }
     }
-}
-
-// ИЗ {IMetrics | number | undefined} ==> {IMetrics | undefined}
-export const metricsToObject = (metrics: IMediaProduct["priceUnits"], allMetrics: IMetrics[]) => {    
-    if (typeof metrics !== "number") return metrics
-    return allMetrics.find(it => it.id === metrics)
 }

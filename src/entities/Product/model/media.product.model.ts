@@ -7,8 +7,9 @@ export type IMediaProduct = {
     attachments: string[]
     color: string
     article: string
-    currency?: ICurrency | string
-    priceUnits?: IMetrics | number,
+    // currency?: ICurrency | string | number
+    currency?: ICurrency
+    priceUnits?: IMetrics,
     wholesalePrices: IWholesale[]
     sizes: ISize[]
 }

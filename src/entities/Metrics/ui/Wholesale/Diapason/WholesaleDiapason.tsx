@@ -9,7 +9,7 @@ import { ICurrency } from "../../../model/currency.metrics.model";
 interface WholesaleDiapasonProps{
     minWholesale?: IWholesale
     maxWholesale?: IWholesale
-    currency?: string | ICurrency
+    currency?: ICurrency
     className?: string,
     classNameText?: string,
 }
@@ -30,6 +30,7 @@ export const WholesaleDiapason:FC<WholesaleDiapasonProps> = ({minWholesale, maxW
                     <PriceCurrency price={maxWholesale.price} currency={currency}  />
                 </>
             )}
+            <span>&nbsp;/{minWholesale.metrics?.shortName}.</span>
         </div>
     )
 }

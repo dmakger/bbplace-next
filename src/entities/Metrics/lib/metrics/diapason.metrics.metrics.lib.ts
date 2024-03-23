@@ -1,7 +1,9 @@
-import { EParameters, PARAMETERS_TO_DATA } from "../data/metrics.metrics.data"
-import { IMetrics, IPriceToMin } from "../model/metric.metrics.model";
-import { IWholesale } from "../model/wholesale.metrics.model";
+import { EParameters, PARAMETERS_TO_DATA } from "../../data/metrics.metrics.data"
+import { IMetrics, IPriceToMin } from "../../model/metric.metrics.model";
+import { IWholesale } from "../../model/wholesale.metrics.model";
 
+
+// 
 export const getDiapason = (wholesales: IWholesale[]) => {
     let min: IWholesale | undefined
     let max: IWholesale | undefined

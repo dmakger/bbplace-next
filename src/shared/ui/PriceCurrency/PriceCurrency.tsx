@@ -20,7 +20,8 @@ export const PriceCurrency:FC<PriceCurrencyProps> = ({price, currency, className
                 <>
                     &nbsp;
                     <span className={cl.currency}>
-                        {getCurrency(typeof currency === "string" ? currency : currency.code)}
+                        {/* {getCurrency(typeof currency === "string" ? currency : currency.code)} */}
+                        {typeof currency === "string" ? currency : currency.code}
                     </span>
                 </>
             )}

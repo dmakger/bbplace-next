@@ -6,8 +6,9 @@ import { SupplierInfo } from '@/shared/ui/SupplierInfo'
 import { additionalInfoOptions } from '../model/horizontalCard.data'
 import { IProductProps } from '@/entities/Product/model/props.product.model'
 import { ImageAPI } from '@/shared/ui/Image/ImageAPI'
-import { getDiapason, getParameterByName } from '@/entities/Metrics/lib/metrics.metrics.lib'
+import { getDiapason, getParameterByName } from '@/entities/Metrics/lib/metrics/diapason.metrics.metrics.lib'
 import { WholesaleDiapason } from '@/entities/Metrics/ui/Wholesale/Diapason/WholesaleDiapason'
+import { QuantityMetrics } from '@/shared/ui/QuantityMetrics/QuantityMetrics'
 
 interface ProductHProps extends IProductProps {
 
@@ -34,12 +35,8 @@ export const ProductH:FC<ProductHProps> = ({product, className}) => {
                         </div>
                         <WholesaleDiapason minWholesale={minWholesale} maxWholesale={maxWholesale}
                                             currency={product.media.currency} className={cl.cardPrice} />
-                        {/* <p className={cl.cardPrice}>
-                            305,80 RUB - 9 237 RUB<span> /шт.</span>
-                        </p> */}
-
                         <p className={cl.cardQuantity}>
-                            {/* Мин. Кол-во: <QuantityMetrics quantity={product.media.wholesalePrices} metrics={product.media.priceUnits}/><span>10 кг</span> */}
+                            Мин. Кол-во: <QuantityMetrics wholesale={minWholesale}/>
                             {/* Мин. Кол-во: <Quantity quantity={product.media.wholesalePrices} /><span>10 кг</span> */}
                         </p>
                         <p className={cl.cardSupplier}>
