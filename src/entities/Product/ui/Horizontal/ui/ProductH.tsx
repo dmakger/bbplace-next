@@ -1,18 +1,13 @@
-import Image from 'next/image'
 import cl from './_ProductH.module.scss'
-import productImage from '@/shared/assets/img/productImage.jpg'
 import { Button, ButtonVariant } from '@/shared/ui/Button'
 import { FC } from 'react'
 import { FavouriteIcon, FavouriteIconVariant, SubscribeIcon } from '@/shared/ui/Icon/index'
 import { SupplierInfo } from '@/shared/ui/SupplierInfo'
 import { additionalInfoOptions } from '../model/horizontalCard.data'
 import { IProductProps } from '@/entities/Product/model/props.product.model'
-import { getImage } from '@/shared/lib/image.lib'
 import { ImageAPI } from '@/shared/ui/Image/ImageAPI'
 import { Wholesale } from '@/entities/Metrics/ui/Wholesale/Wholesale'
 import { getDiapason, getParameterByName } from '@/entities/Metrics/lib/metrics.metrics.lib'
-import { QuantityMetrics } from '@/shared/ui/QuantityMetrics/QuantityMetrics'
-import { useAppSelector } from '@/storage/hooks'
 
 interface ProductHProps extends IProductProps {
 
@@ -21,7 +16,7 @@ interface ProductHProps extends IProductProps {
 export const ProductH:FC<ProductHProps> = ({product, className}) => {
     // const image = getImage(product.media.attachments[0])
     console.log(product);
-    // const [minPrice, maxPrice] = getDiapason(product.media.wholesalePrices, product.media.priceUnits)
+    // const [minPrice, maxPrice] = getDiapason(product.media.wholesalePrices)
     // console.log(minPrice, maxPrice);    
     
     return (
