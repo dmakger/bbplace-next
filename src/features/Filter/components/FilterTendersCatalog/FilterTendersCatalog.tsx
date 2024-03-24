@@ -1,9 +1,9 @@
 import { IOption } from '@/shared/model/option.model'
 import { APPLICATION_OPTIONS } from '../../data/filter.data'
 import cl from './_FilterTendersCatalog.module.scss'
-import Input from '@/shared/ui/Input/Input'
 import { cls } from '@/shared/lib/classes.lib'
 import { RefObject } from 'react'
+import { FilterStatusOrApplicationInput } from '../FilterInputs'
 
 interface IFilterTendersCatalog {
     isFiltersOpen: boolean,
@@ -22,15 +22,11 @@ export const FilterTendersCatalog = ({
 
     return (
         <div ref={inputListRef} className={cls(cl.FilterTendersCatalog, isFiltersOpen ? cl.withMarginTop : '')}>
-            <h4>Тип заявки</h4>
-            <Input.Select
-                name="selectStatus"
-                options={APPLICATION_OPTIONS}
+            <FilterStatusOrApplicationInput
+                title='Тип заявки'
                 defaultOption={application}
-                width={14}
-                height={12}
+                listOptions={APPLICATION_OPTIONS}
                 onClickOption={setApplication}
-                classNameOptions={cl.filterOptions}
             />
         </div>
     )

@@ -1,22 +1,9 @@
 .FilterTendersCatalog {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
     opacity: 1;
     transition: all 0.3s;
-
-    h4 {
-        color: #666c71;
-        font-size: var(--font-size-s);
-    }
 }
 
 .withMarginTop {
     margin-top: 20px;
-}
-
-
-.filterOptions {
-    max-height: 250px;
 }
 

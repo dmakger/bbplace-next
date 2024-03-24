@@ -8,6 +8,7 @@ import { IOption } from '@/shared/model/option.model'
 import { DEFAULT_APPLICATION_OPTION, DEFAULT_CATEGORY_OPTION, DEFAULT_COUNTRY_OPTION, DEFAULT_STATUS_OPTION } from '@/features/Filter/data/filter.data'
 import { DEFAULT_ALPHABETICAL_SORT, DEFAULT_DATE_SORT, Sort } from '@/features/Sort'
 import { ECatalogVariants } from '..'
+import { useDebounce } from '@/shared/hooks/useDebounce.hooks'
 
 interface ISortFilterSidebar{
     variant: ECatalogVariants,
@@ -33,6 +34,8 @@ export const SortFilterSidebar = ({
 
     const [filter, setFilter] = useState<string>('')
 
+    const minOrderDebouncedValue = useDebounce(minOrder)    
+
     //EFFECT
     useEffect(() => {
         const filterAccum: string[] = [];
@@ -46,7 +49,7 @@ export const SortFilterSidebar = ({
 
         if(variant !== ECatalogVariants.TENDERS){
             country.id && filterAccum.push(`Country=${country.name}`);
-            minOrder !== '' && !isNaN(Number(minOrder)) &&  filterAccum.push(`MinOrderQuantity=${minOrder}`);
+            minOrderDebouncedValue !== '' && !isNaN(Number(minOrderDebouncedValue)) && filterAccum.push(`MinOrderQuantity=${minOrderDebouncedValue}`);
         }
     
         variant === ECatalogVariants.PRODUCTS && status.id !== -1 && filterAccum.push(`Status=${status.name}`);
@@ -54,9 +57,9 @@ export const SortFilterSidebar = ({
         variant === ECatalogVariants.TENDERS && application.name !== '' && filterAccum.push(`filter=${application.id}`)
 
         setFilter(filterAccum.join('&'));
-    }, [category, country, minOrder, status, application, sortByDate, sortByAlphabetical]);
-    
 
+    }, [category, country, minOrderDebouncedValue, status, application, sortByDate, sortByAlphabetical]);
+    
     const clearFilters = useCallback(() => {
         setCountry(DEFAULT_COUNTRY_OPTION)
         setMinOrder('')
@@ -65,7 +68,10 @@ export const SortFilterSidebar = ({
         setSortByAlphabetical(DEFAULT_ALPHABETICAL_SORT)
         setApplication(DEFAULT_APPLICATION_OPTION)
         setCategory(DEFAULT_CATEGORY_OPTION)
-    },[ ])    
+    },[])    
+
+console.log(filter);
+
     
     return (
         <aside className={cl.SortFilterSidebar}>
@@ -84,7 +90,7 @@ export const SortFilterSidebar = ({
                 setCountry={setCountry}
                 status={status}
                 setStatus={setStatus}
-                minOrder={minOrder}
+                minOrder={minOrderDebouncedValue}
                 setMinOrder={setMinOrder}
                 setFilter={setFilter}
                 application={application}

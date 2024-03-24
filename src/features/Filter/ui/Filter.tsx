@@ -59,7 +59,7 @@ export const Filter = ({
 
     useEffect(() => {
         if (variant === ECatalogVariants.COMPANIES) {
-            categories?.length && updateCategoriesAsOptions(categories, setCategoriesAsOptions);
+            categories && categories.length && updateCategoriesAsOptions(categories, setCategoriesAsOptions);
         }
     }, [variant, categories]);
 
