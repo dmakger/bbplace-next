@@ -25,19 +25,15 @@
 }
 
 .empty-icon{
-    width: 57px;
+    width: 31px;
     height: 31px;
     background-color: var(--gray-3);
     transition: all 0.3s;
     &:hover{
-        width: 31px;
         transition: all 0.3s;
     }
 }
 
-.emptyIconSubscribed{
-    width: 31px;
-}
 
 .w-text-clear{
     gap: 10px;

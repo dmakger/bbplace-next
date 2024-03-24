@@ -20,7 +20,7 @@ interface InputSelectProps {
     classNameButton?: string
 }
 
-export default function InputSelect({defaultOption, options, name, onClickOption, className, classNameTitle = '', classNameOptions, classNameButton = ''}: InputSelectProps) {
+export function InputSelect({defaultOption, options, name, onClickOption, className, classNameTitle = '', classNameOptions, classNameButton = ''}: InputSelectProps) {
     // STATE
     const [showOptions, setShowOptions] = useState(false)
     const [activeOption, setActiveOption] = useState<IOption | undefined>()

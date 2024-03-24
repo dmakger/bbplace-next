@@ -1,20 +1,27 @@
 import { FC } from 'react'
 import cl from './_SupplierInfo.module.scss'
+import { cls } from '@/shared/lib/classes.lib'
 
 interface ISupplierInfo{
     name?: string,
     status?: string,
-    country?: string
+    country?: string,
+    tendersCard?: boolean
 }
 
 
-export const SupplierInfo:FC<ISupplierInfo> = ({name, status, country}) => {
+export const SupplierInfo: FC<ISupplierInfo> = ({
+    name,
+    status,
+    country,
+    tendersCard = false
+}) => {
     return (
-        <div className={cl.supplierInfo}>
+        <div className={cls(cl.supplierInfo, tendersCard ? cl.tendersCard : '')}>
             <p className={cl.supplierName}>
                 ТОО «Standard Mittal»ТОО asdasdadsdsdsd
             </p>
-            <div className={cl.bottomBlock}>
+            {!tendersCard && <div className={cl.bottomBlock}>
                 <span className={cl.supplierStatus}>
                     Verified
                 </span>
@@ -24,7 +31,7 @@ export const SupplierInfo:FC<ISupplierInfo> = ({name, status, country}) => {
                 <span>
                     Россия
                 </span>
-            </div>
+            </div>}
         </div>
     )
 }

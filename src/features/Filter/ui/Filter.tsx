@@ -1,7 +1,7 @@
 'use client'
 
 import { FC, useState } from "react"
-import { cls } from "@/shared/lib/classes.data"
+import { cls } from "@/shared/lib/classes.lib"
 import cl from './_Filter.module.scss'
 import Image from "next/image"
 
