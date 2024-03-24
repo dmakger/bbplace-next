@@ -40,7 +40,7 @@ export const SortFilterSidebar = ({
     useEffect(() => {
         const filterAccum: string[] = [];
 
-        sortByDate.id !== -1 && filterAccum.push(`SortByDate=${sortByDate.value}`);
+        sortByDate.id !== -1 && filterAccum.push(`SortBy${variant === ECatalogVariants.COMPANIES ? 'Date' : ''}=${sortByDate.value}`);
 
         if(variant === ECatalogVariants.COMPANIES){
             sortByAlphabetical.id !== -1 && filterAccum.push(`SortByAlphabetical=${sortByAlphabetical.value}`);
@@ -58,7 +58,7 @@ export const SortFilterSidebar = ({
 
         setFilter(filterAccum.join('&'));
 
-    }, [category, country, minOrderDebouncedValue, status, application, sortByDate, sortByAlphabetical]);
+    }, [variant, category, country, minOrderDebouncedValue, status, application, sortByDate, sortByAlphabetical]);
     
     const clearFilters = useCallback(() => {
         setCountry(DEFAULT_COUNTRY_OPTION)
@@ -69,8 +69,6 @@ export const SortFilterSidebar = ({
         setApplication(DEFAULT_APPLICATION_OPTION)
         setCategory(DEFAULT_CATEGORY_OPTION)
     },[])    
-
-console.log(filter);
 
     
     return (
@@ -90,7 +88,7 @@ console.log(filter);
                 setCountry={setCountry}
                 status={status}
                 setStatus={setStatus}
-                minOrder={minOrderDebouncedValue}
+                minOrder={minOrder}
                 setMinOrder={setMinOrder}
                 setFilter={setFilter}
                 application={application}

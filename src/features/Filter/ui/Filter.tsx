@@ -71,7 +71,7 @@ export const Filter = ({
     }, [isFiltersOpen]);
 
     return (
-        <article className={cls(cl.Filter, variant !== ECatalogVariants.PRODUCTS && isFiltersOpen ? cl.FilterTenders : '')}>
+        <article className={cls(cl.Filter, isFiltersOpen ? cl.overflowVisible : '')}>
             <FilterTitleButton
                 isFiltersOpen={isFiltersOpen}
                 setIsFiltersOpen={setIsFiltersOpen}
