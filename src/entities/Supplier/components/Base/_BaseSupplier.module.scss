@@ -1,0 +1,21 @@
+.block {
+    display: flex;
+    gap: 15px;
+
+    .image {
+        width: 40px;
+        height: 40px;
+        border-radius: 20px;
+        border: 1px solid var(--gray-5);
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        .name {
+            font-size: 1rem;
+        }
+    }
+}

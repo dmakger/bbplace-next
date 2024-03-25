@@ -1,6 +1,8 @@
+'use client'
+
 import cl from './_ProductH.module.scss'
 import { Button, ButtonVariant } from '@/shared/ui/Button'
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { FavouriteIcon, FavouriteIconVariant, SubscribeIcon } from '@/shared/ui/Icon/index'
 import { SupplierInfo } from '@/shared/ui/SupplierInfo'
 import { IProductProps } from '@/entities/Product/model/props.product.model'
@@ -9,16 +11,31 @@ import { getDiapason, getParameterByName } from '@/entities/Metrics/lib/metrics/
 import { WholesaleDiapason } from '@/entities/Metrics/ui/Wholesale/Diapason/WholesaleDiapason'
 import { QuantityMetrics } from '@/shared/ui/QuantityMetrics/QuantityMetrics'
 import { HeadingToTextProductTable } from '@/widgets/Product/Table/HeadingToText/ui/HeadingToTextProductTable'
+import { SupplierDefault } from '@/entities/Supplier/ui/Default/SupplierDefault'
+import { getSupplier } from '@/entities/Supplier/lib/getters.supplier.lib'
+import { ISupplier } from '@/entities/Supplier/model/supplier.model'
+import { supplierApiToSupplier } from '@/entities/Supplier/lib/process.supplier.lib'
+import { useAuthUserData } from '@/entities/Auth/hooks/useAuth.hooks'
 
 interface ProductHProps extends IProductProps {
 
 }
 
 export const ProductH:FC<ProductHProps> = ({product, className}) => {
-    // const image = getImage(product.media.attachments[0])
-    console.log(product);
+    // STATE
+    const [supplier, setSupplier] = useState<ISupplier>()
+    const {data: supplierApi} = useAuthUserData(product.ownerId!)
+    console.log('supplier Api', supplierApi, product.ownerId);
+
+    // VARS
     const [minWholesale, maxWholesale] = getDiapason(product.media.wholesalePrices)
     
+    // EFFECT
+    useEffect(() => {
+        setSupplier(supplierApiToSupplier(supplierApi))
+    }, [supplierApi])
+
+    console.log(product);
     return (
         <section className={cl.block}>
             <div className={cl.leftContainer}>
@@ -46,6 +63,10 @@ export const ProductH:FC<ProductHProps> = ({product, className}) => {
                         <HeadingToTextProductTable product={product} />
                     </div>
                     <div className={cl.buttonContainer}>
+                        {/* <SupplierDefault id={product.ownerId} /> */}
+                        {supplier &&
+                            <SupplierDefault supplier={supplier} />
+                        }
                         <div className={cl.leftBlock}>
                             <SupplierInfo />
                             <SubscribeIcon  />

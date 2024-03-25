@@ -18,13 +18,13 @@ export const HeadingToTextTable:FC<HeadingToTextTableProps> = ({data, isShort=fa
     return (
         <div className={cls(cl.block, isShort ? cl.short : '', className)}>
             <div className={cl.column}>
-                {headingTable.map(heading => (
-                    <span className={cls(cl.heading, cl.span, classNameHeadingItem)}>{heading} :</span>
+                {headingTable.map((heading, index) => (
+                    <span className={cls(cl.heading, cl.span, classNameHeadingItem)} key={index}>{heading} :</span>
                 ))}
             </div>
             <div className={cls(cl.column, cl.right)}>
-                {textTable.map(text => (
-                    <span className={cls(cl.text, cl.span)}>{text}</span>
+                {textTable.map((text, index) => (
+                    <span className={cls(cl.text, cl.span)} key={index}>{text}</span>
                 ))}
             </div>
         </div>
