@@ -1,0 +1,46 @@
+.TenderCard {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    max-width: var(--max-width-2);
+    background-color: var(--white);
+    border-radius: 15px;
+    border-bottom: 1px solid var(--gray-5);
+    padding: 16px;
+
+    .topContainer {
+        display: flex;
+        justify-content: space-between;
+
+        .info {
+            display: flex;
+            gap: 20px;
+        }
+    }
+
+    .middleContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        .cardTitle {
+            font-weight: var(--font-weight-reg);
+            font-size: var(--font-size-sm);
+        }
+    }
+
+
+    .bottomContainer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .supplierBlock{
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+    }
+
+
+}

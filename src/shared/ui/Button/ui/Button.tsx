@@ -2,6 +2,7 @@
 import React, {ReactNode} from 'react'
 import cl from './_Button.module.scss'
 import { ButtonVariant } from '..'
+import { WhiteArrowIcon } from '@/shared/data/icons.data'
 
 interface IButton {
     children: ReactNode
@@ -34,9 +35,7 @@ export const Button = ({ children,
                     <span className={`${cl.buttonText} ${cl[classNameText]}`}>
                         {children}
                     </span>}
-                {variant === ButtonVariant.W_ARROW_RED ? <svg width="40" height="45" viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M25.7071 18.7071C26.0976 18.3166 26.0976 17.6834 25.7071 17.2929L19.3431 10.9289C18.9526 10.5384 18.3195 10.5384 17.9289 10.9289C17.5384 11.3195 17.5384 11.9526 17.9289 12.3431L23.5858 18L17.9289 23.6569C17.5384 24.0474 17.5384 24.6805 17.9289 25.0711C18.3195 25.4616 18.9526 25.4616 19.3431 25.0711L25.7071 18.7071ZM10 19L25 19L25 17L10 17L10 19Z" fill="white" />
-                </svg> : null}
+                {variant === ButtonVariant.W_ARROW_RED && <WhiteArrowIcon/> }
             </button>
         </div>
     )

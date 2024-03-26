@@ -1,9 +1,9 @@
-import { TenderCard } from "@/entities/Tenders";
+import { TenderCard } from "@/entities/Tender";
 
 export default function MainPage() {
     return (
         <div>
-            <TenderCard/>
+            <TenderCard categoryId={23}/>
         </div>
     )
 }

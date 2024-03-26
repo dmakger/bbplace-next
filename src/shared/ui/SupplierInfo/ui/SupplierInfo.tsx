@@ -6,7 +6,7 @@ interface ISupplierInfo{
     name?: string,
     status?: string,
     country?: string,
-    tendersCard?: boolean
+    isVerified?: boolean
 }
 
 
@@ -14,14 +14,14 @@ export const SupplierInfo: FC<ISupplierInfo> = ({
     name,
     status,
     country,
-    tendersCard = false
+    isVerified = false
 }) => {
     return (
-        <div className={cls(cl.supplierInfo, tendersCard ? cl.tendersCard : '')}>
+        <div className={cls(cl.supplierInfo, isVerified ? cl.isVerified : '')}>
             <p className={cl.supplierName}>
                 ТОО «Standard Mittal»ТОО asdasdadsdsdsd
             </p>
-            {!tendersCard && <div className={cl.bottomBlock}>
+            {isVerified && <div className={cl.bottomBlock}>
                 <span className={cl.supplierStatus}>
                     Verified
                 </span>
