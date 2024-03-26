@@ -7,11 +7,12 @@ import { SupplierInfo } from "@/shared/ui/SupplierInfo"
 import { Button, ButtonVariant } from "@/shared/ui/Button"
 import CategoryItem from "@/entities/Metrics/ui/Category/Item/CategoryItem"
 import { TenderType } from "./TenderType/TenderType"
-import { ETenderType, IPurchaseTender, ISaleTender } from "../model/tender.model"
+import { IPurchaseTender, ISaleTender } from "../model/tender.model"
 import { useRouter } from "next/navigation"
 import { useCategoryAll } from "@/entities/Metrics/hooks/useCategory.hooks"
 import { useEffect, useState } from "react"
 import { ICategory } from "@/entities/Metrics/model/category.metrics.model"
+import { getStatusTender } from "../lib/tender.lib"
 
 interface ITenderCard extends ISaleTender, IPurchaseTender{
     className?: string
@@ -50,6 +51,7 @@ export const TenderCard = ({
         categories && setTenderCategory(categories.find(category => category.id === categoryId) || {id: 1, name: 'Любая'})
     }, [categories])
 
+
     //NAVIGATE
     const {push} = useRouter()
 
@@ -65,7 +67,7 @@ export const TenderCard = ({
         <section className={cls(cl.TenderCard, className)}>
             <div className={cl.topContainer}>
                 <div className={cl.info}>
-                    <TenderType tenderType={maximumBudget !== undefined ? ETenderType.PURCHASE : ETenderType.SALE}/>
+                    <TenderType tenderType={getStatusTender(maximumBudget)}/>
                     <CategoryItem category={tenderCategory}/>
                 </div>
                 <FavouriteIcon variant={FavouriteIconVariant.IN_CIRCLE_HEART}/>
@@ -78,13 +80,26 @@ export const TenderCard = ({
             <div className={cl.bottomContainer}>
                 <div className={cl.supplierBlock}>
                     <SupplierInfo isVerified={false}/>
-                    <Button variant={ButtonVariant.BORDERED_RED_WIDE} onClick={goToTheChatWSupplier}>
-                        Связаться с поставщиком
+                    <div className={cl.desktop}>
+                        <Button variant={ButtonVariant.BORDERED_RED_WIDE} onClick={goToTheChatWSupplier}>
+                            Связаться с поставщиком
+                        </Button>
+                    </div>
+                    <p className={cl.createdAt}>
+                        08.01.2023
+                    </p>
+                </div>
+                <div className={cl.desktop}>
+                    <Button variant={ButtonVariant.W_ARROW_RED} onClick={() => goToTheTender(id)}>
+                        В тендер
                     </Button>
                 </div>
-                <Button variant={ButtonVariant.W_ARROW_RED} onClick={() => goToTheTender(id)}>
-                    В тендер
-                </Button>
+                <div className={cl.mobileBottom}>
+                    <FavouriteIcon variant={FavouriteIconVariant.IN_CIRCLE_HEART} classNameIcon={cl.inCircleHeartTender}/>
+                    <Button variant={ButtonVariant.BORDERED_RED_NARROW} onClick={goToTheChatWSupplier}>
+                            Написать
+                    </Button>
+                </div>
             </div>
         </section>
     )
