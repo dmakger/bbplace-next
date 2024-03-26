@@ -25,7 +25,7 @@ export const SupplierDefault:FC<SupplierDefaultProps> = ({supplier, className}) 
     // // const _supplier = supplier as
     return (
         <div className={cls(className)}>
-            <BaseSupplier supplier={supplier} hasImage={true} />
+            <BaseSupplier supplier={supplier} hasImage={true} classNameName={cl.name} />
         </div>
     )
 }

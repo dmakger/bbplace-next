@@ -21,7 +21,7 @@ export default function ProductPage() {
         <Wrapper1280>
             {productList?.map(it => (
                 <Product view={EViewProduct.HORIZONTAL} 
-                         product={productApiToProduct(it, metrics, currencyList)} 
+                         product={productApiToProduct({it, metrics, currencyList})} 
                          key={it.id}/>
             ))}
         </Wrapper1280>

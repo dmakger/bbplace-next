@@ -1,6 +1,6 @@
 import { useAuthUserData } from "@/entities/Auth/hooks/useAuth.hooks";
 import { ISupplier, ISupplierAPI } from "../model/supplier.model";
-import { isSupplier } from "./boolean.supplier.lib copy";
+import { isSupplier } from "./boolean.supplier.lib";
 import { supplierApiToSupplier } from "./process.supplier.lib";
 
 export const getSupplier = (id?: ISupplier['id'] | null, supplier?: ISupplier | ISupplierAPI) => {

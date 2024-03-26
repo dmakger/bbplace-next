@@ -5,11 +5,12 @@ import { IProduct, IProductAPI } from "../model/product.model";
 import { IMetrics } from "@/entities/Metrics/model/metric.metrics.model";
 import { currencyToObject } from "@/entities/Metrics/lib/currency.metrics.lib";
 import { metricsToObject } from "@/entities/Metrics/lib/metrics/base.metrics.metrics.lib";
+import { IProcessProductProps } from "../model/props.product.model";
 
 
 // PRODUCT API => PRODUCT 
 // Из {IProductAPI} ===> {IProduct}
-export const productApiToProduct = (productAPI: IProductAPI, metrics?: IMetrics[], currencyList?: ICurrency[]): IProduct => {
+export const productApiToProduct = ({productAPI, metrics, currencyList, hasSupplier}: IProcessProductProps): IProduct => {
     const media = JSON.parse(productAPI.media) as IMediaProduct
     const characteristics = JSON.parse(productAPI.characteristics) as ICharacteristic
     
@@ -40,7 +41,7 @@ export const productToProductAPI = (product: IProduct): IProductAPI => {
 // Обработка
 export const processProduct = (product: IProduct, metrics?: IMetrics[], currencyList?: ICurrency[]) => {
     let _product = {...product}
-    _product = processProductWholesalePrices(_product, metrics)
+    _product = processProductWholesalePrices(_product, metrics, currencyList)
     return _product
 }
 
