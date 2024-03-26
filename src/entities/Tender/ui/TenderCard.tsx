@@ -7,12 +7,12 @@ import { SupplierInfo } from "@/shared/ui/SupplierInfo"
 import { Button, ButtonVariant } from "@/shared/ui/Button"
 import CategoryItem from "@/entities/Metrics/ui/Category/Item/CategoryItem"
 import { TenderType } from "./TenderType/TenderType"
-import { IPurchaseTender, ISaleTender } from "../model/tender.model"
+import { ETenderType, IPurchaseTender, ISaleTender } from "../model/tender.model"
 import { useRouter } from "next/navigation"
 import { useCategoryAll } from "@/entities/Metrics/hooks/useCategory.hooks"
 import { useEffect, useState } from "react"
 import { ICategory } from "@/entities/Metrics/model/category.metrics.model"
-import { getStatusTender } from "../lib/tender.lib"
+import { getTenderType } from "../lib/tender.lib"
 
 interface ITenderCard extends ISaleTender, IPurchaseTender{
     className?: string
@@ -41,15 +41,21 @@ export const TenderCard = ({
 }: ITenderCard ) => {
 
     //STATE
-    const [tenderCategory, setTenderCategory] = useState<ICategory>({id: 1, name: 'Любая'})
+    const [tenderCategory, setTenderCategory] = useState<ICategory>()
+    const [tenderType, setTenderType] = useState<ETenderType>()
 
     //API
     const {data: categories} = useCategoryAll()
 
     //EFFECT
     useEffect(() => {
-        categories && setTenderCategory(categories.find(category => category.id === categoryId) || {id: 1, name: 'Любая'})
+        categories && setTenderCategory(categories.find(category => category.id === categoryId))
     }, [categories])
+
+    useEffect(() => {
+      setTenderType(getTenderType(maximumBudget))
+    }, [])
+    
 
 
     //NAVIGATE
@@ -67,8 +73,8 @@ export const TenderCard = ({
         <section className={cls(cl.TenderCard, className)}>
             <div className={cl.topContainer}>
                 <div className={cl.info}>
-                    <TenderType tenderType={getStatusTender(maximumBudget)}/>
-                    <CategoryItem category={tenderCategory}/>
+                    {tenderType && <TenderType tenderType={tenderType}/>}
+                    {tenderCategory && <CategoryItem category={tenderCategory}/>}
                 </div>
                 <FavouriteIcon variant={FavouriteIconVariant.IN_CIRCLE_HEART}/>
             </div>
