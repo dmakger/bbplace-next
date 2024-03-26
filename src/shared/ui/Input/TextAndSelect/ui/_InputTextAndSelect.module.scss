@@ -1,0 +1,79 @@
+.block {
+    position: relative;  
+    cursor: pointer;  
+}
+
+
+.mainInput{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    background-color: var(--gray-3);
+    font-size: var(--font-size-s);
+
+    padding: 10px 10px 10px 15px;
+    border-radius: 40px;
+    border: 1px var(--gray-5) solid;
+    transition: all .3s;
+
+    &:hover {
+        background-color: var(--gray-4);
+        border-color: var(--hover);
+    }
+}
+
+.input {
+    width: 90%;
+    border: none;
+    transition: all .3s;
+    outline: none;
+    background-color: var(--empty);
+}
+
+.selectedOption{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: var(--font-size-s);
+    transition: all .3s;
+
+    &:hover {
+        background-color: var(--gray-4);
+    }
+}
+
+.options {
+    position: absolute;
+    z-index: -1;
+    top: 40px;
+    left: 0;
+    right: 0;
+
+    opacity: 0;
+    transition: all .2s;
+}
+
+.show {
+    z-index: 1;
+    opacity: 1;
+}
+
+.arrowOpen{
+    rotate: 180deg;
+    transition: rotate 0.3s;
+}
+
+.arrow{
+    rotate: 0deg;
+    transition: rotate 0.3s;
+}
+
+.noResult{
+    padding: 10px 10px 10px 15px;
+    border-radius: 15px;
+    background-color: var(--gray-3);
+    font-size: var(--font-size-s);
+    text-align: center;
+}
+

@@ -6,7 +6,6 @@ import { PropsWithChildren } from "react";
 export default function Layout({ children }: PropsWithChildren<unknown>) {
     return (
         <div>
-            <Header />
             <Header/>
             <NavBarPTC/>
             {children}

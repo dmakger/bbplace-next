@@ -1,15 +1,40 @@
+'use client'
+
 import { cls } from '@/shared/lib/classes.lib'
 import cl from './_InputText.module.scss'
+import { ChangeEvent, useEffect, useRef } from 'react'
 
 interface InputTextProps {
     name?: string
     placeholder?: string
-    className?: string
+    className?: string,
+    onChange?: Function,
+    defaultValue?: string,
+    type?: string
 }
 
-export function InputText({className, ...rest}: InputTextProps) {
+export function InputText({
+    className,
+    type = 'text',
+    onChange = () => {},
+    defaultValue = '',
+    ...rest }: InputTextProps) {
+
+    const inputRef = useRef<HTMLInputElement>(null)
+
+    useEffect(() => {
+        if (inputRef.current) {
+            inputRef.current.value = defaultValue   
+        }
+    }, [defaultValue])
+
     return (
-        <input type="text" {...rest}
-               className={cls(cl.input, className)} />
+        <input className={cls(cl.input, className)}
+            ref={inputRef}
+            type={type}
+            defaultValue={defaultValue}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
+            {...rest}
+        />
     )
 }

@@ -11,7 +11,7 @@ export const Header = ({className}: HeaderProps) => {
     return (
         <header className={cls(cl.header, className)}>
             <HeaderTop />
-            <HeaderBottom />
+            <HeaderBottom className={cl.headerBottom}/>
         </header>
     )
 }

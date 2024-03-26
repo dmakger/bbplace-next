@@ -5,7 +5,6 @@ import { PRODUCT_LIMIT } from "@/entities/Product/data/product.data";
 import { useProductAll } from "@/entities/Product/hooks/useProduct.hooks";
 import { productApiToProduct } from "@/entities/Product/lib/product.lib";
 import { EViewProduct } from "@/entities/Product/model/view.product.model";
-import { ProductH } from "@/entities/Product/ui/Horizontal";
 import { Product } from "@/entities/Product/ui/Product";
 import Wrapper1280 from "@/shared/ui/Wrapper/1280/Wrapper1280";
 

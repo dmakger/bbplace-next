@@ -2,6 +2,7 @@
 import React, {ReactNode} from 'react'
 import cl from './_Button.module.scss'
 import { ButtonVariant } from '..'
+import { cls } from '@/shared/lib/classes.lib'
 
 interface IButton {
     children: ReactNode
@@ -29,9 +30,9 @@ export const Button = ({ children,
     
     return (
         <div className={`global ${className}`}>
-            <button className={`${cl.button} ${cl[variant]}`} type={type} onClick={(event) => onClick(event)} disabled={disabled || loading}>
+            <button className={cls(cl.button, cl[variant])} type={type} onClick={(event) => onClick(event)} disabled={disabled || loading}>
                 {!loading &&
-                    <span className={`${cl.buttonText} ${cl[classNameText]}`}>
+                    <span className={cls(cl.buttonText, cl[classNameText])}>
                         {children}
                     </span>}
                 {variant === ButtonVariant.W_ARROW_RED ? <svg width="40" height="45" viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg">

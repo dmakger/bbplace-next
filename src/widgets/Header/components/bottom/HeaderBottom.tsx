@@ -4,7 +4,7 @@ import Wrapper1280 from '@/shared/ui/Wrapper/1280/Wrapper1280';
 import CategorySmartLine from '@/widgets/Category/SmartLine/CategorySmartLine';
 import { SmartSidebar } from '@/widgets/Category/SmartSidebar/SmartSidebar';
 import { MenuButtonSupport } from '@/features/Button/Menu/Support/MenuButtonSupport';
-import { LangSelect } from '@/features/Select/Lang/LangSelect';
+import { LangSelect } from '@/features/Select';
 
 interface HeaderTopProps {
     className?: string

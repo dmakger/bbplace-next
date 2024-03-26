@@ -1,0 +1,1 @@
+export {InputDoubleText} from './ui/InputDoubleText'

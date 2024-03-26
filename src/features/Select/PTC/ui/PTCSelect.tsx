@@ -10,7 +10,12 @@ interface PTCSelectProps {
     classNameButton?: string
 }
 
-export default function PTCSelect({classNameTitle, classNameOptions, className, classNameButton}: PTCSelectProps) {
+export const PTCSelect = ({
+    classNameTitle,
+    classNameOptions,
+    className,
+    classNameButton = ''
+}: PTCSelectProps) => {
     return (
         <div className={cl.selectContainer}>
             <Input.Select defaultOption={PRODUCT_PTC_ITEM_DATA} options={PTC_LIST_DATA}
