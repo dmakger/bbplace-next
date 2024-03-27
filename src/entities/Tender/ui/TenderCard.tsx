@@ -19,6 +19,7 @@ import { useAuthUserData } from "@/entities/Auth/hooks/useAuth.hooks"
 
 export const TenderCard = ({
     tender,
+    tender: {id, categoryId, ownerId, createdAt},
     className,
 }: ITenderCard ) => {
 
@@ -28,19 +29,17 @@ export const TenderCard = ({
 
     //API
     const {data: categories} = useCategoryAll()
-    const {data: supplierInfo} = useAuthUserData(tender.ownerId)
+    const {data: supplierInfo} = useAuthUserData(ownerId)
 
     //EFFECT
     useEffect(() => {
-        categories && setTenderCategory(categories.find(category => category.id === tender.categoryId))
+        categories && setTenderCategory(categories.find(category => category.id === categoryId))
     }, [categories])
 
     useEffect(() => {
       setTenderType(getTenderType(tender))
-    }, [])
+    }, [tender])
     
-
-
     //NAVIGATE
     const {push} = useRouter()
 
@@ -77,11 +76,11 @@ export const TenderCard = ({
                         </Button>
                     </div>
                     <p className={cl.createdAt}>
-                        {getFormattedDate(tender.createdAt)}
+                        {getFormattedDate(createdAt)}
                     </p>
                 </div>
                 <div className={cl.desktop}>
-                    <Button variant={ButtonVariant.W_ARROW_RED} onClick={() => goToTheTender(tender.id)}>
+                    <Button variant={ButtonVariant.W_ARROW_RED} onClick={() => goToTheTender(id)}>
                         В тендер
                     </Button>
                 </div>
