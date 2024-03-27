@@ -1,8 +1,9 @@
-import { IMetric } from "./metric.metrics.model"
+import { ICurrency } from "./currency.metrics.model"
+import { IMetrics } from "./metric.metrics.model"
 
 export interface IWholesale {
     price: number
     quantity: number,
-    metric?: IMetric
-    currency?: string
+    metrics?: IMetrics
+    currency?: ICurrency
 }

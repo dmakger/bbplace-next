@@ -1,27 +1,20 @@
 import { FC } from 'react'
 import cl from './_SupplierInfo.module.scss'
-import { cls } from '@/shared/lib/classes.lib'
+import { ISupplier } from '@/entities/Supplier/model/supplier.model'
 
 interface ISupplierInfo{
-    name?: string,
-    status?: string,
-    country?: string,
-    isVerified?: boolean
+    ownerId?: ISupplier['id'],
+    supplier?: ISupplier,
 }
 
 
-export const SupplierInfo: FC<ISupplierInfo> = ({
-    name,
-    status,
-    country,
-    isVerified = false
-}) => {
+export const SupplierInfo:FC<ISupplierInfo> = ({ownerId, supplier}) => {
     return (
-        <div className={cls(cl.supplierInfo, isVerified ? cl.isVerified : '')}>
+        <div className={cl.supplierInfo}>
             <p className={cl.supplierName}>
                 ТОО «Standard Mittal»ТОО asdasdadsdsdsd
             </p>
-            {isVerified && <div className={cl.bottomBlock}>
+            <div className={cl.bottomBlock}>
                 <span className={cl.supplierStatus}>
                     Verified
                 </span>
@@ -31,7 +24,7 @@ export const SupplierInfo: FC<ISupplierInfo> = ({
                 <span>
                     Россия
                 </span>
-            </div>}
+            </div>
         </div>
     )
 }
