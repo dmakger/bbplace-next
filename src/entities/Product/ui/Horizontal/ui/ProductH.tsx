@@ -10,12 +10,12 @@ import { ImageAPI } from '@/shared/ui/Image/ImageAPI'
 import { getDiapason, getParameterByName } from '@/entities/Metrics/lib/metrics/diapason.metrics.metrics.lib'
 import { WholesaleDiapason } from '@/entities/Metrics/ui/Wholesale/Diapason/WholesaleDiapason'
 import { QuantityMetrics } from '@/shared/ui/QuantityMetrics/QuantityMetrics'
-import { HeadingToTextProductTable } from '@/widgets/Product/Table/HeadingToText/ui/HeadingToTextProductTable'
 import { SupplierDefault } from '@/entities/Supplier/ui/Default/SupplierDefault'
 import { getSupplier } from '@/entities/Supplier/lib/getters.supplier.lib'
 import { ISupplier } from '@/entities/Supplier/model/supplier.model'
 import { supplierApiToSupplier } from '@/entities/Supplier/lib/process.supplier.lib'
 import { useAuthUserData } from '@/entities/Auth/hooks/useAuth.hooks'
+import { HeadingToTextProductTable } from '@/widgets/Product/Table/HeadingToText/ui/HeadingToTextProductTable'
 
 interface ProductHProps extends IProductProps {
 

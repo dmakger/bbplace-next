@@ -27,3 +27,17 @@ export enum ETenderType {
     PURCHASE = 'Покупка',
     SALE = 'Продажа'
 }
+
+export interface ICommonTender extends IBaseTender {
+    quantity?: number
+    quantityUnits?: string
+    maximumBudget?: number
+    price?: number
+    minOrder?: number
+    minOrderUnits?: string
+}
+
+export interface ITenderCard{
+    tender: ICommonTender
+    className?: string
+}

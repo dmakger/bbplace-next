@@ -7,37 +7,18 @@ import { SupplierInfo } from "@/shared/ui/SupplierInfo"
 import { Button, ButtonVariant } from "@/shared/ui/Button"
 import CategoryItem from "@/entities/Metrics/ui/Category/Item/CategoryItem"
 import { TenderType } from "./TenderType/TenderType"
-import { ETenderType, IPurchaseTender, ISaleTender } from "../model/tender.model"
+import { ETenderType, ITenderCard } from "../model/tender.model"
 import { useRouter } from "next/navigation"
 import { useCategoryAll } from "@/entities/Metrics/hooks/useCategory.hooks"
 import { useEffect, useState } from "react"
 import { ICategory } from "@/entities/Metrics/model/category.metrics.model"
-import { getTenderType } from "../lib/tender.lib"
+import { getFormattedDate, getTenderType } from "../lib/tender.lib"
+import { TenderInfo, getDataTenderInfo } from "@/shared/ui/TenderInfo"
 
-interface ITenderCard extends ISaleTender, IPurchaseTender{
-    className?: string
-}
 
 export const TenderCard = ({
+    tender,
     className,
-    id,
-    name,
-    ownerId,
-    categoryId,
-    currency,
-    description,
-    shareContacts,
-    attachments,
-    createdAt,
-    
-    price,
-    minOrder,
-    minOrderUnits,
-    bulkDiscounts,
-
-    maximumBudget,
-    quantity,
-    quantityUnits,
 }: ITenderCard ) => {
 
     //STATE
@@ -49,11 +30,11 @@ export const TenderCard = ({
 
     //EFFECT
     useEffect(() => {
-        categories && setTenderCategory(categories.find(category => category.id === categoryId))
+        categories && setTenderCategory(categories.find(category => category.id === tender.categoryId))
     }, [categories])
 
     useEffect(() => {
-      setTenderType(getTenderType(maximumBudget))
+      setTenderType(getTenderType(tender))
     }, [])
     
 
@@ -80,23 +61,24 @@ export const TenderCard = ({
             </div>
             <div className={cl.middleContainer}>
                 <span className={cl.cardTitle}>
-                    {name || 'Самоклеящаяся бумага для цифровой печати'}
+                    {tender.name || 'Самоклеящаяся бумага для цифровой печати'}
                 </span>
+                <TenderInfo data={getDataTenderInfo(tender)} />
             </div>
             <div className={cl.bottomContainer}>
                 <div className={cl.supplierBlock}>
-                    <SupplierInfo isVerified={false}/>
+                    <SupplierInfo />
                     <div className={cl.desktop}>
                         <Button variant={ButtonVariant.BORDERED_RED_WIDE} onClick={goToTheChatWSupplier}>
                             Связаться с поставщиком
                         </Button>
                     </div>
                     <p className={cl.createdAt}>
-                        08.01.2023
+                        {getFormattedDate(tender.createdAt)}
                     </p>
                 </div>
                 <div className={cl.desktop}>
-                    <Button variant={ButtonVariant.W_ARROW_RED} onClick={() => goToTheTender(id)}>
+                    <Button variant={ButtonVariant.W_ARROW_RED} onClick={() => goToTheTender(tender.id)}>
                         В тендер
                     </Button>
                 </div>

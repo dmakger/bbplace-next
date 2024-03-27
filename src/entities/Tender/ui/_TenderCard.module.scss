@@ -60,6 +60,11 @@ $mobile-dimension: 700px;
                 font-size: var(--font-size-reg);
             }
         }
+
+        .lineTable{
+            display: flex;
+            flex-direction: row;
+        }
     }
 
 
