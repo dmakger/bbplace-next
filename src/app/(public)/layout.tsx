@@ -1,12 +1,12 @@
 import Header from "@/widgets/Header/ui/Header";
-import { NavBarPTC } from "@/widgets/NavBarPTC";
 import { PropsWithChildren } from "react";
+import { WrapperGap } from "@/shared/ui/Wrapper/Gap/WrapperGap";
 
 export default function Layout({ children }: PropsWithChildren<unknown>) {
     return (
-        <div>
+        <WrapperGap>
             <Header />
             {children}
-        </div>
+        </WrapperGap>
     )
 }

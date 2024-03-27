@@ -24,9 +24,8 @@ export const SupplierDefault:FC<SupplierDefaultProps> = ({id, className}) => {
         if (supplier)
             setSupplierState(supplierApiToSupplier(supplier))
     }, [supplier])
+    
 
-    // // setSupplierState(getSupplier(id, supplier))
-    // // const _supplier = supplier as
     if (!supplierState)
         return <></>
     return (
