@@ -2,13 +2,10 @@
 
 import { FC, useEffect, useState } from "react"
 
-import { cls } from '@/shared/lib/classes.lib';
-import cl from './_ProductList.module.scss'
 import { DEFAULT_VIEW_PRODUCT, EViewProduct } from "../../model/view.product.model";
 import { ProductHList } from "../Horizontal/ui/list/ProductHList";
 import { ProductVList } from "../Vertical/ui/list/ProductVList";
 import { IProduct } from "../../model/product.model";
-import { getArgsProduct } from "../../lib/args.product.lib";
 import { ProductAPI } from "../../api/product.api";
 import { useAppSelector } from "@/storage/hooks";
 import { productApiListToProductList } from "../../lib/product.lib";
@@ -24,7 +21,6 @@ export const ProductList:FC<ProductListProps> = ({view=DEFAULT_VIEW_PRODUCT, cla
      const [productList, setProductList] = useState<IProduct[]>([])
 
      // API
-    //  const {data: productsAPI, isLoading: isProductLoading} = ProductAPI.useGetProductsQuery(PRODUCT_ARGS_REQUEST, {refetchOnMountOrArgChange: true})
      const {data: productsAPI, isLoading: isProductLoading} = ProductAPI.useGetProductsQuery(PRODUCT_ARGS_REQUEST, {refetchOnMountOrArgChange: true})
  
      // RTK

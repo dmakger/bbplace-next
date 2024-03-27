@@ -16,7 +16,7 @@ export const ProductHList:FC<ProductHListProps> = ({products, className}) => {
     return (
         <div className={cls(cl.list, className)}>
             {products.map(product => (
-                <Product product={product} view={EViewProduct.HORIZONTAL} className={cl.product} />
+                <Product product={product} view={EViewProduct.HORIZONTAL} className={cl.product} key={product.id} />
             ))}
         </div>
     )
