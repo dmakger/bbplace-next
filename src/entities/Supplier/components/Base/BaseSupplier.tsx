@@ -13,13 +13,10 @@ interface BaseSupplierProps{
     classNameName?: string,
 }
 
-export const BaseSupplier:FC<BaseSupplierProps> = ({supplier, hasImage=false, className, classNameName}) => {
-    console.log('supplier', supplier);
-    // isVerified
-    
+export const BaseSupplier:FC<BaseSupplierProps> = ({supplier, hasImage=false, className, classNameName}) => {    
     return (
         <div className={cls(cl.block, className)}>
-            {hasImage &&
+            {hasImage && supplier.photoId &&
                 <ImageAPI src={supplier.photoId.key} alt={supplier.photoId.name} className={cl.image} />
             }
             <div className={cl.content}>

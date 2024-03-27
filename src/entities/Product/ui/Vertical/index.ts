@@ -1,1 +1,1 @@
-export {ProductV} from './ui/ProductV';
+export {ProductV} from './ui/item/ProductV';

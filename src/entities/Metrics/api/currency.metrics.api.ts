@@ -1,15 +1,19 @@
-import { axiosClassic } from "@/api/interceptors"
-import { ICurrency } from "../model/currency.metrics.model"
+import { options } from "@/api/interceptors";
+import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
+import { ICurrency } from "../model/currency.metrics.model";
 
-class CurrencyAPI {
-    private BASE_URL = '/metrics/api/Metrics'
 
-    async all() {      
-      const response = await axiosClassic.get<ICurrency[]>(
-        `${this.BASE_URL}/GetCurrencies/`
-      )
-      return response.data
-    }
-}
-
-export const currencyAPI = new CurrencyAPI()
+export const CurrencyAPI = createApi({
+	reducerPath: 'currencyAPI',
+  	baseQuery: fetchBaseQuery({
+		baseUrl: options.baseURL + 'metrics/api/Metrics'
+	}),
+	endpoints: (build) => ({
+		getCurrencies: build.query<ICurrency[], void>({
+			query: () => ({
+				url: `/GetCurrencies/`,
+				method: 'GET',
+			})
+		}),
+	})
+})

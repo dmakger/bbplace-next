@@ -16,6 +16,7 @@ import { getSupplier } from '@/entities/Supplier/lib/getters.supplier.lib'
 import { ISupplier } from '@/entities/Supplier/model/supplier.model'
 import { supplierApiToSupplier } from '@/entities/Supplier/lib/process.supplier.lib'
 import { useAuthUserData } from '@/entities/Auth/hooks/useAuth.hooks'
+import { UserAPI } from '@/entities/Auth/api/auth.api'
 
 interface ProductHProps extends IProductProps {
 
@@ -23,17 +24,18 @@ interface ProductHProps extends IProductProps {
 
 export const ProductH:FC<ProductHProps> = ({product, className}) => {
     // STATE
-    const [supplier, setSupplier] = useState<ISupplier>()
-    const {data: supplierApi} = useAuthUserData(product.ownerId!)
-    console.log('supplier Api', supplierApi, product.ownerId);
+    // const [supplier, setSupplier] = useState<ISupplier>()
+
+    // const {data: supplierApi} = useAuthUserData(product.ownerId!)
+    // console.log('supplier Api', supplierApi, product.ownerId);
 
     // VARS
     const [minWholesale, maxWholesale] = getDiapason(product.media.wholesalePrices)
     
     // EFFECT
-    useEffect(() => {
-        setSupplier(supplierApiToSupplier(supplierApi))
-    }, [supplierApi])
+    // useEffect(() => {
+    //     setSupplier(supplierApiToSupplier(supplierApi))
+    // }, [supplierApi])
 
     console.log(product);
     return (
@@ -63,10 +65,10 @@ export const ProductH:FC<ProductHProps> = ({product, className}) => {
                         <HeadingToTextProductTable product={product} />
                     </div>
                     <div className={cl.buttonContainer}>
-                        {/* <SupplierDefault id={product.ownerId} /> */}
-                        {supplier &&
+                        <SupplierDefault id={product.ownerId} />
+                        {/* {supplier &&
                             <SupplierDefault supplier={supplier} />
-                        }
+                        } */}
                         <div className={cl.leftBlock}>
                             <SupplierInfo />
                             <SubscribeIcon  />
