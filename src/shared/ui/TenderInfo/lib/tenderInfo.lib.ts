@@ -1,11 +1,18 @@
 import { getTenderType } from "@/entities/Tender/lib/tender.lib";
-import { ETenderType, ICommonTender } from "@/entities/Tender/model/tender.model";
+import { ETenderType, ICommonTender, IPurchaseTender, ISaleTender } from "@/entities/Tender/model/tender.model";
 import { IHeadingToTextTender } from "@/shared/model/text.model";
 
 
 export const getDataTenderInfo = (tender: ICommonTender) => {
 
     const tenderType = getTenderType(tender)
+
+    // const firstLineText = tenderType === ETenderType.PURCHASE ? tender.maximumBudget : tender.minOrder
+    // const secondLineText = tenderType === ETenderType.PURCHASE ? tender.quantity : tender.price
+
+    // const firstLineUnit = tenderType === ETenderType.PURCHASE ? tender.currency : tender.minOrderUnits
+    // const secondLineUnit = tenderType === ETenderType.PURCHASE ? tender.quantityUnits : tender.currency
+
 
     const maximumBudget = tender.maximumBudget
     const quantity = tender.quantity
@@ -19,9 +26,25 @@ export const getDataTenderInfo = (tender: ICommonTender) => {
 
     let processData: IHeadingToTextTender[] = [];
 
+    // tenderType === ETenderType.PURCHASE ? processData = [
+    //     {
+    //         heading: 'Максимальный бюджет', text: String(firstLineText), unit: firstLineUnit
+    //     },
+    //     {
+    //         heading: 'Количество', text:  String(secondLineText), unit: secondLineUnit
+    //     }
+    // ] : processData = [
+    //     {
+    //         heading: 'Минимальный заказ', text: String(firstLineText), unit: firstLineUnit
+    //     },
+    //     {
+    //         heading: 'Цена', text:  String(secondLineText), unit: secondLineUnit
+    //     }
+    // ]
+
     tenderType === ETenderType.PURCHASE ? processData = [
         {
-            heading: 'Максимальный бюджет', text: String(maximumBudget), unit: currency ? currency : ''
+            heading: 'Максимальный бюджет', text: String(maximumBudget), unit: currency
         },
         {
             heading: 'Количество', text:  String(quantity), unit: quantityUnit ? quantityUnit : ''
@@ -31,7 +54,7 @@ export const getDataTenderInfo = (tender: ICommonTender) => {
             heading: 'Минимальный заказ', text: String(minOrder), unit: minOrderUnits ? minOrderUnits : ''
         },
         {
-            heading: 'Цена', text:  String(price), unit: currency ? currency : ''
+            heading: 'Цена', text:  String(price), unit: currency
         }
     ]
 

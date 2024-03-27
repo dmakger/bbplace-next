@@ -14,6 +14,7 @@ import { useEffect, useState } from "react"
 import { ICategory } from "@/entities/Metrics/model/category.metrics.model"
 import { getFormattedDate, getTenderType } from "../lib/tender.lib"
 import { TenderInfo, getDataTenderInfo } from "@/shared/ui/TenderInfo"
+import { useAuthUserData } from "@/entities/Auth/hooks/useAuth.hooks"
 
 
 export const TenderCard = ({
@@ -27,6 +28,7 @@ export const TenderCard = ({
 
     //API
     const {data: categories} = useCategoryAll()
+    const {data: supplierInfo} = useAuthUserData(tender.ownerId)
 
     //EFFECT
     useEffect(() => {
@@ -64,6 +66,7 @@ export const TenderCard = ({
                     {tender.name || 'Самоклеящаяся бумага для цифровой печати'}
                 </span>
                 <TenderInfo data={getDataTenderInfo(tender)} />
+                <p className={cl.cardSupplier}>{supplierInfo?.brandName}</p>
             </div>
             <div className={cl.bottomContainer}>
                 <div className={cl.supplierBlock}>

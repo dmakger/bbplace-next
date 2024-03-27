@@ -38,6 +38,6 @@ export interface ICommonTender extends IBaseTender {
 }
 
 export interface ITenderCard{
-    tender: ICommonTender
+    tender: ISaleTender | IPurchaseTender
     className?: string
 }

@@ -34,7 +34,7 @@ const tenderPurchase = {
 export default function MainPage() {
     return (
         <div>
-            <TenderCard tender={tender}/>
+            <TenderCard tender={tenderPurchase}/>
       
         </div>
     )

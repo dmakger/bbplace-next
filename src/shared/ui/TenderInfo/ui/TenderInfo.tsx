@@ -19,7 +19,7 @@ export const TenderInfo = ({
 }: ITenderInfo) => {
     return (
         <div className={cls(cl.TenderInfo, className)}>
-            {data.map(it => (<div className={cl.container}>
+            {data.map(it => (<div className={cl.container} key={it.heading}>
                 <span className={cls(cl.heading, hasDash ? cl.sRegFontSize : '', classNameHeading)}>
                     {it.heading}
                     {!hasDash && ':'}
