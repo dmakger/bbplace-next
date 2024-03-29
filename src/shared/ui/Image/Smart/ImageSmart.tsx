@@ -24,8 +24,8 @@ export const ImageSmart:FC<ImageSmartProps> = ({icon, isActive=false, width, hei
         <div style={style} className={cls(cl.block, className)}>
 
             {/* default */}
-            <div className={cls(isActive ? '' : cl.activeWrapper, isHovered ? cl.hoveredWrapper : '',  cl.wrapper)}>
-                <Image src={icon.default} alt={'default'} className={cls(isActive ? "" : cl.visible , cl.image, classNameImage)}/>
+            <div className={cls(isActive ? '' : cl.activeWrapper, isHovered && icon.defaultHovered ? cl.hoveredWrapper : '',  cl.wrapper)}>
+                <Image src={icon.default} alt={'default'} className={cls(isActive ? "" : cl.static , cl.image, icon.defaultHovered ? cl.visible : '', classNameImage)}/>
                 {icon.defaultHovered &&
                     <Image src={icon.defaultHovered} alt={'defaultHovered'} className={cls(cl.image, cl.hover, classNameImage)}/>
                 }
@@ -33,8 +33,8 @@ export const ImageSmart:FC<ImageSmartProps> = ({icon, isActive=false, width, hei
 
             {/* active */}
             {icon.active &&
-                <div style={style} className={cls(isActive ? cl.activeWrapper : '', cl.wrapper, isHovered ? cl.hoveredWrapper : '')}>
-                    <Image src={icon.active} alt={'active'} className={cls(isActive ? cl.visible : "", cl.image, classNameImage)}/>
+                <div style={style} className={cls(isActive ? cl.activeWrapper : '', isHovered && icon.activeHovered ? cl.hoveredWrapper : '', cl.wrapper)}>
+                    <Image src={icon.active} alt={'active'} className={cls(isActive ? cl.static : "", cl.image, icon.activeHovered ? cl.visible : '',  classNameImage)}/>
                     {icon.activeHovered &&
                         <Image src={icon.activeHovered} alt={'activeHovered'} className={cls(cl.image, cl.hover, classNameImage)}/>
                     }

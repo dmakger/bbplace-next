@@ -20,7 +20,7 @@
         transition: .2s;
     }
 
-    .visible {
+    .static {
         z-index: 1;
         opacity: 1;
     }
@@ -36,7 +36,7 @@
     opacity: 1;
 }
 
-.wrapper:hover, .hoveredWrapper {
+.hoveredWrapper, .wrapper:hover {
     .visible {
         z-index: -1;
         opacity: 0;

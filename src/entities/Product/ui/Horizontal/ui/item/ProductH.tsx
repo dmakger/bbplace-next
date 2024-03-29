@@ -10,6 +10,7 @@ import { QuantityMetrics } from '@/shared/ui/QuantityMetrics/QuantityMetrics'
 import { HeadingToTextProductTable } from '@/widgets/Product/Table/HeadingToText/ui/HeadingToTextProductTable'
 import { SupplierDefault } from '@/entities/Supplier/ui/Default/SupplierDefault'
 import { cls } from '@/shared/lib/classes.lib'
+import { SubscribeSmallToSupplierButton } from '@/entities/Supplier/components/Button/Subscribe/Small/SubscribeSmallToSupplierButton'
 
 interface ProductHProps extends IProductProps {
 
