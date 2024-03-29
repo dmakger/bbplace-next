@@ -3,20 +3,21 @@ import { FC } from "react"
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_BaseSupplier.module.scss'
 import { ISupplier } from "../../model/supplier.model";
-import { ImageAPI } from "@/shared/ui/Image/ImageAPI";
+import { ImageAPI } from "@/shared/ui/Image/API/ImageAPI";
 import { BottomLineSupplier } from "../BottomLine/BottomLineSupplier";
 import { getNameSupplier } from "../../lib/getters.supplier.lib";
-import { SubscribeToSupplierButton } from "../Button/Subscribe/SubscribeToSupplierButton";
+import { ESupplierItemView } from "../../data/view.supplier.data";
+import { SubscribeAutoToSupplierButton } from "../Button/Subscribe/Auto/SubscribeAutoToSupplierButton";
 
 interface BaseSupplierProps{
     supplier: ISupplier
     hasImage?: boolean
-    hasSubscribe?: boolean
+    subscribe?: ESupplierItemView
     className?: string
     classNameName?: string
 }
 
-export const BaseSupplier:FC<BaseSupplierProps> = ({supplier, hasImage=false, hasSubscribe=false, className, classNameName}) => {        
+export const BaseSupplier:FC<BaseSupplierProps> = ({supplier, hasImage=false, subscribe=ESupplierItemView.NONE, className, classNameName}) => {        
     return (
         <div className={cls(cl.block, className)}>
             {hasImage && supplier.photoId &&
@@ -26,9 +27,7 @@ export const BaseSupplier:FC<BaseSupplierProps> = ({supplier, hasImage=false, ha
                 <span className={cls(cl.name, classNameName)}>{getNameSupplier(supplier)}</span>
                 <BottomLineSupplier supplier={supplier} />
             </div>
-            {hasSubscribe &&
-                <SubscribeToSupplierButton isSubscribed={false} />
-            }
+            <SubscribeAutoToSupplierButton view={subscribe} />
         </div>
     )
 }

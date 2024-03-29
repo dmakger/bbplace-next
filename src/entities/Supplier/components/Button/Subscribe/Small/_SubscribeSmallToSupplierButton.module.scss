@@ -1,0 +1,9 @@
+.button {
+    background-color: var(--gray-3);
+    padding: 7.5px;
+    transition: .2s;
+
+    &:hover {
+        background-color: var(--gray-4);
+    }
+}
