@@ -17,7 +17,6 @@ export const BottomLineSupplier:FC<BottomLineSupplierProps> = ({supplier, classN
             {isVerified(supplier) &&
                 <VerifiedSupplier _isVerified={true} />
             }
-            <VerifiedSupplier _isVerified={true} />
             {supplier.country &&
                 <span className={cl.country}>{supplier.country}</span>
             }

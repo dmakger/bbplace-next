@@ -5,9 +5,17 @@ import SubscribeDefaultBlackIcon from '@/shared/assets/img/SubscribeIcon/Subscri
 import SubscribeActiveIcon from '@/shared/assets/img/SubscribeIcon/SubscribeActiveIcon.svg'
 
 
-export const SUBSCRIBE_ICON: IIcon = {
+export const SUBSCRIBE_GRAY_ICON: IIcon = {
     default: SubscribeDefaultGrayIcon,
     defaultHovered: SubscribeDefaultBlackIcon,
 
     active: SubscribeActiveIcon,
 }
+
+
+export const SUBSCRIBE_BLACK_ICON: IIcon = {
+    default: SubscribeDefaultBlackIcon,
+
+    active: SubscribeActiveIcon,
+}
+

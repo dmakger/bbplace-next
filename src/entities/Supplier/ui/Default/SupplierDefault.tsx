@@ -2,11 +2,11 @@ import { FC, useEffect, useState } from "react"
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_SupplierDefault.module.scss'
-import { ISupplier, ISupplierAPI } from "../../model/supplier.model";
+import { ISupplier } from "../../model/supplier.model";
 import { BaseSupplier } from "../../components/Base/BaseSupplier";
 import { supplierApiToSupplier } from "../../lib/process.supplier.lib";
 import { UserAPI } from "@/entities/Auth/api/auth.api";
-import { ESupplierItemView } from "../../data/view.supplier.data";
+import { ESupplierSubscribeViewItem } from "../../data/view.supplier.data";
 
 interface SupplierDefaultProps{
     id: ISupplier['id'] | null
@@ -27,8 +27,11 @@ export const SupplierDefault:FC<SupplierDefaultProps> = ({id, className}) => {
     if (!supplierState)
         return <></>
     return (
-        <div className={cls(className)}>
-            <BaseSupplier supplier={supplierState} hasImage={true} subscribe={ESupplierItemView.SMALL} classNameName={cl.name} />
+        <div className={cls(cls(cl.block, className))}>
+            <BaseSupplier supplier={supplierState} 
+                          hasImage={false} 
+                          subscribeView={ESupplierSubscribeViewItem.SMALL} 
+                          classNameName={cl.name} />
         </div>
     )
 }
