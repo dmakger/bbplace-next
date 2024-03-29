@@ -37,4 +37,6 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 
 ## Button
-[image.png](https://postimg.cc/nCnVzDSN)
+Все кнопки описаны в следующем виде. Слева кнопка в состоянии **default** справа в состоянии **hovered**  
+#### 1. Clear
+![Clear](https://github.com/xtekky/gpt4free/assets/98614666/ea012c87-76e0-496a-8ac4-e2de090cc6c9](https://github.com/dmakger/assets/blob/main/bbplace/button/1.CLEAR.png)
