@@ -38,8 +38,13 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## Button
 Все кнопки описаны в следующем виде. Слева кнопка в состоянии **default** справа в состоянии **hovered**  
-#### 1. Clear
-
-|                |Кнопка                         |
-|----------------|-------------------------------|
-|Clear           |![Clear](https://github.com/dmakger/assets/blob/main/bbplace/button/1.CLEAR.png)|
+|                                  |Кнопка                                                                                            |
+|----------------------------------|--------------------------------------------------------------------------------------------------|
+|Clear                             |![Clear](https://github.com/dmakger/assets/blob/main/bbplace/button/1.CLEAR.png)                  |
+|Border Red Wide                   |![Clear](https://github.com/dmakger/assets/blob/main/bbplace/button/2.BORDERED_RED_WIDE.png)      |
+|Border Red Narrow                 |![Clear](https://github.com/dmakger/assets/blob/main/bbplace/button/3.BORDERED_RED_NARROW.png)    |
+|Background White Wide             |![Clear](https://github.com/dmakger/assets/blob/main/bbplace/button/4.BACKGROUND_WHITE_WIDE.png)  |
+|Background White Narrow           |![Clear](https://github.com/dmakger/assets/blob/main/bbplace/button/5.BACKGROUND_WHITE_NARROW.png)|
+|Background Red                    |![Clear](https://github.com/dmakger/assets/blob/main/bbplace/button/6.BACKGROUND_RED.png)         |
+|Almost Rectangle                  |![Clear](https://github.com/dmakger/assets/blob/main/bbplace/button/7.ALMOST_RECTANGULAR.png)     |
+|W Arrow Red                       |![Clear](https://github.com/dmakger/assets/blob/main/bbplace/button/8.W_ARROW_RED.png)            |
