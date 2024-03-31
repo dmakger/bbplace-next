@@ -11,6 +11,8 @@ import { HeadingToTextProductTable } from '@/widgets/Product/Table/HeadingToText
 import { SupplierDefault } from '@/entities/Supplier/ui/Default/SupplierDefault'
 import { cls } from '@/shared/lib/classes.lib'
 import { SubscribeSmallToSupplierButton } from '@/entities/Supplier/components/Button/Subscribe/Small/SubscribeSmallToSupplierButton'
+import { SubscribeAutoToSupplierButton } from '@/entities/Supplier/components/Button/Subscribe/Auto/SubscribeAutoToSupplierButton'
+import { ESupplierSubscribeViewItem } from '@/entities/Supplier/data/view.supplier.data'
 
 interface ProductHProps extends IProductProps {
 
@@ -49,10 +51,7 @@ export const ProductH:FC<ProductHProps> = ({product, className}) => {
                     </div>
                     <div className={cl.buttonContainer}>
                         <SupplierDefault id={product.ownerId} />
-                        {/* <div className={cl.leftBlock}>
-                            <SupplierInfo />
-                            <SubscribeIcon  />
-                        </div> */}
+
                         <Button variant={ButtonVariant.BORDERED_RED_WIDE}>
                             Связаться с поставщиком
                         </Button>

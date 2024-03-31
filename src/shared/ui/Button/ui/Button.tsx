@@ -10,6 +10,8 @@ interface IButton {
     classNameText?: string
     type?: "submit" | "button"
     onClick?: (e: React.MouseEvent<HTMLElement>) => void | Promise<void>
+    onMouseEnter?: (e: React.MouseEvent<HTMLButtonElement>) => void | Promise<void>
+    onMouseLeave?: (e: React.MouseEvent<HTMLButtonElement>) => void | Promise<void>
     disabled?: boolean
     variant?: ButtonVariant
     noTranslation?: boolean
@@ -22,6 +24,8 @@ export const Button = ({ children,
     classNameText = '',
     type = "submit",
     onClick = () => { },
+    onMouseEnter = () => { },
+    onMouseLeave = () => { },
     disabled = false,
     loading = false,
     variant = ButtonVariant.BORDERED_RED_WIDE
@@ -29,7 +33,12 @@ export const Button = ({ children,
     
     return (
         <div className={`global ${className}`}>
-            <button className={`${cl.button} ${cl[variant]}`} type={type} onClick={(event) => onClick(event)} disabled={disabled || loading}>
+            <button type={type} 
+                    onClick={(event) => onClick(event)} 
+                    onMouseEnter={(event) => onMouseEnter(event)} 
+                    onMouseLeave={(event) => onMouseLeave(event)} 
+                    disabled={disabled || loading} 
+                    className={`${cl.button} ${cl[variant]} ${classNameButton}`}>
                 {!loading &&
                     <span className={`${cl.buttonText} ${cl[classNameText]}`}>
                         {children}

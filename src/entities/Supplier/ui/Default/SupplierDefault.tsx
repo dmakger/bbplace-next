@@ -7,6 +7,7 @@ import { BaseSupplier } from "../../components/Base/BaseSupplier";
 import { supplierApiToSupplier } from "../../lib/process.supplier.lib";
 import { UserAPI } from "@/entities/Auth/api/auth.api";
 import { ESupplierSubscribeViewItem } from "../../data/view.supplier.data";
+import { InfoLineSupplier } from "../../components/InfoLine/InfoLineSupplier";
 
 interface SupplierDefaultProps{
     id: ISupplier['id'] | null
@@ -32,6 +33,7 @@ export const SupplierDefault:FC<SupplierDefaultProps> = ({id, className}) => {
                           hasImage={false} 
                           subscribeView={ESupplierSubscribeViewItem.SMALL} 
                           classNameName={cl.name} />
+            <InfoLineSupplier />
         </div>
     )
 }

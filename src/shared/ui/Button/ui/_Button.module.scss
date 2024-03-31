@@ -106,3 +106,17 @@
         background-color: var(--red-2);
     }
 }
+
+
+.background-gray {
+    display: flex;
+    background-color: var(--gray-3);
+    padding: 8px;
+    border-radius: 100px;
+    border: none;
+    transition: .2s;
+
+    &:hover {
+        background-color: var(--gray-4);
+    }
+}

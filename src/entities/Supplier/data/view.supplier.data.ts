@@ -12,9 +12,7 @@ export enum ESupplierSubscribeViewItem {
 export enum ESupplierToChatViewItem {
     NONE = "none",
     SMALL = "small",
-    SMALL_WIDE = "smallWide",
     LARGE = "large",
-    LARGE_OUTLINE = "largeOutline",
 }
 
 

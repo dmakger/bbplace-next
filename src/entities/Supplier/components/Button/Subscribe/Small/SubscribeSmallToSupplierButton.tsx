@@ -3,6 +3,7 @@ import { SubscribeIcon } from "@/shared/ui/Icon";
 
 import cl from './_SubscribeSmallToSupplierButton.module.scss'
 import { cls } from "@/shared/lib/classes.lib";
+import { Button, ButtonVariant } from "@/shared/ui/Button";
 
 interface SubscribeSmallToSupplierButtonProps{
     isSubscribed?: boolean
@@ -29,11 +30,11 @@ export const SubscribeSmallToSupplierButton:FC<SubscribeSmallToSupplierButtonPro
     }
     
     return (
-        <button onClick={handleOnClick} 
+        <Button variant={ButtonVariant.BACKGROUND_GRAY} 
+                onClick={handleOnClick} 
                 onMouseEnter={handleOnMouseEnter}
-                onMouseLeave={handleOnMouseLeave}
-                className={cls(isWide ? cl.wideButton : '', cl.button, className)}>
+                onMouseLeave={handleOnMouseLeave} classNameButton={isWide ? cl.wideButton : ''}>
             <SubscribeIcon isActive={isActive} isHovered={isHovered} className={classNameIcon}/>
-        </button>
+        </Button>
     )
 }
