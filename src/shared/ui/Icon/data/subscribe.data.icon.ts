@@ -1,8 +1,8 @@
 import { IIcon } from "../model/model";
 
-import SubscribeDefaultGrayIcon from '@/shared/assets/img/SubscribeIcon/SubscribeDefaultGrayIcon.svg'
-import SubscribeDefaultBlackIcon from '@/shared/assets/img/SubscribeIcon/SubscribeDefaultBlackIcon.svg'
-import SubscribeActiveIcon from '@/shared/assets/img/SubscribeIcon/SubscribeActiveIcon.svg'
+import SubscribeDefaultGrayIcon from '@/shared/assets/img/Subscribe/SubscribeDefaultGrayIcon.svg'
+import SubscribeDefaultBlackIcon from '@/shared/assets/img/Subscribe/SubscribeDefaultBlackIcon.svg'
+import SubscribeActiveIcon from '@/shared/assets/img/Subscribe/SubscribeActiveIcon.svg'
 
 
 export const SUBSCRIBE_GRAY_ICON: IIcon = {

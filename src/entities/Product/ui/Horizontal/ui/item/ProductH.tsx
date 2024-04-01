@@ -8,11 +8,11 @@ import { getDiapason } from '@/entities/Metrics/lib/metrics/diapason.metrics.met
 import { WholesaleDiapason } from '@/entities/Metrics/ui/Wholesale/Diapason/WholesaleDiapason'
 import { QuantityMetrics } from '@/shared/ui/QuantityMetrics/QuantityMetrics'
 import { HeadingToTextProductTable } from '@/widgets/Product/Table/HeadingToText/ui/HeadingToTextProductTable'
-import { SupplierDefault } from '@/entities/Supplier/ui/Default/SupplierDefault'
+import { SupplierWNav } from '@/entities/Supplier/ui/WNav/SupplierWNav'
 import { cls } from '@/shared/lib/classes.lib'
 import { SubscribeSmallToSupplierButton } from '@/entities/Supplier/components/Button/Subscribe/Small/SubscribeSmallToSupplierButton'
 import { SubscribeAutoToSupplierButton } from '@/entities/Supplier/components/Button/Subscribe/Auto/SubscribeAutoToSupplierButton'
-import { ESupplierSubscribeViewItem } from '@/entities/Supplier/data/view.supplier.data'
+import { ESupplierSubscribeViewItem, ESupplierToChatViewItem, ESupplierToProfileViewItem } from '@/entities/Supplier/data/view.supplier.data'
 
 interface ProductHProps extends IProductProps {
 
@@ -50,11 +50,11 @@ export const ProductH:FC<ProductHProps> = ({product, className}) => {
                         <HeadingToTextProductTable product={product} />
                     </div>
                     <div className={cl.buttonContainer}>
-                        <SupplierDefault id={product.ownerId} />
+                        <SupplierWNav id={product.ownerId} 
+                                      navs={[
+                                        ESupplierToChatViewItem.LARGE_WIDE,
+                                      ]} />
 
-                        <Button variant={ButtonVariant.BORDERED_RED_WIDE}>
-                            Связаться с поставщиком
-                        </Button>
                     </div>
                     <div className={cl.buttonContainerMobile}>
                         <Button variant={ButtonVariant.BORDERED_RED_NARROW}>

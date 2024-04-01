@@ -2,15 +2,17 @@ import { FC } from "react"
 import { ESupplierSubscribeViewItem } from "@/entities/Supplier/data/view.supplier.data";
 import { SubscribeSmallToSupplierButton } from "../Small/SubscribeSmallToSupplierButton";
 import { SubscribeLargeToSupplierButton } from "../Large/SubscribeLargeToSupplierButton";
+import { ISupplier } from "@/entities/Supplier/model/supplier.model";
 
 interface SubscribeAutoToSupplierButtonProps{
+    supplierId: ISupplier['id']
     view?: ESupplierSubscribeViewItem
     isSubscribed?: boolean
     className?: string,
 }
 
-export const SubscribeAutoToSupplierButton:FC<SubscribeAutoToSupplierButtonProps> = ({view=ESupplierSubscribeViewItem.NONE, isSubscribed, className}) => {
-    const props = {isSubscribed, className}
+export const SubscribeAutoToSupplierButton:FC<SubscribeAutoToSupplierButtonProps> = ({supplierId, view=ESupplierSubscribeViewItem.NONE, isSubscribed, className}) => {
+    const props = {supplierId, isSubscribed, className}
 
     if (view === ESupplierSubscribeViewItem.SMALL)
         return <SubscribeSmallToSupplierButton isWide={false} {...props}/>

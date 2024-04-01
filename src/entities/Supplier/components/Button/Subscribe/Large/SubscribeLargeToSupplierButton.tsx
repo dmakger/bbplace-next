@@ -3,15 +3,17 @@ import { FC, useState } from "react"
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_SubscribeLargeToSupplierButton.module.scss'
 import { SubscribeIcon } from "@/shared/ui/Icon";
+import { ISupplier } from "@/entities/Supplier/model/supplier.model";
 
 interface SubscribeLargeToSupplierButtonProps{
+    supplierId: ISupplier['id']
     isSubscribed?: boolean
     isOutline?: boolean
     className?: string,
     classNameIcon?: string,
 }
 
-export const SubscribeLargeToSupplierButton:FC<SubscribeLargeToSupplierButtonProps> = ({isSubscribed=false, isOutline=false, className, classNameIcon}) => {
+export const SubscribeLargeToSupplierButton:FC<SubscribeLargeToSupplierButtonProps> = ({supplierId, isSubscribed=false, isOutline=false, className, classNameIcon}) => {
     // STATE
     const [isActive, setIsActive] = useState(isSubscribed)
     const [isHovered, setIsHovered] = useState(false)

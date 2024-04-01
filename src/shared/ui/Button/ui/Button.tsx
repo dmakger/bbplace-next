@@ -2,20 +2,25 @@
 import React, {ReactNode} from 'react'
 import cl from './_Button.module.scss'
 import { ButtonVariant } from '..'
+import Link from 'next/link'
+import { ArrowIcon } from '../../Icon/ui/Arrow/ArrowIcon'
 
 interface IButton {
-    children: ReactNode
+    children?: ReactNode
     className?: string
     classNameButton?: string
     classNameText?: string
     type?: "submit" | "button"
     onClick?: (e: React.MouseEvent<HTMLElement>) => void | Promise<void>
-    onMouseEnter?: (e: React.MouseEvent<HTMLButtonElement>) => void | Promise<void>
-    onMouseLeave?: (e: React.MouseEvent<HTMLButtonElement>) => void | Promise<void>
+    // onMouseEnter?: (e: React.MouseEvent<HTMLButtonElement>) => void | Promise<void>
+    // onMouseLeave?: (e: React.MouseEvent<HTMLButtonElement>) => void | Promise<void>
+    onMouseEnter?: (e: React.MouseEvent<HTMLElement>) => void | Promise<void>
+    onMouseLeave?: (e: React.MouseEvent<HTMLElement>) => void | Promise<void>
     disabled?: boolean
     variant?: ButtonVariant
     noTranslation?: boolean
     loading?: boolean
+    href?: string
 }
 
 export const Button = ({ children,
@@ -28,25 +33,59 @@ export const Button = ({ children,
     onMouseLeave = () => { },
     disabled = false,
     loading = false,
-    variant = ButtonVariant.BORDERED_RED_WIDE
+    variant = ButtonVariant.BORDERED_RED_WIDE,
+    href,
 }: IButton) => {
+
+    // ===={ HANDLES }====
+    const handleOnClick = (e: React.MouseEvent<HTMLElement>) => {
+        if (e) onClick(e)
+    }
+
+    const handleOnMouseEnter = (e: React.MouseEvent<HTMLElement>) => {
+        if (e) onMouseEnter(e)
+    }
+
+    const handleOnMouseLeave = (e: React.MouseEvent<HTMLElement>) => {
+        if (e) onMouseLeave(e)
+    }
+
+    // ===={ PROPS }====
+    const props = {
+        type: type,
+        onClick: handleOnClick,
+        onMouseEnter: handleOnMouseEnter,
+        onMouseLeave: handleOnMouseLeave,
+        disabled: disabled || loading, 
+        className: `${cl.button} ${cl[variant]} ${classNameButton}`,
+    }
+
+    // ===={ BODY HTML }====
+    const bodyHTML = (
+        <>
+            {!loading && children &&
+                <span className={`${cl.buttonText} ${cl[classNameText]}`}>
+                    {children}
+                </span>
+            }
+            {variant === ButtonVariant.W_ARROW_RED &&
+                <ArrowIcon  />
+            }
+        </>
+    )
     
+    // ========================
     return (
         <div className={`global ${className}`}>
-            <button type={type} 
-                    onClick={(event) => onClick(event)} 
-                    onMouseEnter={(event) => onMouseEnter(event)} 
-                    onMouseLeave={(event) => onMouseLeave(event)} 
-                    disabled={disabled || loading} 
-                    className={`${cl.button} ${cl[variant]} ${classNameButton}`}>
-                {!loading &&
-                    <span className={`${cl.buttonText} ${cl[classNameText]}`}>
-                        {children}
-                    </span>}
-                {variant === ButtonVariant.W_ARROW_RED ? <svg width="40" height="45" viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M25.7071 18.7071C26.0976 18.3166 26.0976 17.6834 25.7071 17.2929L19.3431 10.9289C18.9526 10.5384 18.3195 10.5384 17.9289 10.9289C17.5384 11.3195 17.5384 11.9526 17.9289 12.3431L23.5858 18L17.9289 23.6569C17.5384 24.0474 17.5384 24.6805 17.9289 25.0711C18.3195 25.4616 18.9526 25.4616 19.3431 25.0711L25.7071 18.7071ZM10 19L25 19L25 17L10 17L10 19Z" fill="white" />
-                </svg> : null}
-            </button>
+            {href ? (
+                <Link href={href} {...props}>
+                    {bodyHTML}
+                </Link>
+            ) : (
+                <button {...props}>
+                    {bodyHTML}
+                </button>
+            )}
         </div>
     )
 }
