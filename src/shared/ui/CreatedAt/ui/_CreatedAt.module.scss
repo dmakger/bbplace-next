@@ -1,0 +1,10 @@
+.CreatedAt {
+    display: none;
+
+    @media (max-width: 700px) {
+        display: block;
+        font-weight: var(--font-weight-reg);
+        font-size: var(--font-size-s);
+        color: var(--gray-9);
+    }
+}

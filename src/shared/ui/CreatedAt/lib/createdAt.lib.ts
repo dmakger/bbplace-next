@@ -1,0 +1,1 @@
+export const getFormattedDate = (createdAt: string) => new Date(createdAt).toLocaleDateString();

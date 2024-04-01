@@ -1,7 +1,7 @@
 import cl from './_ProductH.module.scss'
 import { Button, ButtonVariant } from '@/shared/ui/Button'
 import { FC } from 'react'
-import { FavouriteIcon, FavouriteIconVariant, SubscribeIcon } from '@/shared/ui/Icon/index'
+import { FavouriteIcon, FavouriteIconVariant } from '@/shared/ui/Icon/index'
 import { IProductProps } from '@/entities/Product/model/props.product.model'
 import { ImageAPI } from '@/shared/ui/Image/API/ImageAPI'
 import { getDiapason } from '@/entities/Metrics/lib/metrics/diapason.metrics.metrics.lib'
@@ -9,9 +9,6 @@ import { WholesaleDiapason } from '@/entities/Metrics/ui/Wholesale/Diapason/Whol
 import { QuantityMetrics } from '@/shared/ui/QuantityMetrics/QuantityMetrics'
 import { SupplierDefault } from '@/entities/Supplier/ui/Default/SupplierDefault'
 import { cls } from '@/shared/lib/classes.lib'
-import { SubscribeSmallToSupplierButton } from '@/entities/Supplier/components/Button/Subscribe/Small/SubscribeSmallToSupplierButton'
-import { SubscribeAutoToSupplierButton } from '@/entities/Supplier/components/Button/Subscribe/Auto/SubscribeAutoToSupplierButton'
-import { ESupplierSubscribeViewItem } from '@/entities/Supplier/data/view.supplier.data'
 import { HeadingToTextProductTable } from '@/widgets/Product/Table/HeadingToText/ui/HeadingToTextProductTable'
 
 interface ProductHProps extends IProductProps {
