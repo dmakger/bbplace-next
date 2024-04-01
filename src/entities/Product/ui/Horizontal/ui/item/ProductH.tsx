@@ -10,15 +10,13 @@ import { QuantityMetrics } from '@/shared/ui/QuantityMetrics/QuantityMetrics'
 import { HeadingToTextProductTable } from '@/widgets/Product/Table/HeadingToText/ui/HeadingToTextProductTable'
 import { SupplierWNav } from '@/entities/Supplier/ui/WNav/SupplierWNav'
 import { cls } from '@/shared/lib/classes.lib'
-import { SubscribeSmallToSupplierButton } from '@/entities/Supplier/components/Button/Subscribe/Small/SubscribeSmallToSupplierButton'
-import { SubscribeAutoToSupplierButton } from '@/entities/Supplier/components/Button/Subscribe/Auto/SubscribeAutoToSupplierButton'
 import { ESupplierSubscribeViewItem, ESupplierToChatViewItem, ESupplierToProfileViewItem } from '@/entities/Supplier/data/view.supplier.data'
 
 interface ProductHProps extends IProductProps {
 
 }
 
-export const ProductH:FC<ProductHProps> = ({product, className}) => {
+export const ProductH:FC<ProductHProps> = ({product, className}) => {    
     // VARS
     const [minWholesale, maxWholesale] = getDiapason(product.media.wholesalePrices)
 
@@ -37,7 +35,7 @@ export const ProductH:FC<ProductHProps> = ({product, className}) => {
                             </div>
                         </div>
                         <WholesaleDiapason minWholesale={minWholesale} maxWholesale={maxWholesale}
-                                            currency={product.media.currency} className={cl.price} />
+                                            currency={product.media.currency} classNameText={cl.price} />
                         
                         <QuantityMetrics heading={'Мин. Кол-во'} 
                                          wholesale={minWholesale} 
@@ -46,17 +44,13 @@ export const ProductH:FC<ProductHProps> = ({product, className}) => {
                             ООО "Древние Русы"
                         </p>
                     </div>
-                    <div className={cl.additionalInfo}>
-                        <HeadingToTextProductTable product={product} />
-                    </div>
-                    <div className={cl.buttonContainer}>
-                        <SupplierWNav id={product.ownerId} 
-                                      hasSubscribe={true}
-                                      navs={[
-                                        ESupplierToChatViewItem.LARGE_WIDE,
-                                      ]} />
-
-                    </div>
+                    <HeadingToTextProductTable product={product} />
+                    <SupplierWNav id={product.ownerId} 
+                                  hasSubscribe={true}
+                                  className={cl.supplier}
+                                  navs={[
+                                    ESupplierToChatViewItem.LARGE_WIDE,
+                                  ]} />
                     <div className={cl.buttonContainerMobile}>
                         <Button variant={ButtonVariant.BORDERED_RED_NARROW}>
                             Написать

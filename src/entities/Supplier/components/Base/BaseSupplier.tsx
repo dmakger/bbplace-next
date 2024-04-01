@@ -27,7 +27,7 @@ export const BaseSupplier:FC<BaseSupplierProps> = ({supplier, hasImage=false, su
                 <span className={cls(cl.name, classNameName)}>{getNameSupplier(supplier)}</span>
                 <BottomLineSupplier supplier={supplier} />
             </div>
-            <SubscribeAutoToSupplierButton view={subscribeView} />
+            <SubscribeAutoToSupplierButton view={subscribeView} supplierId={supplier.id} />
         </div>
     )
 }
