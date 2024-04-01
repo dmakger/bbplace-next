@@ -13,11 +13,12 @@ import { EViewWNavSupplier, TViewNav } from "../../model/nav.supplier.model";
 interface SupplierWNavProps{
     id: ISupplier['id'] | null
     view?: EViewWNavSupplier
+    hasSubscribe?: boolean
     navs?: TViewNav[] 
     className?: string,
 }
 
-export const SupplierWNav:FC<SupplierWNavProps> = ({id, view=EViewWNavSupplier.HORIZONTAL, navs=[], className}) => {
+export const SupplierWNav:FC<SupplierWNavProps> = ({id, view=EViewWNavSupplier.HORIZONTAL, hasSubscribe=false, navs=[], className}) => {
 
     const { data: supplier } = UserAPI.useGetUserDataQuery(id!)    
     const [supplierState, setSupplierState] = useState<ISupplier>()
@@ -35,7 +36,7 @@ export const SupplierWNav:FC<SupplierWNavProps> = ({id, view=EViewWNavSupplier.H
             <div className={cl.supplier}>
                 <BaseSupplier supplier={supplierState} 
                             hasImage={false} 
-                            subscribeView={ESupplierSubscribeViewItem.SMALL} 
+                            subscribeView={hasSubscribe ? ESupplierSubscribeViewItem.SMALL : ESupplierSubscribeViewItem.NONE} 
                             classNameName={cl.name} />
             </div>
             <NavSupplier views={navs} supplierId={supplierState.id} />

@@ -51,6 +51,7 @@ export const ProductH:FC<ProductHProps> = ({product, className}) => {
                     </div>
                     <div className={cl.buttonContainer}>
                         <SupplierWNav id={product.ownerId} 
+                                      hasSubscribe={true}
                                       navs={[
                                         ESupplierToChatViewItem.LARGE_WIDE,
                                       ]} />
