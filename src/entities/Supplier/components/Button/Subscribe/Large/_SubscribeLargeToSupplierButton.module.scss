@@ -1,0 +1,33 @@
+.button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    border-radius: 100px;
+    transition: .2s;
+
+    &:hover {
+        background-color: var(--gray-4);
+    }
+
+    .text {
+        font-size: var(--font-size-s);
+        transition: .2s;
+    }
+}
+
+.notOutlineButton {
+    background-color: var(--gray-3);
+}
+
+.outlineButton {
+    border: 1px solid var(--gray-5);
+
+    &:hover {
+        border-color: var(--gray-4);
+    }
+
+    &.active {
+        border-color: var(--white);
+    }
+}

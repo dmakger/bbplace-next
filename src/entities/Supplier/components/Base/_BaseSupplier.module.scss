@@ -1,5 +1,6 @@
 .block {
     display: flex;
+    align-items: center;
     gap: 15px;
 
     .image {
@@ -12,10 +13,14 @@
     .content {
         display: flex;
         flex-direction: column;
-        gap: 15px;
+        gap: 2px;
 
         .name {
             font-size: 1rem;
+            white-space: nowrap;        
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 240px;
         }
     }
 }

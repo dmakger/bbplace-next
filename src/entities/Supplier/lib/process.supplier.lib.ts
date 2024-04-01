@@ -5,6 +5,7 @@ export const supplierApiToSupplier = (supplier?: ISupplierAPI) => {
 
     const category = JSON.parse(supplier.category) as ISupplier['category']
     const photoId = JSON.parse(supplier.photoId) as ISupplier['photoId']
+    
     return {
         ...supplier,
         category, 

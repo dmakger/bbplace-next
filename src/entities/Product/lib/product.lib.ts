@@ -8,9 +8,14 @@ import { metricsToObject } from "@/entities/Metrics/lib/metrics/base.metrics.met
 import { IProcessProductProps } from "../model/props.product.model";
 
 
+export const productApiListToProductList = (productListAPI: IProductAPI[], metrics?: IMetrics[], currencyList?: ICurrency[]): IProduct[] => {
+    return productListAPI.map(it => productApiToProduct({productAPI: it, metrics, currencyList}))
+}
+
+
 // PRODUCT API => PRODUCT 
 // Из {IProductAPI} ===> {IProduct}
-export const productApiToProduct = ({productAPI, metrics, currencyList, hasSupplier}: IProcessProductProps): IProduct => {
+export const productApiToProduct = ({productAPI, metrics, currencyList, hasSupplier=false}: IProcessProductProps): IProduct => {
     const media = JSON.parse(productAPI.media) as IMediaProduct
     const characteristics = JSON.parse(productAPI.characteristics) as ICharacteristic
     
@@ -39,7 +44,7 @@ export const productToProductAPI = (product: IProduct): IProductAPI => {
 
 // ============={ PROCESS }================
 // Обработка
-export const processProduct = (product: IProduct, metrics?: IMetrics[], currencyList?: ICurrency[]) => {
+export const processProduct = (product: IProduct, metrics?: IMetrics[], currencyList?: ICurrency[], hasSupplier?:boolean) => {
     let _product = {...product}
     _product = processProductWholesalePrices(_product, metrics, currencyList)
     return _product
@@ -73,3 +78,7 @@ const processProductWholesalePrices = (product: IProduct, metrics?: IMetrics[], 
         }
     }
 }
+
+
+// // ДОБАВЛЕНИЕ В ПРОДУКТ {SUPPLIER}
+// const 

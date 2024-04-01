@@ -1,3 +1,9 @@
-.name {
-    font-size: var(--font-size-s) !important;
+.block {
+    background-color: var(--gray-3);
+    padding: 7px 10px 7px 16px;
+    border-radius: 100px;
+
+    .name {
+        font-size: var(--font-size-s) !important;
+    }
 }
