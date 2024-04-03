@@ -32,8 +32,7 @@ export const ProductH:FC<ProductHProps> = ({product, className}) => {
         <>
             <section className={cls(cl.block, className)}>
                 <div className={cl.left}>
-                                    <ImageAPI src={product.media.attachments[0]} width={271} height={271} className={cl.image} />
-
+                    <ImageAPI src={product.media.attachments[0]} width={271} height={271} className={cl.image} />
                 </div>
                 <div className={cl.right}>
                     <div className={cl.main}>
