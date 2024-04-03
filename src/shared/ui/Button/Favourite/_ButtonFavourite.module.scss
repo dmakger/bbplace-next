@@ -1,0 +1,29 @@
+.button {
+    transition: .2s;
+
+    .image {
+        transition: .2s;
+    }
+
+    &:hover .image {
+        transform: scale(1.2);
+    }
+}
+
+.fill {
+    padding: 9px;
+    border-radius: 100px;
+    background-color: var(--background);
+
+    &:hover {
+        background-color: var(--hover);
+    }
+}
+
+.active {
+    background-color: var(--gray-1);
+
+    &:hover {
+        background-color: var(--gray-1);
+    }
+}

@@ -14,6 +14,7 @@ import { SupplierWNav } from '@/entities/Supplier/ui/WNav/SupplierWNav'
 import { cls } from '@/shared/lib/classes.lib'
 import { ESupplierSubscribeViewItem, ESupplierToChatViewItem, ESupplierToProfileViewItem } from '@/entities/Supplier/data/view.supplier.data'
 import { HandleSize } from '@/shared/ui/Handle/Size/HandleSize'
+import { ButtonFavourite } from '@/shared/ui/Button/Favourite/ButtonFavourite'
 
 interface ProductHProps extends IProductProps {
 
@@ -39,8 +40,9 @@ export const ProductH:FC<ProductHProps> = ({product, className}) => {
                             <div className={cl.topContainer}>
                                 <h4 className={cl.name}>{product.name}</h4>
                                 <div className={cl.favorite}>
-                                    <FavouriteIcon variant={FavouriteIconVariant.EMPTY}/>
+                                    <FavouriteIcon />
                                 </div>
+                                <ButtonFavourite isFill={true} />
                             </div>
                             <WholesaleDiapason minWholesale={minWholesale} maxWholesale={maxWholesale}
                                                 currency={product.media.currency} classNameText={cl.price} />
@@ -63,7 +65,8 @@ export const ProductH:FC<ProductHProps> = ({product, className}) => {
                             <Button variant={ButtonVariant.BORDERED_RED_NARROW}>
                                 Написать
                             </Button>
-                            <FavouriteIcon variant={FavouriteIconVariant.IN_CIRCLE_HEART}/>
+                            <FavouriteIcon/>
+                            <ButtonFavourite />
                         </div>
                     </div>
             </section>

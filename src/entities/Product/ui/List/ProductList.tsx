@@ -1,6 +1,7 @@
 "use client"
 
 import { FC, useEffect, useState } from "react"
+import cl from './_ProductList.module.scss'
 
 import { DEFAULT_VIEW_PRODUCT, EViewProduct } from "../../model/view.product.model";
 import { ProductHList } from "../Horizontal/ui/list/ProductHList";
@@ -10,6 +11,7 @@ import { ProductAPI } from "../../api/product.api";
 import { useAppSelector } from "@/storage/hooks";
 import { productApiListToProductList } from "../../lib/product.lib";
 import { PRODUCT_ARGS_REQUEST } from "../../data/product.data";
+import { cls } from "@/shared/lib/classes.lib";
 
 interface ProductListProps{
     view?: EViewProduct
@@ -38,6 +40,6 @@ export const ProductList:FC<ProductListProps> = ({view=DEFAULT_VIEW_PRODUCT, cla
         return <div>Loading...</div>
     
     if (view === EViewProduct.HORIZONTAL)
-        return <ProductHList products={productList} className={className} />
-    return <ProductVList className={className} />
+        return <ProductHList products={productList} className={cls(cl.list, className)} />
+    return <ProductVList className={cls(cl.list, className)} />
 }
