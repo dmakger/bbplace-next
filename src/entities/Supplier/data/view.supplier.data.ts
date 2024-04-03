@@ -29,3 +29,14 @@ export enum ESupplierToProfileViewItem {
     SMALL = `small__${PREFIX_TO_PROFILE_VIEW_SUPPLIER}`,
     LARGE = `large__${PREFIX_TO_PROFILE_VIEW_SUPPLIER}`,
 }
+
+
+// Favourite
+export const PREFIX_FAVOURITE_VIEW_SUPPLIER = "favourite"
+
+export enum ESupplierFavouriteViewItem {
+    NONE = `none__${PREFIX_FAVOURITE_VIEW_SUPPLIER}`,
+    SMALL = `small__${PREFIX_FAVOURITE_VIEW_SUPPLIER}`,
+    SMALL_FILL = `smallFill__${PREFIX_FAVOURITE_VIEW_SUPPLIER}`,
+}
+

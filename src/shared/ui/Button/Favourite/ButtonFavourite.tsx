@@ -7,17 +7,19 @@ import { FavouriteIcon } from "../../Icon";
 interface ButtonFavouriteProps{
     isFill?: boolean
     isFavourited?: boolean
+    onClick?: Function
     className?: string,
     classNameIcon?: string,
 }
 
-export const ButtonFavourite:FC<ButtonFavouriteProps> = ({isFill=false, isFavourited=false, className, classNameIcon}) => {
+export const ButtonFavourite:FC<ButtonFavouriteProps> = ({isFill=false, isFavourited=false, onClick, className, classNameIcon}) => {
     // STATE
     const [isActive, setIsActive] = useState(isFavourited)
     const [isHovered, setIsHovered] = useState(false)
 
     // HANDLE
     const handleOnClick = () => {
+        if (onClick) onClick()
         setIsActive(prevState => !prevState)
     }
 

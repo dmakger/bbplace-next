@@ -1,9 +1,6 @@
 'use client'
 
-import cl from './_ProductH.module.scss'
-import { Button, ButtonVariant } from '@/shared/ui/Button'
 import { FC, useState } from 'react'
-import { FavouriteIcon, FavouriteIconVariant, SubscribeIcon } from '@/shared/ui/Icon/index'
 import { IProductProps } from '@/entities/Product/model/props.product.model'
 import { ImageAPI } from '@/shared/ui/Image/API/ImageAPI'
 import { getDiapason } from '@/entities/Metrics/lib/metrics/diapason.metrics.metrics.lib'
@@ -12,13 +9,15 @@ import { QuantityMetrics } from '@/shared/ui/QuantityMetrics/QuantityMetrics'
 import { HeadingToTextProductTable } from '@/widgets/Product/Table/HeadingToText/ui/HeadingToTextProductTable'
 import { SupplierWNav } from '@/entities/Supplier/ui/WNav/SupplierWNav'
 import { cls } from '@/shared/lib/classes.lib'
-import { ESupplierSubscribeViewItem, ESupplierToChatViewItem, ESupplierToProfileViewItem } from '@/entities/Supplier/data/view.supplier.data'
+import cl from './_ProductH.module.scss'
+import { ESupplierFavouriteViewItem, ESupplierSubscribeViewItem, ESupplierToChatViewItem } from '@/entities/Supplier/data/view.supplier.data'
 import { HandleSize } from '@/shared/ui/Handle/Size/HandleSize'
-import { ButtonFavourite } from '@/shared/ui/Button/Favourite/ButtonFavourite'
+import { FavouriteSmallToSupplierButton } from '@/entities/Supplier/components/Button/Favourite/Small/FavouriteSmallToSupplierButton'
+import { ESupplierAxis, ESupplierView } from '@/entities/Supplier/data/supplier.data'
+import { getViewByIsList } from '@/shared/lib/view.lib'
+import { IViewToIs } from '@/shared/model/view.model'
 
-interface ProductHProps extends IProductProps {
-
-}
+interface ProductHProps extends IProductProps {}
 
 export const ProductH:FC<ProductHProps> = ({product, className}) => {    
     // VARS
@@ -32,43 +31,40 @@ export const ProductH:FC<ProductHProps> = ({product, className}) => {
     return (
         <>
             <section className={cls(cl.block, className)}>
-                <div className={cl.leftContainer}>
-                    <ImageAPI src={product.media.attachments[0]} width={271} height={271} />
+                <div className={cl.left}>
+                                    <ImageAPI src={product.media.attachments[0]} width={271} height={271} className={cl.image} />
+
                 </div>
-                    <div className={cl.right}>
-                        <div className={cl.mainInfo}>
-                            <div className={cl.topContainer}>
-                                <h4 className={cl.name}>{product.name}</h4>
-                                <div className={cl.favorite}>
-                                    <FavouriteIcon />
-                                </div>
-                                <ButtonFavourite isFill={true} />
-                            </div>
+                <div className={cl.right}>
+                    <div className={cl.main}>
+                        <div className={cl.top}>
+                            <h4 className={cl.name}>{product.name}</h4>
+                            <FavouriteSmallToSupplierButton className={cl.favourite}/>
+                        </div>
+                        <div className={cl.middle}>
                             <WholesaleDiapason minWholesale={minWholesale} maxWholesale={maxWholesale}
                                                 currency={product.media.currency} classNameText={cl.price} />
-                            
                             <QuantityMetrics heading={'Мин. Кол-во'} 
-                                            wholesale={minWholesale} 
+                                            wholesale={minWholesale}
+                                            className={cl.quantity}
                                             classNameText={cl.quantityText} />
-                            <p className={cl.cardSupplier}>
-                                ООО "Древние Русы"
-                            </p>
                         </div>
-                        <HeadingToTextProductTable product={product} />
-                        <SupplierWNav id={product.ownerId} 
-                                    hasSubscribe={true}
-                                    className={cl.supplier}
-                                    navs={[
-                                        is1024 ? ESupplierToChatViewItem.SMALL : ESupplierToChatViewItem.LARGE_WIDE
-                                    ]} />
-                        <div className={cl.buttonContainerMobile}>
-                            <Button variant={ButtonVariant.BORDERED_RED_NARROW}>
-                                Написать
-                            </Button>
-                            <FavouriteIcon/>
-                            <ButtonFavourite />
-                        </div>
+                        <HeadingToTextProductTable product={product} className={cl.table} />
                     </div>
+                    <SupplierWNav id={product.ownerId} 
+                                  view={is768 ? ESupplierView.SMALL : ESupplierView.LARGE_GRAY}
+                                  axis={is768 ? ESupplierAxis.VERTICAL : ESupplierAxis.HORIZONTAL}
+                                  subscribeView={ESupplierSubscribeViewItem.SMALL}
+                                  className={cl.supplier}
+                                  navs={[
+                                    getViewByIsList([
+                                        {view: ESupplierToChatViewItem.LARGE, _is: is768},
+                                        {view: ESupplierToChatViewItem.SMALL, _is: is1024},
+                                        {view: ESupplierToChatViewItem.LARGE_WIDE, _is: true},
+                                    ] as IViewToIs[]) as ESupplierToChatViewItem,
+                                    is768 ? ESupplierFavouriteViewItem.SMALL : ESupplierFavouriteViewItem.NONE,
+                                  ]} />
+                </div>
             </section>
             <HandleSize width={1024} set={setIs1024} />
             <HandleSize width={768} set={setIs768} />

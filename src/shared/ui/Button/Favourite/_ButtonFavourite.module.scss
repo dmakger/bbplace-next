@@ -5,8 +5,12 @@
         transition: .2s;
     }
 
-    &:hover .image {
+    &:hover {
         transform: scale(1.2);
+    }
+
+    &:active {
+        transform: scale(0.9);
     }
 }
 
@@ -20,7 +24,7 @@
     }
 }
 
-.active {
+.fill.active {
     background-color: var(--gray-1);
 
     &:hover {
