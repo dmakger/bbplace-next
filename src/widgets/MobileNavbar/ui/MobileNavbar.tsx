@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { MOBILE_MENU_DATA } from '@/shared/data/menu/mobile.menu.data';
 
 export const MobileNavbar = () => {
+  console.log('MobileNavbar')
   return (
     <nav className={cl.MobileNavbar}>
         <div className={cl.navBarParent}>

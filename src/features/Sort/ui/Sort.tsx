@@ -1,6 +1,6 @@
 import { FC } from "react"
 import cl from './_Sort.module.scss'
-import { cls } from "@/shared/lib/classes.data"
+import { cls } from "@/shared/lib/classes.lib"
 
 interface ISort{
     className?: string,

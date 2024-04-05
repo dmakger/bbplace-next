@@ -1,9 +1,9 @@
 'use client'
 
 import { FC, useState } from "react"
-import { cls } from "@/shared/lib/classes.data"
 import cl from './_Filter.module.scss'
 import Image from "next/image"
+import { cls } from "@/shared/lib/classes.lib"
 
 interface IFilterProps{
     className?: string,

@@ -2,7 +2,7 @@ import Image from 'next/image'
 import VerticalProductImage from '@/shared/assets/img/VerticalProductImage.jpg'
 import cl from './_ProductV.module.scss'
 import { Button, ButtonVariant } from '@/shared/ui/Button'
-import { FavouriteIcon, FavouriteIconVariant, SubscribeIcon, SubscribeIconVariant } from '@/shared/ui/Icon/index'
+// import { FavouriteIcon, FavouriteIconVariant, SubscribeIcon } from '@/shared/ui/Icon/index'
 import { SupplierInfo } from '@/shared/ui/SupplierInfo'
 import { FC } from 'react'
 
@@ -13,7 +13,7 @@ interface ProductVProps{
 export const ProductV:FC<ProductVProps> = ({}) => {
   return (
     <section className={cl.VerticalCard}>
-      <div className={cl.topContainer}>
+      {/* <div className={cl.topContainer}>
         <div className={cl.imageContainer}>
           <Image src={VerticalProductImage} alt='VerticalProductImage' className={cl.blurBackground} />
           <Image src={VerticalProductImage} alt='VerticalProductImage'  className={cl.frontImage} />
@@ -52,7 +52,7 @@ export const ProductV:FC<ProductVProps> = ({}) => {
               </Button>
           </div>
         </div>
-      </div>
+      </div> */}
     </section>
   )
 }

@@ -4,7 +4,6 @@ import { DASHBOARD_PAGES, MAIN_PAGES } from "@/config/pages-url.config";
 import LogoSVG from '@/shared/assets/img/logo.svg'
 import CatalogSVG from '@/shared/assets/img/catalog.svg'
 import LkSVG from '@/shared/assets/img/lk.svg'
-import { CHATS_WT_ITEM_MENU_DATA, FAVORITES_WT_ITEM_MENU_DATA } from "./dashboard.menu.data";
 
 
 // ===={ MOBILE MENU DATA }====
@@ -29,10 +28,10 @@ export const DASHBOARD_ITEM_MENU_DATA: IMenuItem = {
 
 
 // // DATA WITHOUT TITLE
-// export const MOBILE_MENU_DATA: IMenuItem[] = [
-//     MAIN_ITEM_MENU_DATA,
-//     CATALOG_ITEM_MENU_DATA,
-//     FAVORITES_WT_ITEM_MENU_DATA,
-//     CHATS_WT_ITEM_MENU_DATA,
-//     DASHBOARD_ITEM_MENU_DATA,
-// ]
+export const MOBILE_MENU_DATA: IMenuItem[] = [
+    MAIN_ITEM_MENU_DATA,
+    CATALOG_ITEM_MENU_DATA,
+    // FAVORITES_WT_ITEM_MENU_DATA,
+    // CHATS_WT_ITEM_MENU_DATA,
+    DASHBOARD_ITEM_MENU_DATA,
+]

@@ -9,6 +9,7 @@ import { IIconVariants } from "@/shared/model/icon.model";
 // ===={ DASHBOARD MENU DATA }====
 
 // export const FAVORITES_WOT_ITEM_MENU_DATA: IIconVariants = {
+//     id: 1,
 //     link: DASHBOARD_PAGES.FAVORITE,
 //     image: FavoriteSVG,
 // }
