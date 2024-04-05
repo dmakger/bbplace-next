@@ -19,9 +19,10 @@ interface SupplierWNavProps{
     axis?: ESupplierAxis
     className?: string,
     classNameNavs?: string,
+    classNameNavsItem?: string,
 }
 
-export const SupplierWNav:FC<SupplierWNavProps> = ({id, view=ESupplierView.LARGE_WHITE, subscribeView=ESupplierSubscribeViewItem.NONE, navs=[], axis=ESupplierAxis.HORIZONTAL, className, classNameNavs}) => {
+export const SupplierWNav:FC<SupplierWNavProps> = ({id, view=ESupplierView.LARGE_WHITE, subscribeView=ESupplierSubscribeViewItem.NONE, navs=[], axis=ESupplierAxis.HORIZONTAL, className, classNameNavs, classNameNavsItem}) => {
 
     const { data: supplier } = UserAPI.useGetUserDataQuery(id!)    
     const [supplierState, setSupplierState] = useState<ISupplier>()
@@ -40,7 +41,8 @@ export const SupplierWNav:FC<SupplierWNavProps> = ({id, view=ESupplierView.LARGE
                           view={view}
                           hasImage={false} 
                           subscribeView={subscribeView} />
-            <NavSupplier views={navs} supplierId={supplierState.id} className={cls(cl.navs, classNameNavs)} />
+            <NavSupplier views={navs} supplierId={supplierState.id} 
+                         className={cls(cl.navs, classNameNavs)} classNameItem={classNameNavsItem} />
         </div>
     )
 }

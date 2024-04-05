@@ -15,10 +15,11 @@ interface NavSupplierProps{
     supplierId: ISupplier['id']
     views?: TViewNav[]
     className?: string,
+    classNameItem?: string,
 }
 
-export const NavSupplier:FC<NavSupplierProps> = ({supplierId, views=[], className}) => {
-    const props = {supplierId}
+export const NavSupplier:FC<NavSupplierProps> = ({supplierId, views=[], className, classNameItem}) => {
+    const props = {supplierId, className: classNameItem}
 
     return (
         <div className={cls(cls(cl.block, className))}>

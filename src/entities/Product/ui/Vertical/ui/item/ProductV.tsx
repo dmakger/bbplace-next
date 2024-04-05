@@ -1,59 +1,59 @@
-import Image from 'next/image'
-import VerticalProductImage from '@/shared/assets/img/VerticalProductImage.jpg'
-import cl from './_ProductV.module.scss'
-import { Button, ButtonVariant } from '@/shared/ui/Button'
-// import { FavouriteIcon, FavouriteIconVariant, SubscribeIcon } from '@/shared/ui/Icon/index'
-import { SupplierInfo } from '@/shared/ui/SupplierInfo'
-import { FC } from 'react'
+import { cls } from '@/shared/lib/classes.lib';
+import cl from './_ProductV.module.scss';
+import { FC, useState } from 'react';
+import { getDiapason } from '@/entities/Metrics/lib/metrics/diapason.metrics.metrics.lib';
+import { ImageAPI } from '@/shared/ui/Image/API/ImageAPI';
+import { FavouriteAutoToSupplierButton } from '@/entities/Supplier/components/Button/Favourite/Auto/FavouriteAutoToSupplierButton';
+import { ESupplierFavouriteViewItem, ESupplierSubscribeViewItem, ESupplierToChatViewItem } from '@/entities/Supplier/data/view.supplier.data';
+import { ESupplierAxis, ESupplierView } from '@/entities/Supplier/data/supplier.data';
+import { SupplierWNav } from '@/entities/Supplier/ui/WNav/SupplierWNav';
+import { WholesaleDiapason } from '@/entities/Metrics/ui/Wholesale/Diapason/WholesaleDiapason';
+import { QuantityMetrics } from '@/shared/ui/QuantityMetrics/QuantityMetrics';
+import { IProductProps } from '@/entities/Product/model/props.product.model';
+import { HandleSize } from '@/shared/ui/Handle/Size/HandleSize';
 
-interface ProductVProps{
+interface ProductVProps extends IProductProps {}
 
-}
+export const ProductV: FC<ProductVProps> = ({ product, className }) => {
+  // VARS
+  const [minWholesale, maxWholesale] = getDiapason(product.media.wholesalePrices);
 
-export const ProductV:FC<ProductVProps> = ({}) => {
+  // STATE
+  const [is768, setIs768] = useState(false);
+
   return (
-    <section className={cl.VerticalCard}>
-      {/* <div className={cl.topContainer}>
-        <div className={cl.imageContainer}>
-          <Image src={VerticalProductImage} alt='VerticalProductImage' className={cl.blurBackground} />
-          <Image src={VerticalProductImage} alt='VerticalProductImage'  className={cl.frontImage} />
-          <FavouriteIcon variant={FavouriteIconVariant.IN_CIRCLE_HEART} className={cl.iconForVertCard} />
+    <>
+      <section className={cls(cl.block, className)}>
+        <div className={cl.top}>
+          <ImageAPI src={product.media.attachments[0]} width={271} height={271} className={cl.image} />
+          <FavouriteAutoToSupplierButton view={ESupplierFavouriteViewItem.SMALL_FILL} className={cl.favourite} />
         </div>
-        
-      </div>
-      <div className={cl.bottomContainer}>
-        <div className={cl.mainInfo}>
-          <h4 className={cl.cardTitle}>
-            2023 зима новинка 350 GSM мужские негабаритные dsadsdsad jsklajdlsklj adljsalkjdlkajsl djslajdja sljdlasdjasjd 
-          </h4>
-          <div className={cl.priceAndQuantity}>
-            <p className={cl.cardPrice}>
-              305,80 RUB - 9 237 RUB<span>&nbsp;/шт.</span>
-            </p>
-            <p className={cl.cardQuantity}>
-              Мин. Кол-во: <span>10 кг</span>
-            </p>
+        <div className={cl.content}>
+          <div className={cl.middle}>
+            <h4 className={cl.name}>{product.name}</h4>
+            <div className={cl.priceWrapper}>
+              <WholesaleDiapason minWholesale={minWholesale} maxWholesale={maxWholesale}
+                currency={product.media.currency} classNameText={cl.price} />
+              <QuantityMetrics heading={'Мин. Кол-во'}
+                wholesale={minWholesale}
+                className={cl.quantity}
+                classNameText={cl.quantityText} />
+            </div>
           </div>
+          <div className={cl.line} />
+          <SupplierWNav id={product.ownerId}
+                        view={is768 ? ESupplierView.SMALL : ESupplierView.LARGE_WHITE}
+                        axis={ESupplierAxis.VERTICAL}
+                        className={cl.supplier}
+                        classNameNavs={cl.supplierNavs}
+                        classNameNavsItem={cl.supplierNavsItem}
+                        navs={[
+                          is768 ? ESupplierSubscribeViewItem.NONE : ESupplierSubscribeViewItem.SMALL_WIDE,
+                          is768 ? ESupplierToChatViewItem.LARGE : ESupplierToChatViewItem.LARGE_WIDE,
+                        ]} />
         </div>
-        <div className={cl.bottomBlock}>
-          <SupplierInfo/>
-          <p className={cl.supplierInfoMobile}>
-            ООО "Древние Русы"
-          </p>
-          <div className={cl.buttonsContainer}>
-              <Button variant={ButtonVariant.BORDERED_RED_WIDE}>
-                Связаться с поставщиком
-              </Button>
-              <SubscribeIcon variant={SubscribeIconVariant.EMPTY} />
-          </div>
-          <div className={cl.buttonsContainerMobile}>
-              <Button variant={ButtonVariant.CLEAR}>
-                Написать
-              </Button>
-          </div>
-        </div>
-      </div> */}
-    </section>
-  )
-}
-
+      </section>
+      <HandleSize width={768} set={setIs768} />
+    </>
+  );
+};

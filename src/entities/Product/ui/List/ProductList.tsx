@@ -41,5 +41,5 @@ export const ProductList:FC<ProductListProps> = ({view=DEFAULT_VIEW_PRODUCT, cla
     
     if (view === EViewProduct.HORIZONTAL)
         return <ProductHList products={productList} className={cls(cl.list, className)} />
-    return <ProductVList className={cls(cl.list, className)} />
+    return <ProductVList products={productList} className={cls(cl.list, className)} />
 }

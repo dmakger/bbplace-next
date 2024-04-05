@@ -1,3 +1,7 @@
+.wrapper {
+    display: flex;
+}
+
 .button {
     cursor: pointer;
     border: 1px solid var(--gray-5);
@@ -5,6 +9,7 @@
     font-weight: var( --font-weight-reg);
     font-size:  var(--font-size-s);
     text-align: center;
+    width: 100%;
     transition: all 0.3s;
     
     &:hover{

@@ -5,7 +5,7 @@ import { FavouriteSmallToSupplierButton } from "../Small/FavouriteSmallToSupplie
 
 
 interface FavouriteAutoToSupplierButtonProps{
-    supplierId: ISupplier['id']
+    supplierId?: ISupplier['id']
     view?: ESupplierFavouriteViewItem
     isSubscribed?: boolean
     className?: string,

@@ -17,7 +17,7 @@ export const ToChatLargeToSupplierButton:FC<ToChatLargeToSupplierButtonProps> = 
     return (
         <Button variant={ButtonVariant.BORDERED_RED_WIDE} 
                 href={DASHBOARD_PAGES.CURRENT_CHAT(supplierId)}
-                className={cls(cl.button, className)}>
+                className={cls(cl.buttonWrapper, className)} classNameButton={cl.button}>
             {isWide ? 'Связаться с поставщиком' : 'Написать'}
         </Button>
     )

@@ -76,7 +76,7 @@ export const Button = ({ children,
     
     // ========================
     return (
-        <div className={`global ${className}`}>
+        <div className={`global ${cl.wrapper} ${className}`}>
             {href ? (
                 <Link href={href} {...props}>
                     {bodyHTML}
