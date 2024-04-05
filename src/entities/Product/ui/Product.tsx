@@ -1,5 +1,4 @@
 import { FC } from "react"
-import { IProduct } from "../model/product.model";
 import { DEFAULT_VIEW_PRODUCT, EViewProduct } from "../model/view.product.model";
 import { ProductH } from "./Horizontal";
 import { ProductV } from "./Vertical";

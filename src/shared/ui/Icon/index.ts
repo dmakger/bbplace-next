@@ -1,8 +1,7 @@
-export {FavouriteIcon} from './ui/FavouriteIcon/FavouriteIcon'
-export {SubscribeIcon} from './ui/SubscribeIcon/SubscribeIcon'
-export {DefaultIcon} from './ui/DefaultIcon/DefaultIcon'
+export {FavouriteIcon} from './ui/Favourite/FavouriteIcon'
+export {SubscribeIcon} from './ui/Subscribe/SubscribeIcon'
+export {DefaultIcon} from './ui/Default/DefaultIcon'
 
 
-export { SubscribeIconVariant } from './model/model'
 export  { FavouriteIconVariant } from './model/model'
 

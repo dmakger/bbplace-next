@@ -1,0 +1,14 @@
+.list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background-2);
+    border-radius: 20px;
+
+    .line {
+        height: 1px;
+        width: calc(100% - 32px);
+        margin: 0 16px;
+        background-color: var(--gray-5);
+    }
+}

@@ -1,0 +1,36 @@
+.block {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    .image {
+        width: 40px;
+        height: 40px;
+        border-radius: 20px;
+        border: 1px solid var(--gray-5);
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+
+        .name {
+            font-size: 1rem;
+            white-space: nowrap;        
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 240px;
+        }
+    }
+}
+
+.gray {
+    background-color: var(--gray-3);
+    padding: 7px 10px 7px 16px;
+    border-radius: 100px;
+
+    .name {
+        font-size: var(--font-size-s) !important;
+    }
+}

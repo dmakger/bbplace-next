@@ -1,36 +1,60 @@
-import { axiosClassic } from "@/api/interceptors";
+import {createApi} from "@reduxjs/toolkit/query/react";
+import {fetchBaseQuery} from "@reduxjs/toolkit/query";
+import { ISupplier, ISupplierAPI } from "@/entities/Supplier/model/supplier.model";
+import { options } from "@/api/interceptors";
 import { IAuthForm, IAuthResponse } from "../model/auth.model";
-import { getTokens, removeFromStorage, saveTokensStorage } from "../lib/auth-token.lib";
-
-class AuthAPI {
-    private BASE_URL = '/Authenticate'
-
-    async login(data: IAuthForm) {
-        const response = await axiosClassic.post<IAuthResponse>(
-			`${this.BASE_URL}/login/`, data
-		)
-
-		if (response.data) 
-            saveTokensStorage(response.data)
-
-		return response
-    }
-
-    async getNewTokens() {
-		const response = await axiosClassic.post<IAuthResponse>(
-			`${this.BASE_URL}/refresh-token/`, getTokens()
-		)
-
-		if (response.data) 
-            saveTokensStorage(response.data)
-
-		return response
-	}
-
-    async logout() {
-        removeFromStorage()
-	}
-}
+import { getAccessToken, getRefreshToken, getTokens, saveTokensStorage } from "../lib/auth-token.lib";
 
 
-export const authAPI = new AuthAPI()
+export const UserAPI = createApi({
+    reducerPath: 'userAPI',
+    baseQuery: fetchBaseQuery({
+        baseUrl: options.baseURL + 'auth/api/Authenticate'
+    }),
+    endpoints: (build) => ({
+        //GET
+        getUserData: build.query<ISupplierAPI, string>({
+            query: (userId) => ({
+                url: `/GetUserInfo?userId=${userId}`,
+                method: 'POST',
+                body: {}
+            })
+        }),
+
+        login: build.mutation<IAuthForm, IAuthForm>({
+            query: ({username, password}) => ({
+                url: '/login',
+                method: 'POST',
+                body: {
+                    username,
+                    password,
+                },
+                responseHandler: async (response) => {
+                    const data = await response.json() as IAuthResponse
+                    saveTokensStorage(data)
+                    return data
+                },
+            })
+        }),
+
+        refreshToken: build.mutation<IAuthForm, void>({
+            query: () => ({
+                url: `/refresh-token`,
+                method: 'POST',
+                body: {
+                    accessToken: getAccessToken(),
+                    refreshToken: getRefreshToken(),
+                },
+                responseHandler: async (response) => {
+                    const data = await response.json() as IAuthResponse
+                    saveTokensStorage(data)
+                    return data
+                },
+            })
+        }),
+    
+        // async logout() {
+        //     removeFromStorage()
+        // }
+    })
+})

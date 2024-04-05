@@ -1,15 +1,18 @@
-import { axiosClassic } from "@/api/interceptors"
+import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import { ICategory } from "../model/category.metrics.model"
+import { options } from "@/api/interceptors";
 
-class CategoryAPI {
-    private BASE_URL = '/metrics/api/Metrics'
-
-    async all() {      
-      const response = await axiosClassic.get<ICategory[]>(
-        `${this.BASE_URL}/GetCategories/`
-      )
-      return response.data
-    }
-}
-
-export const categoryAPI = new CategoryAPI()
+export const CategoryAPI = createApi({
+	reducerPath: 'categoryAPI',
+  	baseQuery: fetchBaseQuery({
+		baseUrl: options.baseURL + 'metrics/api/Metrics'
+	}),
+	endpoints: (build) => ({
+		getCategories: build.query<ICategory[], void>({
+			query: () => ({
+				url: `/GetCategories/`,
+				method: 'GET',
+			})
+		}),
+	})
+})

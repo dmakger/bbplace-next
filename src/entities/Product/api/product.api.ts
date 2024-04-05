@@ -1,22 +1,24 @@
-import { axiosClassic } from "@/api/interceptors"
-import { IArgsRequest } from "@/api/model/request.model.api"
-import { getURL } from "@/api/request"
+import {createApi} from "@reduxjs/toolkit/query/react";
+import {fetchBaseQuery} from "@reduxjs/toolkit/query";
+import { options } from "@/api/interceptors";
 import { IProductAPI } from "../model/product.model";
-import { PRODUCT_ARGS_REQUEST } from "../data/product.data";
+import { IArgsRequest } from "@/api/model/request.model.api";
+import { getArgsProduct } from "../lib/args.product.lib";
+import { getURL } from "@/api/request";
 
-class ProductAPI {
-    private BASE_URL = '/item/api/Items'
 
-    getArgs(args?: IArgsRequest) {
-      return args ?? PRODUCT_ARGS_REQUEST
-    }
-
-    async all(args?: IArgsRequest) {            
-      const response = await axiosClassic.get<IProductAPI[]>(
-        getURL(`${this.BASE_URL}/GetItems/Filter/`, this.getArgs(args))
-      )
-      return response.data
-    }
-}
-
-export const productAPI = new ProductAPI()
+export const ProductAPI = createApi({
+    reducerPath: 'productAPI',
+    baseQuery: fetchBaseQuery({
+        baseUrl: options.baseURL + 'item/api/Items'
+    }),
+    endpoints: (build) => ({
+        //ITEMS CATALOG
+        getProducts: build.query<IProductAPI[], IArgsRequest | undefined>({
+            query: (args) => ({
+                url: getURL(`/GetItems/Filter/`, getArgsProduct(args)),
+				method: 'GET',
+            })
+        }),
+	})
+})

@@ -1,14 +1,14 @@
 import { FC } from 'react'
 import cl from './_SupplierInfo.module.scss'
+import { ISupplier } from '@/entities/Supplier/model/supplier.model'
 
 interface ISupplierInfo{
-    name?: string,
-    status?: string,
-    country?: string
+    ownerId?: ISupplier['id'],
+    supplier?: ISupplier,
 }
 
 
-export const SupplierInfo:FC<ISupplierInfo> = ({name, status, country}) => {
+export const SupplierInfo:FC<ISupplierInfo> = ({ownerId, supplier}) => {
     return (
         <div className={cl.supplierInfo}>
             <p className={cl.supplierName}>

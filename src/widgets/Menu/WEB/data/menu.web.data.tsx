@@ -48,7 +48,7 @@ export const TENDERS_ITEM_MENU_WEB_DATA: IIconVariants = {
 
 export const COMPANIES_ITEM_MENU_WEB_DATA: IIconVariants = {
     id: 3,
-    link: MAIN_PAGES.COMPANIES,
+    link: MAIN_PAGES.SUPPLIERS,
     title: "Поставщики",
     image: <CompanyIcon/>,
 }

@@ -1,0 +1,49 @@
+.block {
+    position: relative;
+}
+
+
+.wrapper {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    opacity: 0;
+    transition: .2s;
+
+    .image {
+        position: absolute;
+        z-index: -1;
+        left: 0;
+        top: 0;
+        opacity: 0;
+        transition: .2s;
+    }
+
+    .static {
+        z-index: 1;
+        opacity: 1;
+    }
+
+    .hover {
+        z-index: -1;
+        opacity: 0;
+    }
+}
+
+.activeWrapper {
+    z-index: 1;
+    opacity: 1;
+}
+
+.hoveredWrapper, .wrapper:hover {
+    .visible {
+        z-index: -1;
+        opacity: 0;
+    }
+
+    .hover {
+        z-index: 1;
+        opacity: 1;
+    }
+}
