@@ -28,7 +28,6 @@ export const ProductH:FC<ProductHProps> = ({product, className}) => {
     const [is1024, setIs1024] = useState(false)
     const [is768, setIs768] = useState(false)
 
-    console.log(product);
     return (
         <>
             <section className={cls(cl.block, className)}>
