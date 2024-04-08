@@ -8,19 +8,21 @@ import { useEffect, useRef, useState } from 'react'
 import Input from '../../Input'
 import { cls } from '@/shared/lib/classes.lib'
 import WrapperClickOutside from '../../../Wrapper/ClickOutside/WrapperClickOutside'
+import { T } from '@/shared/ui/Translate'
 
 interface InputSelectProps {
     options: IOption[]
     defaultOption?: IOption
     name?: string
     onClickOption?: Function
+    WOTranslate?: boolean,
     className?: string
     classNameTitle?: string
     classNameOptions?: string,
     classNameButton?: string
 }
 
-export default function InputSelect({defaultOption, options, name, onClickOption, className, classNameTitle = '', classNameOptions, classNameButton = ''}: InputSelectProps) {
+export default function InputSelect({defaultOption, options, name, onClickOption, className, classNameTitle = '', classNameOptions, classNameButton = '', WOTranslate = false}: InputSelectProps) {
     // STATE
     const [showOptions, setShowOptions] = useState(false)
     const [activeOption, setActiveOption] = useState<IOption | undefined>()
@@ -52,7 +54,10 @@ export default function InputSelect({defaultOption, options, name, onClickOption
     return (
         <WrapperClickOutside _ref={inputSelectRef} isShow={showOptions} handle={toggleShowOptions} className={cls(cl.block, showOptions ? cl.show : '', className)}>
             <button type={'button'} onClick={handleOnTitle} className={cls(cl.button, cl[classNameButton])}>
-                <span className={cls(cl.title, cl[classNameTitle])}>{activeOption?.name}</span>
+                <span className={cls(cl.title, cl[classNameTitle])}>
+                    {WOTranslate ? activeOption?.name : 
+                    <T>{activeOption?.name}</T>}
+                </span>
                 <Image src={'arrow.svg'} alt={'arrow'} width={10} height={10} />
             </button>
             <Input.List.Radio options={options} 

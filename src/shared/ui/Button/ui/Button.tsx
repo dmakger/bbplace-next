@@ -4,6 +4,7 @@ import cl from './_Button.module.scss'
 import { ButtonVariant } from '..'
 import Link from 'next/link'
 import { ArrowIcon } from '../../Icon/ui/Arrow/ArrowIcon'
+import { T } from '../../Translate'
 
 interface IButton {
     children?: ReactNode
@@ -79,11 +80,11 @@ export const Button = ({ children,
         <div className={`global ${cl.wrapper} ${className}`}>
             {href ? (
                 <Link href={href} {...props}>
-                    {bodyHTML}
+                    <T>{bodyHTML}</T>
                 </Link>
             ) : (
                 <button {...props}>
-                    {bodyHTML}
+                    <T>{bodyHTML}</T>
                 </button>
             )}
         </div>

@@ -11,7 +11,9 @@ interface CategoryItemProps {
 export default function CategoryItem({category, className}: CategoryItemProps) {
     return (
         <Link href={''}  className={cls(cl.category, className)}>
-            <span className={cl.name}>{category.name}</span>
+            <span className={cl.name}>
+                {category.name}
+                </span>
         </Link>
     )
 }

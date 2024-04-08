@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { cls } from '@/shared/lib/classes.lib'
 import cl from './_CategoryButton.module.scss'
 import CategorySVG from '@/shared/assets/img/category.svg'
+import { T } from '@/shared/ui/Translate'
 
 interface CategoryButtonProps {
     onClick?: Function
@@ -22,7 +23,7 @@ export default function CategoryButton({onClick, className, isMobile = false}: C
             <Image src={CategorySVG} alt='category' width={31} height={31} />
             {!isMobile ?
                 <span className={cl.title}>
-                    Категории
+                    <T>Категории</T>
                 </span>
                 : null}
         </button>

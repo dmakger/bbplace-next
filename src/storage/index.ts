@@ -6,12 +6,15 @@ import { CategoryReducer } from "@/entities/Metrics/storage/category.metrics.sto
 import { CurrencyReducer } from "@/entities/Metrics/storage/currency.metrics.storage";
 import { MetricsReducer } from "@/entities/Metrics/storage/metrics.metrics.storage";
 import { ProductAPI } from "@/entities/Product/api/product.api";
+import { TranslateReducer } from "@/shared/ui/Translate";
+import { TranslateAPI } from "@/shared/ui/Translate/api/translate.api";
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
 
 const rootReducer = combineReducers({
     categoryList: CategoryReducer,
     metrics: MetricsReducer,
     currencyList: CurrencyReducer,
+    translate: TranslateReducer,
 
     [UserAPI.reducerPath]: UserAPI.reducer,
     [ProductAPI.reducerPath]: ProductAPI.reducer,
@@ -19,6 +22,8 @@ const rootReducer = combineReducers({
     [CategoryAPI.reducerPath]: CategoryAPI.reducer,
     [MetricsAPI.reducerPath]: MetricsAPI.reducer,
     [CurrencyAPI.reducerPath]: CurrencyAPI.reducer,
+
+    [TranslateAPI.reducerPath]: TranslateAPI.reducer
 })
 
 export const setupStore = () => {
@@ -34,6 +39,8 @@ export const setupStore = () => {
                 CategoryAPI.middleware,
                 MetricsAPI.middleware,
                 CurrencyAPI.middleware,
+
+                TranslateAPI.middleware
             ),
     })
 }
