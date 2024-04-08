@@ -20,5 +20,12 @@ export const ProductAPI = createApi({
 				method: 'GET',
             })
         }),
+
+        // getCountProducts: build.query<number, IArgsRequest | undefined>({
+        //     query: (args) => ({
+        //         url: getURL(`/GetItems/Filter/`, getArgsProduct(args)),
+		// 		method: 'GET',
+        //     })
+        // }),
 	})
 })

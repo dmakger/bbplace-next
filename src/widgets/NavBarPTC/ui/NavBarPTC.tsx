@@ -9,8 +9,9 @@ import { HORIZONTAL_VIEW } from "@/shared/data/menu/base.menu.data";
 import { IIconVariants } from "@/shared/model/icon.model";
 import { MENU_WEB_DATA, PRODUCTS_ITEM_MENU_WEB_DATA } from "@/widgets/Menu/WEB";
 import { useSearchParams } from "next/navigation";
-import { EViewProductParams, VIEW_PRODUCT__KEY_PARAM } from "@/entities/Product/data/params.product.data";
 import { getViewProductByParam } from "@/entities/Product/lib/params.product.lib";
+import { EViewProductParams, VIEW_PRODUCT__KEY_PARAM } from "@/entities/Product/data/params.product.data";
+import { ViewsNavBarPTC } from "../components/ViewsNavBarPTC";
 
 interface INavBarPTC {}
 
@@ -48,17 +49,7 @@ export const NavBarPTC: FC<INavBarPTC> = ({ }) => {
                 <p className={cl.resultNumber}>
                     125 результатов <span>в товарах</span>
                 </p>
-                <div className={cl.viewIconsContainer}>
-                    {viewVariants.map(el => (
-                        <DefaultIcon key={el.id}
-                            className='viewButton'
-                            classNameSelected='selectedView'
-                            isSelected={selectedView.id === el.id}
-                            onClick={() => setSelectedView(el)}>
-                            {el.image}
-                        </DefaultIcon>
-                    ))}
-                </div>
+                <ViewsNavBarPTC ptcLink={selectedOption.link} />
                 <DefaultIcon className="sortButton" onClick={() => { }}>
                     {SORT_ICON.image}
                 </DefaultIcon>

@@ -33,11 +33,11 @@ export const ProductV: FC<ProductVProps> = ({ product, className }) => {
             <h4 className={cl.name}>{product.name}</h4>
             <div className={cl.priceWrapper}>
               <WholesaleDiapason minWholesale={minWholesale} maxWholesale={maxWholesale}
-                currency={product.media.currency} classNameText={cl.price} />
+                                 currency={product.media.currency} classNameText={cl.price} />
               <QuantityMetrics heading={'Мин. Кол-во'}
-                wholesale={minWholesale}
-                className={cl.quantity}
-                classNameText={cl.quantityText} />
+                               wholesale={minWholesale}
+                               className={cl.quantity}
+                               classNameText={cl.quantityText} />
             </div>
           </div>
           <div className={cl.line} />

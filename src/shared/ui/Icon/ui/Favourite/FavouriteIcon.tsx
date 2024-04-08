@@ -3,19 +3,15 @@
 import { FC } from 'react';
 import { FAVOURITE_ICON } from '../../data/favourite.data.icon';
 import { ImageSmart } from '@/shared/ui/Image/Smart/ImageSmart';
+import { IIconProps } from '@/shared/model/button.model';
 
-interface IFavouriteIcon{
-    isActive?: boolean
-    isHovered?: boolean
-    className?: string
-    classNameImage?: string
-}
+interface IFavouriteIcon extends IIconProps {}
 
-export const FavouriteIcon:FC<IFavouriteIcon> = ({isActive=false, isHovered=false, className = '', classNameImage}) => {
+export const FavouriteIcon:FC<IFavouriteIcon> = ({isActive, isHovered, width=18, height=18, className, classNameImage}) => {
     return (
         <ImageSmart icon={FAVOURITE_ICON} 
-                    isActive={isActive} isHovered={isHovered} 
-                    width={18} height={18} 
+                    width={width} height={height} 
+                    isActive={isActive} isHovered={isHovered}
                     className={className} classNameImage={classNameImage}/>
     )
 }

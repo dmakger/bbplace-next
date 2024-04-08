@@ -3,7 +3,7 @@ import { EViewProduct } from "../model/view.product.model";
 
 // PRODUCT
 export const getViewProductByParam = (param?: EViewProductParams | null) => {
-    if (EViewProductParams.VERTICAL === param)
-        return EViewProduct.VERTICAL
-    return EViewProduct.HORIZONTAL
+    if (EViewProductParams.HORIZONTAL === param)
+        return EViewProduct.HORIZONTAL
+    return EViewProduct.VERTICAL
 }

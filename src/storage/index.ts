@@ -6,12 +6,14 @@ import { CategoryReducer } from "@/entities/Metrics/storage/category.metrics.sto
 import { CurrencyReducer } from "@/entities/Metrics/storage/currency.metrics.storage";
 import { MetricsReducer } from "@/entities/Metrics/storage/metrics.metrics.storage";
 import { ProductAPI } from "@/entities/Product/api/product.api";
+import { PTCReducer } from "@/features/storage/PTC/ptc.storage";
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
 
 const rootReducer = combineReducers({
     categoryList: CategoryReducer,
     metrics: MetricsReducer,
     currencyList: CurrencyReducer,
+    ptc: PTCReducer,
 
     [UserAPI.reducerPath]: UserAPI.reducer,
     [ProductAPI.reducerPath]: ProductAPI.reducer,
