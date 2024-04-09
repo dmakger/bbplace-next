@@ -19,14 +19,11 @@ export const LangSelect:FC<LangSelectProps> = ({className}) => {
     const [options, setOptions] = useState(LANG_LIST_DATA)
     const actionCreators = useActionCreators()
 
-    const selectLanguage = (option: IOption) => {
-        actionCreators.setLanguage(typeof(option.value) === 'string' ? option.value : '')
-    }
+    const selectLanguage = (option: IOption) => actionCreators.setLanguage(typeof(option.value) === 'string' ? option.value : '');
     return (
         <Input.Select defaultOption={DEFAULT_LANGUAGE} 
                       options={options} 
                       className={cls(cl.langSelect,className)}
-                      onClickOption={selectLanguage}
-                      WOTranslate={true} />
+                      onClickOption={selectLanguage} />
     )
 }

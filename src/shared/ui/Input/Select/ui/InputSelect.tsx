@@ -9,23 +9,23 @@ import Input from '../../Input'
 import { cls } from '@/shared/lib/classes.lib'
 import WrapperClickOutside from '../../../Wrapper/ClickOutside/WrapperClickOutside'
 import { T } from '@/shared/ui/Translate'
+import { LANG_LIST_DATA } from '@/shared/data/menu/lang.menu.data'
 
 interface InputSelectProps {
     options: IOption[]
     defaultOption?: IOption
     name?: string
     onClickOption?: Function
-    WOTranslate?: boolean,
     className?: string
     classNameTitle?: string
     classNameOptions?: string,
     classNameButton?: string
 }
 
-export default function InputSelect({defaultOption, options, name, onClickOption, className, classNameTitle = '', classNameOptions, classNameButton = '', WOTranslate = false}: InputSelectProps) {
+export default function InputSelect({defaultOption, options, name, onClickOption, className, classNameTitle = '', classNameOptions, classNameButton = ''}: InputSelectProps) {
     // STATE
     const [showOptions, setShowOptions] = useState(false)
-    const [activeOption, setActiveOption] = useState<IOption | undefined>()
+    const [activeOption, setActiveOption] = useState<IOption | undefined>(defaultOption)
 
     // REF
     const inputSelectRef = useRef<HTMLDivElement>(null);
@@ -55,8 +55,9 @@ export default function InputSelect({defaultOption, options, name, onClickOption
         <WrapperClickOutside _ref={inputSelectRef} isShow={showOptions} handle={toggleShowOptions} className={cls(cl.block, showOptions ? cl.show : '', className)}>
             <button type={'button'} onClick={handleOnTitle} className={cls(cl.button, cl[classNameButton])}>
                 <span className={cls(cl.title, cl[classNameTitle])}>
-                    {WOTranslate ? activeOption?.name : 
-                    <T>{activeOption?.name}</T>}
+                    {LANG_LIST_DATA.some(it => it.name === activeOption?.name)
+                        ? activeOption?.name
+                        : <T>{activeOption?.name}</T>}
                 </span>
                 <Image src={'arrow.svg'} alt={'arrow'} width={10} height={10} />
             </button>

@@ -11,6 +11,7 @@ import { WholesaleDiapason } from '@/entities/Metrics/ui/Wholesale/Diapason/Whol
 import { QuantityMetrics } from '@/shared/ui/QuantityMetrics/QuantityMetrics';
 import { IProductProps } from '@/entities/Product/model/props.product.model';
 import { HandleSize } from '@/shared/ui/Handle/Size/HandleSize';
+import { T } from '@/shared/ui/Translate';
 
 interface ProductVProps extends IProductProps {}
 
@@ -30,7 +31,9 @@ export const ProductV: FC<ProductVProps> = ({ product, className }) => {
         </div>
         <div className={cl.content}>
           <div className={cl.middle}>
-            <h4 className={cl.name}>{product.name}</h4>
+            <h4 className={cl.name}>
+              <T>{product.name}</T>
+            </h4>
             <div className={cl.priceWrapper}>
               <WholesaleDiapason minWholesale={minWholesale} maxWholesale={maxWholesale}
                 currency={product.media.currency} classNameText={cl.price} />

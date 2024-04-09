@@ -20,22 +20,26 @@ export const TranslateSlice = createSlice({
     initialState,
     reducers: {
         setNewWord(state, action: PayloadAction<string>) {
-            if (!state.dictionary[action.payload]) { // Проверяем, есть ли слово в словаре
-                state.dictionary[action.payload] = {
-                    ru: action.payload,
-                    en: ''
+            const word = action.payload;
+            
+            if (!state.dictionary[word]) {
+                state.dictionary[word] = {
+                    ru: word, 
+                    [state.language]: '' 
                 };
+            } else if (!state.dictionary[word].ru) {
+                state.dictionary[word].ru = word;
             }
-        },
+        },        
         setTranslation(state, action: PayloadAction<WordTranslation>) {
-            const { word, translation } = action.payload;
+            const { word, translation, language } = action.payload;
 
             if (state.dictionary[word]) {
-                state.dictionary[word].en = translation;
+                state.dictionary[word][language] = translation;
             }
         },
         setLanguage(state, action: PayloadAction<string>) {
-            state.language = action.payload; // Обновляем текущий язык
+            state.language = action.payload; 
         }
     }
 });

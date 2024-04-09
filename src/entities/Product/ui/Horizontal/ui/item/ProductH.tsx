@@ -17,6 +17,7 @@ import { ESupplierAxis, ESupplierView } from '@/entities/Supplier/data/supplier.
 import { getViewByIsList } from '@/shared/lib/view.lib'
 import { IViewToIs } from '@/shared/model/view.model'
 import { FavouriteAutoToSupplierButton } from '@/entities/Supplier/components/Button/Favourite/Auto/FavouriteAutoToSupplierButton'
+import { T } from '@/shared/ui/Translate'
 
 interface ProductHProps extends IProductProps {}
 
@@ -38,7 +39,9 @@ export const ProductH:FC<ProductHProps> = ({product, className}) => {
                 <div className={cl.right}>
                     <div className={cl.main}>
                         <div className={cl.top}>
-                            <h4 className={cl.name}>{product.name}</h4>
+                            <h4 className={cl.name}>
+                                <T>{product.name}</T>
+                            </h4>
                             <FavouriteAutoToSupplierButton view={ESupplierFavouriteViewItem.SMALL} className={cl.favourite}/>
                         </div>
                         <div className={cl.middle}>

@@ -1,3 +1,5 @@
+'use client'
+
 import React, { FC, ReactNode, useEffect, useState, useCallback } from "react";
 import { useActionCreators, useAppSelector } from "@/storage/hooks";
 import { TranslateAPI } from "..";
@@ -16,13 +18,15 @@ export const T: FC<ITranslate> = ({ children }) => {
     const dictionary = useAppSelector(state => state.translate.dictionary[String(children)]);
     const actionCreators = useActionCreators();
 
+    console.log(dictionary);
+    
     //STATE
     const [word, setWord] = useState<string>(String(children));
 
     const translate = useCallback(async () => {
         try {
             const newTranslation = await fetchTranslate({ targetLanguage: language, text: [word] }).unwrap();
-            actionCreators.setTranslation({ word, translation: newTranslation.translations[0].text });
+            actionCreators.setTranslation({ word, translation: newTranslation.translations[0].text, language });
         } catch (error) {
             console.error("Translation error:", error);
         }
@@ -36,14 +40,14 @@ export const T: FC<ITranslate> = ({ children }) => {
     }, [children, dictionary, actionCreators]);
 
     useEffect(() => {
-        if (language !== DEFAULT_LANGUAGE.value && dictionary && dictionary.en === '') {
+        if (language !== DEFAULT_LANGUAGE.value && dictionary && !dictionary[language]) {
             translate();
         }
     }, [language, dictionary, translate]);
 
     return (
         <>
-            {dictionary && language === 'en' && dictionary.en !== '' ? dictionary.en : word}
+            {dictionary && dictionary[language] && dictionary[language] ? dictionary[language] : word}
         </>
     );
 };

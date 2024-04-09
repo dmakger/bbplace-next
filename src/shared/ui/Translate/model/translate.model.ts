@@ -19,4 +19,5 @@ export type GlobalDictionary = Record<string, WordTranslations>;
 export interface WordTranslation {
     word: string;
     translation: string;
+    language: string
 }
