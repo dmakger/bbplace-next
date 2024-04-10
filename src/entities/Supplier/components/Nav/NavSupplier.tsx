@@ -23,19 +23,19 @@ export const NavSupplier:FC<NavSupplierProps> = ({supplierId, views=[], classNam
 
     return (
         <div className={cls(cls(cl.block, className))}>
-            {views.map(view => (
+            {views.map((view, index) => (
                 <>
                     {isSubscribeViewSupplier(view) &&
-                        <SubscribeAutoToSupplierButton view={view as ESupplierSubscribeViewItem} {...props} />
+                        <SubscribeAutoToSupplierButton view={view as ESupplierSubscribeViewItem} {...props} key={index}/>
                     }
                     {isToChatViewSupplier(view) &&
-                        <ToChatAutoToSupplierButton view={view as ESupplierToChatViewItem} {...props} />
+                        <ToChatAutoToSupplierButton view={view as ESupplierToChatViewItem} {...props} key={index}/>
                     }
                     {isToProfileViewSupplier(view) &&
-                        <ToProfileAutoToSupplierButton view={view as ESupplierToProfileViewItem} {...props} />
+                        <ToProfileAutoToSupplierButton view={view as ESupplierToProfileViewItem} {...props} key={index}/>
                     }
                     {isFavouriteViewSupplier(view) &&
-                        <FavouriteAutoToSupplierButton view={view as ESupplierFavouriteViewItem} {...props} />
+                        <FavouriteAutoToSupplierButton view={view as ESupplierFavouriteViewItem} {...props} key={index}/>
                     }
                 </>
             ))}

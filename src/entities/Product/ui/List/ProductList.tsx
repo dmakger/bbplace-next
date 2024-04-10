@@ -12,6 +12,9 @@ import { useAppSelector } from "@/storage/hooks";
 import { productApiListToProductList } from "../../lib/product.lib";
 import { PRODUCT_ARGS_REQUEST } from "../../data/product.data";
 import { cls } from "@/shared/lib/classes.lib";
+import { useDispatch } from "react-redux";
+import { PTCSlice } from "@/features/storage/PTC/ptc.storage";
+import { EPTC } from "@/widgets/NavBarPTC/model/ptc.model";
 
 interface ProductListProps{
     view?: EViewProduct
@@ -24,8 +27,11 @@ export const ProductList:FC<ProductListProps> = ({view=DEFAULT_VIEW_PRODUCT, cla
 
      // API
      const {data: productsAPI, isLoading: isProductLoading} = ProductAPI.useGetProductsQuery(PRODUCT_ARGS_REQUEST, {refetchOnMountOrArgChange: true})
+     const {data: countProducts, isLoading: isCountProductsLoading} = ProductAPI.useGetCountProductsQuery({limit: 1}, {refetchOnMountOrArgChange: true})
  
+     
      // RTK
+     const dispatch = useDispatch();
      const metrics = useAppSelector(state => state.metrics);
      const currencyList = useAppSelector(state => state.currencyList);
  
@@ -34,6 +40,15 @@ export const ProductList:FC<ProductListProps> = ({view=DEFAULT_VIEW_PRODUCT, cla
          if (productsAPI)
              setProductList(productApiListToProductList(productsAPI, metrics, currencyList))
      }, [productsAPI])
+
+     useEffect(() => {
+        if (!isCountProductsLoading && countProducts !== undefined) {
+            dispatch(PTCSlice.actions.setPTC({
+                amount: countProducts,
+                view: EPTC.PRODUCT,
+            }), {refetchOnMountOrArgChange: true});
+        }
+     }, [dispatch, countProducts, isCountProductsLoading])
      
 
      if (isProductLoading)

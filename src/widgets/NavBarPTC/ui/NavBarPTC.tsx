@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import cl from './_NavBarPTC.module.scss';
 import { DefaultIcon } from "@/shared/ui/Icon";
 import { SORT_ICON, SORT_MOBILE_ICON, viewVariants } from "../data/navBarPTC.data";
@@ -12,18 +12,20 @@ import { useSearchParams } from "next/navigation";
 import { getViewProductByParam } from "@/entities/Product/lib/params.product.lib";
 import { EViewProductParams, VIEW_PRODUCT__KEY_PARAM } from "@/entities/Product/data/params.product.data";
 import { ViewsNavBarPTC } from "../components/ViewsNavBarPTC";
+import { useAppSelector } from "@/storage/hooks";
+import { getPTCTextByNumber } from "../lib/text.ptc.lib";
 
 interface INavBarPTC {}
 
 export const NavBarPTC: FC<INavBarPTC> = ({ }) => {
+    // RTK
+    const ptcState = useAppSelector(state => state.ptc);    
+    
     // ROUTER
     const searchParams = useSearchParams()
-    const productView = searchParams.get(VIEW_PRODUCT__KEY_PARAM) as EViewProductParams
-    const viewPTCItem = getViewProductByParam(productView)
 
     //STATE
     const [selectedOption, setSelectedOption] = useState<IIconVariants>(PRODUCTS_ITEM_MENU_WEB_DATA);
-    const [selectedView, setSelectedView] = useState<IIconVariants>(HORIZONTAL_VIEW)
 
     return (
         <section className={cl.NavBarPTC}>
@@ -47,7 +49,7 @@ export const NavBarPTC: FC<INavBarPTC> = ({ }) => {
             </div>
             <div className={cl.rightContainer}>
                 <p className={cl.resultNumber}>
-                    125 результатов <span>в товарах</span>
+                    {ptcState.amount} {getPTCTextByNumber(ptcState.amount, ptcState.view)}
                 </p>
                 <ViewsNavBarPTC ptcLink={selectedOption.link} />
                 <DefaultIcon className="sortButton" onClick={() => { }}>
