@@ -1,9 +1,9 @@
 'use client'
 
-import React, { FC, ReactNode, useEffect, useState, useCallback } from "react";
+import { FC, ReactNode, useEffect, useState, useCallback } from "react";
 import { useActionCreators, useAppSelector } from "@/storage/hooks";
 import { TranslateAPI } from "..";
-import { DEFAULT_LANGUAGE } from "@/shared/data/menu/lang.menu.data";
+import { DEFAULT_LANGUAGE, IS_DEFAULT_LANG_STRING } from "@/shared/data/menu/lang.menu.data";
 
 interface ITranslate {
     children: ReactNode,
@@ -25,29 +25,30 @@ export const T: FC<ITranslate> = ({ children }) => {
 
     const translate = useCallback(async () => {
         try {
-            const newTranslation = await fetchTranslate({ targetLanguage: language, text: [word] }).unwrap();
-            actionCreators.setTranslation({ word, translation: newTranslation.translations[0].text, language });
+            if (!dictionary || !dictionary[language]) {
+                const newTranslation = await fetchTranslate({ targetLanguage: language, text: [word] }).unwrap();
+                if (newTranslation.translations && newTranslation.translations.length > 0) {
+                    actionCreators.setTranslation({ word, translation: newTranslation.translations[0].text, language });
+                }
+            }
         } catch (error) {
             console.error("Translation error:", error);
         }
-    }, [fetchTranslate, actionCreators, language, word]);
+    }, [fetchTranslate, actionCreators, language, word, dictionary]);
 
+    //EFFECT
     useEffect(() => {
         if (!dictionary) {
-            actionCreators.setNewWord(String(children));
+            actionCreators.setNewWord({word: String(children), defaultLang: IS_DEFAULT_LANG_STRING});
             setWord(String(children));
         }
-    }, [children, dictionary, actionCreators]);
+    }, [children, dictionary, actionCreators, IS_DEFAULT_LANG_STRING]);
 
     useEffect(() => {
-        if (language !== DEFAULT_LANGUAGE.value && dictionary && !dictionary[language]) {
+        if (language !== DEFAULT_LANGUAGE.value && (!dictionary || !dictionary[language])) {
             translate();
         }
     }, [language, dictionary, translate]);
 
-    return (
-        <>
-            {dictionary && dictionary[language] && dictionary[language] ? dictionary[language] : word}
-        </>
-    );
+    return dictionary && dictionary[language] ? dictionary[language] : word;
 };

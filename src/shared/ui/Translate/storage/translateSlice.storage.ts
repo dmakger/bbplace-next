@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { GlobalDictionary, WordTranslation } from "../model/translate.model";
-import { DEFAULT_LANGUAGE } from "@/shared/data/menu/lang.menu.data";
+import { DEFAULT_LANGUAGE, IS_DEFAULT_LANG_STRING } from "@/shared/data/menu/lang.menu.data";
 import { IOption } from "@/shared/model/option.model";
 
 interface TranslateState {
@@ -11,7 +11,7 @@ interface TranslateState {
 
 const initialState: TranslateState = {
     dictionary: {},
-    language: 'ru', 
+    language: IS_DEFAULT_LANG_STRING, 
     defaultLang: DEFAULT_LANGUAGE
 };
 
@@ -19,12 +19,12 @@ export const TranslateSlice = createSlice({
     name: 'translate',
     initialState,
     reducers: {
-        setNewWord(state, action: PayloadAction<string>) {
-            const word = action.payload;
+        setNewWord(state, action: PayloadAction<{word: string, defaultLang: string}>) {
+            const {word, defaultLang} = action.payload;
             
             if (!state.dictionary[word]) {
                 state.dictionary[word] = {
-                    ru: word, 
+                    [defaultLang]: word, 
                     [state.language]: '' 
                 };
             } else if (!state.dictionary[word].ru) {
