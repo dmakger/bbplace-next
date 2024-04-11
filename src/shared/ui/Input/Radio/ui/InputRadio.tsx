@@ -3,8 +3,6 @@ import Image from 'next/image'
 import { cls } from "@/shared/lib/classes.lib"
 import cl from './_InputRadio.module.scss'
 import { IOption } from "@/shared/model/option.model"
-import { T } from '@/shared/ui/Translate'
-import { LANG_LIST_DATA } from '@/shared/data/menu/lang.menu.data'
 
 interface InputRadioProps {
     option: IOption
@@ -13,9 +11,10 @@ interface InputRadioProps {
     required?: boolean
     onClick?: Function
     className?: string,
+    translatedOption?: string
 }
 
-export function InputRadio({option, isActive=false, name, required=false, onClick, className}: InputRadioProps) {
+export function InputRadio({option, isActive=false, name, required=false, onClick, className, translatedOption}: InputRadioProps) {
     const handleOnClick = () => {
         if (onClick) onClick()
     }
@@ -23,10 +22,8 @@ export function InputRadio({option, isActive=false, name, required=false, onClic
     return (
         <label onClick={handleOnClick} className={cls(cl.block, isActive ? cl.active : '', className)}>
             <input type="radio" name={name} value={option.value ? option.value : option.id} defaultChecked={isActive} required={required} className={cl.radio} />
-            <span className={cl.text}>
-                {LANG_LIST_DATA.some(it => it.name === option.name)
-                    ? option.name
-                    : <T>{option.name}</T>}
+            <span className={cl.text}>   
+                {translatedOption}
             </span>
             <Image src={'check-mark.svg'} alt={'check'} width={8} height={8} className={cl.image} />
         </label>

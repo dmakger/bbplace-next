@@ -4,7 +4,9 @@ import { FC } from "react"
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_ButtonGrayToBlack.module.scss'
-import { T } from "../../Translate";
+import { useAppSelector } from "@/storage/hooks";
+import { TRANSLATED_BUTTONS } from "@/shared/data/translate.data";
+import { useTranslate } from "../../Translate";
 
 interface ButtonGrayToBlackProps{
     title: string
@@ -13,9 +15,14 @@ interface ButtonGrayToBlackProps{
 }
 
 export const ButtonGrayToBlack:FC<ButtonGrayToBlackProps> = ({title, onClick, className}) => {
-    return (
+
+    const language = useAppSelector(state => state.translate.language)
+
+    const t = useTranslate(TRANSLATED_BUTTONS, title, language);
+
+        return (
         <button onClick={e => onClick(e)} className={cls(cl.button, className)}>
-            <T>{title}</T>
+            {t}
         </button>
     )
 }

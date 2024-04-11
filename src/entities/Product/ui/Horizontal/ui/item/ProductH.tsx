@@ -18,6 +18,7 @@ import { getViewByIsList } from '@/shared/lib/view.lib'
 import { IViewToIs } from '@/shared/model/view.model'
 import { FavouriteAutoToSupplierButton } from '@/entities/Supplier/components/Button/Favourite/Auto/FavouriteAutoToSupplierButton'
 import { T } from '@/shared/ui/Translate'
+import { useAppSelector } from '@/storage/hooks'
 
 interface ProductHProps extends IProductProps {}
 
@@ -28,6 +29,8 @@ export const ProductH:FC<ProductHProps> = ({product, className}) => {
     // STATE
     const [is1024, setIs1024] = useState(false)
     const [is768, setIs768] = useState(false)
+
+    const language = useAppSelector(state => state.translate.language)
 
     console.log(product);
     return (
@@ -50,7 +53,8 @@ export const ProductH:FC<ProductHProps> = ({product, className}) => {
                             <QuantityMetrics heading={'Мин. Кол-во'} 
                                             wholesale={minWholesale}
                                             className={cl.quantity}
-                                            classNameText={cl.quantityText} />
+                                            classNameText={cl.quantityText}
+                                            language={language} />
                         </div>
                         <HeadingToTextProductTable product={product} className={cl.table} />
                     </div>

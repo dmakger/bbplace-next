@@ -1,0 +1,33 @@
+.mobileNavbarButton{
+    & p{
+        font-weight: var(--font-weight-med);
+        font-size: var(--font-size-xxxs);
+        line-height: 1.18em;
+    }
+
+    &:hover{
+        & svg path {
+            transition: all 0.3s; 
+            stroke: var(--red-1);
+        }
+        & p{
+            transition: all 0.3s; 
+            color: var(--red-1);
+        }
+    }
+}
+
+.noHover{  
+    & p{
+        font-weight: var(--font-weight-med);
+        font-size: var(--font-size-xxxs);
+        line-height: 1.18em;
+    }
+
+    &:hover{
+        & p{
+            transition: all 0.3s; 
+            color: var(--red-1);
+        }
+    } 
+}

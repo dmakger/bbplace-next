@@ -8,8 +8,10 @@ import { useEffect, useRef, useState } from 'react'
 import Input from '../../Input'
 import { cls } from '@/shared/lib/classes.lib'
 import WrapperClickOutside from '../../../Wrapper/ClickOutside/WrapperClickOutside'
-import { T } from '@/shared/ui/Translate'
 import { LANG_LIST_DATA } from '@/shared/data/menu/lang.menu.data'
+import { useAppSelector } from '@/storage/hooks'
+import { useTranslate } from '@/shared/ui/Translate'
+import { ITranslate } from '@/shared/data/translate.data'
 
 interface InputSelectProps {
     options: IOption[]
@@ -19,13 +21,27 @@ interface InputSelectProps {
     className?: string
     classNameTitle?: string
     classNameOptions?: string,
-    classNameButton?: string
+    classNameButton?: string,
+    translatedArray?: ITranslate[]
 }
 
-export default function InputSelect({defaultOption, options, name, onClickOption, className, classNameTitle = '', classNameOptions, classNameButton = ''}: InputSelectProps) {
+export default function InputSelect({
+    defaultOption,
+    options,
+    name, 
+    onClickOption,
+    className,
+    classNameTitle = '',
+    classNameOptions,
+    classNameButton = '',
+    translatedArray
+}: InputSelectProps) {
     // STATE
     const [showOptions, setShowOptions] = useState(false)
     const [activeOption, setActiveOption] = useState<IOption | undefined>(defaultOption)
+
+    const language = useAppSelector(state => state.translate.language)
+    const t = useTranslate(translatedArray ? translatedArray : [], activeOption ? activeOption.name : '', language);
 
     // REF
     const inputSelectRef = useRef<HTMLDivElement>(null);
@@ -57,7 +73,7 @@ export default function InputSelect({defaultOption, options, name, onClickOption
                 <span className={cls(cl.title, cl[classNameTitle])}>
                     {LANG_LIST_DATA.some(it => it.name === activeOption?.name)
                         ? activeOption?.name
-                        : <T>{activeOption?.name}</T>}
+                        : t}
                 </span>
                 <Image src={'arrow.svg'} alt={'arrow'} width={10} height={10} />
             </button>
@@ -65,7 +81,8 @@ export default function InputSelect({defaultOption, options, name, onClickOption
                                 defaultOption={activeOption} 
                                 name={name} 
                                 onClickOption={handleOnItem} 
-                                className={cls(cl.options, classNameOptions)} />
+                                className={cls(cl.options, classNameOptions)}
+                                translatedArray={translatedArray} />
         </WrapperClickOutside>
     )
 }

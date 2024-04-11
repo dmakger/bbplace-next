@@ -5,7 +5,9 @@ import Image from 'next/image'
 import { cls } from '@/shared/lib/classes.lib'
 import cl from './_CategoryButton.module.scss'
 import CategorySVG from '@/shared/assets/img/category.svg'
-import { T } from '@/shared/ui/Translate'
+import { useAppSelector } from '@/storage/hooks'
+import { TRANSLATED_BUTTONS } from '@/shared/data/translate.data'
+import { useTranslate } from '@/shared/ui/Translate'
 
 interface CategoryButtonProps {
     onClick?: Function
@@ -18,12 +20,15 @@ export default function CategoryButton({onClick, className, isMobile = false}: C
         if (onClick) onClick()
     }
 
+    const language = useAppSelector(state => state.translate.language)
+    const t = useTranslate(TRANSLATED_BUTTONS, 'Категории', language);
+
     return (
         <button onClick={handleOnClick} className={cls(cl.button, className)}>
             <Image src={CategorySVG} alt='category' width={31} height={31} />
             {!isMobile ?
                 <span className={cl.title}>
-                    <T>Категории</T>
+                    {t}
                 </span>
                 : null}
         </button>

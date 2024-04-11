@@ -12,6 +12,7 @@ import { QuantityMetrics } from '@/shared/ui/QuantityMetrics/QuantityMetrics';
 import { IProductProps } from '@/entities/Product/model/props.product.model';
 import { HandleSize } from '@/shared/ui/Handle/Size/HandleSize';
 import { T } from '@/shared/ui/Translate';
+import { useAppSelector } from '@/storage/hooks';
 
 interface ProductVProps extends IProductProps {}
 
@@ -21,6 +22,9 @@ export const ProductV: FC<ProductVProps> = ({ product, className }) => {
 
   // STATE
   const [is768, setIs768] = useState(false);
+
+  const language = useAppSelector(state => state.translate.language)
+
 
   return (
     <>
@@ -40,7 +44,9 @@ export const ProductV: FC<ProductVProps> = ({ product, className }) => {
               <QuantityMetrics heading={'Мин. Кол-во'}
                 wholesale={minWholesale}
                 className={cl.quantity}
-                classNameText={cl.quantityText} />
+                classNameText={cl.quantityText}
+                language={language}
+                 />
             </div>
           </div>
           <div className={cl.line} />

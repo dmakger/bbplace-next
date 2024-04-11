@@ -5,17 +5,31 @@ import cl from './_InputListRadio.module.scss'
 import Input from '../../Input'
 import { useEffect, useState } from 'react'
 import { cls } from '@/shared/lib/classes.lib'
+import { useAppSelector } from '@/storage/hooks'
+import { translateOptions } from '@/shared/lib/options.lib'
+import { LANG_LIST_DATA } from '@/shared/data/menu/lang.menu.data'
+import { ITranslate } from '@/shared/data/translate.data'
 
 interface InputListRadioProps {
     options: IOption[]
     defaultOption?: IOption
     name?: string
     onClickOption?: Function
-    className?: string
+    className?: string,
+    translatedArray?: ITranslate[]
 }
 
-export default function InputListRadio({options, defaultOption, name, onClickOption, className}: InputListRadioProps) {
+export default function InputListRadio({
+    options,
+    defaultOption,
+    name,
+    onClickOption,
+    className,
+    translatedArray
+}: InputListRadioProps) {
     const [activeOption, setActiveOption] = useState<IOption | undefined>()
+    const [translatedOptions, setTranslatedOptions] = useState<string[]>([])
+
 
     useEffect(() => {
         setActiveOption(defaultOption)
@@ -27,14 +41,23 @@ export default function InputListRadio({options, defaultOption, name, onClickOpt
         if (onClickOption) onClickOption(it)
     }
 
+    const language = useAppSelector(state => state.translate.language)
+
+    useEffect(() => {
+        options.map(option => LANG_LIST_DATA.some(it => it.name === option.name) ?
+            translatedOptions.push(option.name) : setTranslatedOptions(translateOptions(translatedArray ? translatedArray : [], options, language)))
+    }, [options, language])
+
+
     return (
         <div className={cls(cl.options, className)}>
-            {options.map(it => (
-                <Input.Radio option={it} 
-                                name={name} 
-                                isActive={activeOption ? activeOption.id === it.id : false}
-                                onClick={() => handleOnItem(it)}
-                                key={it.id} />
+            {options.map((it, index) => (
+                <Input.Radio option={it}
+                    translatedOption={translatedOptions[index]}
+                    name={name}
+                    isActive={activeOption ? activeOption.id === it.id : false}
+                    onClick={() => handleOnItem(it)}
+                    key={it.id} />
             ))}
         </div>
     )
