@@ -11,10 +11,11 @@ interface PaginationProps{
     amount: number
     active: number
     amountContent?: number
+    onClick?: Function
     className?: string,
 }
 
-export const Pagination:FC<PaginationProps> = ({amount, active, amountContent=9, className}) => {
+export const Pagination:FC<PaginationProps> = ({amount, active, amountContent=9, onClick, className}) => {
     // STATE
     const [current, setCurrent] = useState(1)
     const [numbers, setNumbers] = useState<number[]>([1])
@@ -49,27 +50,31 @@ export const Pagination:FC<PaginationProps> = ({amount, active, amountContent=9,
     // ON CLICK
     const handleOnClick = (newNumber: number) => {
         setCurrent(newNumber)
+        if (onClick)
+            onClick(newNumber)
     }
 
     return (
         <div className={cls(cl.block, className)}>
-            <PaginationArrow disabled={numbers[0] === 1} classNameImage={cl.arrowLeft}/>
+            <PaginationArrow disabled={numbers[0] === 1} 
+                             onClick={() => handleOnClick(current-1)} classNameImage={cl.arrowLeft}/>
             {numbers[0] !== 1 && (
                 <>
-                    <PaginationItem text={1} />
+                    <PaginationItem text={1} onClick={() => handleOnClick(1)} />
                     <PaginationItem text={'...'} disabled={true}/>
                 </>
             )}
             {numbers.map(n => (
-                <PaginationItem text={n} isActive={n === active} />
+                <PaginationItem text={n} isActive={n === current} onClick={() => handleOnClick(n)} />
             ))}
             {numbers[numbers.length - 1] !== amount && (
                 <>
                     <PaginationItem text={'...'} disabled={true}/>
-                    <PaginationItem text={amount} />
+                    <PaginationItem text={amount} onClick={() => handleOnClick(amount)}/>
                 </>
             )}
-            <PaginationArrow disabled={numbers[numbers.length-1] === amount} />
+            <PaginationArrow disabled={numbers[numbers.length-1] === amount} 
+                             onClick={() => handleOnClick(current+1)} />
         </div>
     )
 }

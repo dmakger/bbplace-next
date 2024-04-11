@@ -8,12 +8,19 @@ interface PaginationItemProps{
     href?: string
     isActive?: boolean
     disabled?: boolean
+    onClick?: Function
     className?: string,
 }
 
-export const PaginationItem:FC<PaginationItemProps> = ({text, isActive, disabled=false, className}) => {
+export const PaginationItem:FC<PaginationItemProps> = ({text, isActive, disabled=false, onClick, className}) => {
+    const handleOnClick = () => {
+        if (onClick && !disabled)
+            onClick()
+    } 
+    
     return (
-        <button className={cls(cl.block, isActive ? cl.active : '', disabled ? cl.disabled : '', className)}>
+        <button onClick={handleOnClick} 
+                className={cls(cl.block, isActive ? cl.active : '', disabled ? cl.disabled : '', className)}>
             <span className={cl.text}>{text}</span>
         </button>
     )

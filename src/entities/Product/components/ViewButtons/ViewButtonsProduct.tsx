@@ -7,8 +7,9 @@ import cl from './_ViewButtonsProduct.module.scss'
 import { GalleryViewButton } from "@/shared/ui/Button/GalleryView/GalleryViewButton";
 import { ListViewButton } from "@/shared/ui/Button/ListView/ListViewButton";
 import { MAIN_PAGES } from "@/config/pages-url.config";
-import { EViewProductParams, VIEW_PRODUCT__KEY_PARAM } from "../../data/params.product.data";
 import { useSearchParams } from "next/navigation";
+import { PRODUCT_PARAMS } from "@/config/params/product.params.config";
+
 
 interface ViewButtonsButtonProps{
     className?: string,
@@ -16,30 +17,26 @@ interface ViewButtonsButtonProps{
 
 export const ViewButtonsButton:FC<ViewButtonsButtonProps> = ({className}) => {
     const searchParams = useSearchParams()
-    const [productView, setProductView] = useState<EViewProductParams | null>(null)
-    console.log('productView', productView);
-    
+    const [productView, setProductView] = useState<string | null>(null)    
 
     useEffect(() => {
-        const _productView = searchParams.get(VIEW_PRODUCT__KEY_PARAM) as (EViewProductParams | null)
-        if (productView === null && _productView === null)
-            setProductView(EViewProductParams.VERTICAL)
-        else if (_productView !== productView && _productView !== null)
+        const _productView = PRODUCT_PARAMS.getView(searchParams.get(PRODUCT_PARAMS.VIEW__KEY))
+        if (_productView !== productView)
             setProductView(_productView)
     }, [searchParams, productView])
 
-    const handleOnClick = (_view: EViewProductParams) => {
+    const handleOnClick = (_view: string) => {
         setProductView(_view)
     }
     
     return (
         <div className={cls(cl.block, className)}>
-            <GalleryViewButton href={`${MAIN_PAGES.PRODUCTS}?${VIEW_PRODUCT__KEY_PARAM}=${EViewProductParams.VERTICAL}`} 
-                                isActive={productView === EViewProductParams.VERTICAL} 
-                                onClick={() => handleOnClick(EViewProductParams.VERTICAL)} />
-            <ListViewButton href={`${MAIN_PAGES.PRODUCTS}?${VIEW_PRODUCT__KEY_PARAM}=${EViewProductParams.HORIZONTAL}`} 
-                            isActive={productView === EViewProductParams.HORIZONTAL} 
-                            onClick={() => handleOnClick(EViewProductParams.HORIZONTAL)} />
+            <GalleryViewButton href={`${MAIN_PAGES.PRODUCTS}?${PRODUCT_PARAMS.VIEW__KEY}=${PRODUCT_PARAMS.VERTICAL_VIEW__VALUE}`} 
+                                isActive={productView === PRODUCT_PARAMS.VERTICAL_VIEW__VALUE} 
+                                onClick={() => handleOnClick(PRODUCT_PARAMS.VERTICAL_VIEW__VALUE)} />
+            <ListViewButton href={`${MAIN_PAGES.PRODUCTS}?${PRODUCT_PARAMS.VIEW__KEY}=${PRODUCT_PARAMS.HORIZONTAL_VIEW__VALUE}`} 
+                            isActive={productView === PRODUCT_PARAMS.HORIZONTAL_VIEW__VALUE} 
+                            onClick={() => handleOnClick(PRODUCT_PARAMS.HORIZONTAL_VIEW__VALUE)} />
         </div>
     )
 }

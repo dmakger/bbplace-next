@@ -15,7 +15,8 @@ import { useDispatch } from "react-redux";
 import { PTCSlice } from "@/features/storage/PTC/ptc.storage";
 import { EPTC } from "@/widgets/NavBarPTC/model/ptc.model";
 import { ProductAutoList } from "./Auto/ProductAutoList";
-import { WrapperPagination } from "@/shared/ui/Wrapper/Pagination/WrapperPagination";
+import { WrapperPagination } from "@/shared/ui/Wrapper/Pagination/ui/WrapperPagination";
+import { PRODUCT_PARAMS } from "@/config/params/product.params.config";
 
 interface ProductListProps{
     view?: EViewProduct
@@ -28,7 +29,8 @@ export const ProductList:FC<ProductListProps> = ({view=DEFAULT_VIEW_PRODUCT, cla
 
      // API
      const {data: productsAPI, isLoading: isProductLoading} = ProductAPI.useGetProductsQuery(PRODUCT_ARGS_REQUEST, {refetchOnMountOrArgChange: true})
-     const {data: countProducts, isLoading: isCountProductsLoading} = ProductAPI.useGetCountProductsQuery({limit: 1}, {refetchOnMountOrArgChange: true})
+     const {data: countProducts, isLoading: isCountProductsLoading} = ProductAPI.useGetCountProductsQuery({limit: PRODUCT_ARGS_REQUEST.limit}, {refetchOnMountOrArgChange: true})
+     const {data: countAllProducts, isLoading: isCountAllProductsLoading} = ProductAPI.useGetCountProductsQuery({limit: 1}, {refetchOnMountOrArgChange: true})
  
      // RTK
      const dispatch = useDispatch();
@@ -42,9 +44,9 @@ export const ProductList:FC<ProductListProps> = ({view=DEFAULT_VIEW_PRODUCT, cla
      }, [productsAPI])
 
      useEffect(() => {
-        if (!isCountProductsLoading && countProducts !== undefined) {
+        if (!isCountProductsLoading && countAllProducts !== undefined) {
             dispatch(PTCSlice.actions.setPTC({
-                amount: countProducts,
+                amount: countAllProducts,
                 view: EPTC.PRODUCT,
             }), {refetchOnMountOrArgChange: true});
         }
@@ -54,7 +56,7 @@ export const ProductList:FC<ProductListProps> = ({view=DEFAULT_VIEW_PRODUCT, cla
      if (isProductLoading)
         return <div>Loading...</div>
     return (
-        <WrapperPagination>
+        <WrapperPagination amount={countProducts ? countProducts : 1} keyParam={PRODUCT_PARAMS.VIEW__KEY}>
             <ProductAutoList products={productList} view={view} className={className} />
         </WrapperPagination>
     )
