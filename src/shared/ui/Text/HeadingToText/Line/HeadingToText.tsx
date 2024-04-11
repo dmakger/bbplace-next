@@ -4,7 +4,7 @@ import { cls } from '@/shared/lib/classes.lib';
 import cl from './_HeadingToText.module.scss'
 import { IHeadingToText } from "@/shared/model/text.model";
 import { T, useTranslate } from "@/shared/ui/Translate";
-import { TRANSLATED_HEADING_TO_TEXT } from "@/shared/data/translate.data";
+import { TRANSLATED_HEADING_TO_TEXT } from "@/shared/data/translate/headingToText.translate.data";
 
 interface HeadingToTextProps{
     heading: IHeadingToText['heading']

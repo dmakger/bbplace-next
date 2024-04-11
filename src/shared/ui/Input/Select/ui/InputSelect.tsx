@@ -11,7 +11,7 @@ import WrapperClickOutside from '../../../Wrapper/ClickOutside/WrapperClickOutsi
 import { LANG_LIST_DATA } from '@/shared/data/menu/lang.menu.data'
 import { useAppSelector } from '@/storage/hooks'
 import { useTranslate } from '@/shared/ui/Translate'
-import { ITranslate } from '@/shared/data/translate.data'
+import { ITranslate } from '@/shared/model/translate.model'
 
 interface InputSelectProps {
     options: IOption[]

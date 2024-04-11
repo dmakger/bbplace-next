@@ -8,7 +8,7 @@ import { cls } from '@/shared/lib/classes.lib'
 import { useAppSelector } from '@/storage/hooks'
 import { translateOptions } from '@/shared/lib/options.lib'
 import { LANG_LIST_DATA } from '@/shared/data/menu/lang.menu.data'
-import { ITranslate } from '@/shared/data/translate.data'
+import { ITranslate } from '@/shared/model/translate.model'
 
 interface InputListRadioProps {
     options: IOption[]

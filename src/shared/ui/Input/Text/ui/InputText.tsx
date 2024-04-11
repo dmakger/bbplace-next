@@ -4,7 +4,7 @@ import { cls } from '@/shared/lib/classes.lib'
 import cl from './_InputText.module.scss'
 import { useAppSelector } from '@/storage/hooks'
 import { useTranslate } from '@/shared/ui/Translate'
-import { TRANSLATED_PLACEHOLDERS } from '@/shared/data/translate.data'
+import { TRANSLATED_PLACEHOLDERS } from '@/shared/data/translate/placeholders.translate.data'
 
 interface InputTextProps {
     name?: string

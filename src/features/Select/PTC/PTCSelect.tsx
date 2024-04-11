@@ -2,7 +2,7 @@ import { PRODUCT_PTC_ITEM_DATA, PTC_LIST_DATA } from "@/shared/data/ptc.data";
 import Input from "@/shared/ui/Input/Input";
 import cl from './_PTCSelect.module.scss'
 import { cls } from "@/shared/lib/classes.lib";
-import { TRANSLATED_PTC_MENU } from "@/shared/data/translate.data";
+import { TRANSLATED_PTC_MENU } from "@/shared/data/translate/ptcMenu.translate.data";
 
 interface PTCSelectProps {
     classNameTitle?: string

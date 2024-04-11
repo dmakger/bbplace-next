@@ -8,6 +8,7 @@ import { BottomLineSupplier } from "../BottomLine/BottomLineSupplier";
 import { getNameSupplier } from "../../lib/getters.supplier.lib";
 import { ESupplierSubscribeViewItem } from "../../data/view.supplier.data";
 import { SubscribeAutoToSupplierButton } from "../Button/Subscribe/Auto/SubscribeAutoToSupplierButton";
+import { T } from "@/shared/ui/Translate";
 
 interface BaseSupplierProps{
     supplier: ISupplier
@@ -25,7 +26,7 @@ export const BaseSupplier:FC<BaseSupplierProps> = ({supplier, hasImage=false, su
                 <ImageAPI src={supplier.photoId.key} alt={supplier.photoId.name} className={cl.image} />
             }
             <div className={cl.content}>
-                <span className={cls(cl.name, classNameName)}>{getNameSupplier(supplier)}</span>
+                <span className={cls(cl.name, classNameName)}><T>{getNameSupplier(supplier)}</T></span>
                 <BottomLineSupplier supplier={supplier} />
             </div>
             <SubscribeAutoToSupplierButton view={subscribeView} supplierId={supplier.id} />

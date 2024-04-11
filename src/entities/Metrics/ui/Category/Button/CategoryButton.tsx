@@ -6,8 +6,8 @@ import { cls } from '@/shared/lib/classes.lib'
 import cl from './_CategoryButton.module.scss'
 import CategorySVG from '@/shared/assets/img/category.svg'
 import { useAppSelector } from '@/storage/hooks'
-import { TRANSLATED_BUTTONS } from '@/shared/data/translate.data'
 import { useTranslate } from '@/shared/ui/Translate'
+import { TRANSLATED_BUTTONS } from '@/shared/data/translate/buttons.translate.data'
 
 interface CategoryButtonProps {
     onClick?: Function

@@ -4,11 +4,11 @@ import { FC, useState } from "react";
 import cl from './_NavBarPTC.module.scss';
 import { DefaultIcon } from "@/shared/ui/Icon";
 import { SORT_ICON, SORT_MOBILE_ICON, viewVariants } from "../data/navBarPTC.data";
-import { cls } from "@/shared/lib/classes.lib";
 import { HORIZONTAL_VIEW } from "@/shared/data/menu/base.menu.data";
-import { IMenuItem } from "@/shared/model/menu.model";
 import { IIconVariants } from "@/shared/model/icon.model";
 import { MENU_WEB_DATA, PRODUCTS_ITEM_MENU_WEB_DATA } from "@/widgets/Menu/WEB";
+import { useAppSelector } from "@/storage/hooks";
+import { NavBarPTCItem } from "./NavBarPTCItem/NavBarPTCItem";
 
 interface INavBarPTC {
 
@@ -21,19 +21,15 @@ export const NavBarPTC: FC<INavBarPTC> = ({ }) => {
 
     const [selectedView, setSelectedView] = useState<IIconVariants>(HORIZONTAL_VIEW)
 
+    const language = useAppSelector(state => state.translate.language)
+
+
     return (
         <section className={cl.NavBarPTC}>
             <div className={cl.leftContainer}>
                 <div className={cl.navBarPTCItemContainer}>
                     {MENU_WEB_DATA.map(el => (
-                        <button key={el.link} className={cl.navBarItem}>
-                            <p
-                                className={cls(cl.switchItem, selectedOption?.link === el.link ? cl.selected : '')}
-                                onClick={() => setSelectedOption(el)}>
-                                {el.title}
-                            </p>
-                            <span className={cls(cl.switchItemBorderBottom, selectedOption?.link === el.link ? cl.selectedSpan : '')} />
-                        </button>
+                        <NavBarPTCItem link={el.link} selectedOption={selectedOption} title={el.title} language={language} onClick={() => setSelectedOption(el)} />
                     ))}
                 </div>
                 <div className={cl.mobileSortContainer}>

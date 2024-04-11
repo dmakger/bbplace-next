@@ -4,7 +4,9 @@ import cl from './_Button.module.scss'
 import { ButtonVariant } from '..'
 import Link from 'next/link'
 import { ArrowIcon } from '../../Icon/ui/Arrow/ArrowIcon'
-import { T } from '../../Translate'
+import { useTranslate } from '../../Translate'
+import { useAppSelector } from '@/storage/hooks'
+import { TRANSLATED_BUTTONS } from '@/shared/data/translate/buttons.translate.data'
 
 interface IButton {
     children?: ReactNode
@@ -38,6 +40,8 @@ export const Button = ({ children,
     href,
 }: IButton) => {
 
+    const language = useAppSelector(state => state.translate.language)
+
     // ===={ HANDLES }====
     const handleOnClick = (e: React.MouseEvent<HTMLElement>) => {
         if (e) onClick(e)
@@ -61,12 +65,14 @@ export const Button = ({ children,
         className: `${cl.button} ${cl[variant]} ${classNameButton}`,
     }
 
+    const t = useTranslate(TRANSLATED_BUTTONS, children, language)
+
     // ===={ BODY HTML }====
     const bodyHTML = (
         <>
             {!loading && children &&
                 <span className={`${cl.buttonText} ${cl[classNameText]}`}>
-                    {children}
+                    {t}
                 </span>
             }
             {variant === ButtonVariant.W_ARROW_RED &&
@@ -80,11 +86,11 @@ export const Button = ({ children,
         <div className={`global ${cl.wrapper} ${className}`}>
             {href ? (
                 <Link href={href} {...props}>
-                    <T>{bodyHTML}</T>
+                    {bodyHTML}
                 </Link>
             ) : (
                 <button {...props}>
-                    <T>{bodyHTML}</T>
+                    {bodyHTML}
                 </button>
             )}
         </div>

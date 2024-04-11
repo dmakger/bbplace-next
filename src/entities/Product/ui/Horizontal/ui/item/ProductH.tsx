@@ -49,7 +49,8 @@ export const ProductH:FC<ProductHProps> = ({product, className}) => {
                         </div>
                         <div className={cl.middle}>
                             <WholesaleDiapason minWholesale={minWholesale} maxWholesale={maxWholesale}
-                                                currency={product.media.currency} classNameText={cl.price} />
+                                                currency={product.media.currency} classNameText={cl.price} 
+                                                language={language}/>
                             <QuantityMetrics heading={'Мин. Кол-во'} 
                                             wholesale={minWholesale}
                                             className={cl.quantity}

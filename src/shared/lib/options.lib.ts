@@ -1,5 +1,5 @@
-import { ITranslate } from "../data/translate.data";
 import { IOption } from "../model/option.model";
+import { ITranslate } from "../model/translate.model";
 import { useTranslate } from "../ui/Translate";
 
 export const isOptionsValueString = (option: IOption) =>  option && ((typeof(option.value) === 'string') ? option.value : option.name ? option.name : '');

@@ -2,7 +2,7 @@ import { IMenuItem } from '@/shared/model/menu.model'
 import cl from './_MobileNavbarItem.module.scss'
 import Link from "next/link"
 import { useTranslate } from '@/shared/ui/Translate'
-import { TRANSLATED_MENU_NAV } from '@/shared/data/translate.data'
+import { TRANSLATED_MENU_NAV } from '@/shared/data/translate/menuNav.translate.data'
 
 interface IMobileNavbarItem extends IMenuItem{
     language: string
