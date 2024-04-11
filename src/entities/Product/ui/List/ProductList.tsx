@@ -1,7 +1,6 @@
 "use client"
 
 import { FC, useEffect, useState } from "react"
-import cl from './_ProductList.module.scss'
 
 import { DEFAULT_VIEW_PRODUCT, EViewProduct } from "../../model/view.product.model";
 import { ProductHList } from "../Horizontal/ui/list/ProductHList";
@@ -15,6 +14,8 @@ import { cls } from "@/shared/lib/classes.lib";
 import { useDispatch } from "react-redux";
 import { PTCSlice } from "@/features/storage/PTC/ptc.storage";
 import { EPTC } from "@/widgets/NavBarPTC/model/ptc.model";
+import { ProductAutoList } from "./Auto/ProductAutoList";
+import { WrapperPagination } from "@/shared/ui/Wrapper/Pagination/WrapperPagination";
 
 interface ProductListProps{
     view?: EViewProduct
@@ -29,7 +30,6 @@ export const ProductList:FC<ProductListProps> = ({view=DEFAULT_VIEW_PRODUCT, cla
      const {data: productsAPI, isLoading: isProductLoading} = ProductAPI.useGetProductsQuery(PRODUCT_ARGS_REQUEST, {refetchOnMountOrArgChange: true})
      const {data: countProducts, isLoading: isCountProductsLoading} = ProductAPI.useGetCountProductsQuery({limit: 1}, {refetchOnMountOrArgChange: true})
  
-     
      // RTK
      const dispatch = useDispatch();
      const metrics = useAppSelector(state => state.metrics);
@@ -53,8 +53,9 @@ export const ProductList:FC<ProductListProps> = ({view=DEFAULT_VIEW_PRODUCT, cla
 
      if (isProductLoading)
         return <div>Loading...</div>
-    
-    if (view === EViewProduct.HORIZONTAL)
-        return <ProductHList products={productList} className={cls(cl.list, className)} />
-    return <ProductVList products={productList} className={cls(cl.list, className)} />
+    return (
+        <WrapperPagination>
+            <ProductAutoList products={productList} view={view} className={className} />
+        </WrapperPagination>
+    )
 }
