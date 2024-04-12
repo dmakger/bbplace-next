@@ -11,11 +11,11 @@ interface PaginationProps{
     amount: number
     active: number
     amountContent?: number
-    onClick?: Function
+    onClickItem?: Function
     className?: string,
 }
 
-export const Pagination:FC<PaginationProps> = ({amount, active, amountContent=9, onClick, className}) => {
+export const Pagination:FC<PaginationProps> = ({amount, active, amountContent=9, onClickItem, className}) => {
     // STATE
     const [current, setCurrent] = useState(1)
     const [numbers, setNumbers] = useState<number[]>([1])
@@ -41,7 +41,8 @@ export const Pagination:FC<PaginationProps> = ({amount, active, amountContent=9,
                 if (start < 1) 
                     start = 1; 
             }
-            
+            if (start === 1 || end === amount)
+                amountContent += 2
 
             return Array.from({ length: end - start + 1 }, (_, index) => start + index);
         })
@@ -50,8 +51,8 @@ export const Pagination:FC<PaginationProps> = ({amount, active, amountContent=9,
     // ON CLICK
     const handleOnClick = (newNumber: number) => {
         setCurrent(newNumber)
-        if (onClick)
-            onClick(newNumber)
+        if (onClickItem)
+            onClickItem(newNumber)
     }
 
     return (
