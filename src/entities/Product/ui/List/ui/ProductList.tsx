@@ -1,17 +1,18 @@
 "use client"
 
-import { FC, SetStateAction, useEffect, useState } from "react"
+import { FC, useEffect, useState } from "react"
+import cl from './_ProductList.module.scss'
 
-import { DEFAULT_VIEW_PRODUCT, EViewProduct } from "../../model/view.product.model";
-import { IProduct } from "../../model/product.model";
-import { ProductAPI } from "../../api/product.api";
+import { DEFAULT_VIEW_PRODUCT, EViewProduct } from "../../../model/view.product.model";
+import { IProduct } from "../../../model/product.model";
+import { ProductAPI } from "../../../api/product.api";
 import { useAppSelector } from "@/storage/hooks";
-import { productApiListToProductList } from "../../lib/product.lib";
-import { PRODUCT_ARGS_REQUEST } from "../../data/product.data";
+import { productApiListToProductList } from "../../../lib/product.lib";
+import { PRODUCT_ARGS_REQUEST } from "../../../data/product.data";
 import { useDispatch } from "react-redux";
 import { PTCSlice } from "@/features/storage/PTC/ptc.storage";
 import { EPTC } from "@/widgets/NavBarPTC/model/ptc.model";
-import { ProductAutoList } from "./Auto/ProductAutoList";
+import { ProductAutoList } from "../Auto/ProductAutoList";
 import { WrapperPagination } from "@/shared/ui/Wrapper/Pagination/ui/WrapperPagination";
 import { PRODUCT_PARAMS } from "@/config/params/product.params.config";
 
@@ -54,7 +55,8 @@ export const ProductList:FC<ProductListProps> = ({view=DEFAULT_VIEW_PRODUCT, cla
         return <div>Loading...</div>
     return (
         <WrapperPagination amount={countProducts ? countProducts : 1}
-                            active={pageNumber} keyPageParam={PRODUCT_PARAMS.NUMBER_PAGE__KEY} set={setPageNumber}>
+                            active={pageNumber} keyPageParam={PRODUCT_PARAMS.NUMBER_PAGE__KEY} 
+                            set={setPageNumber} className={cl.block}>
             <ProductAutoList products={productList} view={view} className={className} />
         </WrapperPagination>
     )
