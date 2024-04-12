@@ -13,5 +13,8 @@ export const TRANSLATED_BUTTONS: ITranslate[] = [
     {
         ru: 'Написать', en: 'Chat'
     },
+    {
+        ru: 'Очистить', en: 'Reset'
+    },
 
 ]
