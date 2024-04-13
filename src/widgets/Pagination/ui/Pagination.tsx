@@ -29,6 +29,8 @@ export const Pagination:FC<PaginationProps> = ({amount, active, amountContent=9,
     }, [active])
 
     useEffect(() => {
+        console.log('amountContent', amountContent);
+        
         setNumbers(() => {
             let start = current - Math.floor(amountContent / 2);
             if (start < 1)
@@ -41,12 +43,14 @@ export const Pagination:FC<PaginationProps> = ({amount, active, amountContent=9,
                 if (start < 1) 
                     start = 1; 
             }
-            if (start === 1 || end === amount)
-                amountContent += 2
+            if (start === 1)
+                end += 2
+            if (end === amount)
+                start -= 2
 
             return Array.from({ length: end - start + 1 }, (_, index) => start + index);
         })
-    }, [current])
+    }, [current, amountContent])
 
     // ON CLICK
     const handleOnClick = (newNumber: number) => {

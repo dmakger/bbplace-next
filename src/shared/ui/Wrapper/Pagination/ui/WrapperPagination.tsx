@@ -7,6 +7,7 @@ import cl from './_WrapperPagination.module.scss'
 import { Pagination } from "@/widgets/Pagination/ui/Pagination";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { PRODUCT_PARAMS } from "@/config/params/product.params.config";
+import { HandleSize } from "@/shared/ui/Handle/Size/HandleSize";
 
 interface WrapperPaginationProps{
     amount: number
@@ -28,6 +29,9 @@ export const WrapperPagination:FC<WrapperPaginationProps> = ({amount, active, ke
     // STATE
     const [amountCore, setAmountCore] = useState(1)
     const [pageNumber, setPageNumber] = useState(defaultPageNumber)
+    const [amountContent, setAmountContent] = useState(9)
+    const [is768, setIs768] = useState(false)
+    const [is600, setIs600] = useState(false)
     
     // EFFECT
     useEffect(() => {
@@ -48,6 +52,14 @@ export const WrapperPagination:FC<WrapperPaginationProps> = ({amount, active, ke
         }
     }, [active, searchParams])
 
+    useEffect(() => {
+        let newAmountContent = is768 ? 5 : 9
+        if (is600)
+            newAmountContent = 3
+        if (newAmountContent !== amountContent)
+            setAmountContent(newAmountContent)
+    }, [is768])
+
     // ON CLICK
     const handleOnClickItem = (n: number) => {        
         const params = new URLSearchParams(searchParams.toString())
@@ -60,8 +72,13 @@ export const WrapperPagination:FC<WrapperPaginationProps> = ({amount, active, ke
         <div className={cls(cl.block, className)}>
             {children}
             {amountCore !== 1 &&
-                <Pagination amount={amountCore} active={pageNumber} onClickItem={handleOnClickItem} className={cl.pagination} />
+                <Pagination active={pageNumber} 
+                            amount={amountCore} amountContent={amountContent} 
+                            onClickItem={handleOnClickItem} 
+                            className={cl.pagination} />
             }
+            <HandleSize width={768} set={setIs768}/>
+            <HandleSize width={600} set={setIs600}/>
         </div>
     )
 }
