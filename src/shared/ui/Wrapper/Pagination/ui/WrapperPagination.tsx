@@ -31,7 +31,6 @@ export const WrapperPagination:FC<WrapperPaginationProps> = ({amount, active, ke
     const [pageNumber, setPageNumber] = useState(defaultPageNumber)
     const [amountContent, setAmountContent] = useState(9)
     const [is768, setIs768] = useState(false)
-    const [is600, setIs600] = useState(false)
     
     // EFFECT
     useEffect(() => {
