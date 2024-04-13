@@ -8,9 +8,10 @@ export const isOptionsValueString = (option: IOption) =>  option && ((typeof(opt
 export const translateOptions = (translateArray: ITranslate[], options: IOption[], language: string): string[] => {
     const translatedOptions: string[] = []
     options.map(it => {
-        const translatedOption: string | undefined = useTranslate(translateArray, isOptionsValueString(it), language)
-        if (translatedOption && !translatedOptions.includes(translatedOption))
+        const translatedOption = useTranslate(translateArray, isOptionsValueString(it), language)
+        if(typeof translatedOption === 'string' && !translatedOptions.includes(translatedOption)){
             translatedOptions.push(translatedOption)
+        }
     })
     return translatedOptions;
 }
