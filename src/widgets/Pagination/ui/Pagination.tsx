@@ -49,9 +49,9 @@ export const Pagination:FC<PaginationProps> = ({amount, active, amountContent=9,
                     start = 1; 
             }
             if (start === 1)
-                end += 2
+                end = end + 2 > amount ? amount : end + 2
             if (end === amount)
-                start -= 2
+                start = start < 3 ? 1 : start-2
 
             return Array.from({ length: end - start + 1 }, (_, index) => start + index);
         })
