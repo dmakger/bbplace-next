@@ -53,9 +53,7 @@ export const WrapperPagination:FC<WrapperPaginationProps> = ({amount, active, ke
     }, [active, searchParams])
 
     useEffect(() => {
-        let newAmountContent = is768 ? 5 : 9
-        if (is600)
-            newAmountContent = 3
+        let newAmountContent = is768 ? 4 : 9
         if (newAmountContent !== amountContent)
             setAmountContent(newAmountContent)
     }, [is768])
@@ -78,7 +76,6 @@ export const WrapperPagination:FC<WrapperPaginationProps> = ({amount, active, ke
                             className={cl.pagination} />
             }
             <HandleSize width={768} set={setIs768}/>
-            <HandleSize width={600} set={setIs600}/>
         </div>
     )
 }

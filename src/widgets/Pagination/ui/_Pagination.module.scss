@@ -8,4 +8,14 @@
     .arrowLeft {
         transform: rotate(180deg);
     }
+
+    .numbers {
+        display: flex;
+        gap: 14px;
+
+        @media (width < 600px) {
+            max-width: 300px;
+            overflow-x: auto;
+        }
+    }
 }
