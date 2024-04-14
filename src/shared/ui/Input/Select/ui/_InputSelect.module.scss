@@ -15,11 +15,12 @@
 .button {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 15px;
     background-color: var(--empty);
     border: none;
     font-size: 14px;
-    max-height: 45px;
+    max-height: 48px;
     // color: var(--foreground);
 
     padding: 10px 10px 10px 15px;
