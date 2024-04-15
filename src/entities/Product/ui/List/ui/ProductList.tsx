@@ -15,6 +15,7 @@ import { EPTC } from "@/widgets/NavBarPTC/model/ptc.model";
 import { ProductAutoList } from "../Auto/ProductAutoList";
 import { WrapperPagination } from "@/shared/ui/Wrapper/Pagination/ui/WrapperPagination";
 import { PRODUCT_PARAMS } from "@/config/params/product.params.config";
+import { ECatalogVariants, SortFilterSidebar } from "@/widgets/SortFilterSidebar";
 
 interface ProductListProps{
     view?: EViewProduct
@@ -58,6 +59,7 @@ export const ProductList:FC<ProductListProps> = ({view=DEFAULT_VIEW_PRODUCT, cla
                             active={pageNumber} keyPageParam={PRODUCT_PARAMS.NUMBER_PAGE__KEY} 
                             set={setPageNumber} className={cl.block}>
             <ProductAutoList products={productList} view={view} className={className} />
+            <SortFilterSidebar variant={ECatalogVariants.PRODUCTS}/>
         </WrapperPagination>
     )
 }

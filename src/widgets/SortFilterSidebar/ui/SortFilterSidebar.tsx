@@ -2,7 +2,6 @@
 
 import cl from './_SortFilterSidebar.module.scss'
 import { cls } from "@/shared/lib/classes.lib"
-import { Sort } from "@/features/Sort"
 import { Button, ButtonVariant } from "@/shared/ui/Button"
 import { Filter } from "@/features/Filter"
 import { useCallback, useEffect, useState } from 'react'

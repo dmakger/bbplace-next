@@ -2,13 +2,13 @@
 
 import { useEffect, useRef, useState } from "react"
 import cl from './_Filter.module.scss'
-import { useCountryAll } from "@/entities/Metrics/hooks/useCountry.hooks"
 import { IOption } from "@/shared/model/option.model"
 import { FilterCompaniesCatalog, FilterProductsCatalog, FilterTendersCatalog, FilterTitleButton } from "../components"
 import { ECatalogVariants } from "@/widgets/SortFilterSidebar"
 import { getCountriesAsOption, updateCategoriesAsOptions } from "../lib/filter.lib"
 import { cls } from "@/shared/lib/classes.lib"
-import { useCategoryForFilter } from "@/entities/Product/hooks/useProduct.hooks"
+import { useAppSelector } from "@/storage/hooks"
+// import { useCategoryForFilter } from "@/entities/Product/hooks/useProduct.hooks"
 
 interface IFilter{
     variant: ECatalogVariants,
@@ -44,18 +44,20 @@ export const Filter = ({
     const [countriesAsOptions, setCountriesAsOptions] = useState<IOption[]>([])
     const [categoriesAsOptions, setCategoriesAsOptions] = useState<IOption[]>([])
 
+    // RTK
+    const categories = useAppSelector(state => state.categoryList);
 
     //REF
     const inputListRef = useRef<HTMLDivElement>(null)
 
     //API
-    const { data: countries } = useCountryAll()
-    const { data: categories } = variant === ECatalogVariants.COMPANIES ? useCategoryForFilter() : { data: undefined };
+    // const { data: countries } = useCountryAll()
+    // const { data: categories } = variant === ECatalogVariants.COMPANIES ? useCategoryForFilter() : { data: undefined };
     
     //EFFECT
-    useEffect(() => {
-        countries && setCountriesAsOptions(getCountriesAsOption(countries))
-    }, [countries])
+    // useEffect(() => {
+    //     countries && setCountriesAsOptions(getCountriesAsOption(countries))
+    // }, [countries])
 
     useEffect(() => {
         if (variant === ECatalogVariants.COMPANIES) {
