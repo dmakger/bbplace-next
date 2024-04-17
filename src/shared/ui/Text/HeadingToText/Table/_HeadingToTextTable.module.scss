@@ -9,10 +9,14 @@
         .span {
             white-space: nowrap;        
         }
+
+        .link{
+            text-decoration: underline;
+        }
     }
 
     .right {
-        width: -webkit-fill-available;
+        width: auto;
     }
 
     .text {

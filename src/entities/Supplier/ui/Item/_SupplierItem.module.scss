@@ -1,5 +1,6 @@
 .SupplierItem {
     display: flex;
+    flex-direction: column;
     gap: 25px;
     max-width: 958px;
     border-bottom: 1px solid var(--gray-5);
@@ -7,42 +8,53 @@
     background-color: var(--white);
 }
 
-.leftContainer {
+.bottomContainer {
     display: flex;
-    flex-direction: column;
     gap: 25px;
 
-    .table {
-        .columnTable {
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
+    .bottomLeftContainer{
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        
+        .line {
+            height: 1px;
+            width: 100%;
+            background-color: var(--gray-5);
+        }
 
-            & span {
-                display: -webkit-box;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                -webkit-line-clamp: 4;
-                -webkit-box-orient: vertical;
-                max-width: 205px;
-                font-size: var(--font-size-s);
+        .table {
+            .columnTable {
+                display: flex;
+                flex-direction: column;
+                gap: 18px;
+    
+                & span {
+                    max-width: 205px;
+                    max-height: calc(1.2em * 4);
+                    white-space: normal;
+                    overflow: hidden;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 4;
+                    -webkit-box-orient: vertical;
+                    font-size: var(--font-size-s);
+                    text-overflow: ellipsis;
+                }
             }
         }
+
+        .headingItem {
+            color: var(--gray-7);
+        }
+
     }
 
-    .headingItem {
-        color: var(--gray-7);
+    .bottomRightContainer{
+
     }
 
-    .line{
-        height: 1px;
-        width: 100%;
-        background-color: var(--gray-5);
-    }
+
+
+   
 }
 
-.rightContainer {
-    display: flex;
-    flex-direction: column;
-
-}
