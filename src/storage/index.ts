@@ -6,6 +6,7 @@ import { CategoryReducer } from "@/entities/Metrics/storage/category.metrics.sto
 import { CurrencyReducer } from "@/entities/Metrics/storage/currency.metrics.storage";
 import { MetricsReducer } from "@/entities/Metrics/storage/metrics.metrics.storage";
 import { ProductAPI } from "@/entities/Product/api/product.api";
+import { SupplierAPI } from "@/entities/Supplier/api/supplier.api";
 import { PTCReducer } from "@/features/storage/PTC/ptc.storage";
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
 
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
 
     [UserAPI.reducerPath]: UserAPI.reducer,
     [ProductAPI.reducerPath]: ProductAPI.reducer,
+    [SupplierAPI.reducerPath]: SupplierAPI.reducer,
 
     [CategoryAPI.reducerPath]: CategoryAPI.reducer,
     [MetricsAPI.reducerPath]: MetricsAPI.reducer,
@@ -32,6 +34,7 @@ export const setupStore = () => {
             }).concat(
                 UserAPI.middleware,
                 ProductAPI.middleware,
+                SupplierAPI.middleware,
 
                 CategoryAPI.middleware,
                 MetricsAPI.middleware,

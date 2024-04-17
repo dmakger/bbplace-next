@@ -1,0 +1,48 @@
+.SupplierItem {
+    display: flex;
+    gap: 25px;
+    max-width: 958px;
+    border-bottom: 1px solid var(--gray-5);
+    padding: 20px 20px 3px 20px;
+    background-color: var(--white);
+}
+
+.leftContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+
+    .table {
+        .columnTable {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+
+            & span {
+                display: -webkit-box;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                -webkit-line-clamp: 4;
+                -webkit-box-orient: vertical;
+                max-width: 205px;
+                font-size: var(--font-size-s);
+            }
+        }
+    }
+
+    .headingItem {
+        color: var(--gray-7);
+    }
+
+    .line{
+        height: 1px;
+        width: 100%;
+        background-color: var(--gray-5);
+    }
+}
+
+.rightContainer {
+    display: flex;
+    flex-direction: column;
+
+}
