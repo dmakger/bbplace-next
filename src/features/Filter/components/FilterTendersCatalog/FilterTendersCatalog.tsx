@@ -6,6 +6,7 @@ import { Dispatch, RefObject, SetStateAction } from 'react'
 import { FilterStatusOrApplicationInput } from '../FilterInputs'
 import Input from '@/shared/ui/Input/Input'
 import { ISortFilter } from '@/widgets/SortFilterSidebar/model/sortFilterSidebar.model'
+import { CORE_PARAMS } from '@/config/params/core.params.config'
 
 interface IFilterTendersCatalog {
     isFiltersOpen: boolean,
@@ -23,22 +24,16 @@ export const FilterTendersCatalog = ({
 }: IFilterTendersCatalog) => {
 
     const handleOnClickApplication = (it: IOption) => {
-        setFilter(prevState => ({...prevState, application: it}))
+        setFilter(prevState => ({...prevState, [CORE_PARAMS.APPLICATION]: it}))
     }
 
     return (
         <div ref={inputListRef} className={cls(cl.FilterTendersCatalog, isFiltersOpen ? cl.withMarginTop : '')}>
             <Input.Select title={'Тип заявки'}
                           options={APPLICATION_OPTIONS}
-                          defaultOption={filter.application}
+                          defaultOption={filter[CORE_PARAMS.APPLICATION] as IOption}
                           onClickOption={handleOnClickApplication}
                           width={14} height={12} />
-            {/* <FilterStatusOrApplicationInput
-                title='Тип заявки'
-                defaultOption={application}
-                listOptions={APPLICATION_OPTIONS}
-                onClickOption={setApplication}
-            /> */}
         </div>
     )
 }

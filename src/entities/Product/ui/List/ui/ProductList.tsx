@@ -17,6 +17,8 @@ import { WrapperPagination } from "@/shared/ui/Wrapper/Pagination/ui/WrapperPagi
 import { PRODUCT_PARAMS } from "@/config/params/product.params.config";
 import { ECatalogVariants, SortFilterSidebar } from "@/widgets/SortFilterSidebar";
 import { WrapperSortFilter } from "@/shared/ui/Wrapper/SortFilter/ui/WrapperSortFilter";
+import { CurrencyAPI } from "@/entities/Metrics/api/currency.metrics.api";
+import { MetricsAPI } from "@/entities/Metrics/api/metrics.metrics.api";
 
 interface ProductListProps{
     view?: EViewProduct
@@ -29,14 +31,16 @@ export const ProductList:FC<ProductListProps> = ({view=DEFAULT_VIEW_PRODUCT, cla
     const [pageNumber, setPageNumber] = useState<number>(1)    
 
     // API
+    const {data: currencyList} = CurrencyAPI.useGetCurrenciesQuery()          
+    const {data: metrics} = MetricsAPI.useGetMetricsQuery()          
     const {data: productsAPI, isLoading: isProductLoading} = ProductAPI.useGetProductsQuery({limit: PRODUCT_ARGS_REQUEST.limit, page: pageNumber-1}, {refetchOnMountOrArgChange: true})
     const {data: countProducts, isLoading: isCountProductsLoading} = ProductAPI.useGetCountProductsQuery({limit: PRODUCT_ARGS_REQUEST.limit}, {refetchOnMountOrArgChange: true})
-    const {data: countAllProducts, isLoading: isCountAllProductsLoading} = ProductAPI.useGetCountProductsQuery({limit: 1}, {refetchOnMountOrArgChange: true})
+    const {data: countAllProducts, isLoading: isCountAllProductsLoading} = ProductAPI.useGetCountProductsQuery({limit: 1}, {refetchOnMountOrArgChange: true})  
 
     // RTK
     const dispatch = useDispatch();
-    const metrics = useAppSelector(state => state.metrics);
-    const currencyList = useAppSelector(state => state.currencyList);
+    // const metrics = useAppSelector(state => state.metrics);
+    // const currencyList = useAppSelector(state => state.currencyList);
 
     // EFFECT
     useEffect(() => {

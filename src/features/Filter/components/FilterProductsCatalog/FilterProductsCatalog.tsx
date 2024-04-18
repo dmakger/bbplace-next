@@ -7,6 +7,7 @@ import { FilterCountryOrCategoryInput, FilterMinOrderInput, FilterStatusOrApplic
 import Input from '@/shared/ui/Input/Input'
 import { EInputTextVariant } from '@/shared/ui/Input/Text/data/text.input.data'
 import { ISortFilter } from '@/widgets/SortFilterSidebar/model/sortFilterSidebar.model'
+import { CORE_PARAMS } from '@/config/params/core.params.config'
 
 interface IFilterProductsCatalog {
     isFiltersOpen: boolean,
@@ -25,35 +26,35 @@ export const FilterProductsCatalog = ({
 }: IFilterProductsCatalog) => {
 
     const handleOnClickCountry = (it: IOption) => {
-        setFilter(prevState => ({...prevState, country: it}))
+        setFilter(prevState => ({...prevState, [CORE_PARAMS.COUNTRY]: it}))
     }
 
     const handleOnClickStatus = (it: IOption) => {
-        setFilter(prevState => ({...prevState, status: it}))
+        setFilter(prevState => ({...prevState, [CORE_PARAMS.STATUS]: it}))
     }
 
     const handleOnClickMinOrder = (text: string) => {
-        setFilter(prevState => ({...prevState, minOrder: text}))
+        setFilter(prevState => ({...prevState, [CORE_PARAMS.MIN_ORDER_QUANTITY]: text}))
     }
 
     return (
         <div ref={inputListRef} className={cls(cl.FilterProductsCatalog, isFiltersOpen ? cl.withMarginTop : '')}>
             <Input.TextAndSelect title='Страна'
                                  imageWidth={14} imageHeight={12}
-                                 defaultOption={filter.country}
+                                 defaultOption={filter[CORE_PARAMS.COUNTRY] as IOption}
                                  listOptions={countryListOptions}
                                  onClickOption={handleOnClickCountry}/>
             <Input.Select title={'Статус товара'} 
                           width={14} height={12}
                           options={STATUS_OPTIONS}
-                          defaultOption={filter.status}
+                          defaultOption={filter[CORE_PARAMS.STATUS] as IOption}
                           onClickOption={handleOnClickStatus}/>
             <Input.Text title={'Минимальный заказ от'}
                         name="minOrder"
                         type='number'
                         placeholder='Введите число'
                         variant={EInputTextVariant.W_HOVERED}
-                        defaultValue={filter.minOrder}
+                        defaultValue={filter[CORE_PARAMS.MIN_ORDER_QUANTITY] as string}
                         onChange={handleOnClickMinOrder} />
         </div>
     )

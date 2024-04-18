@@ -13,8 +13,8 @@ class CoreParams {
     NUMBER_PAGE = this.NUMBER + this.PAGE
     DEFAULT_NUMBER_PAGE = 1
     
-    // ASK => По возрастанию
-    // DESK => По убыванию
+    // ASC => По возрастанию
+    // DESC => По убыванию
     SORT = "sort"
 
     SORT_VALUES_END = {
@@ -22,27 +22,19 @@ class CoreParams {
         UP: "up",
         DOWN: "down",
     }
-    
+    date_start="up"
     SORT_KEYS = { 
         DATE_START: "date_start",
         ALPHABETICAL: "alphabetical",
     }
 
     SORT_VALUES = {
-        DATE_START: {
-            DEFAULT: this.SORT_KEYS.DATE_START + this.SORT_VALUES_END.DEFAULT,
-            UP: this.SORT_KEYS.DATE_START + this.SORT_VALUES_END.UP,
-            DOWN: this.SORT_KEYS.DATE_START + this.SORT_VALUES_END.DOWN,
-        },
-        ALPHABETICAL: {
-            DEFAULT: this.SORT_KEYS.ALPHABETICAL + this.SORT_VALUES_END.DEFAULT,
-            UP: this.SORT_KEYS.ALPHABETICAL + this.SORT_VALUES_END.UP,
-            DOWN: this.SORT_KEYS.ALPHABETICAL + this.SORT_VALUES_END.DOWN,
-        },
+        DATE_START: {...this.SORT_VALUES_END},
+        ALPHABETICAL: {...this.SORT_VALUES_END},
     }
 
     // FILTER
-    CATEGORY_ID = "category_id" 
+    CATEGORY = "category" 
     COUNTRY = "country" 
     STATUS = "status" 
     APPLICATION = "application" 

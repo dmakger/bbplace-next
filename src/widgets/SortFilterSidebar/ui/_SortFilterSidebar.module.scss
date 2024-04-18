@@ -8,4 +8,10 @@
     background-color: var(--white);
     border-radius: 16px;
     padding: 16px 15px;
+
+    .buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
 }

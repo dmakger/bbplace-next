@@ -5,6 +5,8 @@ import { cls } from '@/shared/lib/classes.lib'
 import { FilterCountryOrCategoryInput, FilterMinOrderInput } from '../FilterInputs'
 import Input from '@/shared/ui/Input/Input'
 import { ISortFilter } from '@/widgets/SortFilterSidebar/model/sortFilterSidebar.model'
+import { CORE_PARAMS } from '@/config/params/core.params.config'
+import { EInputTextVariant } from '@/shared/ui/Input/Text/data/text.input.data'
 
 
 interface IFilterCompaniesCatalog {
@@ -25,15 +27,15 @@ export const FilterCompaniesCatalog = ({
     inputListRef,
 }: IFilterCompaniesCatalog) => {
     const handleOnClickCategory = (it: IOption) => {
-        setFilter(prevState => ({...prevState, category: it}))
+        setFilter(prevState => ({...prevState, [CORE_PARAMS.CATEGORY]: it}))
     }
 
     const handleOnClickCountry = (it: IOption) => {
-        setFilter(prevState => ({...prevState, status: it}))
+        setFilter(prevState => ({...prevState, [CORE_PARAMS.STATUS]: it}))
     }
 
     const handleOnClickMinOrder = (text: string) => {
-        setFilter(prevState => ({...prevState, minOrder: text}))
+        setFilter(prevState => ({...prevState, [CORE_PARAMS.MIN_ORDER_QUANTITY]: text}))
     }
     
     return (
@@ -41,35 +43,20 @@ export const FilterCompaniesCatalog = ({
             <Input.TextAndSelect title={'Категории'}
                                  imageWidth={14} imageHeight={12}
                                  listOptions={categoryListOptions}
-                                 defaultOption={filter.category}
+                                 defaultOption={filter[CORE_PARAMS.CATEGORY] as IOption}
                                  onClickOption={handleOnClickCategory} />
             <Input.TextAndSelect title={'Страна'}
                                  imageWidth={14} imageHeight={12}
                                  listOptions={countryListOptions}
-                                 defaultOption={filter.country}
+                                 defaultOption={filter[CORE_PARAMS.STATUS] as IOption}
                                  onClickOption={handleOnClickCountry} />
             <Input.Text title={'Минимальный заказ от'}
                         name="minOrder"
                         type='number'
                         placeholder='Введите число'
-                        defaultValue={filter.minOrder}
+                        variant={EInputTextVariant.W_HOVERED}
+                        defaultValue={filter[CORE_PARAMS.MIN_ORDER_QUANTITY] as string}
                         onChange={handleOnClickMinOrder} />
-            {/* <FilterCountryOrCategoryInput
-                title='Категории'
-                defaultOption={categoryDefaultOption}
-                listOptions={categoryListOptions}
-                onClickOption={categoryOnClickOption}
-            /> */}
-            {/* <FilterCountryOrCategoryInput
-                title='Страна'
-                defaultOption={countryDefaultOption}
-                listOptions={countryListOptions}
-                onClickOption={countryOnClickOption}
-            /> */}
-            {/* <FilterMinOrderInput
-                minOrderDefaultValue={minOrderDefaultValue}
-                minOrderOnChange={minOrderOnChange}
-            /> */}
         </div>
     )
 }

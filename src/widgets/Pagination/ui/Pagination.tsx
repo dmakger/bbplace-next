@@ -84,7 +84,9 @@ export const Pagination:FC<PaginationProps> = ({amount, active, amountContent=9,
                 )}
                 <div ref={numbersRef} className={cl.numbers}>
                     {numbers.map(n => (
-                        <PaginationItem text={n} isActive={n === current} onClick={() => handleOnClick(n)} classNameContent={cl.button}/>
+                        <PaginationItem text={n} isActive={n === current} 
+                                        onClick={() => handleOnClick(n)} 
+                                        classNameContent={cl.button} key={n}/>
                     ))}
                 </div>
                 {numbers[numbers.length - 1] !== amount && !is600 && (

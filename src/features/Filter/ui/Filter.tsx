@@ -10,6 +10,8 @@ import { cls } from "@/shared/lib/classes.lib"
 import { useAppSelector } from "@/storage/hooks"
 import { CountrySlice } from "@/entities/Metrics/storage/country.metrics.storage"
 import { ISortFilter } from "@/widgets/SortFilterSidebar/model/sortFilterSidebar.model"
+import { CategoryAPI } from "@/entities/Metrics/api/category.metrics.api"
+import { CountryAPI } from "@/entities/Metrics/api/country.metrics.api"
 // import { useCategoryForFilter } from "@/entities/Product/hooks/useProduct.hooks"
 
 interface IFilter{
@@ -25,16 +27,13 @@ export const Filter = ({variant, filter, setFilter}: IFilter) => {
     const [countriesAsOptions, setCountriesAsOptions] = useState<IOption[]>([])
     const [categoriesAsOptions, setCategoriesAsOptions] = useState<IOption[]>([])
 
-    // RTK
-    const categories = useAppSelector(state => state.categoryList);
-    const countries = useAppSelector(state => state.countryList);
-
-
     //REF
     const inputListRef = useRef<HTMLDivElement>(null)
 
     //API
     // const { data: categories } = variant === ECatalogVariants.COMPANIES ? useCategoryForFilter() : { data: undefined };
+    const { data: categories } = variant === ECatalogVariants.COMPANIES ? CategoryAPI.useGetCategoriesByIdQuery(undefined) : { data: [] }
+    const { data: countries } = CountryAPI.useGetCountriesQuery()
     
     // EFFECT
     useEffect(() => {
@@ -79,12 +78,12 @@ export const Filter = ({variant, filter, setFilter}: IFilter) => {
 
             {variant === ECatalogVariants.COMPANIES && 
                 <FilterCompaniesCatalog
-                isFiltersOpen={isFiltersOpen}
-                categoryListOptions={categoriesAsOptions}
-                countryListOptions={countriesAsOptions}
-                filter={filter} 
-                setFilter={setFilter}
-                inputListRef={inputListRef} />
+                    isFiltersOpen={isFiltersOpen}
+                    categoryListOptions={categoriesAsOptions}
+                    countryListOptions={countriesAsOptions}
+                    filter={filter} 
+                    setFilter={setFilter}
+                    inputListRef={inputListRef} />
             }
         </article>
     )
