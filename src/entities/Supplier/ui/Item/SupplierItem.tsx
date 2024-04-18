@@ -38,7 +38,7 @@ export const SupplierItem = ({ supplier }: ISupplierItem) => {
       <section className={cl.SupplierItem}>
         <SupplierWNav id={supplier.id}
           navs={[
-            is768 ? ESupplierSubscribeViewItem.NONE : ESupplierSubscribeViewItem.SMALL,
+            is768 ? ESupplierSubscribeViewItem.NONE : ESupplierSubscribeViewItem.LARGE,
             is768 ? ESupplierToChatViewItem.NONE : ESupplierToChatViewItem.LARGE_WIDE,
             is768 ? ESupplierToProfileViewItem.NONE : ESupplierToProfileViewItem.SMALL
           ]}
