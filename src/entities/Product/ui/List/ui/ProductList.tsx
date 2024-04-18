@@ -16,6 +16,7 @@ import { ProductAutoList } from "../Auto/ProductAutoList";
 import { WrapperPagination } from "@/shared/ui/Wrapper/Pagination/ui/WrapperPagination";
 import { PRODUCT_PARAMS } from "@/config/params/product.params.config";
 import { ECatalogVariants, SortFilterSidebar } from "@/widgets/SortFilterSidebar";
+import { WrapperSortFilter } from "@/shared/ui/Wrapper/SortFilter/ui/WrapperSortFilter";
 
 interface ProductListProps{
     view?: EViewProduct
@@ -55,11 +56,12 @@ export const ProductList:FC<ProductListProps> = ({view=DEFAULT_VIEW_PRODUCT, cla
     if (isProductLoading && isCountProductsLoading)
         return <div>Loading...</div>
     return (
-        <WrapperPagination amount={countProducts ? countProducts : 1}
-                            active={pageNumber} keyPageParam={PRODUCT_PARAMS.NUMBER_PAGE__KEY} 
-                            set={setPageNumber} className={cl.block}>
-            <ProductAutoList products={productList} view={view} className={className} />
-            <SortFilterSidebar variant={ECatalogVariants.PRODUCTS}/>
-        </WrapperPagination>
+        <WrapperSortFilter variant={ECatalogVariants.COMPANIES}>
+            <WrapperPagination amount={countProducts ? countProducts : 1}
+                                active={pageNumber} keyPageParam={PRODUCT_PARAMS.NUMBER_PAGE__KEY} 
+                                set={setPageNumber} className={cl.block}>
+                <ProductAutoList products={productList} view={view} className={className} />
+            </WrapperPagination>
+        </WrapperSortFilter>
     )
 }

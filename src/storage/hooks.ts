@@ -6,6 +6,7 @@ import { AppDispatch, RootState } from ".";
 import { CurrencySlice } from "@/entities/Metrics/storage/currency.metrics.storage";
 import { CategorySlice } from "@/entities/Metrics/storage/category.metrics.storage";
 import { PTCSlice } from "@/features/storage/PTC/ptc.storage";
+import { CountrySlice } from "@/entities/Metrics/storage/country.metrics.storage";
 
 
 export const useAppDispatch = () => useDispatch<AppDispatch>();
@@ -20,6 +21,7 @@ export const useActionCreators = () => {
             ...CategorySlice.actions,
             ...MetricsSlice.actions,
             ...CurrencySlice.actions,
+            ...CountrySlice.actions,
             ...PTCSlice.actions,
         }),
         [],

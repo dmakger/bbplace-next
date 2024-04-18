@@ -1,3 +1,4 @@
+import { CORE_PARAMS } from "@/config/params/core.params.config";
 import { IOption } from "@/shared/model/option.model";
 
 // ==={ DATE_SORT }===
@@ -5,19 +6,20 @@ import { IOption } from "@/shared/model/option.model";
 export const DEFAULT_DATE_SORT: IOption = {
     id: -1,
     name: 'По умолчанию',
-    value: 'DESC'
+    // value: 'DESC'
+    value: CORE_PARAMS.SORT_VALUES.DATE_START.DOWN,
 }
 
 export const DESC_DATE_SORT: IOption = {
     id: 0,
     name: 'По убыванию',
-    value: 'DESC'
+    value: CORE_PARAMS.SORT_VALUES.DATE_START.DOWN,
 }
 
 export const ASC_DATE_SORT: IOption = {
     id: 1,
     name: 'По возрастанию',
-    value: 'ASC'
+    value: CORE_PARAMS.SORT_VALUES.DATE_START.UP,
 }
 
 export const SORT_BY_DATE_OPTIONS:IOption[] = [
@@ -31,19 +33,19 @@ export const SORT_BY_DATE_OPTIONS:IOption[] = [
 export const DEFAULT_ALPHABETICAL_SORT: IOption = {
     id: -1,
     name: 'По умолчанию',
-    value: 'DESC'
+    value: CORE_PARAMS.SORT_VALUES.ALPHABETICAL.DOWN,
 }
 
 export const DESC_ALPHABETICAL_SORT: IOption = {
     id: 0,
     name: 'От А до Я',
-    value: 'DESC'
+    value: CORE_PARAMS.SORT_VALUES.ALPHABETICAL.DOWN,
 }
 
 export const ASC_ALPHABETICAL_SORT: IOption = {
     id: 1,
     name: 'От Я до А',
-    value: 'ASC'
+    value: CORE_PARAMS.SORT_VALUES.ALPHABETICAL.UP,
 }
 
 export const SORT_BY_ALPHABETICAL_OPTIONS: IOption[] = [

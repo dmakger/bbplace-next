@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from "react"
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react"
 import cl from './_Filter.module.scss'
 import { IOption } from "@/shared/model/option.model"
 import { FilterCompaniesCatalog, FilterProductsCatalog, FilterTendersCatalog, FilterTitleButton } from "../components"
@@ -8,56 +8,38 @@ import { ECatalogVariants } from "@/widgets/SortFilterSidebar"
 import { getCountriesAsOption, updateCategoriesAsOptions } from "../lib/filter.lib"
 import { cls } from "@/shared/lib/classes.lib"
 import { useAppSelector } from "@/storage/hooks"
+import { CountrySlice } from "@/entities/Metrics/storage/country.metrics.storage"
+import { ISortFilter } from "@/widgets/SortFilterSidebar/model/sortFilterSidebar.model"
 // import { useCategoryForFilter } from "@/entities/Product/hooks/useProduct.hooks"
 
 interface IFilter{
     variant: ECatalogVariants,
-    category: IOption,
-    setCategory: Function,
-    country: IOption,
-    setCountry: Function,
-    minOrder: string,
-    setMinOrder: Function,
-    status: IOption, 
-    setStatus: Function,
-    setFilter: Function,
-    application: IOption,
-    setApplication: Function,
+    filter: ISortFilter
+    setFilter: Dispatch<SetStateAction<ISortFilter>>
 }
 
-export const Filter = ({
-    variant,
-    country,
-    category,
-    setCategory,
-    setCountry,
-    minOrder,
-    setMinOrder,
-    status,
-    setStatus,
-    application,
-    setApplication
-}: IFilter) => {
+export const Filter = ({variant, filter, setFilter}: IFilter) => {
 
     //STATE
-    const [isFiltersOpen, setIsFiltersOpen] = useState<boolean>(false)
+    const [isFiltersOpen, setIsFiltersOpen] = useState<boolean>(true)
     const [countriesAsOptions, setCountriesAsOptions] = useState<IOption[]>([])
     const [categoriesAsOptions, setCategoriesAsOptions] = useState<IOption[]>([])
 
     // RTK
     const categories = useAppSelector(state => state.categoryList);
+    const countries = useAppSelector(state => state.countryList);
+
 
     //REF
     const inputListRef = useRef<HTMLDivElement>(null)
 
     //API
-    // const { data: countries } = useCountryAll()
     // const { data: categories } = variant === ECatalogVariants.COMPANIES ? useCategoryForFilter() : { data: undefined };
     
-    //EFFECT
-    // useEffect(() => {
-    //     countries && setCountriesAsOptions(getCountriesAsOption(countries))
-    // }, [countries])
+    // EFFECT
+    useEffect(() => {
+        countries && setCountriesAsOptions(getCountriesAsOption(countries))
+    }, [countries])
 
     useEffect(() => {
         if (variant === ECatalogVariants.COMPANIES) {
@@ -78,37 +60,32 @@ export const Filter = ({
                 isFiltersOpen={isFiltersOpen}
                 setIsFiltersOpen={setIsFiltersOpen}
             />
-            {variant === ECatalogVariants.PRODUCTS && <FilterProductsCatalog
-                isFiltersOpen={isFiltersOpen}
-                countryDefaultOption={country}
-                countryListOptions={countriesAsOptions}
-                countryOnClickOption={setCountry}
-                inputListRef={inputListRef}
-                statusDefaultOption={status}
-                statusOnClickOption={setStatus}
-                minOrderDefaultValue={minOrder}
-                minOrderOnChange={setMinOrder}
-            />}
+            {variant === ECatalogVariants.PRODUCTS && 
+                <FilterProductsCatalog
+                    isFiltersOpen={isFiltersOpen}
+                    countryListOptions={countriesAsOptions}
+                    filter={filter}
+                    setFilter={setFilter}
+                    inputListRef={inputListRef} />
+            }
 
-            {variant === ECatalogVariants.TENDERS && <FilterTendersCatalog
-                isFiltersOpen={isFiltersOpen}
-                application={application}
-                setApplication={setApplication}
-                inputListRef={inputListRef}
-            />}
+            {variant === ECatalogVariants.TENDERS && 
+                <FilterTendersCatalog
+                    isFiltersOpen={isFiltersOpen}
+                    filter={filter}
+                    setFilter={setFilter}
+                    inputListRef={inputListRef} />
+            }
 
-            {variant === ECatalogVariants.COMPANIES && <FilterCompaniesCatalog
+            {variant === ECatalogVariants.COMPANIES && 
+                <FilterCompaniesCatalog
                 isFiltersOpen={isFiltersOpen}
-                categoryDefaultOption={category}
                 categoryListOptions={categoriesAsOptions}
-                categoryOnClickOption={setCategory}
-                countryDefaultOption={country}
                 countryListOptions={countriesAsOptions}
-                countryOnClickOption={setCountry}
-                inputListRef={inputListRef}
-                minOrderDefaultValue={minOrder}
-                minOrderOnChange={setMinOrder}
-             />}
+                filter={filter} 
+                setFilter={setFilter}
+                inputListRef={inputListRef} />
+            }
         </article>
     )
 }

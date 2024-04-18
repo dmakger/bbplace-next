@@ -4,6 +4,7 @@ import { useActionCreators } from "./hooks";
 import { CategoryAPI } from "@/entities/Metrics/api/category.metrics.api";
 import { MetricsAPI } from "@/entities/Metrics/api/metrics.metrics.api";
 import { CurrencyAPI } from "@/entities/Metrics/api/currency.metrics.api";
+import { CountryAPI } from "@/entities/Metrics/api/country.metrics.api";
 
 export const Setters = () => {
     
@@ -25,6 +26,11 @@ export const Setters = () => {
     const {data: currencyList} = CurrencyAPI.useGetCurrenciesQuery()          
     if (currencyList)
         actionCreators.saveCurrencyList(currencyList)
+
+    // countries
+    const {data: countryList} = CountryAPI.useGetCountriesQuery()          
+    if (countryList)
+        actionCreators.saveCountryList(countryList)
     
 
     return null;

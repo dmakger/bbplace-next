@@ -10,91 +10,65 @@ import { DEFAULT_APPLICATION_OPTION, DEFAULT_CATEGORY_OPTION, DEFAULT_COUNTRY_OP
 import { DEFAULT_ALPHABETICAL_SORT, DEFAULT_DATE_SORT, Sort } from '@/features/Sort'
 import { ECatalogVariants } from '..'
 import { useDebounce } from '@/shared/hooks/useDebounce.hooks'
+import { CORE_PARAMS } from '@/config/params/core.params.config'
+import { DEFAULT_SORT_FILTER__DATA } from '../data/sortFilter.data'
+import { ISortFilter } from '../model/sortFilterSidebar.model'
+import { getUpdatedDataSortFilter, toSortFilter } from '../lib/sortFilter.lib'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 interface ISortFilterSidebar{
     variant: ECatalogVariants,
     // setFilter: Function,
+    className?: string
 }
 
 
 export const SortFilterSidebar = ({
     variant,
+    className,
     // setFilter
 }:ISortFilterSidebar) => {
 
-    //STATE
-    //FILTERS
-    const [country, setCountry] = useState<IOption>(DEFAULT_COUNTRY_OPTION)
-    const [minOrder, setMinOrder] = useState<string>('')
-    const [status, setStatus] = useState<IOption>(DEFAULT_STATUS_OPTION)
-    const [category, setCategory] = useState<IOption>(DEFAULT_CATEGORY_OPTION)
-    const [application, setApplication] = useState<IOption>(DEFAULT_APPLICATION_OPTION)
-    //SORT
-    const [sortByDate, setSortByDate] = useState<IOption>(DEFAULT_DATE_SORT)
-    const [sortByAlphabetical, setSortByAlphabetical] = useState<IOption>(DEFAULT_ALPHABETICAL_SORT)
+    // ROUTER
+    const pathname = usePathname()
+    const searchParams = useSearchParams() 
+    const router = useRouter()
 
-    const [filter, setFilter] = useState<string>('')
+    toSortFilter(searchParams)
+
+    //STATE
+    const [minOrder, setMinOrder] = useState<string>('')
+    const [filter, setFilter] = useState<ISortFilter>(DEFAULT_SORT_FILTER__DATA)
 
     const minOrderDebouncedValue = useDebounce(minOrder)    
 
-    //EFFECT
     useEffect(() => {
-        const filterAccum: string[] = [];
-
-        sortByDate.id !== -1 && filterAccum.push(`SortBy${variant === ECatalogVariants.COMPANIES ? 'Date' : ''}=${sortByDate.value}`);
-
-        if(variant === ECatalogVariants.COMPANIES){
-            sortByAlphabetical.id !== -1 && filterAccum.push(`SortByAlphabetical=${sortByAlphabetical.value}`);
-            category.id && filterAccum.push(`CategoryId=${category.id}`);
-        }
-
-        if(variant !== ECatalogVariants.TENDERS){
-            country.id && filterAccum.push(`Country=${country.name}`);
-            minOrderDebouncedValue !== '' && !isNaN(Number(minOrderDebouncedValue)) && filterAccum.push(`MinOrderQuantity=${minOrderDebouncedValue}`);
-        }
+        const sortData = getUpdatedDataSortFilter(filter)
+        console.log('nigger', sortData);
+        const params = new URLSearchParams(searchParams.toString())
+        Object.keys(sortData).map(keySort => {
+            sortData[keySort].map(valueSort => {params.set(keySort, valueSort)})
+        })
+        router.push(`${pathname}?${params.toString()}`);  
+    }, [filter])
     
-        variant === ECatalogVariants.PRODUCTS && status.id !== -1 && filterAccum.push(`Status=${status.name}`);
 
-        variant === ECatalogVariants.TENDERS && application.name !== '' && filterAccum.push(`filter=${application.id}`)
-
-        setFilter(filterAccum.join('&'));
-
-    }, [variant, category, country, minOrderDebouncedValue, status, application, sortByDate, sortByAlphabetical]);
-    
     const clearFilters = useCallback(() => {
-        setCountry(DEFAULT_COUNTRY_OPTION)
-        setMinOrder('')
-        setStatus(DEFAULT_STATUS_OPTION)
-        setSortByDate(DEFAULT_DATE_SORT)
-        setSortByAlphabetical(DEFAULT_ALPHABETICAL_SORT)
-        setApplication(DEFAULT_APPLICATION_OPTION)
-        setCategory(DEFAULT_CATEGORY_OPTION)
-    },[])    
+        setFilter(DEFAULT_SORT_FILTER__DATA)
+    }, [])    
 
     
     return (
-        <aside className={cl.SortFilterSidebar}>
-            {variant !== ECatalogVariants.TENDERS && <Sort
-                variant={variant}
-                sortByDate={sortByDate}
-                setSortByDate={setSortByDate}
-                sortByAlphabetical={sortByAlphabetical}
-                setSortByAlphabetical={setSortByAlphabetical}
-            />}
-            <Filter
-                variant={variant}
-                category={category}
-                setCategory={setCategory}
-                country={country}
-                setCountry={setCountry}
-                status={status}
-                setStatus={setStatus}
-                minOrder={minOrder}
-                setMinOrder={setMinOrder}
-                setFilter={setFilter}
-                application={application}
-                setApplication={setApplication}
-            />
+        <aside className={cls(cl.SortFilterSidebar, className)}>
+            {variant !== ECatalogVariants.TENDERS && 
+                <Sort variant={variant}
+                      filter={filter} 
+                      setFilter={setFilter} />
+            }
+            <Filter variant={variant}
+                    filter={filter} 
+                    setFilter={setFilter} />
+            
             <Button variant={ButtonVariant.BACKGROUND_WHITE_WIDE} onClick={clearFilters}>
                 Очистить
             </Button>

@@ -2,7 +2,8 @@
     display: flex;
     flex-direction: column;
     gap: 35px;
-    max-height: 705px;
+    // max-height: 705px;
+    height: fit-content;
     max-width: 255px;
     background-color: var(--white);
     border-radius: 16px;

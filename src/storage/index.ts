@@ -1,8 +1,10 @@
 import { UserAPI } from "@/entities/Auth/api/auth.api";
 import { CategoryAPI } from "@/entities/Metrics/api/category.metrics.api";
+import { CountryAPI } from "@/entities/Metrics/api/country.metrics.api";
 import { CurrencyAPI } from "@/entities/Metrics/api/currency.metrics.api";
 import { MetricsAPI } from "@/entities/Metrics/api/metrics.metrics.api";
 import { CategoryReducer } from "@/entities/Metrics/storage/category.metrics.storage";
+import { CountryReducer } from "@/entities/Metrics/storage/country.metrics.storage";
 import { CurrencyReducer } from "@/entities/Metrics/storage/currency.metrics.storage";
 import { MetricsReducer } from "@/entities/Metrics/storage/metrics.metrics.storage";
 import { ProductAPI } from "@/entities/Product/api/product.api";
@@ -13,6 +15,7 @@ const rootReducer = combineReducers({
     categoryList: CategoryReducer,
     metrics: MetricsReducer,
     currencyList: CurrencyReducer,
+    countryList: CountryReducer,
     ptc: PTCReducer,
 
     [UserAPI.reducerPath]: UserAPI.reducer,
@@ -21,6 +24,7 @@ const rootReducer = combineReducers({
     [CategoryAPI.reducerPath]: CategoryAPI.reducer,
     [MetricsAPI.reducerPath]: MetricsAPI.reducer,
     [CurrencyAPI.reducerPath]: CurrencyAPI.reducer,
+    [CountryAPI.reducerPath]: CountryAPI.reducer,
 })
 
 export const setupStore = () => {
@@ -36,6 +40,7 @@ export const setupStore = () => {
                 CategoryAPI.middleware,
                 MetricsAPI.middleware,
                 CurrencyAPI.middleware,
+                CountryAPI.middleware,
             ),
     })
 }
