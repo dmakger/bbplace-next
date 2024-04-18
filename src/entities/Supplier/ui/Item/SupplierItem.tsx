@@ -9,6 +9,11 @@ import { REVIEW_LIMIT, REVIEW_START_PAGE } from '@/entities/Review/data/review.d
 import { ESupplierSubscribeViewItem, ESupplierToChatViewItem, ESupplierToProfileViewItem } from '../../data/view.supplier.data'
 import { SupplierWNav } from '../WNav/SupplierWNav'
 import { getDataHeadingToTextSupplierTable } from '../../lib/htt.supplier.lib'
+import { ProductAPI } from '@/entities/Product/api/product.api'
+import { ProductASCList } from '@/entities/Product/ui/AtSupplierCard'
+import { NavSupplier } from '../../components/Nav/NavSupplier'
+import { HandleSize } from '@/shared/ui/Handle/Size/HandleSize'
+import { useState } from 'react'
 
 
 interface ISupplierItem {
@@ -17,35 +22,48 @@ interface ISupplierItem {
 
 export const SupplierItem = ({ supplier }: ISupplierItem) => {
 
+  // STATE
+  const [is768, setIs768] = useState<boolean>(false);
+
+  //API
   const { data: supplierScore } = ReviewAPI.useGetSupplierScoreQuery(supplier.id)
   const { data: supplierReviews } = ReviewAPI.useGetSellerReviewsQuery({ supplierId: supplier.id, limit: REVIEW_LIMIT ?? 0, page: REVIEW_START_PAGE })
+  const { data: supplierProducts } = ProductAPI.useGetProductsByUserQuery({ userId: supplier.id })
+
   const linkHref = ''
 
+
   return (
-    <section className={cl.SupplierItem}>
-      <SupplierWNav id={supplier.id}
-        navs={[
-          ESupplierSubscribeViewItem.LARGE,
-          ESupplierToChatViewItem.LARGE_WIDE,
-          ESupplierToProfileViewItem.SMALL
-        ]}
-      />
-      <div className={cl.bottomContainer}>
-        <div className={cl.bottomLeftContainer}>
-          <SupplierCategoryItem category={supplier.category} />
-          <div className={cl.line} />
-          <HeadingToTextTable data={getDataHeadingToTextSupplierTable(supplier, supplierScore ?? 0, supplierReviews ? supplierReviews.length : 0, linkHref)}
-            className={cl.table}
-            classNameHeadingItem={cl.headingItem}
-            classNameColumn={cl.columnTable}
-          />
-
+    <>
+      <section className={cl.SupplierItem}>
+        <SupplierWNav id={supplier.id}
+          navs={[
+            is768 ? ESupplierSubscribeViewItem.NONE : ESupplierSubscribeViewItem.SMALL,
+            is768 ? ESupplierToChatViewItem.NONE : ESupplierToChatViewItem.LARGE_WIDE,
+            is768 ? ESupplierToProfileViewItem.NONE : ESupplierToProfileViewItem.SMALL
+          ]}
+        />
+        <div className={cl.bottomContainer}>
+          <div className={cl.bottomLeftContainer}>
+            <SupplierCategoryItem category={supplier.category} />
+            <div className={cl.line} />
+            <HeadingToTextTable data={getDataHeadingToTextSupplierTable(supplier, supplierScore ?? 0, supplierReviews ? supplierReviews.length : 0, linkHref)}
+              className={cl.table}
+              classNameHeadingItem={cl.headingItem}
+              classNameColumn={cl.columnTable}
+            />
+            <NavSupplier supplierId={supplier.id} views={[
+              is768 ? ESupplierSubscribeViewItem.SMALL : ESupplierSubscribeViewItem.NONE,
+              is768 ? ESupplierToChatViewItem.LARGE_WIDE : ESupplierToChatViewItem.NONE,
+              is768 ? ESupplierToProfileViewItem.SMALL : ESupplierToProfileViewItem.NONE
+            ]} />
+          </div>
+          <div className={cl.bottomRightContainer}>
+            <ProductASCList products={supplierProducts ?? []} />
+          </div>
         </div>
-        <div className={cl.bottomRightContainer}>
-
-        </div>
-
-      </div>
-    </section>
+      </section>
+      <HandleSize width={768} set={setIs768} />
+    </>
   )
 }

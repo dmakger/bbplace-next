@@ -4,12 +4,16 @@
     gap: 25px;
     max-width: 958px;
     border-bottom: 1px solid var(--gray-5);
-    padding: 20px 20px 3px 20px;
+    padding: 20px 20px 0 20px;
     background-color: var(--white);
+    @media (width < 768px) {
+        padding-bottom: 20px;
+    }
 }
 
 .bottomContainer {
     display: flex;
+    justify-content: space-between;
     gap: 25px;
 
     .bottomLeftContainer{
@@ -18,9 +22,13 @@
         gap: 25px;
         
         .line {
+            display: block;
             height: 1px;
             width: 100%;
             background-color: var(--gray-5);
+            @media (width < 768px) {
+                display: none;
+            }
         }
 
         .table {
@@ -30,7 +38,7 @@
                 gap: 18px;
     
                 & span {
-                    max-width: 205px;
+                    width: 140px;
                     max-height: calc(1.2em * 4);
                     white-space: normal;
                     overflow: hidden;
@@ -50,7 +58,10 @@
     }
 
     .bottomRightContainer{
-
+        display: flex;
+        @media (width < 768px) {
+            display: none;
+        }
     }
 
 
