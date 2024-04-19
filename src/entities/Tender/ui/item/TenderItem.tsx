@@ -5,24 +5,28 @@ import cl from './_TenderCard.module.scss'
 import { FavouriteIcon, FavouriteIconVariant } from "@/shared/ui/Icon"
 import { Button, ButtonVariant } from "@/shared/ui/Button"
 import CategoryItem from "@/entities/Metrics/ui/Category/Item/CategoryItem"
-import { TenderType } from "./TenderType/TenderType"
-import { ETenderType, ITenderCard } from "../model/tender.model"
+import { TenderType } from "../../components/TenderType/TenderType"
+import { ETenderType, ICommonTender } from "../../model/tender.model"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { ICategory } from "@/entities/Metrics/model/category.metrics.model"
-import { getTenderType } from "../lib/tender.lib"
+import { getTenderType } from "../../lib/tender.lib"
 import { TenderInfo, getDataTenderInfo } from "@/shared/ui/TenderInfo"
 import { CategoryAPI } from "@/entities/Metrics/api/category.metrics.api"
 import { UserAPI } from "@/entities/Auth/api/auth.api"
 import { SupplierDefault } from "@/entities/Supplier/ui/Default/SupplierDefault"
 import { CreatedAt } from "@/shared/ui/CreatedAt"
 
+interface ITenderItem{
+    tender: ICommonTender
+    className?: string
+}
 
-export const TenderCard = ({
+export const TenderItem= ({
     tender,
     tender: {id, categoryId, ownerId, createdAt},
     className,
-}: ITenderCard ) => {
+}: ITenderItem ) => {
 
     //STATE
     const [tenderCategory, setTenderCategory] = useState<ICategory>()

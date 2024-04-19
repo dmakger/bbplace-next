@@ -1,3 +1,8 @@
+export interface ITenderApi{
+    purchaseRequests: IPurchaseTender[],
+    saleRequests: ISaleTender[]
+}
+
 export interface IBaseTender {
     id: number
     name: string
@@ -37,7 +42,4 @@ export interface ICommonTender extends IBaseTender {
     minOrderUnits?: string
 }
 
-export interface ITenderCard{
-    tender: ICommonTender
-    className?: string
-}
+
