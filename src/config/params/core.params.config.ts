@@ -1,4 +1,5 @@
 import { ASC_ALPHABETICAL_SORT } from "@/features/Sort"
+import { ReadonlyURLSearchParams } from "next/navigation"
 
 // ====={ ОБЩИЕ ПАРАМЕТРЫ }=====
 class CoreParams {
@@ -64,3 +65,10 @@ class CoreParams {
 
 }
 export const CORE_PARAMS = new CoreParams()
+
+
+export const paramsToBack = (searchParams: ReadonlyURLSearchParams) => {
+    const searchParamsDict = Object.fromEntries(searchParams.entries());
+    const newSearchParams = new URLSearchParams();
+    // if (searchParams.has())
+}

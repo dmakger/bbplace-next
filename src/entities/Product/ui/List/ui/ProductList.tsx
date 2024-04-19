@@ -19,6 +19,7 @@ import { ECatalogVariants, SortFilterSidebar } from "@/widgets/SortFilterSidebar
 import { WrapperSortFilter } from "@/shared/ui/Wrapper/SortFilter/ui/WrapperSortFilter";
 import { CurrencyAPI } from "@/entities/Metrics/api/currency.metrics.api";
 import { MetricsAPI } from "@/entities/Metrics/api/metrics.metrics.api";
+import { useSearchParams } from "next/navigation";
 
 interface ProductListProps{
     view?: EViewProduct
@@ -26,6 +27,11 @@ interface ProductListProps{
 }
 
 export const ProductList:FC<ProductListProps> = ({view=DEFAULT_VIEW_PRODUCT, className}) => {
+    // ROUTER
+    // const pathname = usePathname();
+    const searchParams = useSearchParams();
+    // const router = useRouter();
+
     // STATE
     const [productList, setProductList] = useState<IProduct[]>([])
     const [pageNumber, setPageNumber] = useState<number>(1)    
