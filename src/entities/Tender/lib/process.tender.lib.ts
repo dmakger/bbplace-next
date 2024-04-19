@@ -6,5 +6,5 @@ export const getAllTendersAtOneArray = (allTenders: ITenderApi) => {
     allTenders.purchaseRequests.map(it => commonArray.push(it))
     allTenders.saleRequests.map(it => commonArray.push(it))
 
-    return commonArray;
+    return commonArray.sort((a, b) => (new Date(b.createdAt)).getTime() - (new Date(a.createdAt)).getTime());
 }
