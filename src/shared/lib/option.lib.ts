@@ -7,8 +7,12 @@ export const getValueOption = (option: IOption) => {
 }
 
 
-export const getOptionByValue = (value: string | number, options: IOption[]) => {
-    for (let option of options)
-        if (option.value === value || option.name === value)
-            return option
+export const getOptionByKeyAndValue = (key: string, value: string | number, options: IOption[]) => {
+    for (let option of options) {
+        if (option.name === key) {
+            if (option.options === undefined)
+                return option
+            return option.options.find(it => it.value == value || it.name == value || it.id == value)
+        }
+    }
 }

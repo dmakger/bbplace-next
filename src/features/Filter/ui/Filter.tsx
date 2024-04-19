@@ -12,15 +12,19 @@ import { CountrySlice } from "@/entities/Metrics/storage/country.metrics.storage
 import { ISortFilter } from "@/widgets/SortFilterSidebar/model/sortFilterSidebar.model"
 import { CategoryAPI } from "@/entities/Metrics/api/category.metrics.api"
 import { CountryAPI } from "@/entities/Metrics/api/country.metrics.api"
+import { ICategory } from "@/entities/Metrics/model/category.metrics.model"
+import { ICountry } from "@/entities/Metrics/model/country.metrics.model"
 // import { useCategoryForFilter } from "@/entities/Product/hooks/useProduct.hooks"
 
 interface IFilter{
     variant: ECatalogVariants,
     filter: ISortFilter
     setFilter: Dispatch<SetStateAction<ISortFilter>>
+    categories: ICategory[]
+    countries: ICountry[]
 }
 
-export const Filter = ({variant, filter, setFilter}: IFilter) => {
+export const Filter = ({variant, filter, setFilter, categories, countries }: IFilter) => {
 
     //STATE
     const [isFiltersOpen, setIsFiltersOpen] = useState<boolean>(true)
@@ -29,11 +33,6 @@ export const Filter = ({variant, filter, setFilter}: IFilter) => {
 
     //REF
     const inputListRef = useRef<HTMLDivElement>(null)
-
-    //API
-    // const { data: categories } = variant === ECatalogVariants.COMPANIES ? useCategoryForFilter() : { data: undefined };
-    const { data: categories } = variant === ECatalogVariants.COMPANIES ? CategoryAPI.useGetCategoriesByIdQuery(undefined) : { data: [] }
-    const { data: countries } = CountryAPI.useGetCountriesQuery()
     
     // EFFECT
     useEffect(() => {

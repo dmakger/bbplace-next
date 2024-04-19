@@ -28,6 +28,12 @@ export const SORT_BY_DATE_OPTIONS:IOption[] = [
     ASC_DATE_SORT
 ]
 
+export const DATE_SORT: IOption = {
+    id: -2,
+    name: CORE_PARAMS.SORT_KEYS.DATE_START,
+    options: SORT_BY_DATE_OPTIONS,
+}
+
 // ==={ ALPHABETICAL_SORT }===
 
 export const DEFAULT_ALPHABETICAL_SORT: IOption = {
@@ -55,4 +61,8 @@ export const SORT_BY_ALPHABETICAL_OPTIONS: IOption[] = [
 ]
 
 
-
+export const ALPHABETICAL_SORT: IOption = {
+    id: -2,
+    name: CORE_PARAMS.SORT_KEYS.ALPHABETICAL,
+    options: SORT_BY_ALPHABETICAL_OPTIONS,
+}

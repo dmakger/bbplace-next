@@ -31,7 +31,7 @@ export const FilterCompaniesCatalog = ({
     }
 
     const handleOnClickCountry = (it: IOption) => {
-        setFilter(prevState => ({...prevState, [CORE_PARAMS.STATUS]: it}))
+        setFilter(prevState => ({...prevState, [CORE_PARAMS.COUNTRY]: it}))
     }
 
     const handleOnClickMinOrder = (text: string) => {
@@ -48,7 +48,7 @@ export const FilterCompaniesCatalog = ({
             <Input.TextAndSelect title={'Страна'}
                                  imageWidth={14} imageHeight={12}
                                  listOptions={countryListOptions}
-                                 defaultOption={filter[CORE_PARAMS.STATUS] as IOption}
+                                 defaultOption={filter[CORE_PARAMS.COUNTRY] as IOption}
                                  onClickOption={handleOnClickCountry} />
             <Input.Text title={'Минимальный заказ от'}
                         name="minOrder"
