@@ -36,5 +36,5 @@ export const ALL_SORT_FILTER__DATA: IOption[] = [
 // API
 export const KEYS_API_SORT_FILTER__DATA: string[] = [
     CORE_PARAMS.CATEGORY,
-    CORE_PARAMS.COUNTRY,
+    // CORE_PARAMS.COUNTRY,
 ]

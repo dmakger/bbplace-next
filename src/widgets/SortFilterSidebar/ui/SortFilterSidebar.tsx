@@ -13,6 +13,7 @@ import { isEqual } from 'lodash';
 import { Sort } from '@/features/Sort';
 import { CountryAPI } from '@/entities/Metrics/api/country.metrics.api';
 import { CategoryAPI } from '@/entities/Metrics/api/category.metrics.api';
+import { CORE_PARAMS } from '@/config/params/core.params.config';
 
 interface ISortFilterSidebar{
     variant: ECatalogVariants,
@@ -51,7 +52,12 @@ export const SortFilterSidebar = ({ variant, className }: ISortFilterSidebar) =>
 
 
     const clearFilters = useCallback(() => {
-        setFilter(DEFAULT_SORT_FILTER__DATA);
+        const newSearchParams = new URLSearchParams();
+        if (searchParams.has(CORE_PARAMS.SEARCH)) {
+            newSearchParams.set(CORE_PARAMS.SEARCH, searchParams.get(CORE_PARAMS.SEARCH)!);
+        }
+        setFilter(DEFAULT_SORT_FILTER__DATA)
+        router.push(`${pathname}?${newSearchParams.toString()}`);
     }, []);
 
     const handleOnClickShow = () => {

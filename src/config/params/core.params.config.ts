@@ -5,7 +5,7 @@ class CoreParams {
     KEY = "k"
     VALUE = "v"
     
-    SEARCH = "q"
+    SEARCH = "search"
     VIEW = "vw"
 
     NUMBER = "n"

@@ -39,8 +39,6 @@ export const ProductList:FC<ProductListProps> = ({view=DEFAULT_VIEW_PRODUCT, cla
 
     // RTK
     const dispatch = useDispatch();
-    // const metrics = useAppSelector(state => state.metrics);
-    // const currencyList = useAppSelector(state => state.currencyList);
 
     // EFFECT
     useEffect(() => {
