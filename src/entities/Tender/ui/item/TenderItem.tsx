@@ -50,14 +50,21 @@ export const TenderItem = ({
     //NAVIGATE
     const { push } = useRouter()
 
-    const goToTheTender = (tenderId: number) => {
-        push(`lead/${tenderId}?type=${tenderType === ETenderType.PURCHASE ? 'purchase' : 'sale'}`)
-    }
+    const goToTheTender = () => {
+        if (is768) {
+            push(`lead/${id}?type=${tenderType === ETenderType.PURCHASE ? 'purchase' : 'sale'}`);
+        }
+    };
+
+    const handleInfoClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        e.stopPropagation();
+    };
+    
 
     return (
         <>
-            <section className={cls(cl.TenderCard, className)}>
-                <div className={cl.topContainer}>
+            <section className={cls(cl.TenderCard, className)} onClick={goToTheTender}>
+                <div className={cl.topContainer} onClick={handleInfoClick}>
                     <div className={cl.info}>
                         {tenderType && <TenderType tenderType={tenderType} />}
                         {tenderCategory && <CategoryItem category={tenderCategory} />}
@@ -65,7 +72,7 @@ export const TenderItem = ({
                     <FavouriteSmallToSupplierButton />
                 </div>
 
-                <div className={cl.middleContainer}>
+                <div className={cl.middleContainer} >
                     <span className={cl.cardTitle}>
                         {tender.name}
                     </span>
@@ -73,7 +80,7 @@ export const TenderItem = ({
                 </div>
 
                 <div className={cl.bottomContainer}>
-                    <div className={cl.supplierBlock}>
+                    <div className={cl.supplierBlock} onClick={handleInfoClick}>
                         <SupplierWNav
                             className={cl.supplier}
                             classNameSmallSupplier={cl.smallSupplier}
@@ -81,14 +88,14 @@ export const TenderItem = ({
                             view={is768 ? ESupplierView.SMALL : ESupplierView.LARGE_GRAY}
                             subscribeView={ESupplierSubscribeViewItem.SMALL}
                             navs={[
-                                is768 ? ESupplierToChatViewItem.LARGE : ESupplierToChatViewItem.SMALL,
+                                is768 ? ESupplierToChatViewItem.LARGE : ESupplierToChatViewItem.LARGE_WIDE,
                             ]} />
                     </div>
                     <CreatedAt createdAt={createdAt} />
-                    <div className={cl.buttonToTender}>
+                    <div className={cl.buttonToTender} onClick={handleInfoClick}>
                         <Button
                             variant={ButtonVariant.W_ARROW_RED}
-                            onClick={() => goToTheTender(id)}>
+                            onClick={goToTheTender}>
                             В тендер
                         </Button>
                     </div>
