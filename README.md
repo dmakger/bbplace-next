@@ -34,3 +34,17 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+## Button
+Все кнопки описаны в следующем виде. Слева кнопка в состоянии **default** справа в состоянии **hovered**  
+|                                  |Кнопка                                                                                            |
+|----------------------------------|--------------------------------------------------------------------------------------------------|
+|Clear                             |![Clear](https://github.com/dmakger/assets/blob/main/bbplace/button/1.CLEAR.png)                  |
+|Border Red Wide                   |![Clear](https://github.com/dmakger/assets/blob/main/bbplace/button/2.BORDERED_RED_WIDE.png)      |
+|Border Red Narrow                 |![Clear](https://github.com/dmakger/assets/blob/main/bbplace/button/3.BORDERED_RED_NARROW.png)    |
+|Background White Wide             |![Clear](https://github.com/dmakger/assets/blob/main/bbplace/button/4.BACKGROUND_WHITE_WIDE.png)  |
+|Background White Narrow           |![Clear](https://github.com/dmakger/assets/blob/main/bbplace/button/5.BACKGROUND_WHITE_NARROW.png)|
+|Background Red                    |![Clear](https://github.com/dmakger/assets/blob/main/bbplace/button/6.BACKGROUND_RED.png)         |
+|Almost Rectangle                  |![Clear](https://github.com/dmakger/assets/blob/main/bbplace/button/7.ALMOST_RECTANGULAR.png)     |
+|W Arrow Red                       |![Clear](https://github.com/dmakger/assets/blob/main/bbplace/button/8.W_ARROW_RED.png)            |

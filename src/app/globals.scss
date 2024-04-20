@@ -1,6 +1,7 @@
 :root {
   --max-width: 1280px;
-  --max-width-2: 992px;
+  // --max-width-2: 992px;
+  --max-width-2: 1005px;
 
   --border-radius: 12px;
   --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
@@ -90,7 +91,7 @@
   // 13px
   --font-size-xs: 0.81rem;
   // 14px
-  --font-size-s: 0.88rem;
+  --font-size-s: 0.875rem;
   // 15px
   --font-size-sreg: 0.94rem;
   // 16px
@@ -104,7 +105,17 @@
   --font-weight-sb: 600;
   --font-weight-bold: 700;
   --font-weight-eb: 800;
+
+
+  // ===={ ADAPTIVE }====
+  --elg-desktop-width: 1440px;
+  --lg-desktop-width: 1200px;
+  --md-desktop-width: 1024px;
+  --sm-tablets-width: 768px;
+  --sm-mobile-width: 480px;
+  --esm-mobile-width: 320px;
 }
+
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -161,7 +172,6 @@ body {
   overflow-x: hidden;
   
   input {
-    background-color: var(--background-2);
     color: var(--foreground);
     font-family: var(--inter-font);
 
@@ -210,5 +220,51 @@ h1,h2,h3,h4,h5,h6{
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
+  }
+}
+
+
+
+// ===={ ADAPTIVE MIXINS }====
+
+/* Extra large devices | 1440px or less */
+@mixin elg-desktop {
+  @media only screen and (max-width: var(--elg-desktop-width)) {
+    @content
+  }
+}
+
+/* Large devices | 1200px or less */
+@mixin lg-desktop {
+  @media only screen and (max-width: var(--lg-desktop-width)) {
+    @content
+  }
+}
+
+/* Medium devices | 1024px or less */
+@mixin md-desktop {
+  @media only screen and (max-width: var(--md-desktop-width)) {
+    @content
+  }
+}
+
+/* Small tablet devices | 768px or less */
+@mixin sm-tablets {
+  @media only screen and (max-width: var(--sm-tablets-width)) {
+    @content
+  }
+}
+
+/* Small mobile devices | 480px or less */
+@mixin sm-mobile {
+  @media only screen and (max-width: var(--sm-mobile-width)) {
+    @content
+  }
+}
+
+/* Extra small mobile devices | 320px or less */
+@mixin esm-mobile {
+  @media only screen and (max-width: var(--esm-mobile-width)) {
+    @content
   }
 }

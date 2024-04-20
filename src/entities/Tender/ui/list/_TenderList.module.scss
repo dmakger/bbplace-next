@@ -1,0 +1,8 @@
+.TenderList {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: var(--white);
+    border-radius: 15px;
+    max-width: var(--max-width-2);
+}

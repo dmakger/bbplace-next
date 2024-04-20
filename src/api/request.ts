@@ -12,7 +12,10 @@ export const getURL = (url: string, args?: IArgsRequest) => {
 
     if (args.page !== undefined) 
         _url += `/${args.page}`
-    
+
+    if (args.filter !== undefined) 
+        _url += `?${args.filter}`
+ 
     return _url + paramsToURL(args.params)
 }
 

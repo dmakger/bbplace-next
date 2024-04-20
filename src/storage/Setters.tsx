@@ -1,8 +1,6 @@
 "use client"
 
-import { useMetricsAll } from "@/entities/Metrics/hooks/useMetrics.hooks";
-import { useActionCreators, useAppSelector } from "./hooks";
-import { useCurrencyAll } from "@/entities/Metrics/hooks/useCurrency.hooks";
+import { useActionCreators } from "./hooks";
 import { CategoryAPI } from "@/entities/Metrics/api/category.metrics.api";
 import { MetricsAPI } from "@/entities/Metrics/api/metrics.metrics.api";
 import { CurrencyAPI } from "@/entities/Metrics/api/currency.metrics.api";

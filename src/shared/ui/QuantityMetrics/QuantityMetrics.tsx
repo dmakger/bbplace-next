@@ -12,9 +12,6 @@ interface QuantityMetricsProps{
 
 export const QuantityMetrics:FC<QuantityMetricsProps> = ({heading, wholesale, className, classNameText}) => {
     const text = wholesale && wholesale.metrics ? `${wholesale.quantity} ${wholesale.metrics.shortName}` : "Не указано"
-
-    if (wholesale === undefined)
-        return "Не указано"
     
     return (
         <HeadingToText heading={heading} text={text} 

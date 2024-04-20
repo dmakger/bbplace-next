@@ -13,13 +13,14 @@ interface BaseSupplierProps{
     supplier: ISupplier
     hasImage?: boolean
     subscribeView?: ESupplierSubscribeViewItem
+    isGray?: boolean
     className?: string
     classNameName?: string
 }
 
-export const BaseSupplier:FC<BaseSupplierProps> = ({supplier, hasImage=false, subscribeView=ESupplierSubscribeViewItem.NONE, className, classNameName}) => {        
+export const BaseSupplier:FC<BaseSupplierProps> = ({supplier, hasImage=false, subscribeView=ESupplierSubscribeViewItem.NONE, isGray=false, className, classNameName}) => {        
     return (
-        <div className={cls(cl.block, className)}>
+        <div className={cls(cl.block, isGray ? cl.gray : '', className)}>
             {hasImage && supplier.photoId &&
                 <ImageAPI src={supplier.photoId.key} alt={supplier.photoId.name} className={cl.image} />
             }
@@ -27,7 +28,7 @@ export const BaseSupplier:FC<BaseSupplierProps> = ({supplier, hasImage=false, su
                 <span className={cls(cl.name, classNameName)}>{getNameSupplier(supplier)}</span>
                 <BottomLineSupplier supplier={supplier} />
             </div>
-            <SubscribeAutoToSupplierButton view={subscribeView} />
+            <SubscribeAutoToSupplierButton view={subscribeView} supplierId={supplier.id} />
         </div>
     )
 }

@@ -1,0 +1,21 @@
+.block {
+    display: flex;
+    gap: 14px;
+    padding: 12px 16px;
+    border-radius: 15px;
+    background-color: var(--background-2);
+
+    .arrowLeft {
+        transform: rotate(180deg);
+    }
+
+    .numbers {
+        display: flex;
+        gap: 14px;
+
+        @media (width < 600px) {
+            max-width: 300px;
+            overflow-x: auto;
+        }
+    }
+}

@@ -15,8 +15,13 @@ interface ProductHListProps{
 export const ProductHList:FC<ProductHListProps> = ({products, className}) => {
     return (
         <div className={cls(cl.list, className)}>
-            {products.map(product => (
-                <Product product={product} view={EViewProduct.HORIZONTAL} className={cl.product} key={product.id} />
+            {products.map((product, index) => (
+                <>
+                    <Product product={product} view={EViewProduct.HORIZONTAL} className={cl.product} key={product.id} />
+                    {index + 1 !== products.length && 
+                        <div className={cl.line} />
+                    }
+                </>
             ))}
         </div>
     )

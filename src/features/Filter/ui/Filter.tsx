@@ -1,28 +1,114 @@
 'use client'
 
-import { FC, useState } from "react"
-import { cls } from "@/shared/lib/classes.lib"
+import { useEffect, useRef, useState } from "react"
 import cl from './_Filter.module.scss'
-import Image from "next/image"
+import { IOption } from "@/shared/model/option.model"
+import { FilterCompaniesCatalog, FilterProductsCatalog, FilterTendersCatalog, FilterTitleButton } from "../components"
+import { ECatalogVariants } from "@/widgets/SortFilterSidebar"
+import { getCountriesAsOption, updateCategoriesAsOptions } from "../lib/filter.lib"
+import { cls } from "@/shared/lib/classes.lib"
+import { useAppSelector } from "@/storage/hooks"
+// import { useCategoryForFilter } from "@/entities/Product/hooks/useProduct.hooks"
 
-interface IFilterProps{
-    className?: string,
-
+interface IFilter{
+    variant: ECatalogVariants,
+    category: IOption,
+    setCategory: Function,
+    country: IOption,
+    setCountry: Function,
+    minOrder: string,
+    setMinOrder: Function,
+    status: IOption, 
+    setStatus: Function,
+    setFilter: Function,
+    application: IOption,
+    setApplication: Function,
 }
 
-export const Filter: FC<IFilterProps> = ({ className }) => {
+export const Filter = ({
+    variant,
+    country,
+    category,
+    setCategory,
+    setCountry,
+    minOrder,
+    setMinOrder,
+    status,
+    setStatus,
+    application,
+    setApplication
+}: IFilter) => {
 
     //STATE
     const [isFiltersOpen, setIsFiltersOpen] = useState<boolean>(false)
+    const [countriesAsOptions, setCountriesAsOptions] = useState<IOption[]>([])
+    const [categoriesAsOptions, setCategoriesAsOptions] = useState<IOption[]>([])
+
+    // RTK
+    const categories = useAppSelector(state => state.categoryList);
+
+    //REF
+    const inputListRef = useRef<HTMLDivElement>(null)
+
+    //API
+    // const { data: countries } = useCountryAll()
+    // const { data: categories } = variant === ECatalogVariants.COMPANIES ? useCategoryForFilter() : { data: undefined };
+    
+    //EFFECT
+    // useEffect(() => {
+    //     countries && setCountriesAsOptions(getCountriesAsOption(countries))
+    // }, [countries])
+
+    useEffect(() => {
+        if (variant === ECatalogVariants.COMPANIES) {
+            categories && categories.length && updateCategoriesAsOptions(categories, setCategoriesAsOptions);
+        }
+    }, [variant, categories]);
+
+
+    useEffect(() => {
+        if (inputListRef.current) {
+            inputListRef.current.style.maxHeight = isFiltersOpen ? `${inputListRef.current.scrollHeight}px` : '0';
+        }
+    }, [isFiltersOpen]);
 
     return (
-        <div className={cls(cl.Filter, className)}>
-            <button type={'button'} className={cls(cl.button, className)}>
-                <h3>
-                    Фильтры
-                </h3>
-                <Image src={'arrow.svg'} alt={'arrow'} width={14} height={12}/>
-            </button>
-        </div>
+        <article className={cls(cl.Filter, isFiltersOpen ? cl.overflowVisible : '')}>
+            <FilterTitleButton
+                isFiltersOpen={isFiltersOpen}
+                setIsFiltersOpen={setIsFiltersOpen}
+            />
+            {variant === ECatalogVariants.PRODUCTS && <FilterProductsCatalog
+                isFiltersOpen={isFiltersOpen}
+                countryDefaultOption={country}
+                countryListOptions={countriesAsOptions}
+                countryOnClickOption={setCountry}
+                inputListRef={inputListRef}
+                statusDefaultOption={status}
+                statusOnClickOption={setStatus}
+                minOrderDefaultValue={minOrder}
+                minOrderOnChange={setMinOrder}
+            />}
+
+            {variant === ECatalogVariants.TENDERS && <FilterTendersCatalog
+                isFiltersOpen={isFiltersOpen}
+                application={application}
+                setApplication={setApplication}
+                inputListRef={inputListRef}
+            />}
+
+            {variant === ECatalogVariants.COMPANIES && <FilterCompaniesCatalog
+                isFiltersOpen={isFiltersOpen}
+                categoryDefaultOption={category}
+                categoryListOptions={categoriesAsOptions}
+                categoryOnClickOption={setCategory}
+                countryDefaultOption={country}
+                countryListOptions={countriesAsOptions}
+                countryOnClickOption={setCountry}
+                inputListRef={inputListRef}
+                minOrderDefaultValue={minOrder}
+                minOrderOnChange={setMinOrder}
+             />}
+        </article>
     )
 }

@@ -5,21 +5,24 @@ import cl from './_NavBarPTC.module.scss';
 import { DefaultIcon } from "@/shared/ui/Icon";
 import { SORT_ICON, SORT_MOBILE_ICON, viewVariants } from "../data/navBarPTC.data";
 import { cls } from "@/shared/lib/classes.lib";
-import { HORIZONTAL_VIEW } from "@/shared/data/menu/base.menu.data";
-import { IMenuItem } from "@/shared/model/menu.model";
 import { IIconVariants } from "@/shared/model/icon.model";
 import { MENU_WEB_DATA, PRODUCTS_ITEM_MENU_WEB_DATA } from "@/widgets/Menu/WEB";
+import { useSearchParams } from "next/navigation";
+import { ViewsNavBarPTC } from "../components/ViewsNavBarPTC";
+import { useAppSelector } from "@/storage/hooks";
+import { getPTCTextByNumber } from "../lib/text.ptc.lib";
 
-interface INavBarPTC {
-
-}
+interface INavBarPTC {}
 
 export const NavBarPTC: FC<INavBarPTC> = ({ }) => {
+    // RTK
+    const ptcState = useAppSelector(state => state.ptc);    
+    
+    // ROUTER
+    const searchParams = useSearchParams()
 
     //STATE
     const [selectedOption, setSelectedOption] = useState<IIconVariants>(PRODUCTS_ITEM_MENU_WEB_DATA);
-
-    const [selectedView, setSelectedView] = useState<IIconVariants>(HORIZONTAL_VIEW)
 
     return (
         <section className={cl.NavBarPTC}>
@@ -27,8 +30,7 @@ export const NavBarPTC: FC<INavBarPTC> = ({ }) => {
                 <div className={cl.navBarPTCItemContainer}>
                     {MENU_WEB_DATA.map(el => (
                         <button key={el.link} className={cl.navBarItem}>
-                            <p
-                                className={cls(cl.switchItem, selectedOption?.link === el.link ? cl.selected : '')}
+                            <p className={cls(cl.switchItem, selectedOption?.link === el.link ? cl.selected : '')}
                                 onClick={() => setSelectedOption(el)}>
                                 {el.title}
                             </p>
@@ -44,19 +46,9 @@ export const NavBarPTC: FC<INavBarPTC> = ({ }) => {
             </div>
             <div className={cl.rightContainer}>
                 <p className={cl.resultNumber}>
-                    125 результатов <span>в товарах</span>
+                    {ptcState.amount} {getPTCTextByNumber(ptcState.amount, ptcState.view)}
                 </p>
-                <div className={cl.viewIconsContainer}>
-                    {viewVariants.map(el => (
-                        <DefaultIcon key={el.id}
-                            className='viewButton'
-                            classNameSelected='selectedView'
-                            isSelected={selectedView.id === el.id}
-                            onClick={() => setSelectedView(el)}>
-                            {el.image}
-                        </DefaultIcon>
-                    ))}
-                </div>
+                <ViewsNavBarPTC ptcLink={selectedOption.link} />
                 <DefaultIcon className="sortButton" onClick={() => { }}>
                     {SORT_ICON.image}
                 </DefaultIcon>

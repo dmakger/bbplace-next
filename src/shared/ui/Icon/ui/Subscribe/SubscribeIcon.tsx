@@ -3,22 +3,19 @@
 import { FC } from 'react'
 import { ImageSmart } from '@/shared/ui/Image/Smart/ImageSmart'
 import { SUBSCRIBE_BLACK_ICON, SUBSCRIBE_GRAY_ICON } from '../../data/subscribe.data.icon'
+import { IIconProps } from '@/shared/model/button.model'
 
 
-interface ISubscribeIcon{
-    isActive?: boolean
-    isHovered?: boolean
+interface ISubscribeIcon extends IIconProps {
     isBlack?: boolean
-    className?: string
 }
 
-
-export const SubscribeIcon:FC<ISubscribeIcon> = ({isActive=false, isHovered=false, isBlack=false, className}) => {
+export const SubscribeIcon:FC<ISubscribeIcon> = ({isActive=false, isHovered=false, isBlack=false, width=16, height=16, className, classNameImage}) => {
     return (
         <ImageSmart icon={isBlack ? SUBSCRIBE_BLACK_ICON : SUBSCRIBE_GRAY_ICON} 
-                    isActive={isActive} isHovered={isHovered} 
-                    width={16} height={16} 
-                    className={className}/>
+                    width={width} height={height} 
+                    isActive={isActive} isHovered={isHovered}
+                    className={className} classNameImage={classNameImage}/>
     )
 }
 

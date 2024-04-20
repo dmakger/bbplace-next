@@ -2,5 +2,23 @@
     h3 {
         font-weight: var(--font-weight-med);
         font-size: var(--font-size-reg);
+        margin-bottom: 20px;
+    }
+}
+
+.sortContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.inputsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    h4 {
+        color: #666c71;
+        font-size: var(--font-size-s);
     }
 }

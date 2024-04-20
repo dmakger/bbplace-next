@@ -1,0 +1,40 @@
+.block {
+    border-radius: 20px;
+    background-color: var(--background-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .2s;
+
+    &:hover {
+        background-color: var(--hover);
+    }
+
+    .text {
+        min-width: 36px;
+        min-height: 36px;
+        padding: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: var(--font-size-s);
+    }
+}
+
+.active {
+    background-color: var(--gray-3);
+
+    &:hover {
+        background-color: var(--gray-3) !important;
+    }
+}
+
+.disabled {
+    .text {
+        color: var(--gray-5);
+    }
+
+    &:hover {
+        background-color: var(--background-2) !important;
+    }
+}

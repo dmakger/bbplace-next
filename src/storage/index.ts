@@ -7,12 +7,14 @@ import { CurrencyReducer } from "@/entities/Metrics/storage/currency.metrics.sto
 import { MetricsReducer } from "@/entities/Metrics/storage/metrics.metrics.storage";
 import { ProductAPI } from "@/entities/Product/api/product.api";
 import { TenderAPI } from "@/entities/Tender/api/tender.api";
+import { PTCReducer } from "@/features/storage/PTC/ptc.storage";
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
 
 const rootReducer = combineReducers({
     categoryList: CategoryReducer,
     metrics: MetricsReducer,
     currencyList: CurrencyReducer,
+    ptc: PTCReducer,
 
     [UserAPI.reducerPath]: UserAPI.reducer,
     [ProductAPI.reducerPath]: ProductAPI.reducer,

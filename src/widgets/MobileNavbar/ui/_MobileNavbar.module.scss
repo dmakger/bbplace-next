@@ -2,11 +2,12 @@
     display: none;
 
     @media (max-width: 768px) {
-        position: fixed;
-        bottom: 0;
         width: 100vw;
         display: flex;
         justify-content: center;
+        position: fixed;
+        z-index: 1;
+        bottom: 0;
         background-color: var(--white);
         padding: 0 16px;
         height: 65px;
