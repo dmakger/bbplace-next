@@ -20,6 +20,7 @@ import { WrapperSortFilter } from "@/shared/ui/Wrapper/SortFilter/ui/WrapperSort
 import { CurrencyAPI } from "@/entities/Metrics/api/currency.metrics.api";
 import { MetricsAPI } from "@/entities/Metrics/api/metrics.metrics.api";
 import { useSearchParams } from "next/navigation";
+import { paramsToBack } from "@/config/params/backend.params.config";
 
 interface ProductListProps{
     view?: EViewProduct
@@ -31,6 +32,8 @@ export const ProductList:FC<ProductListProps> = ({view=DEFAULT_VIEW_PRODUCT, cla
     // const pathname = usePathname();
     const searchParams = useSearchParams();
     // const router = useRouter();
+    const newParams = paramsToBack(searchParams)
+    console.log('nigger par', newParams, {limit: PRODUCT_ARGS_REQUEST.limit, ...newParams});
 
     // STATE
     const [productList, setProductList] = useState<IProduct[]>([])
@@ -39,9 +42,9 @@ export const ProductList:FC<ProductListProps> = ({view=DEFAULT_VIEW_PRODUCT, cla
     // API
     const {data: currencyList} = CurrencyAPI.useGetCurrenciesQuery()          
     const {data: metrics} = MetricsAPI.useGetMetricsQuery()          
-    const {data: productsAPI, isLoading: isProductLoading} = ProductAPI.useGetProductsQuery({limit: PRODUCT_ARGS_REQUEST.limit, page: pageNumber-1}, {refetchOnMountOrArgChange: true})
-    const {data: countProducts, isLoading: isCountProductsLoading} = ProductAPI.useGetCountProductsQuery({limit: PRODUCT_ARGS_REQUEST.limit}, {refetchOnMountOrArgChange: true})
-    const {data: countAllProducts, isLoading: isCountAllProductsLoading} = ProductAPI.useGetCountProductsQuery({limit: 1}, {refetchOnMountOrArgChange: true})  
+    const {data: productsAPI, isLoading: isProductLoading} = ProductAPI.useGetProductsQuery({limit: PRODUCT_ARGS_REQUEST.limit, page: pageNumber-1, params: newParams}, {refetchOnMountOrArgChange: true})
+    const {data: countProducts, isLoading: isCountProductsLoading} = ProductAPI.useGetCountProductsQuery({limit: PRODUCT_ARGS_REQUEST.limit, params: newParams}, {refetchOnMountOrArgChange: true})
+    const {data: countAllProducts, isLoading: isCountAllProductsLoading} = ProductAPI.useGetCountProductsQuery({limit: 1, params: newParams}, {refetchOnMountOrArgChange: true})  
 
     // RTK
     const dispatch = useDispatch();

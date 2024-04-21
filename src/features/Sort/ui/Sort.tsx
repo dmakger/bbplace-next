@@ -28,16 +28,17 @@ export const Sort = ({ variant = ECatalogVariants.PRODUCTS, filter, setFilter }:
         onClickOption: (it: IOption) => {setFilter(prevState => ({...prevState, [CORE_PARAMS.SORT_KEYS.DATE_START]: it}))} 
     }
 
-    const SORT_BY_ALPHABETICAL: ICatalogSort = {
-        title: 'По названию',
-        options: SORT_BY_ALPHABETICAL_OPTIONS,
-        // defaultOption: filter.sortByAlphabetical,
-        defaultOption: filter[CORE_PARAMS.SORT_KEYS.ALPHABETICAL] as IOption,
-        classNameTitle: cl.sortSelect,
-        onClickOption: (it: IOption) => {setFilter(prevState => ({...prevState, [CORE_PARAMS.SORT_KEYS.ALPHABETICAL]: it}))} 
-    }
+    // const SORT_BY_ALPHABETICAL: ICatalogSort = {
+    //     title: 'По названию',
+    //     options: SORT_BY_ALPHABETICAL_OPTIONS,
+    //     // defaultOption: filter.sortByAlphabetical,
+    //     defaultOption: filter[CORE_PARAMS.SORT_KEYS.ALPHABETICAL] as IOption,
+    //     classNameTitle: cl.sortSelect,
+    //     onClickOption: (it: IOption) => {setFilter(prevState => ({...prevState, [CORE_PARAMS.SORT_KEYS.ALPHABETICAL]: it}))} 
+    // }
 
-    const sorts: ICatalogSort[] = variant === ECatalogVariants.PRODUCTS ? [SORT_BY_DATE] : [SORT_BY_DATE, SORT_BY_ALPHABETICAL];
+    // const sorts: ICatalogSort[] = variant === ECatalogVariants.PRODUCTS ? [SORT_BY_DATE] : [SORT_BY_DATE, SORT_BY_ALPHABETICAL];
+    const sorts: ICatalogSort[] = variant === ECatalogVariants.PRODUCTS ? [SORT_BY_DATE] : [SORT_BY_DATE];
 
 
     return (

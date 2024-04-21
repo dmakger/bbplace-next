@@ -23,7 +23,6 @@ class CoreParams {
         UP: "up",
         DOWN: "down",
     }
-    date_start="up"
     SORT_KEYS = { 
         DATE_START: "date_start",
         ALPHABETICAL: "alphabetical",
@@ -65,10 +64,3 @@ class CoreParams {
 
 }
 export const CORE_PARAMS = new CoreParams()
-
-
-export const paramsToBack = (searchParams: ReadonlyURLSearchParams) => {
-    const searchParamsDict = Object.fromEntries(searchParams.entries());
-    const newSearchParams = new URLSearchParams();
-    // if (searchParams.has())
-}
