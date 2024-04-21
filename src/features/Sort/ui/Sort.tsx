@@ -38,7 +38,7 @@ export const Sort = ({ variant = ECatalogVariants.PRODUCTS, filter, setFilter }:
     // }
 
     // const sorts: ICatalogSort[] = variant === ECatalogVariants.PRODUCTS ? [SORT_BY_DATE] : [SORT_BY_DATE, SORT_BY_ALPHABETICAL];
-    const sorts: ICatalogSort[] = variant === ECatalogVariants.PRODUCTS ? [SORT_BY_DATE] : [SORT_BY_DATE];
+    const sorts: ICatalogSort[] = [SORT_BY_DATE];
 
 
     return (
