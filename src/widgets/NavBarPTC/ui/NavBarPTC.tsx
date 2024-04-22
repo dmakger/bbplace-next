@@ -40,25 +40,17 @@ export const NavBarPTC: FC<INavBarPTC> = ({ }) => {
                         </button>
                     ))}
                 </div>
-                <div className={cl.mobileSortContainer}>
-                    {/* <DefaultIcon className={cl.mobileSortButton} onClick={() => { }}>
-                        {SORT_MOBILE_ICON.image}
-                    </DefaultIcon> */}
-                    
+                <div className={cl.mobileSortContainer}>                    
                     <SortModal variant={ECatalogVariants.PRODUCTS} />
                 </div>
-                {/* <SortModal variant={ECatalogVariants.PRODUCTS} /> */}
             </div>
             <div className={cl.rightContainer}>
                 <p className={cl.resultNumber}>
                     {ptcState.amount} {getPTCTextByNumber(ptcState.amount, ptcState.view)}
                 </p>
                 <ViewsNavBarPTC ptcLink={selectedOption.link} />
-                {/* <DefaultIcon className="sortButton" onClick={() => { }}>
-                    {SORT_ICON.image}
-                </DefaultIcon> */}
-                
-                <SortModal variant={ECatalogVariants.PRODUCTS} />
+                <SortModal variant={ECatalogVariants.PRODUCTS} hasOutline={true} 
+                           classNameModal={cl.sortModal} classNameButton={cl.sortButton} />
             </div>
         </section>
     );

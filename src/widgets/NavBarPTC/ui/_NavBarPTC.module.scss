@@ -95,6 +95,12 @@
         justify-content: space-between;
         padding: 26px 16px;
     }
+
+    .sortButton, .sortModal {
+        @media (max-width: 768px) {
+            display: none;
+        }
+    }
 }
 
 .resultNumber {

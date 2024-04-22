@@ -8,11 +8,13 @@ import { ButtonSort } from "@/shared/ui/Button/Sort/ButtonSort";
 import { EModalView } from "@/shared/data/modal.data";
 
 interface SortModalProps{
+    hasOutline?: boolean
     variant?: ECatalogVariants
-    className?: string,
+    classNameModal?: string,
+    classNameButton?: string,
 }
 
-export const SortModal:FC<SortModalProps> = ({variant=ECatalogVariants.NONE, className}) => {
+export const SortModal:FC<SortModalProps> = ({hasOutline=false, variant=ECatalogVariants.NONE, classNameModal, classNameButton}) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const handleOnClick = () => {
@@ -25,9 +27,9 @@ export const SortModal:FC<SortModalProps> = ({variant=ECatalogVariants.NONE, cla
             onClickOverlay={handleOnClick}
             view={EModalView.RIGHT}  
             buttonNode={
-                <ButtonSort onClick={handleOnClick}/>
+                <ButtonSort onClick={handleOnClick} hasOutline={hasOutline} className={classNameButton}/>
             }
-            className={cls(className)}>
+            className={classNameModal}>
             <SortFilterSidebar variant={variant} className={cl.sidebar}/>
         </Modal>
     )

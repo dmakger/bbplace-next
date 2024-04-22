@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, ReactNode, useEffect, useRef, useState } from "react"
+import { FC, ReactNode, useEffect, useState } from "react"
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_Modal.module.scss'
@@ -16,14 +16,10 @@ interface ModalProps{
     className?: string,
 }
 
-export const Modal:FC<ModalProps> = ({_isOpen=false, onClickOverlay=()=>{}, view=EModalView.CENTER, hasBlack=true, buttonNode, children, className}) => {
-    // REF
-    const modalRef = useRef<HTMLDivElement>(null);
-    
+export const Modal:FC<ModalProps> = ({_isOpen=false, onClickOverlay=()=>{}, view=EModalView.CENTER, hasBlack=true, buttonNode, children, className}) => {    
     // STATE
     const [isOpen, setIsOpen] = useState(false);
-    console.log('msi', isOpen);
-    
+
     // EFFECT
     useEffect(() => {
         if (isOpen === _isOpen)
@@ -31,6 +27,7 @@ export const Modal:FC<ModalProps> = ({_isOpen=false, onClickOverlay=()=>{}, view
         setIsOpen(_isOpen)
     }, [_isOpen])
 
+    // VIEWS
     const views = {
         [EModalView.CENTER]: cl.center,
         [EModalView.LEFT]: cl.left,
@@ -46,11 +43,6 @@ export const Modal:FC<ModalProps> = ({_isOpen=false, onClickOverlay=()=>{}, view
                     {children}
                 </div>
             </div>
-            {/* <div ref={modalRef} onClick={() => onClickOverlay()} className={cls(cl.modal, isOpen ? cl.openOverlay : '', className)}>
-                <div onClick={e => e.stopPropagation()} className={cls(cl.content, className)}>
-                    {children}
-                </div>
-            </div> */}
         </>
     )
 }

@@ -13,7 +13,7 @@ interface ButtonSortProps{
 export const ButtonSort:FC<ButtonSortProps> = ({hasOutline=false, onClick=()=>{}, className}) => {
     return (
         <button onClick={() => onClick()} className={cls(hasOutline ? cl.outline : '', className)}>
-            <SortIcon width={hasOutline ? 18 : 27} height={hasOutline ? 18 : 27} />
+            <SortIcon width={hasOutline ? 18 : 20} height={hasOutline ? 18 : 20} />
         </button>
     )
 }
