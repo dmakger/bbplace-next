@@ -5,7 +5,8 @@ export enum ButtonVariant{
     BACKGROUND_WHITE_WIDE = 'background-white-wide',
     BACKGROUND_WHITE_NARROW = 'background-white-narrow',
     BACKGROUND_RED = 'background-red',
+    BACKGROUND_RED_HUGE = 'background-red-huge',
     ALMOST_RECTANGULAR = 'almost-rectangular',
     W_ARROW_RED = 'w-arrow-red',
-    BACKGROUND_GRAY = 'background-gray',
+    BACKGROUND_GRAY = 'background-gray'
 }

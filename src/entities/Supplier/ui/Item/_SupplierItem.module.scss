@@ -14,7 +14,11 @@
 .bottomContainer {
     display: flex;
     justify-content: space-between;
-    gap: 25px;
+
+    @media (width < 768px) {
+        justify-content: flex-start;
+        gap: 25px;
+    }
 
     .bottomLeftContainer{
         display: flex;

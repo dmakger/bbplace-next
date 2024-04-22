@@ -72,6 +72,22 @@
     }
 }
 
+.background-red-huge {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    min-width: 175px;
+    height: 100%;
+    padding: 0 41.5px;
+    border-radius: 16px;
+    background-color: var(--red-1);
+    font-weight: var(--font-weight-eb);
+    font-size: var(--font-size-s);
+    color: var(--white);
+}
+
 .almost-rectangular{
     padding: 11px 15px;
     border-radius: 10px;

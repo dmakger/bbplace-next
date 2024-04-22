@@ -3,7 +3,9 @@
     gap: 15px;
     overflow-x: auto;
     max-width: 600px;
-    @media (width < 1000px) {
+    margin-bottom: 29px;
+    @media (width < 1280px) {
         max-width: 450px;
+        margin-bottom: 0px;
     }
 }

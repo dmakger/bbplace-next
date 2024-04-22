@@ -59,7 +59,7 @@ export const SupplierItem = ({ supplier }: ISupplierItem) => {
             ]} />
           </div>
           <div className={cl.bottomRightContainer}>
-            <ProductASCList products={supplierProducts ?? []} />
+            <ProductASCList products={supplierProducts ?? []} link={''}/>
           </div>
         </div>
       </section>
