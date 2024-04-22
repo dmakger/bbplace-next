@@ -11,6 +11,8 @@ import { useSearchParams } from "next/navigation";
 import { ViewsNavBarPTC } from "../components/ViewsNavBarPTC";
 import { useAppSelector } from "@/storage/hooks";
 import { getPTCTextByNumber } from "../lib/text.ptc.lib";
+import { SortModal } from "@/features/Modal/Sort/SortModal";
+import { ECatalogVariants } from "@/widgets/SortFilterSidebar";
 
 interface INavBarPTC {}
 
@@ -39,19 +41,24 @@ export const NavBarPTC: FC<INavBarPTC> = ({ }) => {
                     ))}
                 </div>
                 <div className={cl.mobileSortContainer}>
-                    <DefaultIcon className={cl.mobileSortButton} onClick={() => { }}>
+                    {/* <DefaultIcon className={cl.mobileSortButton} onClick={() => { }}>
                         {SORT_MOBILE_ICON.image}
-                    </DefaultIcon>
+                    </DefaultIcon> */}
+                    
+                    <SortModal variant={ECatalogVariants.PRODUCTS} />
                 </div>
+                {/* <SortModal variant={ECatalogVariants.PRODUCTS} /> */}
             </div>
             <div className={cl.rightContainer}>
                 <p className={cl.resultNumber}>
                     {ptcState.amount} {getPTCTextByNumber(ptcState.amount, ptcState.view)}
                 </p>
                 <ViewsNavBarPTC ptcLink={selectedOption.link} />
-                <DefaultIcon className="sortButton" onClick={() => { }}>
+                {/* <DefaultIcon className="sortButton" onClick={() => { }}>
                     {SORT_ICON.image}
-                </DefaultIcon>
+                </DefaultIcon> */}
+                
+                <SortModal variant={ECatalogVariants.PRODUCTS} />
             </div>
         </section>
     );

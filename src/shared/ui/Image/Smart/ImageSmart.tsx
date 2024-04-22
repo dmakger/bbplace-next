@@ -25,7 +25,7 @@ export const ImageSmart:FC<ImageSmartProps> = ({icon, isActive=false, width, hei
 
             {/* default */}
             <div className={cls(isActive ? '' : cl.activeWrapper, isHovered && icon.defaultHovered ? cl.hoveredWrapper : '',  cl.wrapper)}>
-                <Image src={icon.default} alt={'default'} className={cls(isActive ? "" : cl.static , cl.image, icon.defaultHovered ? cl.visible : '', classNameImage)}/>
+                <Image src={icon.default} alt={'default'}  className={cls(isActive ? "" : cl.static , cl.image, icon.defaultHovered ? cl.visible : '', classNameImage)}/>
                 {icon.defaultHovered &&
                     <Image src={icon.defaultHovered} alt={'defaultHovered'} className={cls(cl.image, cl.hover, classNameImage)}/>
                 }
