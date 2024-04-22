@@ -100,6 +100,7 @@ export const TenderItem = ({
                         </Button>
                     </div>
                 </div>
+                <div className={cl.mobileLine}/>
             </section>
             <HandleSize width={768} set={setIs768} />
         </>

@@ -29,12 +29,9 @@ $mobile-dimension: 768px;
     padding: 16px;
 
     @media (width < $mobile-dimension) {
-        padding-left: 0px;
-        padding-right: 0px;
-        margin-left: 16px;
-        margin-right: 16px;
         gap: 15px;
         border-radius: 0px;
+        border-bottom: none;
     }
 
     .topContainer {
@@ -127,6 +124,15 @@ $mobile-dimension: 768px;
             }
         }
     }
-
+    .mobileLine{
+        display: none;
+        @media (width < $mobile-dimension) {
+            display: block;
+            height: 1px;
+            width: 100%;
+            background-color: var(--gray-5);
+            margin-bottom: -15px;
+        }
+    }
 
 }
