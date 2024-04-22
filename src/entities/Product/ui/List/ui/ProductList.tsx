@@ -16,6 +16,11 @@ import { ProductAutoList } from "../Auto/ProductAutoList";
 import { WrapperPagination } from "@/shared/ui/Wrapper/Pagination/ui/WrapperPagination";
 import { PRODUCT_PARAMS } from "@/config/params/product.params.config";
 import { ECatalogVariants, SortFilterSidebar } from "@/widgets/SortFilterSidebar";
+import { WrapperSortFilter } from "@/shared/ui/Wrapper/SortFilter/ui/WrapperSortFilter";
+import { CurrencyAPI } from "@/entities/Metrics/api/currency.metrics.api";
+import { MetricsAPI } from "@/entities/Metrics/api/metrics.metrics.api";
+import { useSearchParams } from "next/navigation";
+import { paramsToBack } from "@/config/params/backend.params.config";
 
 interface ProductListProps{
     view?: EViewProduct
@@ -23,19 +28,26 @@ interface ProductListProps{
 }
 
 export const ProductList:FC<ProductListProps> = ({view=DEFAULT_VIEW_PRODUCT, className}) => {
+    // ROUTER
+    // const pathname = usePathname();
+    const searchParams = useSearchParams();
+    // const router = useRouter();
+    const newParams = paramsToBack(searchParams)
+    console.log('nigger par', newParams, {limit: PRODUCT_ARGS_REQUEST.limit, ...newParams});
+
     // STATE
     const [productList, setProductList] = useState<IProduct[]>([])
     const [pageNumber, setPageNumber] = useState<number>(1)    
 
     // API
-    const {data: productsAPI, isLoading: isProductLoading} = ProductAPI.useGetProductsQuery({limit: PRODUCT_ARGS_REQUEST.limit, page: pageNumber-1}, {refetchOnMountOrArgChange: true})
-    const {data: countProducts, isLoading: isCountProductsLoading} = ProductAPI.useGetCountProductsQuery({limit: PRODUCT_ARGS_REQUEST.limit}, {refetchOnMountOrArgChange: true})
-    const {data: countAllProducts, isLoading: isCountAllProductsLoading} = ProductAPI.useGetCountProductsQuery({limit: 1}, {refetchOnMountOrArgChange: true})
+    const {data: currencyList} = CurrencyAPI.useGetCurrenciesQuery()          
+    const {data: metrics} = MetricsAPI.useGetMetricsQuery()          
+    const {data: productsAPI, isLoading: isProductLoading} = ProductAPI.useGetProductsQuery({limit: PRODUCT_ARGS_REQUEST.limit, page: pageNumber-1, params: newParams}, {refetchOnMountOrArgChange: true})
+    const {data: countProducts, isLoading: isCountProductsLoading} = ProductAPI.useGetCountProductsQuery({limit: PRODUCT_ARGS_REQUEST.limit, params: newParams}, {refetchOnMountOrArgChange: true})
+    const {data: countAllProducts, isLoading: isCountAllProductsLoading} = ProductAPI.useGetCountProductsQuery({limit: 1, params: newParams}, {refetchOnMountOrArgChange: true})  
 
     // RTK
     const dispatch = useDispatch();
-    const metrics = useAppSelector(state => state.metrics);
-    const currencyList = useAppSelector(state => state.currencyList);
 
     // EFFECT
     useEffect(() => {
@@ -55,11 +67,12 @@ export const ProductList:FC<ProductListProps> = ({view=DEFAULT_VIEW_PRODUCT, cla
     if (isProductLoading && isCountProductsLoading)
         return <div>Loading...</div>
     return (
-        <WrapperPagination amount={countProducts ? countProducts : 1}
-                            active={pageNumber} keyPageParam={PRODUCT_PARAMS.NUMBER_PAGE__KEY} 
-                            set={setPageNumber} className={cl.block}>
-            <ProductAutoList products={productList} view={view} className={className} />
-            <SortFilterSidebar variant={ECatalogVariants.PRODUCTS}/>
-        </WrapperPagination>
+        <WrapperSortFilter variant={ECatalogVariants.COMPANIES}>
+            <WrapperPagination amount={countProducts ? countProducts : 1}
+                                active={pageNumber} keyPageParam={PRODUCT_PARAMS.NUMBER_PAGE__KEY} 
+                                set={setPageNumber} className={cl.block}>
+                <ProductAutoList products={productList} view={view} className={className} />
+            </WrapperPagination>
+        </WrapperSortFilter>
     )
 }
