@@ -9,6 +9,8 @@ import { getAllTendersAtOneArray } from "../../lib/process.tender.lib"
 import { TenderItem } from "../.."
 import { WrapperPagination } from "@/shared/ui/Wrapper/Pagination/ui/WrapperPagination"
 import { TENDER_PARAMS } from "@/config/params/tender.params.config"
+import { WrapperSortFilter } from '@/shared/ui/Wrapper/SortFilter/ui/WrapperSortFilter'
+import { ECatalogVariants } from '@/widgets/SortFilterSidebar'
 
 export const TenderList = () => {
 
@@ -18,6 +20,9 @@ export const TenderList = () => {
 
     //API
     const { data: allTendersApi, isLoading: isTendersLoading } = TenderAPI.useGetAllTendersQuery({ limit: TENDER_ARGS_REQUEST.limit, page: pageNumber - 1 });
+    // console.log('tnd', allTendersApi ? allTendersApi.len : 0, allTendersApi);
+    console.log('tnd', allTendersApi);
+    
     const { data: saleTendersApi, isLoading: isSaleTendersLoading } = TenderAPI.useGetSaleTendersQuery(TENDER_ARGS_REQUEST);
     const { data: purchaseTendersApi, isLoading: isPurchaseTendersLoading } = TenderAPI.useGetPurchaseTendersQuery(TENDER_ARGS_REQUEST);
 
@@ -41,15 +46,16 @@ export const TenderList = () => {
         return <div>Loading...</div>
 
     return (
-        <>
-            <WrapperPagination active={pageNumber} set={setPageNumber} amount={countAllTenders ? countAllTenders : 1} keyPageParam={TENDER_PARAMS.NUMBER_PAGE__KEY}>
+        <WrapperSortFilter variant={ECatalogVariants.TENDERS}>
+            <WrapperPagination amount={countAllTenders ? countAllTenders : 1} 
+                                active={pageNumber} keyPageParam={TENDER_PARAMS.NUMBER_PAGE__KEY} 
+                                set={setPageNumber}>
                 <div className={cl.TenderList}>
                     {tenderList.map(it => (
                         <TenderItem tender={it} key={it.id} />
                     ))}
                 </div>
             </WrapperPagination>
-
-        </>
+        </WrapperSortFilter>
     )
 }
