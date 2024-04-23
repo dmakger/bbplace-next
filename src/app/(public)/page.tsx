@@ -1,11 +1,9 @@
-import { TenderList } from "@/entities/Tender";
-
+import { ECatalogVariants, SortFilterSidebar } from "@/widgets/SortFilterSidebar";
 
 export default function MainPage() {
     return (
-        <div style={{display: `flex`, justifyContent: 'center'}}>
-            <TenderList />
-    
+        <div>
+            {/* <SortFilterSidebar variant={ECatalogVariants.PRODUCTS}/> */}
         </div>
     )
 }
