@@ -11,6 +11,8 @@ import { useSearchParams } from "next/navigation";
 import { ViewsNavBarPTC } from "../components/ViewsNavBarPTC";
 import { useAppSelector } from "@/storage/hooks";
 import { getPTCTextByNumber } from "../lib/text.ptc.lib";
+import { SortModal } from "@/features/Modal/Sort/SortModal";
+import { ECatalogVariants } from "@/widgets/SortFilterSidebar";
 
 interface INavBarPTC {}
 
@@ -38,10 +40,8 @@ export const NavBarPTC: FC<INavBarPTC> = ({ }) => {
                         </button>
                     ))}
                 </div>
-                <div className={cl.mobileSortContainer}>
-                    <DefaultIcon className={cl.mobileSortButton} onClick={() => { }}>
-                        {SORT_MOBILE_ICON.image}
-                    </DefaultIcon>
+                <div className={cl.mobileSortContainer}>                    
+                    <SortModal variant={ECatalogVariants.PRODUCTS} />
                 </div>
             </div>
             <div className={cl.rightContainer}>
@@ -49,9 +49,8 @@ export const NavBarPTC: FC<INavBarPTC> = ({ }) => {
                     {ptcState.amount} {getPTCTextByNumber(ptcState.amount, ptcState.view)}
                 </p>
                 <ViewsNavBarPTC ptcLink={selectedOption.link} />
-                <DefaultIcon className="sortButton" onClick={() => { }}>
-                    {SORT_ICON.image}
-                </DefaultIcon>
+                <SortModal variant={ECatalogVariants.PRODUCTS} hasOutline={true} 
+                           classNameModal={cl.sortModal} classNameButton={cl.sortButton} />
             </div>
         </section>
     );

@@ -28,7 +28,7 @@ export const getDiapason = (wholesales: IWholesale[]) => {
 
     const priceList = wholesales.map(wholesale => {
         const price = priceToMinUnitsParameter(wholesale.price, wholesale.metrics, minParameter)
-        console.log(wholesale.price, price, minParameter, );
+        // console.log(wholesale.price, price, minParameter, );
         
         return price
     })

@@ -5,41 +5,40 @@ import { SortBy } from '../components'
 import { ICatalogSort } from '../model/sort.model'
 import { ECatalogVariants } from '@/widgets/SortFilterSidebar'
 import { IOption } from '@/shared/model/option.model'
+import { ISortFilter } from '@/widgets/SortFilterSidebar/model/sortFilterSidebar.model'
+import { Dispatch, SetStateAction } from 'react'
+import Input from '@/shared/ui/Input/Input'
+import { CORE_PARAMS } from '@/config/params/core.params.config'
 
 interface ISort{
     variant: ECatalogVariants,
-    sortByDate: IOption,
-    setSortByDate: Function,
-    sortByAlphabetical: IOption,
-    setSortByAlphabetical: Function,
+    filter: ISortFilter
+    setFilter: Dispatch<SetStateAction<ISortFilter>>
 }
 
 
-export const Sort = ({
-    variant = ECatalogVariants.PRODUCTS,
-    sortByDate,
-    setSortByDate,
-    sortByAlphabetical,
-    setSortByAlphabetical
-}: ISort) => {
+export const Sort = ({ variant = ECatalogVariants.PRODUCTS, filter, setFilter }: ISort) => {
 
     const SORT_BY_DATE: ICatalogSort = {
         title: 'Дата публикации',
         options: SORT_BY_DATE_OPTIONS,
-        defaultOption: sortByDate,
+        // defaultOption: filter.sortByDate,
+        defaultOption: filter[CORE_PARAMS.SORT_KEYS.DATE_START] as IOption,
         classNameTitle: cl.sortSelect,
-        onClickOption: setSortByDate
+        onClickOption: (it: IOption) => {setFilter(prevState => ({...prevState, [CORE_PARAMS.SORT_KEYS.DATE_START]: it}))} 
     }
 
-    const SORT_BY_ALPHABETICAL: ICatalogSort = {
-        title: 'По названию',
-        options: SORT_BY_ALPHABETICAL_OPTIONS,
-        defaultOption: sortByAlphabetical,
-        classNameTitle: cl.sortSelect,
-        onClickOption: setSortByAlphabetical
-    }
+    // const SORT_BY_ALPHABETICAL: ICatalogSort = {
+    //     title: 'По названию',
+    //     options: SORT_BY_ALPHABETICAL_OPTIONS,
+    //     // defaultOption: filter.sortByAlphabetical,
+    //     defaultOption: filter[CORE_PARAMS.SORT_KEYS.ALPHABETICAL] as IOption,
+    //     classNameTitle: cl.sortSelect,
+    //     onClickOption: (it: IOption) => {setFilter(prevState => ({...prevState, [CORE_PARAMS.SORT_KEYS.ALPHABETICAL]: it}))} 
+    // }
 
-    const sorts: ICatalogSort[] = variant === ECatalogVariants.PRODUCTS ? [SORT_BY_DATE] : [SORT_BY_DATE, SORT_BY_ALPHABETICAL];
+    // const sorts: ICatalogSort[] = variant === ECatalogVariants.PRODUCTS ? [SORT_BY_DATE] : [SORT_BY_DATE, SORT_BY_ALPHABETICAL];
+    const sorts: ICatalogSort[] = [SORT_BY_DATE];
 
 
     return (
@@ -48,15 +47,14 @@ export const Sort = ({
                 Сортировка
             </h3>
             <div className={cl.sortContainer}>
-                {sorts.map(it => (
-                    <SortBy
-                        key={it.title}
+                {sorts.map((it, index) => (
+                    <Input.Select
+                        name='selectSort'
                         title={it.title}
                         options={it.options}
                         defaultOption={it.defaultOption}
-                        classNameTitle={it.classNameTitle}
-                        onClickOption={it.onClickOption}
-                    />
+                        onClickOption={it.onClickOption} 
+                        key={index} />
                 ))}
             </div>
         </div>

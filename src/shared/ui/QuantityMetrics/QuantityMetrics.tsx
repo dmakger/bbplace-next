@@ -1,8 +1,7 @@
 import { FC } from "react"
 
-import { cls } from '@/shared/lib/classes.lib';
 import { IWholesale } from "@/entities/Metrics/model/wholesale.metrics.model";
-import { HeadingToTextLine } from "../Text/HeadingToText/Line/HeadingToTextLine";
+import { HeadingToTextLine } from "../Text";
 
 
 interface QuantityMetricsProps{

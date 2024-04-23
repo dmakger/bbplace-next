@@ -23,7 +23,6 @@ export default function RootLayout({
     <html lang="ru">
       <body className={inter.className}>
         <Providers>
-          {/* <Setters/> */}
           {children}
         </Providers>
       </body>

@@ -1,103 +1,98 @@
-'use client'
-
-import cl from './_SortFilterSidebar.module.scss'
-import { cls } from "@/shared/lib/classes.lib"
-import { Button, ButtonVariant } from "@/shared/ui/Button"
-import { Filter } from "@/features/Filter"
-import { useCallback, useEffect, useState } from 'react'
-import { IOption } from '@/shared/model/option.model'
-import { DEFAULT_APPLICATION_OPTION, DEFAULT_CATEGORY_OPTION, DEFAULT_COUNTRY_OPTION, DEFAULT_STATUS_OPTION } from '@/features/Filter/data/filter.data'
-import { DEFAULT_ALPHABETICAL_SORT, DEFAULT_DATE_SORT, Sort } from '@/features/Sort'
-import { ECatalogVariants } from '..'
-import { useDebounce } from '@/shared/hooks/useDebounce.hooks'
+'use client';
+import cl from './_SortFilterSidebar.module.scss';
+import { cls } from "@/shared/lib/classes.lib";
+import { Button, ButtonVariant } from "@/shared/ui/Button";
+import { Filter } from "@/features/Filter";
+import { useCallback, useEffect, useState } from 'react';
+import { ECatalogVariants } from '..';
+import { DEFAULT_SORT_FILTER__DATA } from '../data/sortFilter.data';
+import { ISortFilter } from '../model/sortFilterSidebar.model';
+import { getUpdatedDataSortFilter, toSortFilter } from '../lib/sortFilter.lib';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { isEqual } from 'lodash';
+import { Sort } from '@/features/Sort';
+import { CountryAPI } from '@/entities/Metrics/api/country.metrics.api';
+import { CategoryAPI } from '@/entities/Metrics/api/category.metrics.api';
+import { CORE_PARAMS } from '@/config/params/core.params.config';
 
 interface ISortFilterSidebar{
     variant: ECatalogVariants,
-    // setFilter: Function,
+    className?: string
 }
 
+export const SortFilterSidebar = ({ variant, className }: ISortFilterSidebar) => {
 
-export const SortFilterSidebar = ({
-    variant,
-    // setFilter
-}:ISortFilterSidebar) => {
+    // ROUTER
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
+    const router = useRouter();
 
+    // toSortFilter(searchParams);
+
+    // API
+    // const { data: categories } = CategoryAPI.useGetCategoriesByIdQuery(undefined)
+    const { data: categories, isLoading: isLoadingCategories } = CategoryAPI.useGetCategoriesQuery()
+    const { data: categoriesParent, isLoading: isLoadingCategoriesParent } = CategoryAPI.useGetCategoriesByIdQuery(undefined)
+    const { data: countries, isLoading: isLoadingCountries } = CountryAPI.useGetCountriesQuery()
+    
     //STATE
-    //FILTERS
-    const [country, setCountry] = useState<IOption>(DEFAULT_COUNTRY_OPTION)
-    const [minOrder, setMinOrder] = useState<string>('')
-    const [status, setStatus] = useState<IOption>(DEFAULT_STATUS_OPTION)
-    const [category, setCategory] = useState<IOption>(DEFAULT_CATEGORY_OPTION)
-    const [application, setApplication] = useState<IOption>(DEFAULT_APPLICATION_OPTION)
-    //SORT
-    const [sortByDate, setSortByDate] = useState<IOption>(DEFAULT_DATE_SORT)
-    const [sortByAlphabetical, setSortByAlphabetical] = useState<IOption>(DEFAULT_ALPHABETICAL_SORT)
+    const [filter, setFilter] = useState<ISortFilter>(DEFAULT_SORT_FILTER__DATA)
+    // const [filter, setFilter] = useState<ISortFilter>(toSortFilter(searchParams));
+    const [isUpdated, setIsUpdated] = useState(false);
 
-    const [filter, setFilter] = useState<string>('')
-
-    const minOrderDebouncedValue = useDebounce(minOrder)    
-
-    //EFFECT
     useEffect(() => {
-        const filterAccum: string[] = [];
+        if (isLoadingCategories || isLoadingCountries)
+            return
+        setFilter(() => toSortFilter(searchParams, categories!, countries!))
+    }, [searchParams, categories, countries])
 
-        sortByDate.id !== -1 && filterAccum.push(`SortBy${variant === ECatalogVariants.COMPANIES ? 'Date' : ''}=${sortByDate.value}`);
+    useEffect(() => {
+        setIsUpdated(!isEqual(filter, DEFAULT_SORT_FILTER__DATA));
+    }, [filter, isUpdated]);
 
-        if(variant === ECatalogVariants.COMPANIES){
-            sortByAlphabetical.id !== -1 && filterAccum.push(`SortByAlphabetical=${sortByAlphabetical.value}`);
-            category.id && filterAccum.push(`CategoryId=${category.id}`);
-        }
 
-        if(variant !== ECatalogVariants.TENDERS){
-            country.id && filterAccum.push(`Country=${country.name}`);
-            minOrderDebouncedValue !== '' && !isNaN(Number(minOrderDebouncedValue)) && filterAccum.push(`MinOrderQuantity=${minOrderDebouncedValue}`);
-        }
-    
-        variant === ECatalogVariants.PRODUCTS && status.id !== -1 && filterAccum.push(`Status=${status.name}`);
-
-        variant === ECatalogVariants.TENDERS && application.name !== '' && filterAccum.push(`filter=${application.id}`)
-
-        setFilter(filterAccum.join('&'));
-
-    }, [variant, category, country, minOrderDebouncedValue, status, application, sortByDate, sortByAlphabetical]);
-    
     const clearFilters = useCallback(() => {
-        setCountry(DEFAULT_COUNTRY_OPTION)
-        setMinOrder('')
-        setStatus(DEFAULT_STATUS_OPTION)
-        setSortByDate(DEFAULT_DATE_SORT)
-        setSortByAlphabetical(DEFAULT_ALPHABETICAL_SORT)
-        setApplication(DEFAULT_APPLICATION_OPTION)
-        setCategory(DEFAULT_CATEGORY_OPTION)
-    },[])    
+        const newSearchParams = new URLSearchParams();
+        if (searchParams.has(CORE_PARAMS.SEARCH)) {
+            newSearchParams.set(CORE_PARAMS.SEARCH, searchParams.get(CORE_PARAMS.SEARCH)!);
+        }
+        setFilter(DEFAULT_SORT_FILTER__DATA)
+        router.push(`${pathname}?${newSearchParams.toString()}`);
+    }, []);
 
-    
+    const handleOnClickShow = () => {
+        if (!isUpdated)
+            return;
+        const sortData = getUpdatedDataSortFilter(filter);
+        const params = new URLSearchParams(searchParams.toString());
+        Object.keys(sortData).map(keySort => {
+            params.set(keySort, sortData[keySort]);
+        });
+        router.push(`${pathname}?${params.toString()}`);
+    };
+
+
     return (
-        <aside className={cl.SortFilterSidebar}>
-            {variant !== ECatalogVariants.TENDERS && <Sort
-                variant={variant}
-                sortByDate={sortByDate}
-                setSortByDate={setSortByDate}
-                sortByAlphabetical={sortByAlphabetical}
-                setSortByAlphabetical={setSortByAlphabetical}
-            />}
-            <Filter
-                variant={variant}
-                category={category}
-                setCategory={setCategory}
-                country={country}
-                setCountry={setCountry}
-                status={status}
-                setStatus={setStatus}
-                minOrder={minOrder}
-                setMinOrder={setMinOrder}
-                setFilter={setFilter}
-                application={application}
-                setApplication={setApplication}
-            />
-            <Button variant={ButtonVariant.BACKGROUND_WHITE_WIDE} onClick={clearFilters}>
-                Очистить
-            </Button>
+        <aside className={cls(cl.SortFilterSidebar, className)}>
+            {variant !== ECatalogVariants.TENDERS &&
+                <Sort variant={variant}
+                    filter={filter}
+                    setFilter={setFilter} />
+            }
+            <Filter variant={variant} 
+                    filter={filter}
+                    setFilter={setFilter} 
+                    categories={categoriesParent ? categoriesParent : []} 
+                    countries={countries ? countries : []} />
+            <div className={cl.buttons}>
+                {isUpdated &&
+                    <Button variant={ButtonVariant.CLEAR} onClick={clearFilters}>
+                        Очистить
+                    </Button>}
+                <Button variant={ButtonVariant.BORDERED_RED_WIDE} onClick={handleOnClickShow}>
+                    Показать
+                </Button>
+            </div>
         </aside>
-    )
-}
+    );
+};

@@ -10,6 +10,7 @@ import { isFavouriteViewSupplier, isSubscribeViewSupplier, isToChatViewSupplier,
 import { ToProfileAutoToSupplierButton } from "../Button/ToProfile/Auto/ToProfileToSupplierButton";
 import { ISupplier } from "../../model/supplier.model";
 import { FavouriteAutoToSupplierButton } from "../Button/Favourite/Auto/FavouriteAutoToSupplierButton";
+import React from "react";
 
 interface NavSupplierProps{
     supplierId: ISupplier['id']
@@ -22,22 +23,22 @@ export const NavSupplier:FC<NavSupplierProps> = ({supplierId, views=[], classNam
     const props = {supplierId, className: classNameItem}
 
     return (
-        <div className={cls(cls(cl.block, className))}>
+        <div className={cls(cl.block, className)}>
             {views.map((view, index) => (
-                <>
+                <React.Fragment key={index}>
                     {isSubscribeViewSupplier(view) &&
-                        <SubscribeAutoToSupplierButton view={view as ESupplierSubscribeViewItem} {...props} key={index}/>
+                        <SubscribeAutoToSupplierButton view={view as ESupplierSubscribeViewItem} {...props} />
                     }
                     {isToChatViewSupplier(view) &&
-                        <ToChatAutoToSupplierButton view={view as ESupplierToChatViewItem} {...props} key={index}/>
+                        <ToChatAutoToSupplierButton view={view as ESupplierToChatViewItem} {...props} />
                     }
                     {isToProfileViewSupplier(view) &&
-                        <ToProfileAutoToSupplierButton view={view as ESupplierToProfileViewItem} {...props} key={index}/>
+                        <ToProfileAutoToSupplierButton view={view as ESupplierToProfileViewItem} {...props} />
                     }
                     {isFavouriteViewSupplier(view) &&
-                        <FavouriteAutoToSupplierButton view={view as ESupplierFavouriteViewItem} {...props} key={index}/>
+                        <FavouriteAutoToSupplierButton view={view as ESupplierFavouriteViewItem} {...props} />
                     }
-                </>
+                </React.Fragment>
             ))}
         </div>
     )
