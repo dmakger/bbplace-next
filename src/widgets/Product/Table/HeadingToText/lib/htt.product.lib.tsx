@@ -47,12 +47,11 @@ export const getDataHeadingToTextProductMainTable = (product: IProduct) => {
         {heading: 'Комплектация', body: product.characteristics.equipment},
     ]
 
-    return processData
-    .map(it => {
+    return processData.map(it => {
             if (Array.isArray(it.body) && it.body.length > 0) {
-                if(it.body[0] && it.body[0].hasOwnProperty('size')){
+                if (typeof it.body[0] !== 'string' && it.body[0].hasOwnProperty('size')) {
                     const body: string[] = []
-                    it.body.map(it => body.push(it.size + ` (${it.sizeUnit.name})`))
+                    it.body.map((it: any) => body.push(`${it.size} (${it.sizeUnit.name})`))
                     return getHeadingToText(it.heading, body.join(', '))
                 }
                 return getHeadingToText(it.heading, it.body.join(', '))

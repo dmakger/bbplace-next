@@ -1,10 +1,11 @@
 import { cls } from '@/shared/lib/classes.lib';
-import cl from './_HeadingToTextLine.module.scss'
+import cl from './_HeadingToTextRow.module.scss'
 import { IHeadingToText } from "@/shared/model/text.model";
 
-interface IHeadingToTextLine{
+interface IHeadingToTextRow{
     heading: IHeadingToText['heading']
     text: IHeadingToText['text'],
+    unit?: IHeadingToText['unit'],
     isShort?: boolean,
     hasSpace?: boolean,
     hasColon?: boolean,
@@ -14,9 +15,10 @@ interface IHeadingToTextLine{
     classNameText?: string
 }
 
-export const HeadingToTextLine = ({
+export const HeadingToTextRow = ({
     heading,
     text,
+    unit,
     isShort = false,
     hasSpace = true,
     hasColon = true,
@@ -24,7 +26,7 @@ export const HeadingToTextLine = ({
     classNameRow,
     classNameHeading,
     classNameText
-}: IHeadingToTextLine) => {
+}: IHeadingToTextRow) => {
     return (
         <div className={cls(cl.block, isShort ? cl.short : '', classNameRow)}>
             <span className={cls(cl.heading, classNameHeading)}>{heading}{hasColon && ':'}</span>
@@ -34,7 +36,7 @@ export const HeadingToTextLine = ({
             {hasDash &&
                 <>-&nbsp;</>
             }
-            <span className={cls(cl.text, classNameText, isShort ? cl.short : '')}>{text}</span>
+            <span className={cls(cl.text, classNameText, isShort ? cl.short : '')}>{text}&nbsp;{unit}</span>
         </div>
     )
 }

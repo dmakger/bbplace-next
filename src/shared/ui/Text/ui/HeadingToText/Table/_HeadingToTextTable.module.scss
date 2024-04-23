@@ -1,4 +1,9 @@
 .block{
     display: flex;
-    flex-direction: column;
+}
+
+.noBorder {
+    & span{
+        border-bottom: none !important;
+    }
 }

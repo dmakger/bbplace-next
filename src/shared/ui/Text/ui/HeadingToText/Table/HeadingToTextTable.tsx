@@ -1,15 +1,19 @@
 import cl from './_HeadingToTextTable.module.scss'
 import { IHeadingToText } from "@/shared/model/text.model";
-import { HeadingToTextLine } from "../Line/HeadingToTextLine";
 import { cls } from "@/shared/lib/classes.lib";
+import { EHeadingToTextVariants } from '../../../model/text.model';
+import { HeadingToTextRow } from '../Row/HeadingToTextRow';
+import { HeadingToTextColumn } from '../Column/HeadingToTextColumn';
 
 interface IHeadingToTextTable {
     data: IHeadingToText[],
+    variant: EHeadingToTextVariants,
     isShort?: boolean,
     hasColon?: boolean,
     hasDash?: boolean,
     hasSpace?: boolean,
     classNameMainBlock?: string,
+    classNameMain?: string,
     classNameRow?: string,
     classNameHeadingItem?: string,
     classNameTextItem?: string
@@ -17,11 +21,13 @@ interface IHeadingToTextTable {
 
 export const HeadingToTextTable = ({
     data,
+    variant,
     isShort = false,
     hasColon = true,
     hasDash = false,
     hasSpace = false,
     classNameMainBlock,
+    classNameMain,
     classNameRow,
     classNameHeadingItem,
     classNameTextItem
@@ -30,21 +36,29 @@ export const HeadingToTextTable = ({
     return (
         <div className={cls(cl.block, classNameMainBlock)}>
             {
-                data.map(it => (
-                    <HeadingToTextLine
-                        key={it.heading}
-                        heading={it.heading}
-                        text={it.text}
+                (variant === EHeadingToTextVariants.ROW ? (
+                    data.map((it, index )=> (
+                        <HeadingToTextRow
+                            key={it.heading}
+                            heading={it.heading}
+                            unit={it.unit}
+                            text={it.text}
+                            isShort={isShort}
+                            hasColon={hasColon}
+                            hasDash={hasDash}
+                            hasSpace={hasSpace}
+                            classNameRow={cls(classNameRow, index === data.length - 1 ? cl.noBorder : '')}
+                            classNameHeading={classNameHeadingItem}
+                            classNameText={classNameTextItem}
+                        />
+                    )))
+                    : <HeadingToTextColumn
+                        data={data}
                         isShort={isShort}
-                        hasColon={hasColon}
-                        hasDash={hasDash}
-                        hasSpace={hasSpace}
-                        classNameRow={classNameRow}
-                        classNameHeading={classNameHeadingItem}
-                        classNameText={classNameTextItem}
-                    />
-                ))
-            }
+                        classNameMain={classNameMain}
+                        classNameHeadingItem={classNameHeadingItem}
+                        classNameTextItem={classNameTextItem}
+                    />)}
         </div>
     )
 }
