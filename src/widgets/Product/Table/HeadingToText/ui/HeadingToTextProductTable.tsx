@@ -3,8 +3,8 @@ import { IProduct } from "@/entities/Product/model/product.model";
 import { getDataHeadingToTextProductTable } from "../lib/htt.product.lib";
 
 import cl from './_HeadingToTextProductTable.module.scss'
-import { HeadingToTextColumn, HeadingToTextTable } from "@/shared/ui/Text";
-import { EHeadingToTextVariants } from "@/shared/ui/Text/model/text.model";
+import { HeadingToTextTable } from "@/shared/ui/Text";
+import { EHeadingToTextVariants } from "@/shared/model/text.model";
 
 interface HeadingToTextProductTableProps{
     product: IProduct

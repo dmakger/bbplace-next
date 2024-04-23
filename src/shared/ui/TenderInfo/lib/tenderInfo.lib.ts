@@ -1,6 +1,6 @@
 import { getTenderType } from "@/entities/Tender/lib/tender.lib";
 import { ETenderType, ICommonTender } from "@/entities/Tender/model/tender.model";
-import { IHeadingToText, IHeadingToTextTender } from "@/shared/model/text.model";
+import { IHeadingToText } from "@/shared/model/text.model";
 
 
 export const getDataTenderInfo = (tender: ICommonTender) => {
@@ -16,7 +16,7 @@ export const getDataTenderInfo = (tender: ICommonTender) => {
     const price = tender.price
     const currency = tender.currency
 
-    let processData: IHeadingToTextTender[] = [];
+    let processData: IHeadingToText[] = [];
 
     tenderType === ETenderType.PURCHASE ? processData = [
         {

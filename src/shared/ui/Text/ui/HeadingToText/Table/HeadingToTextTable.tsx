@@ -1,9 +1,8 @@
 import cl from './_HeadingToTextTable.module.scss'
-import { IHeadingToText } from "@/shared/model/text.model";
 import { cls } from "@/shared/lib/classes.lib";
-import { EHeadingToTextVariants } from '../../../model/text.model';
 import { HeadingToTextRow } from '../Row/HeadingToTextRow';
 import { HeadingToTextColumn } from '../Column/HeadingToTextColumn';
+import { EHeadingToTextVariants, IHeadingToText } from '@/shared/model/text.model';
 
 interface IHeadingToTextTable {
     data: IHeadingToText[],

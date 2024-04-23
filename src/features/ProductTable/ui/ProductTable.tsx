@@ -3,7 +3,7 @@ import cl from './_ProductTable.module.scss'
 import { IProductAPI } from '@/entities/Product/model/product.model'
 import { HeadingToTextTable } from '@/shared/ui/Text'
 import { getDataHeadingToTextProductMainTable } from '@/widgets/Product/Table/HeadingToText/lib/htt.product.lib'
-import { EHeadingToTextVariants } from '@/shared/ui/Text/model/text.model'
+import { EHeadingToTextVariants } from '@/shared/model/text.model'
 
 interface IProductTable {
     productApi: IProductAPI

@@ -19,7 +19,7 @@ import { HandleSize } from "@/shared/ui/Handle/Size/HandleSize"
 import { ESupplierSubscribeViewItem, ESupplierToChatViewItem } from "@/entities/Supplier/data/view.supplier.data"
 import { ESupplierView } from "@/entities/Supplier/data/supplier.data"
 import { HeadingToTextTable } from "@/shared/ui/Text"
-import { EHeadingToTextVariants } from "@/shared/ui/Text/model/text.model"
+import { EHeadingToTextVariants } from "@/shared/model/text.model"
 
 interface ITenderItem {
     tender: ICommonTender
