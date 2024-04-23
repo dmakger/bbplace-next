@@ -15,10 +15,10 @@ interface ToChatLargeToSupplierButtonProps{
 export const ToChatLargeToSupplierButton:FC<ToChatLargeToSupplierButtonProps> = ({supplierId, isWide=false, className}) => {
     
     return (
-        <Button variant={ButtonVariant.BORDERED_RED_WIDE} 
+        <Button variant={ButtonVariant.BORDERED_RED_NARROW} 
                 href={DASHBOARD_PAGES.CURRENT_CHAT(supplierId)}
-                className={cls(cl.buttonWrapper, className)} classNameButton={cl.button}>
-            {isWide ? 'Связаться с поставщиком' : 'Написать'}
+                className={cls(cl.buttonWrapper, className)} classNameButton={cls(isWide ? cl.button : cl.buttonNarrow)}>
+            {isWide ? 'Связаться с поставщиком' : 'Связаться'}
         </Button>
     )
 }

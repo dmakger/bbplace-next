@@ -13,18 +13,19 @@ import { ESupplierAxis, ESupplierView } from "../../data/supplier.data";
 
 interface SupplierWNavProps{
     id: ISupplier['id'] | null
-    view?: ESupplierView
-    hasImage?: boolean
+    view?: ESupplierView,
+    hasImage?: boolean,
     subscribeView?: ESupplierSubscribeViewItem
     navs?: TViewNav[] 
     axis?: ESupplierAxis
     className?: string,
+    classNameSmallSupplier?: string,
+    classNameSupplier?: string,
     classNameNavs?: string,
     classNameNavsItem?: string,
 }
 
-export const SupplierWNav:FC<SupplierWNavProps> = ({id, view=ESupplierView.LARGE_WHITE, hasImage=false, subscribeView=ESupplierSubscribeViewItem.NONE, navs=[], axis=ESupplierAxis.HORIZONTAL, className, classNameNavs, classNameNavsItem}) => {
-
+export const SupplierWNav:FC<SupplierWNavProps> = ({id, view=ESupplierView.LARGE_WHITE, subscribeView=ESupplierSubscribeViewItem.NONE, hasImage = false, navs=[], axis=ESupplierAxis.HORIZONTAL, className, classNameSupplier, classNameSmallSupplier, classNameNavs, classNameNavsItem}) => {
     const { data: supplier } = UserAPI.useGetUserDataQuery(id!)    
     const [supplierState, setSupplierState] = useState<ISupplier>()
 
@@ -37,11 +38,13 @@ export const SupplierWNav:FC<SupplierWNavProps> = ({id, view=ESupplierView.LARGE
     if (!supplierState)
         return <></>
     return (
-        <div className={cls(cls(cl.block, axis === ESupplierAxis.VERTICAL ? cl.vertical : '', className))}>
+        <div className={cls(cl.block, axis === ESupplierAxis.VERTICAL ? cl.vertical : '', className)}>
             <SupplierAuto supplier={supplierState} 
                           view={view}
                           hasImage={hasImage} 
-                          subscribeView={subscribeView} />
+                          subscribeView={subscribeView}
+                          classNameSupplier={classNameSupplier}
+                          classNameSmallSupplier={classNameSmallSupplier} />
             <NavSupplier views={navs} supplierId={supplierState.id} 
                          className={cls(cl.navs, classNameNavs)} classNameItem={classNameNavsItem} />
         </div>
