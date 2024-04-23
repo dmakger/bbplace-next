@@ -1,31 +1,50 @@
-import { FC } from "react"
-
-import { cls } from '@/shared/lib/classes.lib';
 import cl from './_HeadingToTextTable.module.scss'
 import { IHeadingToText } from "@/shared/model/text.model";
+import { HeadingToTextLine } from "../Line/HeadingToTextLine";
+import { cls } from "@/shared/lib/classes.lib";
 
-interface HeadingToTextTableProps{
-    data: IHeadingToText[]
-    isShort?: boolean
-    className?: string,
+interface IHeadingToTextTable {
+    data: IHeadingToText[],
+    isShort?: boolean,
+    hasColon?: boolean,
+    hasDash?: boolean,
+    hasSpace?: boolean,
+    classNameMainBlock?: string,
+    classNameRow?: string,
     classNameHeadingItem?: string,
+    classNameTextItem?: string
 }
 
-export const HeadingToTextTable:FC<HeadingToTextTableProps> = ({data, isShort=false, className, classNameHeadingItem}) => {
-    const headingTable = data.map(it => it.heading)
-    const textTable = data.map(it => it.text)
+export const HeadingToTextTable = ({
+    data,
+    isShort = false,
+    hasColon = true,
+    hasDash = false,
+    hasSpace = false,
+    classNameMainBlock,
+    classNameRow,
+    classNameHeadingItem,
+    classNameTextItem
+}: IHeadingToTextTable) => {
+
     return (
-        <div className={cls(cl.block, isShort ? cl.short : '', className)}>
-            <div className={cl.column}>
-                {headingTable.map((heading, index) => (
-                    <span className={cls(cl.heading, cl.span, classNameHeadingItem)} key={index}>{heading} :</span>
-                ))}
-            </div>
-            <div className={cls(cl.column, cl.right)}>
-                {textTable.map((text, index) => (
-                    <span className={cls(cl.text, cl.span)} key={index}>{text}</span>
-                ))}
-            </div>
+        <div className={cls(cl.block, classNameMainBlock)}>
+            {
+                data.map(it => (
+                    <HeadingToTextLine
+                        key={it.heading}
+                        heading={it.heading}
+                        text={it.text}
+                        isShort={isShort}
+                        hasColon={hasColon}
+                        hasDash={hasDash}
+                        hasSpace={hasSpace}
+                        classNameRow={classNameRow}
+                        classNameHeading={classNameHeadingItem}
+                        classNameText={classNameTextItem}
+                    />
+                ))
+            }
         </div>
     )
 }

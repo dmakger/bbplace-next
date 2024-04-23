@@ -1,0 +1,31 @@
+.Table {
+    gap: 0px;
+    border: 1px solid var(--gray-5);
+    border-radius: 16px;
+    
+   
+        .headingItem{
+            flex: 0.5;
+            background-color: var(--gray-3);
+            padding: 16px;
+            border: 1px solid var(--gray-5);
+            border-radius: 16px 0 0 0;
+            border-top: none;
+            border-left: none;
+            font-size: var(--font-size-s);
+            color: var(--gray-7);
+        }
+        
+        .textItem{
+            flex: 0.5;
+            white-space: initial;
+            padding: 16px;
+            border-bottom: 1px solid var(--gray-5);
+            margin-left: 0px !important;
+            font-size: var(--font-size-s);
+            word-break: break-all;
+
+            
+        }
+}
+

@@ -1,0 +1,33 @@
+.block {
+    display: flex;
+    font-size: var(--font-size-s);
+
+    &:last-child{
+        border-bottom: none;
+    }
+    
+    .text {
+        margin-left: 16px;
+    }
+
+    .heading {
+        color: var(--gray-9);
+    }
+
+}
+
+.short {
+    max-width: calc(100% - 100px);
+
+    .heading{
+        white-space: nowrap;
+    }
+
+    .text {
+        white-space: nowrap;
+        max-width: 100px;        
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-height: 40px; /* Задаем максимальную высоту контейнера */
+    }
+}

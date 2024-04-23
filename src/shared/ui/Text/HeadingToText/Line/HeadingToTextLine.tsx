@@ -1,0 +1,40 @@
+import { cls } from '@/shared/lib/classes.lib';
+import cl from './_HeadingToTextLine.module.scss'
+import { IHeadingToText } from "@/shared/model/text.model";
+
+interface IHeadingToTextLine{
+    heading: IHeadingToText['heading']
+    text: IHeadingToText['text'],
+    isShort?: boolean,
+    hasSpace?: boolean,
+    hasColon?: boolean,
+    hasDash?: boolean,
+    classNameRow?: string
+    classNameHeading?: string
+    classNameText?: string
+}
+
+export const HeadingToTextLine = ({
+    heading,
+    text,
+    isShort = false,
+    hasSpace = true,
+    hasColon = true,
+    hasDash = false,
+    classNameRow,
+    classNameHeading,
+    classNameText
+}: IHeadingToTextLine) => {
+    return (
+        <div className={cls(cl.block, isShort ? cl.short : '', classNameRow)}>
+            <span className={cls(cl.heading, classNameHeading)}>{heading}{hasColon && ':'}</span>
+            {hasSpace &&
+                <>&nbsp;</>
+            }
+            {hasDash &&
+                <>-&nbsp;</>
+            }
+            <span className={cls(cl.text, classNameText, isShort ? cl.short : '')}>{text}</span>
+        </div>
+    )
+}

@@ -1,3 +1,4 @@
+import { SEX_OPTIONS } from "@/entities/Product/data/product.data";
 import { IProduct } from "@/entities/Product/model/product.model";
 import { getHeadingToText } from "@/shared/lib/headingToText.lib";
 import { IHeadingToText } from "@/shared/model/text.model";
@@ -22,6 +23,8 @@ export const getDataHeadingToTextProductMainTable = (product: IProduct) => {
     const certification = product.certification ? 'Да' : 'Нет'
     const testProbe = product.isHasTestProbe ? 'Да' : 'Нет'
     const customDesign = product.isCustomDesign ? 'Да' : 'Нет'
+    const gender = SEX_OPTIONS.find(it => product.characteristics.gender === it.id)?.name
+    
 
     const processData = [
         {heading: 'Доставка', body: product.delivery},
@@ -38,6 +41,7 @@ export const getDataHeadingToTextProductMainTable = (product: IProduct) => {
         {heading: 'Бренд', body: product.characteristics.brand},
         {heading: 'Страна', body: product.country},
         {heading: 'Срок годности', body: product.characteristics.expirationDate},
+        {heading: 'Пол', body: gender},
         {heading: 'Особенности', body: product.characteristics.features},
         {heading: 'Состав', body: product.characteristics.composition},
         {heading: 'Комплектация', body: product.characteristics.equipment},
@@ -46,6 +50,11 @@ export const getDataHeadingToTextProductMainTable = (product: IProduct) => {
     return processData
     .map(it => {
             if (Array.isArray(it.body) && it.body.length > 0) {
+                if(it.body[0] && it.body[0].hasOwnProperty('size')){
+                    const body: string[] = []
+                    it.body.map(it => body.push(it.size + ` (${it.sizeUnit.name})`))
+                    return getHeadingToText(it.heading, body.join(', '))
+                }
                 return getHeadingToText(it.heading, it.body.join(', '))
             } else if(typeof(it.body) !== 'object'){             
                 return getHeadingToText(it.heading, it.body)

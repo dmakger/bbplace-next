@@ -14,6 +14,6 @@ export const HeadingToTextProductTable:FC<HeadingToTextProductTableProps> = ({pr
     return (
         <HeadingToTextTable data={getDataHeadingToTextProductTable(product)} 
                             isShort={true} 
-                            className={className} classNameHeadingItem={cl.headingItem} />
+                            classNameMainBlock={className} classNameHeadingItem={cl.headingItem} />
     )
 }

@@ -2,7 +2,8 @@ import { FC } from "react"
 
 import { cls } from '@/shared/lib/classes.lib';
 import { IWholesale } from "@/entities/Metrics/model/wholesale.metrics.model";
-import { HeadingToText } from "../Text/HeadingToText/Line/HeadingToText";
+import { HeadingToTextLine } from "../Text/HeadingToText/Line/HeadingToTextLine";
+
 
 interface QuantityMetricsProps{
     heading: string
@@ -15,7 +16,7 @@ export const QuantityMetrics:FC<QuantityMetricsProps> = ({heading, wholesale, cl
     const text = wholesale && wholesale.metrics ? `${wholesale.quantity} ${wholesale.metrics.shortName}` : "Не указано"
     
     return (
-        <HeadingToText heading={heading} text={text} 
-                        className={className} classNameText={classNameText} />
+        <HeadingToTextLine heading={heading} text={text} 
+                        classNameRow={className} classNameText={classNameText} />
     )
 }
