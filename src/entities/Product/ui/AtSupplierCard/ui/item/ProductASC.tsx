@@ -6,31 +6,33 @@ import { ESupplierFavouriteViewItem } from '@/entities/Supplier/data/view.suppli
 import { IProductProps } from '@/entities/Product/model/props.product.model';
 import { getDiapason } from '@/entities/Metrics/lib/metrics/diapason.metrics.metrics.lib';
 import { WholesaleDiapason } from '@/entities/Metrics/ui/Wholesale/Diapason/WholesaleDiapason';
-import { IProduct } from '@/entities/Product/model/product.model';
+import Link from 'next/link';
+import { MAIN_PAGES } from '@/config/pages-url.config';
 
 interface IProductASC extends IProductProps { }
 
 export const ProductASC = ({ product, className }: IProductASC) => {
-    const media = JSON.parse(product.media) as IProduct['media']
 
+    const media = typeof product.media === 'string' ? JSON.parse(product.media) : product.media;
 
-    const [minWholesale, maxWholesale] = getDiapason(media.wholesalePrices);
+    const [minWholesale, maxWholesale] = getDiapason(media.wholesalePrices, media.sizes);
+console.log(product);
 
     return (
-
-        <section className={cls(cl.block, className)}>
-            <div className={cl.top}>
-                <ImageAPI src={media.attachments[0]} width={179} height={175} className={cl.image} />
-                <FavouriteAutoToSupplierButton view={ESupplierFavouriteViewItem.SMALL_FILL} className={cl.favourite} />
-            </div>
-            <div className={cl.middle}>
-                <h4 className={cl.name}>{product.name}</h4>
-                <div className={cl.priceWrapper}>
-                    <WholesaleDiapason minWholesale={minWholesale} maxWholesale={maxWholesale}
-                        currency={media.currency} classNameText={cl.price} />
+        <section className={cl.ProductASC}>
+            <Link className={cls(cl.block, className)} href={`${MAIN_PAGES.CURRENT_PRODUCT(product.id)}`}>
+                <div className={cl.top}>
+                    <ImageAPI src={media.attachments[0]} width={179} height={175} className={cl.image} />
                 </div>
-            </div>
+                <div className={cl.middle}>
+                    <h4 className={cl.name}>{product.name}</h4>
+                    <div className={cl.priceWrapper}>
+                        <WholesaleDiapason minWholesale={minWholesale} maxWholesale={maxWholesale}
+                            currency={media.currency} classNameText={cl.price} />
+                    </div>
+                </div>
+            </Link>
+            <FavouriteAutoToSupplierButton view={ESupplierFavouriteViewItem.SMALL_FILL} className={cl.favourite} />
         </section>
-
     );
 };
