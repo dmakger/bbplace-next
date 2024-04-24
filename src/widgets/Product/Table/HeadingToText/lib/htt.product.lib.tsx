@@ -19,21 +19,21 @@ export const getDataHeadingToTextProductTable = (product: IProduct) => {
 }
 
 export const getGender = (product: IProduct) => {
-    if(product.characteristics.gender.length > 2){        
-        return product.characteristics.gender;
+    const gender = product.characteristics.gender;
+    const genderId = parseInt(gender);
+    if (!isNaN(genderId)) {
+        return SEX_OPTIONS.find(it => it.id === genderId)?.name;
     }
-    else{
-        return SEX_OPTIONS.find(it => Number(product.characteristics.gender) === it.id)?.name
-    }
+    return gender;
 }
 
 export const getCountry = (product: IProduct, countries: ICountry[]) => {
-    if(product.characteristics.country.length > 3){
-        return product.characteristics.country;
+    const country = product.characteristics.country;
+    const countryId = parseInt(country)
+    if(!isNaN(countryId)){
+        return countries.find(it => it.id === countryId)?.name
     }
-    else{
-        return countries.find(it => it.id === Number(product.characteristics.country))?.name
-    }
+    return country;
 }
 
 export const getDataHeadingToTextProductMainTable = (product: IProduct, selectedCountry: string) => {
@@ -66,16 +66,7 @@ export const getDataHeadingToTextProductMainTable = (product: IProduct, selected
     ]
 
     return processData.map(it => {
-            if (Array.isArray(it.body) && it.body.length > 0) {
-                if (typeof it.body[0] !== 'string' && it.body[0].hasOwnProperty('size')) {
-                    const body: string[] = []
-                    it.body.map((it: any) => body.push(`${it.size} (${it.sizeUnit.name})`))
-                    return getHeadingToText(it.heading, body.join(', '))
-                }
-                return getHeadingToText(it.heading, it.body.join(', '))
-            } else if(typeof(it.body) !== 'object'){             
-                return getHeadingToText(it.heading, it.body)
-            }   
-    })
-    .filter(it => it !== undefined) as IHeadingToText[]
+        const body = Array.isArray(it.body) ? it.body.map(subIt => typeof subIt === 'object' ? `${subIt.size} (${subIt.sizeUnit.name})` : subIt).join(', ') : it.body;
+        return getHeadingToText(it.heading, body);
+    }).filter(item => item !== undefined) as IHeadingToText[];
 }

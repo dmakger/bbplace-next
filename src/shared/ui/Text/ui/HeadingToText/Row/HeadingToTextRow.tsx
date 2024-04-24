@@ -1,5 +1,5 @@
-import { cls } from '@/shared/lib/classes.lib';
 import cl from './_HeadingToTextRow.module.scss'
+import { cls } from '@/shared/lib/classes.lib';
 import { IHeadingToText } from "@/shared/model/text.model";
 
 interface IHeadingToTextRow{

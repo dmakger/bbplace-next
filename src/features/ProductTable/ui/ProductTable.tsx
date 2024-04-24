@@ -1,7 +1,7 @@
 'use client'
 
-import { productApiItemToProduct } from '@/entities/Product/lib/product.lib'
 import cl from './_ProductTable.module.scss'
+import { productApiItemToProduct } from '@/entities/Product/lib/product.lib'
 import { IProductAPI } from '@/entities/Product/model/product.model'
 import { HeadingToTextTable } from '@/shared/ui/Text'
 import { getCountry, getDataHeadingToTextProductMainTable } from '@/widgets/Product/Table/HeadingToText/lib/htt.product.lib'

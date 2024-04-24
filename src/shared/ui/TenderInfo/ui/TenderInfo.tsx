@@ -1,9 +1,9 @@
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_TenderInfo.module.scss'
-import { IHeadingToTextTender } from "@/shared/model/text.model";
+import { IHeadingToText } from '@/shared/model/text.model';
 
 interface ITenderInfo {
-    data: IHeadingToTextTender[],
+    data: IHeadingToText[],
     hasDash?: boolean,
     className?: string
     classNameHeading?: string
