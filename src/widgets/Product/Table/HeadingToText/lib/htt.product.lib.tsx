@@ -1,3 +1,4 @@
+import { ICountry } from "@/entities/Metrics/model/country.metrics.model";
 import { SEX_OPTIONS } from "@/entities/Product/data/product.data";
 import { IProduct } from "@/entities/Product/model/product.model";
 import { getHeadingToText } from "@/shared/lib/headingToText.lib";
@@ -17,13 +18,30 @@ export const getDataHeadingToTextProductTable = (product: IProduct) => {
 
 }
 
-export const getDataHeadingToTextProductMainTable = (product: IProduct) => {
+export const getGender = (product: IProduct) => {
+    if(product.characteristics.gender.length > 2){        
+        return product.characteristics.gender;
+    }
+    else{
+        return SEX_OPTIONS.find(it => Number(product.characteristics.gender) === it.id)?.name
+    }
+}
+
+export const getCountry = (product: IProduct, countries: ICountry[]) => {
+    if(product.characteristics.country.length > 3){
+        return product.characteristics.country;
+    }
+    else{
+        return countries.find(it => it.id === Number(product.characteristics.country))?.name
+    }
+}
+
+export const getDataHeadingToTextProductMainTable = (product: IProduct, selectedCountry: string) => {
 
     const vat = product.vat ? 'Облагается' : 'Не облагается' 
     const certification = product.certification ? 'Да' : 'Нет'
     const testProbe = product.isHasTestProbe ? 'Да' : 'Нет'
     const customDesign = product.isCustomDesign ? 'Да' : 'Нет'
-    const gender = SEX_OPTIONS.find(it => product.characteristics.gender === it.id)?.name
     
 
     const processData = [
@@ -39,9 +57,9 @@ export const getDataHeadingToTextProductMainTable = (product: IProduct) => {
         {heading: 'Статус товара', body: product.status},
         {heading: 'Склады по городам', body: product.warehouses},
         {heading: 'Бренд', body: product.characteristics.brand},
-        {heading: 'Страна', body: product.country},
+        {heading: 'Страна', body: selectedCountry},
         {heading: 'Срок годности', body: product.characteristics.expirationDate},
-        {heading: 'Пол', body: gender},
+        {heading: 'Пол', body: getGender(product)},
         {heading: 'Особенности', body: product.characteristics.features},
         {heading: 'Состав', body: product.characteristics.composition},
         {heading: 'Комплектация', body: product.characteristics.equipment},
