@@ -8,6 +8,7 @@ import { getCountry, getDataHeadingToTextProductMainTable } from '@/widgets/Prod
 import { EHeadingToTextVariants } from '@/shared/model/text.model'
 import { CountryAPI } from '@/entities/Metrics/api/country.metrics.api'
 import { useEffect, useState } from 'react'
+import { MetricsAPI } from '@/entities/Metrics/api/metrics.metrics.api'
 
 interface IProductTable {
     productApi: IProductAPI
@@ -18,9 +19,11 @@ export const ProductTable = ({
 
     //STATE
     const [selectedCountry, setSelectedCountry] = useState<string | undefined>('')
+    const [selectedWeightUnit, setSelectedWeightUnit] = useState<string | undefined>('')
 
     //API
     const {data: countries} = CountryAPI.useGetCountriesQuery()
+    const {data: metrics} = MetricsAPI.useGetMetricsQuery()
 
     //VARIABLE
     const product = productApiItemToProduct(productApi)
@@ -30,11 +33,20 @@ export const ProductTable = ({
         if(countries)
             setSelectedCountry(getCountry(product, countries))
     }, [countries])
+
+    useEffect(() => {
+        if (metrics && product.characteristics.weightUnits) {
+            const selectedMetric = metrics.find(it => it.id === Number(product.characteristics.weightUnits))
+            if (selectedMetric) {
+                setSelectedWeightUnit(selectedMetric.shortName)
+            }
+        }
+    }, [metrics])
     
     return (
         <HeadingToTextTable
             variant={EHeadingToTextVariants.ROW}
-            data={getDataHeadingToTextProductMainTable(product, selectedCountry || '')}
+            data={getDataHeadingToTextProductMainTable(product, selectedCountry || '', selectedWeightUnit || '')}
             hasColon={false}
             classNameMainBlock={cl.Table}
             classNameHeadingItem={cl.headingItem}

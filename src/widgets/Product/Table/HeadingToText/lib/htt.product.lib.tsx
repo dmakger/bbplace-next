@@ -1,4 +1,5 @@
 import { ICountry } from "@/entities/Metrics/model/country.metrics.model";
+import { ISize } from "@/entities/Metrics/model/size.metrics.model";
 import { SEX_OPTIONS } from "@/entities/Product/data/product.data";
 import { IProduct } from "@/entities/Product/model/product.model";
 import { getHeadingToText } from "@/shared/lib/headingToText.lib";
@@ -36,12 +37,20 @@ export const getCountry = (product: IProduct, countries: ICountry[]) => {
     return country;
 }
 
-export const getDataHeadingToTextProductMainTable = (product: IProduct, selectedCountry: string) => {
+interface BodyWithSize {
+    size: number;
+    sizeUnit: { name: string };
+    // Добавьте другие свойства, если необходимо
+}
+
+export const getDataHeadingToTextProductMainTable = (product: IProduct, selectedCountry: string, selectedWeightUnit: string) => {
 
     const vat = product.vat ? 'Облагается' : 'Не облагается' 
     const certification = product.certification ? 'Да' : 'Нет'
     const testProbe = product.isHasTestProbe ? 'Да' : 'Нет'
     const customDesign = product.isCustomDesign ? 'Да' : 'Нет'
+    const packageSizes = `${product.packagingHeight} x ${product.packagingWidth} x ${product.packagingLength}`
+    const productWeight = `${product.characteristics.weight} ${selectedWeightUnit}`
     
 
     const processData = [
@@ -49,7 +58,8 @@ export const getDataHeadingToTextProductMainTable = (product: IProduct, selected
         {heading: 'Условия оплаты', body: product.paymentConditions},
         {heading: 'Срок изготовления', body: product.deliveryTime},
         {heading: 'Тип упаковки', body: product.packageType},
-        {heading: 'Размеры товара', body: product.media.sizes},
+        {heading: 'Размеры упаковки', body: packageSizes},
+        {heading: 'Вес товара', body: productWeight},
         {heading: 'НДС', body: vat},
         {heading: 'Сертификация', body: certification},
         {heading: 'Тестовый пробник', body: testProbe},
@@ -66,7 +76,7 @@ export const getDataHeadingToTextProductMainTable = (product: IProduct, selected
     ]
 
     return processData.map(it => {
-        const body = Array.isArray(it.body) ? it.body.map(subIt => typeof subIt === 'object' ? `${subIt.size} (${subIt.sizeUnit.name})` : subIt).join(', ') : it.body;
+        const body = Array.isArray(it.body) ? it.body.map((subIt: ISize | string) => typeof subIt === 'object'  ? `${subIt.size} (${subIt.sizeUnit.name})` : subIt).join(', ') : it.body;
         return getHeadingToText(it.heading, body);
     }).filter(item => item !== undefined) as IHeadingToText[];
 }
