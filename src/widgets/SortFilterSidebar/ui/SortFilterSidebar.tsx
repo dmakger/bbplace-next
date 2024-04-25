@@ -61,13 +61,17 @@ export const SortFilterSidebar = ({ variant, className }: ISortFilterSidebar) =>
     }, []);
 
     const handleOnClickShow = () => {
-        if (!isUpdated)
-            return;
+        // if (!isUpdated)
+        //     return;
         const sortData = getUpdatedDataSortFilter(filter);
-        const params = new URLSearchParams(searchParams.toString());
-        Object.keys(sortData).map(keySort => {
-            params.set(keySort, sortData[keySort]);
+        
+        let params = new URLSearchParams(searchParams.toString());
+        Object.keys(sortData).map(keySort => {            
+            if (sortData[keySort] !== DEFAULT_SORT_FILTER__DATA[keySort])
+                params.set(keySort, sortData[keySort]);
         });
+        if (Object.keys(sortData).length === 0)
+            params = new URLSearchParams();
         router.push(`${pathname}?${params.toString()}`);
     };
 

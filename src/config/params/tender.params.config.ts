@@ -9,7 +9,6 @@ class TenderParams {
     
     NUMBER_PAGE__KEY = CORE_PARAMS.NUMBER_PAGE + this.KEY
 
-
     // SORT
     SORT = CORE_PARAMS.SORT + this.KEY
     

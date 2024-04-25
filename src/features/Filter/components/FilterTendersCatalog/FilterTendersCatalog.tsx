@@ -10,6 +10,7 @@ import { CORE_PARAMS } from '@/config/params/core.params.config'
 
 interface IFilterTendersCatalog {
     isFiltersOpen: boolean,
+    categoryListOptions: IOption[],
     filter: ISortFilter,
     setFilter: Dispatch<SetStateAction<ISortFilter>>
     inputListRef: RefObject<HTMLDivElement>,
@@ -18,6 +19,7 @@ interface IFilterTendersCatalog {
 
 export const FilterTendersCatalog = ({
     isFiltersOpen,
+    categoryListOptions,
     filter,
     setFilter,
     inputListRef
@@ -27,6 +29,10 @@ export const FilterTendersCatalog = ({
         setFilter(prevState => ({...prevState, [CORE_PARAMS.APPLICATION]: it}))
     }
 
+    const handleOnClickCategory = (it: IOption) => {
+        setFilter(prevState => ({...prevState, [CORE_PARAMS.CATEGORY]: it}))
+    }
+
     return (
         <div ref={inputListRef} className={cls(cl.FilterTendersCatalog, isFiltersOpen ? cl.withMarginTop : '')}>
             <Input.Select title={'Тип заявки'}
@@ -34,6 +40,11 @@ export const FilterTendersCatalog = ({
                           defaultOption={filter[CORE_PARAMS.APPLICATION] as IOption}
                           onClickOption={handleOnClickApplication}
                           width={14} height={12} />
+            <Input.TextAndSelect title={'Категории'}
+                                 imageWidth={14} imageHeight={12}
+                                 listOptions={categoryListOptions}
+                                 defaultOption={filter[CORE_PARAMS.CATEGORY] as IOption}
+                                 onClickOption={handleOnClickCategory} />
         </div>
     )
 }

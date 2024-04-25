@@ -13,7 +13,7 @@ import { useAppSelector } from "@/storage/hooks";
 import { getPTCTextByNumber } from "../lib/text.ptc.lib";
 import { SortModal } from "@/features/Modal/Sort/SortModal";
 import { ECatalogVariants } from "@/widgets/SortFilterSidebar";
-import { getPTCVariantByPathname } from "../lib/link.ptc.lib";
+import { getPTCVariantByPathname, getPTCViewByPathname } from "../lib/link.ptc.lib";
 
 interface INavBarPTC {}
 
@@ -26,6 +26,7 @@ export const NavBarPTC: FC<INavBarPTC> = ({ }) => {
     const router = useRouter()
 
     //STATE
+    const [filterView, setFilterView] = useState<ECatalogVariants>(getPTCViewByPathname(pathname));
     const [selectedOption, setSelectedOption] = useState<IIconVariants>(getPTCVariantByPathname(pathname));
 
     // ON CLICK
@@ -33,6 +34,7 @@ export const NavBarPTC: FC<INavBarPTC> = ({ }) => {
         if (el.link === undefined)
             return
         setSelectedOption(el)
+        setFilterView(getPTCViewByPathname(el.link))
         router.push(el.link);
     }    
 
@@ -50,7 +52,7 @@ export const NavBarPTC: FC<INavBarPTC> = ({ }) => {
                     ))}
                 </div>
                 <div className={cl.mobileSortContainer}>                    
-                    <SortModal variant={ECatalogVariants.PRODUCTS} />
+                    <SortModal variant={filterView} />
                 </div>
             </div>
             <div className={cl.rightContainer}>
@@ -60,7 +62,7 @@ export const NavBarPTC: FC<INavBarPTC> = ({ }) => {
                 {selectedOption &&
                     <ViewsNavBarPTC ptcLink={selectedOption.link} />
                 }
-                <SortModal variant={ECatalogVariants.PRODUCTS} hasOutline={true} 
+                <SortModal variant={filterView} hasOutline={true} 
                            classNameModal={cl.sortModal} classNameButton={cl.sortButton} />
             </div>
         </section>

@@ -71,6 +71,7 @@ export const Filter = ({variant, filter, setFilter, categories, countries }: IFi
             {variant === ECatalogVariants.TENDERS && 
                 <FilterTendersCatalog
                     isFiltersOpen={isFiltersOpen}
+                    categoryListOptions={categoriesAsOptions}
                     filter={filter}
                     setFilter={setFilter}
                     inputListRef={inputListRef} />
