@@ -55,7 +55,7 @@ export const Pagination:FC<PaginationProps> = ({amount, active, amountContent=9,
 
             return Array.from({ length: end - start + 1 }, (_, index) => start + index);
         })
-    }, [is600, current, amountContent])
+    }, [is600, current, amountContent, amount])
 
     useEffect(() => {
         let _current = current < 3 ? current : current-2

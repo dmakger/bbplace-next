@@ -25,6 +25,7 @@ export const TenderList = () => {
     const applicationValues = CORE_PARAMS.FILTER_VALUES.APPLICATION    
 
     // STATE
+    const [countPages, setCountPages] = useState<number>(1)
     const [tenderList, setTenderList] = useState<ICommonTender[]>([])
     const [pageNumber, setPageNumber] = useState<number>(1)
     const [application, setApplication] = useState<string>(applicationValues.DEFAULT)
@@ -34,12 +35,16 @@ export const TenderList = () => {
     const { data: saleTendersApi, isLoading: isSaleTendersLoading } = TenderAPI.useGetSaleTendersQuery({limit: TENDER_ARGS_REQUEST.limit, page: pageNumber-1, params: newParams});
     const { data: purchaseTendersApi, isLoading: isPurchaseTendersLoading } = TenderAPI.useGetPurchaseTendersQuery({limit: TENDER_ARGS_REQUEST.limit, page: pageNumber-1, params: newParams});
 
+    // count
+    const { data: countTenders, isLoading: isCountTendersLoading } = TenderAPI.useGetCountAllTendersQuery({limit: TENDER_ARGS_REQUEST.limit, params: newParams}, { refetchOnMountOrArgChange: true });
     const { data: countAllTenders, isLoading: isCountAllTendersLoading } = TenderAPI.useGetCountAllTendersQuery({limit: 1, params: newParams}, { refetchOnMountOrArgChange: true });
-    const { data: countSaleTenders, isLoading: isCountSaleTendersLoading } = TenderAPI.useGetCountSaleTendersQuery({limit: 1, params: newParams}, { refetchOnMountOrArgChange: true });
-    const { data: countPurchaseTenders, isLoading: isCountPurchaseTendersLoading } = TenderAPI.useGetCountPurchaseTendersQuery({limit: 1, params: newParams}, { refetchOnMountOrArgChange: true });
+    const { data: countSaleTenders, isLoading: isCountSaleTendersLoading } = TenderAPI.useGetCountSaleTendersQuery({limit: TENDER_ARGS_REQUEST.limit, params: newParams}, { refetchOnMountOrArgChange: true });
+    const { data: countAllSaleTenders, isLoading: isCountAllSaleTendersLoading } = TenderAPI.useGetCountSaleTendersQuery({limit: 1, params: newParams}, { refetchOnMountOrArgChange: true });
+    const { data: countPurchaseTenders, isLoading: isCountPurchaseTendersLoading } = TenderAPI.useGetCountPurchaseTendersQuery({limit: TENDER_ARGS_REQUEST.limit, params: newParams}, { refetchOnMountOrArgChange: true });
+    const { data: countAllPurchaseTenders, isLoading: isCountAllPurchaseTendersLoading } = TenderAPI.useGetCountPurchaseTendersQuery({limit: 1, params: newParams}, { refetchOnMountOrArgChange: true });
 
     //VARIABLES
-    const conditionAllTenders = isTendersLoading && isCountAllTendersLoading;
+    const conditionAllTenders = isTendersLoading && isCountTendersLoading;
     const conditionSaleTenders = isSaleTendersLoading && isCountSaleTendersLoading;
     const conditionPurchaseTenders = isPurchaseTendersLoading && isCountPurchaseTendersLoading;
 
@@ -54,39 +59,45 @@ export const TenderList = () => {
         setApplication(_application)
     }, [searchParams])
 
+    // tender list
     useEffect(() => {
-        if ((application === null || application === applicationValues.DEFAULT) && allTendersApi)
+        if ((application === null || application === applicationValues.DEFAULT) && allTendersApi && countTenders !== undefined) {
             setTenderList(getAllTendersAtOneArray(allTendersApi))
-        else if (application === applicationValues.SELL && saleTendersApi)
+            setCountPages(countTenders)
+        }
+        else if (application === applicationValues.SELL && saleTendersApi && countSaleTenders !== undefined) {
             setTenderList(saleTendersApi)
-        else if (application === applicationValues.PURCHASE && purchaseTendersApi)
+            setCountPages(countSaleTenders)
+        }
+        else if (application === applicationValues.PURCHASE && purchaseTendersApi && countPurchaseTenders !== undefined) {
             setTenderList(purchaseTendersApi)
-    }, [allTendersApi, saleTendersApi, purchaseTendersApi, application])
+            setCountPages(countPurchaseTenders)
+        }
+    }, [allTendersApi, saleTendersApi, purchaseTendersApi, application, countTenders, countSaleTenders, countPurchaseTenders])
 
+    // set count tenders
     useEffect(() => {
         let amount = 0
         let view = EPTC.TENDER
         if (!isCountAllTendersLoading && countAllTenders !== undefined && (application === null || application === applicationValues.DEFAULT)) {
             amount = countAllTenders
         }
-        if (!isCountSaleTendersLoading && countSaleTenders !== undefined && application === applicationValues.SELL) {
-            amount = countSaleTenders
+        if (!isCountAllSaleTendersLoading && countAllSaleTenders !== undefined && application === applicationValues.SELL) {
+            amount = countAllSaleTenders
         }
-        if (!isCountPurchaseTendersLoading && countPurchaseTenders !== undefined && application === applicationValues.PURCHASE) {
-            amount = countPurchaseTenders
-        }
-        console.log('application', application, amount);
-        
+        if (!isCountAllPurchaseTendersLoading && countAllPurchaseTenders !== undefined && application === applicationValues.PURCHASE) {
+            amount = countAllPurchaseTenders
+        }        
 
         dispatch(PTCSlice.actions.setPTC({amount, view,}), {refetchOnMountOrArgChange: true});
-    }, [dispatch, countAllTenders, countSaleTenders, countPurchaseTenders, application, isCountAllTendersLoading, isCountSaleTendersLoading, isCountPurchaseTendersLoading])
+    }, [dispatch, application, isCountAllTendersLoading, countAllTenders, isCountAllSaleTendersLoading, countAllSaleTenders, isCountAllPurchaseTendersLoading, countAllPurchaseTenders])
 
     if (conditionAllTenders || conditionSaleTenders || conditionPurchaseTenders)
         return <div>Loading...</div>
 
     return (
         <WrapperSortFilter variant={ECatalogVariants.TENDERS}>
-            <WrapperPagination amount={countAllTenders ? countAllTenders : 1} 
+            <WrapperPagination amount={countPages} 
                                 active={pageNumber} keyPageParam={TENDER_PARAMS.NUMBER_PAGE__KEY} 
                                 set={setPageNumber}>
                 <div className={cl.TenderList}>
