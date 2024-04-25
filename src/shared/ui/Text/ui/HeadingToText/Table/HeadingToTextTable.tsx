@@ -36,7 +36,7 @@ export const HeadingToTextTable = ({
         <div className={cls(cl.block, classNameMainBlock)}>
             {
                 (variant === EHeadingToTextVariants.ROW ? (
-                    data.map((it, index )=> (
+                    data.map((it, index) => (
                         <HeadingToTextRow
                             key={it.heading}
                             heading={it.heading}
@@ -46,7 +46,8 @@ export const HeadingToTextTable = ({
                             hasColon={hasColon}
                             hasDash={hasDash}
                             hasSpace={hasSpace}
-                            classNameRow={cls(classNameRow, index === data.length - 1 ? cl.noBorder : '')}
+                            classNameRow={cls(classNameRow, index === data.length - 1 ? cl.noBorder : '',
+                                index === 0 ? cl.topBorder : '')}
                             classNameHeading={classNameHeadingItem}
                             classNameText={classNameTextItem}
                         />
