@@ -1,0 +1,14 @@
+.wrapper {
+    width: 100%;
+    display: flex;
+    gap: 20px;
+
+    .sidebar {
+        position: sticky;
+        top: 16px;
+        
+        @media (width <= 1280px) {
+            display: none;
+        }
+    }
+}

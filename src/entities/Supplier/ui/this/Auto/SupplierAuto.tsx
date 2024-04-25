@@ -13,13 +13,13 @@ interface SupplierAutoProps{
     hasImage?: boolean
     subscribeView?: ESupplierSubscribeViewItem
     navs?: TViewNav[]
-    className?: string,
-    classNameName?: string
+    classNameSmallSupplier?: string,
+    classNameSupplier?: string
 }
 
-export const SupplierAuto:FC<SupplierAutoProps> = ({supplier, view, hasImage=false, subscribeView=ESupplierSubscribeViewItem.NONE, navs, className, classNameName}) => {
-    const props = {supplier, className}
-    const propsLarge = {...props, hasImage, subscribeView, navs, classNameName}
+export const SupplierAuto:FC<SupplierAutoProps> = ({supplier, view, hasImage=false, subscribeView=ESupplierSubscribeViewItem.NONE, navs, classNameSmallSupplier, classNameSupplier}) => {
+    const props = {supplier, className: classNameSmallSupplier}
+    const propsLarge = {...props, hasImage, subscribeView, navs, classNameSupplier}
 
     if (view === ESupplierView.SMALL)
         return <SupplierSmall {...props} />

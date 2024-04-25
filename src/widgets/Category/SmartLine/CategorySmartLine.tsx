@@ -3,10 +3,10 @@
 import CategoryLine from "@/entities/Metrics/ui/Category/Line/CategoryLine";
 
 import cl from './_CategorySmartLine.module.scss'
-import { useAppSelector } from "@/storage/hooks";
+import { CategoryAPI } from "@/entities/Metrics/api/category.metrics.api";
 
 export default function CategorySmartLine() {
-    const categoryList = useAppSelector(state => state.categoryList);
+    const {data: categoryList} = CategoryAPI.useGetCategoriesByIdQuery(undefined)              
 
     return (
         <div className={cl.line}>

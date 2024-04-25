@@ -24,7 +24,8 @@ export const ProductAPI = createApi({
 
         getCountProducts: build.query<number, IArgsRequest | undefined>({
             query: (args) => ({
-                url: `/GetItems/Filter/${args?.limit}/CountPages/`,
+                // url: `/GetItems/Filter/${args?.limit}/CountPages/`,
+                url: getURL(`/GetItems/Filter/${args?.limit}/CountPages/`, {params: args?.params}),
 				method: 'GET',
             })
         }),

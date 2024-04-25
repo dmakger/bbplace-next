@@ -14,5 +14,16 @@ export const CategoryAPI = createApi({
 				method: 'GET',
 			})
 		}),
+		getCategoriesById: build.query<ICategory[], number | undefined>({
+			query: (id) => ({
+				url: id === undefined ? `/GetCategories/ByParentId/` : `/GetCategories/ByParentId/${id}`,
+				method: 'GET',
+				responseHandler: async (res) => {
+                    const data = await res.json() as ICategory[]
+                    return [...data].filter(it => it.id !== 0)
+									.sort((a, b) => a.name.localeCompare(b.name))
+                }
+			})
+		}),
 	})
 })

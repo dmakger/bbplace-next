@@ -1,0 +1,40 @@
+import { APPLICATION_FILTER, CATEGORY_FILTER, COUNTRY_FILTER, DEFAULT_APPLICATION_OPTION, DEFAULT_CATEGORY_OPTION, DEFAULT_COUNTRY_OPTION, DEFAULT_STATUS_OPTION, STATUS_FILTER } from "@/features/Filter/data/filter.data";
+import { DEFAULT_ALPHABETICAL_SORT, DEFAULT_DATE_SORT } from "@/features/Sort";
+import { ISortFilter } from "../model/sortFilterSidebar.model";
+import { CORE_PARAMS } from "@/config/params/core.params.config";
+import { ALPHABETICAL_SORT, DATE_SORT } from "@/features/Sort/data/sort.data";
+import { IOption } from "@/shared/model/option.model";
+
+
+// DEFAULT
+export const DEFAULT_SORT_FILTER__DATA: ISortFilter = {
+    // from API
+    [CORE_PARAMS.CATEGORY]: DEFAULT_CATEGORY_OPTION,
+    [CORE_PARAMS.COUNTRY]: DEFAULT_COUNTRY_OPTION,
+    // filter
+    [CORE_PARAMS.STATUS]: DEFAULT_STATUS_OPTION,
+    [CORE_PARAMS.APPLICATION]: DEFAULT_APPLICATION_OPTION,
+    [CORE_PARAMS.MIN_ORDER_QUANTITY]: '',
+    // sort
+    [CORE_PARAMS.SORT_KEYS.DATE_START]: DEFAULT_DATE_SORT,
+    [CORE_PARAMS.SORT_KEYS.ALPHABETICAL]: DEFAULT_ALPHABETICAL_SORT,
+}
+
+// DATA WITH OPTIONS
+export const ALL_SORT_FILTER__DATA: IOption[] = [
+    // from API
+    CATEGORY_FILTER,
+    COUNTRY_FILTER,
+    // filter
+    STATUS_FILTER,
+    APPLICATION_FILTER,
+    // sort
+    DATE_SORT,
+    ALPHABETICAL_SORT,
+]
+
+// API
+export const KEYS_API_SORT_FILTER__DATA: string[] = [
+    CORE_PARAMS.CATEGORY,
+    // CORE_PARAMS.COUNTRY,
+]

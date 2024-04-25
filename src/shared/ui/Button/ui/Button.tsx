@@ -4,7 +4,6 @@ import cl from './_Button.module.scss'
 import { ButtonVariant } from '..'
 import Link from 'next/link'
 import { ArrowIcon } from '../../Icon/ui/Arrow/ArrowIcon'
-import { cls } from '@/shared/lib/classes.lib'
 
 interface IButton {
     children?: ReactNode
@@ -60,7 +59,7 @@ export const Button = ({ children,
         disabled: disabled || loading, 
         className: `${cl.button} ${cl[variant]} ${classNameButton}`,
     }
-
+    
     // ===={ BODY HTML }====
     const bodyHTML = (
         <>

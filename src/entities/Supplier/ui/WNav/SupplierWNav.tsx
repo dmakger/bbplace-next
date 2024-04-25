@@ -20,13 +20,14 @@ interface SupplierWNavProps {
     axis?: ESupplierAxis
     className?: string,
     classNameName?: string,
+    classNameSmallSupplier?: string,
+    classNameSupplier?: string,
     classNameNavs?: string,
     classNameNavsItem?: string,
 }
 
-export const SupplierWNav: FC<SupplierWNavProps> = ({ id, hasImage = true, view = ESupplierView.LARGE_WHITE, subscribeView = ESupplierSubscribeViewItem.NONE, navs = [], axis = ESupplierAxis.HORIZONTAL, className, classNameName, classNameNavs, classNameNavsItem }) => {
-
-    const { data: supplier } = UserAPI.useGetUserDataQuery(id!)
+export const SupplierWNav:FC<SupplierWNavProps> = ({id, view=ESupplierView.LARGE_WHITE, subscribeView=ESupplierSubscribeViewItem.NONE, hasImage = false, navs=[], axis=ESupplierAxis.HORIZONTAL, className, classNameSupplier, classNameSmallSupplier, classNameNavs, classNameNavsItem}) => {
+    const { data: supplier } = UserAPI.useGetUserDataQuery(id!)    
     const [supplierState, setSupplierState] = useState<ISupplier>()
 
     useEffect(() => {
@@ -38,14 +39,15 @@ export const SupplierWNav: FC<SupplierWNavProps> = ({ id, hasImage = true, view 
     if (!supplierState)
         return <></>
     return (
-        <div className={cls(cls(cl.block, axis === ESupplierAxis.VERTICAL ? cl.vertical : '', className))}>
-            <SupplierAuto supplier={supplierState}
-                view={view}
-                hasImage={hasImage}
-                subscribeView={subscribeView}
-                classNameName={classNameName} />
-            <NavSupplier views={navs} supplierId={supplierState.id}
-                className={cls(cl.navs, classNameNavs)} classNameItem={classNameNavsItem} />
+        <div className={cls(cl.block, axis === ESupplierAxis.VERTICAL ? cl.vertical : '', className)}>
+            <SupplierAuto supplier={supplierState} 
+                          view={view}
+                          hasImage={hasImage} 
+                          subscribeView={subscribeView}
+                          classNameSupplier={classNameSupplier}
+                          classNameSmallSupplier={classNameSmallSupplier} />
+            <NavSupplier views={navs} supplierId={supplierState.id} 
+                         className={cls(cl.navs, classNameNavs)} classNameItem={classNameNavsItem} />
         </div>
     )
 }

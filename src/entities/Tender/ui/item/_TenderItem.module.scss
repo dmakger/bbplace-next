@@ -1,0 +1,138 @@
+//VARIABLE
+$mobile-dimension: 768px;
+
+//MIXINS
+@mixin desktop {
+    display: flex;
+
+    @media (width < $mobile-dimension) {
+        display: none;
+    }
+}
+
+@mixin mobile {
+    display: none;
+
+    @media (width < $mobile-dimension) {
+        display: flex;
+    }
+}
+
+.TenderCard {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    max-width: var(--max-width-2);
+    background-color: var(--white);
+    border-radius: 15px;
+    border-bottom: 1px solid var(--gray-5);
+    padding: 16px;
+
+    @media (width < $mobile-dimension) {
+        gap: 15px;
+        border-radius: 0px;
+        border-bottom: none;
+    }
+
+    .topContainer {
+        display: flex;
+        justify-content: space-between;
+
+        @media (width < $mobile-dimension) {
+            justify-content: flex-end;
+        }
+
+        .info {
+            display: flex;
+            gap: 20px;
+
+            @media (width < $mobile-dimension) {
+                display: none;
+            }
+        }
+    }
+
+    .middleContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        .cardTitle {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            -webkit-line-clamp: 2;
+            font-weight: var(--font-weight-reg);
+            font-size: var(--font-size-sm);
+
+            @media (width < $mobile-dimension) {
+                font-size: var(--font-size-reg);
+                margin-top: -33px;
+            }
+        }
+
+        .cardSupplier {
+            display: none;
+
+            @media (width < $mobile-dimension) {
+                display: block;
+                cursor: pointer;
+                font-family: var(--second-family);
+                color: var(--gray-7);
+                font-size: var(--font-size-s);
+                text-decoration: underline;
+            }
+        }
+    }
+
+
+    .bottomContainer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .buttonToTender {
+            @include desktop;
+            & button{
+                width: 125px;
+            }
+        }
+
+        @media (width < $mobile-dimension) {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .supplierBlock {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 10px;
+
+            .smallSupplier {
+                word-break: break-all;
+            }
+
+            .supplier {
+                justify-content: space-between;
+
+                @media (width > $mobile-dimension) {
+                    justify-content: start;
+                    gap: 10px;
+                }
+            }
+        }
+    }
+    .mobileLine{
+        display: none;
+        @media (width < $mobile-dimension) {
+            display: block;
+            height: 1px;
+            width: 100%;
+            background-color: var(--gray-5);
+            margin-bottom: -15px;
+        }
+    }
+
+}
