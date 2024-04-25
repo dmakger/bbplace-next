@@ -22,7 +22,7 @@ export const SupplierAPI = createApi({
 
         getCountSuppliers: build.query<number, IArgsRequest | undefined>({
             query: (args) => ({
-                url: `/GetSellers/Filter/${args?.limit}/CountPages/`,
+                url: getURL(`/GetSellers/Filter/${args?.limit}/CountPages/`, {params: args?.params}),
 				method: 'GET',
             })
         }),

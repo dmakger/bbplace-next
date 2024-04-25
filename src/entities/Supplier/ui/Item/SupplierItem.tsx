@@ -1,6 +1,5 @@
 'use client'
 
-import { HeadingToTextTable } from '@/shared/ui/Text/HeadingToText/Table/HeadingToTextTable'
 import { SupplierCategoryItem } from '../../components/SupplierCategoryItem/SupplierCategoryItem'
 import { ISupplier } from '../../model/supplier.model'
 import cl from './_SupplierItem.module.scss'
@@ -14,6 +13,7 @@ import { ProductASCList } from '@/entities/Product/ui/AtSupplierCard'
 import { NavSupplier } from '../../components/Nav/NavSupplier'
 import { HandleSize } from '@/shared/ui/Handle/Size/HandleSize'
 import { useState } from 'react'
+import { HeadingToTextTable } from '@/shared/ui/Text'
 
 
 interface ISupplierItem {

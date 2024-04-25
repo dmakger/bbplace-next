@@ -16,7 +16,8 @@ interface ProductVProps extends IProductProps {}
 
 export const ProductV: FC<ProductVProps> = ({ product, className }) => {
   // VARS
-  const [minWholesale, maxWholesale] = getDiapason(product.media.wholesalePrices);
+  const [minWholesale, maxWholesale] = getDiapason(product.media.wholesalePrices, product.media.sizes);
+  // const [minWholesale, maxWholesale] = getDiapason(product.media.wholesalePrices);
 
   // STATE
   const [is768, setIs768] = useState(false);

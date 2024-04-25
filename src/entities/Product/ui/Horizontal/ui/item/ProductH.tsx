@@ -21,7 +21,7 @@ interface ProductHProps extends IProductProps {}
 
 export const ProductH:FC<ProductHProps> = ({product, className}) => {    
     // VARS
-    const [minWholesale, maxWholesale] = getDiapason(product.media.wholesalePrices)
+    const [minWholesale, maxWholesale] = getDiapason(product.media.wholesalePrices, product.media.sizes)
 
     // STATE
     const [is1024, setIs1024] = useState(false)
