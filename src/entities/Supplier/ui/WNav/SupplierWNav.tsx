@@ -11,21 +11,22 @@ import { TViewNav } from "../../model/nav.supplier.model";
 import { SupplierAuto } from "../this/Auto/SupplierAuto";
 import { ESupplierAxis, ESupplierView } from "../../data/supplier.data";
 
-interface SupplierWNavProps{
+interface SupplierWNavProps {
     id: ISupplier['id'] | null
     view?: ESupplierView,
     hasImage?: boolean,
     subscribeView?: ESupplierSubscribeViewItem
-    navs?: TViewNav[] 
+    navs?: TViewNav[]
     axis?: ESupplierAxis
     className?: string,
+    classNameName?: string,
     classNameNavs?: string,
     classNameNavsItem?: string,
 }
 
-export const SupplierWNav:FC<SupplierWNavProps> = ({id, hasImage=true, view=ESupplierView.LARGE_WHITE, subscribeView=ESupplierSubscribeViewItem.NONE, navs=[], axis=ESupplierAxis.HORIZONTAL, className, classNameNavs, classNameNavsItem}) => {
+export const SupplierWNav: FC<SupplierWNavProps> = ({ id, hasImage = true, view = ESupplierView.LARGE_WHITE, subscribeView = ESupplierSubscribeViewItem.NONE, navs = [], axis = ESupplierAxis.HORIZONTAL, className, classNameName, classNameNavs, classNameNavsItem }) => {
 
-    const { data: supplier } = UserAPI.useGetUserDataQuery(id!)    
+    const { data: supplier } = UserAPI.useGetUserDataQuery(id!)
     const [supplierState, setSupplierState] = useState<ISupplier>()
 
     useEffect(() => {
@@ -38,12 +39,13 @@ export const SupplierWNav:FC<SupplierWNavProps> = ({id, hasImage=true, view=ESup
         return <></>
     return (
         <div className={cls(cls(cl.block, axis === ESupplierAxis.VERTICAL ? cl.vertical : '', className))}>
-            <SupplierAuto supplier={supplierState} 
-                          view={view}
-                          hasImage={hasImage} 
-                          subscribeView={subscribeView} />
-            <NavSupplier views={navs} supplierId={supplierState.id} 
-                         className={cls(cl.navs, classNameNavs)} classNameItem={classNameNavsItem} />
+            <SupplierAuto supplier={supplierState}
+                view={view}
+                hasImage={hasImage}
+                subscribeView={subscribeView}
+                classNameName={classNameName} />
+            <NavSupplier views={navs} supplierId={supplierState.id}
+                className={cls(cl.navs, classNameNavs)} classNameItem={classNameNavsItem} />
         </div>
     )
 }

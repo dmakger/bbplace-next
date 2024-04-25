@@ -24,6 +24,9 @@ export const SupplierItem = ({ supplier }: ISupplierItem) => {
 
   // STATE
   const [is768, setIs768] = useState<boolean>(false);
+  const [is560, setIs560] = useState<boolean>(false);
+  const [is445, setIs445] = useState<boolean>(false);
+  const [is355, setIs355] = useState<boolean>(false);
 
   //API
   const { data: supplierScore } = ReviewAPI.useGetSupplierScoreQuery(supplier.id)
@@ -36,7 +39,9 @@ export const SupplierItem = ({ supplier }: ISupplierItem) => {
   return (
     <>
       <section className={cl.SupplierItem}>
-        <SupplierWNav id={supplier.id}
+        <SupplierWNav 
+          classNameName={cl.supplierName}
+          id={supplier.id}
           navs={[
             is768 ? ESupplierSubscribeViewItem.NONE : ESupplierSubscribeViewItem.LARGE,
             is768 ? ESupplierToChatViewItem.NONE : ESupplierToChatViewItem.LARGE_WIDE,
@@ -45,7 +50,7 @@ export const SupplierItem = ({ supplier }: ISupplierItem) => {
         />
         <div className={cl.bottomContainer}>
           <div className={cl.bottomLeftContainer}>
-            <SupplierCategoryItem category={supplier.category} />
+            {supplier.category.some(it => it !== null) && <SupplierCategoryItem category={supplier.category} />}
             <div className={cl.line} />
             <HeadingToTextTable data={getDataHeadingToTextSupplierTable(supplier, supplierScore ?? 0, supplierReviews ? supplierReviews.length : 0, linkHref)}
               className={cl.table}
@@ -53,9 +58,9 @@ export const SupplierItem = ({ supplier }: ISupplierItem) => {
               classNameColumn={cl.columnTable}
             />
             <NavSupplier supplierId={supplier.id} views={[
-              is768 ? ESupplierSubscribeViewItem.SMALL : ESupplierSubscribeViewItem.NONE,
-              is768 ? ESupplierToChatViewItem.LARGE_WIDE : ESupplierToChatViewItem.NONE,
-              is768 ? ESupplierToProfileViewItem.SMALL : ESupplierToProfileViewItem.NONE
+              is560 ? ESupplierSubscribeViewItem.SMALL : (is768 ? ESupplierSubscribeViewItem.LARGE : ESupplierSubscribeViewItem.NONE),
+              is355 ? ESupplierToChatViewItem.LARGE :  (is768 ? ESupplierToChatViewItem.LARGE_WIDE : ESupplierToChatViewItem.NONE),
+              is445 ? ESupplierToProfileViewItem.SMALL :  (is768 ? ESupplierToProfileViewItem.LARGE : ESupplierToProfileViewItem.NONE)
             ]} />
           </div>
           <div className={cl.bottomRightContainer}>
@@ -64,6 +69,9 @@ export const SupplierItem = ({ supplier }: ISupplierItem) => {
         </div>
       </section>
       <HandleSize width={768} set={setIs768} />
+      <HandleSize width={560} set={setIs560} />
+      <HandleSize width={445} set={setIs445} />
+      <HandleSize width={355} set={setIs355} />
     </>
   )
 }

@@ -16,7 +16,6 @@ export const ProductASC = ({ product, className }: IProductASC) => {
     const media = typeof product.media === 'string' ? JSON.parse(product.media) : product.media;
 
     const [minWholesale, maxWholesale] = getDiapason(media.wholesalePrices, media.sizes);
-console.log(product);
 
     return (
         <section className={cl.ProductASC}>

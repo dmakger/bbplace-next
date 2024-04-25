@@ -5,7 +5,16 @@
     max-width: 600px;
     margin-bottom: 29px;
     @media (width < 1280px) {
-        max-width: 450px;
+        max-width: 540px;
         margin-bottom: 0px;
+    }
+    @media (width < 900px) {
+        max-width: 460px;
+    }
+    @media (width < 830px) {
+        max-width: 420px;
+    }
+    @media (width < 780px) {
+        max-width: 400px;
     }
 }

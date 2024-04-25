@@ -9,6 +9,10 @@
     @media (width < 768px) {
         padding-bottom: 20px;
     }
+
+    .supplierName{
+        max-width: 300px !important;
+    }
 }
 
 .bottomContainer {
@@ -36,10 +40,18 @@
         }
 
         .table {
+            @media (width < 768px) {
+                gap: 5px;
+            }
             .columnTable {
                 display: flex;
                 flex-direction: column;
                 gap: 18px;
+                
+
+                .headingItem{
+                    width: 120px;
+                }
     
                 & span {
                     width: 140px;
@@ -51,6 +63,10 @@
                     -webkit-box-orient: vertical;
                     font-size: var(--font-size-s);
                     text-overflow: ellipsis;
+                    margin-left: 0px;
+                    @media (width < 768px) {
+                        width: 100%;
+                    }
                 }
             }
         }
