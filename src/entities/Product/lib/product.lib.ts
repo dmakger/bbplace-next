@@ -12,9 +12,6 @@ export const productApiListToProductList = (productListAPI: IProductAPI[], metri
     return productListAPI.map(it => productApiToProduct({productAPI: it, metrics, currencyList}))
 }
 
-export const productApiItemToProduct = (productListAPI: IProductAPI, metrics?: IMetrics[], currencyList?: ICurrency[]): IProduct => {
-    return productApiToProduct({productAPI: productListAPI, metrics, currencyList})
-}
 
 
 // PRODUCT API => PRODUCT 

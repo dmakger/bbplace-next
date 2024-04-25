@@ -37,15 +37,10 @@ export const getCountry = (product: IProduct, countries: ICountry[]) => {
     return country;
 }
 
-interface BodyWithSize {
-    size: number;
-    sizeUnit: { name: string };
-    // Добавьте другие свойства, если необходимо
-}
 
 export const getDataHeadingToTextProductMainTable = (product: IProduct, selectedCountry: string, selectedWeightUnit: string) => {
 
-    const vat = product.vat ? 'Облагается' : 'Не облагается' 
+    const vat = product.vat ? 'Облагается' : 'Не облагается'
     const certification = product.certification ? 'Да' : 'Нет'
     const testProbe = product.isHasTestProbe ? 'Да' : 'Нет'
     const customDesign = product.isCustomDesign ? 'Да' : 'Нет'
