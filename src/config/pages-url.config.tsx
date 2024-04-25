@@ -1,3 +1,4 @@
+import { IProduct } from "@/entities/Product/model/product.model"
 import { ISupplier } from "@/entities/Supplier/model/supplier.model"
 
 // ======={ MAIN }=======
@@ -13,6 +14,8 @@ class MAIN {
     SUPPORT = `${this.root}/support`
 
     CURRENT_SUPPLIER = (id: ISupplier['id']) => `${this.SUPPLIERS}/${id}`
+    CURRENT_PRODUCT = (id: IProduct['id']) => `${this.PRODUCTS}/${id}`
+
 }
 
 export const MAIN_PAGES = new MAIN()

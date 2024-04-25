@@ -1,10 +1,11 @@
 import {createApi} from "@reduxjs/toolkit/query/react";
 import {fetchBaseQuery} from "@reduxjs/toolkit/query";
 import { options } from "@/api/interceptors";
-import { IProductAPI } from "../model/product.model";
+import { IGetProductsByUser, IProduct, IProductAPI } from "../model/product.model";
 import { IArgsRequest } from "@/api/model/request.model.api";
 import { getArgsProduct } from "../lib/args.product.lib";
 import { getURL } from "@/api/request";
+import { PRODUCT_BY_USER_LIMIT, PRODUCT_START_PAGE } from "../data/product.data";
 
 
 export const ProductAPI = createApi({
@@ -26,6 +27,20 @@ export const ProductAPI = createApi({
                 // url: `/GetItems/Filter/${args?.limit}/CountPages/`,
                 url: getURL(`/GetItems/Filter/${args?.limit}/CountPages/`, {params: args?.params}),
 				method: 'GET',
+            })
+        }),
+        //GET PRODUCTS BY USER
+        getProductsByUser: build.query<IProduct[], IGetProductsByUser>({
+            query: ({page = PRODUCT_START_PAGE, limit = PRODUCT_BY_USER_LIMIT, userId}) => ({
+                url: `/GetItems/ByUser/${userId}/${limit}/${page}`,
+                method: 'GET',
+
+            }),
+        }),
+        getPagesProductsByUser: build.query<number, IGetProductsByUser>({
+            query: ({limit = PRODUCT_BY_USER_LIMIT, userId}) => ({
+                url: `/GetItems/ByUser/${userId}/${limit}/CountPages`,
+                method: 'GET',
             })
         }),
 	})

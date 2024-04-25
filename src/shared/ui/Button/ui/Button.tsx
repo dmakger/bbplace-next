@@ -68,7 +68,7 @@ export const Button = ({ children,
                     {children}
                 </span>
             }
-            {variant === ButtonVariant.W_ARROW_RED &&
+            {(variant === ButtonVariant.W_ARROW_RED || variant === ButtonVariant.BACKGROUND_RED_HUGE) &&
                 <ArrowIcon  />
             }
         </>

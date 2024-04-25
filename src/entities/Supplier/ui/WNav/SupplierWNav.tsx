@@ -11,14 +11,15 @@ import { TViewNav } from "../../model/nav.supplier.model";
 import { SupplierAuto } from "../this/Auto/SupplierAuto";
 import { ESupplierAxis, ESupplierView } from "../../data/supplier.data";
 
-interface SupplierWNavProps{
+interface SupplierWNavProps {
     id: ISupplier['id'] | null
     view?: ESupplierView,
     hasImage?: boolean,
     subscribeView?: ESupplierSubscribeViewItem
-    navs?: TViewNav[] 
+    navs?: TViewNav[]
     axis?: ESupplierAxis
     className?: string,
+    classNameName?: string,
     classNameSmallSupplier?: string,
     classNameSupplier?: string,
     classNameNavs?: string,

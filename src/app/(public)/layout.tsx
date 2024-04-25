@@ -7,7 +7,7 @@ import { WrapperGap } from "@/shared/ui/Wrapper/Gap/WrapperGap";
 export default function Layout({ children }: PropsWithChildren<unknown>) {
     return (
         <WrapperGap>
-            <Header />
+            {/* <Header /> */}
             <div className={cl.content}>
                 {children}
             </div>

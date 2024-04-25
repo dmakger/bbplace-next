@@ -1,5 +1,6 @@
 import { IMediaProduct } from "./media.product.model"
 import { ICharacteristic } from "./characteristic.product.model"
+import { IArgsRequest } from "@/api/model/request.model.api"
 
 interface IBaseProduct {
     id: number
@@ -35,4 +36,9 @@ export interface IProductAPI extends IBaseProduct {
 export interface IProduct extends IBaseProduct {
     media: IMediaProduct
     characteristics: ICharacteristic
+}
+
+
+export interface IGetProductsByUser extends IArgsRequest{
+    userId: string
 }

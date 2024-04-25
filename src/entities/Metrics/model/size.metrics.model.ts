@@ -1,6 +1,6 @@
-import { ISelected } from "./selected.metrics.model"
+import { IMetrics } from "./metric.metrics.model"
 
 export interface ISize {
     size: number
-    sizeUnit: ISelected
+    sizeUnit: IMetrics
 }
