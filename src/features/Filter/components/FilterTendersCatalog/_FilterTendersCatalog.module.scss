@@ -1,4 +1,7 @@
 .FilterTendersCatalog {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
     opacity: 1;
     transition: all 0.3s;
 }

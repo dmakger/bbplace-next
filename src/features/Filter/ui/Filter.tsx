@@ -40,9 +40,9 @@ export const Filter = ({variant, filter, setFilter, categories, countries }: IFi
     }, [countries])
 
     useEffect(() => {
-        if (variant === ECatalogVariants.COMPANIES) {
+        // if (variant === ECatalogVariants.COMPANIES) {
             categories && categories.length && updateCategoriesAsOptions(categories, setCategoriesAsOptions);
-        }
+        // }
     }, [variant, categories]);
 
 
@@ -61,6 +61,7 @@ export const Filter = ({variant, filter, setFilter, categories, countries }: IFi
             {variant === ECatalogVariants.PRODUCTS && 
                 <FilterProductsCatalog
                     isFiltersOpen={isFiltersOpen}
+                    categoryListOptions={categoriesAsOptions}
                     countryListOptions={countriesAsOptions}
                     filter={filter}
                     setFilter={setFilter}
@@ -70,6 +71,7 @@ export const Filter = ({variant, filter, setFilter, categories, countries }: IFi
             {variant === ECatalogVariants.TENDERS && 
                 <FilterTendersCatalog
                     isFiltersOpen={isFiltersOpen}
+                    categoryListOptions={categoriesAsOptions}
                     filter={filter}
                     setFilter={setFilter}
                     inputListRef={inputListRef} />

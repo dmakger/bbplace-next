@@ -11,6 +11,7 @@ import { CORE_PARAMS } from '@/config/params/core.params.config'
 
 interface IFilterProductsCatalog {
     isFiltersOpen: boolean,
+    categoryListOptions: IOption[],
     countryListOptions: IOption[],
     filter: ISortFilter,
     setFilter: Dispatch<SetStateAction<ISortFilter>>
@@ -19,11 +20,16 @@ interface IFilterProductsCatalog {
 
 export const FilterProductsCatalog = ({
     isFiltersOpen,
+    categoryListOptions,
     countryListOptions,
     inputListRef,
     filter,
     setFilter,
 }: IFilterProductsCatalog) => {
+
+    const handleOnClickCategory = (it: IOption) => {
+        setFilter(prevState => ({...prevState, [CORE_PARAMS.CATEGORY]: it}))
+    }
 
     const handleOnClickCountry = (it: IOption) => {
         setFilter(prevState => ({...prevState, [CORE_PARAMS.COUNTRY]: it}))
@@ -39,6 +45,12 @@ export const FilterProductsCatalog = ({
 
     return (
         <div ref={inputListRef} className={cls(cl.FilterProductsCatalog, isFiltersOpen ? cl.withMarginTop : '')}>
+            <Input.TextAndSelect title={'Категории'}
+                                 imageWidth={14} imageHeight={12}
+                                 listOptions={categoryListOptions}
+                                 defaultOption={filter[CORE_PARAMS.CATEGORY] as IOption}
+                                 onClickOption={handleOnClickCategory} />
+            
             <Input.TextAndSelect title='Страна'
                                  imageWidth={14} imageHeight={12}
                                  defaultOption={filter[CORE_PARAMS.COUNTRY] as IOption}

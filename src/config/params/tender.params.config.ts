@@ -9,10 +9,8 @@ class TenderParams {
     
     NUMBER_PAGE__KEY = CORE_PARAMS.NUMBER_PAGE + this.KEY
 
-
     // SORT
     SORT = CORE_PARAMS.SORT + this.KEY
     
-    NUMBER_PAGE__KEY = CORE_PARAMS.NUMBER_PAGE + this.KEY
 }
 export const TENDER_PARAMS = new TenderParams()
