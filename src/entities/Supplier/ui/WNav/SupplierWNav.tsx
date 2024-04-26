@@ -27,9 +27,11 @@ interface SupplierWNavProps {
 }
 
 export const SupplierWNav:FC<SupplierWNavProps> = ({id, view=ESupplierView.LARGE_WHITE, subscribeView=ESupplierSubscribeViewItem.NONE, hasImage = false, navs=[], axis=ESupplierAxis.HORIZONTAL, className, classNameSupplier, classNameSmallSupplier, classNameNavs, classNameNavsItem}) => {
-    const { data: supplier } = UserAPI.useGetUserDataQuery(id!)    
+    //API
+    const { data: supplier } = UserAPI.useGetUserDataQuery(id || '')    
+    //STATE
     const [supplierState, setSupplierState] = useState<ISupplier>()
-
+    //EFFECT
     useEffect(() => {
         if (supplier)
             setSupplierState(supplierApiToSupplier(supplier))

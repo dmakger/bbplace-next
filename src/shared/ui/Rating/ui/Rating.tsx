@@ -2,6 +2,8 @@ import { cls } from "@/shared/lib/classes.lib"
 import cl from './_Rating.module.scss'
 import Link from "next/link"
 import { getReviewTextByNumber } from "@/entities/Review/lib/review.lib"
+import { REVIEW_STAR } from "../../Icon/data/reviewStar.data.icon"
+import { ImageSmart } from "../../Image/Smart/ImageSmart"
 
 interface IRating {
     className?: string,
@@ -27,7 +29,7 @@ export const Rating = ({
     return (
         <div className={cls(cl.Rating, className)}>
             {
-                hasStar ? '' : null
+                hasStar ? <ImageSmart icon={REVIEW_STAR} width={14} height={14}/> : null
             }
             <span className={cls(cl.span, classNameSpan)}>
                 {`${rating}/${ratingOutOf}`}

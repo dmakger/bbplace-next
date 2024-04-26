@@ -40,7 +40,6 @@ export const SupplierItem = ({ supplier }: ISupplierItem) => {
   const {data: metrics} = MetricsAPI.useGetMetricsQuery()
   const { data: currencies } = CurrencyAPI.useGetCurrenciesQuery()
 
-  const linkHref = ''
 
   useEffect(() => {
     if(supplierProducts)
@@ -66,7 +65,7 @@ export const SupplierItem = ({ supplier }: ISupplierItem) => {
           <div className={cl.bottomLeftContainer}>
             {hasCategory && <SupplierCategoryItem category={supplier.category} />}
             <div className={cl.line} />
-            <HeadingToTextTable data={getDataHeadingToTextSupplierTable(supplier, supplierScore ?? 0, supplierReviews ? supplierReviews.length : 0, linkHref)}
+            <HeadingToTextTable data={getDataHeadingToTextSupplierTable(supplier, supplierScore ?? 0, supplierReviews ? supplierReviews.length : 0)}
               className={cl.table}
               classNameHeadingItem={cl.headingItem}
               classNameColumn={cl.columnTable}
