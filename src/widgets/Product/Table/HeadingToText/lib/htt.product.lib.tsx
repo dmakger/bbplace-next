@@ -1,8 +1,8 @@
 import { ICountry } from "@/entities/Metrics/model/country.metrics.model";
-import { ISize } from "@/entities/Metrics/model/size.metrics.model";
 import { SEX_OPTIONS } from "@/entities/Product/data/product.data";
 import { IProduct } from "@/entities/Product/model/product.model";
 import { getHeadingToText } from "@/shared/lib/headingToText.lib";
+import { IOption } from "@/shared/model/option.model";
 import { IHeadingToText } from "@/shared/model/text.model";
 
 export const getDataHeadingToTextProductTable = (product: IProduct) => {
@@ -19,27 +19,22 @@ export const getDataHeadingToTextProductTable = (product: IProduct) => {
 
 }
 
-export const getGender = (product: IProduct) => {
-    const gender = product.characteristics.gender;
-    const genderId = parseInt(gender);
-    if (!isNaN(genderId)) {
-        return SEX_OPTIONS.find(it => it.id === genderId)?.name;
+//1. проверяем, что пришло в characteristic: id элемента (number) или name элемента (string)
+//2. если characteristic оказался number, то мы в list ищем по it соответствующий элемент
+//3. если characteristic оказался string, то возвращаем characteristic
+
+export const getCharacteristic = (characteristic: string, list: ICountry[] | IOption[]) => {
+    const characteristicId = parseInt(characteristic)
+    if(!isNaN(characteristicId)){
+        return list.find(it => it.id === characteristicId)?.name
     }
-    return gender;
+    return characteristic;
 }
 
-export const getCountry = (product: IProduct, countries: ICountry[]) => {
-    const country = product.characteristics.country;
-    const countryId = parseInt(country)
-    if(!isNaN(countryId)){
-        return countries.find(it => it.id === countryId)?.name
-    }
-    return country;
-}
 
 export const getDataHeadingToTextProductMainTable = (product: IProduct, selectedCountry: string, selectedWeightUnit: string) => {
 
-    const vat = product.vat ? 'Облагается' : 'Не облагается' 
+    const vat = product.vat ? 'Облагается' : 'Не облагается'
     const certification = product.certification ? 'Да' : 'Нет'
     const testProbe = product.isHasTestProbe ? 'Да' : 'Нет'
     const customDesign = product.isCustomDesign ? 'Да' : 'Нет'
@@ -63,14 +58,17 @@ export const getDataHeadingToTextProductMainTable = (product: IProduct, selected
         {heading: 'Бренд', body: product.characteristics.brand},
         {heading: 'Страна', body: selectedCountry},
         {heading: 'Срок годности', body: product.characteristics.expirationDate},
-        {heading: 'Пол', body: getGender(product)},
+        {heading: 'Пол', body: getCharacteristic(product.characteristics.gender, SEX_OPTIONS)},
         {heading: 'Особенности', body: product.characteristics.features},
         {heading: 'Состав', body: product.characteristics.composition},
         {heading: 'Комплектация', body: product.characteristics.equipment},
     ]
 
+    //1. если it.body - массив строк, то формируем из этого массива строку с элементами, разделенными запятой
+    //2. если it.body - строка, возвращаем строку
+    //3. в массиве [processData] избавляемся от элементом равных undefined
     return processData.map(it => {
-        const body = Array.isArray(it.body) ? it.body.map((subIt: ISize | string) => typeof subIt === 'object'  ? `${subIt.size} (${subIt.sizeUnit.name})` : subIt).join(', ') : it.body;
+        const body = Array.isArray(it.body) ? it.body.join(', ') : it.body;
         return getHeadingToText(it.heading, body);
     }).filter(item => item !== undefined) as IHeadingToText[];
 }

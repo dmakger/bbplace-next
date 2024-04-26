@@ -1,10 +1,10 @@
 'use client'
 
 import cl from './_ProductTable.module.scss'
-import { productApiItemToProduct } from '@/entities/Product/lib/product.lib'
+import { productApiToProduct } from '@/entities/Product/lib/product.lib'
 import { IProductAPI } from '@/entities/Product/model/product.model'
 import { HeadingToTextTable } from '@/shared/ui/Text'
-import { getCountry, getDataHeadingToTextProductMainTable } from '@/widgets/Product/Table/HeadingToText/lib/htt.product.lib'
+import { getCharacteristic, getDataHeadingToTextProductMainTable } from '@/widgets/Product/Table/HeadingToText/lib/htt.product.lib'
 import { EHeadingToTextVariants } from '@/shared/model/text.model'
 import { CountryAPI } from '@/entities/Metrics/api/country.metrics.api'
 import { useEffect, useState } from 'react'
@@ -26,12 +26,12 @@ export const ProductTable = ({
     const {data: metrics} = MetricsAPI.useGetMetricsQuery()
 
     //VARIABLE
-    const product = productApiItemToProduct(productApi)
+    const product = productApiToProduct({productAPI: productApi})    
 
     //EFFECT
     useEffect(() => {
         if(countries)
-            setSelectedCountry(getCountry(product, countries))
+            setSelectedCountry(getCharacteristic(product.characteristics.country, countries))
     }, [countries])
 
     useEffect(() => {
