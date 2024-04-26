@@ -1,50 +1,41 @@
 import { EParameters, PARAMETERS_TO_DATA } from "../../data/metrics.metrics.data"
 import { IMetrics, IPriceToMin } from "../../model/metric.metrics.model";
-import { ISize } from "../../model/size.metrics.model";
 import { IWholesale } from "../../model/wholesale.metrics.model";
 
 
 // 
-export const getDiapason = (wholesales: IWholesale[], sizes: ISize[]) => {
+export const getDiapason = (wholesales: IWholesale[]) => {
     let min: IWholesale | undefined
     let max: IWholesale | undefined
     if (wholesales.length === 0)
         return [min, max]
-
     let minMetrics: IMetrics | undefined
     let minParameter: EParameters
     wholesales.map(it => {
-        sizes.map(item => {
-            const metricsName = it.metrics?.name || item.sizeUnit.name
-            const parameter = getParameterByName(metricsName)
-    
-            if (parameter === undefined) return
-            if ((it.metrics || item.sizeUnit && parameter !== undefined && metricsName !== undefined) 
-                && (minMetrics === undefined || minMetrics === undefined 
-                || minParameter < parameter || (minParameter === parameter 
-                && PARAMETERS_TO_DATA[parameter][metricsName] < PARAMETERS_TO_DATA[minParameter][minMetrics.name]))
-            ) {
-                minMetrics = it.metrics || item.sizeUnit
-                
-                minParameter = parameter
-            }
-        })
+        const metricsName = it.metrics?.name
+        const parameter = getParameterByName(metricsName)
+        if (parameter === undefined) return
+        if ((it.metrics && parameter !== undefined && metricsName !== undefined) 
+            && (minMetrics === undefined || minMetrics === undefined 
+            || minParameter < parameter || (minParameter === parameter 
+            && PARAMETERS_TO_DATA[parameter][metricsName] < PARAMETERS_TO_DATA[minParameter][minMetrics.name]))
+        ) {
+            minMetrics = it.metrics
+            minParameter = parameter
+        }
     })
 
     const priceList = wholesales.map(wholesale => {
         const price = priceToMinUnitsParameter(wholesale.price, wholesale.metrics, minParameter)
         return price
     })
-
     const priceInMinList = priceList.map(item => item.priceInMin);
-
     // Получение индекса минимального элемента по priceInMin
     const minIndex = priceInMinList.indexOf(Math.min(...priceInMinList));
     min = {...wholesales[minIndex], price: priceInMinList[minIndex], metrics: minMetrics}
     // Получение индекса максимального элемента по priceInMin
     const maxIndex = priceInMinList.indexOf(Math.max(...priceInMinList));
     max = {...wholesales[minIndex], price: priceInMinList[maxIndex], metrics: minMetrics}
-
     return [min, max]
 }
 

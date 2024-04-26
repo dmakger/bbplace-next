@@ -50,11 +50,11 @@
                 flex-direction: column;
                 gap: 10px;
                 margin-bottom: 34px;
-    
+                max-width: 150px;
+
                 .price {
                     font-weight: var(--font-weight-sb);
                     font-size: var(--font-size-sm) !important;
-                    display: flex;
                 }
     
             }

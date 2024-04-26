@@ -9,7 +9,7 @@ export const getNameSupplier = (supplier: ISupplier) => {
 
 export const getCategoryNameSupplier = (category: ICategory[]) => {
     
-    if(category.length){
+    if(category){
         const filteredCategory = category.filter(it => it !== null)
         if(filteredCategory.length)
             return filteredCategory[filteredCategory.length - 1].name

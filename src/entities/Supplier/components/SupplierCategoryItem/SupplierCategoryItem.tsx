@@ -9,7 +9,7 @@ interface ISupplierCategoryItem{
 export const SupplierCategoryItem = ({category}:ISupplierCategoryItem) => {
   return (
     <span className={cl.SupplierCategoryItem}>
-        {category.length && getCategoryNameSupplier(category)}
+        {getCategoryNameSupplier(category)}
     </span>
   )
 }

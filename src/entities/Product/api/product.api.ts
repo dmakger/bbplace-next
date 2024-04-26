@@ -29,7 +29,7 @@ export const ProductAPI = createApi({
             })
         }),
         //GET PRODUCTS BY USER
-        getProductsByUser: build.query<IProduct[], IGetProductsByUser>({
+        getProductsByUser: build.query<IProductAPI[], IGetProductsByUser>({
             query: ({page = PRODUCT_START_PAGE, limit = PRODUCT_BY_USER_LIMIT, userId}) => ({
                 url: `/GetItems/ByUser/${userId}/${limit}/${page}`,
                 method: 'GET',
