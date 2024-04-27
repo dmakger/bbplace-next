@@ -9,7 +9,6 @@ import { ESupplierSubscribeViewItem, ESupplierToChatViewItem, ESupplierToProfile
 import { SupplierWNav } from '../WNav/SupplierWNav'
 import { getDataHeadingToTextSupplierTable } from '../../lib/htt.supplier.lib'
 import { ProductAPI } from '@/entities/Product/api/product.api'
-import { ProductASCList } from '@/entities/Product/ui/AtSupplierCard'
 import { NavSupplier } from '../../components/Nav/NavSupplier'
 import { HandleSize } from '@/shared/ui/Handle/Size/HandleSize'
 import { useEffect, useState } from 'react'
@@ -18,6 +17,8 @@ import { IProduct } from '@/entities/Product/model/product.model'
 import { productApiListToProductList } from '@/entities/Product/lib/product.lib'
 import { MetricsAPI } from '@/entities/Metrics/api/metrics.metrics.api'
 import { CurrencyAPI } from '@/entities/Metrics/api/currency.metrics.api'
+import { ProductAutoList } from '@/entities/Product/ui/List/Auto/ProductAutoList'
+import { EViewProduct } from '@/entities/Product/model/view.product.model'
 
 
 interface ISupplierItem {
@@ -77,7 +78,7 @@ export const SupplierItem = ({ supplier }: ISupplierItem) => {
             ]} />
           </div>
           <div className={cl.bottomRightContainer}>
-            <ProductASCList products={products ?? []} link={''}/>
+            <ProductAutoList products={products ?? []} supplierId={supplier.id} view={EViewProduct.AT_SUPPLIER_CARD}/>
           </div>
         </div>
       </section>

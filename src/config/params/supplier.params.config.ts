@@ -1,10 +1,10 @@
 import { CORE_PARAMS } from "./core.params.config"
 
-// ====={ TENDER PARAMS }=====
-class TenderParams {
-    private TENDER = 't'
-    private KEY = this.TENDER + CORE_PARAMS.KEY
-    private VALUE = this.TENDER + CORE_PARAMS.VALUE
+// ====={ SUPPLIER PARAMS }=====
+class SupplierParams {
+    private SUPPLIER = 's'
+    private KEY = this.SUPPLIER + CORE_PARAMS.KEY
+    private VALUE = this.SUPPLIER + CORE_PARAMS.VALUE
     
     // view
     private VERTICAL = 'v'
@@ -26,4 +26,4 @@ class TenderParams {
     // SORT
     SORT = CORE_PARAMS.SORT + this.KEY   
 }
-export const TENDER_PARAMS = new TenderParams()
+export const SUPPLIER_PARAMS = new SupplierParams()
