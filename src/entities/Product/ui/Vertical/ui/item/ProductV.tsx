@@ -11,6 +11,8 @@ import { WholesaleDiapason } from '@/entities/Metrics/ui/Wholesale/Diapason/Whol
 import { QuantityMetrics } from '@/shared/ui/QuantityMetrics/QuantityMetrics';
 import { IProductProps } from '@/entities/Product/model/props.product.model';
 import { HandleSize } from '@/shared/ui/Handle/Size/HandleSize';
+import Link from 'next/link';
+import { MAIN_PAGES } from '@/config/pages-url.config';
 
 interface ProductVProps extends IProductProps {}
 
@@ -25,6 +27,7 @@ export const ProductV: FC<ProductVProps> = ({ product, className }) => {
   return (
     <>
       <section className={cls(cl.block, className)}>
+        {/* <Link href={MAIN_PAGES.CURRENT_PRODUCT(product.id)}> */}
         <div className={cl.top}>
           <ImageAPI src={product.media.attachments[0]} width={271} height={271} className={cl.image} />
           <FavouriteAutoToSupplierButton view={ESupplierFavouriteViewItem.SMALL_FILL} className={cl.favourite} />
@@ -34,13 +37,14 @@ export const ProductV: FC<ProductVProps> = ({ product, className }) => {
             <h4 className={cl.name}>{product.name}</h4>
             <div className={cl.priceWrapper}>
               <WholesaleDiapason minWholesale={minWholesale} maxWholesale={maxWholesale}
-                                 currency={product.media.currency} classNameText={cl.price} />
+                                currency={product.media.currency} classNameText={cl.price} />
               <QuantityMetrics heading={'Мин. Кол-во'}
-                               wholesale={minWholesale}
-                               className={cl.quantity}
-                               classNameText={cl.quantityText} />
+                              wholesale={minWholesale}
+                              className={cl.quantity}
+                              classNameText={cl.quantityText} />
             </div>
           </div>
+          {/* </Link> */}
           <div className={cl.line} />
           <SupplierWNav id={product.ownerId}
                         view={is768 ? ESupplierView.SMALL : ESupplierView.LARGE_WHITE}
