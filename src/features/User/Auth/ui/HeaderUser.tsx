@@ -1,15 +1,19 @@
 "use client"
-
 import { useRef, useState } from 'react'
-import cl from './_UserAuth.module.scss'
-import WrapperClickOutside from '@/shared/ui/Wrapper/ClickOutside/WrapperClickOutside'
-import User from '@/entities/User/ui/User'
 
-interface UserAuthProps {
-    className?: string
+import WrapperClickOutside from '@/shared/ui/Wrapper/ClickOutside/WrapperClickOutside'
+import { UserAuth } from '../components/UserAuth/UserAuth'
+import { UserNotAuth } from '../components/UserNotAuth/UserNotAuth'
+import { useAppSelector } from '@/storage/hooks'
+
+interface IHeaderUser {
+    className?: string,
 }
 
-export default function UserAuth({className}: UserAuthProps) {
+export const HeaderUser = ({className}: IHeaderUser) => {
+
+    const {isAuth} = useAppSelector(state => state.user)    
+
     // STATE
     const [isShow, setIsShow] = useState(false) 
 
@@ -23,7 +27,10 @@ export default function UserAuth({className}: UserAuthProps) {
 
     return (
         <WrapperClickOutside _ref={userRef} isShow={isShow} handle={toggleShow}>
-            <User />
+            {isAuth ?
+                <UserAuth   /> :
+                <UserNotAuth isAuth={isAuth}/>}
         </WrapperClickOutside>
     )
 }
+

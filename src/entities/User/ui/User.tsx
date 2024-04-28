@@ -9,7 +9,7 @@ interface UserProps {
     className?: string
 }
 
-export default function User({image, className}: UserProps) {
+export const User = ({image, className}: UserProps) => {
     return (
         <Image src={image ? image : defaultImageJPG} alt={'Avatar'} className={cls(cl.image, className)}  />
     )
