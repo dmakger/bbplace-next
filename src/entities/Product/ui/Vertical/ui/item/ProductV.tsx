@@ -34,7 +34,7 @@ export const ProductV: FC<ProductVProps> = ({ product, className }) => {
         </div>
         <div className={cl.content}>
           <div className={cl.middle}>
-            <h4 className={cl.name}>{product.name}</h4>
+            <Link href={MAIN_PAGES.CURRENT_PRODUCT(product.id)} className={cl.name}>{product.name}</Link>
             <div className={cl.priceWrapper}>
               <WholesaleDiapason minWholesale={minWholesale} maxWholesale={maxWholesale}
                                 currency={product.media.currency} classNameText={cl.price} />
