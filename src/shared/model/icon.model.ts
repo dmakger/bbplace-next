@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { IIcon } from "../ui/Icon/model/model";
 
 export interface IIconVariants {
     id: number,
@@ -12,3 +13,4 @@ export interface IIcons {
     height?: number,
     className?: string
 }
+

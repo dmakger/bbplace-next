@@ -8,7 +8,7 @@ import cl from './_Slider.module.scss'
 import { ButtonArrow } from "@/shared/ui/Button/Arrow/ButtonArrow";
 
 interface SliderProps<T> {
-    slides: T[];
+    slides?: T[];
     amount: number;
     limit?: number;
     setNewLimit?: Function;
@@ -25,7 +25,7 @@ interface SliderProps<T> {
 }
 
 export const Slider = <T extends (object | string)>({
-    slides, amount = 3, limit = 10, setNewLimit,
+    slides=[], amount = 3, limit = 10, setNewLimit,
     component: SlideComponent, className, classNameSlides, setTypeOfFile
 }: SliderProps<T>) => {
     const [startIndex, setStartIndex] = useState(0);
@@ -67,7 +67,7 @@ export const Slider = <T extends (object | string)>({
     return (
         <div className={cls(cl.slider, className)} ref={slidesRef}>
             {startIndex > 0 &&
-                <ButtonArrow onClick={prevSlide}/>
+                <ButtonArrow onClick={prevSlide} className={cl.prevButton}/>
                 // <button className={cl.prevButton} onClick={prevSlide}>
                 //     <HandySvg className={cl.svg} src={chevron}/>
                 // </button>
@@ -80,7 +80,7 @@ export const Slider = <T extends (object | string)>({
             </div>
 
             {startIndex < slides.length - amount &&
-                <ButtonArrow onClick={nextSlide}/>
+                <ButtonArrow onClick={nextSlide} className={cl.nextButton} />
                 // <button className={cl.nextButton} onClick={nextSlide}>
                 //     <HandySvg className={cl.svg} src={chevron}/>
                 // </button>

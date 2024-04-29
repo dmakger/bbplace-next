@@ -8,12 +8,11 @@ import { ImageSlide } from "../item/ImageSlide";
 
 interface ImageSliderProps extends ISlide{
     title: string
-    slides: string[]
+    slides?: string[]
 }
 
-export const ImageSlider:FC<ImageSliderProps> = ({slides, isLoading, limit, setLimit, amount=3, className, classNameSlides}) => {
+export const ImageSlider:FC<ImageSliderProps> = ({...rest}) => {
     return (
-        <Slider slides={slides} component={ImageSlide} amount={amount}
-                    setNewLimit={setLimit} limit={limit} classNameSlides={classNameSlides}/>
+        <Slider component={ImageSlide} {...rest}/>
     )
 }
