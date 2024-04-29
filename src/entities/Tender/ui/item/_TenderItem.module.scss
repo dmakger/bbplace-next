@@ -5,7 +5,7 @@ $mobile-dimension: 768px;
 @mixin desktop {
     display: flex;
 
-    @media (width < $mobile-dimension) {
+    @media (max-width: $mobile-dimension) {
         display: none;
     }
 }
@@ -13,7 +13,7 @@ $mobile-dimension: 768px;
 @mixin mobile {
     display: none;
 
-    @media (width < $mobile-dimension) {
+    @media (max-width: $mobile-dimension) {
         display: flex;
     }
 }
@@ -28,7 +28,7 @@ $mobile-dimension: 768px;
     border-bottom: 1px solid var(--gray-5);
     padding: 16px;
 
-    @media (width < $mobile-dimension) {
+    @media (max-width: $mobile-dimension) {
         gap: 15px;
         border-radius: 0px;
         border-bottom: none;
@@ -38,7 +38,7 @@ $mobile-dimension: 768px;
         display: flex;
         justify-content: space-between;
 
-        @media (width < $mobile-dimension) {
+        @media (max-width: $mobile-dimension) {
             justify-content: flex-end;
         }
 
@@ -46,7 +46,7 @@ $mobile-dimension: 768px;
             display: flex;
             gap: 20px;
 
-            @media (width < $mobile-dimension) {
+            @media (max-width: $mobile-dimension) {
                 display: none;
             }
         }
@@ -66,7 +66,7 @@ $mobile-dimension: 768px;
             font-weight: var(--font-weight-reg);
             font-size: var(--font-size-sm);
 
-            @media (width < $mobile-dimension) {
+            @media (max-width: $mobile-dimension) {
                 font-size: var(--font-size-reg);
                 margin-top: -33px;
             }
@@ -75,7 +75,7 @@ $mobile-dimension: 768px;
         .cardSupplier {
             display: none;
 
-            @media (width < $mobile-dimension) {
+            @media (max-width: $mobile-dimension) {
                 display: block;
                 cursor: pointer;
                 font-family: var(--second-family);
@@ -96,10 +96,11 @@ $mobile-dimension: 768px;
             @include desktop;
             & button{
                 width: 125px;
+                padding: 10px 8px 10px 13px;
             }
         }
 
-        @media (width < $mobile-dimension) {
+        @media (max-width: $mobile-dimension) {
             flex-direction: column;
             align-items: flex-start;
         }
@@ -126,7 +127,7 @@ $mobile-dimension: 768px;
     }
     .mobileLine{
         display: none;
-        @media (width < $mobile-dimension) {
+        @media (max-width: $mobile-dimension) {
             display: block;
             height: 1px;
             width: 100%;
