@@ -20,7 +20,7 @@ export default function MenuButton({item, className}: MenuButtonProps) {
               onMouseEnter={() => setIsHovered(true)} 
               onMouseLeave={() => setIsHovered(false)} 
               className={cls(cl.link, className)}>
-            <Image src={item.image} 
+            <Image src={item.image || ''} 
                    alt={item.title ? item.title : 'menu item'} 
                    width={27} height={27} />
             <span className={cl.title}>{item.title}</span>
