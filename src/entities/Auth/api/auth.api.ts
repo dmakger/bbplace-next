@@ -4,6 +4,7 @@ import { ISupplierAPI } from "@/entities/Supplier/model/supplier.model";
 import { options } from "@/api/interceptors";
 import { IAuthForm, IAuthResponse, ILoginResponseDecoded } from "../model/auth.model";
 import { getAccessToken, getRefreshToken, saveTokensStorage } from "../lib/auth-token.lib";
+import { jwtDecode } from "jwt-decode";
 
 
 export const UserAPI = createApi({
@@ -32,7 +33,7 @@ export const UserAPI = createApi({
                 responseHandler: async (response) => {
                     const data = await response.json() as IAuthResponse
                     saveTokensStorage(data)
-                    return data
+                    return jwtDecode<ILoginResponseDecoded>(data.accessToken)
                 },
             })
         }),
@@ -48,7 +49,7 @@ export const UserAPI = createApi({
                 responseHandler: async (response) => {
                     const data = await response.json() as IAuthResponse;
                     saveTokensStorage(data)
-                    return data;
+                    return jwtDecode<ILoginResponseDecoded>(data.accessToken)
                 },
             })
         }),

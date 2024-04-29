@@ -1,7 +1,7 @@
 .UserProfileModal {
     position: absolute;
     top: -15px;
-    right: -10px;
+    right: -16px;
     display: flex;
     flex-direction: column;
     width: 238px;
@@ -24,6 +24,7 @@
             display: flex;
             gap: 24px;
             .greetings{
+                flex: 1;
                 font-size: var(--font-size-xxxs);
                 & span{
                     font-size: var(--font-size-s);
@@ -34,10 +35,8 @@
         }
         .lk{
             padding: 10px 16px;
-            background-color: var(--gray-4);
-            border-radius: 50px;
             font-size: var(--font-size-xxs);
-            text-align: left;
+            color: var(--dark-2);
         }
     }
     .bottomContainer{
@@ -59,5 +58,5 @@
 }
 
 .logOutButton{
-    font-weight: var(--font-weight-med) !important;
+    font-weight: var(--font-weight-med);
 }

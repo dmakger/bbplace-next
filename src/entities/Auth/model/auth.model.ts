@@ -23,13 +23,13 @@ export interface IUser {
 }
 
 export interface ILoginResponseDecoded {
-    userId: string,
-	userName: string
-    fullName: string
-    legalName: string
-    brandName: string
-    role: string
-    mobilePhone: string,
+    UserId: string
+    UserName: string
+    FullName: string
+    LegalName: string
+    BrandName: string
+    Role: string
+    MobilePhone: string,
     country: string
 }
 

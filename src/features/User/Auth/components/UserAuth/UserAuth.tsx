@@ -1,5 +1,3 @@
-'use client'
-
 import { cls } from "@/shared/lib/classes.lib"
 import cl from './_UserAuth.module.scss'
 import { User } from "@/entities/User"
@@ -9,24 +7,22 @@ import UserProfileModal from "../UserProfileModal/UserProfileModal"
 
 interface IUserAuth {
     className?: string,
-    userId: string
 }
 
-export const UserAuth = ({ className, userId }: IUserAuth) => {
+export const UserAuth = ({ className }: IUserAuth) => {
     //STATE
     const [isShowProfileModal, setIsShowProfileModal] = useState<boolean>(false)
 
     //REF
     const userRef = useRef<HTMLDivElement>(null)
 
-    const showProfileModal = () => {
-        setIsShowProfileModal(prevState => !prevState)
-    }
+    const showProfileModal = () => setIsShowProfileModal(prevState => !prevState);
+    
 
     return (
         <WrapperClickOutside _ref={userRef} isShow={isShowProfileModal} handle={showProfileModal} className={cls(cl.UserAuth, className)}>
-                <User onClick={showProfileModal} />
-                <UserProfileModal isShowProfileModal={isShowProfileModal} ref={userRef} />
+                <User className={cl.image} onClick={showProfileModal} />
+                <UserProfileModal isShowProfileModal={isShowProfileModal} />
         </WrapperClickOutside>
 
     )

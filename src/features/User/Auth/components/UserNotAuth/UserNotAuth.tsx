@@ -1,5 +1,3 @@
-"use client"
-
 import { UserAPI } from '@/entities/Auth/api/auth.api'
 import cl from './_UserAuth.module.scss'
 import { Button, ButtonVariant } from "@/shared/ui/Button"
@@ -7,8 +5,6 @@ import { useActionCreators } from '@/storage/hooks'
 
 interface IUserNotAuth {
     className?: string,
-    isAuth: boolean
-
 }
 
 export const UserNotAuth = ({ className }: IUserNotAuth) => {
@@ -27,7 +23,6 @@ export const UserNotAuth = ({ className }: IUserNotAuth) => {
             console.error('Ошибка аутентификации:');
             throw error;
         }
-
     };
 
     return (

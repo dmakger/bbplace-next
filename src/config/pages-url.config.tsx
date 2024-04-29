@@ -10,6 +10,7 @@ class MAIN {
     PRODUCTS = `${this.root}/product`
     TENDERS = `${this.root}/tender`
     SUPPLIERS = `${this.root}/supplier`
+    LK = `${this.root}/myAccount`
 
     SUPPORT = `${this.root}/support`
 
