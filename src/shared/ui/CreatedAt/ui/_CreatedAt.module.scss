@@ -1,7 +1,7 @@
 .CreatedAt {
     display: none;
 
-    @media (width < 768px) {
+    @media (max-width: 768px) {
         display: block;
         font-weight: var(--font-weight-reg);
         font-size: var(--font-size-s);
