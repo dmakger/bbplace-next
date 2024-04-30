@@ -6,6 +6,8 @@ import { FC, useEffect, useRef, useState } from "react"
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_Slider.module.scss'
 import { ButtonArrow } from "@/shared/ui/Button/Arrow/ButtonArrow";
+import { ARROW_WO_ICON } from "@/shared/ui/Icon/data/arrow.data.icon";
+import { Axis } from "@/shared/model/button.model";
 
 interface SliderProps<T> {
     slides?: T[];
@@ -14,6 +16,7 @@ interface SliderProps<T> {
     setNewLimit?: Function;
     className?: string
     classNameSlides?: string
+    style?: object
     component: React.FC<{
         slide: T,
         className?: string,
@@ -21,12 +24,13 @@ interface SliderProps<T> {
     setTypeOfFile?: Function
     }>;
     setTypeOfFile?: Function
-    
 }
 
 export const Slider = <T extends (object | string)>({
     slides=[], amount = 3, limit = 10, setNewLimit,
-    component: SlideComponent, className, classNameSlides, setTypeOfFile
+    component: SlideComponent, 
+    className, classNameSlides, style, 
+    setTypeOfFile
 }: SliderProps<T>) => {
     const [startIndex, setStartIndex] = useState(0);
     const [translateX, setTranslateX] = useState(0);
@@ -65,12 +69,10 @@ export const Slider = <T extends (object | string)>({
     };
 
     return (
-        <div className={cls(cl.slider, className)} ref={slidesRef}>
+        <div style={style} className={cls(cl.slider, className)} ref={slidesRef}>
             {startIndex > 0 &&
-                <ButtonArrow onClick={prevSlide} className={cl.prevButton}/>
-                // <button className={cl.prevButton} onClick={prevSlide}>
-                //     <HandySvg className={cl.svg} src={chevron}/>
-                // </button>
+                <ButtonArrow icon={ARROW_WO_ICON} axis={Axis.Left} 
+                            onClick={prevSlide} className={cl.prevButton}/>
             }
 
             <div className={cls(cl.slideContainer)} style={{transform: `translateX(${translateX}px)`}}>
@@ -80,10 +82,8 @@ export const Slider = <T extends (object | string)>({
             </div>
 
             {startIndex < slides.length - amount &&
-                <ButtonArrow onClick={nextSlide} className={cl.nextButton} />
-                // <button className={cl.nextButton} onClick={nextSlide}>
-                //     <HandySvg className={cl.svg} src={chevron}/>
-                // </button>
+                <ButtonArrow icon={ARROW_WO_ICON} axis={Axis.Left} 
+                            onClick={nextSlide} className={cl.nextButton} />
             }
         </div>
     );

@@ -31,7 +31,10 @@ export default function ProductDetailPage() {
     
     return (
         <Wrapper1280>
-            <ImageSlider title={""} slides={product?.media.attachments} isLoading={false} limit={limit} amount={1} setLimit={setLimit} />
+            <ImageSlider title={""} 
+                        slides={product?.media.attachments} 
+                        isLoading={false} amount={1} 
+                        limit={limit} setLimit={setLimit} />
             {/* <ProductList view={getViewProductByParam(productView)} /> */}
         </Wrapper1280>
     )

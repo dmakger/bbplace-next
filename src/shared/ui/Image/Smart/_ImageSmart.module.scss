@@ -47,3 +47,19 @@
         opacity: 1;
     }
 }
+
+
+// ===={ AXIS }====
+
+.top {
+    transform: rotate(180deg);
+}
+.right {
+    transform: rotate(-90deg);
+}
+.bottom {
+    transform: rotate(0deg);
+}
+.left {
+    transform: rotate(90deg);
+}

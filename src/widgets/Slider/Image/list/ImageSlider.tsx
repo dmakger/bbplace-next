@@ -1,4 +1,6 @@
-import { FC } from "react"
+"use client"
+
+import { FC, useState } from "react"
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_ImageSlider.module.scss'
@@ -11,8 +13,10 @@ interface ImageSliderProps extends ISlide{
     slides?: string[]
 }
 
-export const ImageSlider:FC<ImageSliderProps> = ({...rest}) => {
+export const ImageSlider:FC<ImageSliderProps> = ({className, ...rest}) => {
     return (
-        <Slider component={ImageSlide} {...rest}/>
+        <Slider component={ImageSlide} 
+                className={cls(cl.slider, className)} 
+                {...rest}/>
     )
 }

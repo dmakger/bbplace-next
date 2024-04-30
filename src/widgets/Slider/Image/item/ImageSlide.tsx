@@ -11,6 +11,6 @@ interface ImageSlideProps{
 
 export const ImageSlide:FC<ImageSlideProps> = ({slide, className}) => {
     return (
-        <ImageAPI src={slide} />
+        <ImageAPI src={slide} width={660} height={465} className={cls(cl.image, className)} />
     )
 }
