@@ -10,10 +10,10 @@ interface processData{
 }
 
 
-export const getDataHeadingToTextSupplierTable = (supplier: ISupplier, supplierRating: number, supplierReviews: number, linkHref: string) => {
+export const getDataHeadingToTextSupplierTable = (supplier: ISupplier, supplierRating: number, supplierReviews: number) => {
 
     const processData:processData[] = [
-        {heading: 'Рейтинг', body: <Rating rating={supplierRating} numberOfReviews={supplierReviews} linkHref={linkHref} />} ,
+        {heading: 'Рейтинг', body: <Rating rating={supplierRating} numberOfReviews={supplierReviews} linkHref={''} />} ,
         {heading: 'Регион', body: supplier.country},
         {heading: 'О поставщике', body: supplier.shortDescription || supplier.description},
     ]

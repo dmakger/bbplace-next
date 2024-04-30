@@ -35,7 +35,7 @@ export const TenderList = () => {
     const { data: saleTendersApi, isLoading: isSaleTendersLoading } = TenderAPI.useGetSaleTendersQuery({limit: TENDER_ARGS_REQUEST.limit, page: pageNumber-1, params: newParams});
     const { data: purchaseTendersApi, isLoading: isPurchaseTendersLoading } = TenderAPI.useGetPurchaseTendersQuery({limit: TENDER_ARGS_REQUEST.limit, page: pageNumber-1, params: newParams});
 
-    // count
+    //COUNT
     const { data: countTenders, isLoading: isCountTendersLoading } = TenderAPI.useGetCountAllTendersQuery({limit: TENDER_ARGS_REQUEST.limit, params: newParams}, { refetchOnMountOrArgChange: true });
     const { data: countAllTenders, isLoading: isCountAllTendersLoading } = TenderAPI.useGetCountAllTendersQuery({limit: 1, params: newParams}, { refetchOnMountOrArgChange: true });
     const { data: countSaleTenders, isLoading: isCountSaleTendersLoading } = TenderAPI.useGetCountSaleTendersQuery({limit: TENDER_ARGS_REQUEST.limit, params: newParams}, { refetchOnMountOrArgChange: true });
@@ -63,15 +63,15 @@ export const TenderList = () => {
     useEffect(() => {
         if ((application === null || application === applicationValues.DEFAULT) && allTendersApi && countTenders !== undefined) {
             setTenderList(getAllTendersAtOneArray(allTendersApi))
-            setCountPages(countTenders)
+            setCountPages(countTenders + 1)
         }
         else if (application === applicationValues.SELL && saleTendersApi && countSaleTenders !== undefined) {
             setTenderList(saleTendersApi)
-            setCountPages(countSaleTenders)
+            setCountPages(countSaleTenders + 1)
         }
         else if (application === applicationValues.PURCHASE && purchaseTendersApi && countPurchaseTenders !== undefined) {
             setTenderList(purchaseTendersApi)
-            setCountPages(countPurchaseTenders)
+            setCountPages(countPurchaseTenders + 1)
         }
     }, [allTendersApi, saleTendersApi, purchaseTendersApi, application, countTenders, countSaleTenders, countPurchaseTenders])
 

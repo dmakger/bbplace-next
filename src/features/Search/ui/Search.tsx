@@ -1,19 +1,34 @@
-import {FormEvent} from "react";
+'use client'
+
+import {FormEvent, useRef} from "react";
 import cl from './_Search.module.scss'
 import Input from "@/shared/ui/Input/Input";
 import ButtonSearch from "@/shared/ui/Button/Search/ButtonSearch";
 import { PTCSelect } from "@/features/Select";
+import { useRouter } from "next/navigation";
+import { useAppSelector } from "@/storage/hooks";
+import { getFormData } from "@/shared/lib/formData.lib";
 
 export const Search = () => {
+
+    //STATE
+    const {view} = useAppSelector(state => state.ptc)
+
+    //REF
+    const formRef = useRef<HTMLFormElement>(null)
+
+    //ROUTER
+    const router = useRouter()
+    
     const handleOnSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        const formData = new FormData(e.currentTarget)
-        console.log(formData, e.currentTarget, e.currentTarget.value)
+        if (!formRef.current) return
+        const data =  getFormData(formRef.current)
+        router.push(`${view}?search=${data.search}`)
     }
 
     return (
-        // <form onSubmit={handleOnSubmit} className={cl.search}>
-        <form className={cl.search}>
+        <form className={cl.search} onSubmit={handleOnSubmit} ref={formRef}>
             <PTCSelect classNameTitle={cl.select} classNameButton={cl.buttonSelect}/>
             <Input.Text name={'search'} placeholder="Поиск..." className={cl.text} />
             <ButtonSearch className={cl.button} />
