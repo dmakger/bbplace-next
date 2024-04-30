@@ -1,0 +1,13 @@
+.image {
+    border-radius: 15px;
+    opacity: 0.5;
+    transition: .2s;
+
+    &:hover {
+        opacity: 1;
+    }
+}
+
+.active {
+    opacity: 1;
+}
