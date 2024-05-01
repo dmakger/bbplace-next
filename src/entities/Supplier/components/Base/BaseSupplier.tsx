@@ -8,6 +8,8 @@ import { BottomLineSupplier } from "../BottomLine/BottomLineSupplier";
 import { getNameSupplier } from "../../lib/getters.supplier.lib";
 import { ESupplierSubscribeViewItem } from "../../data/view.supplier.data";
 import { SubscribeAutoToSupplierButton } from "../Button/Subscribe/Auto/SubscribeAutoToSupplierButton";
+import Link from "next/link";
+import { MAIN_PAGES } from "@/config/pages-url.config";
 
 interface BaseSupplierProps{
     supplier: ISupplier
@@ -20,7 +22,7 @@ interface BaseSupplierProps{
 
 export const BaseSupplier:FC<BaseSupplierProps> = ({supplier, hasImage=false, subscribeView=ESupplierSubscribeViewItem.NONE, isGray=false, className, classNameName}) => {        
     return (
-        <div className={cls(cl.block, isGray ? cl.gray : '', className)}>
+        <Link href={MAIN_PAGES.CURRENT_SUPPLIER(supplier.id)} className={cls(cl.block, isGray ? cl.gray : '', className)}>
             {hasImage && supplier.photoId &&
                 <ImageAPI src={supplier.photoId.key} alt={supplier.photoId.name} className={cl.image} />
             }
@@ -29,6 +31,6 @@ export const BaseSupplier:FC<BaseSupplierProps> = ({supplier, hasImage=false, su
                 <BottomLineSupplier supplier={supplier} />
             </div>
             <SubscribeAutoToSupplierButton view={subscribeView} supplierId={supplier.id} />
-        </div>
+        </Link>
     )
 }

@@ -20,7 +20,10 @@ export const SubscribeSmallToSupplierButton:FC<SubscribeSmallToSupplierButtonPro
     const [isHovered, setIsHovered] = useState(false)
 
     // HANDLE
-    const handleOnClick = () => {
+    const handleOnClick = (e: React.MouseEvent<HTMLElement>) => {
+        console.log('qwe', e);
+        // e.stopPropagation();
+
         setIsActive(prevState => !prevState)
     }
 
@@ -33,7 +36,7 @@ export const SubscribeSmallToSupplierButton:FC<SubscribeSmallToSupplierButtonPro
     
     return (
         <Button variant={ButtonVariant.BACKGROUND_GRAY} 
-                onClick={handleOnClick} 
+                onClick={e => handleOnClick(e)} 
                 onMouseEnter={handleOnMouseEnter}
                 onMouseLeave={handleOnMouseLeave} classNameButton={isWide ? cl.wideButton : ''}>
             <SubscribeIcon isActive={isActive} isHovered={isHovered} className={classNameIcon}/>

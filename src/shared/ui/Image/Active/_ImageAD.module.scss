@@ -1,0 +1,26 @@
+.wrapper {
+    border-radius: 15px;
+    border: 2px solid var(--empty);
+    display: flex;
+    transition: .2s;
+
+    &:hover {
+        .image {
+            opacity: 1;
+        }
+    }
+
+    .image {
+        opacity: 0.5;
+        border-radius: 12px;
+        transition: inherit;
+    }
+}
+
+.active {
+    border: 2px solid var(--red-1);
+
+    .image {
+        opacity: 1;
+    }
+}
