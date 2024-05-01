@@ -2,12 +2,10 @@
 
 import { FC, useEffect, useState } from "react";
 import cl from './_NavBarPTC.module.scss';
-import { DefaultIcon } from "@/shared/ui/Icon";
-import { SORT_ICON, SORT_MOBILE_ICON, viewVariants } from "../data/navBarPTC.data";
 import { cls } from "@/shared/lib/classes.lib";
 import { IIconVariants } from "@/shared/model/icon.model";
-import { MENU_WEB_DATA, PRODUCTS_ITEM_MENU_WEB_DATA } from "@/widgets/Menu/WEB";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { MENU_WEB_DATA } from "@/widgets/Menu/WEB";
+import { usePathname, useRouter } from "next/navigation";
 import { ViewsNavBarPTC } from "../components/ViewsNavBarPTC";
 import { useAppSelector } from "@/storage/hooks";
 import { getPTCTextByNumber } from "../lib/text.ptc.lib";
@@ -28,6 +26,12 @@ export const NavBarPTC: FC<INavBarPTC> = ({ }) => {
     //STATE
     const [filterView, setFilterView] = useState<ECatalogVariants>(getPTCViewByPathname(pathname));
     const [selectedOption, setSelectedOption] = useState<IIconVariants>(getPTCVariantByPathname(pathname));
+
+    //EFFECT
+    useEffect(() => {
+        setSelectedOption(getPTCVariantByPathname(pathname))
+    }, [pathname])
+    
 
     // ON CLICK
     const handleOnClickMenuItem = (el: IIconVariants) => {
