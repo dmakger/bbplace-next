@@ -1,8 +1,10 @@
-export interface ISlide {
+export interface ISlider {
+    activeIndex?: number
+    setActiveIndex?: (index: number) => any
     isLoading: boolean
-    limit: number,
-    setLimit: Function,
+    limit?: number,
+    setLimit?: Function,
     amount: number,
-    classNameSlides?: string
     className?: string,
+    classNameSlides?: string
 }

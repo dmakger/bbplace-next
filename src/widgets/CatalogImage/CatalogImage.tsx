@@ -31,10 +31,9 @@ export const CatalogImage:FC<CatalogImageProps> = ({imageList=[], className}) =>
                     </button>
                 ))}
             </div>
-            <ImageSlider title={""} 
-                        slides={imageList} 
-                        isLoading={false} amount={1} 
-                        limit={limit} setLimit={setLimit} />
+            <ImageSlider slides={imageList} isLoading={false} 
+                        activeIndex={activeIndex} setActiveIndex={handleOnClick}
+                        amount={1} limit={limit} setLimit={setLimit} />
         </div>
     )
 }
