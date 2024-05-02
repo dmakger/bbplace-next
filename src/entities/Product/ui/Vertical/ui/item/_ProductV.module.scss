@@ -39,6 +39,12 @@
 
             .name {
                 font-size: var(--font-size-sreg);
+                cursor: pointer;
+                transition: .2s;
+
+                &:hover {
+                    color: var(--red-1);
+                }
             }
             .priceWrapper {
                 display: flex;

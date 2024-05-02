@@ -20,6 +20,7 @@ class BackendParams {
     }
 
     // FILTER
+    SEARCH = "SearchQuery" 
     CATEGORY = "CategoryId" 
     COUNTRY = "Country" 
     STATUS = "Status" 
@@ -53,6 +54,7 @@ export const BACKEND_PARAMS = new BackendParams()
 
 
 export const SORT_FRONT_TO_BACK = {
+    [CORE_PARAMS.SEARCH]: BACKEND_PARAMS.SEARCH, 
     [CORE_PARAMS.SORT_KEYS.DATE_START]: BACKEND_PARAMS.SORT_KEYS.DATE_START, 
     [CORE_PARAMS.CATEGORY]: BACKEND_PARAMS.CATEGORY, 
     [CORE_PARAMS.COUNTRY]: BACKEND_PARAMS.COUNTRY, 
