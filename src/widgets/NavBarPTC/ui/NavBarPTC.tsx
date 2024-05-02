@@ -29,14 +29,17 @@ export const NavBarPTC: FC<INavBarPTC> = ({ }) => {
     const [filterView, setFilterView] = useState<ECatalogVariants>(getPTCViewByPathname(pathname));
     const [selectedOption, setSelectedOption] = useState<IIconVariants>(getPTCVariantByPathname(pathname));
 
-    // console.log('asd', searchParams.get(CORE_PARAMS.CATEGORY));
     // ON CLICK
     const handleOnClickMenuItem = (el: IIconVariants) => {
         if (el.link === undefined)
             return
         setSelectedOption(el)
         setFilterView(getPTCViewByPathname(el.link))
-        router.push(`${el.link}?${CORE_PARAMS.CATEGORY}=${searchParams.get(CORE_PARAMS.CATEGORY)}`);
+        const categoryValue = searchParams.get(CORE_PARAMS.CATEGORY)
+        let param = ""
+        if (categoryValue !== null)
+            param = `${CORE_PARAMS.CATEGORY}=${categoryValue}`
+        router.push(`${el.link}?${param}`);
     }    
 
     return (
