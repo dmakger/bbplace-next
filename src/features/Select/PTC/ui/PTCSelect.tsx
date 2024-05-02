@@ -41,12 +41,12 @@ export const PTCSelect = ({
     const router = useRouter()
 
     //ON CHANGE
-    const getOption = useCallback((item: IOption) => {
+    const getActivePTC = useCallback((item: IOption) => {
         setActiveOption(PTC_LIST_DATA.find(it => it.value === item.value))
         if(activeOption && typeof(item.value) === 'string'){
-            const value: EPTC = item.value as EPTC;
-            actionCreators.setViewPTC(value);
-            router.push(`${value}`);
+            const activePTC = item.value as EPTC;
+            actionCreators.setViewPTC(activePTC);
+            router.push(`${activePTC}`);
         }
     }, [view])
 
@@ -57,7 +57,7 @@ export const PTCSelect = ({
                 classNameOptions={classNameOptions}
                 className={className}
                 classNameButton={classNameButton}
-                onClickOption={getOption} />
+                onClickOption={getActivePTC} />
         </div>    
     )
 }
