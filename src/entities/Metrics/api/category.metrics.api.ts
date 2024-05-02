@@ -1,5 +1,5 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
-import { ICategory } from "../model/category.metrics.model"
+import { ICategoriesWithSubcategories, ICategory } from "../model/category.metrics.model"
 import { options } from "@/api/interceptors";
 
 export const CategoryAPI = createApi({
@@ -25,5 +25,14 @@ export const CategoryAPI = createApi({
                 }
 			})
 		}),
+		getCategoriesWithSubcategories: build.query<ICategoriesWithSubcategories[], void>({
+            query: () => ({
+                url: '/GetCategoriesWithSubcategories',
+                responseHandler: async (res) => {
+                    const data = await res.json() as ICategoriesWithSubcategories[]
+                    return [...data].sort((a, b) => a.name.localeCompare(b.name))
+                }
+            })
+        }),
 	})
 })
