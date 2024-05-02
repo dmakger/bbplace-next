@@ -1,0 +1,12 @@
+.block {
+    display: flex;
+    gap: 36px;
+
+    .column {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        height: 465px;
+        overflow: auto;
+    }
+}

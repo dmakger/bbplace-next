@@ -5,13 +5,14 @@ import cl from './_NavBarPTC.module.scss';
 import { cls } from "@/shared/lib/classes.lib";
 import { IIconVariants } from "@/shared/model/icon.model";
 import { MENU_WEB_DATA } from "@/widgets/Menu/WEB";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ViewsNavBarPTC } from "../components/ViewsNavBarPTC";
 import { useAppSelector } from "@/storage/hooks";
 import { getPTCTextByNumber } from "../lib/text.ptc.lib";
 import { SortModal } from "@/features/Modal/Sort/SortModal";
 import { ECatalogVariants } from "@/widgets/SortFilterSidebar";
 import { getPTCVariantByPathname, getPTCViewByPathname } from "../lib/link.ptc.lib";
+import { CORE_PARAMS } from "@/config/params/core.params.config";
 
 interface INavBarPTC {}
 
@@ -21,6 +22,7 @@ export const NavBarPTC: FC<INavBarPTC> = ({ }) => {
     
     // ROUTER
     const pathname = usePathname()
+    const searchParams = useSearchParams()
     const router = useRouter()
 
     //STATE
@@ -39,7 +41,11 @@ export const NavBarPTC: FC<INavBarPTC> = ({ }) => {
             return
         setSelectedOption(el)
         setFilterView(getPTCViewByPathname(el.link))
-        router.push(el.link);
+        const categoryValue = searchParams.get(CORE_PARAMS.CATEGORY)
+        let param = ""
+        if (categoryValue !== null)
+            param = `${CORE_PARAMS.CATEGORY}=${categoryValue}`
+        router.push(`${el.link}?${param}`);
     }    
 
     return (

@@ -28,6 +28,16 @@ export const ProductAPI = createApi({
 				method: 'GET',
             })
         }),
+
+        // DETAIL
+        getProduct: build.query<IProductAPI, number | string>({
+            query: (itemId) => ({
+                url: `/GetItem/${itemId}`,
+                // responseHandler: parseItem,
+            }),
+            // providesTags: result => ['Item']
+        }),
+
         //GET PRODUCTS BY USER
         getProductsByUser: build.query<IProduct[], IGetProductsByUser>({
             query: ({page = PRODUCT_START_PAGE, limit = PRODUCT_BY_USER_LIMIT, userId}) => ({
