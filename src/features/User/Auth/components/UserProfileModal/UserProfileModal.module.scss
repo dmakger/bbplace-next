@@ -26,10 +26,14 @@
             .greetings{
                 flex: 1;
                 font-size: var(--font-size-xxxs);
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
                 & span{
                     font-size: var(--font-size-s);
                     font-weight: var(--font-weight-med);
                     color: var(--dark-3);
+                    word-wrap: break-word;
                 }
             }
         }

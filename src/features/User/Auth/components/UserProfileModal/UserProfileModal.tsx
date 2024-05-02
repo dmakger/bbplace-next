@@ -1,6 +1,6 @@
 import { User } from '@/entities/User'
 import cl from './UserProfileModal.module.scss'
-import { useAppSelector } from '@/storage/hooks'
+import { useActionCreators, useAppSelector } from '@/storage/hooks'
 import { LK_MODAL_MENU_DATA } from '../../data/userAuth.data'
 import { Button, ButtonVariant } from '@/shared/ui/Button'
 import { cls } from '@/shared/lib/classes.lib'
@@ -13,6 +13,12 @@ interface IUserProfileModal {
 export const UserProfileModal = ({ isShowProfileModal }: IUserProfileModal) => {
 
   const { fullName } = useAppSelector(state => state.user)
+
+  const actionCreators = useActionCreators();
+
+  const logOut = () => {
+    actionCreators.setNotAuth();
+  };
 
   return (
     <section className={cls(cl.UserProfileModal, isShowProfileModal ? cl.visible : '')} >
@@ -32,7 +38,8 @@ export const UserProfileModal = ({ isShowProfileModal }: IUserProfileModal) => {
           <Button variant={ButtonVariant.ALMOST_RECTANGULAR}
             key={it.link}
             classNameButton={cls(cl.menuButtons, it.link === MAIN_PAGES.HOME ? cl.logOutButton : '')}
-            href={it.link} >
+            href={it.link}
+            onClick={it.link === MAIN_PAGES.HOME ? logOut : () => { }}>
             {it.title}
           </Button>
         ))}
