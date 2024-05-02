@@ -2,7 +2,7 @@
 
 import WrapperClickOutside from '@/shared/ui/Wrapper/ClickOutside/WrapperClickOutside'
 import cl from './_CategorySidebar.module.scss'
-import { MouseEvent, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { cls } from '@/shared/lib/classes.lib'
 import { CategoryAPI } from '@/entities/Metrics/api/category.metrics.api'
 import { ICategoriesWithSubcategories } from '@/entities/Metrics/model/category.metrics.model'
@@ -20,46 +20,49 @@ export const CategorySidebar = ({
  }: ICategorySidebar) => {
 
     //STATE
-    const [selectedCategory, setSelectedCategory] = useState<ICategoriesWithSubcategories[]>([])
-    const [secondSelectedCategory, setSecondSelectedCategory] = useState<ICategoriesWithSubcategories[]>([])    
+    const [selectedCategoriesArray, setSelectedCategoriesArray] = useState<ICategoriesWithSubcategories[]>([])
     
     //API
     const { data: categories } = CategoryAPI.useGetCategoriesWithSubcategoriesQuery()
 
     //REF
     const ref = useRef<HTMLDivElement>(null)
+ 
 
-    const onHover = (e: MouseEvent<HTMLElement>) => {
-        if(categories && e.currentTarget.innerText){
-            const findedCategory = categories.find(it => it.name === e.currentTarget.innerText);
-            setSelectedCategory(findedCategory ? findedCategory.subcategories : []);
-        }
+    const handleHoverCategory = (index: number, it: ICategoriesWithSubcategories) => {
+        let newSelectedOptions = [...selectedCategoriesArray]
+        setSelectedCategoriesArray(it.subcategories)        
         
-    }
-    const onHoverSecond = (e: MouseEvent<HTMLElement>) => {
-        if(categories && e.currentTarget.innerText){            
-            const findedCategory = selectedCategory.find(it => it.name === e.currentTarget.innerText);
-            setSecondSelectedCategory(findedCategory ? findedCategory.subcategories : []);
+        if(categories ){
+            if (it.depth === 0) {
+                newSelectedOptions = [it];            
+            } else if (it.depth >= newSelectedOptions.length) {
+                newSelectedOptions.push(it);
+            } else {
+                newSelectedOptions = newSelectedOptions.slice(0, it.depth);
+                newSelectedOptions[it.depth] = it;
+            }
         }
-        
+        setSelectedCategoriesArray(newSelectedOptions)
     }
 
-   
-
-    //EFFFECT
+    //EFFECT
     useEffect(() => {
         if (!isShowCategories) {
-            setSelectedCategory([])
-            setSecondSelectedCategory([])
+            setSelectedCategoriesArray([])
         }
     }, [isShowCategories])
 
     return (
         <WrapperClickOutside isShow={isShowCategories} _ref={ref} handle={toggleShowCategories}> 
             <div className={cls(cl.CategorySidebar, isShowCategories ? cl.show : '')}>
-                <CategoryColumn categories={categories || []} onHover={onHover}/>
-                {selectedCategory && <CategoryColumn categories={selectedCategory || []} onHover={selectedCategory.length ? onHoverSecond : () => {}}/>}
-                {secondSelectedCategory && <CategoryColumn categories={secondSelectedCategory || []} onHover={() => {}}/>}
+                <CategoryColumn categories={categories || []} onHover={handleHoverCategory}/>
+
+                {selectedCategoriesArray && selectedCategoriesArray.map(it => {
+                    return it.subcategories.length > 0 ? (
+                        <CategoryColumn key={it.id} categories={it.subcategories} onHover={handleHoverCategory}/>
+                    ) : null
+                })}
             </div>
         </WrapperClickOutside>
 

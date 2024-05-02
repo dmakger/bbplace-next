@@ -8,7 +8,18 @@
     overflow-y: scroll;
 }
 
-.button{
+.categoryItem{
     width: 253px;
     text-align: left;
+    background-color: var(--white);
+    padding: 11px 15px;
+    border-radius: 10px;
+    font-weight: var(--font-weight-reg);
+    font-size: var(--font-size-s);
+    color: #666c71;
+
+    &:hover {
+        background-color: var(--gray-4);
+        color: var(--dark-2);
+    }
 }

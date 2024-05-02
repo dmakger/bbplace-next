@@ -1,7 +1,7 @@
 "use client"
 
-import CategoryLine from "@/entities/Metrics/ui/Category/Line/CategoryLine";
 
+import { CategoryLine } from '@/entities/Metrics/ui/Category';
 import cl from './_CategorySmartLine.module.scss'
 import { CategoryAPI } from "@/entities/Metrics/api/category.metrics.api";
 

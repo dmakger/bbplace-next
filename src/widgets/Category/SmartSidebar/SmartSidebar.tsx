@@ -4,8 +4,8 @@ import { FC, useState } from "react"
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_SmartSidebar.module.scss'
-import CategoryButton from "@/entities/Metrics/ui/Category/Button/CategoryButton";
 import { CategorySidebar } from "@/features/CategorySidebar";
+import { CategoryButton } from "@/entities/Metrics/ui/Category";
 
 interface SmartSidebarProps{
     className?: string,

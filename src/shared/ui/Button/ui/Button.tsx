@@ -14,7 +14,7 @@ interface IButton {
     onClick?: (e: React.MouseEvent<HTMLElement>) => void | Promise<void>
     // onMouseEnter?: (e: React.MouseEvent<HTMLButtonElement>) => void | Promise<void>
     // onMouseLeave?: (e: React.MouseEvent<HTMLButtonElement>) => void | Promise<void>
-    onMouseEnter?: (e: React.MouseEvent<HTMLElement>) => void | Promise<void>
+    onMouseEnter?: Function
     onMouseLeave?: (e: React.MouseEvent<HTMLElement>) => void | Promise<void>
     disabled?: boolean
     variant?: ButtonVariant

@@ -5,7 +5,7 @@ import { Search } from '@/features/Search';
 import { MenuWEB } from '@/widgets/Menu/WEB';
 import UserAuth from '@/features/User/Auth/UserAuth';
 import Wrapper1280 from '@/shared/ui/Wrapper/1280/Wrapper1280';
-import CategoryButton from '@/entities/Metrics/ui/Category/Button/CategoryButton';
+import { CategoryButton } from '@/entities/Metrics/ui/Category';
 
 interface HeaderTopProps {
     className?: string

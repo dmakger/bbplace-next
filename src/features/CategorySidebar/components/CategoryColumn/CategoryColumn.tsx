@@ -1,10 +1,10 @@
-import { Button, ButtonVariant } from '@/shared/ui/Button'
+import { CategoryItem } from '@/entities/Metrics/ui/Category'
 import cl from './_CategoryColumn.module.scss'
 import { ICategoriesWithSubcategories } from "@/entities/Metrics/model/category.metrics.model"
 
 interface ICategoryColumn {
     categories: ICategoriesWithSubcategories[]
-    onHover: (e: React.MouseEvent<HTMLElement>) => void | Promise<void>
+    onHover: Function
 }
 
 export const CategoryColumn = ({
@@ -12,17 +12,14 @@ export const CategoryColumn = ({
     onHover
 }: ICategoryColumn) => {
 
-    
-
     return (
         <div className={cl.CategoryColumn}>
             {categories && categories.map(it => (
-                <Button variant={ButtonVariant.ALMOST_RECTANGULAR}
+                <CategoryItem
                     key={it.id}
-                    classNameButton={cl.button}
-                    onMouseEnter={onHover}>
-                    {it.name}
-                </Button>
+                    category={it}
+                    className={cl.categoryItem}
+                    onMouseEnter={onHover} />
             ))}
         </div>
     )
