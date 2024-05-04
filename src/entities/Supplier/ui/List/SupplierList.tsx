@@ -14,6 +14,7 @@ import { WrapperSortFilter } from "@/shared/ui/Wrapper/SortFilter/ui/WrapperSort
 import { ECatalogVariants } from "@/widgets/SortFilterSidebar"
 import { useSearchParams } from "next/navigation"
 import { paramsToBack } from "@/config/params/backend.params.config"
+import { SUPPLIER_PARAMS } from "@/config/params/supplier.params.config"
 
 
 
@@ -58,7 +59,7 @@ export const SupplierList = () => {
         <WrapperSortFilter variant={ECatalogVariants.COMPANIES}>
             <WrapperPagination amount={countSuppliers ? countSuppliers : 1}
                 active={pageNumber}
-                set={setPageNumber} keyPageParam={""}>
+                set={setPageNumber} keyPageParam={SUPPLIER_PARAMS.NUMBER_PAGE__KEY}>
                 {supplierList.map(it => (
                     <SupplierItem supplier={it} key={it.id}/>
                 ))}
