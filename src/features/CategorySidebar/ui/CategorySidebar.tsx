@@ -31,9 +31,7 @@ export const CategorySidebar = ({
 
     const handleHoverCategory = (index: number, it: ICategoriesWithSubcategories) => {
         let newSelectedOptions = [...selectedCategoriesArray]
-        setSelectedCategoriesArray(it.subcategories)        
         
-        if(categories ){
             if (it.depth === 0) {
                 newSelectedOptions = [it];            
             } else if (it.depth >= newSelectedOptions.length) {
@@ -42,7 +40,7 @@ export const CategorySidebar = ({
                 newSelectedOptions = newSelectedOptions.slice(0, it.depth);
                 newSelectedOptions[it.depth] = it;
             }
-        }
+
         setSelectedCategoriesArray(newSelectedOptions)
     }
 
@@ -56,11 +54,14 @@ export const CategorySidebar = ({
     return (
         <WrapperClickOutside isShow={isShowCategories} _ref={ref} handle={toggleShowCategories}> 
             <div className={cls(cl.CategorySidebar, isShowCategories ? cl.show : '')}>
-                <CategoryColumn categories={categories || []} onHover={handleHoverCategory}/>
+                <CategoryColumn className={cls(isShowCategories ? cl.addMainColumn : '')} categories={categories || []} onHover={handleHoverCategory} />
 
                 {selectedCategoriesArray && selectedCategoriesArray.map(it => {
                     return it.subcategories.length > 0 ? (
-                        <CategoryColumn key={it.id} categories={it.subcategories} onHover={handleHoverCategory}/>
+                        <CategoryColumn key={it.id}
+                            categories={it.subcategories}
+                            onHover={handleHoverCategory}
+                            className={cls(cl.subColumn, selectedCategoriesArray.length > it.depth ? cl.addColumn : '')} />
                     ) : null
                 })}
             </div>

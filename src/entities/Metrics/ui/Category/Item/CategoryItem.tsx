@@ -14,7 +14,7 @@ interface ICategoryItem {
 export const CategoryItem = ({
     category,
     className,
-    onMouseEnter,
+    onMouseEnter = () => {},
     linkHref = ''
 }: ICategoryItem) => {
 
@@ -27,8 +27,12 @@ export const CategoryItem = ({
         return linkHref;
     }
 
+    const handleMouseEnter = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+        if(onMouseEnter) onMouseEnter(e, category)
+    }
+
     return (
-        <Link href={getLinkHref(category)} className={cls(cl.category, className)} onMouseEnter={(e) => onMouseEnter && onMouseEnter(e, category)}>
+        <Link href={getLinkHref(category)} className={cls(cl.category, className)} onMouseEnter={handleMouseEnter}>
             <span className={cl.name}>{category.name}</span>
         </Link>
     )

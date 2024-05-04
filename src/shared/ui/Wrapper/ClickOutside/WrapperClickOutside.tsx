@@ -19,9 +19,9 @@ export default function WrapperClickOutside({_ref, isShow, handle, children, cla
             }
         }
 
-        document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener("click", handleClickOutside);
         return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("click", handleClickOutside);
         };
     }, [isShow]);
     
