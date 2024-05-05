@@ -6,6 +6,7 @@ import { ISupplier } from "@/entities/Supplier/model/supplier.model";
 import { TViewNav } from "@/entities/Supplier/model/nav.supplier.model";
 import { BaseSupplier } from "@/entities/Supplier/components/Base/BaseSupplier";
 import { ESupplierSubscribeViewItem } from "@/entities/Supplier/data/view.supplier.data";
+import { IImageSizes } from "@/shared/model/image.model";
 
 interface SupplierAutoProps{
     supplier: ISupplier
@@ -14,12 +15,14 @@ interface SupplierAutoProps{
     subscribeView?: ESupplierSubscribeViewItem
     navs?: TViewNav[]
     classNameSmallSupplier?: string,
-    classNameSupplier?: string
+    classNameSupplier?: string,
+    classNameName?:string,
+    imageSizes?: IImageSizes
 }
 
-export const SupplierAuto:FC<SupplierAutoProps> = ({supplier, view, hasImage=false, subscribeView=ESupplierSubscribeViewItem.NONE, navs, classNameSmallSupplier, classNameSupplier}) => {
+export const SupplierAuto:FC<SupplierAutoProps> = ({supplier, view, hasImage=false, subscribeView=ESupplierSubscribeViewItem.NONE, navs, classNameSmallSupplier, classNameSupplier, classNameName, imageSizes}) => {
     const props = {supplier, className: classNameSmallSupplier}
-    const propsLarge = {...props, hasImage, subscribeView, navs, classNameSupplier}
+    const propsLarge = {...props, hasImage, subscribeView, navs, className: classNameSupplier, classNameName, imageSizes}    
 
     if (view === ESupplierView.SMALL)
         return <SupplierSmall {...props} />

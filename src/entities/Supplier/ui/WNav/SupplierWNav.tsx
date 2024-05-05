@@ -10,6 +10,7 @@ import { NavSupplier } from "../../components/Nav/NavSupplier";
 import { TViewNav } from "../../model/nav.supplier.model";
 import { SupplierAuto } from "../this/Auto/SupplierAuto";
 import { ESupplierAxis, ESupplierView } from "../../data/supplier.data";
+import { IImageSizes } from "@/shared/model/image.model";
 
 interface SupplierWNavProps {
     id: ISupplier['id'] | null
@@ -24,9 +25,11 @@ interface SupplierWNavProps {
     classNameSupplier?: string,
     classNameNavs?: string,
     classNameNavsItem?: string,
+    imageSizes?: IImageSizes
+
 }
 
-export const SupplierWNav:FC<SupplierWNavProps> = ({id, view=ESupplierView.LARGE_WHITE, subscribeView=ESupplierSubscribeViewItem.NONE, hasImage = false, navs=[], axis=ESupplierAxis.HORIZONTAL, className, classNameSupplier, classNameSmallSupplier, classNameNavs, classNameNavsItem}) => {
+export const SupplierWNav:FC<SupplierWNavProps> = ({id, view=ESupplierView.LARGE_WHITE, subscribeView=ESupplierSubscribeViewItem.NONE, hasImage = false, navs=[], axis=ESupplierAxis.HORIZONTAL, className, classNameSupplier, classNameSmallSupplier, classNameNavs, classNameNavsItem, classNameName, imageSizes}) => {
     const { data: supplier } = UserAPI.useGetUserDataQuery(id!)    
     const [supplierState, setSupplierState] = useState<ISupplier>()
 
@@ -45,7 +48,9 @@ export const SupplierWNav:FC<SupplierWNavProps> = ({id, view=ESupplierView.LARGE
                           hasImage={hasImage} 
                           subscribeView={subscribeView}
                           classNameSupplier={classNameSupplier}
-                          classNameSmallSupplier={classNameSmallSupplier} />
+                          classNameSmallSupplier={classNameSmallSupplier}
+                          classNameName={classNameName}
+                          imageSizes={imageSizes} />
             <NavSupplier views={navs} supplierId={supplierState.id} 
                          className={cls(cl.navs, classNameNavs)} classNameItem={classNameNavsItem} />
         </div>
