@@ -24,7 +24,6 @@
         .top {
     
             .image {
-                border: 1px solid black;
                 border-radius: 16px;
             }
     
@@ -64,6 +63,8 @@
         }
         .bottom{
             display: flex;
+            justify-content: space-between;
+            align-items: center;
           
         }
     }

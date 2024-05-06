@@ -10,6 +10,7 @@ import { getDataHeadingToTextSupplierTable } from "../../lib/htt.supplier.lib"
 import { ImageAPI } from "@/shared/ui/Image/API/ImageAPI"
 import { NavSupplier } from "../Nav/NavSupplier"
 import { ESupplierSubscribeViewItem, ESupplierToChatViewItem } from "../../data/view.supplier.data"
+import { EHeadingToTextVariants } from "@/shared/model/text.model"
 
 interface ISupplierPageHeader {
     className?: string,
@@ -30,10 +31,10 @@ export const SupplierPageHeader = ({
 
             <div className={cl.rightContainer}>
                 <SupplierWNav id={supplier.id} view={ESupplierView.LARGE_WHITE} classNameName={cl.supplierName} />
-                <HeadingToTextTable data={getDataHeadingToTextSupplierTable(supplier, supplierScore, supplierReviews.length, false)}
-                    className={cl.table}
+                <HeadingToTextTable variant={EHeadingToTextVariants.COLUMN} data={getDataHeadingToTextSupplierTable(supplier, supplierScore, supplierReviews.length, false)}
+                classNameColumn={cl.mainColumn}
                     classNameHeadingItem={cl.headingItem}
-                    classNameColumn={cl.columnTable} />
+                />
                 <NavSupplier supplierId={supplier.id} views={[
                     ESupplierSubscribeViewItem.LARGE,
                     ESupplierToChatViewItem.LARGE_WIDE

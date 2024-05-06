@@ -14,6 +14,7 @@ interface IHeadingToTextTable {
     classNameMainBlock?: string,
     classNameMain?: string,
     classNameRow?: string,
+    classNameColumn?: string,
     classNameHeadingItem?: string,
     classNameTextItem?: string
 }
@@ -27,6 +28,7 @@ export const HeadingToTextTable = ({
     hasSpace = false,
     classNameMainBlock,
     classNameMain,
+    classNameColumn,
     classNameRow,
     classNameHeadingItem,
     classNameTextItem
@@ -56,6 +58,7 @@ export const HeadingToTextTable = ({
                         data={data}
                         isShort={isShort}
                         classNameMain={classNameMain}
+                        classNameColumn={classNameColumn}
                         classNameHeadingItem={classNameHeadingItem}
                         classNameTextItem={classNameTextItem}
                     />)}

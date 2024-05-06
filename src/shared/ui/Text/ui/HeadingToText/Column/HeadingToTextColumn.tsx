@@ -7,6 +7,7 @@ interface IHeadingToTextColumn {
     isShort?: boolean,
     hasColon?: boolean,
     classNameMain?: string,
+    classNameColumn?:string,
     classNameHeadingItem?: string,
     classNameTextItem?: string
 }
@@ -16,6 +17,7 @@ export const HeadingToTextColumn = ({
     isShort = false,
     hasColon = true,
     classNameMain,
+    classNameColumn,
     classNameHeadingItem,
     classNameTextItem
 }: IHeadingToTextColumn) => {
@@ -23,12 +25,12 @@ export const HeadingToTextColumn = ({
     const textTable = data.map(it => it.text)
     return (
         <div className={cls(cl.block, isShort ? cl.short : '', classNameMain)}>
-            <div className={cl.column}>
+            <div className={cls(cl.column, classNameColumn)}>
                 {headingTable.map((heading, index) => (
                     <span className={cls(cl.heading, cl.span, classNameHeadingItem)} key={index}>{heading} {hasColon && ':'}</span>
                 ))}
             </div>
-            <div className={cls(cl.column, cl.right)}>
+            <div className={cls(cl.column, cl.right, classNameColumn)}>
                 {textTable.map((text, index) => (
                     <span className={cls(cl.text, cl.span, classNameTextItem)} key={index}>{text}</span>
                 ))}

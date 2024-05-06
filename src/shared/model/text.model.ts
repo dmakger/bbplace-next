@@ -2,7 +2,8 @@ import { ReactNode } from "react"
 
 export interface IHeadingToText {
     heading: string
-    text: string | ReactNode
+    text: string
+    unit?: string
 }
 
 export enum EHeadingToTextVariants {

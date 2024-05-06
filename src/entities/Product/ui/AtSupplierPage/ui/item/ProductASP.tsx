@@ -41,7 +41,7 @@ export const ProductASP = ({
                     </div>
                 </div>
                 <div className={cl.bottom}>
-                    <QuantityMetrics heading={'Мин. Кол-во:'}
+                    <QuantityMetrics heading={'Мин. Кол-во'}
                         wholesale={minWholesale}
                         className={cl.quantity}/>
 
