@@ -1,32 +1,64 @@
-import { FC } from "react"
-
-import { cls } from '@/shared/lib/classes.lib';
 import cl from './_HeadingToTextTable.module.scss'
-import { IHeadingToText } from "@/shared/model/text.model";
+import { cls } from "@/shared/lib/classes.lib";
+import { HeadingToTextRow } from '../Row/HeadingToTextRow';
+import { HeadingToTextColumn } from '../Column/HeadingToTextColumn';
+import { EHeadingToTextVariants, IHeadingToText } from '@/shared/model/text.model';
 
-interface HeadingToTextTableProps{
-    data: IHeadingToText[]
-    isShort?: boolean
-    className?: string,
-    classNameColumn?: string,
+interface IHeadingToTextTable {
+    data: IHeadingToText[],
+    variant: EHeadingToTextVariants,
+    isShort?: boolean,
+    hasColon?: boolean,
+    hasDash?: boolean,
+    hasSpace?: boolean,
+    classNameMainBlock?: string,
+    classNameMain?: string,
+    classNameRow?: string,
     classNameHeadingItem?: string,
+    classNameTextItem?: string
 }
 
-export const HeadingToTextTable:FC<HeadingToTextTableProps> = ({data, isShort=false, className, classNameColumn, classNameHeadingItem}) => {
-    const headingTable = data.map(it => it.heading)
-    const textTable = data.map(it => it.text)
+export const HeadingToTextTable = ({
+    data,
+    variant,
+    isShort = false,
+    hasColon = true,
+    hasDash = false,
+    hasSpace = false,
+    classNameMainBlock,
+    classNameMain,
+    classNameRow,
+    classNameHeadingItem,
+    classNameTextItem
+}: IHeadingToTextTable) => {
+
     return (
-        <div className={cls(cl.block, isShort ? cl.short : '', className)}>
-            <div className={cls(cl.column, classNameColumn)}>
-                {headingTable.map((heading, index) => (
-                    <span className={cls(cl.heading, cl.span, classNameHeadingItem)} key={index}>{heading} :</span>
-                ))}
-            </div>
-            <div className={cls(cl.column, cl.right, classNameColumn)}>
-                {textTable.map((text, index) => (
-                    <span className={cls(cl.text, cl.span)} key={index}>{text}</span>
-                ))}
-            </div>
+        <div className={cls(cl.block, classNameMainBlock)}>
+            {
+                (variant === EHeadingToTextVariants.ROW ? (
+                    data.map((it, index) => (
+                        <HeadingToTextRow
+                            key={it.heading}
+                            heading={it.heading}
+                            unit={it.unit}
+                            text={it.text}
+                            isShort={isShort}
+                            hasColon={hasColon}
+                            hasDash={hasDash}
+                            hasSpace={hasSpace}
+                            classNameRow={cls(classNameRow, index === data.length - 1 ? cl.noBorder : '',
+                                index === 0 ? cl.topBorder : '')}
+                            classNameHeading={classNameHeadingItem}
+                            classNameText={classNameTextItem}
+                        />
+                    )))
+                    : <HeadingToTextColumn
+                        data={data}
+                        isShort={isShort}
+                        classNameMain={classNameMain}
+                        classNameHeadingItem={classNameHeadingItem}
+                        classNameTextItem={classNameTextItem}
+                    />)}
         </div>
     )
 }

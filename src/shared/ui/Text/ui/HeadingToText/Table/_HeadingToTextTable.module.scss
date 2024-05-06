@@ -1,38 +1,16 @@
-.block {
+.block{
     display: flex;
-    gap: 16px;
-    .column {
-        display: flex;
-        flex-direction: column;
-        gap: 7px;
+}
 
-        .span {
-            white-space: nowrap;        
-        }
-
-        .link{
-            text-decoration: underline;
-        }
-    }
-
-    .right {
-        width: auto;
-    }
-
-    .text {
-        margin-left: 16px;
+.noBorder {
+    & span{
+        border-bottom: none !important;
+        border-radius: 16px 0 0 16px !important;
     }
 }
 
-
-.short {
-    max-width: calc(100% - 100px);
-
-    .text {
-        white-space: nowrap;        
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-height: 40px; /* Задаем максимальную высоту контейнера */
-    
+.topBorder{
+    & span{
+        border-radius: 16px 0 0 0;
     }
 }

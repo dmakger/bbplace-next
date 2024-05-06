@@ -13,6 +13,7 @@ export const productApiListToProductList = (productListAPI: IProductAPI[], metri
 }
 
 
+
 // PRODUCT API => PRODUCT 
 // Из {IProductAPI} ===> {IProduct}
 export const productApiToProduct = ({productAPI, metrics, currencyList, hasSupplier=false}: IProcessProductProps): IProduct => {

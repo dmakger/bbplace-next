@@ -5,8 +5,7 @@ export interface IHeadingToText {
     text: string | ReactNode
 }
 
-export interface IHeadingToTextTender {
-    heading: string
-    text: string
-    unit: string
+export enum EHeadingToTextVariants {
+    ROW = 'row',
+    COLUMN = 'column'
 }

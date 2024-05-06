@@ -1,0 +1,35 @@
+.block {
+    display: flex;
+    gap: 16px;
+    .column {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+
+        .span {
+            white-space: nowrap;        
+
+        }
+    }
+
+    .right {
+        width: -webkit-fill-available;
+    }
+
+    .text {
+        margin-left: 16px;
+    }
+}
+
+
+.short {
+    max-width: calc(100% - 100px);
+
+    .text {
+        white-space: nowrap;        
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-height: 40px; /* Задаем максимальную высоту контейнера */
+    
+    }
+}
