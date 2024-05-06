@@ -50,7 +50,7 @@ export default function SupplierPage() {
                 supplierScore={supplierScore ?? 0}
                 supplierReviews = {supplierReviews ?? []}
             />}
-            {supplierProducts && <ProductAutoList products={supplierProducts} view={EViewProduct.VERTICAL}/>}
+            {supplierProducts && <ProductAutoList products={supplierProducts} view={EViewProduct.AT_SUPPLIER_PAGE}/>}
         </Wrapper1280>
 
     )

@@ -1,0 +1,77 @@
+.ProductASP{
+    display: flex;
+    position: relative;
+    
+    
+    .block {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        border-radius: 16px;
+        padding: 10px;
+        background-color: var(--background-2);
+        height: 100%;
+        max-width: 236px;
+    
+        &:hover{
+            cursor: pointer;
+            .name{
+                transition-duration: 0.2s;
+                color: var(--red-1);
+            }
+        }
+    
+        .top {
+    
+            .image {
+                border: 1px solid black;
+                border-radius: 16px;
+            }
+    
+            
+        }
+    
+        .middle {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            gap: 16px;
+    
+            .name {
+                max-height: calc(1.2em * 2);
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                font-size: var(--font-size-sreg);
+                color: var(--dark-2);
+                text-overflow: ellipsis;
+                transition-duration: 0.2s;
+            }
+    
+            .priceWrapper {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+    
+                .price {
+                    font-weight: var(--font-weight-sb);
+                    font-size: var(--font-size-sm);
+                    display: flex;
+                }
+    
+            }
+        }
+        .bottom{
+            display: flex;
+          
+        }
+    }
+
+    .favourite {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+    }
+}
+

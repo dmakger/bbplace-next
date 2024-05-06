@@ -37,7 +37,7 @@ export const ProductV: FC<ProductVProps> = ({ product, className }) => {
             <div className={cl.priceWrapper}>
               <WholesaleDiapason minWholesale={minWholesale} maxWholesale={maxWholesale}
                                 currency={product.media.currency} classNameText={cl.price} />
-              <QuantityMetrics heading={'Мин. Кол-во'}
+              <QuantityMetrics heading={'Мин. Кол-во:'}
                               wholesale={minWholesale}
                               className={cl.quantity}
                               classNameText={cl.quantityText} />
