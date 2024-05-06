@@ -16,6 +16,7 @@ import { useEffect, useState } from 'react'
 import { HeadingToTextTable } from '@/shared/ui/Text'
 import { IProduct } from '@/entities/Product/model/product.model'
 import { productApiListToProductList } from '@/entities/Product/lib/product.lib'
+import { EHeadingToTextVariants } from '@/shared/model/text.model'
 
 
 interface ISupplierItem {
@@ -59,8 +60,8 @@ export const SupplierItem = ({ supplier }: ISupplierItem) => {
           <div className={cl.bottomLeftContainer}>
             {supplier.category.some(it => it !== null) && <SupplierCategoryItem category={supplier.category} />}
             <div className={cl.line} />
-            <HeadingToTextTable data={getDataHeadingToTextSupplierTable(supplier, supplierScore ?? 0, supplierReviews ? supplierReviews.length : 0)}
-              className={cl.table}
+            <HeadingToTextTable variant={EHeadingToTextVariants.COLUMN} data={getDataHeadingToTextSupplierTable(supplier, supplierScore ?? 0, supplierReviews ? supplierReviews.length : 0)}
+              classNameMain={cl.table}
               classNameHeadingItem={cl.headingItem}
               classNameColumn={cl.columnTable}
             />

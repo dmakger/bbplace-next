@@ -43,7 +43,7 @@ export const ProductASP = ({
                 <div className={cl.bottom}>
                     <QuantityMetrics heading={'Мин. Кол-во'}
                         wholesale={minWholesale}
-                        className={cl.quantity}/>
+                        classNameText={cl.quantityText}/>
 
                     <NavSupplier supplierId={product.ownerId ?? ''} views={[ESupplierToChatViewItem.SMALL]}/>
                 </div>

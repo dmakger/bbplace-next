@@ -1,8 +1,8 @@
-.ProductASP{
+.ProductASP {
     display: flex;
     position: relative;
-    
-    
+
+
     .block {
         display: flex;
         flex-direction: column;
@@ -12,30 +12,31 @@
         background-color: var(--background-2);
         height: 100%;
         max-width: 236px;
-    
-        &:hover{
+
+        &:hover {
             cursor: pointer;
-            .name{
+
+            .name {
                 transition-duration: 0.2s;
                 color: var(--red-1);
             }
         }
-    
+
         .top {
-    
+
             .image {
                 border-radius: 16px;
             }
-    
-            
+
+
         }
-    
+
         .middle {
             display: flex;
             flex: 1;
             flex-direction: column;
             gap: 16px;
-    
+
             .name {
                 max-height: calc(1.2em * 2);
                 overflow: hidden;
@@ -47,25 +48,31 @@
                 text-overflow: ellipsis;
                 transition-duration: 0.2s;
             }
-    
+
             .priceWrapper {
                 display: flex;
                 flex-direction: column;
                 gap: 10px;
-    
+
                 .price {
                     font-weight: var(--font-weight-sb);
                     font-size: var(--font-size-sm);
                     display: flex;
                 }
-    
+
             }
         }
-        .bottom{
+
+        .bottom {
             display: flex;
             justify-content: space-between;
             align-items: center;
-          
+
+            .quantityText {
+                margin-left: 0px;
+                font-weight: var(--font-weight-sb);
+            }
+
         }
     }
 
@@ -75,4 +82,3 @@
         top: 20px;
     }
 }
-
