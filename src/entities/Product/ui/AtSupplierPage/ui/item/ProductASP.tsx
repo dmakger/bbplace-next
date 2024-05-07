@@ -8,7 +8,6 @@ import { WholesaleDiapason } from "@/entities/Metrics/ui/Wholesale/Diapason/Whol
 import { FavouriteAutoToSupplierButton } from "@/entities/Supplier/components/Button/Favourite/Auto/FavouriteAutoToSupplierButton"
 import { ESupplierFavouriteViewItem, ESupplierToChatViewItem } from "@/entities/Supplier/data/view.supplier.data"
 import { getDiapason } from "@/entities/Metrics/lib/metrics/diapason.metrics.metrics.lib"
-import { HeadingToTextProductTable } from "@/widgets/Product/Table/HeadingToText/ui/HeadingToTextProductTable"
 import { QuantityMetrics } from "@/shared/ui/QuantityMetrics/QuantityMetrics"
 import { NavSupplier } from "@/entities/Supplier/components/Nav/NavSupplier"
 
@@ -22,10 +21,7 @@ export const ProductASP = ({
 
     const media = typeof product.media === 'string' ? JSON.parse(product.media) : product.media;
 
-    const [minWholesale, maxWholesale] = getDiapason(media.wholesalePrices, media.sizes);
-
-    console.log(product.media);
-    
+    const [minWholesale, maxWholesale] = getDiapason(media.wholesalePrices, media.sizes);    
 
     return (
         <section className={cls(cl.ProductASP, className)}>

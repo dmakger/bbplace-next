@@ -2,6 +2,7 @@
     display: flex;
     gap: 16px;
     width: 100%;
+    overflow: hidden;
 
     .image {
         border-radius: 100px;
@@ -34,10 +35,14 @@
         }
         .mainColumn{
             gap: 24px;
+           
         }
 
         .headingItem {
             color: var(--gray-7);
+        }
+        .textItem{
+            white-space: initial;
         }
     }
 }

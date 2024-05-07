@@ -34,6 +34,7 @@ export const SupplierPageHeader = ({
                 <HeadingToTextTable variant={EHeadingToTextVariants.COLUMN} data={getDataHeadingToTextSupplierTable(supplier, supplierScore, supplierReviews.length, false)}
                 classNameColumn={cl.mainColumn}
                     classNameHeadingItem={cl.headingItem}
+                    classNameTextItem={cl.textItem}
                 />
                 <NavSupplier supplierId={supplier.id} views={[
                     ESupplierSubscribeViewItem.LARGE,
