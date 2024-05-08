@@ -49,7 +49,7 @@ export const ProductList:FC<ProductListProps> = ({view=DEFAULT_VIEW_PRODUCT, cla
     useEffect(() => {
         if (productsAPI)
             setProductList(productApiListToProductList(productsAPI, metrics, currencyList))
-    }, [productsAPI])
+    }, [productsAPI, metrics, currencyList])
 
     useEffect(() => {
         if (!isCountAllProductsLoading && countAllProducts !== undefined) {

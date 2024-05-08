@@ -47,6 +47,7 @@ export const productToProductAPI = (product: IProduct): IProductAPI => {
 export const processProduct = (product: IProduct, metrics?: IMetrics[], currencyList?: ICurrency[], hasSupplier?:boolean) => {
     let _product = {...product}
     _product = processProductWholesalePrices(_product, metrics, currencyList)
+    _product.media.wholesalePrices = _product.media.wholesalePrices.map(it => ({...it, quantity: +it.quantity}))
     return _product
 }
 
