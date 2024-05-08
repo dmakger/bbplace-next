@@ -1,4 +1,8 @@
 .category {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
     padding: 10px 15px;
     border-radius: 20px;
     background-color: var(--gray-3);
@@ -12,5 +16,9 @@
         font-size: var(--font-size-s);
         overflow: hidden;
         transition: all .15s;
+    }
+
+    .arrow{
+        rotate: -90deg;
     }
 }

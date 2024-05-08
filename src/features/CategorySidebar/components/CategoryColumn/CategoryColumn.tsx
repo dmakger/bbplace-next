@@ -22,7 +22,8 @@ export const CategoryColumn = ({
                     key={it.id}
                     category={it}
                     className={cl.categoryItem}
-                    onMouseEnter={onHover} />
+                    onMouseEnter={onHover}
+                    hasSubcategories={!!it.subcategories.length} />
             ))}
         </div>
     )
