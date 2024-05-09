@@ -1,5 +1,8 @@
 .UserAuth{
+    display: flex;
+    justify-content: flex-end;
     position: relative;
+    width: 80px;
     .image{
         cursor: pointer;
     }

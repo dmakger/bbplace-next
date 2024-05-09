@@ -1,13 +1,13 @@
 
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import { ILoginResponseDecoded, IUser } from "../model/auth.model";
-import { removeFromStorage } from "../lib/auth-token.lib";
+import { isAuth, removeFromStorage } from "../lib/auth-token.lib";
 
 type UserState = IUser;
 
 const initialState: UserState = {
     fullName: "",
-    isAuth: false,
+    isAuth: isAuth(),
     legalName: "",
     brandName: "",
     role: "",
@@ -40,7 +40,7 @@ export const UserSlice = createSlice({
             state.isAuth = false;
             removeFromStorage()
         }
-    }
+    },
 })
 
 export const UserReducer = UserSlice.reducer;

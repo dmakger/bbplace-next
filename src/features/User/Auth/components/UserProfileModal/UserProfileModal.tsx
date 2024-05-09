@@ -4,7 +4,7 @@ import { useActionCreators, useAppSelector } from '@/storage/hooks'
 import { LK_MODAL_MENU_DATA } from '../../data/userAuth.data'
 import { Button, ButtonVariant } from '@/shared/ui/Button'
 import { cls } from '@/shared/lib/classes.lib'
-import { MAIN_PAGES } from '@/config/pages-url.config'
+import { DASHBOARD_PAGES, MAIN_PAGES } from '@/config/pages-url.config'
 
 interface IUserProfileModal {
   isShowProfileModal: boolean,
@@ -28,7 +28,7 @@ export const UserProfileModal = ({ isShowProfileModal }: IUserProfileModal) => {
           <User />
         </div>
         <Button variant={ButtonVariant.BACKGROUND_GRAY}
-          href={MAIN_PAGES.LK}
+          href={DASHBOARD_PAGES.HOME}
           classNameButton={cl.lk}>
           Личный кабинет
         </Button>
