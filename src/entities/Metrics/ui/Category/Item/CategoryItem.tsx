@@ -10,7 +10,8 @@ interface ICategoryItem {
     className?: string,
     onMouseEnter?: Function,
     linkHref?: string,
-    hasSubcategories?: boolean
+    hasSubcategories?: boolean,
+    toggleShowCategories?: Function
 }
 
 export const CategoryItem = ({
@@ -18,16 +19,21 @@ export const CategoryItem = ({
     className,
     onMouseEnter = () => {},
     linkHref = '',
-    hasSubcategories
+    hasSubcategories,
+    toggleShowCategories
 }: ICategoryItem) => {
 
     const getLinkHref = (category: ICategory | ICategoriesWithSubcategories) => {
         if ('subcategories' in category) {
-            if (!category.subcategories.length) {
-                return `${MAIN_PAGES.CATALOG}?categoryId=${category.id}`;
+            if (!category.subcategories.length) {                
+                return `${MAIN_PAGES.PRODUCTS}?category=${category.id}`;
             }
         }
         return linkHref;
+    }
+
+    const hideCategoriesSidebar = () => {
+        toggleShowCategories && toggleShowCategories(false)
     }
 
     const handleMouseEnter = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
@@ -35,7 +41,7 @@ export const CategoryItem = ({
     }
 
     return (
-        <Link href={getLinkHref(category)} className={cls(cl.category, className)} onMouseEnter={handleMouseEnter}>
+        <Link href={getLinkHref(category)} className={cls(cl.category, className)} onMouseEnter={handleMouseEnter} onClick={hideCategoriesSidebar}>
             <span className={cl.name}>{category.name}</span>
             {hasSubcategories && <Image src={'arrow.svg'} className={cl.arrow} alt={'arrow'} width={10} height={10} />}
         </Link>

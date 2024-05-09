@@ -6,13 +6,15 @@ import { cls } from '@/shared/lib/classes.lib'
 interface ICategoryColumn {
     className?: string,
     categories: ICategoriesWithSubcategories[]
-    onHover: Function
+    onHover: Function,
+    toggleShowCategories?: Function
 }
 
 export const CategoryColumn = ({
     className,
     categories,
-    onHover
+    onHover,
+    toggleShowCategories
 }: ICategoryColumn) => {
 
     return (
@@ -23,7 +25,8 @@ export const CategoryColumn = ({
                     category={it}
                     className={cl.categoryItem}
                     onMouseEnter={onHover}
-                    hasSubcategories={!!it.subcategories.length} />
+                    hasSubcategories={!!it.subcategories.length}
+                    toggleShowCategories={toggleShowCategories} />
             ))}
         </div>
     )
