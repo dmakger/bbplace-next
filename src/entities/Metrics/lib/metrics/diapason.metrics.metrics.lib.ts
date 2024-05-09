@@ -37,12 +37,10 @@ export const getDiapason = (wholesales: IWholesale[], sizes: ISize[]) => {
     console.log('zxc 909', wholesales);
 
     const wholesalesUpdated = wholesales.map(wholesale => {
-        return {...wholesale, price: priceToMinUnitsParameter(wholesale.price, wholesale.metrics, minParameter).priceInMin, metrics: minMetrics}
+        return {...wholesale, price: priceToMinUnitsParameter(wholesale.price, wholesale.metrics, minParameter).priceInMin}
     })
     wholesalesUpdated.sort((a, b) => a.price - b.price);
     return wholesalesUpdated
-
-    
 }
 
 // Перевод [price] к минимумальным единицам по по [name] из [metrics]

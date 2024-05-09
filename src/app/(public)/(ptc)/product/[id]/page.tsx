@@ -8,10 +8,12 @@ import { IWholesale } from "@/entities/Metrics/model/wholesale.metrics.model";
 import { ProductAPI } from "@/entities/Product/api/product.api";
 import { productApiToProduct } from "@/entities/Product/lib/product.lib";
 import { IProduct } from "@/entities/Product/model/product.model";
+import { PriceQuantity } from "@/shared/ui/PriceQuantity/PriceQuantity";
 import Wrapper1280 from "@/shared/ui/Wrapper/1280/Wrapper1280";
 import { CatalogImage } from "@/widgets/CatalogImage/CatalogImage";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import cl from './_ProductDetailPage.module.scss'
 
 export default function ProductDetailPage() {
     // ROUTER
@@ -43,7 +45,14 @@ export default function ProductDetailPage() {
     
     return (
         <Wrapper1280>
-            <CatalogImage imageList={product?.media.attachments} />
+            <div className={cl.wrapper}>
+                <div className={cl.left}>
+                    <CatalogImage imageList={product?.media.attachments} />
+                </div>
+                <div className={cl.right}>
+                    <PriceQuantity wholesales={priceList} />
+                </div>
+            </div>
         </Wrapper1280>
     )
 }

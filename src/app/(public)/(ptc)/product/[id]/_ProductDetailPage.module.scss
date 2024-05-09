@@ -1,0 +1,15 @@
+.wrapper {
+    display: flex;
+
+    .left {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .right {
+        display: flex;
+        flex-direction: column;
+        position: sticky;
+        top: 10px;
+    }
+}
