@@ -50,10 +50,14 @@ export const TenderItem = ({
     //NAVIGATE
     const { push } = useRouter()
 
-    const goToTheTender = () => {
+    const goToTheTenderMobile = () => {
         if (is768) {
-            push(`lead/${id}?type=${tenderType === ETenderType.PURCHASE ? 'purchase' : 'sale'}`);
+            push(`tender/${id}?type=${tenderType === ETenderType.PURCHASE ? 'purchase' : 'sale'}`);
         }
+    };
+
+    const goToTheTenderDesktop = () => {
+        push(`tender/${id}?type=${tenderType === ETenderType.PURCHASE ? 'purchase' : 'sale'}`);
     };
 
     const handleInfoClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -63,7 +67,7 @@ export const TenderItem = ({
 
     return (
         <>
-            <section className={cls(cl.TenderCard, className)} onClick={goToTheTender}>
+            <section className={cls(cl.TenderCard, className)} onClick={goToTheTenderMobile}>
                 <div className={cl.topContainer} onClick={handleInfoClick}>
                     <div className={cl.info}>
                         {tenderType && <TenderType tenderType={tenderType} />}
@@ -95,7 +99,7 @@ export const TenderItem = ({
                     <div className={cl.buttonToTender} onClick={handleInfoClick}>
                         <Button
                             variant={ButtonVariant.W_ARROW_RED}
-                            onClick={goToTheTender}>
+                            onClick={goToTheTenderDesktop}>
                             В тендер
                         </Button>
                     </div>

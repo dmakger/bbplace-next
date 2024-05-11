@@ -98,6 +98,8 @@
   --font-size-reg: 1rem;
   // 18px
   --font-size-sm: 1.13rem;
+  // 22px
+  --font-size-m: 1.38rem;
 
   //FONT-WEIGHT
   --font-weight-reg: 400;
@@ -157,6 +159,7 @@
   &::-webkit-scrollbar {
     background-color: transparent;
     width: 7px;
+    height: 12px;
   }
 
   &::-webkit-scrollbar-thumb {

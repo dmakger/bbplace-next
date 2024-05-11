@@ -1,0 +1,35 @@
+.SwitchSelector {
+    display: flex;
+    position: relative;
+
+    .option  {
+        display: flex;
+
+        & input{
+            display: none;
+        }
+        & label{
+            width: fit-content;
+        }
+    }
+
+    .redLine {
+        position: absolute;
+        bottom: -15px;
+        left: 0px;
+        height: 3px;
+        background-color: var(--red-1);
+        border-radius: 16px;
+        animation: transition;
+        transition-duration: 0.3s;
+    }
+}
+
+@keyframes transition {
+    0%{
+        left: 0px;
+    }
+    100%{
+        left: var(--labelWidth);
+    }
+}

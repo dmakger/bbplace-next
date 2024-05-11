@@ -43,3 +43,8 @@ export interface ICommonTender extends IBaseTender {
 }
 
 
+export interface ITenderAttachments{
+    key: string,
+    name: string
+}
+
