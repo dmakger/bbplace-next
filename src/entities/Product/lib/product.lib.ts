@@ -18,7 +18,6 @@ export const productApiListToProductList = (productListAPI: IProductAPI[], metri
 export const productApiToProduct = ({productAPI, metrics, currencyList, hasSupplier=false}: IProcessProductProps): IProduct => {
     const media = JSON.parse(productAPI.media) as IMediaProduct
     const characteristics = JSON.parse(productAPI.characteristics) as ICharacteristic
-    
     return processProduct({
         ...productAPI, 
         media, 
@@ -32,7 +31,6 @@ export const productApiToProduct = ({productAPI, metrics, currencyList, hasSuppl
 export const productToProductAPI = (product: IProduct): IProductAPI => {
     const media = JSON.stringify(product.media)
     const characteristics = JSON.stringify(product.characteristics)
-    
     return {
         ...product, 
         media, 
@@ -65,7 +63,7 @@ const processProductWholesalePrices = (product: IProduct, metrics?: IMetrics[], 
     let currency = currencyToObject(_product.media.currency, currencyList)
     wholesalePricesWMetrics = wholesalePricesWMetrics.map(it => {
         const price = typeof it.price === 'string' ? parseFloat(it.price) : it.price
-        const ans = {...it, price: price}
+        const ans = {...it, price: price, currency}
         if (it.metrics === undefined)
             return {...ans,  metrics: priceUnits}
         return {...ans, metrics: metricsToObject(it.metrics, metrics)}

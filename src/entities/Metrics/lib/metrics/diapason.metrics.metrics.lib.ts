@@ -10,11 +10,13 @@ export const getMinMax = (wholesales: IWholesale[], sizes: ISize[]) => {
     if (wholesalesUpdated.length === 0)
         return [undefined, undefined]
 
-    return [wholesalesUpdated.at(0), wholesalesUpdated.at(wholesalesUpdated.length-1)]
+    return [wholesalesUpdated.at(wholesalesUpdated.length-1), wholesalesUpdated.at(0)]
 }
 
 // Получение отсортированного диапазаона цен
 export const getDiapason = (wholesales: IWholesale[], sizes: ISize[]) => {
+    console.log('wholesales gd', wholesales, sizes);
+    
     let minMetrics: IMetrics | undefined
     let minParameter: EParameters
     wholesales.map(it => {
@@ -36,11 +38,14 @@ export const getDiapason = (wholesales: IWholesale[], sizes: ISize[]) => {
     })
     console.log('zxc 909', wholesales);
 
-    const wholesalesUpdated = wholesales.map(wholesale => {
-        return {...wholesale, price: priceToMinUnitsParameter(wholesale.price, wholesale.metrics, minParameter).priceInMin}
+    const wholesalesUpdated = wholesales.map((wholesale, index) => {
+        return {
+            wholesale: {...wholesale, price: priceToMinUnitsParameter(wholesale.price, wholesale.metrics, minParameter).priceInMin} as IWholesale,
+            index
+        }
     })
-    wholesalesUpdated.sort((a, b) => a.price - b.price);
-    return wholesalesUpdated
+    wholesalesUpdated.sort((a, b) => b.wholesale.price - a.wholesale.price);
+    return wholesalesUpdated.map(it => ({...it.wholesale, price: wholesales[it.index].price} as IWholesale))
 }
 
 // Перевод [price] к минимумальным единицам по по [name] из [metrics]
