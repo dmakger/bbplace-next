@@ -1,0 +1,11 @@
+.wrapper {
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    .additionalInfo{
+        min-width: 200px;
+        @media (max-width: 1000px) {
+            display: none;
+        }
+    }
+}

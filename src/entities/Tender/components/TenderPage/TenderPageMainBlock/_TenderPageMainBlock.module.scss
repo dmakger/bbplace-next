@@ -1,0 +1,21 @@
+.TenderPageMainBlock {
+    display: flex;
+    flex-direction: column;
+    width: 78%;
+
+    @media (max-width: 1000px) {
+        width: 100%;
+    }
+
+    .buttonContainer {
+        display: none;
+        background-color: var(--white);
+        border-radius: 10px;
+        padding: 10px;
+        margin-top: 26px;
+        @media (max-width: 1000px) {
+            display: block;
+        }
+    }
+    
+}

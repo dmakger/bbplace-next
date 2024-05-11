@@ -4,7 +4,6 @@ import { cls } from "@/shared/lib/classes.lib"
 import cl from './_TenderItem.module.scss'
 import { Button, ButtonVariant } from "@/shared/ui/Button"
 import CategoryItem from "@/entities/Metrics/ui/Category/Item/CategoryItem"
-import { TenderType } from "../../components/TenderType/TenderType"
 import { ETenderType, ICommonTender } from "../../model/tender.model"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
@@ -18,6 +17,7 @@ import { FavouriteSmallToSupplierButton } from "@/entities/Supplier/components/B
 import { HandleSize } from "@/shared/ui/Handle/Size/HandleSize"
 import { ESupplierSubscribeViewItem, ESupplierToChatViewItem } from "@/entities/Supplier/data/view.supplier.data"
 import { ESupplierView } from "@/entities/Supplier/data/supplier.data"
+import { TenderType } from "../.."
 
 interface ITenderItem {
     tender: ICommonTender

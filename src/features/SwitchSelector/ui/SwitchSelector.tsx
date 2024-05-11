@@ -22,7 +22,7 @@ export const SwitchSelector = ({
     const [selectedLabelWidth, setSelectedLabelWidth] = useState<number>(0)
     const [unselectedLabelWidth, setUnselectedLabelWidth] = useState<number>(0)
 
-    const gap: number = 7;
+    const gap: number = 25;
 
     //REF
     const selectedLabelRef = useRef<HTMLLabelElement>(null)
@@ -30,31 +30,27 @@ export const SwitchSelector = ({
 
     //EFFECT
     useEffect(() => {
-        if (selectedOption && options.length === 1)
-            if (selectedLabelRef.current && selectedLabelRef.current.offsetLeft) {
+        if (options.length === 1) {
+            if (selectedLabelRef.current) {
                 setSelectedLabelWidth(selectedLabelRef.current.offsetWidth);
-                console.log(selectedLabelRef.current.offsetWidth);
-                
             }
-            else if (options.length > 1) {
-                if (selectedLabelRef.current && unselectedLabelRef.current) {
-                    setSelectedLabelWidth(selectedLabelRef.current.offsetWidth);
-                    setUnselectedLabelWidth(unselectedLabelRef.current.offsetWidth)
-                }
+        }
+        else if (options.length > 1) {
+            if (selectedLabelRef.current && unselectedLabelRef.current) {
+                setSelectedLabelWidth(selectedLabelRef.current.offsetWidth);
+                setUnselectedLabelWidth(unselectedLabelRef.current.offsetWidth)
             }
-        console.log(selectedLabelWidth);
-    }, [selectedOption])
+        }
+
+    }, [options, selectedOption])
 
     useEffect(() => {
         document.documentElement.style.setProperty('--labelWidth', `${unselectedLabelWidth + gap}px`);
     }, [selectedLabelWidth]);
 
 
-    const selectOption = (it: IOption) => {
-        setSelectedOption(it)
-        console.log(it);
+    const selectOption = (it: IOption) => setSelectedOption(it);
 
-    }
 
 
     return (

@@ -1,0 +1,20 @@
+.TenderWholesalePrices{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    width: 100%;
+
+
+
+    @media (max-width: 500px) {
+        padding: 10px 20px;
+        background-color: var(--gray-3) !important;
+    }
+    .quantity{
+        color: var(--gray-9);
+    }
+    .currency{
+        font-size: var(--font-size-xxxl);
+        font-weight: var(--font-weight-bold);
+    }
+}

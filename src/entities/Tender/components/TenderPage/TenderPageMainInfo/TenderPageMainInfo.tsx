@@ -1,29 +1,29 @@
 import { useState } from "react"
 import { cls } from "@/shared/lib/classes.lib"
 import cl from './_TenderPageMainInfo.module.scss'
-import { IPurchaseTender, ISaleTender } from "../../model/tender.model"
+import { IPurchaseTender, ISaleTender } from "../../../model/tender.model"
 import { IOption } from "@/shared/model/option.model"
 import { SwitchSelector } from "@/features/SwitchSelector"
-import { SWITCH_SELECTOR_TENDER_OPTIONS } from "../../data/tender.data"
+import { SWITCH_SELECTOR_TENDER_OPTIONS } from "../../../data/tender.data"
 
-interface ITenderPageMainInfo{
+interface ITenderPageMainInfo {
     className?: string,
     tender: IPurchaseTender | ISaleTender
 
 }
 
-export const TenderPageMainInfo= ({
+export const TenderPageMainInfo = ({
     className,
     tender
 }: ITenderPageMainInfo) => {
 
     const [selectedOption, setSelectedOption] = useState<IOption>(SWITCH_SELECTOR_TENDER_OPTIONS[0])
-    
+
     return (
         <div className={cls(cl.TenderPageMainInfo, className)}>
-            <SwitchSelector options={SWITCH_SELECTOR_TENDER_OPTIONS} 
-            selectedOption={selectedOption}
-            setSelectedOption={setSelectedOption}
+            <SwitchSelector options={SWITCH_SELECTOR_TENDER_OPTIONS}
+                selectedOption={selectedOption}
+                setSelectedOption={setSelectedOption}
             />
             <p className={cl.tenderInfo}>
                 {tender.description}

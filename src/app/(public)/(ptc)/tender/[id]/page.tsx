@@ -1,10 +1,10 @@
 'use client'
 
+import { TenderPageMainBlock } from "@/entities/Tender";
 import { TenderAPI } from "@/entities/Tender/api/tender.api";
-import { TenderPageHeader } from "@/entities/Tender/components/TenderPageHeader/TenderPageHeader";
-import { TenderPageMainInfo } from "@/entities/Tender/components/TenderPageMainInfo/TenderPageMainInfo";
-import { ETenderType, ICommonTender, IPurchaseTender, ISaleTender } from "@/entities/Tender/model/tender.model";
+import { ETenderType, IPurchaseTender, ISaleTender } from "@/entities/Tender/model/tender.model";
 import Wrapper1280 from "@/shared/ui/Wrapper/1280/Wrapper1280";
+import { WrapperTenderAdditionalInfo } from "@/shared/ui/Wrapper/TenderAdditionalInfo/ui/WrapperTenderPageAdditionalInfo";
 import { useParams, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -41,15 +41,11 @@ export default function TenderPage() {
 
     return (
         <Wrapper1280>
-            {tender && <>
-                <TenderPageHeader
+            {tender && <WrapperTenderAdditionalInfo tender={tender}>
+                 <TenderPageMainBlock
                     tender={tender}
                     tenderType={tenderType} />
-
-                <TenderPageMainInfo tender={tender} />
-            </>
-            }
-
+            </WrapperTenderAdditionalInfo>}
         </Wrapper1280>
     )
 }

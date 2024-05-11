@@ -10,6 +10,8 @@
         }
         & label{
             width: fit-content;
+            font-size: var( --font-size-sm);
+            font-weight: var(--font-weight-med);
         }
     }
 
@@ -20,8 +22,7 @@
         height: 3px;
         background-color: var(--red-1);
         border-radius: 16px;
-        animation: transition;
-        transition-duration: 0.3s;
+        animation: transition 0.3s;
     }
 }
 

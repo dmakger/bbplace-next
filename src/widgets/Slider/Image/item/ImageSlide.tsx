@@ -7,11 +7,12 @@ import { ImageAPI } from "@/shared/ui/Image/API/ImageAPI";
 interface ImageSlideProps {
     slide: string
     className?: string,
-    width?: number,
-    height?: number
+    width: number,
+    height: number
 }
 
-export const ImageSlide: FC<ImageSlideProps> = ({ slide,
+export const ImageSlide: FC<ImageSlideProps> = ({
+    slide,
     className,
     width = 660,
     height = 465
