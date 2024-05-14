@@ -6,6 +6,7 @@ import { IArgsRequest } from "@/api/model/request.model.api";
 import { getArgsProduct } from "../lib/args.product.lib";
 import { getURL } from "@/api/request";
 import { PRODUCT_BY_USER_LIMIT, PRODUCT_START_PAGE } from "../data/product.data";
+import { productApiListToProductList } from "../lib/product.lib";
 
 
 export const ProductAPI = createApi({
@@ -26,6 +27,13 @@ export const ProductAPI = createApi({
             query: (args) => ({
                 url: getURL(`/GetItems/Filter/${args?.limit}/CountPages/`, {params: args?.params}),
 				method: 'GET',
+            })
+        }),
+
+        getProductsByGroup: build.query<IProductAPI[], string | number>({
+            query: (groupId) => ({
+                url: `/GetItems/${groupId}`,
+                method: 'GET',
             })
         }),
 
