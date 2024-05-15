@@ -3,14 +3,20 @@ import { IMetrics, IPriceToMin } from "../../model/metric.metrics.model";
 import { ISize } from "../../model/size.metrics.model";
 import { IWholesale } from "../../model/wholesale.metrics.model";
 
+// Получение минимальной и максимальной цены
+export const getMinMax = (wholesales: IWholesale[], sizes: ISize[]) => {
+    const wholesalesUpdated = getDiapason(wholesales, sizes)
 
-// 
+    if (wholesalesUpdated.length === 0)
+        return [undefined, undefined]
+
+    return [wholesalesUpdated.at(wholesalesUpdated.length-1), wholesalesUpdated.at(0)]
+}
+
+// Получение отсортированного диапазаона цен
 export const getDiapason = (wholesales: IWholesale[], sizes: ISize[]) => {
-    let min: IWholesale | undefined
-    let max: IWholesale | undefined
-    if (wholesales.length === 0)
-        return [min, max]
-
+    console.log('wholesales gd', wholesales, sizes);
+    
     let minMetrics: IMetrics | undefined
     let minParameter: EParameters
     wholesales.map(it => {
@@ -30,22 +36,16 @@ export const getDiapason = (wholesales: IWholesale[], sizes: ISize[]) => {
             }
         })
     })
+    console.log('zxc 909', wholesales);
 
-    const priceList = wholesales.map(wholesale => {
-        const price = priceToMinUnitsParameter(wholesale.price, wholesale.metrics, minParameter)
-        return price
+    const wholesalesUpdated = wholesales.map((wholesale, index) => {
+        return {
+            wholesale: {...wholesale, price: priceToMinUnitsParameter(wholesale.price, wholesale.metrics, minParameter).priceInMin} as IWholesale,
+            index
+        }
     })
-
-    const priceInMinList = priceList.map(item => item.priceInMin);
-
-    // Получение индекса минимального элемента по priceInMin
-    const minIndex = priceInMinList.indexOf(Math.min(...priceInMinList));
-    min = {...wholesales[minIndex], price: priceInMinList[minIndex], metrics: minMetrics}
-    // Получение индекса максимального элемента по priceInMin
-    const maxIndex = priceInMinList.indexOf(Math.max(...priceInMinList));
-    max = {...wholesales[minIndex], price: priceInMinList[maxIndex], metrics: minMetrics}
-
-    return [min, max]
+    wholesalesUpdated.sort((a, b) => b.wholesale.price - a.wholesale.price);
+    return wholesalesUpdated.map(it => ({...it.wholesale, price: wholesales[it.index].price} as IWholesale))
 }
 
 // Перевод [price] к минимумальным единицам по по [name] из [metrics]
