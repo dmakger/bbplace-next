@@ -12,7 +12,7 @@ interface CategoryButtonProps {
     isMobile?: boolean
 }
 
-export default function CategoryButton({onClick, className, isMobile = false}: CategoryButtonProps) {
+export const CategoryButton = ({onClick, className, isMobile = false}: CategoryButtonProps) => {
     const handleOnClick = () => {
         if (onClick) onClick()
     }
