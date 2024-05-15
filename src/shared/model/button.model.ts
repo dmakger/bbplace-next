@@ -1,5 +1,3 @@
-import { IIcon } from "../ui/Icon/model/model"
-
 export interface IButtonIconProps {
     isActive?: boolean
     isHovered?: boolean

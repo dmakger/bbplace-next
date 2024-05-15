@@ -9,4 +9,29 @@ export interface IAuthResponse {
 	expiration?: string
 }
 
+export interface IUser {
+    fullName: string
+    isAuth: boolean
+    legalName: string
+    brandName: string
+    role: string
+    phoneNumber: string
+    country: string
+    unreadMessages: number
+    email: string
+    id: string
+}
+
+export interface ILoginResponseDecoded {
+    UserId: string
+    UserName: string
+    FullName: string
+    LegalName: string
+    BrandName: string
+    Role: string
+    MobilePhone: string,
+    country: string
+}
+
+
 // export type TypeUserForm = Omit<IUser, 'id'> & { password?: string }
