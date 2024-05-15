@@ -5,8 +5,6 @@ import { CORE_PARAMS } from "./core.params.config"
 // ====={ ОБЩИЕ ПАРАМЕТРЫ }=====
 class BackendParams {
 
-    SEARCH = 'searchQuery'
-
     SORT_VALUES_END = {
         DEFAULT: "DESC",
         UP: "ASC",

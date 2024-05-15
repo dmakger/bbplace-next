@@ -63,6 +63,7 @@ export const SupplierList = () => {
                 set={setPageNumber} keyPageParam={SUPPLIER_PARAMS.NUMBER_PAGE__KEY}>
                 {supplierList.map(it => (
                     <SupplierItem supplier={it} key={it.id}/>
+                ))}
             </WrapperPagination>
         </WrapperSortFilter>
     )
