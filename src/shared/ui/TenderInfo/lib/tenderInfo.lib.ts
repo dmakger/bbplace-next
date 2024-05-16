@@ -2,19 +2,18 @@ import { getTenderType } from "@/entities/Tender/lib/tender.lib";
 import { ETenderType, ICommonTender } from "@/entities/Tender/model/tender.model";
 import { IHeadingToTextTender } from "@/shared/model/text.model";
 
-
-export const getDataTenderInfo = (tender: ICommonTender) => {
+export const getDataTenderInfo = (tender: ICommonTender) => {    
 
     const tenderType = getTenderType(tender)
 
-    const maximumBudget = tender.maximumBudget
+    const maximumBudget = tender.maximumbudget
     const quantity = tender.quantity
-    const quantityUnit = tender.quantityUnits
+    const quantityUnit = tender.quantityunits?.shortName
 
-    const minOrder = tender.minOrder
-    const minOrderUnits = tender.minOrderUnits
+    const minOrder = tender.minorder
+    const minOrderUnits = tender.minorderunits?.shortName
     const price = tender.price
-    const currency = tender.currency
+    const currency = tender.currency.code
 
     let processData: IHeadingToTextTender[] = [];
 

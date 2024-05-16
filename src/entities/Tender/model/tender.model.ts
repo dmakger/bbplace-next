@@ -1,4 +1,12 @@
-export interface ITenderApi{
+import { ICurrency } from "@/entities/Metrics/model/currency.metrics.model"
+import { IMetrics } from "@/entities/Metrics/model/metric.metrics.model"
+
+export enum ETenderType {
+    PURCHASE = 'Покупка',
+    SALE = 'Продажа'
+}
+
+export interface ITenderByTwoObjectsAPI{
     purchaseRequests: IPurchaseTender[],
     saleRequests: ISaleTender[]
 }
@@ -8,43 +16,52 @@ export interface IBaseTender {
     name: string
     ownerId: string
     categoryId: number
-    currency: string
     description: string
     shareContacts: boolean
-    attachments: string
     createdAt: string
+    type: string
 }
-
-export interface ISaleTender extends IBaseTender {
-    price: number
-    minOrder: number
-    minOrderUnits: string
-    bulkDiscounts: boolean
-}
-
-export interface IPurchaseTender extends IBaseTender {
-    quantity: number
-    quantityUnits: string
-    maximumBudget: number
-}
-
-export enum ETenderType {
-    PURCHASE = 'Покупка',
-    SALE = 'Продажа'
-}
-
-export interface ICommonTender extends IBaseTender {
-    quantity?: number
-    quantityUnits?: string
-    maximumBudget?: number
-    price?: number
-    minOrder?: number
-    minOrderUnits?: string
-}
-
 
 export interface ITenderAttachments{
     key: string,
     name: string
 }
 
+export interface ITenderAPI extends IBaseTender{
+    currency: string,
+    attachments: string,
+    minorderunits?: string,
+    quantityunits?: string
+}
+
+export interface ITender extends IBaseTender{
+    currency: ICurrency,
+    attachments: ITenderAttachments,
+    minorderunits?: IMetrics,
+    quantityunits?: IMetrics
+}
+
+export interface ISaleTender extends ITender{
+    price: number
+    minOrder: ICurrency
+    bulkDiscounts: boolean
+}
+
+export interface IPurchaseTender extends ITender {
+    quantity: number
+    maximumBudget: number
+}
+
+export interface ICommonTender extends IBaseTender, ITender {
+    currency: ICurrency,
+    quantity?: number
+    maximumbudget?: number
+    price?: number
+    minorder?: number
+}
+
+export interface IProcessTender{
+    tenderAPI: ITenderAPI, 
+    metrics?: IMetrics[], 
+    currencyList?: ICurrency[]
+}

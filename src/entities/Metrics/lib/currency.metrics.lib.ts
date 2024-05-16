@@ -21,3 +21,11 @@ export const currencyToObject = (currency: IMediaProduct["currency"], currencyLi
         [it.name, it.code, it.country, it.id].includes(currency)
     );
 }
+
+export const currencyTenderToObject = (currency: string, currencyList: ICurrency[] | undefined) => {    
+    if (!currencyList) return currency;
+
+    return currencyList.find(it => 
+        [it.name, it.code, it.country, it.id].includes(currency)
+    );
+}
