@@ -1,94 +1,94 @@
 'use client'
-import React, {ReactNode} from 'react'
+import React, {ReactNode, useState} from 'react'
 import cl from './_Button.module.scss'
 import { ButtonVariant } from '..'
 import Link from 'next/link'
 import { ArrowIcon } from '../../Icon/ui/Arrow/ArrowIcon'
+import { IIcon } from '../../Icon/model/model'
+import { IIconProps } from '@/shared/model/button.model'
+import { ButtonType } from '../model/model'
+import { ImageSmart } from '../../Image/Smart/ImageSmart'
+import { cls } from '@/shared/lib/classes.lib'
 
 interface IButton {
+    type?: ButtonType
+    variant?: ButtonVariant
+
+    title?: string,
+    href?: string
+
+    beforeImage?: IIcon
+    beforeProps?: IIconProps
+    afterImage?: IIcon
+    afterProps?: IIconProps
+    
+    active?: boolean
+    loading?: boolean
+    disabled?: boolean
+    noTranslation?: boolean
+
+    onClick?: Function
+    onMouseEnter?: Function
+    onMouseLeave?: Function
+
     children?: ReactNode
     className?: string
-    classNameButton?: string
     classNameText?: string
-    type?: "submit" | "button"
-    onClick?: (e: React.MouseEvent<HTMLElement>) => void | Promise<void>
-    // onMouseEnter?: (e: React.MouseEvent<HTMLButtonElement>) => void | Promise<void>
-    // onMouseLeave?: (e: React.MouseEvent<HTMLButtonElement>) => void | Promise<void>
-    onMouseEnter?: Function
-    onMouseLeave?: (e: React.MouseEvent<HTMLElement>) => void | Promise<void>
-    disabled?: boolean
-    variant?: ButtonVariant
-    noTranslation?: boolean
-    loading?: boolean
-    href?: string
 }
 
-export const Button = ({ children,
-    className = '',
-    classNameButton = '',
-    classNameText = '',
-    type = "submit",
-    onClick = () => { },
-    onMouseEnter = () => { },
-    onMouseLeave = () => { },
-    disabled = false,
-    loading = false,
-    variant = ButtonVariant.BORDERED_RED_WIDE,
-    href,
+export const Button = ({
+    variant = ButtonVariant.BORDERED_RED_WIDE, type = ButtonType.Button,
+    title, href,
+    beforeImage, beforeProps, afterImage, afterProps, 
+    active=false, loading=false, disabled = false, noTranslation=false,
+    onClick = () => {}, onMouseEnter = () => {}, onMouseLeave = () => {},
+    children, className, classNameText,
 }: IButton) => {
 
-    // ===={ HANDLES }====
-    const handleOnClick = (e: React.MouseEvent<HTMLElement>) => {
-        if (e) onClick(e)
+    // STATE
+    const [isHovered, setIsHovered] = useState(false)
+
+    // HANDLE
+    const handleOnMouseEnter = () => {
+        setIsHovered(true)
+        onMouseEnter()
+    }
+    const handleOnMouseLeave = () => {
+        setIsHovered(false)
+        onMouseLeave()
     }
 
-    const handleOnMouseEnter = (e: React.MouseEvent<HTMLElement>) => {
-        if (e) onMouseEnter(e)
-    }
-
-    const handleOnMouseLeave = (e: React.MouseEvent<HTMLElement>) => {
-        if (e) onMouseLeave(e)
-    }
-
-    // ===={ PROPS }====
-    const props = {
-        type: type,
-        onClick: handleOnClick,
-        onMouseEnter: handleOnMouseEnter,
-        onMouseLeave: handleOnMouseLeave,
-        disabled: disabled || loading, 
-        className: `${cl.button} ${cl[variant]} ${classNameButton}`,
-    }
-    
-    // ===={ BODY HTML }====
-    const bodyHTML = (
-        <>
-            {!loading && children &&
-                <span className={`${cl.buttonText} ${cl[classNameText]}`}>
-                    {children}
-                </span>
+    const html =  (
+        <button type={type} disabled={disabled}
+                onClick={e => onClick(e)} onMouseEnter={handleOnMouseEnter} onMouseLeave={handleOnMouseLeave} 
+                className={cls(cl.button, cl[variant], active ? cl.active : '', className)}>
+            {beforeImage &&
+                <ImageSmart {...beforeProps} icon={beforeImage} 
+                            width={beforeProps && beforeProps.width ? beforeProps.width: 20} 
+                            height={beforeProps && beforeProps.height ? beforeProps.height: 20} 
+                            isActive={active} isHovered={isHovered} />
             }
-            {(variant === ButtonVariant.W_ARROW_RED || variant === ButtonVariant.BACKGROUND_RED_HUGE) &&
-                <ArrowIcon  />
+            {title && 
+                <span className={cls(cl.title, classNameText)}>{title}</span>
             }
-        </>
+            {afterImage &&
+                <ImageSmart {...afterProps} icon={afterImage} 
+                            width={afterProps && afterProps.width ? afterProps.width: 20} 
+                            height={afterProps && afterProps.height ? afterProps.height: 20} 
+                            isActive={active} isHovered={isHovered} />
+            }
+            {children}
+        </button>
     )
+
     
-    // ========================
+    if (!href)
+        return html
     return (
-        <div className={`global ${cl.wrapper} ${className}`}>
-            {href ? (
-                <Link href={href} {...props}>
-                    {bodyHTML}
-                </Link>
-            ) : (
-                <button {...props}>
-                    {bodyHTML}
-                </button>
-            )}
-        </div>
+        <Link href={href}>{html}</Link>
     )
 }
 
 Button.Variant = ButtonVariant;
+Button.Type = ButtonType;
 

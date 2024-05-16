@@ -1,3 +1,8 @@
+export enum ButtonType {
+    Button = 'button',
+    Submit = 'submit',
+}
+
 export enum ButtonVariant{
     CLEAR = 'clear',
     BORDERED_RED_WIDE = 'bordered-red-wide',
@@ -10,3 +15,4 @@ export enum ButtonVariant{
     W_ARROW_RED = 'w-arrow-red',
     BACKGROUND_GRAY = 'background-gray'
 }
+
