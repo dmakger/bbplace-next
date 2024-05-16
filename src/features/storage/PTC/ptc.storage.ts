@@ -8,7 +8,7 @@ interface IPTC {
 
 const initialState: IPTC = {
     amount: 0,
-    view: EPTC.NONE,
+    view: EPTC.PRODUCT,
 }
 
 export const PTCSlice = createSlice({

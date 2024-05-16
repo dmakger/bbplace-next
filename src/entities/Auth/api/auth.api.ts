@@ -1,9 +1,10 @@
 import {createApi} from "@reduxjs/toolkit/query/react";
 import {fetchBaseQuery} from "@reduxjs/toolkit/query";
-import { ISupplier, ISupplierAPI } from "@/entities/Supplier/model/supplier.model";
+import { ISupplierAPI } from "@/entities/Supplier/model/supplier.model";
 import { options } from "@/api/interceptors";
-import { IAuthForm, IAuthResponse } from "../model/auth.model";
-import { getAccessToken, getRefreshToken, getTokens, saveTokensStorage } from "../lib/auth-token.lib";
+import { IAuthForm, IAuthResponse, ILoginResponseDecoded } from "../model/auth.model";
+import { getAccessToken, getRefreshToken, saveTokensStorage } from "../lib/auth-token.lib";
+import { jwtDecode } from "jwt-decode";
 
 
 export const UserAPI = createApi({
@@ -21,7 +22,7 @@ export const UserAPI = createApi({
             })
         }),
 
-        login: build.mutation<IAuthForm, IAuthForm>({
+        userLogin: build.mutation<ILoginResponseDecoded, IAuthForm>({
             query: ({username, password}) => ({
                 url: '/login',
                 method: 'POST',
@@ -32,12 +33,12 @@ export const UserAPI = createApi({
                 responseHandler: async (response) => {
                     const data = await response.json() as IAuthResponse
                     saveTokensStorage(data)
-                    return data
+                    return jwtDecode<ILoginResponseDecoded>(data.accessToken)
                 },
             })
         }),
 
-        refreshToken: build.mutation<IAuthForm, void>({
+        refreshToken: build.mutation<ILoginResponseDecoded, void>({
             query: () => ({
                 url: `/refresh-token`,
                 method: 'POST',
@@ -46,9 +47,9 @@ export const UserAPI = createApi({
                     refreshToken: getRefreshToken(),
                 },
                 responseHandler: async (response) => {
-                    const data = await response.json() as IAuthResponse
+                    const data = await response.json() as IAuthResponse;
                     saveTokensStorage(data)
-                    return data
+                    return jwtDecode<ILoginResponseDecoded>(data.accessToken)
                 },
             })
         }),

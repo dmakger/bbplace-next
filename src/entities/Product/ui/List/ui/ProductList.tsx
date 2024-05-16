@@ -49,7 +49,7 @@ export const ProductList:FC<ProductListProps> = ({view=DEFAULT_VIEW_PRODUCT, cla
     useEffect(() => {
         if (productsAPI)
             setProductList(productApiListToProductList(productsAPI, metrics, currencyList))
-    }, [productsAPI])
+    }, [productsAPI, metrics, currencyList])
 
     useEffect(() => {
         if (!isCountAllProductsLoading && countAllProducts !== undefined) {
@@ -64,7 +64,7 @@ export const ProductList:FC<ProductListProps> = ({view=DEFAULT_VIEW_PRODUCT, cla
         return <div>Loading...</div>
     return (
         <WrapperSortFilter variant={ECatalogVariants.PRODUCTS}>
-            <WrapperPagination amount={countProducts ? countProducts : 1}
+            <WrapperPagination amount={countProducts || 1}
                                 active={pageNumber} keyPageParam={PRODUCT_PARAMS.NUMBER_PAGE__KEY} 
                                 set={setPageNumber} className={cl.block}>
                 <ProductAutoList products={productList} view={view} className={className} />

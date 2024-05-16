@@ -1,0 +1,35 @@
+.item {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    // gap: 10px;
+    border-radius: 100px;
+    background-color: var(--background);
+    border: 1px solid var(--background);
+    padding: 5px 15px 5px 5px;
+    transition: .2s;
+
+    &:hover {
+        background-color: var(--gray-4);
+        border-color: var(--gray-4);
+    }
+
+    .image {
+        width: 33px;
+        height: 33px;
+        object-fit: cover;
+        border-radius: 16px;
+    }
+
+    .name {
+        margin-left: 10px;
+    }
+}
+
+.active {
+    border-color: var(--gray-7);
+
+    &:hover {
+        border-color: var(--gray-7);
+    }
+}

@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import cl from './_NavBarPTC.module.scss';
 import { cls } from "@/shared/lib/classes.lib";
 import { IIconVariants } from "@/shared/model/icon.model";
@@ -28,6 +28,12 @@ export const NavBarPTC: FC<INavBarPTC> = ({ }) => {
     //STATE
     const [filterView, setFilterView] = useState<ECatalogVariants>(getPTCViewByPathname(pathname));
     const [selectedOption, setSelectedOption] = useState<IIconVariants>(getPTCVariantByPathname(pathname));
+
+    //EFFECT
+    useEffect(() => {
+        setSelectedOption(getPTCVariantByPathname(pathname))
+    }, [pathname])
+    
 
     // ON CLICK
     const handleOnClickMenuItem = (el: IIconVariants) => {

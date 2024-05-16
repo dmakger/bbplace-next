@@ -33,8 +33,7 @@ export const SupplierItem = ({ supplier }: ISupplierItem) => {
   const { data: supplierReviews } = ReviewAPI.useGetSellerReviewsQuery({ supplierId: supplier.id, limit: REVIEW_LIMIT ?? 0, page: REVIEW_START_PAGE })
   const { data: supplierProducts } = ProductAPI.useGetProductsByUserQuery({ userId: supplier.id })
 
-  const linkHref = ''
-
+  const hasCategory = Array.isArray(supplier.category) ? supplier.category.some(it => it !== null) : supplier.category
 
   return (
     <>
@@ -50,9 +49,9 @@ export const SupplierItem = ({ supplier }: ISupplierItem) => {
         />
         <div className={cl.bottomContainer}>
           <div className={cl.bottomLeftContainer}>
-            {supplier.category.some(it => it !== null) && <SupplierCategoryItem category={supplier.category} />}
+            {hasCategory && <SupplierCategoryItem category={supplier.category} />}
             <div className={cl.line} />
-            <HeadingToTextTable data={getDataHeadingToTextSupplierTable(supplier, supplierScore ?? 0, supplierReviews ? supplierReviews.length : 0, linkHref)}
+            <HeadingToTextTable data={getDataHeadingToTextSupplierTable(supplier, supplierScore ?? 0, supplierReviews ? supplierReviews.length : 0)}
               className={cl.table}
               classNameHeadingItem={cl.headingItem}
               classNameColumn={cl.columnTable}

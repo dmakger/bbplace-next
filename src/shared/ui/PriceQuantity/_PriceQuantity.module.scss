@@ -1,0 +1,28 @@
+.block {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+    width: 100%;
+
+    .item {
+        display: flex;
+        flex-direction: column;
+
+        .quantity {
+            color: var(--gray-9);
+            font-size: var(--font-size-xxs);
+        }
+        .price {
+            font-size: var(--font-size-m);
+            font-weight: var(--font-weight-sb);
+        }
+    }
+    .one {
+        .quantity {
+            font-size: var(--font-size-sreg) !important;
+        }
+        .price {
+            font-size: var(--font-size-lm) !important;
+        }
+    }
+}

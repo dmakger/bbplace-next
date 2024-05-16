@@ -1,7 +1,7 @@
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_ProductV.module.scss';
 import { FC, useState } from 'react';
-import { getDiapason } from '@/entities/Metrics/lib/metrics/diapason.metrics.metrics.lib';
+import { getDiapason, getMinMax } from '@/entities/Metrics/lib/metrics/diapason.metrics.metrics.lib';
 import { ImageAPI } from '@/shared/ui/Image/API/ImageAPI';
 import { FavouriteAutoToSupplierButton } from '@/entities/Supplier/components/Button/Favourite/Auto/FavouriteAutoToSupplierButton';
 import { ESupplierFavouriteViewItem, ESupplierSubscribeViewItem, ESupplierToChatViewItem } from '@/entities/Supplier/data/view.supplier.data';
@@ -18,7 +18,7 @@ interface ProductVProps extends IProductProps {}
 
 export const ProductV: FC<ProductVProps> = ({ product, className }) => {
   // VARS
-  const [minWholesale, maxWholesale] = getDiapason(product.media.wholesalePrices, product.media.sizes);
+  const [minWholesale, maxWholesale] = getMinMax(product.media.wholesalePrices, product.media.sizes);
 
   // STATE
   const [is768, setIs768] = useState(false);

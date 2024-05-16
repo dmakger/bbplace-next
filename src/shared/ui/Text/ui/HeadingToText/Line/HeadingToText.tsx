@@ -20,10 +20,9 @@ export const HeadingToText:FC<HeadingToTextProps> = ({data, hasSpace=true,  clas
     const textTable = data && data.map(it => it.text)
     return (
         <div className={cls(cl.block, className)}>
-        {headingTable && headingTable.map(it => (
+            {headingTable && headingTable.map(it => (
                 <span className={cls(cl.heading, classNameHeading)}>{it}:</span>
-            ))
-        }
+            ))}
             
             {hasSpace &&
                 <>&nbsp;</>

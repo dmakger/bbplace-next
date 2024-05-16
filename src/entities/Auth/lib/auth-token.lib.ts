@@ -15,6 +15,11 @@ export const getTokens = () => {
     } as IAuthResponse
 }
 
+export const isAuth = () => {
+    const accessToken = getAccessToken();        
+    return accessToken !== null && accessToken !== undefined;
+}
+
 
 export const getAccessToken = () => {
     const accessToken = Cookies.get(ETokens.ACCESS_TOKEN)

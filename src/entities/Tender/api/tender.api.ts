@@ -24,6 +24,7 @@ export const TenderAPI = createApi({
             query: (args) => ({
                 url: `/GetAllRequests/Filter/${args?.limit}/CountPages/`,
                 method: 'GET',
+                params: args?.params
             })
         }),
         //SALE TENDERS
@@ -42,6 +43,7 @@ export const TenderAPI = createApi({
             query: (args) => ({
                 url: `/GetSaleRequests/OrderByDate/DESC/${args?.limit}/CountPages/`,
                 method: 'GET',
+                params: args?.params
             })
         }),
         //PURCHASE TENDERS
@@ -60,6 +62,7 @@ export const TenderAPI = createApi({
             query: (args) => ({
                 url: `/GetPurchaseRequests/OrderByDate/DESC/${args?.limit}/CountPages/`,
                 method: 'GET',
+                params: args?.params
             })
         }), 
 	})

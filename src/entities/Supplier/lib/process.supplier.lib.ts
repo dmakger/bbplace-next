@@ -2,7 +2,7 @@ import { ISupplier, ISupplierAPI } from "../model/supplier.model";
 
 
 export const supplierApiListToSupplierList = (supplierListAPI: ISupplierAPI[]): ISupplier[] => {
-    return supplierListAPI.map(it => supplierApiToSupplier(it))
+    return supplierListAPI.map(it => supplierApiToSupplier(it)!)
 }
 
 

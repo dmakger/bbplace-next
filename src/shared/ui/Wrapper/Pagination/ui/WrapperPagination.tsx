@@ -68,7 +68,7 @@ export const WrapperPagination:FC<WrapperPaginationProps> = ({amount, active, ke
     return (
         <div className={cls(cl.block, className)}>
             {children}
-            {amountCore !== 1 &&
+            {amountCore > 1 &&
                 <Pagination active={pageNumber} 
                             amount={amountCore} amountContent={amountContent} 
                             onClickItem={handleOnClickItem} 
