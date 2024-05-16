@@ -1,5 +1,6 @@
 import { cls } from "@/shared/lib/classes.lib"
 import cl from './_ScrollSlider.module.scss'
+import { ReactNode } from "react";
 
 interface IScrollSlider<T> {
     slides?: T[];
@@ -11,8 +12,10 @@ interface IScrollSlider<T> {
     }>;
     className?: string,
     classNameSlides?: string,
-    width: number,
-    height: number
+    classNameSlidesContainer?: string,
+    width?: number,
+    height?: number,
+    children?: ReactNode
 
 }
 
@@ -20,14 +23,16 @@ export const ScrollSlider = <T extends (object | string)>({
     slides = [],
     component: SlideComponent,
     className,
-     classNameSlides,
-     width,
-     height
+    classNameSlides,
+    classNameSlidesContainer,
+    width = 150,
+    height = 150,
+    children
 
 }: IScrollSlider<T>) => {
     return (
         <div className={cls(cl.ScrollSlider, className)}>
-            <div className={cls(cl.slidesContainer)}>
+            <div className={cls(cl.slidesContainer, classNameSlidesContainer)}>
                 {slides.map((slide, index) => (
                     <SlideComponent slide={slide}
                         className={classNameSlides}
@@ -35,6 +40,7 @@ export const ScrollSlider = <T extends (object | string)>({
                         width={width}
                         height={height} />
                 ))}
+                {children}
             </div>
         </div>
     )

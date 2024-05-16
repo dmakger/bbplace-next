@@ -9,11 +9,14 @@ import { ESupplierSubscribeViewItem, ESupplierToChatViewItem, ESupplierToProfile
 import { SupplierWNav } from '../WNav/SupplierWNav'
 import { getDataHeadingToTextSupplierTable } from '../../lib/htt.supplier.lib'
 import { ProductAPI } from '@/entities/Product/api/product.api'
-import { ProductASCList } from '@/entities/Product/ui/AtSupplierCard'
+import { ProductASC } from '@/entities/Product/ui/AtSupplierCard'
 import { NavSupplier } from '../../components/Nav/NavSupplier'
 import { HandleSize } from '@/shared/ui/Handle/Size/HandleSize'
 import { useState } from 'react'
 import { HeadingToTextTable } from '@/shared/ui/Text'
+import { ScrollSlider } from '@/features/ScrollSlider'
+import { Button, ButtonVariant } from '@/shared/ui/Button'
+import { MAIN_PAGES } from '@/config/pages-url.config'
 
 
 interface ISupplierItem {
@@ -33,8 +36,7 @@ export const SupplierItem = ({ supplier }: ISupplierItem) => {
   const { data: supplierReviews } = ReviewAPI.useGetSellerReviewsQuery({ supplierId: supplier.id, limit: REVIEW_LIMIT ?? 0, page: REVIEW_START_PAGE })
   const { data: supplierProducts } = ProductAPI.useGetProductsByUserQuery({ userId: supplier.id })
 
-  const linkHref = ''
-
+  const isButton = supplierProducts && supplierProducts.length > 2;
 
   return (
     <>
@@ -52,7 +54,7 @@ export const SupplierItem = ({ supplier }: ISupplierItem) => {
           <div className={cl.bottomLeftContainer}>
             {supplier.category.some(it => it !== null) && <SupplierCategoryItem category={supplier.category} />}
             <div className={cl.line} />
-            <HeadingToTextTable data={getDataHeadingToTextSupplierTable(supplier, supplierScore ?? 0, supplierReviews ? supplierReviews.length : 0, linkHref)}
+            <HeadingToTextTable data={getDataHeadingToTextSupplierTable(supplier, supplierScore ?? 0, supplierReviews ? supplierReviews.length : 0)}
               className={cl.table}
               classNameHeadingItem={cl.headingItem}
               classNameColumn={cl.columnTable}
@@ -64,7 +66,11 @@ export const SupplierItem = ({ supplier }: ISupplierItem) => {
             ]} />
           </div>
           <div className={cl.bottomRightContainer}>
-            <ProductASCList products={supplierProducts ?? []} link={''}/>
+            <ScrollSlider slides={supplierProducts} component={ProductASC} classNameSlidesContainer={!isButton ? cl.noButton : ''}>
+              {isButton && <Button variant={ButtonVariant.BACKGROUND_RED_HUGE} href={MAIN_PAGES.CURRENT_SUPPLIER(supplier.id)}>
+                Все товары
+              </Button>}
+            </ScrollSlider>
           </div>
         </div>
       </section>
