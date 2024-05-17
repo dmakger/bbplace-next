@@ -15,12 +15,11 @@ export default function TenderPage() {
     //STATE
     const [tender, setTender] = useState<ISaleTender | IPurchaseTender>()
     const [tenderType, setTenderType] = useState<ETenderType>(ETenderType.PURCHASE)
-    const searchParams = useSearchParams()
-
 
     //PARAMS
     const params = useParams()
     const tenderId = params.id as string
+    const searchParams = useSearchParams()
 
 
     //API
@@ -33,7 +32,7 @@ export default function TenderPage() {
     //EFFECT
         useEffect(() => {
             setTenderType(searchParams.get('type') === 'sale' ? ETenderType.SALE : ETenderType.PURCHASE)
-        }, [])
+        }, [searchParams])
 
     useEffect(() => {
         if (metrics && currencyList) {

@@ -1,5 +1,5 @@
 import { IMetrics } from "@/entities/Metrics/model/metric.metrics.model";
-import { ETenderType, ICommonTender, IProcessTender, IPurchaseTender, ISaleTender, ITender, ITenderAPI } from "../model/tender.model";
+import { ETenderType, IProcessTender, IPurchaseTender, ISaleTender, ITender, ITenderAPI } from "../model/tender.model";
 import { ICurrency } from "@/entities/Metrics/model/currency.metrics.model";
 import { metricsTenderToObject } from "@/entities/Metrics/lib/metrics/base.metrics.metrics.lib";
 import { currencyTenderToObject } from "@/entities/Metrics/lib/currency.metrics.lib";
@@ -15,28 +15,19 @@ export const tenderAPIListToTenderList = (tenderListAPI: ITenderAPI[], metrics: 
 export const tenderAPIToTender = ({ tenderAPI, metrics, currencyList }: IProcessTender) => {
     const attachments = JSON.parse(tenderAPI.attachments)
 
-    const currency =  currencyTenderToObject(tenderAPI.currency, currencyList);
-    let minOrderUnits;
-    let quantityUnits;
+    const currency = currencyTenderToObject(tenderAPI.currency, currencyList);
+    const unitsKey = getTenderType(tenderAPI) === ETenderType.SALE ? 'minOrderUnits' : 'quantityUnits'
+    
+    const unitsValue = tenderAPI[unitsKey];
 
-    if (getTenderType(tenderAPI) === ETenderType.SALE) {
-        minOrderUnits = tenderAPI.minOrderUnits && metrics ? metricsTenderToObject(tenderAPI.minOrderUnits, metrics) : undefined;
-        return {
-            ...tenderAPI,
-            attachments,
-            currency,
-            minOrderUnits,
-        } as ISaleTender 
-    } else {
-        quantityUnits = tenderAPI.quantityUnits && metrics ? metricsTenderToObject(tenderAPI.quantityUnits, metrics) : undefined;
-        return {
-            ...tenderAPI,
-            attachments,
-            currency,
-            quantityUnits
-        } as IPurchaseTender
-    }
+    const units = unitsValue && metrics ? metricsTenderToObject(unitsValue, metrics) : undefined
 
+    return {
+        ...tenderAPI,
+        attachments,
+        currency,
+        [unitsKey]: units
+    } as ISaleTender | IPurchaseTender
 }
 
 

@@ -6,128 +6,112 @@
     width: 100%;
     border-radius: 20px;
     padding: 20px;
-    overflow: hidden;
     background-color: var(--white);
 
-    .leftContainer{
+    .leftContainer {
         display: flex;
         flex-direction: column;
         gap: 10px;
-        .topContainer{
+        width: 100%;
+
+        .topContainer {
             display: flex;
             flex-direction: column;
             gap: 2px;
-            .tenderType{
+
+            .tenderType {
                 color: var(--gray-9);
                 font-size: var(--font-size-reg);
                 font-weight: var(--font-weight-light);
             }
 
-            .tenderName{
+            .tenderName {
                 color: var(--dark-3);
                 font-size: var(--font-size-mxl);
                 font-weight: var(--font-weight-med);
             }
         }
 
-        .restInfo{
+        .restInfo {
             display: flex;
             align-items: center;
             gap: 10px;
+            width: 100%;
+            overflow-x: auto;
 
-            .restInfoItem{
-                border-radius: 5px;
+            @media (max-width: 670px) {
+                &::-webkit-scrollbar {
+                   display: none;
+                  }
+            }
+
+            .restInfoTender {
+                gap: 10px;
+
+                @media (max-width: 768px) {
+                    flex-direction: row;
+                    gap: 10px;
+                }
+            }
+
+            .restInfoContainer {
                 padding: 15px;
+                border-radius: 5px;
                 background-color: var(--gray-2);
-                font-weight: var(--font-weight-light);
-                font-size: var(--font-size-s);
-                color: var(--gray-9);
+                min-width: 240px;
 
-                & span{
+
+                .restInfoItem {
+                    font-weight: var(--font-weight-light);
+                    font-size: var(--font-size-s);
+                    color: var(--gray-9);
+                }
+
+                .restInfoItemSpan {
                     font-weight: var(--font-weight-reg);
                 }
             }
+
         }
     }
-    
-    .rightContainer{
+
+    .rightContainer {
         display: flex;
         flex-direction: column;
+        align-self: flex-start;
         gap: 5px;
 
         @media (max-width: 1024px) {
             flex-direction: row;
             gap: 40px;
             background-color: var(--white);
+            z-index: 2;
             width: 100%;
             padding: 20px;
             position: fixed;
-            bottom: 10%;
+            bottom: 5%;
             left: 0;
         }
+
         @media (max-width:768px) {
             flex-direction: column;
             gap: 10px;
 
         }
 
-
-        .quantity{
+        .quantity {
             color: var(--gray-9);
             font-weight: var(--font-weight-light) !important;
             font-size: var(--font-size-reg) !important;
 
         }
-        .price{
+
+        .price {
             color: var(--dark-3);
             font-weight: var(--font-weight-eb) !important;
             font-size: var(--font-size-ml) !important;
         }
     }
 
-    //     .navSupplier{
-    //         @media (max-width: 500px) {
-    //             margin-top: auto;
-    //         }
-    //     }
-
-    //     .supplier{
-    //         width: 100%;
-    //         justify-content: space-between;
-
-    //         @media (max-width: 500px) {
-    //             display: flex;
-    //             flex-direction: column;
-    //             align-items: flex-start;
-    //             justify-content: baseline;
-    //         }
-            
-    //     }
-    // }
-
-    // .bottomContainer{
-    //     display: flex;
-    //     gap: 45px;
-    //     border-radius: 20px;
-    //     padding: 20px 0;
-
-    //     @media (max-width: 500px) {
-    //         flex-direction: column;
-    //         gap: 20px;
-    //     }
-
-    //     .imageSlide{
-    //         min-width: 150px;
-    //         min-height: 150px;
-    //     }
-
-    //     .additionalInfo{
-    //         display: none;
-    //         @media (max-width: 1000px) {
-    //             display: flex;
-    //             width: 300px;
-    //         }
-    //     }
-    // }
 
 }

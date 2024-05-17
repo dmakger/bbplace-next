@@ -5,7 +5,8 @@ import { IHeadingToTextTender } from "@/shared/model/text.model";
 interface ITenderInfo {
     data: IHeadingToTextTender[],
     hasDash?: boolean,
-    className?: string
+    className?: string,
+    classNameContainer?:string,
     classNameHeading?: string
     classNameText?: string
 }
@@ -14,12 +15,13 @@ export const TenderInfo = ({
     data,
     hasDash = false,
     className,
+    classNameContainer,
     classNameHeading,
     classNameText
 }: ITenderInfo) => {
     return (
         <div className={cls(cl.TenderInfo, className)}>
-            {data.map(it => (<div className={cl.container} key={it.heading}>
+            {data.map(it => (<div className={cls(cl.container, classNameContainer)} key={it.heading}>
                 <span className={cls(cl.heading, hasDash ? cl.sRegFontSize : '', classNameHeading)}>
                     {it.heading}
                     {!hasDash && ':'}
