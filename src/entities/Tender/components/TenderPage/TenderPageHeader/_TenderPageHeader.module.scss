@@ -1,85 +1,133 @@
 .TenderPageHeader {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
     gap: 15px;
     width: 100%;
+    border-radius: 20px;
+    padding: 20px;
     overflow: hidden;
+    background-color: var(--white);
 
-    & div{
-        border-radius: 10px;
-        background-color: var(--white);
+    .leftContainer{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        .topContainer{
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            .tenderType{
+                color: var(--gray-9);
+                font-size: var(--font-size-reg);
+                font-weight: var(--font-weight-light);
+            }
 
+            .tenderName{
+                color: var(--dark-3);
+                font-size: var(--font-size-mxl);
+                font-weight: var(--font-weight-med);
+            }
+        }
+
+        .restInfo{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            .restInfoItem{
+                border-radius: 5px;
+                padding: 15px;
+                background-color: var(--gray-2);
+                font-weight: var(--font-weight-light);
+                font-size: var(--font-size-s);
+                color: var(--gray-9);
+
+                & span{
+                    font-weight: var(--font-weight-reg);
+                }
+            }
+        }
     }
-
-    .topContainer {
+    
+    .rightContainer{
         display: flex;
         flex-direction: column;
         gap: 5px;
-        padding: 15px 16px 10px 16px;
 
-        .tenderType {
-            font-size: var(--font-size-s);
-            color: var(--gray-9);
-        }
-
-        .tenderName{
-            font-weight: var(--font-weight-med);
-            font-size: var(--font-size-m);
-        }
-    }
-
-    .middleContainer{
-        width: 100%;
-        padding: 7px 16px 7px 7px;
-
-        @media (max-width: 500px) {
-            padding: 16px;
-
-        }
-
-        .navSupplier{
-            @media (max-width: 500px) {
-                margin-top: auto;
-            }
-        }
-
-        .supplier{
+        @media (max-width: 1024px) {
+            flex-direction: row;
+            gap: 40px;
+            background-color: var(--white);
             width: 100%;
-            justify-content: space-between;
-
-            @media (max-width: 500px) {
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                justify-content: baseline;
-            }
-            
+            padding: 20px;
+            position: fixed;
+            bottom: 10%;
+            left: 0;
         }
-    }
-
-    .bottomContainer{
-        display: flex;
-        gap: 45px;
-        border-radius: 20px;
-        padding: 20px 0;
-
-        @media (max-width: 500px) {
+        @media (max-width:768px) {
             flex-direction: column;
-            gap: 20px;
+            gap: 10px;
+
         }
 
-        .imageSlide{
-            min-width: 150px;
-            min-height: 150px;
-        }
 
-        .additionalInfo{
-            display: none;
-            @media (max-width: 1000px) {
-                display: flex;
-                width: 300px;
-            }
+        .quantity{
+            color: var(--gray-9);
+            font-weight: var(--font-weight-light) !important;
+            font-size: var(--font-size-reg) !important;
+
+        }
+        .price{
+            color: var(--dark-3);
+            font-weight: var(--font-weight-eb) !important;
+            font-size: var(--font-size-ml) !important;
         }
     }
+
+    //     .navSupplier{
+    //         @media (max-width: 500px) {
+    //             margin-top: auto;
+    //         }
+    //     }
+
+    //     .supplier{
+    //         width: 100%;
+    //         justify-content: space-between;
+
+    //         @media (max-width: 500px) {
+    //             display: flex;
+    //             flex-direction: column;
+    //             align-items: flex-start;
+    //             justify-content: baseline;
+    //         }
+            
+    //     }
+    // }
+
+    // .bottomContainer{
+    //     display: flex;
+    //     gap: 45px;
+    //     border-radius: 20px;
+    //     padding: 20px 0;
+
+    //     @media (max-width: 500px) {
+    //         flex-direction: column;
+    //         gap: 20px;
+    //     }
+
+    //     .imageSlide{
+    //         min-width: 150px;
+    //         min-height: 150px;
+    //     }
+
+    //     .additionalInfo{
+    //         display: none;
+    //         @media (max-width: 1000px) {
+    //             display: flex;
+    //             width: 300px;
+    //         }
+    //     }
+    // }
 
 }

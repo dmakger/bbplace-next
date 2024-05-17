@@ -26,7 +26,8 @@
   
   --dark-1: #2E2E33;
   --dark-2: #28252E;
-  --dark-3: #000000;
+  --dark-3: #1D1D1F;
+  --dark-4: #000000;
 
   --red-1: #E54348;
   --red-2: #D92B31;
@@ -101,10 +102,15 @@
   --font-size-sm: 1.13rem;
   // 20px
   --font-size-m: 1.25rem;
+  // 24px
+  --font-size-ml: 1.5rem;
+  // 26px
+  --font-size-mxl: 1.63rem;
   // 32px
   --font-size-lm: 2rem;
 
   //FONT-WEIGHT
+  --font-weight-light: 300;
   --font-weight-reg: 400;
   --font-weight-med: 500;
   --font-weight-sb: 600;

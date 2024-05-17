@@ -21,11 +21,6 @@ export const TenderPageMainBlock = ({
                 tender={tender}
                 tenderType={tenderType} />
             <TenderPageMainInfo tender={tender} />
-            <div className={cl.buttonContainer}>
-                <Button variant={ButtonVariant.ALMOST_RECTANGULAR_RED} >
-                    Заказать
-                </Button>
-            </div>
         </section>
     )
 }

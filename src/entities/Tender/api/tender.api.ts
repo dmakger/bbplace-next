@@ -34,12 +34,12 @@ export const TenderAPI = createApi({
             })
         }),
         //SALE TENDERS
-        getSaleTenderById: build.query<ISaleTender, number>({
+        getSaleTenderById: build.query<ITenderAPI, number>({
             query: (tenderId) => ({
                 url: `/GetSaleRequest/${tenderId}`
             })
         }),
-        getSaleTenders: build.query<ISaleTender[], IArgsRequest | undefined>({
+        getSaleTenders: build.query<ITenderAPI[], IArgsRequest | undefined>({
             query: (args) => ({
                 url: getURL(`/GetSaleRequests/OrderByDate/DESC/`, getArgsTender(args)),
 				method: 'GET',
@@ -53,12 +53,12 @@ export const TenderAPI = createApi({
             })
         }),
         //PURCHASE TENDERS
-        getPurchaseTenderById: build.query<IPurchaseTender, number>({
+        getPurchaseTenderById: build.query<ITenderAPI, number>({
             query: (tenderId) => ({
                 url: `/GetPurchaseRequest/${tenderId}`
             })
         }),
-        getPurchaseTenders: build.query<IPurchaseTender[], IArgsRequest | undefined>({
+        getPurchaseTenders: build.query<ITenderAPI[], IArgsRequest | undefined>({
             query: (args) => ({
                 url: getURL(`/GetPurchaseRequests/OrderByDate/DESC/`, getArgsTender(args)),
 				method: 'GET',

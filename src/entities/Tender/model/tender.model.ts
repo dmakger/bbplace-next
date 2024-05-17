@@ -19,7 +19,7 @@ export interface IBaseTender {
     description: string
     shareContacts: boolean
     createdAt: string
-    type: string
+    type?: string
 }
 
 export interface ITenderAttachments{
@@ -30,24 +30,29 @@ export interface ITenderAttachments{
 export interface ITenderAPI extends IBaseTender{
     currency: string,
     attachments: string,
-    minorderunits?: string,
-    quantityunits?: string
+    minOrderUnits?: string,
+    quantityUnits?: string
 }
+
+
+export interface ISaleTenderAPI extends IBaseTender, Omit<ITenderAPI, 'quantityUnits'>{}
+
+export interface IPurchaseTenderAPI extends IBaseTender, Omit<ITenderAPI, 'minOrderUnits'>{}
 
 export interface ITender extends IBaseTender{
     currency: ICurrency,
-    attachments: ITenderAttachments,
-    minorderunits?: IMetrics,
-    quantityunits?: IMetrics
+    attachments: ITenderAttachments[],
+    minOrderUnits?: IMetrics,
+    quantityUnits?: IMetrics
 }
 
-export interface ISaleTender extends ITender{
+export interface ISaleTender extends Omit<ITender, 'quantityUnits'>{
     price: number
-    minOrder: ICurrency
+    minOrder: number
     bulkDiscounts: boolean
 }
 
-export interface IPurchaseTender extends ITender {
+export interface IPurchaseTender extends Omit<ITender, 'minOrderUnits'> {
     quantity: number
     maximumBudget: number
 }
@@ -55,9 +60,9 @@ export interface IPurchaseTender extends ITender {
 export interface ICommonTender extends IBaseTender, ITender {
     currency: ICurrency,
     quantity?: number
-    maximumbudget?: number
+    maximumBudget?: number
     price?: number
-    minorder?: number
+    minOrder?: number
 }
 
 export interface IProcessTender{

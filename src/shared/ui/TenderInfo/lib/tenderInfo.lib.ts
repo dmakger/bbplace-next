@@ -6,12 +6,12 @@ export const getDataTenderInfo = (tender: ICommonTender) => {
 
     const tenderType = getTenderType(tender)
 
-    const maximumBudget = tender.maximumbudget
+    const maximumBudget = tender.maximumBudget
     const quantity = tender.quantity
-    const quantityUnit = tender.quantityunits?.shortName
+    const quantityUnit = tender.quantityUnits?.shortName
 
-    const minOrder = tender.minorder
-    const minOrderUnits = tender.minorderunits?.shortName
+    const minOrder = tender.minOrder
+    const minOrderUnits = tender.minOrderUnits?.shortName
     const price = tender.price
     const currency = tender.currency.code
 
