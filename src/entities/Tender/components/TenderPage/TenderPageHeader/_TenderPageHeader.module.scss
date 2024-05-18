@@ -39,11 +39,9 @@
             width: 100%;
             overflow-x: auto;
 
-            @media (max-width: 670px) {
-                &::-webkit-scrollbar {
-                   display: none;
-                  }
-            }
+            &::-webkit-scrollbar {
+                display: none;
+               }
 
             .restInfoTender {
                 gap: 10px;
@@ -58,7 +56,7 @@
                 padding: 15px;
                 border-radius: 5px;
                 background-color: var(--gray-2);
-                min-width: 240px;
+                min-width: fit-content;
 
 
                 .restInfoItem {
@@ -80,6 +78,11 @@
         flex-direction: column;
         align-self: flex-start;
         gap: 5px;
+        min-width: 20%;
+
+        .button{
+            width: 100%;
+        }
 
         @media (max-width: 1024px) {
             flex-direction: row;
@@ -89,14 +92,21 @@
             width: 100%;
             padding: 20px;
             position: fixed;
-            bottom: 5%;
+            bottom: 0%;
             left: 0;
         }
 
-        @media (max-width:768px) {
+        @media (max-width: 768px) {
             flex-direction: column;
             gap: 10px;
+        }
 
+        .priceQuantity{
+            justify-content: flex-end;
+            @media (max-width: 1024px) {
+                justify-content: flex-start;
+                width: 40%;
+            }
         }
 
         .quantity {

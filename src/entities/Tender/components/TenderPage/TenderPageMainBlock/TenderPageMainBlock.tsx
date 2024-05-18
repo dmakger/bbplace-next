@@ -41,7 +41,7 @@ export const TenderPageMainBlock = ({
                     hasImage
                     subscribeView={ESupplierSubscribeViewItem.LARGE_OUTLINE}
                     navs={[
-                        is768 ? ESupplierToChatViewItem.SMALL : ESupplierToChatViewItem.NONE
+                        is768 ? ESupplierToChatViewItem.SMALL_WIDE : ESupplierToChatViewItem.NONE
                     ]}
                 />
                 {images.length > 1 && <ScrollSlider

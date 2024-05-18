@@ -15,7 +15,9 @@ export const ToChatAutoToSupplierButton:FC<ToChatAutoToSupplierButtonProps> = ({
     const props = {supplierId, isSubscribed, className}    
 
     if (view === ESupplierToChatViewItem.SMALL)
-        return <ToChatSmallToSupplierButton {...props}/>
+        return <ToChatSmallToSupplierButton {...props} />
+    if (view === ESupplierToChatViewItem.SMALL_WIDE)
+        return <ToChatSmallToSupplierButton isWide={true} {...props} />
     if (view === ESupplierToChatViewItem.LARGE)
         return <ToChatLargeToSupplierButton {...props}/>
     if (view === ESupplierToChatViewItem.LARGE_WIDE)

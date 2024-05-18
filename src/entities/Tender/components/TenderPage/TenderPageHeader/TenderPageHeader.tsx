@@ -46,11 +46,13 @@ export const TenderPageHeader = ({
                     </div>
                 </div>
                 <div className={cl.rightContainer}>
-                    <PriceQuantity wholesales={wholesalePrices}
+                    <PriceQuantity 
+                        wholesales={wholesalePrices}
+                        className={cl.priceQuantity}
                         firstStart="За "
                         classNameQuantity={cl.quantity}
                         classNamePrice={cl.price} />
-                    <Button variant={ButtonVariant.BACKGROUND_RED}>
+                    <Button variant={ButtonVariant.BACKGROUND_RED} className={cl.button}>
                         Заказать
                     </Button>
                 </div>

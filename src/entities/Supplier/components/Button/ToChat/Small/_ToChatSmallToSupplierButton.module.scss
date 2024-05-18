@@ -1,0 +1,10 @@
+.buttonWide {
+    padding: 6px 100px;
+    background-color: var(--white);
+    border: 1px solid var(--gray-5);
+
+    @media (max-width: 425px) {
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+}
