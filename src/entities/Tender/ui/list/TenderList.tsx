@@ -17,8 +17,17 @@ import { EPTC } from '@/widgets/NavBarPTC/model/ptc.model'
 import { useSearchParams } from 'next/navigation'
 import { paramsToBack } from '@/config/params/backend.params.config'
 import { CORE_PARAMS } from '@/config/params/core.params.config'
+import { SuspenseL } from '@/shared/ui/Wrapper/SuspenseL/SuspenseL'
 
 export const TenderList = () => {
+    return (
+        <SuspenseL>
+            <TenderListChild />
+        </SuspenseL>
+    )
+}
+
+export const TenderListChild = () => {
     // ROUTER
     const searchParams = useSearchParams();
     const newParams = paramsToBack(searchParams)

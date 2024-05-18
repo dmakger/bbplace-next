@@ -20,13 +20,24 @@ import { CurrencyAPI } from "@/entities/Metrics/api/currency.metrics.api";
 import { MetricsAPI } from "@/entities/Metrics/api/metrics.metrics.api";
 import { useSearchParams } from "next/navigation";
 import { paramsToBack } from "@/config/params/backend.params.config";
+import { SuspenseL } from "@/shared/ui/Wrapper/SuspenseL/SuspenseL";
+import { getViewProductByParam } from "@/entities/Product/lib/params.product.lib";
 
 interface ProductListProps{
     view?: EViewProduct
     className?: string,
 }
 
-export const ProductList:FC<ProductListProps> = ({view=DEFAULT_VIEW_PRODUCT, className}) => {
+export const ProductList:FC<ProductListProps> = ({...rest}) => {
+    return (
+        <SuspenseL>
+            <ProductListChild {...rest}/>
+        </SuspenseL>
+    )
+}
+
+
+export const ProductListChild:FC<ProductListProps> = ({view, className}) => {
     // ROUTER
     const searchParams = useSearchParams();
     const newParams = paramsToBack(searchParams)
@@ -34,6 +45,7 @@ export const ProductList:FC<ProductListProps> = ({view=DEFAULT_VIEW_PRODUCT, cla
     // STATE
     const [productList, setProductList] = useState<IProduct[]>([])
     const [pageNumber, setPageNumber] = useState<number>(1)    
+    const [viewProductList, setViewProductList] = useState<EViewProduct>(DEFAULT_VIEW_PRODUCT)    
 
     // API
     const {data: currencyList} = CurrencyAPI.useGetCurrenciesQuery()          
@@ -46,6 +58,15 @@ export const ProductList:FC<ProductListProps> = ({view=DEFAULT_VIEW_PRODUCT, cla
     const dispatch = useDispatch();
 
     // EFFECT
+    useEffect(() => {
+        if (view !== undefined) {
+            setViewProductList(view)
+            return
+        }
+
+        const productView = PRODUCT_PARAMS.getView(searchParams.get(PRODUCT_PARAMS.VIEW__KEY))
+        setViewProductList(getViewProductByParam(productView))
+    }, [view])
     useEffect(() => {
         if (productsAPI)
             setProductList(productApiListToProductList(productsAPI, metrics, currencyList))
@@ -67,7 +88,7 @@ export const ProductList:FC<ProductListProps> = ({view=DEFAULT_VIEW_PRODUCT, cla
             <WrapperPagination amount={countProducts || 1}
                                 active={pageNumber} keyPageParam={PRODUCT_PARAMS.NUMBER_PAGE__KEY} 
                                 set={setPageNumber} className={cl.block}>
-                <ProductAutoList products={productList} view={view} className={className} />
+                <ProductAutoList products={productList} view={viewProductList} className={className} />
             </WrapperPagination>
         </WrapperSortFilter>
     )
