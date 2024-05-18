@@ -3,7 +3,24 @@ export enum ButtonType {
     Submit = 'submit',
 }
 
+export enum ButtonColor {
+    Primary = 'primary',
+    Secondary = 'secondary',
+}
+
+export enum ButtonSize {
+    DefaultSize = 'defaultSize',
+    Big = 'big',
+    Medium = 'medium',
+    Small = 'small',
+}
+
 export enum ButtonVariant{
+    FILL = "fill new",
+    TONAL = "tonal new",
+    BORDER = "border new",
+    CONTENT = "content new",
+
     CLEAR = 'clear',
     BORDERED_RED_WIDE = 'bordered-red-wide',
     BORDERED_RED_NARROW = 'bordered-red-narrow',

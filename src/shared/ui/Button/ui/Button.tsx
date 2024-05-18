@@ -6,13 +6,15 @@ import Link from 'next/link'
 import { ArrowIcon } from '../../Icon/ui/Arrow/ArrowIcon'
 import { IIcon } from '../../Icon/model/model'
 import { IIconProps } from '@/shared/model/button.model'
-import { ButtonType } from '../model/model'
+import { ButtonColor, ButtonSize, ButtonType } from '../model/model'
 import { ImageSmart } from '../../Image/Smart/ImageSmart'
 import { cls } from '@/shared/lib/classes.lib'
 
 interface IButton {
-    type?: ButtonType
     variant?: ButtonVariant
+    color?: ButtonColor
+    type?: ButtonType
+    size?: ButtonSize
 
     title?: string,
     href?: string
@@ -37,11 +39,11 @@ interface IButton {
 }
 
 export const Button = ({
-    variant = ButtonVariant.BORDERED_RED_WIDE, type = ButtonType.Button,
+    variant = ButtonVariant.BORDERED_RED_WIDE, color=ButtonColor.Primary, type = ButtonType.Button, size=ButtonSize.DefaultSize,
     title, href,
     beforeImage, beforeProps, afterImage, afterProps, 
-    active=false, loading=false, disabled = false, noTranslation=false,
-    onClick = () => {}, onMouseEnter = () => {}, onMouseLeave = () => {},
+    active=false, loading=false, disabled=false, noTranslation=false,
+    onClick=()=>{}, onMouseEnter=()=>{}, onMouseLeave=()=>{},
     children, className, classNameText,
 }: IButton) => {
 
@@ -61,7 +63,7 @@ export const Button = ({
     const html =  (
         <button type={type} disabled={disabled}
                 onClick={e => onClick(e)} onMouseEnter={handleOnMouseEnter} onMouseLeave={handleOnMouseLeave} 
-                className={cls(cl.button, cl[variant], active ? cl.active : '', className)}>
+                className={cls(cl.button, cl[variant], cl[color], cl[size], active ? cl.active : '', className)}>
             {beforeImage &&
                 <ImageSmart {...beforeProps} icon={beforeImage} 
                             width={beforeProps && beforeProps.width ? beforeProps.width: 20} 
@@ -91,4 +93,6 @@ export const Button = ({
 
 Button.Variant = ButtonVariant;
 Button.Type = ButtonType;
+Button.Color = ButtonColor;
+Button.Size = ButtonSize;
 

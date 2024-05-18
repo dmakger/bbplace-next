@@ -15,6 +15,8 @@ import { BlockInfoProduct } from "@/features/Block/Info/Product/BlockInfoProduct
 import {skipToken} from "@reduxjs/toolkit/query";
 import { OptionList } from "@/shared/ui/Option/ui/List/OptionList";
 import { productListToOptionList } from "@/entities/Product/lib/option.product.lib";
+import { Button, ButtonVariant } from "@/shared/ui/Button";
+import { ButtonColor, ButtonSize } from "@/shared/ui/Button/model/model";
 
 export default function ProductDetailPage() {
     // ROUTER
