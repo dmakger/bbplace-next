@@ -3,13 +3,12 @@ import Image from 'next/image'
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_ImageSmart.module.scss'
-import { IIcon } from "../../Icon/model/model";
 import { Axis, IIconProps } from "@/shared/model/button.model";
+import { IIcon } from "../../Icon/model/model";
 
 interface ImageSmartProps extends IIconProps {
     icon: IIcon
 }
-
 
 export const ImageSmart:FC<ImageSmartProps> = ({icon, axis=Axis.Default, isActive=false, width, height, isHovered=false, className, classNameImage}) => {
     const style = {

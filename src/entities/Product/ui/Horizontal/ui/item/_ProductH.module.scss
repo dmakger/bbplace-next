@@ -69,6 +69,15 @@
                 display: none;
             }
         }
+
+        .tableText {
+            white-space: normal;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            line-clamp: 3;
+            -webkit-line-clamp: 3;
+            line-height: 1.5;
+        }
     }
 
     .supplier {

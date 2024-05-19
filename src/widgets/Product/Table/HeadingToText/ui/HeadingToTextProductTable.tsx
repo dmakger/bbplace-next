@@ -8,12 +8,12 @@ import { HeadingToTextTable } from "@/shared/ui/Text";
 interface HeadingToTextProductTableProps{
     product: IProduct
     className?: string,
+    classNameTextItem?: string,
 }
 
-export const HeadingToTextProductTable:FC<HeadingToTextProductTableProps> = ({product, className}) => {
+export const HeadingToTextProductTable:FC<HeadingToTextProductTableProps> = ({product, ...rest}) => {
     return (
         <HeadingToTextTable data={getDataHeadingToTextProductTable(product)} 
-                            isShort={true} 
-                            className={className} classNameHeadingItem={cl.headingItem} />
+                            isShort={true} classNameHeadingItem={cl.headingItem} {...rest}/>
     )
 }

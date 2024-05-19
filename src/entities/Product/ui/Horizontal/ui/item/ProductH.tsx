@@ -47,7 +47,7 @@ export const ProductH:FC<ProductHProps> = ({product, className}) => {
                                             className={cl.quantity}
                                             classNameText={cl.quantityText} />
                         </div>
-                        <HeadingToTextProductTable product={product} className={cl.table} />
+                        <HeadingToTextProductTable product={product} className={cl.table} classNameTextItem={cl.tableText} />
                     </div>
                     <SupplierWNav id={product.ownerId} 
                                   view={is768 ? ESupplierView.SMALL : ESupplierView.LARGE_GRAY}
