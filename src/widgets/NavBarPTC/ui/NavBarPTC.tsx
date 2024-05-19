@@ -13,10 +13,20 @@ import { SortModal } from "@/features/Modal/Sort/SortModal";
 import { ECatalogVariants } from "@/widgets/SortFilterSidebar";
 import { getPTCVariantByPathname, getPTCViewByPathname } from "../lib/link.ptc.lib";
 import { CORE_PARAMS } from "@/config/params/core.params.config";
+import { SuspenseL } from "@/shared/ui/Wrapper/SuspenseL/SuspenseL";
 
 interface INavBarPTC {}
 
-export const NavBarPTC: FC<INavBarPTC> = ({ }) => {
+export const NavBarPTC: FC<INavBarPTC> = ({...rest}) => {
+    return (
+        <SuspenseL>
+            <NavBarPTCChild {...rest}/>
+        </SuspenseL>
+    )
+}
+
+
+export const NavBarPTCChild: FC<INavBarPTC> = ({ }) => {
     // RTK
     const ptcState = useAppSelector(state => state.ptc);    
     

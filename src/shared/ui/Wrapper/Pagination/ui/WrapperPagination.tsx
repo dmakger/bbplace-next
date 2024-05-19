@@ -8,6 +8,7 @@ import { Pagination } from "@/widgets/Pagination/ui/Pagination";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { PRODUCT_PARAMS } from "@/config/params/product.params.config";
 import { HandleSize } from "@/shared/ui/Handle/Size/HandleSize";
+import { SuspenseL } from "../../SuspenseL/SuspenseL";
 
 interface WrapperPaginationProps{
     amount: number
@@ -19,7 +20,16 @@ interface WrapperPaginationProps{
     className?: string,
 }
 
-export const WrapperPagination:FC<WrapperPaginationProps> = ({amount, active, keyPageParam, set, defaultPageNumber=1, children, className}) => {
+export const WrapperPagination:FC<WrapperPaginationProps> = ({...rest}) => {
+
+    return (
+        <SuspenseL>
+            <WrapperPaginationChild {...rest}/>
+        </SuspenseL>
+    )
+}
+
+export const WrapperPaginationChild:FC<WrapperPaginationProps> = ({amount, active, keyPageParam, set, defaultPageNumber=1, children, className}) => {
     // ROUTER
     const pathname = usePathname()
     const searchParams = useSearchParams() 

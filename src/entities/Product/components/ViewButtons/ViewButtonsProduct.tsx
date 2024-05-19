@@ -9,15 +9,24 @@ import { ListViewButton } from "@/shared/ui/Button/ListView/ListViewButton";
 import { MAIN_PAGES } from "@/config/pages-url.config";
 import { usePathname, useSearchParams } from "next/navigation";
 import { PRODUCT_PARAMS } from "@/config/params/product.params.config";
+import { SuspenseL } from "@/shared/ui/Wrapper/SuspenseL/SuspenseL";
 
 
 interface ViewButtonsButtonProps{
     className?: string,
 }
 
-export const ViewButtonsButton:FC<ViewButtonsButtonProps> = ({className}) => {
+export const ViewButtonsButton:FC<ViewButtonsButtonProps> = ({...rest}) => {
+    return (
+        <SuspenseL>
+            <ViewButtonsButtonChild {...rest}/>
+        </SuspenseL>
+    )
+}
+
+
+export const ViewButtonsButtonChild:FC<ViewButtonsButtonProps> = ({className}) => {
     // PATH
-    const pathname = usePathname()
     const searchParams = useSearchParams()
 
     // STATE
