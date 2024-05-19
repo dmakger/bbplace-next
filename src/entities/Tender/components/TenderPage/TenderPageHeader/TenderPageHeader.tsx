@@ -7,6 +7,13 @@ import { Button, ButtonVariant } from "@/shared/ui/Button"
 import { PriceQuantity } from "@/shared/ui/PriceQuantity/PriceQuantity"
 import { getTenderWholesalePrices } from "@/entities/Tender/lib/process.tender.lib"
 import { TenderInfo, getDataTenderInfo } from "@/shared/ui/TenderInfo"
+import { ButtonFavourite } from "@/shared/ui/Button/Favourite/ButtonFavourite"
+import { ESupplierFavouriteViewItem } from "@/entities/Supplier/data/view.supplier.data"
+import { FavouriteSmallToSupplierButton } from "@/entities/Supplier/components/Button/Favourite/Small/FavouriteSmallToSupplierButton"
+import { FavouriteIcon } from "@/shared/ui/Icon"
+import { Axis } from "@/shared/model/button.model"
+import { FavouriteAutoToSupplierButton } from "@/entities/Supplier/components/Button/Favourite/Auto/FavouriteAutoToSupplierButton"
+import { FavouriteSVGIcon } from "@/shared/data/icons.data"
 
 
 interface ITenderPageHeader {
@@ -34,9 +41,7 @@ export const TenderPageHeader = ({
                         <p className={cl.tenderName}>{tender.name}</p>
                     </div>
                     <div className={cl.restInfo}>
-                        <Button>
-                            В избранное
-                        </Button>
+                        <FavouriteSmallToSupplierButton isCircled/>
                         <TenderInfo
                             data={getDataTenderInfo(tender, true)}
                             className={cl.restInfoTender}

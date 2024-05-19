@@ -5,18 +5,20 @@ import { ISupplier } from "@/entities/Supplier/model/supplier.model";
 
 interface FavouriteSmallToSupplierButtonProps{
     supplierId?: ISupplier['id']
-    isFavourited?: boolean
+    isFavourited?: boolean,
+    isCircled?: boolean,
     isFill?: boolean
     className?: string
     classNameIcon?: string
 }
 
-export const FavouriteSmallToSupplierButton:FC<FavouriteSmallToSupplierButtonProps> = ({supplierId, isFavourited, isFill, className, classNameIcon}) => {
+export const FavouriteSmallToSupplierButton:FC<FavouriteSmallToSupplierButtonProps> = ({supplierId, isFavourited, isFill, isCircled, className, classNameIcon}) => {
     const handleOnFavouriteClick = () => {}
     
     return (
         <ButtonFavourite isFavourited={isFavourited} 
                          isFill={isFill} 
+                         isCircled={isCircled}
                          onClick={handleOnFavouriteClick} 
                          className={className} classNameIcon={classNameIcon}/>
     )

@@ -16,8 +16,8 @@
         cursor: pointer;
 
         &:hover {
-            background-color: #EFF0F5;
-            border-bottom: 1px solid var(--blue-3);
+            background-color: var(--secondary-surface);
+            border-bottom: 1px solid var(--secondary-pressed);
             transition: 0.3s ease-in-out;
         }
 
@@ -27,7 +27,7 @@
 
         & label {
             width: fit-content;
-            color: var(--blue-2);
+            color: var(--n-blue-2);
             font-size: var(--font-size-sm);
             font-weight: var(--font-weight-med);
             cursor: inherit;
@@ -41,7 +41,7 @@
         cursor: default;
         & label {
             cursor: inherit;
-            color: var(--dark-3);
+            color: var(--font);
             transition: 0.3s ease-in-out;
         }
 
