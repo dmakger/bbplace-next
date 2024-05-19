@@ -6,30 +6,27 @@
 
     @media (max-width: 768px) {
         gap: 10px;
-
     }
 
     .supplierBlock {
         background-color: var(--white);
         border-radius: 20px;
         padding: 7px 16px;
-    }
-
-    .navSupplier {
-        @media (max-width: 768px) {
-            margin-top: auto;
-        }
-    }
-
-    .supplier {
-        width: 100%;
-        justify-content: space-between;
 
         @media (max-width: 768px) {
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
             align-items: flex-start;
-            justify-content: baseline;
+        }
+    }
+
+    .navSupplier {
+        display: flex;
+        justify-content: space-between;
+
+        @media (max-width: 768px) {
+            width: 100%;
         }
     }
 

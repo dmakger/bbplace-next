@@ -19,60 +19,48 @@ export const SwitchSelector = ({
     setSelectedOption
 }: ISwitchSelector) => {
     //STATE
-    const [selectedLabelWidth, setSelectedLabelWidth] = useState<number>(0)
-    const [unselectedLabelWidth, setUnselectedLabelWidth] = useState<number>(0)
-
-    const gap: number = 25;
+    const [lineStyle, setLineStyle] = useState<{ width: number, left: number }>({ width: 0, left: 0 })
 
     //REF
-    const selectedLabelRef = useRef<HTMLLabelElement>(null)
-    const unselectedLabelRef = useRef<HTMLLabelElement>(null)
+    const selectedOptionRef = useRef<HTMLDivElement>(null)
 
     //EFFECT
     useEffect(() => {
-        if (options.length === 1) {
-            if (selectedLabelRef.current) {
-                setSelectedLabelWidth(selectedLabelRef.current.offsetWidth);
-            }
+        if (selectedOptionRef.current) {
+            setLineStyle({
+                width: selectedOptionRef.current.offsetWidth,
+                left: selectedOptionRef.current.offsetLeft
+            })
         }
-        else if (options.length > 1) {
-            if (selectedLabelRef.current && unselectedLabelRef.current) {
-                setSelectedLabelWidth(selectedLabelRef.current.offsetWidth);
-                setUnselectedLabelWidth(unselectedLabelRef.current.offsetWidth)
-            }
-        }
-
     }, [options, selectedOption])
+    
 
-    useEffect(() => {
-        document.documentElement.style.setProperty('--labelWidth', `${unselectedLabelWidth + gap}px`);
-    }, [selectedLabelWidth]);
-
-
+    //FUNCTIONS
     const selectOption = (it: IOption) => setSelectedOption(it);
-
-
+    const isChecked = (selectOption: IOption, it: IOption) => selectOption.id === it.id;
 
     return (
-        <div className={cls(cl.SwitchSelector, className)} style={{ gap: `${gap}px` }}>
-            {options.map(it => (
-                <div className={cl.option}
-                    key={it.id}>
-                    <input
-                        type="radio"
-                        id={String(it.id)}
-                        name={it.name}
-                        checked={selectedOption.id === it.id}
-                        onChange={() => selectOption(it)}
-                    />
-                    <label htmlFor={String(it.id)} ref={selectedOption.id === it.id ? selectedLabelRef : unselectedLabelRef}>
-                        {it.name}
-                    </label>
-                </div>
-            ))}
+        <div className={cls(cl.SwitchSelector, className)}>
+                {options.map(it => (
+                    <div className={cls(cl.option, isChecked(selectedOption, it) ? cl.choosen : '')}
+                        ref={isChecked(selectedOption, it) ? selectedOptionRef : null}
+                        key={it.id}
+                        onClick={() => selectOption(it)}>
+                        <input
+                            type="radio"
+                            id={String(it.id)}
+                            name={it.name}
+                            checked={isChecked(selectedOption, it)}
+                            onChange={() => {}}/>
+                        <label
+                            htmlFor={String(it.id)}>
+                            {it.name}
+                        </label>
+                    </div>
+                ))}
             <span
-                className={cl.redLine}
-                style={{ width: `${selectedLabelWidth}px`, left: `${selectedOption.id === 1 ? 0 : (unselectedLabelWidth + gap)}px` }}
+                className={cl.choosenLine}
+                style={{ width: `${lineStyle.width}px`, left: `${lineStyle.left}px` }}
             />
         </div>
     )

@@ -9,3 +9,8 @@ export const SWITCH_SELECTOR_CHARACTERISTIC_OPTION: IOption = {
     id: 2,
     name: 'Характеристики'
 }
+
+export const SWITCH_SELECTOR_QUESTIONS_OPTION: IOption = {
+    id: 3,
+    name: 'Вопросы'
+}

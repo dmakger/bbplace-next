@@ -1,36 +1,62 @@
 .SwitchSelector {
     display: flex;
+    width: 100%;
     position: relative;
+    overflow-x: auto;
 
-    .option  {
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    .option {
         display: flex;
+        padding: 18px 20px;
+        border-bottom: 1px solid transparent;
+        transition: 0.3s ease-in-out;
+        cursor: pointer;
 
-        & input{
+        &:hover {
+            background-color: #EFF0F5;
+            border-bottom: 1px solid var(--blue-3);
+            transition: 0.3s ease-in-out;
+        }
+
+        & input {
             display: none;
         }
-        & label{
+
+        & label {
             width: fit-content;
-            font-size: var( --font-size-sm);
+            color: var(--blue-2);
+            font-size: var(--font-size-sm);
             font-weight: var(--font-weight-med);
+            cursor: inherit;
+            transition: 0.3s ease-in-out;
+        }
+
+
+    }
+
+    .choosen {
+        cursor: default;
+        & label {
+            cursor: inherit;
+            color: var(--dark-3);
+            transition: 0.3s ease-in-out;
+        }
+
+        &:hover {
+            background-color: transparent;
         }
     }
 
-    .redLine {
+    .choosenLine {
         position: absolute;
-        bottom: -15px;
+        bottom: 0px;
         left: 0px;
-        height: 3px;
-        background-color: var(--red-1);
+        height: 1px;
+        background-color: var(--gray-6);
         border-radius: 16px;
-        animation: transition 0.3s;
-    }
-}
-
-@keyframes transition {
-    0%{
-        left: 0px;
-    }
-    100%{
-        left: var(--labelWidth);
+        transition: left 0.3s, width 0.3s;
     }
 }

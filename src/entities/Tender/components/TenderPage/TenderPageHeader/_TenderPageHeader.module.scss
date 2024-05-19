@@ -20,7 +20,7 @@
             gap: 2px;
 
             .tenderType {
-                color: var(--gray-9);
+                color: var(--gray-10);
                 font-size: var(--font-size-reg);
                 font-weight: var(--font-weight-light);
             }
@@ -62,7 +62,7 @@
                 .restInfoItem {
                     font-weight: var(--font-weight-light);
                     font-size: var(--font-size-s);
-                    color: var(--gray-9);
+                    color: var(--gray-10);
                 }
 
                 .restInfoItemSpan {
@@ -107,10 +107,19 @@
                 justify-content: flex-start;
                 width: 40%;
             }
+            @media (max-width: 768px) {
+                width: 100%;
+                & div{
+                    width: 100%;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+            }
         }
 
         .quantity {
-            color: var(--gray-9);
+            color: var(--gray-10);
             font-weight: var(--font-weight-light) !important;
             font-size: var(--font-size-reg) !important;
 

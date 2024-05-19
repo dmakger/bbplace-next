@@ -24,7 +24,7 @@
         padding-right: 16px;
         align-items: flex-start;
         justify-content: space-between;
-        border-bottom: 1px solid var(--gray-7);
+        border-bottom: 1px solid var(--gray-8);
     }
 }
 
@@ -57,7 +57,7 @@
     cursor: pointer;
     font-weight: var(--font-weight-reg);
     font-size: var(--font-size-reg) ;
-    color: var(--gray-7);
+    color: var(--gray-10);
     transition: all 0.3s;
 
     &:hover {

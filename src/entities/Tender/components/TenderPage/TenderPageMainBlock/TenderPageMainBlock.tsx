@@ -34,13 +34,12 @@ export const TenderPageMainBlock = ({
 
                 <SupplierWNav
                     className={cl.supplierBlock}
-                    classNameSupplier={cl.supplier}
                     classNameNavs={cl.navSupplier}
 
                     id={tender.ownerId}
                     hasImage
-                    subscribeView={ESupplierSubscribeViewItem.LARGE_OUTLINE}
                     navs={[
+                        ESupplierSubscribeViewItem.LARGE_OUTLINE,
                         is768 ? ESupplierToChatViewItem.SMALL_WIDE : ESupplierToChatViewItem.NONE
                     ]}
                 />
