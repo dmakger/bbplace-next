@@ -1,30 +1,121 @@
+// >>> ========={ BUTTON COLOR }========= >>>
+.primary {
+    --button-color: var(--primary);
+    --button-color-border: var(--primary-border);
+    --button-color-hovered: var(--primary-hovered);
+    --button-color-pressed: var(--primary-pressed);
+    --button-color-on: var(--on-primary);
+    --button-color-surface: var(--primary-surface);
+    --button-color-surface-sub: var(--primary-surface-sub);
+}
+
+.secondary {
+    --button-color: var(--secondary);
+    --button-color-border: var(--secondary-border);
+    --button-color-hovered: var(--secondary-hovered);
+    --button-color-pressed: var(--secondary-pressed);
+    --button-color-on: var(--on-secondary);
+    --button-color-surface: var(--secondary-surface);
+    --button-color-surface-sub: var(--secondary-surface-sub);
+}
+
+// <<< ========={ BUTTON COLOR }========= <<<
+
 .wrapper {
     display: flex;
 }
 
 .button {
-    cursor: pointer;
-    border: 1px solid var(--gray-5);
-    border-radius: 100px;
-    font-weight: var(--font-weight-reg);
-    font-size: var(--font-size-s);
-    text-align: center;
     width: 100%;
-    transition: all 0.3s;
+    border-radius: 100px;
+    border: 1px solid var(--gray-5);
 
-    &:hover {
-        transition: all 0.3s;
+    font-size: var(--font-size-s);
+    font-weight: var(--font-weight-reg);
+    text-align: center;
+
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:disabled {
+        background-color: var(--disabled);
+        color: var(--button-color-on);
     }
 }
 
+.new {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+
+    font-size: var(--font-size-reg);
+    font-weight: var(--font-weight-sb);
+
+    &:hover {
+        background-color: var(--button-color-hovered);
+        color: var(--button-color-on);
+    }
+    &:active {
+        background-color: var(--button-color-pressed);
+        color: var(--button-color-on);
+    }
+}
+
+
+// >>> ========={ SIZE }========= >>>
+.big {
+    padding: 17px 29px;
+    border-radius: 25px;
+    font-size: var(--font-size-reg);
+}
+.medium {
+    padding: 13px 25px;
+    border-radius: 20px;
+    font-size: var(--font-size-s);
+}
+.small {
+    padding: 10px 20px;
+    border-radius: 15px;
+    font-size: var(--font-size-xxs);
+}
+// <<< ========={ SIZE }========= <<<
+
+
+// >>> ========={ NEW STYLES }========= >>>
+.fill {
+    background-color: var(--button-color);
+    color: var(--button-color-on);
+}
+.tonal {
+    background-color: var(--button-color-surface);
+    color: var(--button-color);
+}
+.border {
+    background-color: var(--empty);
+    border: 1px solid var(--button-color-border);
+    color: var(--button-color);
+
+    &:hover {
+        border: 1px solid var(--button-color);
+    }
+}
+.content {
+    background-color: var(--empty);
+    color: var(--button-color);
+}
+// <<< ========={ NEW STYLES }========= <<<
+
+
+// >>> ========={ OLD STYLES }========= >>>
 .bordered-red-wide {
     padding: 8px 18px;
     background-color: transparent;
     color: var(--dark-2);
 
     &:hover {
-        border-color: var(--red-1);
-        color: var(--red-1);
+        border-color: var(--red-1) !important;
+        color: var(--red-1) !important;
     }
 }
 
@@ -34,8 +125,8 @@
     color: var(--dark-2);
 
     &:hover {
-        border-color: var(--red-1);
-        color: var(--red-1);
+        border-color: var(--red-1) !important;
+        color: var(--red-1) !important;
     }
 }
 
@@ -45,7 +136,7 @@
     color: var(--dark-2);
 
     &:hover {
-        background-color: var(--gray-3);
+        background-color: var(--gray-3) !important;
     }
 }
 
@@ -55,7 +146,7 @@
     color: var(--dark-2);
 
     &:hover {
-        background-color: var(--gray-3);
+        background-color: var(--gray-3) !important;
     }
 }
 
@@ -67,8 +158,8 @@
     color: var(--white);
 
     &:hover {
-        color: var(--white);
-        background-color: var(--red-2);
+        color: var(--white) !important;
+        background-color: var(--red-2) !important;
     }
 }
 
@@ -98,8 +189,8 @@
     color: #666c71;
 
     &:hover {
-        background-color: var(--gray-4);
-        color: var(--dark-2);
+        background-color: var(--gray-4) !important;
+        color: var(--dark-2) !important;
     }
 }
 
@@ -109,7 +200,7 @@
     color: var(--dark-2);
 
     &:hover {
-        background-color: var(--gray-3);
+        background-color: var(--gray-3) !important;
     }
 }
 
@@ -126,7 +217,7 @@
     color: var(--white);
 
     &:hover {
-        background-color: var(--red-2);
+        background-color: var(--red-2) !important;
     }
 }
 
@@ -140,6 +231,8 @@
     transition: .2s;
 
     &:hover {
-        background-color: var(--gray-4);
+        background-color: var(--gray-4) !important;
     }
 }
+
+// <<< ========={ OLD STYLES }========= <<<
