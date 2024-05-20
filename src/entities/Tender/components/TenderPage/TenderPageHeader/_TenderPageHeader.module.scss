@@ -58,7 +58,6 @@
                 background-color: var(--gray-2);
                 min-width: fit-content;
 
-
                 .restInfoItem {
                     font-weight: var(--font-weight-light);
                     font-size: var(--font-size-s);
@@ -92,11 +91,12 @@
             width: 100%;
             padding: 20px;
             position: fixed;
-            bottom: 0%;
+            bottom: 0;
             left: 0;
         }
 
         @media (max-width: 768px) {
+            bottom: 60px !important;
             flex-direction: column;
             gap: 10px;
         }

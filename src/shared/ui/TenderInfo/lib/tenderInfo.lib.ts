@@ -39,7 +39,6 @@ export const getDataTenderInfo = (tender: ICommonTender, isCreatedAt?: boolean) 
     ]
     if(isCreatedAt){
         return [
-            processData[1], 
             createdAtOption
         ].filter(it => it !== undefined) as IHeadingToTextTender[]
     }

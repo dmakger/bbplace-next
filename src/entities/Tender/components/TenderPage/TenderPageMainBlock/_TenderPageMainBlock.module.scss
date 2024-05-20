@@ -3,6 +3,11 @@
     flex-direction: column;
     gap: 20px;
     width: 100%;
+    height: fit-content;
+
+    @media (max-width: 768px) {
+        padding-bottom: 128px;
+    }
 
     @media (max-width: 768px) {
         gap: 10px;
