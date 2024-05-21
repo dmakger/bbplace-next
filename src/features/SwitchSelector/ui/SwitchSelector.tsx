@@ -3,7 +3,7 @@
 import { cls } from "@/shared/lib/classes.lib"
 import cl from './_SwitchSelector.module.scss'
 import { IOption } from "@/shared/model/option.model"
-import { useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 
 interface ISwitchSelector {
     className?: string,
@@ -22,7 +22,7 @@ export const SwitchSelector = ({
     const [lineStyle, setLineStyle] = useState<{ width: number, left: number }>({ width: 0, left: 0 })
 
     //REF
-    const selectedOptionRef = useRef<HTMLDivElement>(null)
+    const selectedOptionRef = useRef<HTMLButtonElement>(null)
 
     //EFFECT
     useEffect(() => {
@@ -36,13 +36,18 @@ export const SwitchSelector = ({
     
 
     //FUNCTIONS
-    const selectOption = (it: IOption) => setSelectedOption(it);
-    const isChecked = (selectOption: IOption, it: IOption) => selectOption.id === it.id;
+    const selectOption = useCallback((option: IOption) => {
+        setSelectedOption(option);
+    }, [setSelectedOption]);
+
+    const isChecked = useCallback((selectOption: IOption, mapItem: IOption) => {
+        return selectOption.id === mapItem.id;
+    }, [selectedOption]);
 
     return (
         <div className={cls(cl.SwitchSelector, className)}>
                 {options.map(it => (
-                    <div className={cls(cl.option, isChecked(selectedOption, it) ? cl.choosen : '')}
+                    <button className={cls(cl.option, options.length > 1 ? cl.optionHover : '', isChecked(selectedOption, it) ? cl.choosen : '')}
                         ref={isChecked(selectedOption, it) ? selectedOptionRef : null}
                         key={it.id}
                         onClick={() => selectOption(it)}>
@@ -56,12 +61,12 @@ export const SwitchSelector = ({
                             htmlFor={String(it.id)}>
                             {it.name}
                         </label>
-                    </div>
+                    </button>
                 ))}
-            <span
+            {options.length > 1 && <span
                 className={cl.choosenLine}
                 style={{ width: `${lineStyle.width}px`, left: `${lineStyle.left}px` }}
-            />
+            />}
         </div>
     )
 }

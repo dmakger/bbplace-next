@@ -7,6 +7,7 @@
     border-radius: 20px;
     padding: 20px;
     background-color: var(--background-2);
+    
 
     .leftContainer {
         display: flex;
@@ -103,6 +104,13 @@
 
         .priceQuantity{
             justify-content: flex-end;
+            overflow-x: auto; 
+            white-space: nowrap;
+            &::-webkit-scrollbar {
+                display: none;
+               }
+            
+
             @media (max-width: 1024px) {
                 justify-content: flex-start;
                 width: 40%;
@@ -113,6 +121,7 @@
                     width: 100%;
                     flex-direction: row;
                     align-items: center;
+                    gap: 8px;
                     justify-content: space-between;
                 }
             }

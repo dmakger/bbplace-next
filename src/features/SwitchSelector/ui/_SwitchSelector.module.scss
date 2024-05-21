@@ -3,6 +3,7 @@
     width: 100%;
     position: relative;
     overflow-x: auto;
+    border-bottom: 1px solid var(--secondary-surface);
 
     &::-webkit-scrollbar {
         display: none;
@@ -14,12 +15,6 @@
         border-bottom: 1px solid transparent;
         transition: 0.3s ease-in-out;
         cursor: pointer;
-
-        &:hover {
-            background-color: var(--secondary-surface);
-            border-bottom: 1px solid var(--secondary-pressed);
-            transition: 0.3s ease-in-out;
-        }
 
         & input {
             display: none;
@@ -33,8 +28,14 @@
             cursor: inherit;
             transition: 0.3s ease-in-out;
         }
+    }
 
-
+    .optionHover{
+        &:hover {
+            background-color: var(--secondary-surface);
+            border-bottom: 1px solid var(--secondary-pressed);
+            transition: 0.3s ease-in-out;
+        }
     }
 
     .choosen {
