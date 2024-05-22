@@ -4,10 +4,22 @@
     gap: 20px;
     background: var(--white); 
     border-radius: 16px;
+
+    .switchSelectorButton{
+        & > button > label{
+            @media (max-width: 1024px) {
+                font-size: var(--font-size-reg);
+            }
+        }
+    }
     .tenderInfo{
         padding: 16px;
         padding-top: 0px;
         font-size: var(--font-size-reg);
         color: var(--gray-9);
+
+        @media (max-width: 1024px) {
+            font-size: var(--font-size-s);
+        }
     }
 }

@@ -21,7 +21,9 @@ export const TenderPageMainInfo = ({
 
     return (
         <div className={cls(cl.TenderPageMainInfo, className)}>
-            <SwitchSelector options={SWITCH_SELECTOR_TENDER_OPTIONS}
+            <SwitchSelector 
+            className={cl.switchSelectorButton}
+            options={SWITCH_SELECTOR_TENDER_OPTIONS}
                 selectedOption={selectedOption}
                 setSelectedOption={setSelectedOption}
             />
