@@ -8,8 +8,20 @@ import { PTCSelect } from "@/features/Select";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAppSelector } from "@/storage/hooks";
 import { getFormData } from "@/shared/lib/formData.lib";
+import { SuspenseL } from "@/shared/ui/Wrapper/SuspenseL/SuspenseL";
+
 
 export const Search = () => {
+    return (
+        <SuspenseL>
+            <SearchChild />
+        </SuspenseL>
+    )
+}
+
+
+
+export const SearchChild = () => {
 
     //STATE
     const { view } = useAppSelector(state => state.ptc)
@@ -43,3 +55,4 @@ export const Search = () => {
         </form>
     )
 }
+

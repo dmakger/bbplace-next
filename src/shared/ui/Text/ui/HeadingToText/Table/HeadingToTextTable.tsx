@@ -10,9 +10,10 @@ interface HeadingToTextTableProps{
     className?: string,
     classNameColumn?: string,
     classNameHeadingItem?: string,
+    classNameTextItem?: string,
 }
 
-export const HeadingToTextTable:FC<HeadingToTextTableProps> = ({data, isShort=false, className, classNameColumn, classNameHeadingItem}) => {
+export const HeadingToTextTable:FC<HeadingToTextTableProps> = ({data, isShort=false, className, classNameColumn, classNameHeadingItem, classNameTextItem}) => {
     const headingTable = data.map(it => it.heading)
     const textTable = data.map(it => it.text)
     return (
@@ -24,7 +25,7 @@ export const HeadingToTextTable:FC<HeadingToTextTableProps> = ({data, isShort=fa
             </div>
             <div className={cls(cl.column, cl.right, classNameColumn)}>
                 {textTable.map((text, index) => (
-                    <span className={cls(cl.text, cl.span)} key={index}>{text}</span>
+                    <span className={cls(cl.text, cl.span, classNameTextItem)} key={index}>{text}</span>
                 ))}
             </div>
         </div>

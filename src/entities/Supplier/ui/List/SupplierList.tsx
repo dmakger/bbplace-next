@@ -16,10 +16,18 @@ import { ECatalogVariants } from "@/widgets/SortFilterSidebar"
 import { useSearchParams } from "next/navigation"
 import { paramsToBack } from "@/config/params/backend.params.config"
 import { SUPPLIER_PARAMS } from "@/config/params/supplier.params.config"
-
-
+import { SuspenseL } from '@/shared/ui/Wrapper/SuspenseL/SuspenseL'
 
 export const SupplierList = () => {
+    return (
+        <SuspenseL>
+            <SupplierListChild />
+        </SuspenseL>
+    )
+}
+
+
+export const SupplierListChild = () => {
     // ROUTER
     const searchParams = useSearchParams();
     const newParams = paramsToBack(searchParams)
