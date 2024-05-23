@@ -8,6 +8,7 @@ import { PriceQuantity } from "@/shared/ui/PriceQuantity/PriceQuantity"
 import { getTenderWholesalePrices } from "@/entities/Tender/lib/process.tender.lib"
 import { TenderInfo, getDataTenderInfo } from "@/shared/ui/TenderInfo"
 import { FavouriteSmallToSupplierButton } from "@/entities/Supplier/components/Button/Favourite/Small/FavouriteSmallToSupplierButton"
+import { DASHBOARD_PAGES } from "@/config/pages-url.config"
 
 
 interface ITenderPageHeader {
@@ -51,7 +52,9 @@ export const TenderPageHeader = ({
                     classNameQuantity={cl.quantity}
                     classNamePrice={cl.price} />
                 <div className={cl.buttonContainer}>
-                    <Button variant={ButtonVariant.BACKGROUND_RED} className={cl.button}>
+                    <Button variant={ButtonVariant.BACKGROUND_RED}
+                        className={cl.button}
+                        href={DASHBOARD_PAGES.CURRENT_CHAT(tender.ownerId)} >
                         Заказать
                     </Button>
                 </div>

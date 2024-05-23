@@ -1,6 +1,5 @@
 import { IArgsRequest } from "@/api/model/request.model.api"
-import { SWITCH_SELECTOR_CHARACTERISTIC_OPTION, SWITCH_SELECTOR_DESCRIPTION_OPTION } from "@/features/SwitchSelector"
-import { SWITCH_SELECTOR_QUESTIONS_OPTION } from "@/features/SwitchSelector/data/switchSelector.data"
+import { SWITCH_SELECTOR_DESCRIPTION_OPTION } from "@/features/SwitchSelector"
 import { IOption } from "@/shared/model/option.model"
 
 export const TENDER_START_PAGE: IArgsRequest['page'] = 0
@@ -12,7 +11,5 @@ export const TENDER_ARGS_REQUEST: IArgsRequest = {
 }
 
 export const SWITCH_SELECTOR_TENDER_OPTIONS: IOption[] = [
-    SWITCH_SELECTOR_DESCRIPTION_OPTION,
-    SWITCH_SELECTOR_CHARACTERISTIC_OPTION,
-    SWITCH_SELECTOR_QUESTIONS_OPTION,
+    SWITCH_SELECTOR_DESCRIPTION_OPTION
 ]

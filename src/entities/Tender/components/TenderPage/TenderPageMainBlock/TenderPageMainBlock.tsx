@@ -1,6 +1,6 @@
 import { cls } from "@/shared/lib/classes.lib"
 import cl from './_TenderPageMainBlock.module.scss'
-import { TenderPageHeader, TenderPageMainInfo } from "../../.."
+import { TenderPageHeader } from "../TenderPageHeader/TenderPageHeader"
 import { ETenderType, IPurchaseTender, ISaleTender, ITenderAttachments } from "../../../model/tender.model"
 import { useState } from "react"
 import { HandleSize } from "@/shared/ui/Handle/Size/HandleSize"
@@ -8,6 +8,9 @@ import { SupplierWNav } from "@/entities/Supplier/ui/WNav/SupplierWNav"
 import { ESupplierSubscribeViewItem, ESupplierToChatViewItem } from "@/entities/Supplier/data/view.supplier.data"
 import { ScrollSlider } from "@/features/ScrollSlider"
 import { ImageSlide } from "@/widgets/Slider/Image/item/ImageSlide"
+import { DetailedPageInfo } from "@/widgets/DetailedPageInfo"
+import { SWITCH_SELECTOR_TENDER_OPTIONS } from "@/entities/Tender/data/tender.data"
+import { SWITCH_SELECTOR_DESCRIPTION_OPTION } from "@/features/SwitchSelector"
 
 interface ITenderPageMainBlock {
     className?: string,
@@ -25,6 +28,12 @@ export const TenderPageMainBlock = ({
     const [is768, setIs768] = useState<boolean>(false)
 
     const images = tender.attachments.map((it: ITenderAttachments) => it.key)
+
+    const optionsTab = [
+        <p>
+            {tender.description}
+        </p>
+    ]
     return (
         <>
             <section className={cls(cl.TenderPageMainBlock, className)}>
@@ -44,14 +53,17 @@ export const TenderPageMainBlock = ({
                     ]}
                 />
                 {images.length > 1 && <ScrollSlider
-                className={cl.slider}
-                        component={ImageSlide}
-                        width={150}
-                        height={150}
-                        slides={images}
-                        classNameSlides={cl.imageSlide} />}
+                    className={cl.slider}
+                    component={ImageSlide}
+                    width={150}
+                    height={150}
+                    slides={images}
+                    classNameSlides={cl.imageSlide} />}
 
-                <TenderPageMainInfo tender={tender} />
+                <DetailedPageInfo options={SWITCH_SELECTOR_TENDER_OPTIONS}
+                    defaultOption={SWITCH_SELECTOR_DESCRIPTION_OPTION}
+                    optionsTab={optionsTab}
+                />
             </section>
             <HandleSize width={768} set={setIs768} />
         </>

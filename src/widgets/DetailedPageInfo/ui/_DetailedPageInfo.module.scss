@@ -1,4 +1,4 @@
-.TenderPageMainInfo {
+.DetailedPageInfo {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -12,7 +12,7 @@
             }
         }
     }
-    .tenderInfo{
+    .optionsTabContainer{
         padding: 16px;
         padding-top: 0px;
         font-size: var(--font-size-reg);
