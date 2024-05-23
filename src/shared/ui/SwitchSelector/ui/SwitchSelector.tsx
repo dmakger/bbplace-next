@@ -2,13 +2,15 @@
 
 import { cls } from "@/shared/lib/classes.lib"
 import cl from './_SwitchSelector.module.scss'
-import { IOption } from "@/shared/model/option.model"
 import { useCallback, useEffect, useRef, useState } from "react"
+import Link from "next/link"
+import { IOption } from "@/shared/model/option.model"
+import { IIconVariants } from "@/shared/model/icon.model"
 
 interface ISwitchSelector {
     className?: string,
-    options: IOption[],
-    selectedOption: IOption,
+    options: IOption[] | IIconVariants[],
+    selectedOption: IOption | IIconVariants,
     setSelectedOption: Function
 }
 
@@ -16,7 +18,7 @@ export const SwitchSelector = ({
     className,
     options,
     selectedOption,
-    setSelectedOption
+    setSelectedOption,
 }: ISwitchSelector) => {
     //STATE
     const [lineStyle, setLineStyle] = useState<{ width: number, left: number }>({ width: 0, left: 0 })
@@ -33,20 +35,24 @@ export const SwitchSelector = ({
             })
         }
     }, [options, selectedOption])
-    
+
 
     //FUNCTIONS
-    const selectOption = useCallback((option: IOption) => {
+    const selectOption = useCallback((option:  IOption | IIconVariants) => {
         setSelectedOption(option);
     }, [setSelectedOption]);
 
-    const isChecked = useCallback((selectOption: IOption, mapItem: IOption) => {
+    const isChecked = useCallback((selectOption: IOption | IIconVariants, mapItem:  IOption | IIconVariants) => {
         return selectOption.id === mapItem.id;
     }, [selectedOption]);
 
     return (
         <div className={cls(cl.SwitchSelector, className)}>
-                {options.map(it => (
+            {options.map(it => {
+
+                const isLink = 'image' in it;
+
+                const html = (
                     <button className={cls(cl.option, options.length > 1 ? cl.optionHover : '', isChecked(selectedOption, it) ? cl.choosen : '')}
                         ref={isChecked(selectedOption, it) ? selectedOptionRef : null}
                         key={it.id}
@@ -54,15 +60,21 @@ export const SwitchSelector = ({
                         <input
                             type="radio"
                             id={String(it.id)}
-                            name={it.name}
+                            name={isLink ? it.title : it.name}
                             checked={isChecked(selectedOption, it)}
-                            onChange={() => {}}/>
+                            onChange={() => { }} />
                         <label
                             htmlFor={String(it.id)}>
-                            {it.name}
+                            {isLink ? it.title : it.name}
                         </label>
                     </button>
-                ))}
+                )
+
+                if (!isLink) return html;
+
+                return <Link href={it.link ?? ''}>{html}</Link>   
+            }
+            )}
             {options.length > 1 && <span
                 className={cl.choosenLine}
                 style={{ width: `${lineStyle.width}px`, left: `${lineStyle.left}px` }}

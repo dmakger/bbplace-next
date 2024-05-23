@@ -1,6 +1,7 @@
 import { IArgsRequest } from "@/api/model/request.model.api"
-import { SWITCH_SELECTOR_DESCRIPTION_OPTION } from "@/features/SwitchSelector"
+
 import { IOption } from "@/shared/model/option.model"
+import { SWITCH_SELECTOR_DESCRIPTION_OPTION } from "@/shared/ui/SwitchSelector"
 
 export const TENDER_START_PAGE: IArgsRequest['page'] = 0
 export const TENDER_LIMIT: IArgsRequest['limit'] = 16

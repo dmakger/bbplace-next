@@ -3,21 +3,29 @@ import { FC } from "react"
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_ImageSlide.module.scss'
 import { ImageAPI } from "@/shared/ui/Image/API/ImageAPI";
+import Image from "next/image";
 
 interface ImageSlideProps {
-    slide: string
+    slide: string,
+    classNameContainer?: string,
     className?: string,
     width: number,
-    height: number
+    height: number,
+    isScale?: boolean
 }
 
 export const ImageSlide: FC<ImageSlideProps> = ({
     slide,
     className,
+    classNameContainer,
     width = 660,
-    height = 465
+    height = 465,
+    isScale = false
 }) => {
     return (
-        <ImageAPI src={slide} width={width} height={height} className={cls(cl.image, className)} />
+        <div className={cls(cl.imageContainer, classNameContainer)}>
+            <ImageAPI src={slide} width={width} height={height} className={cls(cl.image, className)} />
+            {isScale && <Image src='/imageScale.svg' alt="jopa" className={cl.scaleImage} width={18} height={18}/>}
+        </div>
     )
 }

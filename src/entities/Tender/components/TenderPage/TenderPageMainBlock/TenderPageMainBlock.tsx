@@ -8,9 +8,9 @@ import { SupplierWNav } from "@/entities/Supplier/ui/WNav/SupplierWNav"
 import { ESupplierSubscribeViewItem, ESupplierToChatViewItem } from "@/entities/Supplier/data/view.supplier.data"
 import { ScrollSlider } from "@/features/ScrollSlider"
 import { ImageSlide } from "@/widgets/Slider/Image/item/ImageSlide"
-import { DetailedPageInfo } from "@/widgets/DetailedPageInfo"
 import { SWITCH_SELECTOR_TENDER_OPTIONS } from "@/entities/Tender/data/tender.data"
-import { SWITCH_SELECTOR_DESCRIPTION_OPTION } from "@/features/SwitchSelector"
+import { SWITCH_SELECTOR_DESCRIPTION_OPTION } from "@/shared/ui/SwitchSelector"
+import { DetailedPageInfo } from "@/features/DetailedPageInfo"
 
 interface ITenderPageMainBlock {
     className?: string,
@@ -58,7 +58,8 @@ export const TenderPageMainBlock = ({
                     width={150}
                     height={150}
                     slides={images}
-                    classNameSlides={cl.imageSlide} />}
+                    classNameSlides={cl.imageSlide}
+                    isScale />}
 
                 <DetailedPageInfo options={SWITCH_SELECTOR_TENDER_OPTIONS}
                     defaultOption={SWITCH_SELECTOR_DESCRIPTION_OPTION}

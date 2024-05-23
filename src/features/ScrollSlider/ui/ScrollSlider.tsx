@@ -8,7 +8,8 @@ interface IScrollSlider<T> {
         slide: T,
         className?: string,
         width: number,
-        height: number
+        height: number,
+        isScale?: boolean
     }>;
     className?: string,
     classNameSlides?: string,
@@ -16,7 +17,7 @@ interface IScrollSlider<T> {
     width?: number,
     height?: number,
     children?: ReactNode
-
+    isScale?: boolean
 }
 
 export const ScrollSlider = <T extends (object | string)>({
@@ -27,7 +28,8 @@ export const ScrollSlider = <T extends (object | string)>({
     classNameSlidesContainer,
     width = 150,
     height = 150,
-    children
+    children,
+    isScale
 
 }: IScrollSlider<T>) => {
     return (
@@ -38,7 +40,9 @@ export const ScrollSlider = <T extends (object | string)>({
                         className={classNameSlides}
                         key={index}
                         width={width}
-                        height={height} />
+                        height={height}
+                        isScale={isScale}
+                         />
                 ))}
                 {children}
             </div>

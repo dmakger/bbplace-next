@@ -2,7 +2,7 @@ import { ReactNode, useState } from "react"
 import { cls } from "@/shared/lib/classes.lib"
 import cl from './_DetailedPageInfo.module.scss'
 import { IOption } from "@/shared/model/option.model"
-import { SwitchSelector } from "@/features/SwitchSelector"
+import { SwitchSelector } from "@/shared/ui/SwitchSelector"
 
 interface IDetailedPageInfo {
     className?: string,
