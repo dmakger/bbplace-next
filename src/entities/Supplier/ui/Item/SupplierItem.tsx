@@ -46,6 +46,8 @@ export const SupplierItem = ({ supplier }: ISupplierItem) => {
         setSupplierProducts(productApiListToProductList(supplierProductsAPI))
 }, [supplierProductsAPI])
 
+const isButton = supplierProducts && supplierProducts.length > 2;
+
 
   return (
     <>
@@ -61,7 +63,7 @@ export const SupplierItem = ({ supplier }: ISupplierItem) => {
         />
         <div className={cl.bottomContainer}>
           <div className={cl.bottomLeftContainer}>
-            {hasCategory && <SupplierCategoryItem category={supplier.category} />}
+            {supplier.category.some(it => it !== null) && <SupplierCategoryItem category={supplier.category} />}
             <div className={cl.line} />
             <HeadingToTextTable variant={EHeadingToTextVariants.COLUMN} data={getDataHeadingToTextSupplierTable(supplier, supplierScore ?? 0, supplierReviews ? supplierReviews.length : 0)}
               classNameMain={cl.table}

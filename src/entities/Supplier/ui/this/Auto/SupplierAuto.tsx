@@ -22,11 +22,7 @@ interface SupplierAutoProps{
 
 export const SupplierAuto:FC<SupplierAutoProps> = ({supplier, view, hasImage=false, subscribeView=ESupplierSubscribeViewItem.NONE, navs, classNameSmallSupplier, classNameSupplier, classNameName, imageSizes}) => {
     const props = {supplier, className: classNameSmallSupplier}
-<<<<<<< HEAD
-    const propsLarge = {...props, hasImage, subscribeView, navs, className: classNameSupplier}
-=======
     const propsLarge = {...props, hasImage, subscribeView, navs, className: classNameSupplier, classNameName, imageSizes}    
->>>>>>> 2bb0d7357f0e7170c56bf02c7a57042ceec9628f
 
     if (view === ESupplierView.SMALL)
         return <SupplierSmall {...props} />

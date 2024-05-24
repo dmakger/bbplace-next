@@ -1,5 +1,5 @@
 export {TenderList} from './ui/list/TenderList'
 export {TenderItem} from './ui/item/TenderItem'
 export {TenderType} from './components/TenderType/TenderType'
-export {TenderPageMainBlock} from './components/TenderPage/TenderPageMainBlock/TenderPageMainBlock'
+export {TenderPageMainBlock} from './components/TenderPageMainBlock/TenderPageMainBlock'
 

@@ -5,7 +5,6 @@ import Link from "next/link"
 import { ImageAPI } from "@/shared/ui/Image/API/ImageAPI"
 import { MAIN_PAGES } from "@/config/pages-url.config"
 import { WholesaleDiapason } from "@/entities/Metrics/ui/Wholesale/Diapason/WholesaleDiapason"
-import { FavouriteAutoToSupplierButton } from "@/entities/Supplier/components/Button/Favourite/Auto/FavouriteAutoToSupplierButton"
 import { ESupplierFavouriteViewItem, ESupplierToChatViewItem } from "@/entities/Supplier/data/view.supplier.data"
 import { getDiapason } from "@/entities/Metrics/lib/metrics/diapason.metrics.metrics.lib"
 import { QuantityMetrics } from "@/shared/ui/QuantityMetrics/QuantityMetrics"
@@ -44,7 +43,7 @@ export const ProductASP = ({
                     <NavSupplier supplierId={product.ownerId ?? ''} views={[ESupplierToChatViewItem.SMALL]}/>
                 </div>
             </Link>
-            <FavouriteAutoToSupplierButton view={ESupplierFavouriteViewItem.SMALL_FILL} className={cl.favourite} />
+            {/* <FavouriteAutoToSupplierButton view={ESupplierFavouriteViewItem.SMALL_FILL} className={cl.favourite} /> */}
         </section>
     )
 }

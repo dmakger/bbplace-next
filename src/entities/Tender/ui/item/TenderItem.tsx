@@ -9,7 +9,6 @@ import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { ICategory } from "@/entities/Metrics/model/category.metrics.model"
 import { getTenderType } from "../../lib/tender.lib"
-import { getDataTenderInfo } from "@/shared/ui/TenderInfo"
 import { CategoryAPI } from "@/entities/Metrics/api/category.metrics.api"
 import { CreatedAt } from "@/shared/ui/CreatedAt"
 import { SupplierWNav } from "@/entities/Supplier/ui/WNav/SupplierWNav"
@@ -22,6 +21,7 @@ import { CategoryItem } from "@/entities/Metrics/ui/Category"
 import { FavouriteAutoToTenderButton } from "../../components/Buttons/Favourite/Auto/FavouriteAutoToTenderButton"
 import { ETenderFavouriteViewItem } from "../../data/view.product.data"
 import { ARROW_ICON } from "@/shared/ui/Icon/data/arrow.data.icon"
+import { getDataTenderInfo } from "@/shared/ui/Text/lib/tenderInfo.lib"
 
 interface ITenderItem {
     tender: ICommonTender
