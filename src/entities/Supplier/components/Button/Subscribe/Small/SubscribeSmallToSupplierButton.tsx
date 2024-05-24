@@ -1,10 +1,12 @@
-import { FC, useState } from "react"
-import { SubscribeIcon } from "@/shared/ui/Icon";
+import { FC, useCallback, useEffect, useState } from "react"
+import { Button, ButtonVariant } from "@/shared/ui/Button";
+import { ISupplier } from "@/entities/Supplier/model/supplier.model";
+import { SUBSCRIBE_GRAY_ICON } from "@/shared/ui/Icon/data/subscribe.data.icon";
+import { useFavourite } from "@/entities/Favourite/lib/favourite.lib";
+import { FavouriteType } from "@/entities/Favourite/data/favourite.data";
 
 import cl from './_SubscribeSmallToSupplierButton.module.scss'
 import { cls } from "@/shared/lib/classes.lib";
-import { Button, ButtonVariant } from "@/shared/ui/Button";
-import { ISupplier } from "@/entities/Supplier/model/supplier.model";
 
 interface SubscribeSmallToSupplierButtonProps{
     supplierId: ISupplier['id']
@@ -15,31 +17,33 @@ interface SubscribeSmallToSupplierButtonProps{
 }
 
 export const SubscribeSmallToSupplierButton:FC<SubscribeSmallToSupplierButtonProps> = ({supplierId, isSubscribed=false, isWide=false, className, classNameIcon}) => {
+    //HOOKS
+    const {addFavourite, deleteFavourite, data: {isInFavourite}} = useFavourite({body: {
+        objectId: +supplierId,
+        objectType: FavouriteType.Supplier
+    }})
+    
     // STATE
-    const [isActive, setIsActive] = useState(isSubscribed)
-    const [isHovered, setIsHovered] = useState(false)
+    const [isActive, setIsActive] = useState(isInFavourite === undefined ? false : isInFavourite)
+
+    // EFFECT
+    useEffect(() => {
+        if (isInFavourite !== undefined && isActive !== isInFavourite)
+            setIsActive(isInFavourite)
+        else if (isActive !== isSubscribed)
+            setIsActive(isSubscribed)
+    }, [isSubscribed, isInFavourite])
 
     // HANDLE
-    const handleOnClick = (e: React.MouseEvent<HTMLElement>) => {
-        console.log('qwe', e);
-        // e.stopPropagation();
-
+    const handleOnClick = useCallback(() => {
+        isActive ? deleteFavourite() : addFavourite()
         setIsActive(prevState => !prevState)
-    }
+    }, [isActive])
 
-    const handleOnMouseEnter = () => {
-        setIsHovered(true)
-    }
-    const handleOnMouseLeave = () => {
-        setIsHovered(false)
-    }
-    
     return (
-        <Button variant={ButtonVariant.BACKGROUND_GRAY} 
-                onClick={e => handleOnClick(e)} 
-                onMouseEnter={handleOnMouseEnter}
-                onMouseLeave={handleOnMouseLeave} classNameButton={isWide ? cl.wideButton : ''}>
-            <SubscribeIcon isActive={isActive} isHovered={isHovered} className={classNameIcon}/>
-        </Button>
+        <Button variant={ButtonVariant.BACKGROUND_GRAY} active={isActive} 
+                beforeImage={SUBSCRIBE_GRAY_ICON} beforeProps={{width: 16, height: 16, className: classNameIcon, classNameImage: cl.image}}
+                onClick={handleOnClick}
+                className={cls(className, isWide ? cl.wideButton : '')} />
     )
 }
