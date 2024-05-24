@@ -3,7 +3,6 @@ import React, {ReactNode, useState} from 'react'
 import cl from './_Button.module.scss'
 import { ButtonVariant } from '..'
 import Link from 'next/link'
-import { ArrowIcon } from '../../Icon/ui/Arrow/ArrowIcon'
 import { IIcon } from '../../Icon/model/model'
 import { IIconProps } from '@/shared/model/button.model'
 import { ButtonColor, ButtonSize, ButtonType } from '../model/model'
@@ -42,11 +41,10 @@ export const Button = ({
     variant = ButtonVariant.BORDERED_RED_WIDE, color=ButtonColor.Primary, type = ButtonType.Button, size=ButtonSize.DefaultSize,
     title, href,
     beforeImage, beforeProps, afterImage, afterProps, 
-    active=false, loading=false, disabled=false, noTranslation=false,
+    active=false, disabled=false, loading=false, noTranslation=false,
     onClick=()=>{}, onMouseEnter=()=>{}, onMouseLeave=()=>{},
     children, className, classNameText,
 }: IButton) => {
-
     // STATE
     const [isHovered, setIsHovered] = useState(false)
 

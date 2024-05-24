@@ -2,14 +2,13 @@ import { FC } from "react"
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_NavSupplier.module.scss'
-import { ESupplierFavouriteViewItem, ESupplierSubscribeViewItem, ESupplierToChatViewItem, ESupplierToProfileViewItem } from "../../data/view.supplier.data";
+import { ESupplierSubscribeViewItem, ESupplierToChatViewItem, ESupplierToProfileViewItem } from "../../data/view.supplier.data";
 import { SubscribeAutoToSupplierButton } from "../Button/Subscribe/Auto/SubscribeAutoToSupplierButton";
 import { ToChatAutoToSupplierButton } from "../Button/ToChat/Auto/ToChatAutoToSupplierButton";
 import { TViewNav } from "../../model/nav.supplier.model";
-import { isFavouriteViewSupplier, isSubscribeViewSupplier, isToChatViewSupplier, isToProfileViewSupplier } from "../../lib/boolean.supplier.lib";
+import { isSubscribeViewSupplier, isToChatViewSupplier, isToProfileViewSupplier } from "../../lib/boolean.supplier.lib";
 import { ToProfileAutoToSupplierButton } from "../Button/ToProfile/Auto/ToProfileToSupplierButton";
 import { ISupplier } from "../../model/supplier.model";
-import { FavouriteAutoToSupplierButton } from "../Button/Favourite/Auto/FavouriteAutoToSupplierButton";
 import React from "react";
 
 interface NavSupplierProps{
@@ -34,9 +33,6 @@ export const NavSupplier:FC<NavSupplierProps> = ({supplierId, views=[], classNam
                     }
                     {isToProfileViewSupplier(view) &&
                         <ToProfileAutoToSupplierButton view={view as ESupplierToProfileViewItem} {...props} />
-                    }
-                    {isFavouriteViewSupplier(view) &&
-                        <FavouriteAutoToSupplierButton view={view as ESupplierFavouriteViewItem} {...props} />
                     }
                 </React.Fragment>
             ))}

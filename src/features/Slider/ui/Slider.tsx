@@ -5,10 +5,10 @@ import { FC, useEffect, useRef, useState } from "react"
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_Slider.module.scss'
-import { ButtonArrow } from "@/shared/ui/Button/Arrow/ButtonArrow";
 import { ARROW_WO_ICON } from "@/shared/ui/Icon/data/arrow.data.icon";
 import { Axis } from "@/shared/model/button.model";
 import { ISlider } from "../model/slider.model";
+import { Button } from "@/shared/ui/Button";
 
 interface SliderProps<T> extends ISlider{
     slides?: T[];
@@ -79,7 +79,7 @@ export const Slider = <T extends (object | string)>({
     return (
         <div style={style} className={cls(cl.slider, className)} ref={slidesRef}>
             {startIndex > 0 &&
-                <ButtonArrow icon={ARROW_WO_ICON} axis={Axis.Left} 
+                <Button beforeImage={ARROW_WO_ICON} beforeProps={{axis: Axis.Left}} 
                             onClick={prevSlide} className={cl.prevButton}/>
             }
 
@@ -93,8 +93,8 @@ export const Slider = <T extends (object | string)>({
             </div>
 
             {startIndex < slides.length - amount &&
-                <ButtonArrow icon={ARROW_WO_ICON} axis={Axis.Left} 
-                            onClick={nextSlide} className={cl.nextButton} />
+                <Button beforeImage={ARROW_WO_ICON} beforeProps={{axis: Axis.Left}} 
+                        onClick={nextSlide} className={cl.nextButton}/>
             }
         </div>
     );

@@ -3,8 +3,6 @@ import { FC, useState } from "react"
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_CatalogImage.module.scss'
 import { ImageSlider } from "../Slider/Image/list/ImageSlider";
-import { ImageSmart } from "@/shared/ui/Image/Smart/ImageSmart";
-import { ImageAPI } from "@/shared/ui/Image/API/ImageAPI";
 import { ImageAD } from "@/shared/ui/Image/Active/ImageActive";
 
 interface CatalogImageProps{

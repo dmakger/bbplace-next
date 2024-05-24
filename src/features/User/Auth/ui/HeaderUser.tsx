@@ -13,7 +13,7 @@ export const HeaderUser = () => {
 
 
     useEffect(() => {
-        console.log(isAuth(), isAuthh);
+        // console.log(isAuth(), isAuthh);
         setIsAuthenticated(isAuth())
     }, [isAuth()])
     

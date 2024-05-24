@@ -31,6 +31,19 @@ export const getRefreshToken = () => {
     return refreshToken || null
 }
 
+// HEADER
+export const getHeaderAuthorization = () => {
+    return {
+        'Authorization': `Bearer ${getAccessToken()}`
+    }
+}
+
+export const getHeaderAuthorizationIfExists = () => {
+    return isAuth() ? getHeaderAuthorization() : {}
+}
+
+
+
 // ===={ SAVE }====
 export const saveTokensStorage = (data: IAuthResponse) => {
     saveAccessTokenStorage(data.accessToken)
