@@ -1,7 +1,8 @@
 import { getTenderType } from "@/entities/Tender/lib/tender.lib";
 import { ETenderType, ICommonTender } from "@/entities/Tender/model/tender.model";
 import { getDate } from "@/shared/lib/dateTime.lib";
-import { IHeadingToTextTender } from "@/shared/model/text.model";
+import { IHeadingToText } from "@/shared/model/text.model";
+
 
 export const getDataTenderInfo = (tender: ICommonTender, isCreatedAt?: boolean) => {    
 
@@ -38,7 +39,7 @@ export const getDataTenderInfo = (tender: ICommonTender, isCreatedAt?: boolean) 
         heading: 'Минимальный заказ', text: String(minOrder), unit: minOrderUnits ? minOrderUnits : ''
     }
 
-    let processData: IHeadingToTextTender[] = [];
+    let processData: IHeadingToText[] = [];
 
     tenderType === ETenderType.PURCHASE ? processData = [
         MAXIMUM_BUDGET_TENDER_DATA,
@@ -50,8 +51,8 @@ export const getDataTenderInfo = (tender: ICommonTender, isCreatedAt?: boolean) 
     if(isCreatedAt){
         return [
             CREATED_AT_TENDER_DATA
-        ].filter(it => it !== undefined) as IHeadingToTextTender[]
+        ].filter(it => it !== undefined) as IHeadingToText[]
     }
-    return processData.filter(it => it !== undefined) as IHeadingToTextTender[]
+    return processData.filter(it => it !== undefined) as IHeadingToText[]
 
 }

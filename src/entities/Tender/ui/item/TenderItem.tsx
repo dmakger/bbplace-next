@@ -9,13 +9,15 @@ import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { ICategory } from "@/entities/Metrics/model/category.metrics.model"
 import { getTenderType } from "../../lib/tender.lib"
-import { TenderInfo, getDataTenderInfo } from "@/shared/ui/TenderInfo"
+import { getDataTenderInfo } from "@/shared/ui/TenderInfo"
 import { CategoryAPI } from "@/entities/Metrics/api/category.metrics.api"
 import { CreatedAt } from "@/shared/ui/CreatedAt"
 import { SupplierWNav } from "@/entities/Supplier/ui/WNav/SupplierWNav"
 import { HandleSize } from "@/shared/ui/Handle/Size/HandleSize"
 import { ESupplierSubscribeViewItem, ESupplierToChatViewItem } from "@/entities/Supplier/data/view.supplier.data"
 import { ESupplierView } from "@/entities/Supplier/data/supplier.data"
+import { HeadingToTextTable } from "@/shared/ui/Text"
+import { EHeadingToTextVariants } from "@/shared/model/text.model"
 import { CategoryItem } from "@/entities/Metrics/ui/Category"
 import { FavouriteAutoToTenderButton } from "../../components/Buttons/Favourite/Auto/FavouriteAutoToTenderButton"
 import { ETenderFavouriteViewItem } from "../../data/view.product.data"
@@ -82,7 +84,14 @@ export const TenderItem = ({
                     <span className={cl.cardTitle}>
                         {tender.name}
                     </span>
-                    <TenderInfo data={getDataTenderInfo(tender)} />
+                    <HeadingToTextTable
+                        data={getDataTenderInfo(tender)}
+                        variant={EHeadingToTextVariants.ROW}
+                        hasSpace={true}
+                        classNameMainBlock={cl.TenderInfo}
+                        classNameHeadingItem={cl.heading}
+                        classNameTextItem={cl.text}
+                    />
                 </div>
 
                 <div className={cl.bottomContainer}>

@@ -6,7 +6,8 @@ export type ICharacteristic = {
     weight: number
     weightUnits: string
     expirationDate: string
-    gender: ISelected | null
+    // gender: ISelected | null
+    gender: string
     features: string[]
     description: string
     composition: string
