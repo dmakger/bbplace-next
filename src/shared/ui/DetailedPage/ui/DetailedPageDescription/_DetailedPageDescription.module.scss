@@ -1,0 +1,8 @@
+.DetailedPageDescription {
+    font-size: var(--font-size-reg);
+    color: var(--gray-9);
+
+    @media (max-width: 1024px) {
+        font-size: var(--font-size-s);
+    }
+}

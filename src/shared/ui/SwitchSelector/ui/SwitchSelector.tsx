@@ -6,12 +6,14 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import { IOption } from "@/shared/model/option.model"
 import { IIconVariants } from "@/shared/model/icon.model"
+import { IOptionsTab } from "@/features/DetailedPageInfo/model/detailedPageInfo.model"
 
 interface ISwitchSelector {
     className?: string,
     options: IOption[] | IIconVariants[],
     selectedOption: IOption | IIconVariants,
     setSelectedOption: Function
+    optionsTab: IOptionsTab
 }
 
 export const SwitchSelector = ({
@@ -19,6 +21,7 @@ export const SwitchSelector = ({
     options,
     selectedOption,
     setSelectedOption,
+    optionsTab
 }: ISwitchSelector) => {
     //STATE
     const [lineStyle, setLineStyle] = useState<{ width: number, left: number }>({ width: 0, left: 0 })
@@ -49,8 +52,10 @@ export const SwitchSelector = ({
     return (
         <div className={cls(cl.SwitchSelector, className)}>
             {options.map(it => {
+                const optionValue = (it as IOption).value ?? '';
 
                 const isLink = 'image' in it;
+                const optionQuantity = optionsTab[optionValue].optionQuantity
 
                 const html = (
                     <button className={cls(cl.option, options.length > 1 ? cl.optionHover : '', isChecked(selectedOption, it) ? cl.choosen : '')}
@@ -66,6 +71,7 @@ export const SwitchSelector = ({
                         <label
                             htmlFor={String(it.id)}>
                             {isLink ? it.title : it.name}
+                            {optionQuantity && <span className={cl.optionQuantity}>{optionQuantity}</span>}
                         </label>
                     </button>
                 )

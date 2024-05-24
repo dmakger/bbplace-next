@@ -1,14 +1,15 @@
-import { ReactNode, useState } from "react"
+import { useState } from "react"
 import { cls } from "@/shared/lib/classes.lib"
 import cl from './_DetailedPageInfo.module.scss'
 import { IOption } from "@/shared/model/option.model"
 import { SwitchSelector } from "@/shared/ui/SwitchSelector"
+import { IOptionsTab } from "../model/detailedPageInfo.model"
 
 interface IDetailedPageInfo {
     className?: string,
     options: IOption[],
     defaultOption: IOption,
-    optionsTab: ReactNode[],
+    optionsTab: IOptionsTab
 }
 
 export const DetailedPageInfo = ({
@@ -27,10 +28,11 @@ export const DetailedPageInfo = ({
                 options={options}
                 selectedOption={selectedOption}
                 setSelectedOption={setSelectedOption}
+                optionsTab={optionsTab}
             />
-            <div className={cl.optionsTabContainer}>
-                {optionsTab[selectedOption.id - 1]}
-            </div>
+            {selectedOption.value && <div className={cl.optionsTabContainer}>
+                {optionsTab[selectedOption.value].optionTab}
+            </div>}
         </div>
     )
 }

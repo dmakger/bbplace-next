@@ -27,6 +27,10 @@
             font-weight: var(--font-weight-med);
             cursor: inherit;
             transition: 0.3s ease-in-out;
+            .optionQuantity{
+                margin-left: 3px;
+                color: var(--font-caption-sub);
+            }
         }
     }
 

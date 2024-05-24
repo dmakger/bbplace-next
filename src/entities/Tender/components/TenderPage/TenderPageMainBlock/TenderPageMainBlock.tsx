@@ -11,6 +11,8 @@ import { ImageSlide } from "@/widgets/Slider/Image/item/ImageSlide"
 import { SWITCH_SELECTOR_TENDER_OPTIONS } from "@/entities/Tender/data/tender.data"
 import { SWITCH_SELECTOR_DESCRIPTION_OPTION } from "@/shared/ui/SwitchSelector"
 import { DetailedPageInfo } from "@/features/DetailedPageInfo"
+import { IOptionsTab } from "@/features/DetailedPageInfo/model/detailedPageInfo.model"
+import { DetailedPageDescription } from "@/shared/ui/DetailedPage"
 
 interface ITenderPageMainBlock {
     className?: string,
@@ -29,11 +31,11 @@ export const TenderPageMainBlock = ({
 
     const images = tender.attachments.map((it: ITenderAttachments) => it.key)
 
-    const optionsTab = [
-        <p>
-            {tender.description}
-        </p>
-    ]
+    const optionsTab: IOptionsTab = {
+        description: {optionTab: <DetailedPageDescription description={tender.description} />},
+        characteristics: {optionTab: null},
+        reviews: {optionTab: null}
+    }
     return (
         <>
             <section className={cls(cl.TenderPageMainBlock, className)}>

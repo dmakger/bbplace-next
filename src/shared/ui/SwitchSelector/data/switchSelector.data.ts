@@ -2,15 +2,18 @@ import { IOption } from "@/shared/model/option.model"
 
 export const SWITCH_SELECTOR_DESCRIPTION_OPTION: IOption = {
     id: 1,
-    name: 'Описание'
+    name: 'Описание',
+    value: 'description'
 }
 
 export const SWITCH_SELECTOR_CHARACTERISTIC_OPTION: IOption = {
     id: 2,
-    name: 'Характеристики'
+    name: 'Характеристики',
+    value: 'characteristics'
 }
 
-export const SWITCH_SELECTOR_QUESTIONS_OPTION: IOption = {
+export const SWITCH_SELECTOR_REVIEWS_OPTION: IOption = {
     id: 3,
-    name: 'Вопросы'
+    name: 'Отзывы',
+    value: 'reviews'
 }
