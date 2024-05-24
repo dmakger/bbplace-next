@@ -13,11 +13,13 @@ import { TenderInfo, getDataTenderInfo } from "@/shared/ui/TenderInfo"
 import { CategoryAPI } from "@/entities/Metrics/api/category.metrics.api"
 import { CreatedAt } from "@/shared/ui/CreatedAt"
 import { SupplierWNav } from "@/entities/Supplier/ui/WNav/SupplierWNav"
-import { FavouriteSmallToSupplierButton } from "@/entities/Supplier/components/Button/Favourite/Small/FavouriteSmallToSupplierButton"
 import { HandleSize } from "@/shared/ui/Handle/Size/HandleSize"
 import { ESupplierSubscribeViewItem, ESupplierToChatViewItem } from "@/entities/Supplier/data/view.supplier.data"
 import { ESupplierView } from "@/entities/Supplier/data/supplier.data"
 import { CategoryItem } from "@/entities/Metrics/ui/Category"
+import { FavouriteAutoToTenderButton } from "../../components/Buttons/Favourite/Auto/FavouriteAutoToTenderButton"
+import { ETenderFavouriteViewItem } from "../../data/view.product.data"
+import { ARROW_ICON } from "@/shared/ui/Icon/data/arrow.data.icon"
 
 interface ITenderItem {
     tender: ICommonTender
@@ -73,7 +75,7 @@ export const TenderItem = ({
                         {tenderType && <TenderType tenderType={tenderType} />}
                         {tenderCategory && <CategoryItem category={tenderCategory} />}
                     </div>
-                    <FavouriteSmallToSupplierButton />
+                    <FavouriteAutoToTenderButton tenderId={tender.id} view={ETenderFavouriteViewItem.SMALL_FILL} />
                 </div>
 
                 <div className={cl.middleContainer} >
@@ -97,11 +99,9 @@ export const TenderItem = ({
                     </div>
                     <CreatedAt createdAt={createdAt} />
                     <div className={cl.buttonToTender} onClick={handleInfoClick}>
-                        <Button
-                            variant={ButtonVariant.W_ARROW_RED}
-                            onClick={goToTheTenderDesktop}>
-                            В тендер
-                        </Button>
+                        <Button variant={ButtonVariant.W_ARROW_RED} onClick={goToTheTenderDesktop}
+                                title="В тендер" 
+                                afterImage={ARROW_ICON} afterProps={{width: 14, height: 14}} />
                     </div>
                 </div>
                 <div className={cl.mobileLine}/>

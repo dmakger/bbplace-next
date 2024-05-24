@@ -1,5 +1,6 @@
 import { UserAPI } from "@/entities/Auth/api/auth.api";
 import { UserReducer } from "@/entities/Auth/storage/auth.storage";
+import { FavouriteAPI } from "@/entities/Favourite/api/favourite.api";
 import { CategoryAPI } from "@/entities/Metrics/api/category.metrics.api";
 import { CountryAPI } from "@/entities/Metrics/api/country.metrics.api";
 import { CurrencyAPI } from "@/entities/Metrics/api/currency.metrics.api";
@@ -33,6 +34,8 @@ const rootReducer = combineReducers({
     [MetricsAPI.reducerPath]: MetricsAPI.reducer,
     [CurrencyAPI.reducerPath]: CurrencyAPI.reducer,
     [CountryAPI.reducerPath]: CountryAPI.reducer,
+
+    [FavouriteAPI.reducerPath]: FavouriteAPI.reducer,
 })
 
 export const setupStore = () => {
@@ -51,7 +54,9 @@ export const setupStore = () => {
                 CategoryAPI.middleware,
                 MetricsAPI.middleware,
                 CurrencyAPI.middleware,
-                CountryAPI.middleware,                
+                CountryAPI.middleware,
+                
+                FavouriteAPI.middleware,
             ),
     })
 }

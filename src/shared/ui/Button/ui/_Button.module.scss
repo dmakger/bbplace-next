@@ -26,7 +26,8 @@
 }
 
 .button {
-    width: 100%;
+    // width: 100%;
+    width: auto;
     border-radius: 100px;
     border: 1px solid var(--gray-5);
 
@@ -107,6 +108,10 @@
 
 
 // >>> ========={ OLD STYLES }========= >>>
+.default {
+    border: none;
+}
+
 .bordered-red-wide {
     padding: 8px 18px;
     background-color: transparent;

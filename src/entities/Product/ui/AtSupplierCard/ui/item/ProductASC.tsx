@@ -1,13 +1,13 @@
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_ProductASC.module.scss';
 import { ImageAPI } from '@/shared/ui/Image/API/ImageAPI';
-import { FavouriteAutoToSupplierButton } from '@/entities/Supplier/components/Button/Favourite/Auto/FavouriteAutoToSupplierButton';
-import { ESupplierFavouriteViewItem } from '@/entities/Supplier/data/view.supplier.data';
 import { getDiapason } from '@/entities/Metrics/lib/metrics/diapason.metrics.metrics.lib';
 import { WholesaleDiapason } from '@/entities/Metrics/ui/Wholesale/Diapason/WholesaleDiapason';
 import Link from 'next/link';
 import { MAIN_PAGES } from '@/config/pages-url.config';
 import { IProduct } from '@/entities/Product/model/product.model';
+import { FavouriteAutoToProductButton } from '@/entities/Product/components/Buttons/Favourite/Auto/FavouriteAutoToProductButton';
+import { EProductFavouriteViewItem } from '@/entities/Product/data/view.product.data';
 
 interface IProductASC  {
     slide: IProduct,
@@ -36,7 +36,7 @@ export const ProductASC = ({ slide, className }: IProductASC) => {
                     </div>
                 </div>
             </Link>
-            <FavouriteAutoToSupplierButton view={ESupplierFavouriteViewItem.SMALL_FILL} className={cl.favourite} />
+            <FavouriteAutoToProductButton productId={product.id} view={EProductFavouriteViewItem.SMALL_FILL} className={cl.favourite} />
         </section>
     );
 };

@@ -1,43 +1,51 @@
-import { FC, useState } from "react"
+import { FC, useCallback, useEffect, useState } from "react"
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_ButtonFavourite.module.scss'
-import { FavouriteIcon } from "../../Icon";
+import { Button } from "../ui/Button";
+import { ButtonVariant } from "../model/model";
+import { FAVOURITE_ICON } from "../../Icon/data/favourite.data.icon";
+import { IFavouriteRequest } from "@/entities/Favourite/model/favourite.model";
+import { useFavourite } from "@/entities/Favourite/lib/favourite.lib";
 
-interface ButtonFavouriteProps{
+export interface ButtonFavouriteProps{
     isFill?: boolean
     isCircled?: boolean,
     isFavourited?: boolean
-    onClick?: Function
     className?: string,
     classNameIcon?: string,
 }
 
-export const ButtonFavourite:FC<ButtonFavouriteProps> = ({isFill=false, isCircled = false, isFavourited=false, onClick, className, classNameIcon}) => {
+export interface ButtonFavouriteWBodyProps extends ButtonFavouriteProps {
+    body: IFavouriteRequest
+}
+
+export const ButtonFavourite:FC<ButtonFavouriteWBodyProps> = ({body, isFill=false, isFavourited=false, className, classNameIcon}) => {
+    //HOOKS
+    const {addFavourite, deleteFavourite, data: {isInFavourite}} = useFavourite({body})    
+    
     // STATE
-    const [isActive, setIsActive] = useState(isFavourited)
-    const [isHovered, setIsHovered] = useState(false)
+    const [isActive, setIsActive] = useState(isInFavourite === undefined ? false : isInFavourite)
+
+    // EFFECT
+    useEffect(() => {
+        if (isInFavourite !== undefined && isActive !== isInFavourite)
+            setIsActive(isInFavourite)
+        else if (isActive !== isFavourited)
+            setIsActive(isFavourited)
+    }, [isFavourited, isInFavourite])
 
     // HANDLE
-    const handleOnClick = () => {
-        if (onClick) onClick()
+    const handleOnClick = useCallback(() => {
+        isActive ? deleteFavourite() : addFavourite()
         setIsActive(prevState => !prevState)
-    }
+    }, [isActive])
 
-    const handleOnMouseEnter = () => {
-        setIsHovered(true)
-    }
-    const handleOnMouseLeave = () => {
-        setIsHovered(false)
-    }
-
+    // RETURN
     return (
-        <button onClick={handleOnClick} 
-                onMouseEnter={handleOnMouseEnter}
-                onMouseLeave={handleOnMouseLeave}
-                className={cls(cl.button, isFill ? cl.fill : '', isActive ? cl.active : '', isCircled ? cl.circled : '', className)}>
-            <FavouriteIcon isActive={isActive} isHovered={isHovered} 
-                           className={classNameIcon} classNameImage={cl.image}/>
-        </button>
+        <Button variant={ButtonVariant.DEFAULT} active={isActive} 
+                beforeImage={FAVOURITE_ICON} beforeProps={{className: classNameIcon, classNameImage: cl.image}}
+                onClick={handleOnClick}
+                className={cls(cl.button, isFill ? cl.fill : '', isActive ? cl.active : '', className)} />
     )
 }

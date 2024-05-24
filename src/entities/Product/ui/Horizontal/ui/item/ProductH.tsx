@@ -15,7 +15,8 @@ import { HandleSize } from '@/shared/ui/Handle/Size/HandleSize'
 import { ESupplierAxis, ESupplierView } from '@/entities/Supplier/data/supplier.data'
 import { getViewByIsList } from '@/shared/lib/view.lib'
 import { IViewToIs } from '@/shared/model/view.model'
-import { FavouriteAutoToSupplierButton } from '@/entities/Supplier/components/Button/Favourite/Auto/FavouriteAutoToSupplierButton'
+import { EProductFavouriteViewItem } from '@/entities/Product/data/view.product.data'
+import { FavouriteAutoToProductButton } from '@/entities/Product/components/Buttons/Favourite/Auto/FavouriteAutoToProductButton'
 
 interface ProductHProps extends IProductProps {}
 
@@ -37,7 +38,7 @@ export const ProductH:FC<ProductHProps> = ({product, className}) => {
                     <div className={cl.main}>
                         <div className={cl.top}>
                             <h4 className={cl.name}>{product.name}</h4>
-                            <FavouriteAutoToSupplierButton view={ESupplierFavouriteViewItem.SMALL} className={cl.favourite}/>
+                            <FavouriteAutoToProductButton productId={product.id} view={EProductFavouriteViewItem.SMALL} className={cl.favourite} />
                         </div>
                         <div className={cl.middle}>
                             <WholesaleDiapason minWholesale={minWholesale} maxWholesale={maxWholesale}
