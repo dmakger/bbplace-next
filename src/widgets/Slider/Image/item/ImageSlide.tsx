@@ -25,7 +25,7 @@ export const ImageSlide: FC<ImageSlideProps> = ({
     return (
         <div className={cls(cl.imageContainer, classNameContainer)}>
             <ImageAPI src={slide} width={width} height={height} className={cls(cl.image, className)} />
-            {isScale && <Image src='/imageScale.svg' alt="jopa" className={cl.scaleImage} width={18} height={18}/>}
+            {isScale && <Image src='/imageScale.svg' alt="" className={cl.scaleImage} width={18} height={18}/>}
         </div>
     )
 }
