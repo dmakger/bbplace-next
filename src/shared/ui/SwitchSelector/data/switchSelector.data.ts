@@ -17,3 +17,9 @@ export const SWITCH_SELECTOR_REVIEWS_OPTION: IOption = {
     name: 'Отзывы',
     value: 'reviews'
 }
+
+export const SWITCH_SELECTOR_SUPPLIER_OPTION: IOption = {
+    id: 4,
+    name: 'Поставщик',
+    value: 'supplier'
+}

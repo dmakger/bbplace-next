@@ -44,7 +44,7 @@ export const HeadingToTextTable = ({
                         const isRatingComponent = React.isValidElement(it.body) && it.body.type === Rating;                        
                         return (
                         <HeadingToTextRow
-                            key={it.heading}
+                            key={index}
                             heading={it.heading}
                             unit={it.unit}
                             text={it.body}

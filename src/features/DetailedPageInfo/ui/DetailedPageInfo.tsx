@@ -30,9 +30,11 @@ export const DetailedPageInfo = ({
                 setSelectedOption={setSelectedOption}
                 optionsTab={optionsTab}
             />
-            {selectedOption.value && <div className={cl.optionsTabContainer}>
-                {optionsTab[selectedOption.value].optionTab}
-            </div>}
+            {selectedOption.value && optionsTab[selectedOption.value] && (
+                <div className={cl.optionsTabContainer}>
+                    {optionsTab[selectedOption.value]?.optionTab}
+                </div>
+            )}
         </div>
     )
 }

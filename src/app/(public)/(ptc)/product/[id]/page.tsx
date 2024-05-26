@@ -19,6 +19,12 @@ import { DetailedPageHeader } from "@/features/DetailedPageHeader";
 import { getDataHeadingToTextProductTable } from "@/widgets/Product/Table/HeadingToText/lib/htt.product.lib";
 import { ReviewAPI } from "@/entities/Review/api/review.api";
 import { REVIEW_LIMIT, REVIEW_START_PAGE } from "@/entities/Review/data/review.data";
+import { DetailedPageInfo } from "@/features/DetailedPageInfo";
+import { SWITCH_SELECTOR_PRODUCT_OPTIONS } from "@/entities/Product/data/product.data";
+import { SWITCH_SELECTOR_DESCRIPTION_OPTION } from "@/shared/ui/SwitchSelector";
+import { DetailedPageDescription } from "@/shared/ui/DetailedPage";
+import { IOptionsTab } from "@/features/DetailedPageInfo/model/detailedPageInfo.model";
+import { ProductTable } from "@/features/ProductTable";
 
 export default function ProductDetailPage() {
     // ROUTER
@@ -52,6 +58,14 @@ export default function ProductDetailPage() {
     // HTML
     if (!product) return
 
+    //OPTIONS
+    const PRODUCT_PAGE_OPTIONS_TAB: IOptionsTab = {
+        description: { optionTab: <DetailedPageDescription description={product.characteristics.description} /> },
+        characteristics: { optionTab: <ProductTable product={product} /> },
+        reviews: { optionTab: null, optionQuantity: (itemReviews && itemReviews.length > 0) ? itemReviews.length : null},
+        supplier: {optionTab: null}
+    }
+
     return (
         <Wrapper1280>
             <div className={cl.wrapper}>
@@ -62,6 +76,10 @@ export default function ProductDetailPage() {
                         tableData={getDataHeadingToTextProductTable(product, true, itemScore, itemReviews?.length)}
                     />
                     <CatalogImage imageList={product?.media.attachments} />
+                    <DetailedPageInfo 
+                        defaultOption={SWITCH_SELECTOR_DESCRIPTION_OPTION}
+                        options={SWITCH_SELECTOR_PRODUCT_OPTIONS}
+                        optionsTab={PRODUCT_PAGE_OPTIONS_TAB}/>
                 </div>
                 <div className={cl.right}>
                     <WrapperBlock className={cl.wrapper}>

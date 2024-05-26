@@ -65,16 +65,15 @@ export default function TenderPage() {
         }
     }, [tender, tenderType]);
 
-    const images = tender ? tender.attachments.map((it: ITenderAttachments) => it.key) : [];
+    
+    if(!tender) return;
+
+    const images = tender.attachments.map((it: ITenderAttachments) => it.key);
 
     //OPTIONS
-    const optionsTab: IOptionsTab = {
-        description: { optionTab: <DetailedPageDescription description={tender ? tender.description : ''} /> },
-        characteristics: { optionTab: null },
-        reviews: { optionTab: null }
+    const TENDER_PAGE_OPTIONS_TABLE: IOptionsTab = {
+        description: { optionTab: <DetailedPageDescription description={tender.description} /> }
     }
-
-    if(!tender) return;
 
     return (
         <Wrapper1280>
@@ -115,7 +114,7 @@ export default function TenderPage() {
                     <DetailedPageInfo
                         options={SWITCH_SELECTOR_TENDER_OPTIONS}
                         defaultOption={SWITCH_SELECTOR_DESCRIPTION_OPTION}
-                        optionsTab={optionsTab}
+                        optionsTab={TENDER_PAGE_OPTIONS_TABLE}
                     />
                 </section>
             <HandleSize width={768} set={setIs768} />

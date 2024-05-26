@@ -1,8 +1,7 @@
 'use client'
 
 import cl from './_ProductTable.module.scss'
-import { productApiToProduct } from '@/entities/Product/lib/product.lib'
-import { IProductAPI } from '@/entities/Product/model/product.model'
+import { IProduct } from '@/entities/Product/model/product.model'
 import { HeadingToTextTable } from '@/shared/ui/Text'
 import { getCharacteristic, getDataHeadingToTextProductMainTable } from '@/widgets/Product/Table/HeadingToText/lib/htt.product.lib'
 import { EHeadingToTextVariants } from '@/shared/model/text.model'
@@ -11,10 +10,10 @@ import { useEffect, useState } from 'react'
 import { MetricsAPI } from '@/entities/Metrics/api/metrics.metrics.api'
 
 interface IProductTable {
-    productApi: IProductAPI
+    product: IProduct
 }
 export const ProductTable = ({
-    productApi
+    product
 }: IProductTable) => {
 
     //STATE
@@ -25,8 +24,6 @@ export const ProductTable = ({
     const {data: countries} = CountryAPI.useGetCountriesQuery()
     const {data: metrics} = MetricsAPI.useGetMetricsQuery()
 
-    //VARIABLE
-    const product = productApiToProduct({productAPI: productApi})    
 
     //EFFECT
     useEffect(() => {
@@ -48,6 +45,7 @@ export const ProductTable = ({
             variant={EHeadingToTextVariants.ROW}
             data={getDataHeadingToTextProductMainTable(product, selectedCountry || '', selectedWeightUnit || '')}
             hasColon={false}
+            hasSpace={false}
             classNameMainBlock={cl.Table}
             classNameHeadingItem={cl.headingItem}
             classNameTextItem={cl.textItem}

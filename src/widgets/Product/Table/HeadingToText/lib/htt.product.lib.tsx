@@ -51,12 +51,18 @@ export const getCharacteristic = (characteristic: string, list: ICountry[] | IOp
 
 export const getDataHeadingToTextProductMainTable = (product: IProduct, selectedCountry: string, selectedWeightUnit: string) => {
 
+    const packageWidth = product.packagingWidth;
+    const packageHeight = product.packagingHeight;
+    const packagingLength = product.packagingLength;
+
+    const productWeightQuantity = product.characteristics.weight;
+
     const vat = product.vat ? 'Облагается' : 'Не облагается'
     const certification = product.certification ? 'Да' : 'Нет'
     const testProbe = product.isHasTestProbe ? 'Да' : 'Нет'
     const customDesign = product.isCustomDesign ? 'Да' : 'Нет'
-    const packageSizes = `${product.packagingHeight} x ${product.packagingWidth} x ${product.packagingLength}`
-    const productWeight = `${product.characteristics.weight} ${selectedWeightUnit}`
+    const packageSizes = (packageWidth && packageHeight && packagingLength) && `${packageHeight} x ${packageWidth} x ${packagingLength}`
+    const productWeight = productWeightQuantity && `${productWeightQuantity} ${selectedWeightUnit}`
     
 
     const processData = [
@@ -86,6 +92,6 @@ export const getDataHeadingToTextProductMainTable = (product: IProduct, selected
     //3. в массиве [processData] избавляемся от элементом равных undefined
     return processData.map(it => {
         const body = Array.isArray(it.body) ? it.body.join(', ') : it.body;
-        return getHeadingToText(it.heading, body);
+        return getHeadingToText(it.heading, body);        
     }).filter(item => item !== undefined) as IHeadingToText[];
 }

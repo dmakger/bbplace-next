@@ -1,5 +1,7 @@
 import { IArgsRequest } from "@/api/model/request.model.api"
 import { IOption } from "@/shared/model/option.model"
+import { SWITCH_SELECTOR_CHARACTERISTIC_OPTION, SWITCH_SELECTOR_DESCRIPTION_OPTION } from "@/shared/ui/SwitchSelector"
+import { SWITCH_SELECTOR_REVIEWS_OPTION, SWITCH_SELECTOR_SUPPLIER_OPTION } from "@/shared/ui/SwitchSelector/data/switchSelector.data"
 
 export const PRODUCT_START_PAGE: IArgsRequest['page'] = 0
 export const PRODUCT_LIMIT: IArgsRequest['limit'] = 24
@@ -23,4 +25,11 @@ export const SEX_OPTIONS = [
     WOMAN_SEX_CHARACTERISTIC,
     CHILD_SEX_CHARACTERISTIC,
     ALL_SEX_CHARACTERISTIC
+]
+
+export const SWITCH_SELECTOR_PRODUCT_OPTIONS:IOption[] = [
+    SWITCH_SELECTOR_DESCRIPTION_OPTION,
+    SWITCH_SELECTOR_CHARACTERISTIC_OPTION,
+    SWITCH_SELECTOR_REVIEWS_OPTION,
+    SWITCH_SELECTOR_SUPPLIER_OPTION
 ]
