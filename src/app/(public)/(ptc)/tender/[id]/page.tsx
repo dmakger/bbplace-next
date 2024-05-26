@@ -17,7 +17,7 @@ import { ScrollSlider } from "@/features/ScrollSlider";
 import { DetailedPageDescription } from "@/shared/ui/DetailedPage";
 import { HandleSize } from "@/shared/ui/Handle/Size/HandleSize";
 import { SWITCH_SELECTOR_DESCRIPTION_OPTION } from "@/shared/ui/SwitchSelector";
-import { getDataTenderInfo } from '@/shared/ui/Text/lib/tenderInfo.lib';
+import { getDataTenderInfo } from '@/shared/ui/Text/lib/htt.tender.lib';
 import Wrapper1280 from "@/shared/ui/Wrapper/1280/Wrapper1280";
 import { ImageSlide } from '@/widgets/Slider/Image/item/ImageSlide';
 import { useParams, useSearchParams } from "next/navigation";

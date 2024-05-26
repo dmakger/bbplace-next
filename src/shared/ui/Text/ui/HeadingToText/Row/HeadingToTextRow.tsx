@@ -4,7 +4,7 @@ import { IHeadingToText } from "@/shared/model/text.model";
 
 interface IHeadingToTextRow{
     heading: IHeadingToText['heading']
-    text: IHeadingToText['text'],
+    text: IHeadingToText['body'],
     unit?: IHeadingToText['unit'],
     isShort?: boolean,
     hasSpace?: boolean,
@@ -29,14 +29,14 @@ export const HeadingToTextRow = ({
 }: IHeadingToTextRow) => {
     return (
         <div className={cls(cl.block, isShort ? cl.short : '', classNameRow)}>
-            <span className={cls(cl.heading, classNameHeading)}>{heading}{hasColon && ':'}</span>
+            {heading && <span className={cls(cl.heading, classNameHeading)}>{heading}{hasColon && ':'}</span>}
             {hasSpace &&
                 <>&nbsp;</>
             }
             {hasDash &&
                 <>-&nbsp;</>
             }
-            <span className={cls(cl.text, classNameText, isShort ? cl.short : '')}>{text}&nbsp;{unit}</span>
+            <span className={cls(cl.text, classNameText, isShort ? cl.short : '')}>{text}{unit && <>&nbsp;{unit}</>}</span>
         </div>
     )
 }

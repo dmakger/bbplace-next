@@ -17,8 +17,11 @@ interface IDetailedPageHeader {
     isRightContainer?: boolean,
     supplierId?: string,
     wholesalePrices?: IWholesale[]
-    tableData: IHeadingToText[]
-
+    tableData: IHeadingToText[],
+    classNameMainBlock?: string,
+    classNameRow?: string,
+    classNameHeadingItem?: string,
+    classNameTextItem?: string
 }
 
 export const DetailedPageHeader = ({
@@ -29,7 +32,11 @@ export const DetailedPageHeader = ({
     isRightContainer = false,
     supplierId,
     wholesalePrices,
-    tableData
+    tableData,
+    classNameMainBlock,
+    classNameRow,
+    classNameHeadingItem,
+    classNameTextItem
 }: IDetailedPageHeader) => {
     return (
         <div className={cls(cl.DetailedPageHeader, className)}>
@@ -42,13 +49,12 @@ export const DetailedPageHeader = ({
                     <FavouriteAutoToTenderButton tenderId={id} view={ETenderFavouriteViewItem.SMALL_FILL} />
                     <HeadingToTextTable
                         variant={EHeadingToTextVariants.ROW}
-                        data={tableData}
-                        hasSpace
-                        classNameRow={cl.restInfoContainer}
-                        classNameHeadingItem={cl.restInfoItem}
-                        classNameTextItem={cl.restInfoItemSpan}
+                        data={tableData} 
+                        classNameMainBlock={cls(cl.restInfoMainBlock, classNameMainBlock)}
+                        classNameRow={cls(cl.restInfoItem, classNameRow)}
+                        classNameHeadingItem={cls(cl.headingItem, classNameHeadingItem)}
+                        classNameTextItem={cls(cl.textItem, classNameTextItem)}
                     />
-
                 </div>
             </div>
             {isRightContainer && <div className={cl.rightContainer}>

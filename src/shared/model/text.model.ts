@@ -1,6 +1,8 @@
+import { ReactNode } from "react"
+
 export interface IHeadingToText {
-    heading: string
-    text: string
+    heading?: string
+    body: string | ReactNode
     unit?: string
 }
 

@@ -1,11 +1,12 @@
 import { cls } from "@/shared/lib/classes.lib"
 import cl from './_Rating.module.scss'
 import Link from "next/link"
-import { getReviewTextByNumber } from "@/entities/Review/lib/review.lib"
+import Image from "next/image"
 
 interface IRating {
     className?: string,
-    classNameSpan?: string,
+    classNameMainContainer?: string,
+    classNameScore?: string,
     classNameLink?: string,
     rating: number,
     numberOfReviews: number,
@@ -16,7 +17,8 @@ interface IRating {
 
 export const Rating = ({
     className,
-    classNameSpan,
+    classNameMainContainer,
+    classNameScore,
     classNameLink,
     numberOfReviews,
     rating,
@@ -27,15 +29,17 @@ export const Rating = ({
     return (
         <div className={cls(cl.Rating, className)}>
             {
-                hasStar ? '' : null
+                hasStar ? <Image src={'/star.svg'} alt={'star'} width={20} height={20}/> : null
             }
-            <span className={cls(cl.span, classNameSpan)}>
-                {`${rating}/${ratingOutOf}`}
+            <p className={cls(cl.mainContainer, classNameMainContainer)}>
+                <span className={cls(cl.score, classNameScore)}>
+                    {`${rating}/${ratingOutOf}`}
+                </span>
                 &nbsp;
                 <Link className={cls(cl.link, classNameLink)} href={linkHref}>
-                    {`(${numberOfReviews} ${getReviewTextByNumber(numberOfReviews)})`}
+                    ({numberOfReviews})
                 </Link>
-            </span>
+            </p>
         </div>
 
     )

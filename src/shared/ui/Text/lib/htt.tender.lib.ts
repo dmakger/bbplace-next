@@ -18,25 +18,25 @@ export const getDataTenderInfo = (tender: ICommonTender, isCreatedAt?: boolean) 
     const currency = tender.currency.code ?? '';
 
     const CREATED_AT_TENDER_DATA = {
-        heading: 'От', text: getDate(tender.createdAt), unit: ''
+        heading: 'От', body: getDate(tender.createdAt), unit: ''
     }
     
     //PURCHASE
     const MAXIMUM_BUDGET_TENDER_DATA = {
-        heading: 'Максимальный бюджет', text: String(maximumBudget), unit: currency
+        heading: 'Максимальный бюджет', body: String(maximumBudget), unit: currency
     }
 
     const QUANTITY_TENDER_DATA = {
-        heading: 'Количество', text:  String(quantity), unit: quantityUnit ? quantityUnit : ''
+        heading: 'Количество', body: String(quantity), unit: quantityUnit ? quantityUnit : ''
     }
 
     //SALE
     const PRICE_TENDER_DATA = {
-        heading: 'Цена', text:  String(price), unit: currency
+        heading: 'Цена', body: String(price), unit: currency
     }
 
     const MIN_ORDER_DATA = {
-        heading: 'Минимальный заказ', text: String(minOrder), unit: minOrderUnits ? minOrderUnits : ''
+        heading: 'Минимальный заказ', body: String(minOrder), unit: minOrderUnits ? minOrderUnits : ''
     }
 
     let processData: IHeadingToText[] = [];

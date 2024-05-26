@@ -1,22 +1,39 @@
 import { ICountry } from "@/entities/Metrics/model/country.metrics.model";
 import { SEX_OPTIONS } from "@/entities/Product/data/product.data";
 import { IProduct } from "@/entities/Product/model/product.model";
+import { getDate } from "@/shared/lib/dateTime.lib";
 import { getHeadingToText } from "@/shared/lib/headingToText.lib";
 import { IOption } from "@/shared/model/option.model";
 import { IHeadingToText } from "@/shared/model/text.model";
+import { Rating } from "@/shared/ui/Rating";
 
-export const getDataHeadingToTextProductTable = (product: IProduct) => {
+export const getDataHeadingToTextProductTable = (product: IProduct, isCreatedAtAndReviews?: boolean, itemRating?: number, itemReviews?: number ) => {
     const warehouses = product.warehouses ? 'Есть на складе' : 'Нет'
-    const processData = [
-        {heading: 'Страна изготовитель', body: product.country},
-        {heading: 'Статус', body: product.status},
-        {heading: 'Склад', body: warehouses},
-        {heading: 'Описание', body: product.characteristics.description},
-    ]
-    return processData
-            .map(it => (getHeadingToText(it.heading, it.body)))
-            .filter(it => it !== undefined) as IHeadingToText[]
 
+    const createdAt = product.createdAt 
+
+    const COUNTRY_PRODUCT_DATA: IHeadingToText = {heading: 'Страна изготовитель', body: product.country ?? ''}
+    const STATUS_PRODUCT_DATA: IHeadingToText = {heading: 'Статус', body: product.status ?? ''}
+    const WAREHOUSES_PRODUCT_DATA: IHeadingToText = {heading: 'Склад', body: warehouses}
+    const DESCRIPTION_PRODUCT_DATA: IHeadingToText = {heading: 'Описание', body: product.characteristics.description}
+
+    const CREATED_AT_PRODUCT_DATA: IHeadingToText = {heading: 'От', body: getDate(createdAt)}
+    const REVIEWS_PRODUCT_DATA: IHeadingToText = {body: <Rating rating={itemRating ?? 0} numberOfReviews={itemReviews ?? 0} linkHref={''} hasStar/> }
+
+    const processData: IHeadingToText[] = [
+        COUNTRY_PRODUCT_DATA,
+        STATUS_PRODUCT_DATA,
+        WAREHOUSES_PRODUCT_DATA,
+        DESCRIPTION_PRODUCT_DATA
+    ]
+    
+    if(isCreatedAtAndReviews){
+        return [
+            REVIEWS_PRODUCT_DATA,
+            CREATED_AT_PRODUCT_DATA            
+        ].filter(it => it !== undefined) as IHeadingToText[]
+    }
+    return processData.filter(it => it !== undefined) as IHeadingToText[]
 }
 
 //1. проверяем, что пришло в characteristic: id элемента (number) или name элемента (string)

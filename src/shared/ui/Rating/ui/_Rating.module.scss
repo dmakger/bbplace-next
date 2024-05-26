@@ -1,7 +1,13 @@
 .Rating{
-    display: flex;
+    display: flex;  
+    align-items: center;  
+    gap: 3px;
+
+    .score{
+        color: var(--rating);
+    }
 }
 
 .link{
-    text-decoration: underline;
+    color: var(--font-caption-sub);
 }

@@ -21,7 +21,7 @@ import { CategoryItem } from "@/entities/Metrics/ui/Category"
 import { FavouriteAutoToTenderButton } from "../../components/Buttons/Favourite/Auto/FavouriteAutoToTenderButton"
 import { ETenderFavouriteViewItem } from "../../data/view.product.data"
 import { ARROW_ICON } from "@/shared/ui/Icon/data/arrow.data.icon"
-import { getDataTenderInfo } from "@/shared/ui/Text/lib/tenderInfo.lib"
+import { getDataTenderInfo } from "@/shared/ui/Text/lib/htt.tender.lib"
 
 interface ITenderItem {
     tender: ICommonTender

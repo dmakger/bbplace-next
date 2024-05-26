@@ -57,6 +57,10 @@
   --n-gray-4: #DDDDDD;
   --n-gray-5: #F5F5F5;
 
+  --n-yellow-1: #FDFAED;
+  --n-yellow-2: #E8C331;
+  --n-yellow-3: #9F8212;
+
 
   // specify
   --foreground-1: var(--n-black-1);
@@ -91,7 +95,9 @@
   --secondary-surface: var(--n-blue-light-2);
   --secondary-surface-sub: var(--n-blue-light-3);
 
-
+  --rating-surface: var(--n-yellow-1);
+  --rating-low: var(--n-yellow-2);
+  --rating: var(--n-yellow-3);
 
   // ===={ FONT }====
 
