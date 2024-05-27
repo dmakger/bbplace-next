@@ -1,12 +1,17 @@
 .block {
     display: flex;
-    gap: 36px;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: var(--background-2);
+    // max-height: 350px;
 
     .column {
         display: flex;
         flex-direction: column;
         gap: 10px;
-        height: 465px;
+        height: 350px;
         overflow: auto;
     }
 }

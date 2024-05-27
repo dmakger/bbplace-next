@@ -1,7 +1,7 @@
 "use client"
 
 
-import { FC, useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_Slider.module.scss'
@@ -9,6 +9,7 @@ import { ARROW_WO_ICON } from "@/shared/ui/Icon/data/arrow.data.icon";
 import { Axis } from "@/shared/model/button.model";
 import { ISlider } from "../model/slider.model";
 import { Button } from "@/shared/ui/Button";
+import { ButtonArrowWLine } from "@/shared/ui/Button/Arrow/WLine/ButtonArrowWLine";
 
 interface SliderProps<T> extends ISlider{
     slides?: T[];
@@ -26,7 +27,7 @@ export const Slider = <T extends (object | string)>({
     slides=[], amount = 3, limit = 10, setLimit,
     activeIndex, setActiveIndex=()=>{}, 
     component: SlideComponent, 
-    className, classNameSlides, style, 
+    className, classNameSlides, style, slideProps, 
     setTypeOfFile
 }: SliderProps<T>) => {
     // STATE
@@ -54,7 +55,7 @@ export const Slider = <T extends (object | string)>({
     useEffect(() => {
         if (activeIndex !== undefined) {
             setStartIndex(activeIndex);
-            setTranslateX(-activeIndex * (slidesWidth / amount));
+            setTranslateX(-activeIndex * (slidesWidth / amount) - activeIndex * 10);
         }
     }, [activeIndex]);
 
@@ -79,13 +80,12 @@ export const Slider = <T extends (object | string)>({
     return (
         <div style={style} className={cls(cl.slider, className)} ref={slidesRef}>
             {startIndex > 0 &&
-                <Button beforeImage={ARROW_WO_ICON} beforeProps={{axis: Axis.Left}} 
-                            onClick={prevSlide} className={cl.prevButton}/>
+                <ButtonArrowWLine axis={Axis.Right} onClick={prevSlide} className={cl.prevButton} />
             }
 
             <div className={cls(cl.slideContainer)} style={{transform: `translateX(${translateX}px)`}}>
                 {slides.map((slide, index) => (
-                    <SlideComponent slide={slide} 
+                    <SlideComponent {...slideProps} slide={slide} 
                                     setTypeOfFile={setTypeOfFile}
                                     style={{ width: `${getWidthSlide()}px` }} 
                                     className={classNameSlides} key={index}/>
@@ -93,8 +93,7 @@ export const Slider = <T extends (object | string)>({
             </div>
 
             {startIndex < slides.length - amount &&
-                <Button beforeImage={ARROW_WO_ICON} beforeProps={{axis: Axis.Left}} 
-                        onClick={nextSlide} className={cl.nextButton}/>
+                <ButtonArrowWLine axis={Axis.Left} onClick={nextSlide} className={cl.nextButton} />
             }
         </div>
     );

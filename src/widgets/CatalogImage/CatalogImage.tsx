@@ -2,8 +2,8 @@ import { FC, useState } from "react"
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_CatalogImage.module.scss'
-import { ImageSlider } from "../Slider/Image/list/ImageSlider";
 import { ImageAD } from "@/shared/ui/Image/Active/ImageActive";
+import { ImageMaximizeSlider } from "../Slider/Image/Maximize/List/ImageMaximizeSlider";
 
 interface CatalogImageProps{
     imageList?: string[]
@@ -29,9 +29,9 @@ export const CatalogImage:FC<CatalogImageProps> = ({imageList=[], className}) =>
                     </button>
                 ))}
             </div>
-            <ImageSlider slides={imageList} isLoading={false} 
-                        activeIndex={activeIndex} setActiveIndex={handleOnClick}
-                        amount={1} limit={limit} setLimit={setLimit} />
+            <ImageMaximizeSlider slides={imageList} isLoading={false} 
+                                activeIndex={activeIndex} setActiveIndex={handleOnClick}
+                                amount={1} limit={limit} setLimit={setLimit} />
         </div>
     )
 }

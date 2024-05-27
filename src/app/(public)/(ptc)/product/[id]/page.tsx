@@ -53,7 +53,7 @@ export default function ProductDetailPage() {
         <Wrapper1280>
             <div className={cl.wrapper}>
                 <div className={cl.left}>
-                    <CatalogImage imageList={product?.media.attachments} />
+                    <CatalogImage imageList={[...product?.media.attachments, ...product?.media.attachments, ...product?.media.attachments, ...product?.media.attachments]} />
                 </div>
                 <div className={cl.right}>
                     <WrapperBlock className={cl.wrapper}>

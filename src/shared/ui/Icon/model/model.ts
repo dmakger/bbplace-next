@@ -2,9 +2,11 @@
 export interface IIcon {
     default: string
     defaultHovered?: string
+    defaultPressed?: string
 
     active?: string
     activeHovered?: string
+    activePressed?: string
 }
 
 export enum FavouriteIconVariant{
