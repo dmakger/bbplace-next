@@ -7,10 +7,12 @@ import { ImageMaximizeSlider } from "../Slider/Image/Maximize/List/ImageMaximize
 
 interface CatalogImageProps{
     imageList?: string[]
+    hasMaximize?: boolean
+    isFullWindow?: boolean
     className?: string,
 }
 
-export const CatalogImage:FC<CatalogImageProps> = ({imageList=[], className}) => {
+export const CatalogImage:FC<CatalogImageProps> = ({imageList=[], hasMaximize=false, isFullWindow=false, className}) => {
     // STATE
     const [activeIndex, setActiveIndex] = useState(0);
     const [limit, setLimit] = useState(1);
@@ -29,9 +31,10 @@ export const CatalogImage:FC<CatalogImageProps> = ({imageList=[], className}) =>
                     </button>
                 ))}
             </div>
-            <ImageMaximizeSlider slides={imageList} isLoading={false} 
+            <ImageMaximizeSlider slides={imageList} isLoading={false}
                                 activeIndex={activeIndex} setActiveIndex={handleOnClick}
-                                amount={1} limit={limit} setLimit={setLimit} />
+                                amount={1} limit={limit} setLimit={setLimit} 
+                                hasMaximize={hasMaximize} isFullWindow={isFullWindow}/>
         </div>
     )
 }

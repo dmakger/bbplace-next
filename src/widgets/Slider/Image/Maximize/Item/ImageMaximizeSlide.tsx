@@ -1,18 +1,29 @@
-import { FC } from "react"
+import { FC, useCallback } from "react"
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_ImageMaximizeSlide.module.scss'
 import { ImageAPI } from "@/shared/ui/Image/API/ImageAPI";
+import { ButtonMaximize } from "@/shared/ui/Button/Maximize/ButtonMaximize";
+import React from "react";
 
 interface ImageMaximizeSlideProps{
     slide: string
+    onClickMaximize?: Function
+    isFullWindow?: boolean
     className?: string,
 }
 
-export const ImageMaximizeSlide:FC<ImageMaximizeSlideProps> = ({slide, className}) => {
+export const ImageMaximizeSlide:FC<ImageMaximizeSlideProps> = React.memo(({slide, onClickMaximize, isFullWindow, className}) => {
+    const handleOnClickMaximize = useCallback(() => {
+        if (onClickMaximize) onClickMaximize()
+    }, [])
+    
     return (
-        <div className={cls(cl.wrapper, className)}>
+        <div className={cls(cl.wrapper, isFullWindow ? cl.fullWindow : '', className)}>
+            {onClickMaximize && 
+                <ButtonMaximize onClick={handleOnClickMaximize} className={cl.maximize} />
+            }
             <ImageAPI src={slide} width={350} height={350} className={cls(cl.image)} />
         </div>
     )
-}
+})

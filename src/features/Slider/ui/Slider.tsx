@@ -1,7 +1,7 @@
 "use client"
 
 
-import { useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_Slider.module.scss'
@@ -37,21 +37,20 @@ export const Slider = <T extends (object | string)>({
     // Получение текущей ширины блока
     const [slidesWidth, setSlidesWidth] = useState(0);
     const slidesRef = useRef<HTMLDivElement>(null);
-    const getWidthSlide = () => {
+    const getWidthSlide = useCallback(() => {
         return slidesWidth / amount - 10
-    }
+    }, [slidesWidth])
 
     // EFFECT
     useEffect(() => {
+        console.log('nua', slidesRef?.current?.offsetWidth)
+
         if (slidesRef.current) {
+            console.log('nua update', slidesRef?.current?.offsetWidth)
             setSlidesWidth(slidesRef.current.offsetWidth);
         }
-    }, []);
-    useEffect(() => {
-        if (slidesRef.current) {
-            setSlidesWidth(slidesRef.current.offsetWidth);
-        }
-    }, []);
+    }, [slidesRef?.current?.offsetWidth]);
+
     useEffect(() => {
         if (activeIndex !== undefined) {
             setStartIndex(activeIndex);

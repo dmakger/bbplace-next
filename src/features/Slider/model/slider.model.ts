@@ -8,7 +8,6 @@ export interface ISlider {
     setLimit?: Function,
     amount: number,
 
-    onClickSlide?: Function
     slideProps?: TAnyParams
     className?: string,
     classNameSlides?: string
