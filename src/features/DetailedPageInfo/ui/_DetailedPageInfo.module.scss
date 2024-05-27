@@ -3,7 +3,11 @@
     flex-direction: column;
     gap: 20px;
     background: var(--white); 
-    border-radius: 16px;
+    border-radius: 20px;
+
+    @media (max-width: 768px) {
+        border-radius: 0px;
+    }
 
     .switchSelectorButton{
         & > button > label{

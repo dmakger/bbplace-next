@@ -73,7 +73,7 @@ export default function ProductDetailPage() {
                     <DetailedPageHeader
                         id={product.id}
                         name={product.name ?? ''}
-                        tableData={getDataHeadingToTextProductTable(product, true, itemScore, itemReviews?.length)}
+                        tableData={getDataHeadingToTextProductTable({product, isCreatedAtAndReviews: true, itemRating: itemScore, itemReviews: itemReviews?.length})}
                     />
                     <CatalogImage imageList={product?.media.attachments} />
                     <DetailedPageInfo 

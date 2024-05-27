@@ -1,17 +1,15 @@
 import { cls } from "@/shared/lib/classes.lib"
 import cl from './_Rating.module.scss'
-import Link from "next/link"
 import Image from "next/image"
 
 interface IRating {
     className?: string,
     classNameMainContainer?: string,
     classNameScore?: string,
-    classNameLink?: string,
+    classNameNumberOfReviews?: string,
     rating: number,
     numberOfReviews: number,
     ratingOutOf?: number
-    linkHref: string,
     hasStar?: boolean,
 }
 
@@ -19,11 +17,10 @@ export const Rating = ({
     className,
     classNameMainContainer,
     classNameScore,
-    classNameLink,
+    classNameNumberOfReviews,
     numberOfReviews,
     rating,
     ratingOutOf = 5,
-    linkHref,
     hasStar = false
 }: IRating) => {
     return (
@@ -36,9 +33,9 @@ export const Rating = ({
                     {`${rating}/${ratingOutOf}`}
                 </span>
                 &nbsp;
-                <Link className={cls(cl.link, classNameLink)} href={linkHref}>
+                <span className={cls(cl.numberOfReviews, classNameNumberOfReviews)}>
                     ({numberOfReviews})
-                </Link>
+                </span>
             </p>
         </div>
 

@@ -55,7 +55,7 @@ export const SwitchSelector = ({
                 const optionValue = (it as IOption).value ?? '';
 
                 const isLink = 'image' in it;
-                const optionQuantity = optionsTab[optionValue].optionQuantity
+                const optionQuantity = optionsTab[optionValue]?.optionQuantity
 
                 const html = (
                     <button className={cls(cl.option, options.length > 1 ? cl.optionHover : '', isChecked(selectedOption, it) ? cl.choosen : '')}

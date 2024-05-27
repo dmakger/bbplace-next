@@ -28,7 +28,7 @@ export const ProductTable = ({
     //EFFECT
     useEffect(() => {
         if(countries)
-            setSelectedCountry(getCharacteristic(product.characteristics.country, countries))
+            setSelectedCountry(getCharacteristic({ characteristic: product.characteristics.country, list: countries}))
     }, [countries])
 
     useEffect(() => {
@@ -43,7 +43,7 @@ export const ProductTable = ({
     return (
         <HeadingToTextTable
             variant={EHeadingToTextVariants.ROW}
-            data={getDataHeadingToTextProductMainTable(product, selectedCountry || '', selectedWeightUnit || '')}
+            data={getDataHeadingToTextProductMainTable({product, selectedCountry: selectedCountry ?? '' , selectedWeightUnit: selectedWeightUnit ?? ''})}
             hasColon={false}
             hasSpace={false}
             classNameMainBlock={cl.Table}
