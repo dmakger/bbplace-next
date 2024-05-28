@@ -5,18 +5,20 @@ import { FC, ReactNode, useEffect, useState } from "react"
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_Modal.module.scss'
 import { EModalView } from "@/shared/data/modal.data";
+import { Button } from "../Button";
 
 interface ModalProps{
     _isOpen?: boolean
     onClickOverlay?: Function
     view?: EModalView
     hasBlack?: boolean
+    hasClose?: boolean
     buttonNode: ReactNode
     children: ReactNode
     className?: string,
 }
 
-export const Modal:FC<ModalProps> = ({_isOpen=false, onClickOverlay=()=>{}, view=EModalView.CENTER, hasBlack=true, buttonNode, children, className}) => {    
+export const Modal:FC<ModalProps> = ({_isOpen=false, onClickOverlay=()=>{}, view=EModalView.CENTER, hasBlack=true, hasClose=false, buttonNode, children, className}) => {    
     // STATE
     const [isOpen, setIsOpen] = useState(false);
 
@@ -40,6 +42,9 @@ export const Modal:FC<ModalProps> = ({_isOpen=false, onClickOverlay=()=>{}, view
             <div className={cls(isOpen ? cl.open : '', cl.modal, className)}>
                 <div onClick={()=>onClickOverlay()} className={cls(isOpen ? cl.openOverlay : '', cl.overlay, hasBlack ? cl.black : '', className)} />
                 <div className={cls(isOpen ? cl.openSidebar : '', views[view], cl.sidebar)}>
+                    {hasClose && 
+                        <Button title="Close" onClick={onClickOverlay} className={cl.close} />
+                    }
                     {children}
                 </div>
             </div>
