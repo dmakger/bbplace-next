@@ -15,7 +15,7 @@ export const getDataHeadingToTextSupplierTable = (supplier: ISupplier, supplierR
     const isCountry = isCountryNeeded ?? true;
 
     const processData: processData[] = [
-        {heading: 'Рейтинг', body: <Rating rating={supplierRating} numberOfReviews={supplierReviews} linkHref={''} />} ,
+        {heading: 'Рейтинг', body: <Rating rating={supplierRating} numberOfReviews={supplierReviews}/>} ,
         ...(isCountry ? [{heading: 'Регион', body: supplier.country}] : []),
         {heading: 'О поставщике', body: supplier.shortDescription || supplier.description},
     ]

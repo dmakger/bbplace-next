@@ -9,6 +9,7 @@ interface PriceQuantityProps{
     wholesales: IWholesale[]
     firstStart?: string
     className?: string,
+    classNameWholesaleBlock?: string, 
     classNameQuantity?: string,
     classNamePrice?: string
 
@@ -18,6 +19,7 @@ export const PriceQuantity: FC<PriceQuantityProps> = ({
     wholesales,
     firstStart,
     className,
+    classNameWholesaleBlock,
     classNamePrice,
     classNameQuantity
 }) => {
@@ -31,7 +33,7 @@ export const PriceQuantity: FC<PriceQuantityProps> = ({
                 </div>
             )}
             {wholesales.map((it, index) => (
-                <div className={cls(cl.item, wholesales.length === 1 ? cl.one : '')} key={index}>
+                <div className={cls(cl.item, wholesales.length === 1 ? cl.one : '', classNameWholesaleBlock)} key={index}>
                     <span className={cls(cl.quantity, classNameQuantity)}>{quantities[index]} {it.metrics?.shortName}.</span>
                     <span className={cls(cl.price, classNamePrice)}>{it.price} {it.currency?.code}</span>
                 </div>

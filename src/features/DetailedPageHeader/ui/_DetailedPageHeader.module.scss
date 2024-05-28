@@ -8,6 +8,11 @@
     padding: 20px;
     background-color: var(--background-2);
 
+    @media (max-width: 1024px) {
+        flex-direction: column;
+        border-radius: 0px;
+    }
+
     @media (max-width: 768px) {
         flex-direction: column;
         border-radius: 0px;
@@ -28,7 +33,7 @@
                 color: var(--gray-9);
                 font-size: var(--font-size-reg);
                 font-weight: var(--font-weight-light);
-                @media (max-width: 1024px) {
+                @media (max-width: 768px) {
                     font-size: var(--font-size-s);
                 }
             }
@@ -38,7 +43,7 @@
                 font-size: var(--font-size-mxl);
                 font-weight: var(--font-weight-med);
 
-                @media (max-width: 1024px) {
+                @media (max-width: 768px) {
                     font-size: var(--font-size-m);
                 }
             }
@@ -90,7 +95,6 @@
 
                 }
             }
-
         }
     }
 
@@ -101,13 +105,16 @@
         gap: 5px;
         width: fit-content;
 
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             width: 100%;
+            gap: 20px;
+         
         }
 
         .buttonContainer{
             background-color: var(--white);
             outline: 1px solid transparent;
+            width: 100%;
             & button{
                 width: 100%;
             }
@@ -130,6 +137,7 @@
             justify-content: flex-end;
             overflow-x: auto; 
             white-space: nowrap;
+
             &::-webkit-scrollbar {
                 display: none;
             }
@@ -145,11 +153,25 @@
             }
         }
 
+        .wholesaleBlock{
+            @media (max-width: 1024px) {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%; 
+            }
+            @media (max-width: 768px) {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+        }
+
         .quantity {
             color: var(--gray-9);
             font-weight: var(--font-weight-light) !important;
             font-size: var(--font-size-reg) !important;
-            @media (max-width: 1024px) {
+            @media (max-width: 768px) {
                 font-size: var(--font-size-s) !important;
             }
             
@@ -159,7 +181,7 @@
             color: var(--n-black-1);
             font-weight: var(--font-weight-eb) !important;
             font-size: var(--font-size-ml) !important;
-            @media (max-width: 1024px) {
+            @media (max-width: 768px) {
                 font-size: var(--font-size-m) !important;
             }
         }

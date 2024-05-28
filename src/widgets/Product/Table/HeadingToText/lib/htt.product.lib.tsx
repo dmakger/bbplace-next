@@ -3,7 +3,7 @@ import { getDate } from "@/shared/lib/dateTime.lib";
 import { getHeadingToText } from "@/shared/lib/headingToText.lib";
 import { IHeadingToText } from "@/shared/model/text.model";
 import { Rating } from "@/shared/ui/Rating";
-import { IGetCharacteristic, IGetDataHeadingToTextProductMainTable, IGetDataHeadingToTextProductTable } from "../model/headingToText.model";
+import { IGetCharacteristic, IGetDataHeadingToTextProductMainTable, IGetDataHeadingToTextProductTable } from "../model/htt.product.model";
 
 export const getDataHeadingToTextProductTable = ({ product, isCreatedAtAndReviews, itemRating, itemReviews }: IGetDataHeadingToTextProductTable) => {
     const warehouses = product.warehouses ? 'Есть на складе' : 'Нет'

@@ -61,6 +61,7 @@ export const DetailedPageHeader = ({
                 <PriceQuantity
                     wholesales={wholesalePrices ?? []}
                     className={cl.priceQuantity}
+                    classNameWholesaleBlock={cl.wholesaleBlock}
                     firstStart="За "
                     classNameQuantity={cl.quantity}
                     classNamePrice={cl.price} />
