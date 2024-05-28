@@ -107,7 +107,6 @@ export default function TenderPage() {
                             height={150}
                             slides={images}
                             classNameSlides={cl.imageSlide}
-                            isScale
                         />
                     )}
 

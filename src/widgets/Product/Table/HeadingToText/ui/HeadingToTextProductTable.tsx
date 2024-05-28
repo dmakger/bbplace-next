@@ -14,7 +14,7 @@ interface HeadingToTextProductTableProps{
 
 export const HeadingToTextProductTable:FC<HeadingToTextProductTableProps> = ({product, className, ...rest}) => {
     return (
-        <HeadingToTextTable data={getDataHeadingToTextProductTable(product)} 
+        <HeadingToTextTable data={getDataHeadingToTextProductTable({product})} 
                             variant={EHeadingToTextVariants.COLUMN}
                             isShort={true} 
                             classNameMainBlock={className} classNameHeadingItem={cl.headingItem} />

@@ -22,7 +22,7 @@ export const HeadingToTextColumn = ({
     classNameTextItem
 }: IHeadingToTextColumn) => {
     const headingTable = data.map(it => it.heading)
-    const textTable = data.map(it => it.text)
+    const textTable = data.map(it => it.body)
     return (
         <div className={cls(cl.block, isShort ? cl.short : '', classNameMain)}>
             <div className={cls(cl.column, classNameColumn)}>

@@ -35,12 +35,12 @@ export const BlockInfoProduct: FC<BlockInfoProductProps> = ({ product, className
                 {priceList.length > 0 &&
                     <HeadingToTextTable variant={EHeadingToTextVariants.ROW} data={[{
                         heading: "Мин. Кол-во",
-                        text: `${priceList[0].quantity}`,
+                        body: `${priceList[0].quantity}`,
                     }]} />
                 }
                 <HeadingToTextTable variant={EHeadingToTextVariants.ROW} data={[{
                     heading: "Дата публикации",
-                    text: `${getDate(product?.createdAt)}`,
+                    body: `${getDate(product?.createdAt)}`,
                 }]} />
             </div>
         </div>
