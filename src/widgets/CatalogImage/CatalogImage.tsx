@@ -10,9 +10,10 @@ interface CatalogImageProps{
     hasMaximize?: boolean
     isFullWindow?: boolean
     className?: string,
+    classNameSlide?: string,
 }
 
-export const CatalogImage:FC<CatalogImageProps> = ({imageList=[], hasMaximize=false, isFullWindow=false, className}) => {
+export const CatalogImage:FC<CatalogImageProps> = ({imageList=[], hasMaximize=false, isFullWindow=false, className, classNameSlide}) => {
     // STATE
     const [activeIndex, setActiveIndex] = useState(0);
     const [limit, setLimit] = useState(1);
@@ -34,6 +35,7 @@ export const CatalogImage:FC<CatalogImageProps> = ({imageList=[], hasMaximize=fa
             <ImageMaximizeSlider slides={imageList} isLoading={false}
                                 activeIndex={activeIndex} setActiveIndex={handleOnClick}
                                 amount={1} limit={limit} setLimit={setLimit} 
+                                classNameSlide={cls(isFullWindow ? cl.slideFull : '', classNameSlide)}
                                 hasMaximize={hasMaximize} isFullWindow={isFullWindow}/>
         </div>
     )

@@ -15,11 +15,12 @@ interface ImageMaximizeSliderProps extends ISlider{
     hasMaximize?: boolean
     isFullWindow?: boolean
     slides?: string[]
+    classNameSlide?: string
 }
 
-export const ImageMaximizeSlider:FC<ImageMaximizeSliderProps> = ({hasMaximize=false, isFullWindow=false, slides, className, ...rest}) => {
+export const ImageMaximizeSlider:FC<ImageMaximizeSliderProps> = ({hasMaximize=false, isFullWindow=false, slides, className, classNameSlide, ...rest}) => {
     // VARS
-    const slideProps: ISlider['slideProps'] = {isFullWindow}
+    const slideProps: ISlider['slideProps'] = {isFullWindow, classNameSlide}
     
     // STATE
     const [isOpen, setIsOpen] = useState(false);
@@ -33,7 +34,7 @@ export const ImageMaximizeSlider:FC<ImageMaximizeSliderProps> = ({hasMaximize=fa
     const sliderHTML = (
         <Slider slides={slides} component={ImageMaximizeSlide} 
                 className={cls(cl.slider, isOpen || isFullWindow ? cl.fullWindow : '', className)} 
-                slideProps={hasMaximize ? {...slideProps, onClickMaximize: handleOnClickMaximize} : slideProps}
+                slideProps={hasMaximize ? {...slideProps, onClickMaximize: handleOnClickMaximize} : {...slideProps}}
                 {...rest}/>
     )
     if (!hasMaximize)
