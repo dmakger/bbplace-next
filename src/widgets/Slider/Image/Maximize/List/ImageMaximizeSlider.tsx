@@ -23,17 +23,6 @@ export const ImageMaximizeSlider:FC<ImageMaximizeSliderProps> = ({hasMaximize=fa
     
     // STATE
     const [isOpen, setIsOpen] = useState(false);
-    // const [slideProps, setSlideProps] = useState<ISlider['slideProps']>({isFullWindow});
-
-    // EFFECT
-    // useEffect(() => {
-    //     setSlideProps(prevState => {
-    //         let newSlideProps = {...prevState}
-    //         if (hasMaximize)
-    //             newSlideProps = {...newSlideProps, onClickMaximize: handleOnClickMaximize}
-    //         return newSlideProps
-    //     })
-    // }, [isOpen, isOpen])
 
     // HANDLE
     const handleOnClickMaximize = () => {
@@ -55,7 +44,7 @@ export const ImageMaximizeSlider:FC<ImageMaximizeSliderProps> = ({hasMaximize=fa
             {sliderHTML}
             <Modal _isOpen={isOpen}
                     onClickOverlay={handleOnClickMaximize}
-                    view={EModalView.RIGHT} buttonNode={undefined}>
+                    view={EModalView.RIGHT} hasClose={true} buttonNode={undefined}>
                 <CatalogImage imageList={slides} isFullWindow={isOpen} className={isOpen || isFullWindow ? cl.fullWindow : ''}/>
             </Modal>
         </>
