@@ -75,7 +75,7 @@ export default function ProductDetailPage() {
                         name={product.name ?? ''}
                         tableData={getDataHeadingToTextProductTable({product, isCreatedAtAndReviews: true, itemRating: itemScore, itemReviews: itemReviews?.length})}
                     />
-                    <CatalogImage imageList={[...product?.media.attachments, ...product?.media.attachments, ...product?.media.attachments, ...product?.media.attachments, ...product?.media.attachments]} hasMaximize={true} />
+                    <CatalogImage imageList={product?.media.attachments} hasMaximize={true} />
                     <DetailedPageInfo 
                         defaultOption={SWITCH_SELECTOR_DESCRIPTION_OPTION}
                         options={SWITCH_SELECTOR_PRODUCT_OPTIONS}
