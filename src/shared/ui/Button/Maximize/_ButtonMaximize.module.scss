@@ -1,0 +1,9 @@
+.button {
+    padding: 10px;
+    background-color: var(--n-blue-light-3);
+    
+
+    &:hover {
+        background-color: var(--n-blue-light-2);
+    }
+}

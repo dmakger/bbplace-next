@@ -2,15 +2,18 @@ import { FC, useState } from "react"
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_CatalogImage.module.scss'
-import { ImageSlider } from "../Slider/Image/list/ImageSlider";
 import { ImageAD } from "@/shared/ui/Image/Active/ImageActive";
+import { ImageMaximizeSlider } from "../Slider/Image/Maximize/List/ImageMaximizeSlider";
 
 interface CatalogImageProps{
     imageList?: string[]
+    hasMaximize?: boolean
+    isFullWindow?: boolean
     className?: string,
+    classNameSlide?: string,
 }
 
-export const CatalogImage:FC<CatalogImageProps> = ({imageList=[], className}) => {
+export const CatalogImage:FC<CatalogImageProps> = ({imageList=[], hasMaximize=false, isFullWindow=false, className, classNameSlide}) => {
     // STATE
     const [activeIndex, setActiveIndex] = useState(0);
     const [limit, setLimit] = useState(1);
@@ -29,9 +32,11 @@ export const CatalogImage:FC<CatalogImageProps> = ({imageList=[], className}) =>
                     </button>
                 ))}
             </div>
-            <ImageSlider slides={imageList} isLoading={false} 
-                        activeIndex={activeIndex} setActiveIndex={handleOnClick}
-                        amount={1} limit={limit} setLimit={setLimit} />
+            <ImageMaximizeSlider slides={imageList} isLoading={false}
+                                activeIndex={activeIndex} setActiveIndex={handleOnClick}
+                                amount={1} limit={limit} setLimit={setLimit} 
+                                classNameSlide={cls(isFullWindow ? cl.slideFull : '', classNameSlide)}
+                                hasMaximize={hasMaximize} isFullWindow={isFullWindow}/>
         </div>
     )
 }

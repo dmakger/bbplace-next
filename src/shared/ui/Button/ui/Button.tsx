@@ -9,7 +9,7 @@ import { ButtonColor, ButtonSize, ButtonType } from '../model/model'
 import { ImageSmart } from '../../Image/Smart/ImageSmart'
 import { cls } from '@/shared/lib/classes.lib'
 
-interface IButton {
+export interface IButton {
     variant?: ButtonVariant
     color?: ButtonColor
     type?: ButtonType

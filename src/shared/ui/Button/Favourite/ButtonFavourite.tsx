@@ -4,14 +4,20 @@ import { cls } from '@/shared/lib/classes.lib';
 import cl from './_ButtonFavourite.module.scss'
 import { Button } from "../ui/Button";
 import { ButtonVariant } from "../model/model";
-import { FAVOURITE_ICON } from "../../Icon/data/favourite.data.icon";
+import { FAVOURITE_ICON, FAVOURITE_NEW_ICON } from "../../Icon/data/favourite.data.icon";
 import { IFavouriteRequest } from "@/entities/Favourite/model/favourite.model";
 import { useFavourite } from "@/entities/Favourite/lib/favourite.lib";
+
+export enum ButtonFavouriteVariant {
+    Default = 'default',
+    New = 'new',
+}
 
 export interface ButtonFavouriteProps{
     isFill?: boolean
     isCircled?: boolean,
     isFavourited?: boolean
+    variantFavourite?: ButtonFavouriteVariant
     className?: string,
     classNameIcon?: string,
 }
@@ -20,7 +26,7 @@ export interface ButtonFavouriteWBodyProps extends ButtonFavouriteProps {
     body: IFavouriteRequest
 }
 
-export const ButtonFavourite:FC<ButtonFavouriteWBodyProps> = ({body, isFill=false, isFavourited=false, className, classNameIcon}) => {
+export const ButtonFavourite:FC<ButtonFavouriteWBodyProps> = ({body, isFill=false, isFavourited=false, variantFavourite=ButtonFavouriteVariant.Default, className, classNameIcon}) => {
     //HOOKS
     const {addFavourite, deleteFavourite, data: {isInFavourite}} = useFavourite({body})    
     
@@ -44,7 +50,8 @@ export const ButtonFavourite:FC<ButtonFavouriteWBodyProps> = ({body, isFill=fals
     // RETURN
     return (
         <Button variant={ButtonVariant.DEFAULT} active={isActive} 
-                beforeImage={FAVOURITE_ICON} beforeProps={{className: classNameIcon, classNameImage: cl.image}}
+                beforeImage={variantFavourite === ButtonFavouriteVariant.Default ? FAVOURITE_ICON : FAVOURITE_NEW_ICON} 
+                beforeProps={{className: classNameIcon, classNameImage: cl.image}}
                 onClick={handleOnClick}
                 className={cls(cl.button, isFill ? cl.fill : '', isActive ? cl.active : '', className)} />
     )
