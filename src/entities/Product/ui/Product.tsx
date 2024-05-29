@@ -9,10 +9,10 @@ interface ProductProps extends IProductProps{
     view?: EViewProduct
 }
 
-export const Product:FC<ProductProps> = ({view=DEFAULT_VIEW_PRODUCT, ...rest}) => {
+export const Product:FC<ProductProps> = ({view=DEFAULT_VIEW_PRODUCT, product, ...rest}) => {
     if (view === EViewProduct.HORIZONTAL)
-        return <ProductH {...rest} />
+        return <ProductH product={product} {...rest} />
     if(view === EViewProduct.AT_SUPPLIER_CARD)
-        return <ProductASC {...rest}/>
-    return <ProductV {...rest} />
+        return <ProductASC slide={product} {...rest}/>
+    return <ProductV product={product} {...rest} />
 }

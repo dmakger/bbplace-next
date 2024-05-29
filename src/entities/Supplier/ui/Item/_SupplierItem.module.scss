@@ -3,6 +3,7 @@
     flex-direction: column;
     gap: 25px;
     max-width: 958px;
+    overflow-x: hidden;
     border-bottom: 1px solid var(--gray-5);
     border-radius: 16px;
 
@@ -83,13 +84,14 @@
 
     .bottomRightContainer{
         display: flex;
+        justify-self: flex-end;
+        width: 65%;
         @media (width < 768px) {
             display: none;
         }
-    }
-
-
-
-   
+    }   
 }
 
+.noButton{
+    justify-content: flex-end;
+}

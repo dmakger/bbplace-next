@@ -1,0 +1,1 @@
+export {DetailedPageInfo} from './ui/DetailedPageInfo'

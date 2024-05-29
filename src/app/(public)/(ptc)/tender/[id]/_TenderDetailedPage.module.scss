@@ -1,0 +1,53 @@
+.TenderDetailedPage{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+        height: fit-content;
+    
+        @media (max-width: 768px) {
+            padding-bottom: 70px;
+        }
+    
+        @media (max-width: 768px) {
+            gap: 10px;
+        }
+    
+        .supplierBlock {
+            background-color: var(--white);
+            border-radius: 20px;
+            padding: 7px 16px;
+    
+            @media (max-width: 768px) {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: flex-start;
+                border-radius: 0px;
+            }
+        }
+    
+        .navSupplier {
+            display: flex;
+            justify-content: space-between;
+    
+            @media (max-width: 768px) {
+                width: 100%;
+            }
+        }
+    
+        .slider {
+            background-color: var(--white);
+            border-radius: 20px;
+            padding: 20px;
+
+            @media (max-width: 768px) {
+                border-radius: 0px;
+            }
+    
+            .imageSlide{
+                min-width: 150px;
+                min-height: 150px;
+            }
+        }
+    }

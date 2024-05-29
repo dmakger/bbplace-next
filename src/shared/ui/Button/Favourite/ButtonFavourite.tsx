@@ -15,6 +15,7 @@ export enum ButtonFavouriteVariant {
 
 export interface ButtonFavouriteProps{
     isFill?: boolean
+    isCircled?: boolean,
     isFavourited?: boolean
     variantFavourite?: ButtonFavouriteVariant
     className?: string,

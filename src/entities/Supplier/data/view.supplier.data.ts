@@ -16,6 +16,7 @@ export const PREFIX_TO_CHAT_VIEW_SUPPLIER = "toChat"
 export enum ESupplierToChatViewItem {
     NONE = `none__${PREFIX_TO_CHAT_VIEW_SUPPLIER}`,
     SMALL = `small__${PREFIX_TO_CHAT_VIEW_SUPPLIER}`,
+    SMALL_WIDE = `smallWide__${PREFIX_TO_CHAT_VIEW_SUPPLIER}`,
     LARGE = `large__${PREFIX_TO_CHAT_VIEW_SUPPLIER}`,
     LARGE_WIDE = `largeWide__${PREFIX_TO_CHAT_VIEW_SUPPLIER}`,
 }

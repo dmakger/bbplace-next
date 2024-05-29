@@ -1,0 +1,56 @@
+.SupplierPageHeader {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+    overflow: hidden;
+
+    .image {
+        border-radius: 100px;
+        border: 1px solid var(--gray-5);
+    }
+
+    .rightContainer{
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+
+        .table {
+
+            .columnTable {
+                display: flex;
+                flex-direction: column;
+                gap: 18px;
+                
+                .headingItem{
+                    width: 120px;
+                }
+    
+                & span {
+                    max-width: 945px;
+                    white-space: normal;
+                    font-size: var(--font-size-s);
+                    margin-left: 0px;
+                }
+            }
+        }
+        .mainColumn{
+            gap: 24px;
+           
+        }
+
+        .headingItem {
+            color: var(--gray-7);
+        }
+        .textItem{
+            white-space: initial;
+        }
+    }
+}
+
+
+
+
+.supplierName {
+    font-weight: var(--font-weight-sb);
+    font-size: var(--font-size-xl) !important;
+}

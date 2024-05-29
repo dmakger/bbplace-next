@@ -9,17 +9,19 @@ import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { ICategory } from "@/entities/Metrics/model/category.metrics.model"
 import { getTenderType } from "../../lib/tender.lib"
-import { TenderInfo, getDataTenderInfo } from "@/shared/ui/TenderInfo"
 import { CategoryAPI } from "@/entities/Metrics/api/category.metrics.api"
 import { CreatedAt } from "@/shared/ui/CreatedAt"
 import { SupplierWNav } from "@/entities/Supplier/ui/WNav/SupplierWNav"
 import { HandleSize } from "@/shared/ui/Handle/Size/HandleSize"
 import { ESupplierSubscribeViewItem, ESupplierToChatViewItem } from "@/entities/Supplier/data/view.supplier.data"
 import { ESupplierView } from "@/entities/Supplier/data/supplier.data"
+import { HeadingToTextTable } from "@/shared/ui/Text"
+import { EHeadingToTextVariants } from "@/shared/model/text.model"
 import { CategoryItem } from "@/entities/Metrics/ui/Category"
 import { FavouriteAutoToTenderButton } from "../../components/Buttons/Favourite/Auto/FavouriteAutoToTenderButton"
 import { ETenderFavouriteViewItem } from "../../data/view.product.data"
 import { ARROW_ICON } from "@/shared/ui/Icon/data/arrow.data.icon"
+import { getDataTenderInfo } from "@/shared/ui/Text/lib/htt.tender.lib"
 
 interface ITenderItem {
     tender: ICommonTender
@@ -52,10 +54,14 @@ export const TenderItem = ({
     //NAVIGATE
     const { push } = useRouter()
 
-    const goToTheTender = () => {
+    const goToTheTenderMobile = () => {
         if (is768) {
-            push(`lead/${id}?type=${tenderType === ETenderType.PURCHASE ? 'purchase' : 'sale'}`);
+            push(`tender/${id}?type=${tenderType === ETenderType.PURCHASE ? 'purchase' : 'sale'}`);
         }
+    };
+
+    const goToTheTenderDesktop = () => {
+        push(`tender/${id}?type=${tenderType === ETenderType.PURCHASE ? 'purchase' : 'sale'}`);
     };
 
     const handleInfoClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -65,7 +71,7 @@ export const TenderItem = ({
 
     return (
         <>
-            <section className={cls(cl.TenderCard, className)} onClick={goToTheTender}>
+            <section className={cls(cl.TenderCard, className)} onClick={goToTheTenderMobile}>
                 <div className={cl.topContainer} onClick={handleInfoClick}>
                     <div className={cl.info}>
                         {tenderType && <TenderType tenderType={tenderType} />}
@@ -78,7 +84,14 @@ export const TenderItem = ({
                     <span className={cl.cardTitle}>
                         {tender.name}
                     </span>
-                    <TenderInfo data={getDataTenderInfo(tender)} />
+                    <HeadingToTextTable
+                        data={getDataTenderInfo(tender)}
+                        variant={EHeadingToTextVariants.ROW}
+                        hasSpace={true}
+                        classNameMainBlock={cl.TenderInfo}
+                        classNameHeadingItem={cl.heading}
+                        classNameTextItem={cl.text}
+                    />
                 </div>
 
                 <div className={cl.bottomContainer}>
@@ -95,7 +108,7 @@ export const TenderItem = ({
                     </div>
                     <CreatedAt createdAt={createdAt} />
                     <div className={cl.buttonToTender} onClick={handleInfoClick}>
-                        <Button variant={ButtonVariant.W_ARROW_RED} onClick={goToTheTender}
+                        <Button variant={ButtonVariant.W_ARROW_RED} onClick={goToTheTenderDesktop}
                                 title="В тендер" 
                                 afterImage={ARROW_ICON} afterProps={{width: 14, height: 14}} />
                     </div>

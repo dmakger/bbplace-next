@@ -6,7 +6,6 @@ import { IArgsRequest } from "@/api/model/request.model.api";
 import { getArgsProduct } from "../lib/args.product.lib";
 import { getURL } from "@/api/request";
 import { PRODUCT_BY_USER_LIMIT, PRODUCT_START_PAGE } from "../data/product.data";
-import { productApiListToProductList } from "../lib/product.lib";
 
 
 export const ProductAPI = createApi({
@@ -47,7 +46,7 @@ export const ProductAPI = createApi({
         }),
 
         //GET PRODUCTS BY USER
-        getProductsByUser: build.query<IProduct[], IGetProductsByUser>({
+        getProductsByUser: build.query<IProductAPI[], IGetProductsByUser>({
             query: ({page = PRODUCT_START_PAGE, limit = PRODUCT_BY_USER_LIMIT, userId}) => ({
                 url: `/GetItems/ByUser/${userId}/${limit}/${page}`,
                 method: 'GET',

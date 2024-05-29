@@ -1,12 +1,12 @@
 import { ReactNode } from "react"
 
 export interface IHeadingToText {
-    heading: string
-    text: string | ReactNode
+    heading?: string
+    body: string | ReactNode
+    unit?: string
 }
 
-export interface IHeadingToTextTender {
-    heading: string
-    text: string
-    unit: string
+export enum EHeadingToTextVariants {
+    ROW = 'row',
+    COLUMN = 'column'
 }

@@ -1,33 +1,74 @@
-import { FC } from "react"
-
-import { cls } from '@/shared/lib/classes.lib';
 import cl from './_HeadingToTextTable.module.scss'
-import { IHeadingToText } from "@/shared/model/text.model";
+import { cls } from "@/shared/lib/classes.lib";
+import { HeadingToTextRow } from '../Row/HeadingToTextRow';
+import { HeadingToTextColumn } from '../Column/HeadingToTextColumn';
+import { EHeadingToTextVariants, IHeadingToText } from '@/shared/model/text.model';
+import { Rating } from '@/shared/ui/Rating';
+import React from 'react';
 
-interface HeadingToTextTableProps{
-    data: IHeadingToText[]
-    isShort?: boolean
-    className?: string,
+interface IHeadingToTextTable {
+    data: IHeadingToText[],
+    variant: EHeadingToTextVariants,
+    isShort?: boolean,
+    hasColon?: boolean,
+    hasDash?: boolean,
+    hasSpace?: boolean,
+    classNameMainBlock?: string,
+    classNameMain?: string,
+    classNameRow?: string,
     classNameColumn?: string,
     classNameHeadingItem?: string,
-    classNameTextItem?: string,
+    classNameTextItem?: string
 }
 
-export const HeadingToTextTable:FC<HeadingToTextTableProps> = ({data, isShort=false, className, classNameColumn, classNameHeadingItem, classNameTextItem}) => {
-    const headingTable = data.map(it => it.heading)
-    const textTable = data.map(it => it.text)
+export const HeadingToTextTable = ({
+    data,
+    variant,
+    isShort = false,
+    hasColon = true,
+    hasDash = false,
+    hasSpace = true,
+    classNameMainBlock,
+    classNameMain,
+    classNameColumn,
+    classNameRow,
+    classNameHeadingItem,
+    classNameTextItem
+}: IHeadingToTextTable) => {
+
     return (
-        <div className={cls(cl.block, isShort ? cl.short : '', className)}>
-            <div className={cls(cl.column, classNameColumn)}>
-                {headingTable.map((heading, index) => (
-                    <span className={cls(cl.heading, cl.span, classNameHeadingItem)} key={index}>{heading} :</span>
-                ))}
-            </div>
-            <div className={cls(cl.column, cl.right, classNameColumn)}>
-                {textTable.map((text, index) => (
-                    <span className={cls(cl.text, cl.span, classNameTextItem)} key={index}>{text}</span>
-                ))}
-            </div>
+        <div className={cls(cl.block, classNameMainBlock)}>
+            {
+                (variant === EHeadingToTextVariants.ROW ? (
+                    data.map((it, index) => {
+                        const isRatingComponent = React.isValidElement(it.body) && it.body.type === Rating;                        
+                        return (
+                        <HeadingToTextRow
+                            key={index}
+                            heading={it.heading}
+                            unit={it.unit}
+                            text={it.body}
+                            isShort={isShort}
+                            hasColon={hasColon}
+                            hasDash={hasDash}
+                            hasSpace={isRatingComponent ? false : hasSpace}
+                            classNameRow={cls(
+                                classNameRow,
+                                index === data.length - 1 ? cl.noBorder : '',
+                                index === 0 ? cl.topBorder : '',
+                                isRatingComponent ? cl.rating : '')}
+                            classNameHeading={classNameHeadingItem}
+                            classNameText={classNameTextItem}
+                        />
+                )}))
+                    : <HeadingToTextColumn
+                        data={data}
+                        isShort={isShort}
+                        classNameMain={classNameMain}
+                        classNameColumn={classNameColumn}
+                        classNameHeadingItem={classNameHeadingItem}
+                        classNameTextItem={classNameTextItem}
+                    />)}
         </div>
     )
 }

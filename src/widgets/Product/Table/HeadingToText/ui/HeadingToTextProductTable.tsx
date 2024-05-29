@@ -4,6 +4,7 @@ import { getDataHeadingToTextProductTable } from "../lib/htt.product.lib";
 
 import cl from './_HeadingToTextProductTable.module.scss'
 import { HeadingToTextTable } from "@/shared/ui/Text";
+import { EHeadingToTextVariants } from "@/shared/model/text.model";
 
 interface HeadingToTextProductTableProps{
     product: IProduct
@@ -11,9 +12,11 @@ interface HeadingToTextProductTableProps{
     classNameTextItem?: string,
 }
 
-export const HeadingToTextProductTable:FC<HeadingToTextProductTableProps> = ({product, ...rest}) => {
+export const HeadingToTextProductTable:FC<HeadingToTextProductTableProps> = ({product, className, ...rest}) => {
     return (
-        <HeadingToTextTable data={getDataHeadingToTextProductTable(product)} 
-                            isShort={true} classNameHeadingItem={cl.headingItem} {...rest}/>
+        <HeadingToTextTable data={getDataHeadingToTextProductTable({product})} 
+                            variant={EHeadingToTextVariants.COLUMN}
+                            isShort={true} 
+                            classNameMainBlock={className} classNameHeadingItem={cl.headingItem} />
     )
 }

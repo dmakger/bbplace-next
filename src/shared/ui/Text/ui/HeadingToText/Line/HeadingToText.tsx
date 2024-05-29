@@ -7,7 +7,7 @@ import { IHeadingToText } from "@/shared/model/text.model";
 interface HeadingToTextProps{
     data?: IHeadingToText[],
     heading?: IHeadingToText['heading']
-    text?: IHeadingToText['text']
+    text?: IHeadingToText['body']
     hasSpace?: boolean
     className?: string
     classNameHeading?: string
@@ -17,7 +17,7 @@ interface HeadingToTextProps{
 export const HeadingToText:FC<HeadingToTextProps> = ({data, hasSpace=true,  className, classNameHeading, classNameText}) => {
 
     const headingTable = data && data.map(it => it.heading)
-    const textTable = data && data.map(it => it.text)
+    const textTable = data && data.map(it => it.body)
     return (
         <div className={cls(cl.block, className)}>
             {headingTable && headingTable.map(it => (

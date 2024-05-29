@@ -30,6 +30,7 @@ export enum ButtonVariant{
     BACKGROUND_RED = 'background-red',
     BACKGROUND_RED_HUGE = 'background-red-huge',
     ALMOST_RECTANGULAR = 'almost-rectangular',
+    ALMOST_RECTANGULAR_RED = 'almost-rectangular-red',
     W_ARROW_RED = 'w-arrow-red',
     BACKGROUND_GRAY = 'background-gray'
 }

@@ -1,20 +1,49 @@
-export interface ISellerReview {
+import { IArgsRequest } from "@/api/model/request.model.api"
+
+//BASE
+export interface IBaseReview {
     id: number
     ownerId: string
-    sellerId: string
     score: number
     text: string
     attachments: string
     createdAt: string
 }
 
-export interface ISellerReviewsRequest{
-    supplierId: string
+
+export interface IBaseReviewsPagesRequest {
     limit: number
-    page?: number
 }
 
-export interface ISellerReviewsPagesRequest {
+//SUPPLIER
+export interface ISellerReview extends IBaseReview {
+    sellerId: string
+}
+
+export interface ISellerReviewsRequest extends IArgsRequest{
     supplierId: string
-    limit: number
+}
+
+export interface ISellerReviewsPagesRequest extends IBaseReviewsPagesRequest {
+    supplierId: string
+}
+
+//PRODUCT
+export interface IProductReview extends IBaseReview {
+    response: IReviewResponse
+}
+
+export interface IProductReviewRequest extends IArgsRequest {
+    itemId: string
+}
+
+export interface IProductReviewsPagesRequest extends IBaseReviewsPagesRequest {
+    itemId: string
+}
+
+export interface IReviewResponse {
+    reviewId: number,
+    text: string,
+    attachments: string,
+    createdAt: string
 }

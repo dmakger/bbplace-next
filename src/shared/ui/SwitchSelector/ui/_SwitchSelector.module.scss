@@ -1,0 +1,67 @@
+.SwitchSelector {
+    display: flex;
+    width: 100%;
+    position: relative;
+    overflow-x: auto;
+    border-bottom: 1px solid var(--secondary-surface);
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    .option {
+        display: flex;
+        padding: 18px 20px;
+        border-bottom: 1px solid transparent;
+        transition: 0.3s ease-in-out;
+        cursor: pointer;
+
+        & input {
+            display: none;
+        }
+
+        & label {
+            width: fit-content;
+            color: var(--n-blue-2);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-med);
+            cursor: inherit;
+            transition: 0.3s ease-in-out;
+            .optionQuantity{
+                margin-left: 5px;
+                color: var(--font-caption-sub);
+            }
+        }
+    }
+
+    .optionHover{
+        &:hover {
+            background-color: var(--secondary-surface);
+            border-bottom: 1px solid var(--secondary-pressed);
+            transition: 0.3s ease-in-out;
+        }
+    }
+
+    .choosen {
+        cursor: default;
+        & label {
+            cursor: inherit;
+            color: var(--font);
+            transition: 0.3s ease-in-out;
+        }
+
+        &:hover {
+            background-color: transparent;
+        }
+    }
+
+    .choosenLine {
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        height: 1px;
+        background-color: var(--gray-6);
+        border-radius: 16px;
+        transition: left 0.3s, width 0.3s;
+    }
+}

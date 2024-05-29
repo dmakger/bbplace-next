@@ -1,17 +1,22 @@
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_ProductASC.module.scss';
 import { ImageAPI } from '@/shared/ui/Image/API/ImageAPI';
-import { IProductProps } from '@/entities/Product/model/props.product.model';
 import { getDiapason } from '@/entities/Metrics/lib/metrics/diapason.metrics.metrics.lib';
 import { WholesaleDiapason } from '@/entities/Metrics/ui/Wholesale/Diapason/WholesaleDiapason';
 import Link from 'next/link';
 import { MAIN_PAGES } from '@/config/pages-url.config';
-import { EProductFavouriteViewItem } from '@/entities/Product/data/view.product.data';
+import { IProduct } from '@/entities/Product/model/product.model';
 import { FavouriteAutoToProductButton } from '@/entities/Product/components/Buttons/Favourite/Auto/FavouriteAutoToProductButton';
+import { EProductFavouriteViewItem } from '@/entities/Product/data/view.product.data';
 
-interface IProductASC extends IProductProps { }
+interface IProductASC  {
+    slide: IProduct,
+    className?: string
+ }
 
-export const ProductASC = ({ product, className }: IProductASC) => {
+export const ProductASC = ({ slide, className }: IProductASC) => {
+
+    const product = slide;
 
     const media = typeof product.media === 'string' ? JSON.parse(product.media) : product.media;
 

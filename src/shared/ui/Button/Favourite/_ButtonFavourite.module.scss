@@ -32,3 +32,15 @@
         background-color: var(--gray-1);
     }
 }
+
+.circled{
+    padding: 9px;
+    
+    border: 1px solid var(--n-blue-light-1);
+    border-radius: 50%;
+
+    &:hover {
+        background-color: var(--n-blue-light-1);
+        transform: scale(1);
+    }
+}

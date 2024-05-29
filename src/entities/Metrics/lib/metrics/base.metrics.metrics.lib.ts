@@ -6,3 +6,7 @@ export const metricsToObject = (metrics: IMediaProduct["priceUnits"], allMetrics
     if (typeof metrics !== "number") return metrics
     return allMetrics.find(it => it.id === metrics)
 }
+
+export const metricsTenderToObject = (metrics: string, allMetrics: IMetrics[]) => {    
+    return allMetrics.find(it => it.shortName === metrics)
+}

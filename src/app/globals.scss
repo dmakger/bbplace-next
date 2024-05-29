@@ -22,7 +22,8 @@
   --gray-6: #ACACB2;
   --gray-7: #979399;
   --gray-8: #939399;
-  --gray-9: #666C71;
+  --gray-9: #666C71; 
+  
   
   --dark-1: #2E2E33;
   --dark-2: #28252E;
@@ -33,6 +34,7 @@
   --red-3: #A45055;
 
   --blue-1: #43B0FF;
+
 
   // new
   --n-black-1: #1D1D1F;
@@ -54,6 +56,10 @@
   --n-gray-3: #D7D8DE;
   --n-gray-4: #DDDDDD;
   --n-gray-5: #F5F5F5;
+
+  --n-yellow-1: #FDFAED;
+  --n-yellow-2: #E8C331;
+  --n-yellow-3: #9F8212;
 
 
   // specify
@@ -89,7 +95,9 @@
   --secondary-surface: var(--n-blue-light-2);
   --secondary-surface-sub: var(--n-blue-light-3);
 
-
+  --rating-surface: var(--n-yellow-1);
+  --rating-low: var(--n-yellow-2);
+  --rating: var(--n-yellow-3);
 
   // ===={ FONT }====
 
@@ -117,10 +125,18 @@
   --font-size-sm: 1.13rem;
   // 20px
   --font-size-m: 1.25rem;
+  // 24px
+  --font-size-ml: 1.5rem;
+  // 26px
+  --font-size-mxl: 1.63rem;
   // 32px
   --font-size-lm: 2rem;
 
+  // 26px
+  --font-size-xl: 1.63rem;
+
   //FONT-WEIGHT
+  --font-weight-light: 300;
   --font-weight-reg: 400;
   --font-weight-med: 500;
   --font-weight-sb: 600;
@@ -156,6 +172,7 @@
   &::-webkit-scrollbar {
     background-color: transparent;
     width: 7px;
+    height: 12px;
   }
 
   &::-webkit-scrollbar-thumb {

@@ -3,7 +3,7 @@ import {fetchBaseQuery} from "@reduxjs/toolkit/query";
 import { options } from "@/api/interceptors";
 import { IArgsRequest } from "@/api/model/request.model.api";
 import { getURL } from "@/api/request";
-import { IPurchaseTender, ISaleTender, ITenderApi } from "../model/tender.model";
+import { IPurchaseTender, ISaleTender, ITenderAPI, ITenderByTwoObjectsAPI } from "../model/tender.model";
 import { getArgsTender } from "../lib/args.tender.lib";
 
 
@@ -14,7 +14,13 @@ export const TenderAPI = createApi({
     }),
     endpoints: (build) => ({
         //ALL TENDERS
-        getAllTenders: build.query<ITenderApi, IArgsRequest | undefined>({
+        getAllTenders: build.query<ITenderAPI[], IArgsRequest | undefined>({
+            query: (args) => ({
+                url: getURL(`/GetAllRequests/SingleList/Filter/`, getArgsTender(args)),
+				method: 'GET',
+            })
+        }),
+        getAllTendersByTwoObjects: build.query<ITenderByTwoObjectsAPI, IArgsRequest | undefined>({
             query: (args) => ({
                 url: getURL(`/GetAllRequests/Filter/`, getArgsTender(args)),
 				method: 'GET',
@@ -28,12 +34,12 @@ export const TenderAPI = createApi({
             })
         }),
         //SALE TENDERS
-        getSaleTenderById: build.query<ISaleTender, number>({
+        getSaleTenderById: build.query<ITenderAPI, number>({
             query: (tenderId) => ({
                 url: `/GetSaleRequest/${tenderId}`
             })
         }),
-        getSaleTenders: build.query<ISaleTender[], IArgsRequest | undefined>({
+        getSaleTenders: build.query<ITenderAPI[], IArgsRequest | undefined>({
             query: (args) => ({
                 url: getURL(`/GetSaleRequests/OrderByDate/DESC/`, getArgsTender(args)),
 				method: 'GET',
@@ -47,12 +53,12 @@ export const TenderAPI = createApi({
             })
         }),
         //PURCHASE TENDERS
-        getPurchaseTenderById: build.query<IPurchaseTender, number>({
+        getPurchaseTenderById: build.query<ITenderAPI, number>({
             query: (tenderId) => ({
                 url: `/GetPurchaseRequest/${tenderId}`
             })
         }),
-        getPurchaseTenders: build.query<IPurchaseTender[], IArgsRequest | undefined>({
+        getPurchaseTenders: build.query<ITenderAPI[], IArgsRequest | undefined>({
             query: (args) => ({
                 url: getURL(`/GetPurchaseRequests/OrderByDate/DESC/`, getArgsTender(args)),
 				method: 'GET',

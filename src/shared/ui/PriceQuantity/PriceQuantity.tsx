@@ -9,9 +9,20 @@ interface PriceQuantityProps{
     wholesales: IWholesale[]
     firstStart?: string
     className?: string,
+    classNameWholesaleBlock?: string, 
+    classNameQuantity?: string,
+    classNamePrice?: string
+
 }
 
-export const PriceQuantity:FC<PriceQuantityProps> = ({wholesales, firstStart, className}) => {
+export const PriceQuantity: FC<PriceQuantityProps> = ({
+    wholesales,
+    firstStart,
+    className,
+    classNameWholesaleBlock,
+    classNamePrice,
+    classNameQuantity
+}) => {
     const quantities = getDiapasonQuantity(wholesales, firstStart)
     
     return (
@@ -22,9 +33,9 @@ export const PriceQuantity:FC<PriceQuantityProps> = ({wholesales, firstStart, cl
                 </div>
             )}
             {wholesales.map((it, index) => (
-                <div className={cls(cl.item, wholesales.length === 1 ? cl.one : '')} key={index}>
-                    <span className={cl.quantity}>{quantities[index]} {it.metrics?.shortName}.</span>
-                    <span className={cl.price}>{it.price} {it.currency?.code}</span>
+                <div className={cls(cl.item, wholesales.length === 1 ? cl.one : '', classNameWholesaleBlock)} key={index}>
+                    <span className={cls(cl.quantity, classNameQuantity)}>{quantities[index]} {it.metrics?.shortName}.</span>
+                    <span className={cls(cl.price, classNamePrice)}>{it.price} {it.currency?.code}</span>
                 </div>
             ))}
         </div>
