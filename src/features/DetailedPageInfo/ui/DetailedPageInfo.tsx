@@ -1,9 +1,10 @@
 import { useState } from "react"
 import { cls } from "@/shared/lib/classes.lib"
 import cl from './_DetailedPageInfo.module.scss'
-import { IOption } from "@/shared/model/option.model"
 import { SwitchSelector } from "@/shared/ui/SwitchSelector"
 import { IOptionsTab } from "../model/detailedPageInfo.model"
+import { convertObjectToArray } from "../lib/detailedPageInfo.lib"
+import { IOption } from "@/shared/model/option.model"
 
 interface IDetailedPageInfo {
     className?: string,
@@ -21,6 +22,8 @@ export const DetailedPageInfo = ({
 
     const [selectedOption, setSelectedOption] = useState<IOption>(defaultOption)
 
+    const productPageOptionsArray = convertObjectToArray(optionsTab);
+
     return (
         <div className={cls(cl.DetailedPageInfo, className)}>
             <SwitchSelector
@@ -30,11 +33,11 @@ export const DetailedPageInfo = ({
                 setSelectedOption={setSelectedOption}
                 optionsTab={optionsTab}
             />
-            {selectedOption.value && optionsTab[selectedOption.value] && (
-                <div className={cl.optionsTabContainer}>
-                    {optionsTab[selectedOption.value]?.optionTab}
-                </div>
-            )}
+            <div className={cl.optionsTabContainer}>
+                {optionsTab && productPageOptionsArray.map(it => (
+                    it.value.optionTab
+                ))}
+            </div>
         </div>
     )
 }

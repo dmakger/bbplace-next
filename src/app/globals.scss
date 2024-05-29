@@ -56,6 +56,7 @@
   --n-gray-3: #D7D8DE;
   --n-gray-4: #DDDDDD;
   --n-gray-5: #F5F5F5;
+  --n-gray-6: #FAFAFA;
 
   --n-yellow-1: #FDFAED;
   --n-yellow-2: #E8C331;
@@ -185,7 +186,6 @@ html,
 body {
   max-width: 100vw;
   height: 100vh;
-  overflow-x: hidden;
   
   input {
     color: var(--foreground-1);

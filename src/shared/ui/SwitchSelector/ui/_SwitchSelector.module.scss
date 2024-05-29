@@ -1,12 +1,50 @@
 .SwitchSelector {
     display: flex;
     width: 100%;
-    position: relative;
+    position: sticky;
+    top: 0;
+    left: 0;
+    background-color: var(--white);
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
     overflow-x: auto;
     border-bottom: 1px solid var(--secondary-surface);
 
     &::-webkit-scrollbar {
         display: none;
+    }
+    .leftContainer{
+        display: flex;
+    }
+
+    .optionsTabContainer{
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+
+        .arrowUp{
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            transition-duration: 0.2s;
+            & img{
+                transition-duration: 0.2s;
+            }
+            &:hover{
+                background-color: var(--n-blue-light-3);
+                transition-duration: 0.2s;
+
+            }
+            &:active{
+                background-color: var(--secondary-surface);
+                transition-duration: 0.2s;
+                & img{
+                    transform: translate(0%, -10%);
+                    transition-duration: 0.2s;
+                }
+
+            }
+        }
     }
 
     .option {
@@ -27,14 +65,15 @@
             font-weight: var(--font-weight-med);
             cursor: inherit;
             transition: 0.3s ease-in-out;
-            .optionQuantity{
+
+            .optionQuantity {
                 margin-left: 5px;
                 color: var(--font-caption-sub);
             }
         }
     }
 
-    .optionHover{
+    .optionHover {
         &:hover {
             background-color: var(--secondary-surface);
             border-bottom: 1px solid var(--secondary-pressed);
@@ -44,6 +83,7 @@
 
     .choosen {
         cursor: default;
+
         & label {
             cursor: inherit;
             color: var(--font);
