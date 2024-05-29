@@ -6,8 +6,9 @@ import { DASHBOARD_PAGES } from "@/config/pages-url.config"
 import { IWholesale } from "@/entities/Metrics/model/wholesale.metrics.model"
 import { HeadingToTextTable } from "@/shared/ui/Text"
 import { EHeadingToTextVariants, IHeadingToText } from "@/shared/model/text.model"
-import { FavouriteAutoToTenderButton } from "@/entities/Tender/components/Buttons/Favourite/Auto/FavouriteAutoToTenderButton"
-import { ETenderFavouriteViewItem } from "@/entities/Tender/data/view.product.data"
+import { FavouriteAutoToProductButton } from "@/entities/Product/components/Buttons/Favourite/Auto/FavouriteAutoToProductButton"
+import { EProductFavouriteViewItem } from "@/entities/Product/data/view.product.data"
+import { ButtonFavouriteVariant } from "@/shared/ui/Button/Favourite/ButtonFavourite"
 
 interface IDetailedPageHeader {
     className?: string,
@@ -46,7 +47,7 @@ export const DetailedPageHeader = ({
                     <p className={cl.name}>{name}</p>
                 </div>
                 <div className={cl.restInfo}>
-                    <FavouriteAutoToTenderButton tenderId={id} view={ETenderFavouriteViewItem.SMALL_FILL} />
+                    <FavouriteAutoToProductButton productId={id} view={EProductFavouriteViewItem.SMALL_FILL} variantFavourite={ButtonFavouriteVariant.New} />
                     <HeadingToTextTable
                         variant={EHeadingToTextVariants.ROW}
                         data={tableData} 
