@@ -8,12 +8,13 @@ interface ImageADProps {
     src: string
     isActive?: boolean
     className?: string,
+    classNameImage?: string,
 }
 
-export const ImageAD:FC<ImageADProps> = ({src, isActive=false, className}) => {
+export const ImageAD:FC<ImageADProps> = ({src, isActive=false, className, classNameImage}) => {
     return (
         <div className={cls(cl.wrapper, isActive ? cl.active : '', className)}>
-            <ImageAPI src={src} className={cls(cl.image, )} />
+            <ImageAPI src={src} className={cls(cl.image, classNameImage)} />
         </div>
     )
 }

@@ -8,14 +8,27 @@
     // max-height: 350px;
 
     .column {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        height: 350px;
-        overflow: auto;
+        .columnData {
+            height: 350px;
+            overflow: scroll;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .image {
+            width: 80px;
+            height: 80px;
+        }
     }
 }
 
 .slideFull {
-    width: calc(100vw - 140px);
+    width: calc(100vw - 141px);
+}
+
+.full {
+    .columnData {
+        height: 100vh !important;
+    }
 }

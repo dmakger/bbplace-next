@@ -4,6 +4,7 @@ import { cls } from '@/shared/lib/classes.lib';
 import cl from './_CatalogImage.module.scss'
 import { ImageAD } from "@/shared/ui/Image/Active/ImageActive";
 import { ImageMaximizeSlider } from "../Slider/Image/Maximize/List/ImageMaximizeSlider";
+import { Button, ButtonVariant } from "@/shared/ui/Button";
 
 interface CatalogImageProps{
     imageList?: string[]
@@ -24,13 +25,15 @@ export const CatalogImage:FC<CatalogImageProps> = ({imageList=[], hasMaximize=fa
     }
 
     return (
-        <div className={cls(cl.block, className)}>
+        <div className={cls(cl.block, isFullWindow ? cl.full : '', className)}>
             <div className={cl.column}>
-                {imageList.map((image, index) => (
-                    <button onClick={() => handleOnClick(index)} key={index}>
-                        <ImageAD src={image} isActive={index === activeIndex} className={cl.image} />
-                    </button>
-                ))}
+                <div className={cl.columnData}>
+                    {imageList.map((image, index) => (
+                        <Button variant={ButtonVariant.DEFAULT} onClick={() => handleOnClick(index)} key={index}>
+                            <ImageAD src={image} isActive={index === activeIndex} classNameImage={cl.image} />
+                        </Button>
+                    ))}
+                </div>
             </div>
             <ImageMaximizeSlider slides={imageList} isLoading={false}
                                 activeIndex={activeIndex} setActiveIndex={handleOnClick}
