@@ -20,14 +20,12 @@
     background-color: var(--gray-3);
 }
 
-.outlineButton {
-    border: 1px solid var(--gray-5);
-
-    &:hover {
-        border-color: var(--gray-4);
+.outlineButton { 
+    .activeText{
+        color: var(--tertiary);
     }
+}
 
-    &.active {
-        border-color: var(--white);
-    }
+.active{
+    border-color: var(--tertiary-border);
 }

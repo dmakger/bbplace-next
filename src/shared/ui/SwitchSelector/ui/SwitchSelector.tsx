@@ -26,6 +26,7 @@ export const SwitchSelector = ({
 }: ISwitchSelector) => {
     //STATE
     const [lineStyle, setLineStyle] = useState<{ width: number, left: number }>({ width: 0, left: 0 })
+    const [isAtTop, setIsAtTop] = useState(false)
 
     //REF
     const switchSelectorRef = useRef<HTMLDivElement>(null)
@@ -41,6 +42,19 @@ export const SwitchSelector = ({
         }
     }, [options, selectedOption])
 
+    useEffect(() => {
+        const handleScroll = () => {
+            if (switchSelectorRef.current) {
+                const rect = switchSelectorRef.current.getBoundingClientRect()
+                setIsAtTop(rect.top <= 0)
+            }
+        }
+        window.addEventListener('scroll', handleScroll)
+        return () => window.removeEventListener('scroll', handleScroll)
+    }, [])
+
+
+
     //FUNCTIONS
     const selectOption = (option: IOption | IMenuItem) => {
         setSelectedOption(option);
@@ -53,16 +67,14 @@ export const SwitchSelector = ({
         return selectOption.id === mapItem.id;
     }, [selectedOption]);
 
+
     const scrollToTop = () => {
-   
-        window.scrollTo({top: 0, behavior: 'smooth'})   
-     
+        window.scrollTo({ top: 0, behavior: 'smooth' })
     };
-    
 
     return (
-        <div className={cls(cl.SwitchSelector, className)} ref={switchSelectorRef}>
-            <div className={cl.optionsTabContainer}>
+        <div className={cls(cl.SwitchSelector, isAtTop ? cl.sticky : '', className)} ref={switchSelectorRef}>
+            <div className={cl.optionsContainer}>
                 <div className={cl.leftContainer}>
                     {options.map(it => {
                         const optionValue = (it as IOption).value ?? '';
@@ -71,7 +83,10 @@ export const SwitchSelector = ({
                         const optionQuantity = optionsTab[optionValue]?.optionQuantity
 
                         const html = (
-                            <button className={cls(cl.option, options.length > 1 ? cl.optionHover : '', isChecked(selectedOption, it) ? cl.choosen : '')}
+                            <button className={cls(
+                                cl.option,
+                                options.length > 1 ? cl.optionHover : '',
+                                isChecked(selectedOption, it) ? cl.choosen : '')}
                                 ref={isChecked(selectedOption, it) ? selectedOptionRef : null}
                                 key={it.id}
                                 onClick={() => selectOption(it)}>
@@ -100,7 +115,7 @@ export const SwitchSelector = ({
                 </button>
             </div>
             {options.length > 1 && <span
-                className={cl.choosenLine}
+                className={cls(cl.choosenLine, isAtTop ? cl.stickyChoosenLine : '' )}
                 style={{ width: `${lineStyle.width}px`, left: `${lineStyle.left}px` }}
             />}
         </div>

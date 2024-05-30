@@ -1,9 +1,28 @@
 .wrapper {
     display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
 
     .left {
         display: flex;
         flex-direction: column;
+        gap: 20px;
+        width: 100%;
+
+        .supplierBlock{
+            background-color: var(--white);
+            border-radius: 20px;
+            padding-right: 20px;
+    
+            @media (max-width: 768px) {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: flex-start;
+                border-radius: 0px;
+            }
+        }
     }
 
     .right {        

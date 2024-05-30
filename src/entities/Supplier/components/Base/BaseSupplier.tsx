@@ -13,7 +13,8 @@ import { MAIN_PAGES } from "@/config/pages-url.config";
 import { IImageSizes } from "@/shared/model/image.model";
 
 interface BaseSupplierProps{
-    supplier: ISupplier
+    supplier: ISupplier,
+    supplierRating?: number,
     hasImage?: boolean
     subscribeView?: ESupplierSubscribeViewItem
     isGray?: boolean
@@ -22,7 +23,7 @@ interface BaseSupplierProps{
     imageSizes?: IImageSizes
 }
 
-export const BaseSupplier:FC<BaseSupplierProps> = ({supplier, hasImage=false, subscribeView=ESupplierSubscribeViewItem.NONE, isGray=false, className, classNameName, imageSizes}) => {        
+export const BaseSupplier:FC<BaseSupplierProps> = ({supplier, supplierRating, hasImage=false, subscribeView=ESupplierSubscribeViewItem.NONE, isGray=false, className, classNameName, imageSizes}) => {        
     return (
         <Link href={MAIN_PAGES.CURRENT_SUPPLIER(supplier.id)} className={cls(cl.block, isGray ? cl.gray : '', className)}>
             {hasImage && supplier.photoId &&
@@ -30,7 +31,7 @@ export const BaseSupplier:FC<BaseSupplierProps> = ({supplier, hasImage=false, su
             }
             <div className={cl.content}>
                 <span className={cls(cl.name, classNameName)}>{getNameSupplier(supplier)}</span>
-                <BottomLineSupplier supplier={supplier} />
+                <BottomLineSupplier supplier={supplier} supplierRating={supplierRating}/>
             </div>
             <SubscribeAutoToSupplierButton view={subscribeView} supplierId={supplier.id} />
         </Link>

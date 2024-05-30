@@ -26,6 +26,6 @@ export const VerifiedSupplier:FC<VerifiedSupplierProps> = ({supplier, _isVerifie
         return null
 
     return (
-        <span className={cls(cl.text, className)}>Verified</span>
+        <span className={cls(cl.text, className)}>Проверен</span>
     )
 }

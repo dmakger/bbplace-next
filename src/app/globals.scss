@@ -47,6 +47,9 @@
 
   --n-blue-1: #556290;
   --n-blue-2: #424C70;
+  --n-blue-3: #9294A5;
+  --n-blue-4: #CACBD3;
+
   --n-blue-light-1: #CFD3E3;
   --n-blue-light-2: #EFF0F5;
   --n-blue-light-3: #F9F9FB;
@@ -61,6 +64,8 @@
   --n-yellow-1: #FDFAED;
   --n-yellow-2: #E8C331;
   --n-yellow-3: #9F8212;
+
+  --n-green-1: #276E21;
 
 
   // specify
@@ -95,6 +100,10 @@
   --on-secondary: var(--white);
   --secondary-surface: var(--n-blue-light-2);
   --secondary-surface-sub: var(--n-blue-light-3);
+
+  --tertiary: var(--n-blue-3);
+  --tertiary-border: var(--n-blue-4);
+
 
   --rating-surface: var(--n-yellow-1);
   --rating-low: var(--n-yellow-2);

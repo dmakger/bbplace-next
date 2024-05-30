@@ -135,12 +135,16 @@
 }
 
 .background-white-wide {
-    padding: 13px 68px;
+    padding: 17px 25px;
     background-color: transparent;
-    color: var(--dark-2);
+    color: var(--secondary);
 
     &:hover {
-        background-color: var(--gray-3) !important;
+        background-color: var(--secondary-surface-sub) !important;
+    }
+
+    &:active{
+        background-color: var(--secondary-surface) !important;
     }
 }
 
@@ -150,7 +154,11 @@
     color: var(--dark-2);
 
     &:hover {
-        background-color: var(--gray-3) !important;
+        background-color: var(--secondary-surface-low);
+    }
+
+    &:active{
+        background-color: var(--secondary-surface);
     }
 }
 
@@ -209,10 +217,11 @@
 .clear {
     padding: 6px 45px;
     background-color: transparent;
-    color: var(--dark-2);
+    border-color: var(--secondary);
+    color: var(--secondary);
 
     &:hover {
-        background-color: var(--gray-3) !important;
+        background-color: var(--secondary-surface-sub) !important;
     }
 }
 
@@ -247,3 +256,5 @@
 }
 
 // <<< ========={ OLD STYLES }========= <<<
+
+

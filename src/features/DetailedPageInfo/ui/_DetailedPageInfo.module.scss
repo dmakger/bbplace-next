@@ -5,13 +5,13 @@
     background-color: var(--white);
     border-radius: 20px;
 
-    max-width: 768px {
+    @media (max-width: 768px) {
         border-radius: 0px;
     }
 
     .switchSelectorButton {
         &>button>label {
-            max-width: 1024px {
+            @media (max-width: 1024px) {
                 font-size: var(--font-size-reg);
             }
         }

@@ -25,6 +25,8 @@ import { SWITCH_SELECTOR_DESCRIPTION_OPTION } from "@/shared/ui/SwitchSelector";
 import { DetailedPageDescription } from "@/shared/ui/DetailedPage";
 import { IOptionsTab } from "@/features/DetailedPageInfo/model/detailedPageInfo.model";
 import { ProductTable } from "@/features/ProductTable";
+import { SupplierWNav } from "@/entities/Supplier/ui/WNav/SupplierWNav";
+import { ESupplierSubscribeViewItem } from "@/entities/Supplier/data/view.supplier.data";
 
 export default function ProductDetailPage() {
     // ROUTER
@@ -62,7 +64,7 @@ export default function ProductDetailPage() {
     const PRODUCT_PAGE_OPTIONS_TAB: IOptionsTab = {
         description: { optionTab: <DetailedPageDescription description={product.characteristics.description} /> },
         characteristics: { optionTab: <ProductTable product={product} /> },
-        reviews: { optionTab: null, optionQuantity: (itemReviews && itemReviews.length > 0) ? itemReviews.length : null},
+        reviews: { optionTab: <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est provident neque, inventore a illo ipsum officiis quod reprehenderit ratione pariatur quidem, sapiente porro in aut amet voluptates hic, at voluptatibus repellat dolore. Delectus officia omnis pariatur sunt nemo numquam in eum, possimus harum deleniti enim eaque ut velit odit facilis? Illo necessitatibus iste beatae voluptate eveniet, suscipit neque, atque consequatur nihil similique animi! Reprehenderit obcaecati distinctio quas ullam necessitatibus facilis saepe consequatur corrupti, in odit. Culpa sequi sint ut repellat officiis odio quis dolore voluptate molestias maiores dicta voluptatem itaque reprehenderit necessitatibus perspiciatis, laborum totam earum odit ratione. Praesentium hic nulla, quisquam sint assumenda odit fugit dignissimos deserunt! Assumenda consequatur officia natus, aliquam sed dicta ipsam quo, sunt laboriosam ea, excepturi quia. Impedit quas explicabo repudiandae molestias animi quisquam provident cupiditate vel consequuntur odio? Rerum dolores porro quaerat perferendis quia architecto esse dolore odio consequatur temporibus molestiae expedita iure, quae suscipit ut quam? A deserunt illum, vero pariatur, nulla sequi debitis maxime quidem laboriosam aliquam iste? Delectus atque sapiente laboriosam hic recusandae ullam maxime, consequuntur impedit qui reprehenderit commodi dolores minus, incidunt tempora illum! Unde dolorum repellat corporis in necessitatibus recusandae, optio ipsam a et aspernatur voluptatibus iure impedit rerum labore delectus nostrum maxime quam, est, provident eos quidem! Possimus, voluptatem distinctio voluptas odit labore natus adipisci suscipit delectus, eveniet sunt rerum quod veritatis vitae, nihil ullam impedit aspernatur amet repellat nesciunt obcaecati iusto dicta officia culpa. At eum cumque, doloribus quaerat aspernatur odit officiis delectus culpa sint corporis numquam! Cumque natus facere sed, recusandae error minus in magni perferendis animi accusamus, odit, laborum cum nisi iste vitae facilis sit id fugiat eligendi possimus ut mollitia! Dolor obcaecati officiis, est, necessitatibus repellendus quo, tenetur eveniet soluta delectus fuga ipsa facere exercitationem esse quibusdam doloribus cumque blanditiis! Vel quod magni maxime repudiandae voluptate laboriosam minima repellat omnis distinctio provident, fugiat excepturi soluta voluptates maiores totam deserunt praesentium assumenda delectus ab atque id eaque obcaecati. Error, enim fuga? Quasi, minus eos quam ipsam, tempore libero ex non quisquam illum laudantium ea laborum repudiandae maiores ullam quas consequatur, eaque perspiciatis beatae quos minima voluptatum? Eligendi enim exercitationem totam, reiciendis eveniet blanditiis aperiam voluptatum pariatur voluptas esse accusantium, numquam recusandae perspiciatis id unde ipsum consequatur dicta, tempora tempore a ex vero sit odio? Non voluptatibus nihil dignissimos consequatur, dicta veniam ut, maiores dolor eos molestiae autem voluptas rem velit debitis adipisci iste, et possimus sequi aspernatur? Sed dolorum consequatur magni fugiat iusto inventore obcaecati nulla molestias fugit porro. A, praesentium vitae? Alias nulla quidem possimus laborum labore eius incidunt nisi? Laudantium quia obcaecati ab quae impedit voluptatibus, placeat odio quibusdam illum in reprehenderit totam hic error adipisci numquam reiciendis incidunt modi. Sit quam odit laudantium ex, officia iure dolorem perferendis quae asperiores ipsam quo vitae laborum suscipit quia nemo hic beatae ut aliquam atque deleniti ipsa ipsum. Laudantium laborum sunt nulla vitae rem corrupti magni, at aliquam similique ipsum obcaecati quibusdam et sed corporis sapiente odit sit, temporibus qui, cum quam quaerat sint ullam.</p>, optionQuantity: (itemReviews && itemReviews.length > 0) ? itemReviews.length : null},
         supplier: {optionTab: null}
     }
 
@@ -76,6 +78,15 @@ export default function ProductDetailPage() {
                         tableData={getDataHeadingToTextProductTable({product, isCreatedAtAndReviews: true, itemRating: itemScore, itemReviews: itemReviews?.length})}
                     />
                     <CatalogImage imageList={product?.media.attachments} hasMaximize={true} />
+                    <SupplierWNav
+                        className={cl.supplierBlock}
+                        classNameNavs={cl.navSupplier}
+                        id={product.ownerId}
+                        hasImage
+                        navs={[
+                            ESupplierSubscribeViewItem.LARGE_OUTLINE
+                        ]}
+                    />
                     <DetailedPageInfo 
                         defaultOption={SWITCH_SELECTOR_DESCRIPTION_OPTION}
                         options={SWITCH_SELECTOR_PRODUCT_OPTIONS}

@@ -1,3 +1,9 @@
-.country {
+.lineContainer{
+    display: flex;
+    gap: 10px;
     font-size: var(--font-size-xxs);
+
+    .rating{
+        color: var(--rating);
+    }
 }
