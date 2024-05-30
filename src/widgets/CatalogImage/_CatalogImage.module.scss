@@ -1,11 +1,9 @@
 .block {
     display: flex;
     align-items: flex-start;
-    gap: 10px;
     padding: 20px;
     border-radius: 20px;
     background-color: var(--background-2);
-    // max-height: 350px;
 
     .column {
         .columnData {
@@ -24,7 +22,7 @@
 }
 
 .slideFull {
-    width: calc(100vw - 141px);
+    width: calc(100vw - 131px);
 }
 
 .full {
