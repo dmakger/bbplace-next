@@ -30,3 +30,21 @@
         height: 100vh !important;
     }
 }
+@media (max-width: 768px) {
+    .block {
+        flex-direction: column-reverse;
+        padding: 0;
+        border-radius: 0;
+        gap: 10px;
+
+        .columnData {
+            height:min-content !important;
+            flex-direction: row !important;
+            width: calc(100vw - 50px);
+        }
+    }
+
+    // .slide {
+    //     width: 100vw;
+    // }
+}

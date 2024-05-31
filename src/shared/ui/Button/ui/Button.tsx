@@ -48,6 +48,8 @@ export const Button = ({
     // STATE
     const [isHovered, setIsHovered] = useState(false)
 
+    const classes = variant.split(' ')
+
     // HANDLE
     const handleOnMouseEnter = () => {
         setIsHovered(true)
@@ -57,11 +59,12 @@ export const Button = ({
         setIsHovered(false)
         onMouseLeave()
     }
+    
 
     const html =  (
         <button type={type} disabled={disabled}
                 onClick={e => onClick(e)} onMouseEnter={handleOnMouseEnter} onMouseLeave={handleOnMouseLeave} 
-                className={cls(cl.button, cl[variant], cl[color], cl[size], active ? cl.active : '', className)}>
+                className={cls(cl.button, cl[classes[0]], cl[color], cl[size], active ? cl.active : '', cl[1] === 'new' ? cl.new : cl.old, className)}>
             {beforeImage &&
                 <ImageSmart {...beforeProps} icon={beforeImage} 
                             width={beforeProps && beforeProps.width ? beforeProps.width: 20} 

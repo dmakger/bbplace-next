@@ -29,7 +29,6 @@
     // width: 100%;
     width: auto;
     border-radius: 100px;
-    border: 1px solid var(--gray-5);
 
     font-size: var(--font-size-s);
     font-weight: var(--font-weight-reg);
@@ -41,6 +40,10 @@
         background-color: var(--disabled);
         color: var(--button-color-on);
     }
+}
+
+.old {
+    border: 1px solid var(--gray-5);
 }
 
 .new {

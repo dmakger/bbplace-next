@@ -33,6 +33,8 @@ export const Slider = <T extends (object | string)>({
     const [slidesWidth, setSlidesWidth] = useState(0);
     const slidesRef = useRef<HTMLDivElement>(null);
 
+    console.log('nua', slidesWidth, slidesRef.current?.offsetWidth)
+
     const getWidthSlide = useCallback(() => {
         return slidesWidth / amount - 10;
     }, [slidesWidth]);
@@ -100,11 +102,11 @@ export const Slider = <T extends (object | string)>({
     };
 
     const handleTouchEnd = () => {
-        if (touchStartX - touchEndX > 50) {
+        if (touchStartX - touchEndX > 50 && startIndex < slides.length - amount) {
             nextSlide();
         }
 
-        if (touchStartX - touchEndX < -50) {
+        if (touchStartX - touchEndX < -50 && startIndex > 0) {
             prevSlide();
         }
     };
