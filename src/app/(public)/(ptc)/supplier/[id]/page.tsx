@@ -48,7 +48,7 @@ export default function SupplierPage() {
         <Wrapper1280>
             {supplier && <SupplierPageHeader supplier={supplier}
                 supplierScore={supplierScore ?? 0}
-                supplierReviews = {supplierReviews ?? []}
+                supplierReviews = {supplierReviews?.length ?? 0}
             />}
             {supplierProducts && <ProductAutoList products={supplierProducts} view={EViewProduct.AT_SUPPLIER_PAGE}/>}
         </Wrapper1280>

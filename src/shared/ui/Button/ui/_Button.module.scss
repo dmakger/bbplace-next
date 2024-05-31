@@ -26,7 +26,9 @@
 }
 
 .button {
-    // width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: auto;
     border-radius: 100px;
     border: 1px solid var(--gray-5);
@@ -135,7 +137,8 @@
 }
 
 .background-white-wide {
-    padding: 17px 25px;
+    width: 100%;
+    padding: 17px 44px;
     background-color: transparent;
     color: var(--secondary);
 
@@ -149,7 +152,8 @@
 }
 
 .background-white-narrow {
-    padding: 10px 44px;
+    width: 100%;
+    padding: 8px 44px;
     background-color: transparent;
     color: var(--dark-2);
 

@@ -1,23 +1,24 @@
 import { getHeadingToText } from "@/shared/lib/headingToText.lib";
-import { ISupplier } from "../model/supplier.model";
-import { IHeadingToText } from "@/shared/model/text.model";
-import { ReactNode } from "react";
+import { IGetDataHeadingToTextSupplierTable, IHeadingToText } from "@/shared/model/text.model";
 import { Rating } from "@/shared/ui/Rating";
 
-interface processData{
-    heading: string,
-    body: string | ReactNode
-}
+
+export const getDataHeadingToTextSupplierTable = ({
+    supplier,
+    supplierRating,
+    supplierReviews,
+    isCountryNeeded = false
+}: IGetDataHeadingToTextSupplierTable) => {
 
 
-export const getDataHeadingToTextSupplierTable = (supplier: ISupplier, supplierRating: number, supplierReviews: number, isCountryNeeded?: boolean) => {
+    const RATING_SUPPLIER_DATA = {heading: 'Рейтинг', body: <Rating rating={supplierRating} numberOfReviews={supplierReviews}/>};
+    const COUNTRY_SUPPLIER_DATA = {heading: 'Регион', body: supplier?.country ?? ''}
+    const ABOUT_SUPPLIER_DATA = {heading: 'О поставщике', body: supplier?.shortDescription || supplier?.description || ''};
 
-    const isCountry = isCountryNeeded ?? true;
-
-    const processData: processData[] = [
-        {heading: 'Рейтинг', body: <Rating rating={supplierRating} numberOfReviews={supplierReviews}/>} ,
-        ...(isCountry ? [{heading: 'Регион', body: supplier.country}] : []),
-        {heading: 'О поставщике', body: supplier.shortDescription || supplier.description},
+    const processData: IHeadingToText[] = [
+        RATING_SUPPLIER_DATA ,
+        ...(isCountryNeeded ? [COUNTRY_SUPPLIER_DATA] : []),
+        ABOUT_SUPPLIER_DATA,
     ]
 
     return processData

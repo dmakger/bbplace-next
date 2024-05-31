@@ -13,14 +13,30 @@
         .supplierBlock{
             background-color: var(--white);
             border-radius: 20px;
-            padding-right: 20px;
     
             @media (max-width: 768px) {
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
                 align-items: flex-start;
+                width: 100%;
                 border-radius: 0px;
+            }
+        }
+        .baseSupplier{
+            width: 80%;
+            @media (max-width:768px) {
+                width: 100%;
+            }
+        }
+
+        .navSupplier{
+            margin-right: 20px;
+            @media (max-width:768px) {
+                width: 100%;
+                & button{
+                    margin: 0 20px;
+                }
             }
         }
     }

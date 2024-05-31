@@ -65,9 +65,10 @@ const isButton = supplierProducts && supplierProducts.length > 2;
           <div className={cl.bottomLeftContainer}>
             {supplier.category.some(it => it !== null) && <SupplierCategoryItem category={supplier.category} />}
             <div className={cl.line} />
-            <HeadingToTextTable variant={EHeadingToTextVariants.COLUMN} data={getDataHeadingToTextSupplierTable(supplier, supplierScore ?? 0, supplierReviews ? supplierReviews.length : 0)}
+            <HeadingToTextTable variant={EHeadingToTextVariants.COLUMN} data={getDataHeadingToTextSupplierTable({supplier,supplierRating: supplierScore ?? 0, supplierReviews: supplierReviews?.length ?? 0, isCountryNeeded: true})}
               classNameMain={cl.table}
               classNameHeadingItem={cl.headingItem}
+              classNameTextItem={cl.textItem}
               classNameColumn={cl.columnTable}
             />
             <NavSupplier supplierId={supplier.id} views={[

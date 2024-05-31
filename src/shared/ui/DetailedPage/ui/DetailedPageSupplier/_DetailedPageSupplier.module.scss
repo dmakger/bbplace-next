@@ -1,0 +1,19 @@
+.DetailedPageSupplier{
+    display: flex;
+    flex-direction: column;
+ .topContainer{
+
+ }  
+ .bottomContainer{
+    display: flex;
+    gap: 20px;
+    .bottomLeftContainer{
+        display: flex;
+        
+        .navSupplier{
+            flex-direction: column;
+            gap: 10px ;
+        }
+    }
+ } 
+}

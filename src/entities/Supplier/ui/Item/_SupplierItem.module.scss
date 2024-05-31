@@ -49,16 +49,15 @@
                 gap: 5px;
             }
             .columnTable {
-                display: flex;
-                flex-direction: column;
                 gap: 18px;
                 
 
                 .headingItem{
                     width: 120px;
+                    color: var(--gray-7);
                 }
     
-                & span {
+                .textItem {
                     width: 140px;
                     max-height: calc(1.2em * 4);
                     white-space: normal;
@@ -74,10 +73,6 @@
                     }
                 }
             }
-        }
-
-        .headingItem {
-            color: var(--gray-7);
         }
 
     }

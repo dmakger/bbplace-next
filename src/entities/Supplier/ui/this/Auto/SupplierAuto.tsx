@@ -8,7 +8,7 @@ import { BaseSupplier } from "@/entities/Supplier/components/Base/BaseSupplier";
 import { ESupplierSubscribeViewItem } from "@/entities/Supplier/data/view.supplier.data";
 import { IImageSizes } from "@/shared/model/image.model";
 
-interface SupplierAutoProps{
+interface SupplierAutoProps {
     supplier: ISupplier
     view?: ESupplierView
     hasImage?: boolean
@@ -17,13 +17,13 @@ interface SupplierAutoProps{
     supplierRating?: number,
     classNameSmallSupplier?: string,
     classNameSupplier?: string,
-    classNameName?:string,
+    classNameName?: string,
     imageSizes?: IImageSizes
 }
 
-export const SupplierAuto:FC<SupplierAutoProps> = ({supplier, view, hasImage=false, subscribeView=ESupplierSubscribeViewItem.NONE, navs, supplierRating, classNameSmallSupplier, classNameSupplier, classNameName, imageSizes}) => {
-    const props = {supplier, supplierRating , className: classNameSmallSupplier}
-    const propsLarge = {...props, hasImage, subscribeView, navs, className: classNameSupplier, classNameName, imageSizes}    
+export const SupplierAuto: FC<SupplierAutoProps> = ({ supplier, view, hasImage = false, subscribeView = ESupplierSubscribeViewItem.NONE, navs, supplierRating, classNameSmallSupplier, classNameSupplier, classNameName, imageSizes }) => {
+    const props = { supplier, supplierRating, className: classNameSmallSupplier }
+    const propsLarge = { ...props, hasImage, subscribeView, navs, className: classNameSupplier, classNameName, imageSizes }
 
     if (view === ESupplierView.SMALL)
         return <SupplierSmall {...props} />
@@ -31,5 +31,7 @@ export const SupplierAuto:FC<SupplierAutoProps> = ({supplier, view, hasImage=fal
         return <BaseSupplier {...propsLarge} isGray={true} />
     if (view === ESupplierView.LARGE_WHITE)
         return <BaseSupplier {...propsLarge} isGray={false} />
+    if (view === ESupplierView.LARGE_WHITE_FOR_DESCRIPTION_PAGE)
+        return <BaseSupplier {...propsLarge} isForDescPage={true} />
     return <></>
 }

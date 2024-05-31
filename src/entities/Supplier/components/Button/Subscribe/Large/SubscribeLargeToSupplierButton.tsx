@@ -41,7 +41,7 @@ export const SubscribeLargeToSupplierButton:FC<SubscribeLargeToSupplierButtonPro
     }, [isActive])
     
     return (
-        <Button variant={ButtonVariant.BACKGROUND_WHITE_WIDE} active={isActive} 
+        <Button variant={ButtonVariant.BACKGROUND_WHITE_NARROW} active={isActive} 
                 beforeImage={SUBSCRIBE_BLUE_ICON} beforeProps={{width: 16, height: 16, className: classNameIcon, classNameImage: cl.image}}
                 title={isActive ? 'Вы подписаны' : 'Подписаться'}
                 onClick={handleOnClick}

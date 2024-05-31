@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 10px 16px;
+    padding: 8px 16px;
     border-radius: 100px;
     transition: .2s;
 
@@ -14,10 +14,6 @@
         font-size: var(--font-size-s);
         transition: .2s;
     }
-}
-
-.notOutlineButton {
-    background-color: var(--gray-3);
 }
 
 .outlineButton { 

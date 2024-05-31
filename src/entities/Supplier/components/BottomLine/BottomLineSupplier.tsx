@@ -9,13 +9,14 @@ import { cls } from "@/shared/lib/classes.lib";
 interface BottomLineSupplierProps {
     supplier: ISupplier,
     supplierRating?: number,
+    isForDescPage?: boolean,
     className?: string,
 }
 
-export const BottomLineSupplier: FC<BottomLineSupplierProps> = ({ supplier, supplierRating = 0, className }) => {
+export const BottomLineSupplier: FC<BottomLineSupplierProps> = ({ supplier, supplierRating = 0, isForDescPage, className }) => {
     return (
         <div className={cls(cl.lineContainer, className)}>
-            {supplier.country &&
+            {!isForDescPage && supplier.country &&
                 <span>{supplier.country}</span>
             }
             {isVerified(supplier) &&

@@ -1,6 +1,7 @@
 .SwitchSelector {
     display: flex;
     width: 100%;
+    overflow-x: auto;
     position: sticky;
     top: 0;
     left: 0;

@@ -16,7 +16,7 @@ interface ISupplierPageHeader {
     className?: string,
     supplier: ISupplier,
     supplierScore: number,
-    supplierReviews: ISellerReview[]
+    supplierReviews: number
 }
 
 export const SupplierPageHeader = ({
@@ -31,7 +31,7 @@ export const SupplierPageHeader = ({
 
             <div className={cl.rightContainer}>
                 <SupplierWNav id={supplier.id} view={ESupplierView.LARGE_WHITE} classNameName={cl.supplierName} />
-                <HeadingToTextTable variant={EHeadingToTextVariants.COLUMN} data={getDataHeadingToTextSupplierTable(supplier, supplierScore, supplierReviews.length, false)}
+                <HeadingToTextTable variant={EHeadingToTextVariants.COLUMN} data={getDataHeadingToTextSupplierTable({supplier, supplierRating: supplierScore, supplierReviews})}
                 classNameColumn={cl.mainColumn}
                     classNameHeadingItem={cl.headingItem}
                     classNameTextItem={cl.textItem}
