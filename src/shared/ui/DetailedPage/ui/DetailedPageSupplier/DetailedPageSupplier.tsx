@@ -24,6 +24,9 @@ export const DetailedPageSupplier = ({
     supplierReviews,
     supplierRating
 }: IDetailedPageSupplier) => {
+
+    if(!supplier) return;
+
     return (
         <div className={cls(cl.DetailedPageSupplier, className)} id="supplier">
             <div className={cl.topContainer}>
@@ -36,7 +39,7 @@ export const DetailedPageSupplier = ({
             </div>
             <div className={cl.bottomContainer}>
                 <div className={cl.bottomLeftContainer}>
-                    <NavSupplier supplierId={supplier?.id || ''}
+                    <NavSupplier supplierId={supplier.id}
                         className={cl.navSupplier}
                         views={[
                             ESupplierToProfileViewItem.LARGE,

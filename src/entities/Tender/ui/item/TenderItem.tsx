@@ -85,7 +85,7 @@ export const TenderItem = ({
                         {tender.name}
                     </span>
                     <HeadingToTextTable
-                        data={getDataTenderInfo(tender)}
+                        data={getDataTenderInfo({tender})}
                         variant={EHeadingToTextVariants.ROW}
                         hasSpace={true}
                         classNameMainBlock={cl.TenderInfo}

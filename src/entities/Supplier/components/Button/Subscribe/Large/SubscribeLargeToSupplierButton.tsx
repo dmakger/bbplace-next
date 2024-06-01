@@ -7,6 +7,7 @@ import { Button, ButtonVariant } from "@/shared/ui/Button";
 import { SUBSCRIBE_BLUE_ICON } from "@/shared/ui/Icon/data/subscribe.data.icon";
 import { FavouriteType } from "@/entities/Favourite/data/favourite.data";
 import { useFavourite } from "@/entities/Favourite/lib/favourite.lib";
+import { ButtonColor } from "@/shared/ui/Button/model/model";
 
 interface SubscribeLargeToSupplierButtonProps{
     supplierId: ISupplier['id']
@@ -41,7 +42,8 @@ export const SubscribeLargeToSupplierButton:FC<SubscribeLargeToSupplierButtonPro
     }, [isActive])
     
     return (
-        <Button variant={ButtonVariant.BACKGROUND_WHITE_NARROW} active={isActive} 
+        <Button variant={ButtonVariant.BACKGROUND_WHITE_WIDE}
+        color={ButtonColor.Tertiary} active={isActive} 
                 beforeImage={SUBSCRIBE_BLUE_ICON} beforeProps={{width: 16, height: 16, className: classNameIcon, classNameImage: cl.image}}
                 title={isActive ? 'Вы подписаны' : 'Подписаться'}
                 onClick={handleOnClick}

@@ -19,6 +19,11 @@
     --button-color-surface-sub: var(--secondary-surface-sub);
 }
 
+.tertiary{
+    --button-color: var(--tertiary);
+    --button-color-border: var(--tertiary-border);
+}
+
 // <<< ========={ BUTTON COLOR }========= <<<
 
 .wrapper {
@@ -140,7 +145,6 @@
 }
 
 .background-white-wide {
-    width: 100%;
     padding: 17px 44px;
     background-color: transparent;
     color: var(--secondary);
@@ -155,7 +159,6 @@
 }
 
 .background-white-narrow {
-    width: 100%;
     padding: 8px 44px;
     background-color: transparent;
     color: var(--dark-2);
@@ -222,6 +225,7 @@
     }
 }
 .clear {
+    width: 100%;
     padding: 6px 45px;
     background-color: transparent;
     border-color: var(--secondary);

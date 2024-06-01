@@ -2,35 +2,60 @@
     display: flex;
     flex-direction: column;
     padding: 20px;
+
     @media (max-width: 768px) {
         padding: 0px;
     }
 
     .topContainer {
+        display: flex;
+        margin-left: 70px;
         padding: 20px;
+        padding-left: 0px;
+        align-items: center;
+
+        @media (max-width: 768px) {
+            margin-left: 0px;
+        }
     }
 
     .bottomContainer {
         display: flex;
-        gap: 20px;
 
         @media (max-width: 768px) {
             flex-direction: column-reverse;
             align-items: center;
+            gap: 20px;
         }
 
         .bottomLeftContainer {
             display: flex;
-            overflow-x: auto;
-            width: 100%;
+            padding-left: 20px;
+            padding-right: 20px;
+            
 
-                &::-webkit-scrollbar {
-                    display: none;
-                }
+            &::-webkit-scrollbar {
+                display: none;
+            }
+
+            @media (max-width: 768px) {
+                overflow-x: auto;
+                width: 100%;
+            }
 
             .navSupplier {
                 flex-direction: column;
                 gap: 10px;
+                width: 200px;
+                & button {
+                    font-weight: var(--font-weight-reg);
+                    min-width: 100%;
+    
+                    @media (max-width: 768px) {
+                        width: 100%;
+                    }
+                }
+
                 @media (max-width: 768px) {
                     flex-direction: row;
                 }

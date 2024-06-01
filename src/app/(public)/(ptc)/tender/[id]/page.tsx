@@ -17,10 +17,10 @@ import { ScrollSlider } from "@/features/ScrollSlider";
 import { DetailedPageDescription } from "@/shared/ui/DetailedPage";
 import { HandleSize } from "@/shared/ui/Handle/Size/HandleSize";
 import { SWITCH_SELECTOR_DESCRIPTION_OPTION } from "@/shared/ui/SwitchSelector";
-import { getDataTenderInfo } from '@/shared/ui/Text/lib/htt.tender.lib';
 import Wrapper1280 from "@/shared/ui/Wrapper/1280/Wrapper1280";
 import { useParams, useSearchParams } from "next/navigation";
 import { ImageSlide } from '@/widgets/Slider/Image/Default/Item/ImageSlide';
+import { getDataTenderInfo } from '@/shared/ui/Text/lib/htt.tender.lib';
 
 export default function TenderPage() {
 
@@ -82,7 +82,7 @@ export default function TenderPage() {
                         id={tender.id}
                         type={tenderType}
                         name={tender.name}
-                        tableData={getDataTenderInfo(tender, true)}
+                        tableData={getDataTenderInfo({tender, isCreatedAt: true})}
                         wholesalePrices={wholesalePrices}
                         isRightContainer
                         supplierId={tender.ownerId}
