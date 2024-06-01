@@ -62,40 +62,11 @@
             
             .restInfoMainBlock{
                 gap: 10px;
-            }
-
-
-            .restInfoItem {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                padding: 13px 15px;
-                border-radius: 5px;
-                background-color: var(--gray-2);
-                min-width: fit-content;
-                font-size: var(--font-size-s);
-                @media (max-width: 1024px) {
-                    padding: 10px;
-                }
-
-                p, span {
-                    @media (max-width: 1024px) {
-                        font-size: var(--font-size-xxs);
-                    }
-                }
-    
-                .headingItem {
-                    font-weight: var(--font-weight-light);
-                    color: var(--gray-9);
-                }
-
-                .textItem {
-                    font-weight: var(--font-weight-reg);
+                & span{
                     margin-left: 0px;
-
                 }
             }
-        }
+       }
     }
 
     .rightContainer {

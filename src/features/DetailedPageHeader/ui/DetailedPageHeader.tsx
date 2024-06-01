@@ -51,9 +51,9 @@ export const DetailedPageHeader = ({
                         variant={EHeadingToTextVariants.ROW}
                         data={tableData} 
                         classNameMainBlock={cls(cl.restInfoMainBlock, classNameMainBlock)}
-                        classNameRow={cls(cl.restInfoItem, classNameRow)}
-                        classNameHeadingItem={cls(cl.headingItem, classNameHeadingItem)}
-                        classNameTextItem={cls(cl.textItem, classNameTextItem)}
+                        classNameRow={cls(classNameRow)}
+                        classNameHeadingItem={cls(classNameHeadingItem)}
+                        classNameTextItem={cls(classNameTextItem)}
                     />
                 </div>
             </div>

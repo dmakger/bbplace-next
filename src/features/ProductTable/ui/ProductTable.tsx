@@ -3,7 +3,7 @@
 import cl from './_ProductTable.module.scss'
 import { IProduct } from '@/entities/Product/model/product.model'
 import { HeadingToTextTable } from '@/shared/ui/Text'
-import { getCharacteristic, getDataHeadingToTextProductMainTable } from '@/widgets/Product/Table/HeadingToText/lib/htt.product.lib'
+import { getCharacteristic, getDataHeadingToTextProductMainTable } from '@/shared/ui/Text/lib/htt.product.lib'
 import { EHeadingToTextVariants } from '@/shared/model/text.model'
 import { CountryAPI } from '@/entities/Metrics/api/country.metrics.api'
 import { useEffect, useState } from 'react'

@@ -3,7 +3,6 @@ import { cls } from "@/shared/lib/classes.lib";
 import { HeadingToTextRow } from '../Row/HeadingToTextRow';
 import { HeadingToTextColumn } from '../Column/HeadingToTextColumn';
 import { EHeadingToTextVariants, IHeadingToText } from '@/shared/model/text.model';
-import { Rating } from '@/shared/ui/Rating';
 import React from 'react';
 
 interface IHeadingToTextTable {
@@ -41,7 +40,6 @@ export const HeadingToTextTable = ({
             {
                 (variant === EHeadingToTextVariants.ROW ? (
                     data.map((it, index) => {
-                        const isRatingComponent = React.isValidElement(it.body) && it.body.type === Rating;
                         return (
                             <HeadingToTextRow
                                 key={index}
@@ -51,12 +49,11 @@ export const HeadingToTextTable = ({
                                 isShort={isShort}
                                 hasColon={hasColon}
                                 hasDash={hasDash}
-                                hasSpace={isRatingComponent ? false : hasSpace}
+                                hasSpace={hasSpace}
                                 classNameRow={cls(
                                     classNameRow,
                                     index === data.length - 1 ? cl.noBorder : '',
-                                    index === 0 ? cl.topBorder : '',
-                                    isRatingComponent ? cl.rating : '')}
+                                    index === 0 ? cl.topBorder : '')}
                                 classNameHeading={classNameHeadingItem}
                                 classNameText={classNameTextItem}
                             />

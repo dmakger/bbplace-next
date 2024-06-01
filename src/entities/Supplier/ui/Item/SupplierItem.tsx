@@ -7,7 +7,7 @@ import { ReviewAPI } from '@/entities/Review/api/review.api'
 import { REVIEW_LIMIT, REVIEW_START_PAGE } from '@/entities/Review/data/review.data'
 import { ESupplierSubscribeViewItem, ESupplierToChatViewItem, ESupplierToProfileViewItem } from '../../data/view.supplier.data'
 import { SupplierWNav } from '../WNav/SupplierWNav'
-import { getDataHeadingToTextSupplierTable } from '../../lib/htt.supplier.lib'
+import { getDataHeadingToTextSupplierTable } from '@/shared/ui/Text/lib/htt.supplier.lib'
 import { ProductAPI } from '@/entities/Product/api/product.api'
 import { ProductASC } from '@/entities/Product/ui/AtSupplierCard'
 import { NavSupplier } from '../../components/Nav/NavSupplier'
@@ -36,7 +36,7 @@ export const SupplierItem = ({ supplier }: ISupplierItem) => {
   const [supplierProducts, setSupplierProducts] = useState<IProduct[]>([]) 
 
   //API
-  const { data: supplierScore } = ReviewAPI.useGetSupplierScoreQuery(supplier.id)
+  const { data: supplierRating } = ReviewAPI.useGetSupplierScoreQuery(supplier.id)
   const { data: supplierReviews } = ReviewAPI.useGetSellerReviewsQuery({ supplierId: supplier.id, limit: REVIEW_LIMIT ?? 0, page: REVIEW_START_PAGE })
   const { data: supplierProductsAPI } = ProductAPI.useGetProductsByUserQuery({ userId: supplier.id })
 
@@ -70,7 +70,7 @@ const isButton = supplierProducts && supplierProducts.length > 2;
               data={getDataHeadingToTextSupplierTable({
                 variant: IGetDataHeadingToTextSupplierTableVariant.SUPPLIER_PAGE,
                 supplier,
-                supplierRating: supplierScore ?? 0,
+                supplierRating: supplierRating ?? 0,
                 supplierReviews: supplierReviews?.length ?? 0,
                 isCountryNeeded: true
               })}

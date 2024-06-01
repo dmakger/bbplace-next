@@ -15,6 +15,7 @@ import { IImageSizes } from "@/shared/model/image.model";
 interface BaseSupplierProps {
     supplier: ISupplier,
     supplierRating?: number,
+    numberOfReviews?: number,
     hasImage?: boolean
     subscribeView?: ESupplierSubscribeViewItem
     isGray?: boolean,
@@ -24,31 +25,41 @@ interface BaseSupplierProps {
     imageSizes?: IImageSizes
 }
 
-export const BaseSupplier: FC<BaseSupplierProps> = ({ 
+export const BaseSupplier: FC<BaseSupplierProps> = ({
     supplier,
     supplierRating,
+    numberOfReviews,
     hasImage = false,
     subscribeView = ESupplierSubscribeViewItem.NONE,
     isGray = false,
-    isForDescPage,
+    isForDescPage = false,
     className,
     classNameName,
     imageSizes }) => {
 
     const html = (
-        <div className={cl.isForDescPage}>
-            {hasImage && supplier.photoId &&
-                <ImageAPI src={supplier.photoId.key} alt={supplier.photoId.name} className={cl.image} width={imageSizes?.width} height={imageSizes?.height} />
+        <>
+            {hasImage &&
+                <ImageAPI src={supplier.photoId?.key} alt={supplier.photoId?.name} className={cl.image} width={imageSizes?.width} height={imageSizes?.height} />
             }
-            <div className={cl.content}>
-                <span className={cls(cl.name, isForDescPage ? cl.bigName : '', classNameName )}>{getNameSupplier(supplier)}</span>
-                <BottomLineSupplier supplier={supplier} supplierRating={supplierRating} isForDescPage={isForDescPage} />
+            <div className={cls(cl.content, isForDescPage ? cl.DescPageContent : '')}>
+                <span className={cls(cl.name, isForDescPage ? cl.bigName : '', classNameName)}>{getNameSupplier(supplier)}</span>
+                <BottomLineSupplier supplier={supplier}
+                    supplierRating={supplierRating}
+                    numberOfReviews={numberOfReviews}
+                    isForDescPage={isForDescPage}
+                />
             </div>
             <SubscribeAutoToSupplierButton view={subscribeView} supplierId={supplier.id} />
-        </div>
+        </>
+
     )
 
-    if (isForDescPage) return html;
+    if (isForDescPage) return (
+        <div className={cl.isForDescPage}>
+            {html}
+        </div>
+    );
 
     return (
         <Link href={MAIN_PAGES.CURRENT_SUPPLIER(supplier.id)} className={cls(cl.block, isGray ? cl.gray : '', className)}>

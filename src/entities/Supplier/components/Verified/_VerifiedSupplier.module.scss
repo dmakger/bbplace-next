@@ -1,4 +1,19 @@
-.text {
-    font-size: var(--font-size-xxs);
-    color: var(--n-green-1);
+.VerifiedSupplier{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    & span{
+        font-size: var(--font-size-xxs);
+        color: var(--n-green-1);
+    }
+
+    @media (max-width: 1024px) {
+        gap: 3.5px;
+    }
+    @media (max-width: 768px) {
+        gap: 2.5px;
+        & span{
+            font-size: var(--font-size-xxs);
+        }
+    }
 }

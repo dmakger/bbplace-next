@@ -1,19 +1,39 @@
 .DetailedPageSupplier {
     display: flex;
     flex-direction: column;
+    padding: 20px;
+    @media (max-width: 768px) {
+        padding: 0px;
+    }
 
-    .topContainer {}
+    .topContainer {
+        padding: 20px;
+    }
 
     .bottomContainer {
         display: flex;
         gap: 20px;
 
+        @media (max-width: 768px) {
+            flex-direction: column-reverse;
+            align-items: center;
+        }
+
         .bottomLeftContainer {
             display: flex;
+            overflow-x: auto;
+            width: 100%;
+
+                &::-webkit-scrollbar {
+                    display: none;
+                }
 
             .navSupplier {
                 flex-direction: column;
                 gap: 10px;
+                @media (max-width: 768px) {
+                    flex-direction: row;
+                }
             }
         }
 
@@ -23,11 +43,13 @@
                 gap: 10px;
 
                 .mainBlockRow {
+                    display: block;
                     padding: 8px 20px 8px 0px;
                     border-bottom: 1px solid var(--background-1);
 
                     & span {
                         font-size: var(--font-size-reg);
+                        margin-left: 0px;
 
                         @media (max-width: 768px) {
                             font-size: var(--font-size-s);

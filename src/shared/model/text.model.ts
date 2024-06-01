@@ -1,4 +1,9 @@
 import { ReactNode } from "react"
+import { ICountry } from "@/entities/Metrics/model/country.metrics.model";
+import { IProduct } from "@/entities/Product/model/product.model";
+import { IOption } from "@/shared/model/option.model";
+import { ISupplier } from "@/entities/Supplier/model/supplier.model";
+import { ICommonTender } from "@/entities/Tender/model/tender.model";
 
 export interface IHeadingToText {
     heading?: string
@@ -12,14 +17,10 @@ export enum EHeadingToTextVariants {
 }
 
 //PRODUCT
-import { ICountry } from "@/entities/Metrics/model/country.metrics.model";
-import { IProduct } from "@/entities/Product/model/product.model";
-import { IOption } from "@/shared/model/option.model";
-import { ISupplier } from "@/entities/Supplier/model/supplier.model";
 
 export interface IGetDataHeadingToTextProductTable{
     product: IProduct,
-    isCreatedAtAndReviews?: boolean,
+    isDetailedPageHeader?: boolean,
     itemRating?: number,
     itemReviews?: number
 }
@@ -37,11 +38,18 @@ export interface IGetDataHeadingToTextProductMainTable {
     selectedWeightUnit: string
 }
 
+//TENDER
+export interface IGetDataTenderInfo{
+    tender: ICommonTender,
+    isCreatedAt?: boolean
+}
+
 //SUPPLIER
 export enum IGetDataHeadingToTextSupplierTableVariant{
     PRODUCT_PAGE = 'product-page',
     SUPPLIER_PAGE = 'supplier-page'
 }
+
 export interface IGetDataHeadingToTextSupplierTable {
     variant?: IGetDataHeadingToTextSupplierTableVariant
     supplier: ISupplier,

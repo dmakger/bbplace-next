@@ -1,13 +1,32 @@
-.isForDescPage{
+.isForDescPage {
     display: flex;
     align-items: center;
-    gap: 15px;
-    .bigName{
-        color: var(--font);
-        font-size: var(--font-size-sm) !important;
-        font-weight: var(--font-weight-med) !important;
+    gap: 70px;
+    width: 100%;
+    @media (max-width: 768px) {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
     }
+
+    .DescPageContent {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .bigName {
+            color: var(--font);
+            font-size: var(--font-size-sm) !important;
+            font-weight: var(--font-weight-med) !important;
+
+            @media (max-width: 768px) {
+                text-align: center;
+            }
+        }
+    }
+
 }
+
 .block {
     display: flex;
     align-items: center;
@@ -16,12 +35,12 @@
     border-radius: 20px;
     padding: 10px 20px;
 
-    &:hover{
+    &:hover {
         background-color: var(--secondary-surface-sub);
         transition-duration: 0.3s;
     }
 
-    &:active{
+    &:active {
         background-color: var(--secondary-surface);
         transition-duration: 0.3s;
     }
@@ -41,11 +60,10 @@
             overflow: hidden;
             color: var(--n-blue-1);
             font-size: 1rem;
-            white-space: nowrap;        
+            white-space: nowrap;
             text-overflow: ellipsis;
         }
 
-       
     }
 }
 
