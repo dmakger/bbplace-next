@@ -16,7 +16,7 @@ import { useEffect, useState } from 'react'
 import { HeadingToTextTable } from '@/shared/ui/Text'
 import { IProduct } from '@/entities/Product/model/product.model'
 import { productApiListToProductList } from '@/entities/Product/lib/product.lib'
-import { EHeadingToTextVariants } from '@/shared/model/text.model'
+import { EHeadingToTextVariants, IGetDataHeadingToTextSupplierTableVariant } from '@/shared/model/text.model'
 import { ScrollSlider } from '@/features/ScrollSlider'
 import { Button, ButtonVariant } from '@/shared/ui/Button'
 import { MAIN_PAGES } from '@/config/pages-url.config'
@@ -65,7 +65,15 @@ const isButton = supplierProducts && supplierProducts.length > 2;
           <div className={cl.bottomLeftContainer}>
             {supplier.category.some(it => it !== null) && <SupplierCategoryItem category={supplier.category} />}
             <div className={cl.line} />
-            <HeadingToTextTable variant={EHeadingToTextVariants.COLUMN} data={getDataHeadingToTextSupplierTable({supplier,supplierRating: supplierScore ?? 0, supplierReviews: supplierReviews?.length ?? 0, isCountryNeeded: true})}
+            <HeadingToTextTable
+              variant={EHeadingToTextVariants.COLUMN}
+              data={getDataHeadingToTextSupplierTable({
+                variant: IGetDataHeadingToTextSupplierTableVariant.SUPPLIER_PAGE,
+                supplier,
+                supplierRating: supplierScore ?? 0,
+                supplierReviews: supplierReviews?.length ?? 0,
+                isCountryNeeded: true
+              })}
               classNameMain={cl.table}
               classNameHeadingItem={cl.headingItem}
               classNameTextItem={cl.textItem}

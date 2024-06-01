@@ -38,7 +38,12 @@ export interface IGetDataHeadingToTextProductMainTable {
 }
 
 //SUPPLIER
+export enum IGetDataHeadingToTextSupplierTableVariant{
+    PRODUCT_PAGE = 'product-page',
+    SUPPLIER_PAGE = 'supplier-page'
+}
 export interface IGetDataHeadingToTextSupplierTable {
+    variant?: IGetDataHeadingToTextSupplierTableVariant
     supplier: ISupplier,
     supplierRating: number,
     supplierReviews: number,

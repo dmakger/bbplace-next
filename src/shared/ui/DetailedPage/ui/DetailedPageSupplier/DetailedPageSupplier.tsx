@@ -3,7 +3,7 @@ import cl from './_DetailedPageSupplier.module.scss'
 import { SupplierWNav } from "@/entities/Supplier/ui/WNav/SupplierWNav"
 import { ESupplierView } from "@/entities/Supplier/data/supplier.data"
 import { HeadingToTextTable } from "@/shared/ui/Text"
-import { EHeadingToTextVariants } from "@/shared/model/text.model"
+import { EHeadingToTextVariants, IGetDataHeadingToTextSupplierTableVariant } from "@/shared/model/text.model"
 import { getDataHeadingToTextSupplierTable } from "@/entities/Supplier/lib/htt.supplier.lib"
 import { ISupplier } from "@/entities/Supplier/model/supplier.model"
 import { NavSupplier } from "@/entities/Supplier/components/Nav/NavSupplier"
@@ -44,8 +44,13 @@ export const DetailedPageSupplier = ({
                     />
                 </div>
                 <div className={cl.bottomRightContainer}>
-                    <HeadingToTextTable data={getDataHeadingToTextSupplierTable({supplier, supplierRating: supplierScore, supplierReviews, isCountryNeeded: true})}
-                     variant={EHeadingToTextVariants.COLUMN}/>
+                    <HeadingToTextTable data={getDataHeadingToTextSupplierTable({variant: IGetDataHeadingToTextSupplierTableVariant.PRODUCT_PAGE,supplier, supplierRating: supplierScore, supplierReviews, isCountryNeeded: true})}
+                    classNameMainBlock={cl.tableMainBlock}
+                    classNameRow={cl.mainBlockRow}
+                    classNameHeadingItem={cl.headingItem}
+
+                     variant={EHeadingToTextVariants.ROW}
+                     />
                 </div>
             </div>
 
