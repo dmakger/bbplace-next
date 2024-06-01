@@ -2,13 +2,10 @@ import { FC } from "react"
 
 import { FavouriteToProductButton } from "../logic/FavouriteToProductButton";
 import { IProduct } from "@/entities/Product/model/product.model";
+import { ButtonFavouriteProps } from "@/shared/ui/Button/Favourite/ButtonFavourite";
 
-interface FavouriteSmallToProductButtonProps{
+interface FavouriteSmallToProductButtonProps extends ButtonFavouriteProps {
     productId: IProduct['id']
-    isFavourited?: boolean
-    isFill?: boolean
-    className?: string
-    classNameIcon?: string
 }
 
 export const FavouriteSmallToProductButton:FC<FavouriteSmallToProductButtonProps> = ({...props}) => {

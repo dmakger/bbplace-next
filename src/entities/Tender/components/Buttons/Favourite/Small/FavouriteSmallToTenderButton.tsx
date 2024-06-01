@@ -2,13 +2,10 @@ import { FC } from "react"
 
 import { IBaseTender } from "@/entities/Tender/model/tender.model";
 import { FavouriteToTenderButton } from "../logic/FavouriteToTenderButton";
+import { ButtonFavouriteProps } from "@/shared/ui/Button/Favourite/ButtonFavourite";
 
-interface FavouriteSmallToTenderButtonProps{
+interface FavouriteSmallToTenderButtonProps extends ButtonFavouriteProps {
     tenderId: IBaseTender['id']
-    isFavourited?: boolean
-    isFill?: boolean
-    className?: string
-    classNameIcon?: string
 }
 
 export const FavouriteSmallToTenderButton:FC<FavouriteSmallToTenderButtonProps> = ({...props}) => {

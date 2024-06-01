@@ -1,11 +1,9 @@
 .block {
     display: flex;
     align-items: flex-start;
-    gap: 10px;
     padding: 20px;
     border-radius: 20px;
     background-color: var(--background-2);
-    // max-height: 350px;
 
     .column {
         .columnData {
@@ -24,11 +22,29 @@
 }
 
 .slideFull {
-    width: calc(100vw - 141px);
+    width: calc(100vw - 131px);
 }
 
 .full {
     .columnData {
         height: 100vh !important;
     }
+}
+@media (max-width: 768px) {
+    .block {
+        flex-direction: column-reverse;
+        padding: 0;
+        border-radius: 0;
+        gap: 10px;
+
+        .columnData {
+            height:min-content !important;
+            flex-direction: row !important;
+            width: calc(100vw - 50px);
+        }
+    }
+
+    // .slide {
+    //     width: 100vw;
+    // }
 }

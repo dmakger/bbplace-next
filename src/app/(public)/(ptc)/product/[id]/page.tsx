@@ -31,6 +31,8 @@ import { DetailedPageSupplier } from "@/shared/ui/DetailedPage/ui/DetailedPageSu
 import { UserAPI } from "@/entities/Auth/api/auth.api";
 import { ISupplier } from "@/entities/Supplier/model/supplier.model";
 import { supplierApiToSupplier } from "@/entities/Supplier/lib/process.supplier.lib";
+import { Button, ButtonVariant } from "@/shared/ui/Button";
+import { ButtonColor, ButtonSize } from "@/shared/ui/Button/model/model";
 
 export default function ProductDetailPage() {
     // ROUTER
@@ -100,7 +102,7 @@ export default function ProductDetailPage() {
                         name={product.name ?? ''}
                         tableData={getDataHeadingToTextProductTable({ product, isDetailedPageHeader: true, itemRating: itemScore, itemReviews: itemReviews?.length })}
                     />
-                    <CatalogImage imageList={product?.media.attachments} hasMaximize={true} />
+                    <CatalogImage imageList={[...product?.media.attachments, ...product?.media.attachments, ...product?.media.attachments]} hasMaximize={true} />
                     <SupplierWNav
                         className={cl.supplierBlock}
                         classNameSupplier={cl.baseSupplier}
@@ -111,13 +113,14 @@ export default function ProductDetailPage() {
                             ESupplierSubscribeViewItem.LARGE_OUTLINE
                         ]}
                     />
-                    <DetailedPageInfo
+                    <DetailedPageInfo 
                         defaultOption={SWITCH_SELECTOR_DESCRIPTION_OPTION}
                         options={SWITCH_SELECTOR_PRODUCT_OPTIONS}
                         optionsTab={PRODUCT_PAGE_OPTIONS_TAB} />
                 </div>
                 <div className={cl.right}>
                     <WrapperBlock className={cl.wrapper}>
+                        <Button variant={ButtonVariant.TONAL} size={ButtonSize.Big} title="button" />
                         <BlockInfoProduct product={product} />
                         <div className={cl.line} />
                         <OptionList optionList={productListToOptionList(productListGroup)} activeIds={[product.id]} />
