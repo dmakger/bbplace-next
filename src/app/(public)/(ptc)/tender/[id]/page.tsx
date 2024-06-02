@@ -9,7 +9,7 @@ import { SupplierWNav } from "@/entities/Supplier/ui/WNav/SupplierWNav";
 import { TenderAPI } from "@/entities/Tender/api/tender.api";
 import { SWITCH_SELECTOR_TENDER_OPTIONS } from "@/entities/Tender/data/tender.data";
 import { getTenderWholesalePrices, tenderAPIToTender } from "@/entities/Tender/lib/process.tender.lib";
-import { ETenderType, IPurchaseTender, ISaleTender, ITenderAttachments } from "@/entities/Tender/model/tender.model";
+import { ETenderType, ICommonTender, IPurchaseTender, ISaleTender, ITenderAttachments } from "@/entities/Tender/model/tender.model";
 import { DetailedPageHeader } from "@/features/DetailedPageHeader";
 import { DetailedPageInfo } from "@/features/DetailedPageInfo";
 import { IOptionsTab } from "@/features/DetailedPageInfo/model/detailedPageInfo.model";
@@ -19,8 +19,9 @@ import { HandleSize } from "@/shared/ui/Handle/Size/HandleSize";
 import { SWITCH_SELECTOR_DESCRIPTION_OPTION } from "@/shared/ui/SwitchSelector";
 import { getDataTenderInfo } from '@/shared/ui/Text/lib/htt.tender.lib';
 import Wrapper1280 from "@/shared/ui/Wrapper/1280/Wrapper1280";
-import { useParams, useSearchParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import { ImageSlide } from '@/widgets/Slider/Image/Default/Item/ImageSlide';
+import { getTenderType } from '@/entities/Tender/lib/tender.lib';
 
 export default function TenderPage() {
 
@@ -32,7 +33,6 @@ export default function TenderPage() {
     //PARAMS
     const params = useParams()
     const tenderId = params.id as string
-    const searchParams = useSearchParams()
 
     //API
     const { data: purchaseTenderApi } = TenderAPI.useGetPurchaseTenderByIdQuery(Number(tenderId));
@@ -42,8 +42,8 @@ export default function TenderPage() {
 
     //EFFECT
     useEffect(() => {
-        setTenderType(searchParams.get('type') === 'sale' ? ETenderType.SALE : ETenderType.PURCHASE)
-    }, [searchParams])
+        setTenderType(getTenderType(tender as ICommonTender))
+    }, [tender])
 
     useEffect(() => {
         if (metrics && currencyList) {

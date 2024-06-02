@@ -56,12 +56,12 @@ export const TenderItem = ({
 
     const goToTheTenderMobile = () => {
         if (is768) {
-            push(`tender/${id}?type=${tenderType === ETenderType.PURCHASE ? 'purchase' : 'sale'}`);
+            push(`tender/${id}`);
         }
     };
 
     const goToTheTenderDesktop = () => {
-        push(`tender/${id}?type=${tenderType === ETenderType.PURCHASE ? 'purchase' : 'sale'}`);
+        push(`tender/${id}`);
     };
 
     const handleInfoClick = (e: React.MouseEvent<HTMLDivElement>) => {

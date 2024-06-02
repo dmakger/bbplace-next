@@ -22,7 +22,7 @@ export function InputRadio({option, isActive=false, name, required=false, onClic
         <label onClick={handleOnClick} className={cls(cl.block, isActive ? cl.active : '', className)}>
             <input type="radio" name={name} value={option.value ? option.value : option.id} defaultChecked={isActive} required={required} className={cl.radio} />
             <span className={cl.text}>{option.name}</span>
-            <Image src={'check-mark.svg'} alt={'check'} width={8} height={8} className={cl.image} />
+            <Image src={'check-mark.svg'} alt={'check'} width={8} height={8} style={{ width: 8, height: 8 }} className={cl.image} />
         </label>
     )
 }

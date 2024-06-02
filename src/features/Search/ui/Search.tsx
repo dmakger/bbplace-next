@@ -43,7 +43,7 @@ export const SearchChild = () => {
                 searchString.append(key, value)
             )
             searchString.set('search', data.search)
-            router.push(`${view}?${searchString.toString()}`);
+            router.push(`${window.location.origin}/${view}?${searchString.toString()}`);
         }
     }
 
