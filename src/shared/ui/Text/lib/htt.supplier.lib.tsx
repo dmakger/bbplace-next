@@ -14,9 +14,7 @@ export const getDataHeadingToTextSupplierTable = ({
 }: IGetDataHeadingToTextSupplierTable) => {
 
 
-    const RATING_SUPPLIER_DATA = {heading: 'Рейтинг', body: <InfoItem 
-    body={<Rating rating={supplierRating} numberOfReviews={supplierReviews}/>}
-    color={EInfoItemColor.YELLOW}/>} ;
+    const RATING_SUPPLIER_DATA = {heading: 'Рейтинг', body: <Rating rating={supplierRating} numberOfReviews={supplierReviews}/>} ;
     const COUNTRY_SUPPLIER_DATA = {heading: 'Регион', body: supplier?.country ?? ''}
     const ABOUT_SUPPLIER_DATA = {heading: 'О поставщике', body: supplier?.shortDescription || supplier?.description || ''};
     const REGISTRATION_DATE_SUPPLIER_DATA = {heading: 'Регистрация', body: supplier?.shortDescription || supplier?.description || ''};
@@ -39,6 +37,8 @@ export const getDataHeadingToTextSupplierTable = ({
         ...(isCountryNeeded ? [COUNTRY_SUPPLIER_DATA] : []),
         ABOUT_SUPPLIER_DATA
     ]
+
+
 
     return processData
             .map(it => getHeadingToText(it.heading, it.body))

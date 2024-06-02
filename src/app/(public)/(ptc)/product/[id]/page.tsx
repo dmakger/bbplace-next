@@ -32,7 +32,7 @@ import { UserAPI } from "@/entities/Auth/api/auth.api";
 import { ISupplier } from "@/entities/Supplier/model/supplier.model";
 import { supplierApiToSupplier } from "@/entities/Supplier/lib/process.supplier.lib";
 import { Button, ButtonVariant } from "@/shared/ui/Button";
-import { ButtonColor, ButtonSize } from "@/shared/ui/Button/model/model";
+import { ButtonSize } from "@/shared/ui/Button/model/model";
 
 export default function ProductDetailPage() {
     // ROUTER

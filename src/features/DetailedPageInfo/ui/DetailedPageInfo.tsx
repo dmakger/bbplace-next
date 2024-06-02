@@ -1,4 +1,4 @@
-import { useState } from "react"
+import React, { useState } from "react"
 import { cls } from "@/shared/lib/classes.lib"
 import cl from './_DetailedPageInfo.module.scss'
 import { SwitchSelector } from "@/shared/ui/SwitchSelector"
@@ -35,7 +35,10 @@ export const DetailedPageInfo = ({
             />
             <div className={cl.optionsTabContainer}>
                 {optionsTab && productPageOptionsArray.map(it => (
-                    it.value.optionTab
+                    <React.Fragment key={it.key}>
+                        {it.value.optionTab}
+                    </React.Fragment>
+                    
                 ))}
             </div>
         </div>

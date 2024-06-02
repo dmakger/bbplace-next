@@ -47,7 +47,6 @@ export const DetailedPageSupplier = ({
                             ESupplierSubscribeViewItem.LARGE_OUTLINE]}
                     />
                 </div>
-                <div className={cl.bottomRightContainer}>
                     <HeadingToTextTable data={getDataHeadingToTextSupplierTable({
                         variant: IGetDataHeadingToTextSupplierTableVariant.PRODUCT_PAGE,
                         supplier,
@@ -60,7 +59,6 @@ export const DetailedPageSupplier = ({
                         classNameRow={cl.mainBlockRow}
                         classNameHeadingItem={cl.headingItem}
                     />
-                </div>
             </div>
 
         </div>
