@@ -30,19 +30,10 @@ export const BlockInfoProduct: FC<BlockInfoProductProps> = ({ product, className
 
     return (
         <div className={cls(cl.priceBlock, className)}>
-            <PriceQuantity wholesales={priceList} />
-            <div className={cl.bottom}>
-                {priceList.length > 0 &&
-                    <HeadingToTextTable variant={EHeadingToTextVariants.ROW} data={[{
-                        heading: "Мин. Кол-во",
-                        body: `${priceList[0].quantity}`,
-                    }]} />
-                }
-                <HeadingToTextTable variant={EHeadingToTextVariants.ROW} data={[{
-                    heading: "Дата публикации",
-                    body: `${getDate(product?.createdAt)}`,
-                }]} />
-            </div>
+            <PriceQuantity wholesales={priceList} classNameWholesaleBlock={cl.wholesale}
+                classNameQuantity={cl.quantity}
+                classNamePrice={cl.price} />
+            
         </div>
     )
 }

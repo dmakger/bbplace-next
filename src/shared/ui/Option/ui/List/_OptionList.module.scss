@@ -1,5 +1,18 @@
-.list {
+.optionList {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 10px;
+
+    .listTitle{
+        font-weight: var(--font-weight-med);
+        font-size: var(--font-size-reg);
+        & span{
+            color: var(--primary);
+        }
+    }
+    .list{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+    }
 }

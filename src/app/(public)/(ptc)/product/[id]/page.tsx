@@ -31,8 +31,7 @@ import { DetailedPageSupplier } from "@/shared/ui/DetailedPage/ui/DetailedPageSu
 import { UserAPI } from "@/entities/Auth/api/auth.api";
 import { ISupplier } from "@/entities/Supplier/model/supplier.model";
 import { supplierApiToSupplier } from "@/entities/Supplier/lib/process.supplier.lib";
-import { Button, ButtonVariant } from "@/shared/ui/Button";
-import { ButtonSize } from "@/shared/ui/Button/model/model";
+import { IOption } from "@/shared/model/option.model";
 
 export default function ProductDetailPage() {
     // ROUTER
@@ -42,6 +41,8 @@ export default function ProductDetailPage() {
     const [product, setProduct] = useState<IProduct>();
     const [productListGroup, setProductListGroup] = useState<IProduct[]>([]);
     const [supplier, setSupplier] = useState<ISupplier>()
+    const [productSizes, setProductSizes] = useState<IOption[]>([])
+    const [choosenSize, setChoosenSize] = useState<IOption>()
 
 
     // API
@@ -74,7 +75,17 @@ export default function ProductDetailPage() {
             setProductListGroup(productApiListToProductList(productAPIListGroup, metrics, currencyList));
         }
     }, [productAPIListGroup, currencyList, metrics]);
-    
+
+    useEffect(() => {
+        let sizes: string[] = product?.media.sizes[0].size.split(',') ?? [];
+
+        const transformedOptions = sizes.map((item, index) => {
+            return { id: index, name: item.toString() } as IOption;
+        });
+        setProductSizes(transformedOptions);
+
+    }, [product])
+
     // HTML
     if (!product) return
 
@@ -92,6 +103,11 @@ export default function ProductDetailPage() {
             />
         }
     }
+
+    const chooseSize = (it:IOption) => {
+        setChoosenSize(it)
+    }
+
 
     return (
         <Wrapper1280>
@@ -113,17 +129,21 @@ export default function ProductDetailPage() {
                             ESupplierSubscribeViewItem.LARGE_OUTLINE
                         ]}
                     />
-                    <DetailedPageInfo 
+                    <DetailedPageInfo
                         defaultOption={SWITCH_SELECTOR_DESCRIPTION_OPTION}
                         options={SWITCH_SELECTOR_PRODUCT_OPTIONS}
                         optionsTab={PRODUCT_PAGE_OPTIONS_TAB} />
                 </div>
                 <div className={cl.right}>
                     <WrapperBlock className={cl.wrapper}>
-                        <Button variant={ButtonVariant.TONAL} size={ButtonSize.Big} title="button" />
                         <BlockInfoProduct product={product} />
-                        <div className={cl.line} />
-                        <OptionList optionList={productListToOptionList(productListGroup)} activeIds={[product.id]} />
+                        <OptionList title="Цвет: "
+                            optionList={productListToOptionList(productListGroup)}
+                            activeIds={[product.id]} />
+                        <OptionList title="Размеры: "
+                            optionList={productSizes}
+                            activeIds={[choosenSize?.id ?? 0]}
+                            onClickItem={chooseSize} />
                     </WrapperBlock>
                 </div>
             </div>
