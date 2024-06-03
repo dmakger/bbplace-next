@@ -25,6 +25,8 @@ import { SWITCH_SELECTOR_DESCRIPTION_OPTION } from "@/shared/ui/SwitchSelector";
 import { DetailedPageDescription } from "@/shared/ui/DetailedPage";
 import { IOptionsTab } from "@/features/DetailedPageInfo/model/detailedPageInfo.model";
 import { ProductTable } from "@/features/ProductTable";
+import { Button, ButtonVariant } from "@/shared/ui/Button";
+import { ButtonColor, ButtonSize } from "@/shared/ui/Button/model/model";
 
 export default function ProductDetailPage() {
     // ROUTER
@@ -75,7 +77,7 @@ export default function ProductDetailPage() {
                         name={product.name ?? ''}
                         tableData={getDataHeadingToTextProductTable({product, isCreatedAtAndReviews: true, itemRating: itemScore, itemReviews: itemReviews?.length})}
                     />
-                    <CatalogImage imageList={product?.media.attachments} hasMaximize={true} />
+                    <CatalogImage imageList={[...product?.media.attachments, ...product?.media.attachments, ...product?.media.attachments]} hasMaximize={true} />
                     <DetailedPageInfo 
                         defaultOption={SWITCH_SELECTOR_DESCRIPTION_OPTION}
                         options={SWITCH_SELECTOR_PRODUCT_OPTIONS}
@@ -83,6 +85,7 @@ export default function ProductDetailPage() {
                 </div>
                 <div className={cl.right}>
                     <WrapperBlock className={cl.wrapper}>
+                        <Button variant={ButtonVariant.TONAL} size={ButtonSize.Big} title="button" />
                         <BlockInfoProduct product={product} />
                         <div className={cl.line} />
                         <OptionList optionList={productListToOptionList(productListGroup)} activeIds={[product.id]} />

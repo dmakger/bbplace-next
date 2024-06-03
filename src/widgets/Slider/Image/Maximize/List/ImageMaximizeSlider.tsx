@@ -32,10 +32,19 @@ export const ImageMaximizeSlider:FC<ImageMaximizeSliderProps> = ({hasMaximize=fa
 
     // HTML
     const sliderHTML = (
-        <Slider slides={slides} component={ImageMaximizeSlide} 
-                className={cls(cl.slider, isOpen || isFullWindow ? cl.fullWindow : '', className)} 
-                slideProps={hasMaximize ? {...slideProps, onClickMaximize: handleOnClickMaximize} : {...slideProps}}
-                {...rest}/>
+        <div className={cl.wrapper}>
+            <Slider slides={slides} component={ImageMaximizeSlide} 
+                    className={cls(cl.slider, isOpen || isFullWindow ? cl.fullWindow : '', className)} 
+                    slideProps={hasMaximize ? {...slideProps, onClickMaximize: handleOnClickMaximize} : {...slideProps}}
+                    {...rest}/>
+            {rest.activeIndex !== undefined && slides !== undefined &&
+                <div className={cl.hint}>
+                    <span className={cl.current}>{rest.activeIndex + 1}</span>
+                    /
+                    <span className={cl.length}>{slides?.length}</span>
+                </div>
+            }
+        </div>
     )
     if (!hasMaximize)
         return sliderHTML

@@ -2,10 +2,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_Slider.module.scss';
-import { ARROW_WO_ICON } from "@/shared/ui/Icon/data/arrow.data.icon";
 import { Axis } from "@/shared/model/button.model";
 import { ISlider } from "../model/slider.model";
-import { Button } from "@/shared/ui/Button";
 import { ButtonArrowWLine } from "@/shared/ui/Button/Arrow/WLine/ButtonArrowWLine";
 
 interface SliderProps<T> extends ISlider {
@@ -39,11 +37,14 @@ export const Slider = <T extends (object | string)>({
         return slidesWidth / amount - 10;
     }, [slidesWidth]);
 
+    // Touch state
+    const [touchStartX, setTouchStartX] = useState(0);
+    const [touchEndX, setTouchEndX] = useState(0);
+
     // EFFECT
     useEffect(() => {
         const handleResize = () => {
             if (slidesRef.current) {
-                console.log('nua', slidesRef.current.offsetWidth)
                 setSlidesWidth(slidesRef.current.offsetWidth);
             }
         };
@@ -88,8 +89,34 @@ export const Slider = <T extends (object | string)>({
         setActiveIndex(newIndex);
     };
 
+    // Touch event handlers
+    const handleTouchStart = (e: React.TouchEvent) => {
+        setTouchStartX(e.touches[0].clientX);
+    };
+
+    const handleTouchMove = (e: React.TouchEvent) => {
+        setTouchEndX(e.touches[0].clientX);
+    };
+
+    const handleTouchEnd = () => {
+        if (touchStartX - touchEndX > 50 && startIndex < slides.length - amount) {
+            nextSlide();
+        }
+
+        if (touchStartX - touchEndX < -50 && startIndex > 0) {
+            prevSlide();
+        }
+    };
+
     return (
-        <div style={style} className={cls(cl.slider, className)} ref={slidesRef}>
+        <div 
+            style={style} 
+            className={cls(cl.slider, className)} 
+            ref={slidesRef}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+        >
             {startIndex > 0 &&
                 <ButtonArrowWLine axis={Axis.Right} onClick={prevSlide} className={cl.prevButton} />
             }

@@ -38,7 +38,7 @@ export const CatalogImage:FC<CatalogImageProps> = ({imageList=[], hasMaximize=fa
             <ImageMaximizeSlider slides={imageList} isLoading={false}
                                 activeIndex={activeIndex} setActiveIndex={handleOnClick}
                                 amount={1} limit={limit} setLimit={setLimit} 
-                                classNameSlide={cls(isFullWindow ? cl.slideFull : '', classNameSlide)}
+                                classNameSlide={cls(cl.slide, isFullWindow ? cl.slideFull : '', classNameSlide)}
                                 hasMaximize={hasMaximize} isFullWindow={isFullWindow}/>
         </div>
     )

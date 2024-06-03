@@ -1,8 +1,40 @@
+.wrapper {
+    position: relative;
+}
+
 .slider {
-    // width: 670px;
     width: 690px;
+}
+
+.hint {
+    display: flex;
+    background-color: var(--background-2);
+    border-radius: 20px;
+    color: var(--font-caption);
+    border: 1px solid var(--background-1);
+    padding: 5px 10px;
+
+    position: absolute;
+    z-index: -1;
+    bottom: 20px;
+    left: 20px;
+
+    .current {
+        color: var(--font);
+    }
 }
 
 .fullWindow {
     width: 100vw !important;
+}
+
+
+@media (max-width: 768px) { 
+    .slider {
+        width: 100vw;
+    }
+
+    .hint {
+        z-index: 20;
+    }
 }
