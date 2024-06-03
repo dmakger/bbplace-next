@@ -33,8 +33,6 @@ export const Slider = <T extends (object | string)>({
     const [slidesWidth, setSlidesWidth] = useState(0);
     const slidesRef = useRef<HTMLDivElement>(null);
 
-    console.log('nua', slidesWidth, slidesRef.current?.offsetWidth)
-
     const getWidthSlide = useCallback(() => {
         return slidesWidth / amount - 10;
     }, [slidesWidth]);
@@ -47,7 +45,6 @@ export const Slider = <T extends (object | string)>({
     useEffect(() => {
         const handleResize = () => {
             if (slidesRef.current) {
-                console.log('nua', slidesRef.current.offsetWidth);
                 setSlidesWidth(slidesRef.current.offsetWidth);
             }
         };
