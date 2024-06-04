@@ -4,9 +4,7 @@
     width: fit-content;
     // gap: 10px;
     border-radius: 100px;
-    background-color: var(--background-1);
-    border: 1px solid var(--background-1);
-    padding: 5px 15px 5px 5px;
+    border: 1px solid var(--secondary-border);
     transition: .2s;
 
     &:hover {
@@ -14,16 +12,36 @@
         border-color: var(--gray-4);
     }
 
+    &:active{
+        & img{
+            outline: 2px solid var(--secondary);
+            border: 2px solid var(--secondary);
+            transition-duration: 0.3s;
+        }
+        
+    }
+
     .image {
-        width: 33px;
-        height: 33px;
+        width: 48px;
+        height: 48px;
         object-fit: cover;
-        border-radius: 16px;
+        border-radius: 24px;
+        border: 2px solid transparent;
+        outline: 2px solid var(--secondary);
+        transition-duration: 0.3s;
     }
 
     .name {
         margin-left: 10px;
     }
+}
+
+.listItem{
+    padding: 10px 20px;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid var(--n-gray-6);
+    border-radius: 0px;
 }
 
 .active {

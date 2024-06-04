@@ -32,6 +32,8 @@ import { UserAPI } from "@/entities/Auth/api/auth.api";
 import { ISupplier } from "@/entities/Supplier/model/supplier.model";
 import { supplierApiToSupplier } from "@/entities/Supplier/lib/process.supplier.lib";
 import { IOption } from "@/shared/model/option.model";
+import { Button, ButtonVariant } from "@/shared/ui/Button";
+import { DASHBOARD_PAGES } from "@/config/pages-url.config";
 
 export default function ProductDetailPage() {
     // ROUTER
@@ -42,7 +44,7 @@ export default function ProductDetailPage() {
     const [productListGroup, setProductListGroup] = useState<IProduct[]>([]);
     const [supplier, setSupplier] = useState<ISupplier>()
     const [productSizes, setProductSizes] = useState<IOption[]>([])
-    const [choosenSize, setChoosenSize] = useState<IOption>()
+    const [choosenSize, setChoosenSize] = useState<IOption[]>([])
 
 
     // API
@@ -77,7 +79,14 @@ export default function ProductDetailPage() {
     }, [productAPIListGroup, currencyList, metrics]);
 
     useEffect(() => {
-        let sizes: string[] = product?.media.sizes[0].size.split(',') ?? [];
+        let sizes: string[] = []
+        if(product && product.media.sizes && product.media.sizes[0])
+        if(typeof(product.media.sizes[0].size === 'string')){
+            sizes = product.media.sizes[0].size.split(',') ?? [];
+        }
+        else{
+            sizes = [product.media.sizes[0].size];
+        }
 
         const transformedOptions = sizes.map((item, index) => {
             return { id: index, name: item.toString() } as IOption;
@@ -104,9 +113,8 @@ export default function ProductDetailPage() {
         }
     }
 
-    const chooseSize = (it:IOption) => {
-        setChoosenSize(it)
-    }
+    //FUNCTION
+    const chooseSize = (it: IOption) => setChoosenSize([it]);
 
 
     return (
@@ -136,14 +144,22 @@ export default function ProductDetailPage() {
                 </div>
                 <div className={cl.right}>
                     <WrapperBlock className={cl.wrapper}>
-                        <BlockInfoProduct product={product} />
-                        <OptionList title="Цвет: "
-                            optionList={productListToOptionList(productListGroup)}
-                            activeIds={[product.id]} />
-                        <OptionList title="Размеры: "
-                            optionList={productSizes}
-                            activeIds={[choosenSize?.id ?? 0]}
-                            onClickItem={chooseSize} />
+                            <BlockInfoProduct product={product} className={cl.wholesaleProduct}/>
+                            <OptionList title="Цвет: "
+                                optionList={productListToOptionList(productListGroup)}
+                                activeIds={[product.id]} />
+                            {productSizes.length > 0 && <OptionList title="Размеры: "
+                                optionList={productSizes}
+                                activeIds={[choosenSize[0]?.id]}
+                                onClickItem={chooseSize}
+                                classNameItem={cl.optionItem}
+                                isSizes />}
+                        <div className={cl.buttonContainer}>
+                            <Button variant={ButtonVariant.BACKGROUND_RED}
+                                href={DASHBOARD_PAGES.CURRENT_CHAT(product.ownerId ?? '')}
+                                title="Заказать" />
+                        </div>
+
                     </WrapperBlock>
                 </div>
             </div>

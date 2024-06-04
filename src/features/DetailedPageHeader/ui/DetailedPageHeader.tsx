@@ -68,9 +68,8 @@ export const DetailedPageHeader = ({
                     classNamePrice={cl.price} />
                 <div className={cl.buttonContainer}>
                     <Button variant={ButtonVariant.BACKGROUND_RED}
-                        href={DASHBOARD_PAGES.CURRENT_CHAT(supplierId ?? '')} >
-                        Заказать
-                    </Button>
+                        href={DASHBOARD_PAGES.CURRENT_CHAT(supplierId ?? '')}
+                        title="Заказать"/>
                 </div>
 
             </div>}

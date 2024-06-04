@@ -10,7 +10,7 @@
         gap: 20px;
         width: 100%;
 
-        .supplierBlock{
+        .supplierBlock {
             background-color: var(--white);
             border-radius: 20px;
     
@@ -24,18 +24,18 @@
                 border-radius: 0px;
             }
         }
-        .baseSupplier{
+        .baseSupplier {
             width: 80%;
             @media (max-width:768px) {
                 width: 100%;
             }
         }
 
-        .navSupplier{
+        .navSupplier {
             margin-right: 20px;
             @media (max-width:768px) {
                 width: 100%;
-                & button{
+                & button {
                     margin: 0 20px;
                 }
             }
@@ -46,9 +46,38 @@
         width: 100%;
 
         .wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
             position: sticky;
             top: 10px;
-            gap: 20px;
+
+            padding-left: 0px;
+            padding-right: 0px;
+
+            .wholesaleProduct {
+                padding: 0 16px;
+            }
+
+            .optionItem {
+                border-radius: 10px;
+                padding: 13px 15px;
+                cursor: pointer;
+
+                & span {
+                    margin-left: 0px;
+                }
+            }
+
+
+            .buttonContainer {
+                border-top: 1px solid var(--gray-5);
+                padding: 20px 16px 0 16px;
+
+                & button {
+                    width: 100%;
+                }
+            } 
 
         }
     }

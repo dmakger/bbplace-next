@@ -266,6 +266,21 @@
     }
 }
 
+.bordered-blue{
+    background-color: transparent;
+    color: var(--secondary);
+    border: 1px solid var(--secondary-border);
+
+
+    &:hover {
+        background-color: var(--secondary-surface-sub) !important;
+    }
+
+    &:active{
+        background-color: var(--secondary-surface) !important;
+    }
+}
+
 // <<< ========={ OLD STYLES }========= <<<
 
 
