@@ -26,9 +26,10 @@ export const UserNotAuth = ({ className }: IUserNotAuth) => {
     };
 
     return (
-        <Button variant={ButtonVariant.BORDERED_RED_WIDE} className={className} onClick={login}>
-            Войти
-        </Button>
+        <Button variant={ButtonVariant.BORDERED_RED_WIDE} 
+                title='Войти' 
+                onClick={login} 
+                className={className} />
 
     )
 

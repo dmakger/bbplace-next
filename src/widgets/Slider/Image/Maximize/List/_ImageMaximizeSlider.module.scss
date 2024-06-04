@@ -2,6 +2,10 @@
     position: relative;
 }
 
+.fullWrapper {
+    width: 100vw !important;
+}
+
 .slider {
     width: 690px;
 }
@@ -25,7 +29,8 @@
 }
 
 .fullWindow {
-    width: 100vw !important;
+    // width: 100vw !important;
+    width: calc(100vw - 131px) !important;
 }
 
 

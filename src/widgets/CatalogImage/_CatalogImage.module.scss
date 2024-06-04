@@ -38,7 +38,7 @@
         gap: 10px;
 
         .column {
-            display:  none;
+            display: none;
         
             .columnData {
                 height:min-content !important;
@@ -47,6 +47,12 @@
             }
         }
     }
+
+    // .full {
+    //     .column {
+    //         display: block !important;
+    //     }
+    // }
 
     // .slide {
     //     width: 100vw;

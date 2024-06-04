@@ -1,6 +1,6 @@
 "use client"
 
-import { FC, useEffect, useState } from "react"
+import { FC, useState } from "react"
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_ImageMaximizeSlider.module.scss'
@@ -32,7 +32,7 @@ export const ImageMaximizeSlider:FC<ImageMaximizeSliderProps> = ({hasMaximize=fa
 
     // HTML
     const sliderHTML = (
-        <div className={cl.wrapper}>
+        <div className={cls(cl.wrapper, isOpen || isFullWindow ? cl.fullWrapper : '')}>
             <Slider slides={slides} component={ImageMaximizeSlide} 
                     className={cls(cl.slider, isOpen || isFullWindow ? cl.fullWindow : '', className)} 
                     slideProps={hasMaximize ? {...slideProps, onClickMaximize: handleOnClickMaximize} : {...slideProps}}
