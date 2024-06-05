@@ -26,11 +26,12 @@ interface SupplierWNavProps {
     classNameSupplier?: string,
     classNameNavs?: string,
     classNameNavsItem?: string,
+    classNameVerified?: string
     imageSizes?: IImageSizes
 
 }
 
-export const SupplierWNav:FC<SupplierWNavProps> = ({id, view=ESupplierView.LARGE_WHITE, subscribeView=ESupplierSubscribeViewItem.NONE, hasImage = false, navs=[], axis=ESupplierAxis.HORIZONTAL, className, classNameSupplier, classNameSmallSupplier, classNameNavs, classNameNavsItem, classNameName, imageSizes}) => {
+export const SupplierWNav:FC<SupplierWNavProps> = ({id, view=ESupplierView.LARGE_WHITE, subscribeView=ESupplierSubscribeViewItem.NONE, hasImage = false, navs=[], axis=ESupplierAxis.HORIZONTAL, className, classNameSupplier, classNameSmallSupplier, classNameNavs, classNameNavsItem, classNameName, classNameVerified, imageSizes}) => {
     const { data: supplier } = UserAPI.useGetUserDataQuery(id!)    
     const { data: supplierRating } = ReviewAPI.useGetSupplierScoreQuery(id ?? '')
 
@@ -54,6 +55,7 @@ export const SupplierWNav:FC<SupplierWNavProps> = ({id, view=ESupplierView.LARGE
                           classNameSmallSupplier={classNameSmallSupplier}
                           supplierRating={supplierRating}
                           classNameName={classNameName}
+                          classNameVerified={classNameVerified}
                           imageSizes={imageSizes} />
             <NavSupplier views={navs} supplierId={supplierState.id} 
                          className={cls(cl.navs, classNameNavs)} classNameItem={classNameNavsItem} />

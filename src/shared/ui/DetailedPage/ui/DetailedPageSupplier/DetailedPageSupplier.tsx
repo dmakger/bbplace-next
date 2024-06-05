@@ -15,10 +15,13 @@ interface IDetailedPageSupplier {
     supplier: ISupplier,
     supplierReviews: number,
     supplierRating: number
+    classNameVerified?: string
+
 }
 
 export const DetailedPageSupplier = ({
     className,
+    classNameVerified,
     id,
     supplier,
     supplierReviews,
@@ -35,6 +38,7 @@ export const DetailedPageSupplier = ({
                     hasImage
                     view={ESupplierView.LARGE_WHITE_FOR_DESCRIPTION_PAGE}
                     imageSizes={{ width: 100, height: 100 }}
+                    classNameVerified={classNameVerified}
                 />
             </div>
             <div className={cl.bottomContainer}>

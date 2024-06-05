@@ -22,6 +22,7 @@ interface BaseSupplierProps {
     isForDescPage?: boolean,
     className?: string
     classNameName?: string,
+    classNameVerified?: string,
     imageSizes?: IImageSizes
 }
 
@@ -35,6 +36,7 @@ export const BaseSupplier: FC<BaseSupplierProps> = ({
     isForDescPage = false,
     className,
     classNameName,
+    classNameVerified,
     imageSizes }) => {
 
     const html = (
@@ -48,6 +50,7 @@ export const BaseSupplier: FC<BaseSupplierProps> = ({
                     supplierRating={supplierRating}
                     numberOfReviews={numberOfReviews}
                     isForDescPage={isForDescPage}
+                    classNameVerified={classNameVerified}
                 />
             </div>
             <SubscribeAutoToSupplierButton view={subscribeView} supplierId={supplier.id} />

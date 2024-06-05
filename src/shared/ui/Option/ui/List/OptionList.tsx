@@ -14,16 +14,19 @@ interface OptionListProps {
     onClickItem?: Function
     className?: string,
     classNameItem?: string,
-    isSizes?: boolean
+    isSizes?: boolean,
+    isOnHover?: boolean
 }
 
-export const OptionList: FC<OptionListProps> = ({ title,
+export const OptionList: FC<OptionListProps> = ({ 
+    title,
     optionList,
     activeIds = [],
     onClickItem,
     className,
     classNameItem,
-    isSizes
+    isSizes,
+    isOnHover
 }) => {
 
     const [isList, setIsList] = useState<boolean>(false)
@@ -56,7 +59,8 @@ export const OptionList: FC<OptionListProps> = ({ title,
                         key={it.id}
                         isSizes={isSizes}
                         isList={!isSizes ? isList : false}
-                        classNameItem={classNameItem} />
+                        classNameItem={classNameItem}
+                        isOnHover={isOnHover} />
                 ))}
             </div>
 

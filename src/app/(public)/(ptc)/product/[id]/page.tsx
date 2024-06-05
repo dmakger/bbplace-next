@@ -109,13 +109,13 @@ export default function ProductDetailPage() {
                 supplierReviews={supplierReviews?.length ?? 0}
                 supplier={supplier!}
                 supplierRating={supplierRating ?? 0}
+                classNameVerified={cl.verifiedSupplier}
             />
         }
     }
 
     //FUNCTION
     const chooseSize = (it: IOption) => setChoosenSize([it]);
-
 
     return (
         <Wrapper1280>
@@ -147,13 +147,15 @@ export default function ProductDetailPage() {
                             <BlockInfoProduct product={product} className={cl.wholesaleProduct}/>
                             <OptionList title="Цвет: "
                                 optionList={productListToOptionList(productListGroup)}
-                                activeIds={[product.id]} />
+                                activeIds={[product.id]}
+                                isOnHover />
                             {productSizes.length > 0 && <OptionList title="Размеры: "
                                 optionList={productSizes}
                                 activeIds={[choosenSize[0]?.id]}
                                 onClickItem={chooseSize}
                                 classNameItem={cl.optionItem}
-                                isSizes />}
+                                isSizes
+                                 />}
                         <div className={cl.buttonContainer}>
                             <Button variant={ButtonVariant.BACKGROUND_RED}
                                 href={DASHBOARD_PAGES.CURRENT_CHAT(product.ownerId ?? '')}

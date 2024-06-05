@@ -13,6 +13,7 @@ interface IBottomLineSupplier {
     numberOfReviews?: number,
     isForDescPage?: boolean,
     className?: string,
+    classNameVerified?: string
 }
 
 export const BottomLineSupplier = ({
@@ -20,9 +21,11 @@ export const BottomLineSupplier = ({
     supplierRating = 0,
     numberOfReviews = 0,
     isForDescPage,
-    className }: IBottomLineSupplier) => {
+    className,
+    classNameVerified
+}: IBottomLineSupplier) => {
 
-    const verifiedSupplier = <VerifiedSupplier _isVerified={true} hasIcon={isForDescPage} />
+    const verifiedSupplier = <VerifiedSupplier _isVerified={true} hasIcon={isForDescPage} className={classNameVerified}/>
 
     return (
         <div className={cls(cl.lineContainer, className)}>
@@ -32,7 +35,7 @@ export const BottomLineSupplier = ({
                         numberOfReviews={numberOfReviews}
                         hasStar />}
                         color={EInfoItemColor.YELLOW} />
-                    {!isVerified(supplier) && <InfoItem body={verifiedSupplier} color={EInfoItemColor.GREEN} />}
+                    {isVerified(supplier) && <InfoItem body={verifiedSupplier} color={EInfoItemColor.GREEN} />}
                 </>
             ) : (
                 <>

@@ -18,12 +18,13 @@ interface SupplierAutoProps {
     classNameSmallSupplier?: string,
     classNameSupplier?: string,
     classNameName?: string,
+    classNameVerified?: string,
     imageSizes?: IImageSizes
 }
 
-export const SupplierAuto: FC<SupplierAutoProps> = ({ supplier, view, hasImage = false, subscribeView = ESupplierSubscribeViewItem.NONE, navs, supplierRating, classNameSmallSupplier, classNameSupplier, classNameName, imageSizes }) => {
-    const props = { supplier, supplierRating, className: classNameSmallSupplier }
-    const propsLarge = { ...props, hasImage, subscribeView, navs, className: classNameSupplier, classNameName, imageSizes }
+export const SupplierAuto: FC<SupplierAutoProps> = ({ supplier, view, hasImage = false, subscribeView = ESupplierSubscribeViewItem.NONE, navs, supplierRating, classNameSmallSupplier, classNameSupplier, classNameName,classNameVerified, imageSizes }) => {
+    const props = { supplier, supplierRating, className: classNameSmallSupplier,classNameVerified, imageSizes }
+    const propsLarge = { ...props, hasImage, subscribeView, navs, className: classNameSupplier, classNameName }
 
     if (view === ESupplierView.SMALL)
         return <SupplierSmall {...props} />

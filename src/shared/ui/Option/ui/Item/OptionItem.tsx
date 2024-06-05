@@ -5,6 +5,7 @@ import cl from './_OptionItem.module.scss'
 import { ImageAPI } from "@/shared/ui/Image/API/ImageAPI";
 import Link from "next/link";
 import { IOption } from "@/shared/model/option.model";
+import { HoverWindow } from "@/shared/ui/HoverWindow";
 
 interface OptionItemProps {
     option: IOption
@@ -12,27 +13,37 @@ interface OptionItemProps {
     onClick?: Function
     classNameItem?: string,
     isSizes?: boolean,
-    isList?: boolean
+    isList?: boolean,
+    isOnHover?: boolean
 }
 
 export const OptionItem: FC<OptionItemProps> = ({ option,
     active = false,
     onClick = () => { },
     classNameItem,
-    isSizes,
-    isList
+    isSizes = false,
+    isList,
+    isOnHover = false
 }) => {
     const props = {
         className: cls(cl.item, active ? cl.active : '', classNameItem, isList ? cl.listItem : '')
     }
 
+    const optionParamsImage = typeof(option.params?.image) === 'string' ? option.params.image : '';
+    
+
     const html = (
-        <>
-            {option.params?.image &&
-                <ImageAPI src={`${option.params.image}`} className={cl.image} width={48} height={48}/>
-            }
-            {(isSizes || isList) && <span className={cl.name}>{option.name}</span>}
-        </>
+        <div className={cl.optionItemContainer}>
+            {isOnHover && !isList && 
+            <HoverWindow text={option.name} image={optionParamsImage} className={cl.hoverWindow}/>}
+            <div className={cls(cl.optionItem, isList ? cl.row : '')}>
+                {optionParamsImage &&
+                    <ImageAPI src={`${optionParamsImage}`} className={cl.image} width={48} height={48} />
+                }
+                {(isSizes || isList) && <span className={cl.name}>{option.name}</span>}
+            </div>
+
+        </div>
     )
     if (option.params?.href === undefined)
         return (
@@ -40,7 +51,7 @@ export const OptionItem: FC<OptionItemProps> = ({ option,
         )
 
     return (
-        <Link href={`${option.params.href}`} {...props}>
+        <Link href={`${option.params?.href}`} {...props}>
             {html}
         </Link>
     )
