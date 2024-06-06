@@ -3,6 +3,13 @@
     justify-content: space-between;
     gap: 20px;
     width: 100%;
+    
+
+    @media (max-width: 1024px) {
+        flex-direction: column;
+        padding-bottom: 60px;
+    }
+
 
     .left {
         display: flex;
@@ -10,10 +17,13 @@
         gap: 20px;
         width: 100%;
 
+        @media (max-width: 1024px) {
+            flex-direction: column;
+        }
+
         .supplierBlock {
             background-color: var(--white);
             border-radius: 20px;
-    
             @media (max-width: 768px) {
                 display: flex;
                 flex-direction: column;
@@ -93,11 +103,31 @@
                 border-top: 1px solid var(--gray-5);
                 padding: 20px 16px 0 16px;
 
+                @media (max-width: 768px) {
+                    background-color: var(--white);
+                    outline: 1px solid transparent;
+                    width: 100%;
+                    padding: 10px 20px;
+                    position: fixed;
+                    bottom: 65px !important;
+                    left: 0;
+                }
+
                 & button {
                     width: 100%;
                 }
             }
-
         }
+    }
+}
+
+
+.visible {
+    @media (max-width: 1024px) {
+        display: flex;
+    }
+
+    @media (max-width: 768px) {
+        display: none;
     }
 }

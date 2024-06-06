@@ -22,7 +22,7 @@ import { REVIEW_LIMIT, REVIEW_START_PAGE } from "@/entities/Review/data/review.d
 import { DetailedPageInfo } from "@/features/DetailedPageInfo";
 import { SWITCH_SELECTOR_PRODUCT_OPTIONS } from "@/entities/Product/data/product.data";
 import { SWITCH_SELECTOR_DESCRIPTION_OPTION } from "@/shared/ui/SwitchSelector";
-import { DetailedPageDescription } from "@/shared/ui/DetailedPage";
+import { DetailedPageDescription, MobileOrderFooter } from "@/shared/ui/DetailedPage";
 import { IOptionsTab } from "@/features/DetailedPageInfo/model/detailedPageInfo.model";
 import { ProductTable } from "@/features/ProductTable";
 import { SupplierWNav } from "@/entities/Supplier/ui/WNav/SupplierWNav";
@@ -34,6 +34,9 @@ import { supplierApiToSupplier } from "@/entities/Supplier/lib/process.supplier.
 import { IOption } from "@/shared/model/option.model";
 import { Button, ButtonVariant } from "@/shared/ui/Button";
 import { DASHBOARD_PAGES } from "@/config/pages-url.config";
+import { getDiapason } from "@/entities/Metrics/lib/metrics/diapason.metrics.metrics.lib";
+import { cls } from "@/shared/lib/classes.lib";
+import { useInView } from "react-intersection-observer";
 
 export default function ProductDetailPage() {
     // ROUTER
@@ -46,6 +49,11 @@ export default function ProductDetailPage() {
     const [productSizes, setProductSizes] = useState<IOption[]>([])
     const [choosenSize, setChoosenSize] = useState<IOption[]>([])
 
+
+    //REF
+    const { ref, inView, } = useInView({
+        threshold: 0,
+    });
 
     // API
     const { data: currencyList } = CurrencyAPI.useGetCurrenciesQuery()
@@ -80,13 +88,13 @@ export default function ProductDetailPage() {
 
     useEffect(() => {
         let sizes: string[] = []
-        if(product && product.media.sizes && product.media.sizes[0])
-        if(typeof(product.media.sizes[0].size === 'string')){
-            sizes = product.media.sizes[0].size.split(',') ?? [];
-        }
-        else{
-            sizes = [product.media.sizes[0].size];
-        }
+        if (product && product.media.sizes && product.media.sizes[0])
+            if (typeof (product.media.sizes[0].size === 'string')) {
+                sizes = product.media.sizes[0].size.split(',') ?? [];
+            }
+            else {
+                sizes = [product.media.sizes[0].size];
+            }
 
         const transformedOptions = sizes.map((item, index) => {
             return { id: index, name: item.toString() } as IOption;
@@ -144,25 +152,31 @@ export default function ProductDetailPage() {
                 </div>
                 <div className={cl.right}>
                     <WrapperBlock className={cl.wrapper}>
-                            <BlockInfoProduct product={product} className={cl.wholesaleProduct}/>
-                            <OptionList title="Цвет: "
-                                optionList={productListToOptionList(productListGroup)}
-                                activeIds={[product.id]}
-                                isOnHover />
-                            {productSizes.length > 0 && <OptionList title="Размеры: "
-                                optionList={productSizes}
-                                activeIds={[choosenSize[0]?.id]}
-                                onClickItem={chooseSize}
-                                classNameItem={cl.optionItem}
-                                isSizes
-                                 />}
-                        <div className={cl.buttonContainer}>
+                        <BlockInfoProduct product={product} className={cls(cl.wholesaleProduct, inView ? cl.hidden : '')}  />
+                        <OptionList title="Цвет: "
+                            optionList={productListToOptionList(productListGroup)}
+                            activeIds={[product.id]}
+                            isOnHover />
+                        {productSizes.length > 0 && <OptionList title="Размеры: "
+                            optionList={productSizes}
+                            activeIds={[choosenSize[0]?.id]}
+                            onClickItem={chooseSize}
+                            classNameItem={cl.optionItem}
+                            isSizes
+                        />}
+                        <div className={cl.buttonContainer} ref={ref}>
                             <Button variant={ButtonVariant.BACKGROUND_RED}
                                 href={DASHBOARD_PAGES.CURRENT_CHAT(product.ownerId ?? '')}
                                 title="Заказать" />
                         </div>
-
+                        
+                        <MobileOrderFooter 
+                            className={cls(cl.MobileOrderFooter, !inView ? cl.visible : '')} 
+                            supplierId={product.ownerId ?? ''}
+                            firstStart="От "
+                            wholesalePrices={getDiapason(product.media.wholesalePrices, product.media.sizes)} />
                     </WrapperBlock>
+                    
                 </div>
             </div>
         </Wrapper1280>

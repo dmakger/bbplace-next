@@ -1,14 +1,13 @@
 import { cls } from "@/shared/lib/classes.lib"
 import cl from './_DetailedPageHeader.module.scss'
-import { PriceQuantity } from "@/shared/ui/PriceQuantity/PriceQuantity"
-import { Button, ButtonVariant } from "@/shared/ui/Button"
-import { DASHBOARD_PAGES } from "@/config/pages-url.config"
 import { IWholesale } from "@/entities/Metrics/model/wholesale.metrics.model"
 import { HeadingToTextTable } from "@/shared/ui/Text"
 import { EHeadingToTextVariants, IHeadingToText } from "@/shared/model/text.model"
 import { FavouriteAutoToProductButton } from "@/entities/Product/components/Buttons/Favourite/Auto/FavouriteAutoToProductButton"
 import { EProductFavouriteViewItem } from "@/entities/Product/data/view.product.data"
 import { ButtonFavouriteVariant } from "@/shared/ui/Button/Favourite/ButtonFavourite"
+import { MobileOrderFooter } from "@/shared/ui/DetailedPage"
+import { useInView } from "react-intersection-observer"
 
 interface IDetailedPageHeader {
     className?: string,
@@ -39,18 +38,23 @@ export const DetailedPageHeader = ({
     classNameHeadingItem,
     classNameTextItem
 }: IDetailedPageHeader) => {
+
+    const { ref, inView, } = useInView({
+        threshold: 0,
+    });
+
     return (
         <div className={cls(cl.DetailedPageHeader, className)}>
-            <div className={cl.leftContainer}>
-                <div className={cl.topContainer}>
+            <div className={cl.leftContainer} >
+                <div className={cl.topContainer} >
                     {type && <span className={cl.type}>{type}</span>}
                     <p className={cl.name}>{name}</p>
                 </div>
-                <div className={cl.restInfo}>
+                <div className={cl.restInfo} >
                     <FavouriteAutoToProductButton productId={id} view={EProductFavouriteViewItem.SMALL_FILL} variantFavourite={ButtonFavouriteVariant.New} />
                     <HeadingToTextTable
                         variant={EHeadingToTextVariants.ROW}
-                        data={tableData} 
+                        data={tableData}
                         classNameMainBlock={cls(cl.restInfoMainBlock, classNameMainBlock)}
                         classNameRow={cls(classNameRow)}
                         classNameHeadingItem={cls(classNameHeadingItem)}
@@ -58,20 +62,14 @@ export const DetailedPageHeader = ({
                     />
                 </div>
             </div>
-            {isRightContainer && <div className={cl.rightContainer}>
-                <PriceQuantity
-                    wholesales={wholesalePrices ?? []}
-                    className={cl.priceQuantity}
-                    classNameWholesaleBlock={cl.wholesaleBlock}
-                    firstStart="За "
-                    classNameQuantity={cl.quantity}
-                    classNamePrice={cl.price} />
-                <div className={cl.buttonContainer}>
-                    <Button variant={ButtonVariant.BACKGROUND_RED}
-                        href={DASHBOARD_PAGES.CURRENT_CHAT(supplierId ?? '')}
-                        title="Заказать"/>
-                </div>
-
+            {isRightContainer && <div className={cl.rightContainer} ref={ref}>
+                <MobileOrderFooter className={cl.topMobileOrderFooter}
+                    supplierId={supplierId ?? ''}
+                    wholesalePrices={wholesalePrices ?? []}
+                    isTop />
+                <MobileOrderFooter className={!inView ? cl.visible : ''}
+                    supplierId={supplierId ?? ''}
+                    wholesalePrices={wholesalePrices ?? []}/>
             </div>}
         </div>
     )
