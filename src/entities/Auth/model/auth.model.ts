@@ -30,7 +30,7 @@ export interface ILoginResponseDecoded {
     BrandName: string
     Role: string
     MobilePhone: string,
-    country: string
+    Country: string
 }
 
 

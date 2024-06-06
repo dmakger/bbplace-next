@@ -44,7 +44,7 @@ export const ProductListChild:FC<ProductListProps> = ({view, className}) => {
 
     // STATE
     const [productList, setProductList] = useState<IProduct[]>([])
-    const [pageNumber, setPageNumber] = useState<number>(1)    
+    const [pageNumber, setPageNumber] = useState<number>(1) 
     const [viewProductList, setViewProductList] = useState<EViewProduct>(DEFAULT_VIEW_PRODUCT)    
 
     // API

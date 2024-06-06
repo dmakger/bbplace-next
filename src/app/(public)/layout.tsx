@@ -1,10 +1,36 @@
+"use client"
+
 import cl from './_PublicLayout.module.scss'
 import { Header } from "@/widgets/Header";
 import { MobileNavbar } from "@/widgets/MobileNavbar";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useEffect } from "react";
 import { WrapperGap } from "@/shared/ui/Wrapper/Gap/WrapperGap";
+import { UserAPI } from '@/entities/Auth/api/auth.api';
+import { useActionCreators } from '@/storage/hooks';
+import { removeFromStorage } from '@/entities/Auth/lib/auth-token.lib';
 
 export default function Layout({ children }: PropsWithChildren<unknown>) {
+    // API 
+    const [refreshToken] = UserAPI.useRefreshTokenMutation()
+    
+    // RTK
+    const actionCreators = useActionCreators()
+
+
+    useEffect(() => {
+        async function initialRefresh(){
+            const data = await refreshToken().unwrap()
+            if(data){
+                actionCreators.setAuth(data)
+            }
+            else{
+                removeFromStorage()
+            }
+        }
+        
+        initialRefresh()
+    },  [])
+
     return (
         <WrapperGap>
             <Header />
