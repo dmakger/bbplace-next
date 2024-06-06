@@ -7,7 +7,8 @@ import { PropsWithChildren, useEffect } from "react";
 import { WrapperGap } from "@/shared/ui/Wrapper/Gap/WrapperGap";
 import { UserAPI } from '@/entities/Auth/api/auth.api';
 import { useActionCreators } from '@/storage/hooks';
-import { removeFromStorage } from '@/entities/Auth/lib/auth-token.lib';
+import { getAccessToken, isAuth, removeFromStorage } from '@/entities/Auth/lib/auth-token.lib';
+import { jwtDecode } from 'jwt-decode';
 
 export default function Layout({ children }: PropsWithChildren<unknown>) {
     // API 
@@ -19,7 +20,15 @@ export default function Layout({ children }: PropsWithChildren<unknown>) {
 
     useEffect(() => {
         async function initialRefresh(){
+            if (isAuth()) {
+                const accessToken = getAccessToken()
+                if (accessToken !== null){
+                    actionCreators.setAuth(jwtDecode(accessToken))
+                    return
+                }
+            }
             const data = await refreshToken().unwrap()
+            console.log('qwe initialRefresh', data)
             if(data){
                 actionCreators.setAuth(data)
             }
@@ -27,7 +36,6 @@ export default function Layout({ children }: PropsWithChildren<unknown>) {
                 removeFromStorage()
             }
         }
-        
         initialRefresh()
     },  [])
 
