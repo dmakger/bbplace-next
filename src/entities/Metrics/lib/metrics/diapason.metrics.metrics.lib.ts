@@ -14,28 +14,30 @@ export const getMinMax = (wholesales: IWholesale[], sizes: ISize[]) => {
 }
 
 // Получение отсортированного диапазаона цен
-export const getDiapason = (wholesales: IWholesale[], sizes: ISize[]) => {
+export const getDiapason = (wholesales: IWholesale[], sizes?: ISize[]) => {
     // console.log('wholesales gd', wholesales, sizes);
     
     let minMetrics: IMetrics | undefined
     let minParameter: EParameters
-    wholesales.map(it => {
-        sizes.map(item => {
-            const metricsName = it.metrics?.name || item.sizeUnit.name
-            const parameter = getParameterByName(metricsName)
-    
-            if (parameter === undefined) return
-            if ((it.metrics || item.sizeUnit && parameter !== undefined && metricsName !== undefined) 
-                && (minMetrics === undefined || minMetrics === undefined 
-                || minParameter < parameter || (minParameter === parameter 
-                && PARAMETERS_TO_DATA[parameter][metricsName] < PARAMETERS_TO_DATA[minParameter][minMetrics.name]))
-            ) {
-                minMetrics = it.metrics || item.sizeUnit
-                
-                minParameter = parameter
-            }
+    if (sizes !== undefined){
+        wholesales.map(it => {
+            sizes.map(item => {
+                const metricsName = it.metrics?.name || item.sizeUnit.name
+                const parameter = getParameterByName(metricsName)
+        
+                if (parameter === undefined) return
+                if ((it.metrics || item.sizeUnit && parameter !== undefined && metricsName !== undefined) 
+                    && (minMetrics === undefined || minMetrics === undefined 
+                    || minParameter < parameter || (minParameter === parameter 
+                    && PARAMETERS_TO_DATA[parameter][metricsName] < PARAMETERS_TO_DATA[minParameter][minMetrics.name]))
+                ) {
+                    minMetrics = it.metrics || item.sizeUnit
+                    
+                    minParameter = parameter
+                }
+            })
         })
-    })
+    }
     // console.log('zxc 909', wholesales);
 
     const wholesalesUpdated = wholesales.map((wholesale, index) => {
