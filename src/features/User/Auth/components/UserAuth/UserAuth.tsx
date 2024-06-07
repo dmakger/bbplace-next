@@ -21,8 +21,8 @@ export const UserAuth = ({ className }: IUserAuth) => {
 
     return (
         <WrapperClickOutside _ref={userRef} isShow={isShowProfileModal} handle={showProfileModal} className={cls(cl.UserAuth, className)}>
-                <User className={cl.image} onClick={showProfileModal} />
-                <UserProfileModal isShowProfileModal={isShowProfileModal} />
+            <User className={cl.image} onClick={showProfileModal} />
+            <UserProfileModal isShowProfileModal={isShowProfileModal} />
         </WrapperClickOutside>
 
     )

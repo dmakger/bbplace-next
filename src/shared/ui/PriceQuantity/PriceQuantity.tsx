@@ -12,7 +12,8 @@ interface PriceQuantityProps{
     classNameWholesaleBlock?: string, 
     classNameQuantity?: string,
     classNamePrice?: string
-    classNameForEvenNumbered?: string
+    classNameForEvenNumbered?: string,
+    classNameOneItem?: string
 
 }
 
@@ -23,14 +24,15 @@ export const PriceQuantity: FC<PriceQuantityProps> = ({
     classNameWholesaleBlock,
     classNamePrice,
     classNameQuantity,
-    classNameForEvenNumbered
+    classNameForEvenNumbered,
+    classNameOneItem
 }) => {
     const quantities = getDiapasonQuantity(wholesales, firstStart)
     
     return (
         <div className={cls(cl.block, className)}>
             {wholesales.length === 0 && (
-                <div className={cls(cl.item, cl.one)}>
+                <div className={cls(cl.item, cl.one, classNameOneItem)}>
                     <span className={cl.price}>{"По запросу"}</span>
                 </div>
             )}

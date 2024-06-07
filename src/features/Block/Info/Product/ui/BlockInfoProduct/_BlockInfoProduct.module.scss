@@ -3,11 +3,15 @@
     flex-direction: column;
     gap: 10px;
 
-    .mainBlock{
+    .mainBlock {
         flex-direction: column;
     }
 
-    .wholesale{
+    .oneItem {
+        padding-left: 20px;
+    }
+
+    .wholesale {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
@@ -19,25 +23,26 @@
             align-items: flex-start;
         }
 
-        .quantity{
+
+        .quantity {
             font-size: var(--font-size-reg);
             font-weight: var(--font-weight-light);
+
             @media (max-width: 768px) {
                 font-size: var(--font-size-s);
             }
         }
 
-        .price{
+        .price {
             font-size: var(--font-size-sm);
+
             @media (max-width: 768px) {
                 font-size: var(--font-size-reg);
             }
         }
     }
 
-    .evenNumbered{
+    .evenNumbered {
         background-color: var(--n-gray-6);
     }
-
-    
 }

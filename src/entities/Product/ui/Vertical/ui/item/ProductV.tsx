@@ -18,7 +18,7 @@ import { EProductFavouriteViewItem } from '@/entities/Product/data/view.product.
 interface ProductVProps extends IProductProps {}
 
 export const ProductV: FC<ProductVProps> = ({ product, className }) => {
-  // VARS
+  // VARS  
   const [minWholesale, maxWholesale] = getMinMax(product.media.wholesalePrices, product.media.sizes);
 
   // STATE

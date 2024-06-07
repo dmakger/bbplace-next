@@ -12,19 +12,21 @@ interface IUserProfileModal {
 
 export const UserProfileModal = ({ isShowProfileModal }: IUserProfileModal) => {
 
-  const { fullName } = useAppSelector(state => state.user)
-
+  // RTK
+  const user = useAppSelector(state => state.user)
   const actionCreators = useActionCreators();
 
+  // HANDLE
   const logOut = () => {
     actionCreators.setNotAuth();
   };
 
+  // HTML
   return (
     <section className={cls(cl.UserProfileModal, isShowProfileModal ? cl.visible : '')} >
       <div className={cl.topContainer}>
         <div className={cl.user}>
-          <p className={cl.greetings}>Здравствуйте, <span>{fullName}</span></p>
+          <p className={cl.greetings}>Здравствуйте, <span>{user.fullName}</span></p>
           <User />
         </div>
         <Button variant={ButtonVariant.BACKGROUND_GRAY} title={"Личный кабинет"} href={DASHBOARD_PAGES.HOME} className={cl.lk} />

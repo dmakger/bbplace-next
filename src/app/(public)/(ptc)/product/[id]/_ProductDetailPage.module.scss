@@ -10,6 +10,10 @@
         padding-bottom: 60px;
     }
 
+    @media (max-width: 768px) {
+        gap: 0px;
+    }
+
 
     .left {
         display: flex;
@@ -21,6 +25,14 @@
             flex-direction: column;
         }
 
+        .slider{
+            overflow: auto;
+
+            &::-webkit-scrollbar{
+                display: none;
+            }
+        }
+
         .mobileInfo{
             display: none;
             @media (max-width: 1024px) {
@@ -28,7 +40,9 @@
                 background-color: var(--white);
                 border-radius: 20px;
                 padding: 20px 0;
-
+            }
+            @media (max-width: 768px) {
+                border-radius: 0px;
             }
         }
 
@@ -97,6 +111,9 @@
             padding-left: 0px;
             padding-right: 0px;
 
+            @media (max-width: 1024px) {
+                display: none;
+            }
         }
     }
 }

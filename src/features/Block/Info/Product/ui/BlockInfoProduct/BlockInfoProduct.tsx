@@ -31,7 +31,8 @@ export const BlockInfoProduct: FC<BlockInfoProductProps> = ({ product, className
                 classNameWholesaleBlock={cl.wholesale}
                 classNameQuantity={cl.quantity}
                 classNamePrice={cl.price}
-                classNameForEvenNumbered={cl.evenNumbered} />
+                classNameForEvenNumbered={cl.evenNumbered}
+                classNameOneItem={cl.oneItem} />
         </div>
     )
 }

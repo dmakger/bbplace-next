@@ -10,6 +10,7 @@ import { CatalogImage } from "@/widgets/CatalogImage/CatalogImage";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import cl from './_ProductDetailPage.module.scss';
+import { WrapperBlock } from "@/shared/ui/Wrapper/Block/WrapperBlock";
 import { skipToken } from "@reduxjs/toolkit/query";
 import { DetailedPageHeader } from "@/features/DetailedPageHeader";
 import { getDataHeadingToTextProductTable } from "@/shared/ui/Text/lib/htt.product.lib";
@@ -130,7 +131,7 @@ export default function ProductDetailPage() {
                         name={product.name ?? ''}
                         tableData={getDataHeadingToTextProductTable({ product, isDetailedPageHeader: true, itemRating: itemScore, itemReviews: itemReviews?.length })}
                     />
-                    <CatalogImage imageList={[...product?.media.attachments, ...product?.media.attachments, ...product?.media.attachments]} hasMaximize={true} />
+                    <CatalogImage imageList={product?.media.attachments} hasMaximize={true} className={cl.slider}/>
                     <div className={cl.mainInfoProduct} ref={ref}>
                         <MainInfoProduct
                             className={cl.mobileInfo}
@@ -141,7 +142,6 @@ export default function ProductDetailPage() {
                             choosenSize={choosenSize}
                             inView={inView} />
                     </div>
-                    
                     <SupplierWNav
                         className={cl.supplierBlock}
                         classNameSupplier={cl.baseSupplier}
@@ -158,8 +158,9 @@ export default function ProductDetailPage() {
                         optionsTab={PRODUCT_PAGE_OPTIONS_TAB} />
                 </div>
                 <div className={cl.right}>
+                    <WrapperBlock className={cl.wrapper}>
 
-                        <MainInfoProduct 
+                        <MainInfoProduct
                             product={product}
                             productListGroup={productListGroup}
                             productSizes={productSizes}
@@ -167,13 +168,14 @@ export default function ProductDetailPage() {
                             choosenSize={choosenSize}
                         />
 
-                        <MobileOrderFooter
+                        
+                    </WrapperBlock>
+                    <MobileOrderFooter
                             className={cls(cl.MobileOrderFooter, !inView ? cl.visible : '')}
                             supplierId={product.ownerId ?? ''}
                             firstStart="От "
                             wholesalePrices={productWholesalePrices.length > 0 ? [getDiapason(productWholesalePrices, product.media.sizes)[0]] : []}
                         />
-                   
                 </div>
             </div>
         </Wrapper1280>

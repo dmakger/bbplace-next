@@ -1,5 +1,6 @@
 .block {
     display: flex;
+    justify-content: flex-start;
     // display: grid;
     // grid-template-columns: repeat(2, 1fr);
     // grid-gap: 10px;
@@ -8,7 +9,6 @@
     .item {
         display: flex;
         flex-direction: column;
-        padding-left: 20px;
 
         .quantity {
             color: var(--gray-9);

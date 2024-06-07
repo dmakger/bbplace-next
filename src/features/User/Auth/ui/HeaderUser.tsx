@@ -9,7 +9,7 @@ import { UserAPI } from '@/entities/Auth/api/auth.api'
 
 export const HeaderUser = () => {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
-    const { isAuth: isAuthh, id } = useAppSelector(state => state.user)    
+    const { isAuth: _isAuth, id } = useAppSelector(state => state.user)    
 
 
     useEffect(() => {
@@ -19,9 +19,12 @@ export const HeaderUser = () => {
     
     return (
         <>
-            { isAuthenticated ?
-                <UserAuth /> :
-                <UserNotAuth />
+            { isAuthenticated 
+                ? (
+                    <UserAuth /> 
+                ) : (
+                    <UserNotAuth />
+                )
             }
         </>
     )

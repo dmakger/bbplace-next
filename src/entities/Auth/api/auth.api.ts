@@ -1,61 +1,78 @@
-import {createApi} from "@reduxjs/toolkit/query/react";
-import {fetchBaseQuery} from "@reduxjs/toolkit/query";
-import { ISupplierAPI } from "@/entities/Supplier/model/supplier.model";
-import { options } from "@/api/interceptors";
-import { IAuthForm, IAuthResponse, ILoginResponseDecoded } from "../model/auth.model";
-import { getAccessToken, getRefreshToken, saveTokensStorage } from "../lib/auth-token.lib";
-import { jwtDecode } from "jwt-decode";
+import { createApi, BaseQueryFn } from '@reduxjs/toolkit/query/react';
+import { AxiosRequestConfig, AxiosError } from 'axios';
+import apiClient from './interceptor.auth.api';
+import { ISupplierAPI } from '@/entities/Supplier/model/supplier.model';
+import { IAuthForm, ILoginResponseDecoded, IAuthResponse } from '../model/auth.model';
+import { saveTokensStorage, getAccessToken, getRefreshToken } from '../lib/auth-token.lib';
+import { jwtDecode } from 'jwt-decode';
 
+const axiosBaseQuery: BaseQueryFn<
+    { url: string; method: AxiosRequestConfig['method']; data?: AxiosRequestConfig['data']; params?: AxiosRequestConfig['params'] },
+    unknown,
+    unknown
+> = async ({ url, method, data, params }) => {
+    try {
+        const result = await apiClient({
+            url,
+            method,
+            data,
+            params,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        return { data: result.data };
+    } catch (axiosError) {
+        const err = axiosError as AxiosError;
+        return {
+            error: {
+                status: err.response?.status,
+                data: err.response?.data || err.message,
+            },
+        };
+    }
+};
 
 export const UserAPI = createApi({
     reducerPath: 'userAPI',
-    baseQuery: fetchBaseQuery({
-        baseUrl: options.baseURL + 'auth/api/Authenticate'
-    }),
-    endpoints: (build) => ({
-        //GET
-        getUserData: build.query<ISupplierAPI, string>({
+    baseQuery: axiosBaseQuery,
+    endpoints: (builder) => ({
+        getUserData: builder.query<ISupplierAPI, string>({
             query: (userId) => ({
-                url: `/GetUserInfo?userId=${userId}`,
+                url: `/Authenticate/GetUserInfo?userId=${userId}`,
                 method: 'POST',
-                body: {}
-            })
+            }),
         }),
-
-        userLogin: build.mutation<ILoginResponseDecoded, IAuthForm>({
-            query: ({username, password}) => ({
-                url: '/login',
+        userLogin: builder.mutation<ILoginResponseDecoded, IAuthForm>({
+            query: ({ username, password }) => ({
+                url: '/Authenticate/login',
                 method: 'POST',
-                body: {
+                data: {
                     username,
                     password,
                 },
-                responseHandler: async (response) => {
-                    const data = await response.json() as IAuthResponse
-                    saveTokensStorage(data)
-                    return jwtDecode<ILoginResponseDecoded>(data.accessToken)
-                },
-            })
+            }),
+            // transformResponse: (response: IAuthResponse) => {
+            transformResponse: (response: any) => {
+                saveTokensStorage(response); // Сохранение токенов в куки
+                return jwtDecode(response.accessToken);
+            }
         }),
-
-        refreshToken: build.mutation<ILoginResponseDecoded, void>({
+        refreshToken: builder.mutation<ILoginResponseDecoded, void>({
             query: () => ({
-                url: `/refresh-token`,
+                url: `/Authenticate/refresh-token`,
                 method: 'POST',
-                body: {
+                data: {
                     accessToken: getAccessToken(),
                     refreshToken: getRefreshToken(),
                 },
-                responseHandler: async (response) => {
-                    const data = await response.json() as IAuthResponse;
-                    saveTokensStorage(data)
-                    return jwtDecode<ILoginResponseDecoded>(data.accessToken)
-                },
-            })
+            }),
+            transformResponse: (response: any) => {
+                saveTokensStorage(response); // Сохранение токенов в куки
+                return jwtDecode(response.accessToken);
+            }
         }),
-    
-        // async logout() {
-        //     removeFromStorage()
-        // }
-    })
-})
+    }),
+});
+
+// export const { useGetUserDataQuery, useUserLoginMutation, useRefreshTokenMutation } = UserAPI;
