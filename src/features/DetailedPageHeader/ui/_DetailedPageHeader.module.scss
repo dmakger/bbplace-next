@@ -54,6 +54,8 @@
             gap: 10px;
             width: 100%;
             overflow-x: auto;
+            padding: 5px;
+            padding-right: 0px;
 
             &::-webkit-scrollbar {
                 display: none;

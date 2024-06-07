@@ -3,15 +3,40 @@
     flex-direction: column;
     gap: 10px;
 
+    .mainBlock{
+        flex-direction: column;
+    }
+
     .wholesale{
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
         width: 100%;
+        padding: 10px 20px;
+
+        @media (max-width: 425px) {
+            flex-direction: column;
+            align-items: flex-start;
+        }
 
         .quantity{
+            font-size: var(--font-size-reg);
             font-weight: var(--font-weight-light);
+            @media (max-width: 768px) {
+                font-size: var(--font-size-s);
+            }
         }
+
+        .price{
+            font-size: var(--font-size-sm);
+            @media (max-width: 768px) {
+                font-size: var(--font-size-reg);
+            }
+        }
+    }
+
+    .evenNumbered{
+        background-color: var(--n-gray-6);
     }
 
     

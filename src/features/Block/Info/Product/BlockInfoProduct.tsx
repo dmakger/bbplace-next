@@ -26,9 +26,12 @@ export const BlockInfoProduct: FC<BlockInfoProductProps> = ({ product, className
 
     return (
         <div className={cls(cl.priceBlock, className)}>
-            <PriceQuantity wholesales={priceList} classNameWholesaleBlock={cl.wholesale}
+            <PriceQuantity wholesales={priceList} 
+                className={cl.mainBlock}
+                classNameWholesaleBlock={cl.wholesale}
                 classNameQuantity={cl.quantity}
-                classNamePrice={cl.price} />
+                classNamePrice={cl.price}
+                classNameForEvenNumbered={cl.evenNumbered} />
         </div>
     )
 }

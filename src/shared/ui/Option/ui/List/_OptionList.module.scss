@@ -7,7 +7,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 0 16px;
+        padding: 0 20px;
 
 
         .listTitle{
@@ -32,7 +32,7 @@
         display: flex;
         flex-wrap: wrap;
         gap: 12px;
-        padding: 0 16px;
+        padding: 0 20px;
         
         @media (max-width: 1024px) {
             flex-wrap: nowrap;

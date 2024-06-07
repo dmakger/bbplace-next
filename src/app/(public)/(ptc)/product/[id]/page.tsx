@@ -49,9 +49,6 @@ export default function ProductDetailPage() {
     const [productSizes, setProductSizes] = useState<IOption[]>([])
     const [choosenSize, setChoosenSize] = useState<IOption[]>([])
 
-    const sizesP = [40,41,42,43,44,45,46,47,48,49,50]
-
-
     //REF
     const { ref, inView, } = useInView({
         threshold: 0,
@@ -124,6 +121,9 @@ export default function ProductDetailPage() {
         }
     }
 
+    //VARIABLE
+    const productWholesalePrices = product.media.wholesalePrices;
+    
     //FUNCTION
     const chooseSize = (it: IOption) => setChoosenSize([it]);
 
@@ -176,7 +176,8 @@ export default function ProductDetailPage() {
                             className={cls(cl.MobileOrderFooter, !inView ? cl.visible : '')} 
                             supplierId={product.ownerId ?? ''}
                             firstStart="От "
-                            wholesalePrices={getDiapason(product.media.wholesalePrices, product.media.sizes)} />
+                            wholesalePrices={productWholesalePrices.length > 0 ? [getDiapason(productWholesalePrices, product.media.sizes)[0]] : []}
+                             />
                     </WrapperBlock>
                     
                 </div>
