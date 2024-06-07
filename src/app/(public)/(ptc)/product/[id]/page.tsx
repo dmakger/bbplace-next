@@ -9,12 +9,8 @@ import Wrapper1280 from "@/shared/ui/Wrapper/1280/Wrapper1280";
 import { CatalogImage } from "@/widgets/CatalogImage/CatalogImage";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import cl from './_ProductDetailPage.module.scss'
-import { WrapperBlock } from "@/shared/ui/Wrapper/Block/WrapperBlock";
-import { BlockInfoProduct } from "@/features/Block/Info/Product/BlockInfoProduct";
+import cl from './_ProductDetailPage.module.scss';
 import { skipToken } from "@reduxjs/toolkit/query";
-import { OptionList } from "@/shared/ui/Option/ui/List/OptionList";
-import { productListToOptionList } from "@/entities/Product/lib/option.product.lib";
 import { DetailedPageHeader } from "@/features/DetailedPageHeader";
 import { getDataHeadingToTextProductTable } from "@/shared/ui/Text/lib/htt.product.lib";
 import { ReviewAPI } from "@/entities/Review/api/review.api";
@@ -32,11 +28,10 @@ import { UserAPI } from "@/entities/Auth/api/auth.api";
 import { ISupplier } from "@/entities/Supplier/model/supplier.model";
 import { supplierApiToSupplier } from "@/entities/Supplier/lib/process.supplier.lib";
 import { IOption } from "@/shared/model/option.model";
-import { Button, ButtonVariant } from "@/shared/ui/Button";
-import { DASHBOARD_PAGES } from "@/config/pages-url.config";
 import { getDiapason } from "@/entities/Metrics/lib/metrics/diapason.metrics.metrics.lib";
 import { cls } from "@/shared/lib/classes.lib";
 import { useInView } from "react-intersection-observer";
+import { MainInfoProduct } from "@/features/Block/Info/Product";
 
 export default function ProductDetailPage() {
     // ROUTER
@@ -50,7 +45,7 @@ export default function ProductDetailPage() {
     const [choosenSize, setChoosenSize] = useState<IOption[]>([])
 
     //REF
-    const { ref, inView, } = useInView({
+    const { ref, inView } = useInView({
         threshold: 0,
     });
 
@@ -86,7 +81,7 @@ export default function ProductDetailPage() {
     }, [productAPIListGroup, currencyList, metrics]);
 
     useEffect(() => {
-        let sizes: string[] =  ['40','41','42','43','44','45','46','47','48','49','50', '48','49','50'];
+        let sizes: string[] = ['40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '48', '49', '50'];
         // if (product && product.media.sizes && product.media.sizes[0])
         //     if (typeof (product.media.sizes[0].size === 'string')) {
         //         sizes = product.media.sizes[0].size.split(',') ?? [];
@@ -123,7 +118,6 @@ export default function ProductDetailPage() {
 
     //VARIABLE
     const productWholesalePrices = product.media.wholesalePrices;
-    
     //FUNCTION
     const chooseSize = (it: IOption) => setChoosenSize([it]);
 
@@ -137,6 +131,17 @@ export default function ProductDetailPage() {
                         tableData={getDataHeadingToTextProductTable({ product, isDetailedPageHeader: true, itemRating: itemScore, itemReviews: itemReviews?.length })}
                     />
                     <CatalogImage imageList={[...product?.media.attachments, ...product?.media.attachments, ...product?.media.attachments]} hasMaximize={true} />
+                    <div className={cl.mainInfoProduct} ref={ref}>
+                        <MainInfoProduct
+                            className={cl.mobileInfo}
+                            product={product}
+                            productListGroup={productListGroup}
+                            productSizes={productSizes}
+                            chooseSize={chooseSize}
+                            choosenSize={choosenSize}
+                            inView={inView} />
+                    </div>
+                    
                     <SupplierWNav
                         className={cl.supplierBlock}
                         classNameSupplier={cl.baseSupplier}
@@ -153,33 +158,22 @@ export default function ProductDetailPage() {
                         optionsTab={PRODUCT_PAGE_OPTIONS_TAB} />
                 </div>
                 <div className={cl.right}>
-                    <WrapperBlock className={cl.wrapper}>
-                        <BlockInfoProduct product={product} className={cls(cl.wholesaleProduct, inView ? cl.hidden : '')}  />
-                        <OptionList title="Цвет: "
-                            optionList={productListToOptionList(productListGroup)}
-                            activeIds={[product.id]}
-                            isOnHover />
-                        {productSizes.length > 0 && <OptionList title="Размеры: "
-                            optionList={productSizes}
-                            activeIds={[choosenSize[0]?.id]}
-                            onClickItem={chooseSize}
-                            classNameItem={cl.optionItem}
-                            isSizes
-                        />}
-                        <div className={cl.buttonContainer} ref={ref}>
-                            <Button variant={ButtonVariant.BACKGROUND_RED}
-                                href={DASHBOARD_PAGES.CURRENT_CHAT(product.ownerId ?? '')}
-                                title="Заказать" />
-                        </div>
-                        
-                        <MobileOrderFooter 
-                            className={cls(cl.MobileOrderFooter, !inView ? cl.visible : '')} 
+
+                        <MainInfoProduct 
+                            product={product}
+                            productListGroup={productListGroup}
+                            productSizes={productSizes}
+                            chooseSize={chooseSize}
+                            choosenSize={choosenSize}
+                        />
+
+                        <MobileOrderFooter
+                            className={cls(cl.MobileOrderFooter, !inView ? cl.visible : '')}
                             supplierId={product.ownerId ?? ''}
                             firstStart="От "
                             wholesalePrices={productWholesalePrices.length > 0 ? [getDiapason(productWholesalePrices, product.media.sizes)[0]] : []}
-                             />
-                    </WrapperBlock>
-                    
+                        />
+                   
                 </div>
             </div>
         </Wrapper1280>
