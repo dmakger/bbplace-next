@@ -1,7 +1,7 @@
 .Table {
     flex-direction: column;
     gap: 0px;
-    border: 1px solid var(--n-gray-3);
+    border-top: 1px solid var(--n-gray-3);
     border-left: none;
     border-right: none;
 
@@ -11,10 +11,11 @@
         border-right: none;
         transition-duration: 0.3s;
 
+
         &:hover {
-            border: 1px solid var(--primary-border);
-            border-left: none;
-            border-right: none;
+            border: 1px solid var(--primary-border) !important;
+            border-left: none !important;
+            border-right: none !important;
             transition-duration: 0.3s;
 
             & span {
@@ -23,6 +24,10 @@
 
             }
         }
+    }
+
+    .lastRow{
+        border-bottom: 1px solid var(--n-gray-3) !important;
     }
 
     .headingItem {

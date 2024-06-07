@@ -51,6 +51,7 @@ export const ProductTable = ({
                 classNameRow={cl.tableRow}
                 classNameHeadingItem={cl.headingItem}
                 classNameTextItem={cl.textItem}
+                classNameLastRow={cl.lastRow}
             />
         </div>
 

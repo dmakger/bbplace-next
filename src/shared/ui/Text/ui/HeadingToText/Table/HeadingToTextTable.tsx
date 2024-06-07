@@ -15,6 +15,7 @@ interface IHeadingToTextTable {
     classNameMainBlock?: string,
     classNameMain?: string,
     classNameRow?: string,
+    classNameLastRow?: string,
     classNameColumn?: string,
     classNameHeadingItem?: string,
     classNameTextItem?: string
@@ -31,6 +32,7 @@ export const HeadingToTextTable = ({
     classNameMain,
     classNameColumn,
     classNameRow,
+    classNameLastRow,
     classNameHeadingItem,
     classNameTextItem
 }: IHeadingToTextTable) => {
@@ -52,7 +54,7 @@ export const HeadingToTextTable = ({
                                 hasSpace={hasSpace}
                                 classNameRow={cls(
                                     classNameRow,
-                                    index === data.length - 1 ? cl.noBorder : '',
+                                    index === data.length - 1 ? (cl.noBorder, classNameLastRow) : '',
                                     index === 0 ? cl.topBorder : '')}
                                 classNameHeading={classNameHeadingItem}
                                 classNameText={classNameTextItem}

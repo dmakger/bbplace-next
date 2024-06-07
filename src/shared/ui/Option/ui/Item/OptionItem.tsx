@@ -33,17 +33,16 @@ export const OptionItem: FC<OptionItemProps> = ({ option,
     
 
     const html = (
-        <div className={cl.optionItemContainer}>
-            {isOnHover && !isList && 
-            <HoverWindow text={option.name} image={optionParamsImage} className={cl.hoverWindow}/>}
+        
             <div className={cls(cl.optionItem, isList ? cl.row : '')}>
+                     {isOnHover && !isList &&        <HoverWindow text={option.name} image={optionParamsImage} className={cl.hoverWindow}/>}
+
                 {optionParamsImage &&
                     <ImageAPI src={`${optionParamsImage}`} className={cl.image} width={48} height={48} />
                 }
                 {(isSizes || isList) && <span className={cl.name}>{option.name}</span>}
             </div>
 
-        </div>
     )
     if (option.params?.href === undefined)
         return (

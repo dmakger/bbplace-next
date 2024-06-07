@@ -49,6 +49,8 @@ export default function ProductDetailPage() {
     const [productSizes, setProductSizes] = useState<IOption[]>([])
     const [choosenSize, setChoosenSize] = useState<IOption[]>([])
 
+    const sizesP = [40,41,42,43,44,45,46,47,48,49,50]
+
 
     //REF
     const { ref, inView, } = useInView({
@@ -87,14 +89,14 @@ export default function ProductDetailPage() {
     }, [productAPIListGroup, currencyList, metrics]);
 
     useEffect(() => {
-        let sizes: string[] = []
-        if (product && product.media.sizes && product.media.sizes[0])
-            if (typeof (product.media.sizes[0].size === 'string')) {
-                sizes = product.media.sizes[0].size.split(',') ?? [];
-            }
-            else {
-                sizes = [product.media.sizes[0].size];
-            }
+        let sizes: string[] =  ['40','41','42','43','44','45','46','47','48','49','50', '48','49','50'];
+        // if (product && product.media.sizes && product.media.sizes[0])
+        //     if (typeof (product.media.sizes[0].size === 'string')) {
+        //         sizes = product.media.sizes[0].size.split(',') ?? [];
+        //     }
+        //     else {
+        //         sizes = [product.media.sizes[0].size];
+        //     }
 
         const transformedOptions = sizes.map((item, index) => {
             return { id: index, name: item.toString() } as IOption;
