@@ -31,6 +31,7 @@
     .itemContainer{
         display: flex;
         flex-wrap: wrap;
+        align-items: center;
         gap: 12px;
         padding: 0 20px;
         
@@ -42,6 +43,18 @@
             &::-webkit-scrollbar {
                 display: none;
                }
+        }
+
+        .restSizesButton{
+            padding: 0px 15px;
+            height: 40px;
+            background-color: var(--background-1);
+            color: var(--font-caption);
+            font-size: var(--font-size-s);
+            font-weight: var(--font-weight-med);
+            @media (max-width: 1024px) {
+                display: none;
+            }
         }
     }
 

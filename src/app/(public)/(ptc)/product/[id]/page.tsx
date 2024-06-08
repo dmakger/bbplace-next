@@ -82,7 +82,7 @@ export default function ProductDetailPage() {
     }, [productAPIListGroup, currencyList, metrics]);
 
     useEffect(() => {
-        let sizes: string[] = ['40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '48', '49', '50'];
+        let sizes: string[] = ['40', '4dasdasdasdsadasdasdsdd1', '42', '4dsadasdsad3', '44', '45', '45', '45', '45', '4dasdasdasdsadasdasdsdd1', '42', '4dsadasdsad3', '44', '45',];
         // if (product && product.media.sizes && product.media.sizes[0])
         //     if (typeof (product.media.sizes[0].size === 'string')) {
         //         sizes = product.media.sizes[0].size.split(',') ?? [];

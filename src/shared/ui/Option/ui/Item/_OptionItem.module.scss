@@ -49,10 +49,19 @@
                 transition-duration: 0.2s;
             }
         }
+
+        .name {
+            display: --webkit-box;
+            max-width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
     }
 
     .row {
         flex-direction: row;
+        gap: 10px;
     }
 
     .image {
@@ -65,9 +74,6 @@
         transition-duration: 0.3s;
     }
 
-    .name {
-        margin-left: 10px;
-    }
 }
 
 .listItem {

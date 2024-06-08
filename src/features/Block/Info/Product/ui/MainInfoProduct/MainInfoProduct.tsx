@@ -34,7 +34,7 @@ export const MainInfoProduct = ({
                 optionList={productListToOptionList(productListGroup)}
                 activeIds={[product.id]}
                 isOnHover />
-            {productSizes.length > 0 && <OptionList title="Размеры: "
+            {productSizes.length > 0 && <OptionList title="Размер: "
                 optionList={productSizes}
                 activeIds={[choosenSize[0]?.id]}
                 onClickItem={chooseSize}
