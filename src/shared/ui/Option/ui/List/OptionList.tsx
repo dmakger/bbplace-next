@@ -50,6 +50,7 @@ export const OptionList: FC<OptionListProps> = ({
 
             const optionsWidthArray = itemsWidths.slice(0, optionList.length);
             let sum = 0;
+            //длина массива, элементы которого вместятся в заданную ширину
             let visibleArrayLength = 0;
 
             for (let i = 0; i < optionsWidthArray.length; i++) {

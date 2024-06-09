@@ -67,9 +67,6 @@ export const DetailedPageHeader = ({
                     supplierId={supplierId ?? ''}
                     wholesalePrices={wholesalePrices ?? []}
                     isTop />
-                <MobileOrderFooter className={!inView ? cl.visible : ''}
-                    supplierId={supplierId ?? ''}
-                    wholesalePrices={wholesalePrices ?? []}/>
             </div>}
         </div>
     )

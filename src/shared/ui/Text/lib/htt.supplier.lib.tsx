@@ -1,7 +1,5 @@
 import { getHeadingToText } from "@/shared/lib/headingToText.lib";
 import { IGetDataHeadingToTextSupplierTable, IGetDataHeadingToTextSupplierTableVariant, IHeadingToText } from "@/shared/model/text.model";
-import { InfoItem } from "@/shared/ui/InfoItem";
-import { EInfoItemColor } from "@/shared/ui/InfoItem/model/infoItem.model";
 import { Rating } from "@/shared/ui/Rating";
 
 

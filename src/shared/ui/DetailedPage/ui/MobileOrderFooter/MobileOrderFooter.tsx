@@ -13,7 +13,8 @@ interface IMobileOrderFooter {
     supplierId: string
     product?: IProduct,
     wholesalePrices: IWholesale[]
-    isTop?: boolean
+    isTop?: boolean,
+    classNamePriceQuantity?: string
 }
 
 export const MobileOrderFooter = ({
@@ -21,7 +22,8 @@ export const MobileOrderFooter = ({
     firstStart = 'За ',
     supplierId,
     wholesalePrices,
-    isTop = false
+    isTop = false,
+    classNamePriceQuantity
 }: IMobileOrderFooter) => {
   
 
@@ -29,11 +31,13 @@ export const MobileOrderFooter = ({
         <div className={cls(!isTop ? cl.MobileOrderFooter : cl.topMobileOrderFooter, className)} >
             <PriceQuantity
                 wholesales={wholesalePrices ?? []}
-                className={cl.priceQuantity}
+                className={cls(cl.priceQuantity, classNamePriceQuantity)}
                 classNameWholesaleBlock={cl.wholesaleBlock}
                 firstStart={firstStart}
                 classNameQuantity={cl.quantity}
-                classNamePrice={cl.price} />
+                classNamePrice={cl.price}
+                classNameOneItem={cl.onRequest} />
+                
             <div className={cl.buttonContainer}>
                 <Button variant={ButtonVariant.BACKGROUND_RED}
                     size={ButtonSize.Medium}

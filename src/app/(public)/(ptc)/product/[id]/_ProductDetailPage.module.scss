@@ -7,7 +7,6 @@
 
     @media (max-width: 1024px) {
         flex-direction: column;
-        padding-bottom: 60px;
     }
 
     @media (max-width: 768px) {
@@ -115,6 +114,10 @@
                 display: none;
             }
         }
+
+        .mobilePriceQuantity{
+            justify-content: flex-start;
+        }
     }
 }
 
@@ -126,5 +129,11 @@
 
     @media (max-width: 768px) {
         display: none;
+    }
+}
+
+.paddingBottom{
+    @media (max-width: 1024px) {
+        padding-bottom: 60px;
     }
 }

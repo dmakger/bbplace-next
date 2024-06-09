@@ -13,10 +13,10 @@
     }
 
     &:active {
+        scale: 0.98;
         & img {
-            outline: 2px solid var(--secondary);
             border: 2px solid var(--secondary);
-            transition-duration: 0.3s;
+            transition-duration: 0.1s;
         }
     }
 
@@ -34,21 +34,24 @@
             }
         }
 
-
-        &:hover {
-            .hoverWindow {
-                visibility: visible;
-                opacity: 1;
-                transition-duration: 0.2s;
+        @media (min-width: 1024px) {
+            &:hover {
+                .hoverWindow {
+                    visibility: visible;
+                    opacity: 1;
+                    transition-duration: 0.2s;
+                }
+            } 
+            &:active {
+                .hoverWindow {
+                    opacity: 0;
+                    transition-duration: 0.2s;
+                }
             }
         }
+        
 
-        &:active {
-            .hoverWindow {
-                opacity: 0;
-                transition-duration: 0.2s;
-            }
-        }
+        
 
         .name {
             display: --webkit-box;
@@ -69,8 +72,7 @@
         height: 48px;
         object-fit: cover;
         border-radius: 24px;
-        border: 2px solid transparent;
-        outline: 2px solid var(--secondary);
+        border: 1px solid var(--secondary);
         transition-duration: 0.3s;
     }
 

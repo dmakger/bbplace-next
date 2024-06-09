@@ -24,8 +24,7 @@
 
     
     .buttonContainer{
-
-        width: 100%;
+        width: 40%;
         .button{
             width: 100%;
         }
@@ -107,7 +106,7 @@
 }
 
 .priceQuantity{
-    justify-content: flex-start;
+    justify-content: flex-end;
     align-items: center;
     overflow-x: auto; 
     white-space: nowrap;

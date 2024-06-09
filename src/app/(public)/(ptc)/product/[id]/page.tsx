@@ -124,7 +124,7 @@ export default function ProductDetailPage() {
 
     return (
         <Wrapper1280>
-            <div className={cl.wrapper}>
+            <div className={cls(cl.wrapper, !inView ? cl.paddingBottom : '')}>
                 <div className={cl.left}>
                     <DetailedPageHeader
                         id={product.id}
@@ -168,9 +168,9 @@ export default function ProductDetailPage() {
                             choosenSize={choosenSize}
                         />
 
-                        
                     </WrapperBlock>
                     <MobileOrderFooter
+                            classNamePriceQuantity={cl.mobilePriceQuantity}
                             className={cls(cl.MobileOrderFooter, !inView ? cl.visible : '')}
                             supplierId={product.ownerId ?? ''}
                             firstStart="От "
