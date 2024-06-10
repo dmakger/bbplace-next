@@ -102,7 +102,7 @@ export const OptionList: FC<OptionListProps> = ({
                             itemsWidths={itemsWidths}
                         />
                     ))}
-                    {isSizes && restOptionsList && <Button
+                    {isSizes && restOptionsList.length > 0 && <Button
                         variant={ButtonVariant.DEFAULT}
                         color={ButtonColor.Secondary}
                         className={cl.restSizesButton}>

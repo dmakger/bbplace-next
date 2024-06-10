@@ -82,21 +82,26 @@ export default function ProductDetailPage() {
     }, [productAPIListGroup, currencyList, metrics]);
 
     useEffect(() => {
-        let sizes: string[] = ['40', '4dasdasdasdsadasdasdsdd1', '42', '4dsadasdsad3', '44', '45', '45', '45', '45', '4dasdasdasdsadasdasdsdd1', '42', '4dsadasdsad3', '44', '45',];
-        // if (product && product.media.sizes && product.media.sizes[0])
-        //     if (typeof (product.media.sizes[0].size === 'string')) {
-        //         sizes = product.media.sizes[0].size.split(',') ?? [];
-        //     }
-        //     else {
-        //         sizes = [product.media.sizes[0].size];
-        //     }
-
-        const transformedOptions = sizes.map((item, index) => {
-            return { id: index, name: item.toString() } as IOption;
-        });
+        let sizes: string[] = [];
+        
+        if (product?.media?.sizes?.length) {
+            const firstSize = product.media.sizes[0];
+    
+            if (product.media.sizes.length < 2 && typeof firstSize.size === 'string') {
+                sizes = firstSize.size.split(',').map(size => size.trim());
+            } else if (typeof firstSize.size === 'number') {
+                sizes = product.media.sizes.map(it => it.size.toString());
+            }
+        }
+    
+        const transformedOptions = sizes.map((item, index) => ({
+            id: index,
+            name: item
+        } as IOption));
+    
         setProductSizes(transformedOptions);
-
-    }, [product])
+    
+    }, [product]);
 
     // HTML
     if (!product) return
