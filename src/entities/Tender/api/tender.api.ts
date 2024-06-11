@@ -3,7 +3,7 @@ import {fetchBaseQuery} from "@reduxjs/toolkit/query";
 import { options } from "@/api/interceptors";
 import { IArgsRequest } from "@/api/model/request.model.api";
 import { getURL } from "@/api/request";
-import { IPurchaseTender, ISaleTender, ITenderAPI, ITenderByTwoObjectsAPI } from "../model/tender.model";
+import { ETenderType, IPurchaseTender, ISaleTender, ITenderAPI, ITenderByTwoObjectsAPI } from "../model/tender.model";
 import { getArgsTender } from "../lib/args.tender.lib";
 
 
@@ -33,6 +33,14 @@ export const TenderAPI = createApi({
                 params: args?.params
             })
         }),
+
+        // TENDER BY TYPE
+        getTender: build.query<ITenderAPI, {tenderId: number, type: ETenderType}>({
+            query: ({tenderId, type}) => ({
+                url: `/GetTender/?id=${tenderId}&type=${type}`
+            })
+        }),
+
         //SALE TENDERS
         getSaleTenderById: build.query<ITenderAPI, number>({
             query: (tenderId) => ({

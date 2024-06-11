@@ -45,10 +45,12 @@ export const Button = ({
     onClick=()=>{}, onMouseEnter=()=>{}, onMouseLeave=()=>{},
     children, className, classNameText,
 }: IButton) => {
+
+    // STYLES
+    const classes = variant.split(' ')    
+
     // STATE
     const [isHovered, setIsHovered] = useState(false)
-
-    const classes = variant.split(' ')    
 
     // HANDLE
     const handleOnMouseEnter = () => {

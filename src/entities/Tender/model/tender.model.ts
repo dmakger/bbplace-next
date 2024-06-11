@@ -19,7 +19,7 @@ export interface IBaseTender {
     description: string
     shareContacts: boolean
     createdAt: string
-    type?: string
+    type?: ETenderType
 }
 
 export interface ITenderAttachments{
