@@ -54,7 +54,7 @@ export const FilterCompaniesCatalog = ({
                         name="minOrder"
                         type='number'
                         placeholder='Введите число'
-                        variant={EInputTextVariant.W_HOVERED}
+                        variantInputText={EInputTextVariant.W_HOVERED}
                         defaultValue={filter[CORE_PARAMS.MIN_ORDER_QUANTITY] as string}
                         onChange={handleOnClickMinOrder} />
         </div>

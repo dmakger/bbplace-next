@@ -5,10 +5,13 @@ import cl from './_InputText.module.scss'
 import { ChangeEvent, useEffect, useRef } from 'react'
 import { WrapperTitleInput } from '@/shared/ui/Wrapper/Title/Input/WrapperTitleInput'
 import { EInputTextVariant } from '../data/text.input.data'
+import { EInputSizes, EInputVariants } from '../../model/input.model'
 
 interface InputTextProps {
+    variant?: EInputVariants,
+    size?: EInputSizes,
     title?: string
-    variant?: EInputTextVariant
+    variantInputText?: EInputTextVariant
     name?: string
     placeholder?: string
     className?: string,
@@ -18,8 +21,10 @@ interface InputTextProps {
 }
 
 export function InputText({
+    variant = EInputVariants.RECTANGULAR,
+    size = EInputSizes.NONE,
     title,
-    variant=EInputTextVariant.DEFAULT,
+    variantInputText=EInputTextVariant.DEFAULT,
     className,
     type = 'text',
     onChange = () => {},
@@ -36,7 +41,7 @@ export function InputText({
 
     return (
         <WrapperTitleInput title={title}>
-            <input className={cls(variant === EInputTextVariant.W_HOVERED ? cl.wHovered : '', cl.input, className)}
+            <input className={cls(cl[variant], variantInputText === EInputTextVariant.W_HOVERED ? cl.wHovered : '', cl.input, cl[size],className)}
                    ref={inputRef}
                    type={type}
                    defaultValue={defaultValue}

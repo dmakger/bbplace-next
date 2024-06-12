@@ -1,6 +1,16 @@
-.options {
+.rounded{
     padding: 5px;
     border-radius: 16px;
-    // background-color: var(--background);
     background-color: var(--gray-3);
+}
+
+.rectangular{
+    background-color: var(--background-2);
+    border: 1px solid var(--tertiary-pressed);
+    border-top: none;
+    border-radius: 0 0 5px 5px;
+    
+    .lastEl{
+        border-radius: 0 0 5px 5px;
+    }
 }
