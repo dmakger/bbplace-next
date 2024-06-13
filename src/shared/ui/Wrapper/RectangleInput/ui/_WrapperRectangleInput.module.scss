@@ -1,0 +1,71 @@
+.WrapperRectangleInput{
+    display: flex;
+    flex-direction: column;
+
+    .labelNTooltipContainer{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .label{
+            background-color: var(--tertiary-surface-low);
+            padding: 10px 10px 5px 10px;
+            border-radius: 5px 5px 0 0;
+            color: var(--font-caption);
+        }
+
+        .tooltipsContainer{
+            display: flex;
+            gap: 18px;
+
+            & div{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 50%;
+                width: 25px;
+                height: 25px;
+                background-color: transparent;
+                cursor: pointer; 
+                transition: 0.3s;
+            }
+
+            .warningIconContainer{
+
+                &:hover{
+                    background-color: var(--negative-surface);
+                    transition: 0.3s;
+
+
+                }
+
+                .warningIcon{
+                }
+            }
+
+            .descriptionIconContainer{
+
+
+                .descriptionIcon{
+                    cursor: pointer;
+                }
+            }    
+        }
+
+        
+    }
+
+    .inputsContainer{
+        background-color: var(--tertiary-surface-low);
+        padding: 5px;
+        border-radius: 0 5px 5px 5px;
+    }
+
+    .errorMessage{
+        padding: 10px;
+        background-color: var(--negative-surface);
+        border-radius: 0 0 5px 5px;
+        border-top: 1px solid var(--background-2);
+        color: var(--negative);
+    }
+}

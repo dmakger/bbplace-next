@@ -43,8 +43,11 @@
   --n-red-2: #D71E23;
   --n-red-3: #AA181C;
   --n-red-4: #CA2B3E;
+  --n-red-5: #A12232;
   --n-red-light-1: #F19C9F;
   --n-red-light-2: #FCE9E9;
+  --n-red-light-3: #FBEAEC;
+
 
   --n-blue-1: #556290;
   --n-blue-2: #424C70;
@@ -115,6 +118,9 @@
   --tertiary-pressed: var(--n-blue-5);
   --tertiary-surface-low: var(--n-gray-6);
   --tertiary-surface: var(--n-gray-7);
+
+  --negative: var(--n-red-5);
+  --negative-surface: var(--n-red-light-3);
 
 
   --rating-surface: var(--n-yellow-1);

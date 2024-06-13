@@ -9,6 +9,12 @@ export interface IIcon {
     activePressed?: string
 }
 
+export interface IWarningIcon{
+    default: string,
+    negative?: string,
+    positive?: string
+}
+
 export enum FavouriteIconVariant{
     EMPTY = 'empty-heart',
     IN_CIRCLE_HEART = 'in-circle-heart'
