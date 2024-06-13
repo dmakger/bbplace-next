@@ -5,3 +5,7 @@ export const getImage = (image: string) => {
         return image
     return `${START_IMAGE_URL}/${image}`
 }
+
+// export const getOnlyImage = (images: string[]) => {
+//     return images.filter(it => it.)
+// }
