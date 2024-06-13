@@ -1,6 +1,7 @@
 import { UserAPI } from "@/entities/Auth/api/auth.api";
 import { UserReducer } from "@/entities/Auth/storage/auth.storage";
 import { FavouriteAPI } from "@/entities/Favourite/api/favourite.api";
+import { FileAPI } from "@/entities/File/api/file.api";
 import { CategoryAPI } from "@/entities/Metrics/api/category.metrics.api";
 import { CountryAPI } from "@/entities/Metrics/api/country.metrics.api";
 import { CurrencyAPI } from "@/entities/Metrics/api/currency.metrics.api";
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
     user: UserReducer,
 
     [UserAPI.reducerPath]: UserAPI.reducer,
+    [FileAPI.reducerPath]: FileAPI.reducer,
     [ProductAPI.reducerPath]: ProductAPI.reducer,
     [SupplierAPI.reducerPath]: SupplierAPI.reducer,
     [ReviewAPI.reducerPath]: ReviewAPI.reducer,
@@ -46,6 +48,7 @@ export const setupStore = () => {
                 serializableCheck: false
             }).concat(
                 UserAPI.middleware,
+                FileAPI.middleware,
                 ProductAPI.middleware,
                 SupplierAPI.middleware,
                 ReviewAPI.middleware,

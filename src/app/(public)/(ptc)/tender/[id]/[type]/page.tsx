@@ -24,8 +24,11 @@ import { ImageSlide } from '@/widgets/Slider/Image/Default/Item/ImageSlide';
 import { WrapperBlock } from '@/shared/ui/Wrapper/Block/WrapperBlock';
 import { IFile } from '@/entities/File/model/file.model';
 import { FileFormat } from '@/entities/File/data/file.data';
-import { filterFilesByFormat, filesToFormatObject } from '@/entities/File/lib/file.lib';
+import { filterFilesByFormat, filesToFormatObject, getAllFormatsByFileFormat } from '@/entities/File/lib/file.lib';
 import { FileListItem } from '@/entities/File/ui/List/FileListItem';
+import { FileAPI } from '@/entities/File/api/file.api';
+import { IAttachment } from '@/shared/model/attachment.model';
+import { FileBlock } from '@/entities/File/ui/Block/FileBlock';
 
 
 export default function TenderPage() {
@@ -45,7 +48,7 @@ export default function TenderPage() {
     const { data: tenderAPI } = TenderAPI.useGetTenderQuery({tenderId: +tenderId, type: tenderTypeParams});
     const { data: currencyList } = CurrencyAPI.useGetCurrenciesQuery()
     const { data: metrics } = MetricsAPI.useGetMetricsQuery()
-
+    const [getFile] = FileAPI.useGetFileMutation()
 
     console.log('tender', tender)
 
@@ -57,14 +60,25 @@ export default function TenderPage() {
     }, [tenderAPI, metrics, currencyList])
 
     useEffect(() => {
-        if (!tender) return
-
-        const filesAsString = tender.attachments.map((it: ITenderAttachments) => it.key)
-
+        if (!tender) return;
+    
+        const filesAsString = tender.attachments.map((it: ITenderAttachments) => it.key);
         setImages(filterFilesByFormat(filesAsString, FileFormat.IMAGE) as string[]);
-        const _files = filesToFormatObject(filesAsString)
-        setFiles(filterFilesByFormat(_files, FileFormat.FILE) as IFile[]);
-    }, [tender])
+
+        const fetchFiles = async () => {
+            const _files = filterFilesByFormat((tender.attachments as IAttachment[]), FileFormat.FILE) as IFile[];
+            const filePromises = _files.map(async it => {
+                if (it.url === undefined) return it;
+                const f = await getFile({ fileId: it.url, toFile: true }).unwrap() as IFile;
+                return {...f, name: it.name};
+            });
+    
+            const fetchedFiles = await Promise.all(filePromises);
+            setFiles(fetchedFiles.filter(f => f !== null) as IFile[]);
+        };
+    
+        fetchFiles();
+    }, [tender]);
 
     //MEMO
     const wholesalePrices = useMemo(() => {
@@ -76,10 +90,7 @@ export default function TenderPage() {
     }, [tender, tenderTypeParams]);
 
     
-    if(!tender) return;
-
-    console.log('tender files', files, images);
-    
+    if(!tender) return;    
 
     //OPTIONS
     const TENDER_PAGE_OPTIONS_TABLE: IOptionsTab = {
@@ -130,9 +141,12 @@ export default function TenderPage() {
                         </div>
                         <div className={cl.right}>
                             {files.length > 0 && (
-                                <WrapperBlock className={cl.rightWrapper}>
-                                    <FileListItem files={files} />
-                                </WrapperBlock>
+                                <FileBlock files={files} isRow={true} />
+                            )}
+                        </div>
+                        <div className={cl.right}>
+                            {files.length > 0 && (
+                                <FileBlock files={files} isRow={false} />
                             )}
                         </div>
                     </div>

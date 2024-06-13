@@ -1,6 +1,7 @@
 import { IFileFormat, IFileFormatWType } from "../model/file.model";
 import { FILE_DOC_ICON, FILE_PDF_ICON, FILE_PPT_ICON, FILE_UNKNOWN_ICON, FILE_XLS_ICON } from "../../../shared/ui/Icon/data/file.data.icon";
 import { IIcon } from "../../../shared/ui/Icon/model/model";
+import { getAllFormatsByFileFormat } from "../lib/file.lib";
 
 // ========={ TYPE FILES }=========
 
@@ -21,7 +22,7 @@ export enum FileFormat {
     WEBP = 'webp__image',
 }
 
-export const FILE_FORMAT_TO_CHILD = {
+export const FILE_FORMAT_TO_CHILD: Record<FileFormat, Record<string, IFileFormatWType>> = {
     [FileFormat.WORD]: {
         DOC: {
             value: 'doc',
@@ -31,7 +32,7 @@ export const FILE_FORMAT_TO_CHILD = {
             value: 'docx',
             type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
         } as IFileFormatWType,
-    };
+    },
     [FileFormat.EXCEL]: {
         XLS: {
             value: 'xls',
@@ -41,7 +42,7 @@ export const FILE_FORMAT_TO_CHILD = {
             value: 'xlsx',
             type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         } as IFileFormatWType,
-    };
+    },
     [FileFormat.POWER_POINT]: {
         PPT: {
             value: 'ppt',
@@ -51,19 +52,19 @@ export const FILE_FORMAT_TO_CHILD = {
             value: 'pptx',
             type: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
         } as IFileFormatWType,
-    };
+    },
     [FileFormat.PDF]: {
         PDF: {
             value: 'pdf',
             type: 'application/pdf'
         } as IFileFormatWType,
-    };
+    },
     [FileFormat.TEXT]: {
         TXT: {
             value: 'txt',
             type: 'text/plain'
         } as IFileFormatWType,
-    };
+    },
 
     [FileFormat.JPG]: {
         JPG: {
@@ -74,38 +75,43 @@ export const FILE_FORMAT_TO_CHILD = {
             value: 'jpeg',
             type: 'image/jpeg',
         } as IFileFormatWType,
-    };
+    },
     [FileFormat.PNG]: {
         PNG: {
             value: 'png',
             type: 'image/png',
         } as IFileFormatWType,
-    };
+    },
     [FileFormat.GIF]: {
         GIF: {
             value: 'gif',
             type: 'image/gif',
         } as IFileFormatWType,
-    };
+    },
     [FileFormat.BMP]: {
         BMP: {
             value: 'bmp',
             type: 'image/bmp',
         } as IFileFormatWType,
-    };
+    },
     [FileFormat.WEBP]: {
         WEBP: {
             value: 'webp',
             type: 'image/webp',
         } as IFileFormatWType,
-    };
-}
-// export const FILE_FORMAT_TO_CHILD = new FileFormatToChild()
-
-const getAllFormatsByFileFormat = (format: FileFormat) => {
-    if (!(format in FILE_FORMAT_TO_CHILD))
-        return []
-    // const data = FILE_FORMAT_TO_CHILD[format]
+    },
+    [FileFormat.FILE]: {
+        UNKNOWN: {
+            value: '',
+            type: 'application/octet-stream',
+        } as IFileFormatWType,
+    },
+    [FileFormat.IMAGE]: {
+        UNKNOWN: {
+            value: '',
+            type: 'application/octet-stream',
+        } as IFileFormatWType,
+    }
 }
 
 
@@ -132,15 +138,15 @@ export const FILE_FORMAT_IMAGES: Record<FileFormat, IIcon> = {
 
 // ========={ FORMATS }=========
 
-
 // FILES
-export const WORD_FILE__FORMAT = ['doc', 'docx']
-export const EXCEL_FILE__FORMAT = ['xls', 'xlsx']
-export const POWER_POINT_FILE__FORMAT = ['ppt', 'pptx']
-export const PDF_FILE__FORMAT = ['pdf']
+export const WORD_FILE__FORMAT = getAllFormatsByFileFormat(FileFormat.WORD)
+export const EXCEL_FILE__FORMAT = getAllFormatsByFileFormat(FileFormat.EXCEL)
+export const POWER_POINT_FILE__FORMAT = getAllFormatsByFileFormat(FileFormat.POWER_POINT)
+export const PDF_FILE__FORMAT = getAllFormatsByFileFormat(FileFormat.PDF)
+export const TEXT_FILE__FORMAT = getAllFormatsByFileFormat(FileFormat.TEXT)
 
 // IMAGES
-export const ALL_IMAGE__FORMATS = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'];
+export const ALL_IMAGE__FORMATS = getAllFormatsByFileFormat(FileFormat.IMAGE)
 
 
 // ========={ FORMATS TO DATA }=========
