@@ -1,0 +1,1 @@
+export {MainInfoProduct} from './ui/MainInfoProduct/MainInfoProduct'

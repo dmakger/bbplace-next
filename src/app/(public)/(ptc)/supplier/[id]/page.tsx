@@ -28,7 +28,7 @@ export default function SupplierPage() {
     const supplierId = params.id as string
 
     //API
-    const { data: supplierScore } = ReviewAPI.useGetSupplierScoreQuery(supplierId as string)
+    const { data: supplierRating } = ReviewAPI.useGetSupplierScoreQuery(supplierId as string)
     const { data: supplierReviews } = ReviewAPI.useGetSellerReviewsQuery({ supplierId: supplierId, limit: REVIEW_LIMIT ?? 0, page: REVIEW_START_PAGE })
     const { data: supplierProductsAPI } = ProductAPI.useGetProductsByUserQuery({ userId: supplierId, limit: PRODUCT_LIMIT })
     const { data: supplierAPI } = UserAPI.useGetUserDataQuery(supplierId)    
@@ -47,8 +47,8 @@ export default function SupplierPage() {
     return (
         <Wrapper1280>
             {supplier && <SupplierPageHeader supplier={supplier}
-                supplierScore={supplierScore ?? 0}
-                supplierReviews = {supplierReviews ?? []}
+                supplierRating={supplierRating ?? 0}
+                supplierReviews = {supplierReviews?.length ?? 0}
             />}
             {supplierProducts && <ProductAutoList products={supplierProducts} view={EViewProduct.AT_SUPPLIER_PAGE}/>}
         </Wrapper1280>

@@ -18,7 +18,7 @@ export const Rating = ({
     classNameMainContainer,
     classNameScore,
     classNameNumberOfReviews,
-    numberOfReviews,
+    numberOfReviews = 0,
     rating,
     ratingOutOf = 5,
     hasStar = false

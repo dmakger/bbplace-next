@@ -2,22 +2,24 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    background: var(--white); 
+    background-color: var(--white);
     border-radius: 20px;
 
     @media (max-width: 768px) {
         border-radius: 0px;
     }
 
-    .switchSelectorButton{
-        & > button > label{
+    .switchSelectorButton {
+        &>button>label {
             @media (max-width: 1024px) {
                 font-size: var(--font-size-reg);
             }
         }
     }
-    .optionsTabContainer{
-        padding: 16px;
-        padding-top: 0px;
+
+    .optionsTabContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
     }
 }

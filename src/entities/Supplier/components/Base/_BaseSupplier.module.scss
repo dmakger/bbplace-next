@@ -1,7 +1,48 @@
+.isForDescPage {
+    display: flex;
+    align-items: center;
+    gap: 70px;
+    width: 100%;
+    @media (max-width: 768px) {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
+
+    .DescPageContent {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .bigName {
+            color: var(--font);
+            font-size: var(--font-size-sm) !important;
+            font-weight: var(--font-weight-med) !important;
+
+            @media (max-width: 768px) {
+                text-align: center;
+            }
+        }
+    }
+
+}
+
 .block {
     display: flex;
     align-items: center;
     gap: 15px;
+    transition-duration: 0.3s;
+    border-radius: 20px;
+
+    &:hover {
+        background-color: var(--secondary-surface-sub);
+        transition-duration: 0.3s;
+    }
+
+    &:active {
+        background-color: var(--secondary-surface);
+        transition-duration: 0.3s;
+    }
 
     .image {
         border-radius: 100px;
@@ -14,12 +55,14 @@
         gap: 2px;
 
         .name {
-            font-size: 1rem;
-            white-space: nowrap;        
-            overflow: hidden;
-            text-overflow: ellipsis;
             max-width: 240px;
+            overflow: hidden;
+            color: var(--n-blue-1);
+            font-size: 1rem;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
+
     }
 }
 

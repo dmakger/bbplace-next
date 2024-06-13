@@ -2,7 +2,7 @@ import { ICategory } from "@/entities/Metrics/model/category.metrics.model";
 import { ISupplier } from "../model/supplier.model";
 
 export const getNameSupplier = (supplier: ISupplier) => {
-    if (supplier.brandName)
+    if (supplier.brandName.trim())
         return supplier.brandName
     return supplier.legalName
 }

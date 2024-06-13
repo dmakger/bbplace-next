@@ -19,6 +19,11 @@
     --button-color-surface-sub: var(--secondary-surface-sub);
 }
 
+.tertiary{
+    --button-color: var(--tertiary);
+    --button-color-border: var(--tertiary-border);
+}
+
 // <<< ========={ BUTTON COLOR }========= <<<
 
 .wrapper {
@@ -26,7 +31,9 @@
 }
 
 .button {
-    // width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: auto;
     border-radius: 100px;
 
@@ -138,22 +145,30 @@
 }
 
 .background-white-wide {
-    padding: 13px 68px;
+    padding: 17px 44px;
     background-color: transparent;
-    color: var(--dark-2);
+    color: var(--secondary);
 
     &:hover {
-        background-color: var(--gray-3) !important;
+        background-color: var(--secondary-surface-sub) !important;
+    }
+
+    &:active{
+        background-color: var(--secondary-surface) !important;
     }
 }
 
 .background-white-narrow {
-    padding: 10px 44px;
+    padding: 8px 44px;
     background-color: transparent;
     color: var(--dark-2);
 
     &:hover {
-        background-color: var(--gray-3) !important;
+        background-color: var(--secondary-surface-low);
+    }
+
+    &:active{
+        background-color: var(--secondary-surface);
     }
 }
 
@@ -210,12 +225,14 @@
     }
 }
 .clear {
+    width: 100%;
     padding: 6px 45px;
     background-color: transparent;
-    color: var(--dark-2);
+    border-color: var(--secondary);
+    color: var(--secondary);
 
     &:hover {
-        background-color: var(--gray-3) !important;
+        background-color: var(--secondary-surface-sub) !important;
     }
 }
 
@@ -249,4 +266,22 @@
     }
 }
 
+.bordered-blue{
+    background-color: transparent;
+    color: var(--secondary);
+    border: 1px solid var(--secondary-border);
+    white-space: nowrap;
+
+
+    &:hover {
+        background-color: var(--secondary-surface-sub) !important;
+    }
+
+    &:active{
+        background-color: var(--secondary-surface) !important;
+    }
+}
+
 // <<< ========={ OLD STYLES }========= <<<
+
+

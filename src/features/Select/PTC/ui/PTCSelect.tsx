@@ -46,7 +46,7 @@ export const PTCSelect = ({
         if(activeOption && typeof(item.value) === 'string'){
             const activePTC = item.value as EPTC;
             actionCreators.setViewPTC(activePTC);
-            router.push(`${activePTC}`);
+            router.push(`${window.location.origin}/${activePTC}`);
         }
     }, [view])
 

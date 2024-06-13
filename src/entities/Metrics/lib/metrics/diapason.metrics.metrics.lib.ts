@@ -16,7 +16,6 @@ export const getMinMax = (wholesales: IWholesale[], sizes: ISize[]) => {
 // Получение отсортированного диапазаона цен
 export const getDiapason = (wholesales: IWholesale[], sizes?: ISize[]) => {
     // console.log('wholesales gd', wholesales, sizes);
-    
     let minMetrics: IMetrics | undefined
     let minParameter: EParameters
     if (sizes !== undefined){

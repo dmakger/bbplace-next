@@ -49,16 +49,17 @@
                 gap: 5px;
             }
             .columnTable {
-                display: flex;
-                flex-direction: column;
                 gap: 18px;
                 
-
+                & span{
+                    font-size: var(--font-size-s);
+                }
                 .headingItem{
                     width: 120px;
+                    color: var(--gray-7);
                 }
     
-                & span {
+                .textItem {
                     width: 140px;
                     max-height: calc(1.2em * 4);
                     white-space: normal;
@@ -66,7 +67,6 @@
                     display: -webkit-box;
                     -webkit-line-clamp: 4;
                     -webkit-box-orient: vertical;
-                    font-size: var(--font-size-s);
                     text-overflow: ellipsis;
                     margin-left: 0px;
                     @media (width < 768px) {
@@ -74,10 +74,6 @@
                     }
                 }
             }
-        }
-
-        .headingItem {
-            color: var(--gray-7);
         }
 
     }
