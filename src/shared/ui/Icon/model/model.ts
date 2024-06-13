@@ -9,8 +9,7 @@ export interface IIcon {
     activePressed?: string
 }
 
-export interface IWarningIcon{
-    default: string,
+export interface IWarningIcon extends IIcon{
     negative?: string,
     positive?: string
 }

@@ -15,7 +15,6 @@
 .rectangular {
     border: 1px solid var(--tertiary-border);
     border-radius: 5px;
-    color: var(--font-caption-sub);
     font-weight: var(--font-weight-med);
 
     &:hover{
@@ -27,19 +26,19 @@
         transition-duration: 0.3s;
     }
 
-    .error{
-        color: var(--font);
-        border-color: var(--negative-border);
-        transition-duration: 0.3s;
-    }
-
-    .success{
-        color: var(--font);
-        border-color: var(--positive-border);
-        transition-duration: 0.3s;
-    }
+    
+}
+.error{
+    color: var(--font);
+    border-color: var(--negative-border);
+    transition-duration: 0.3s;
 }
 
+.success{
+    color: var(--font);
+    border-color: var(--positive-border);
+    transition-duration: 0.3s;
+}
 //SIZES
 .default{
     padding: 20px;

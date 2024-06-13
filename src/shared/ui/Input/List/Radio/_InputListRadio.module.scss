@@ -9,6 +9,8 @@
     border: 1px solid var(--tertiary-pressed);
     border-top: none;
     border-radius: 0 0 5px 5px;
+    box-shadow: 0 0 0 5px var(--tertiary-surface);
+    z-index: -1;
     
     .lastEl{
         border-radius: 0 0 5px 5px;

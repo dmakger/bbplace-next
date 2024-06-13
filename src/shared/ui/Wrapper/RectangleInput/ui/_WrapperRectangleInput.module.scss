@@ -6,6 +6,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        gap: 10px;
 
         .label{
             background-color: var(--tertiary-surface-low);
@@ -16,40 +17,43 @@
 
         .tooltipsContainer{
             display: flex;
-            gap: 18px;
+            align-items: center;
 
-            & div{
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                border-radius: 50%;
-                width: 25px;
-                height: 25px;
-                background-color: transparent;
-                cursor: pointer; 
-                transition: 0.3s;
-            }
-
-            .warningIconContainer{
-
+            .button{
+                margin: auto;
+                border: none;
+                padding: 7px;
+                transition: 0.3s;                
+            }  
+            
+            .descButton{
                 &:hover{
-                    background-color: var(--negative-surface);
+                    background-color: var(--tertiary-surface) !important;
                     transition: 0.3s;
-
-
-                }
-
-                .warningIcon{
                 }
             }
 
-            .descriptionIconContainer{
+            .descriptionActive{
+                background-color: var(--tertiary-surface);
+            }
 
-
-                .descriptionIcon{
-                    cursor: pointer;
+            .warnButton{
+                &:hover{
+                    background-color: var(--negative-surface) !important;
+                    transition: 0.3s;
                 }
-            }    
+            }
+
+            .warningActive{
+                background-color: var(--negative-surface);
+            }
+            
+            .successButton{
+                &:hover{
+                    background-color: var(--tertiary-surface) !important;
+                    transition: 0.3s;
+                }
+            }
         }
 
         
@@ -61,11 +65,18 @@
         border-radius: 0 5px 5px 5px;
     }
 
-    .errorMessage{
-        padding: 10px;
-        background-color: var(--negative-surface);
-        border-radius: 0 0 5px 5px;
-        border-top: 1px solid var(--background-2);
-        color: var(--negative);
+    .listOpen{
+        background-color: var(--tertiary-surface);
     }
+
+        .errorMessage {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding: 10px;
+            background-color: var(--negative-surface);
+            border-radius: 0 0 5px 5px;
+            border-top: 1px solid var(--background-2);
+            color: var(--negative);
+        }
 }

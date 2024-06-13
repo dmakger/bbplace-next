@@ -1,9 +1,11 @@
+'use client'
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_WrapperRectangleInput.module.scss';
-import { ReactNode } from 'react';
-import WarningIcon from '@/shared/assets/img/WarningIcon/WarningIcon.svg';
-import TooltipIcon from '@/shared/assets/img/Tooltip/TooltipIcon.svg'
-import Image from 'next/image';
+import React, { ReactNode, cloneElement, useState } from 'react';
+import { TOOLTIP_DESCRIPTION_ICON } from '@/shared/ui/Icon/data/tooltipDescription.data.icon';
+import { TOOLTIP_WARNING_ICON } from '@/shared/ui/Icon/data/tooltipWarning.data.icon';
+import { Button, ButtonVariant } from '@/shared/ui/Button';
+import { IChildProps } from '../model/wrapperRectangleInput.model';
 
 interface IWrapperRectangleInput {
   className?: string
@@ -12,6 +14,8 @@ interface IWrapperRectangleInput {
   children: ReactNode,
   isRequired?: boolean
   isDescriptionTooltip?: boolean
+  tooltipText?: string,
+  errorInputSelectMessage?: string
 }
 
 export const WrapperRectangleInput = ({
@@ -20,8 +24,39 @@ export const WrapperRectangleInput = ({
   labelText,
   children,
   isRequired = false,
-  isDescriptionTooltip = false
+  isDescriptionTooltip = false,
+  tooltipText,
+  errorInputSelectMessage = 'Выберите категорию из списка'
 }: IWrapperRectangleInput) => {
+
+  //STATE
+  const [isWarningActive, setIsWarningActive] = useState<boolean>(false)
+  const [isDescriptionActive, setIsDescriptionActive] = useState<boolean>(false);
+  const [warning, setWarning] = useState<boolean>(false);
+  const [success, setSuccess] = useState<boolean>(false);
+  const [inputValueLength, setInputValueLength] = useState<number>(0)
+  const [isListOpen, setIsListOpen] = useState<boolean>(false)
+
+
+  //CHILDREN
+  const clonedChildren = React.Children.map(children, child => {
+    if (React.isValidElement<IChildProps>(child)) {
+      return cloneElement<IChildProps>(child, { success, setSuccess, warning, setWarning, setInputValueLength, setIsListOpen});
+    }
+    return child;
+  });
+
+  //VARIABLE
+  const errorInputTextMessageArray:string[] = [
+    'Пожалуйста, заполните это поле!',
+    `Максимальная длина - 50 символов. Сейчас ${inputValueLength}`
+  ]
+
+  const errorInputSelectMessageArray:string[] = [
+    errorInputSelectMessage
+  ]
+
+
   return (
     <div className={cls(cl.WrapperRectangleInput, className)}>
       <div className={cl.labelNTooltipContainer}>
@@ -29,20 +64,29 @@ export const WrapperRectangleInput = ({
           {labelText}
         </label>
         <div className={cl.tooltipsContainer}>
-          {!isDescriptionTooltip && <div className={cl.descriptionIconContainer}>
-            <Image src={TooltipIcon} alt='desc' width={14} height={14} className={cl.descriptionIcon} />
-          </div>}
-          {!isRequired && <div className={cl.warningIconContainer}>
-            <Image src={WarningIcon} alt='warn' width={14} height={14} className={cl.warningIcon} />
-          </div>}
+          {!isDescriptionTooltip && <Button variant={ButtonVariant.CLEAR}
+            className={cls(cl.button, cl.descButton, isDescriptionActive ? cl.descriptionActive : '')}
+            beforeImage={TOOLTIP_DESCRIPTION_ICON}
+            beforeProps={{ height: 14, width: 14 }}
+            active={isDescriptionActive}
+            onClick={() => setIsDescriptionActive(prevState => !prevState)} />}
+
+          {!isRequired && <Button variant={ButtonVariant.CLEAR}
+            className={cls(cl.button, !success ? cl.warnButton : cl.successButton, isWarningActive && !success ? cl.warningActive : '', isWarningActive && success ? cl.descriptionActive : '')}
+            beforeImage={TOOLTIP_WARNING_ICON}
+            beforeProps={{ height: 14, width: 14 }}
+            success={success}
+            onClick={() => setIsWarningActive(prevState => !prevState)}/>}
         </div>
       </div>
-      <div className={cl.inputsContainer}>
-        {children}
+      <div className={cls(cl.inputsContainer, isListOpen ? cl.listOpen : '')}>
+        {clonedChildren}
       </div>
-      <p className={cl.errorMessage}>
-        Пожалуйста, заполните это поле!
-      </p>
+      {warning && <div className={cl.errorMessage}>
+        {errorInputTextMessageArray.map(it => (
+          <p>{it}</p>
+        ))}
+      </div>}
     </div>
   )
 }

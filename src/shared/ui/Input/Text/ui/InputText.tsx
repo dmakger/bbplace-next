@@ -2,7 +2,7 @@
 
 import { cls } from '@/shared/lib/classes.lib'
 import cl from './_InputText.module.scss'
-import { ChangeEvent, useEffect, useRef } from 'react'
+import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { WrapperTitleInput } from '@/shared/ui/Wrapper/Title/Input/WrapperTitleInput'
 import { EInputTextVariant } from '../data/text.input.data'
 import { EInputSizes, EInputVariants } from '../../model/input.model'
@@ -17,11 +17,16 @@ interface InputTextProps {
     className?: string,
     onChange?: Function,
     defaultValue?: string,
-    type?: string
+    type?: string,
+    success?: boolean
+    setSuccess?: Function
+    warning?: boolean,
+    setWarning?: Function
+    setInputValueLength?: Function
 }
 
 export function InputText({
-    variant = EInputVariants.RECTANGULAR,
+    variant = EInputVariants.ROUNDED,
     size = EInputSizes.NONE,
     title,
     variantInputText=EInputTextVariant.DEFAULT,
@@ -29,23 +34,65 @@ export function InputText({
     type = 'text',
     onChange = () => {},
     defaultValue = '',
+    success,
+    setSuccess,
+    warning,
+    setWarning,
+    setInputValueLength,
     ...rest }: InputTextProps) {
 
+    //STATE
+    const [isWarning, setIsWarning] = useState<boolean>(warning ?? false);
+    const [isSuccess, setIsSuccess] = useState<boolean>(success ?? false);    
+ 
+    //REF
     const inputRef = useRef<HTMLInputElement>(null)
 
+    //EFFECT
     useEffect(() => {
         if (inputRef.current) {
             inputRef.current.value = defaultValue   
         }
     }, [defaultValue])
 
+
+
+    //FUNCTIONS
+    const checkStatus = () => {
+        if (inputRef.current) {
+            const isErr = inputRef.current.value.trim() === '';
+            
+            if(setWarning && setSuccess){
+                if(isErr){
+                    setWarning(isErr);
+                    setIsWarning(isErr)
+                    setSuccess(!isErr)
+                    setIsSuccess(!isErr)
+                } 
+                else{
+                    setWarning(isErr);
+                    setIsWarning(isErr)
+                    setSuccess(!isErr)
+                    setIsSuccess(!isErr)
+                }
+            }
+            
+        }
+    }
+
+    const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setInputValueLength && setInputValueLength(e.target.value.length)
+        checkStatus()
+        onChange()
+    }
+
     return (
         <WrapperTitleInput title={title}>
-            <input className={cls(cl[variant], variantInputText === EInputTextVariant.W_HOVERED ? cl.wHovered : '', cl.input, cl[size],className)}
+            <input className={cls(cl[variant], variantInputText === EInputTextVariant.W_HOVERED ? cl.wHovered : '', cl.input, cl[size], isSuccess ? cl.success : '', isWarning ? cl.error : '', className)}
                    ref={inputRef}
                    type={type}
                    defaultValue={defaultValue}
-                   onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
+                   onChange={handleOnChange}
                    {...rest} />
         </WrapperTitleInput>
     )
