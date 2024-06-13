@@ -1,11 +1,17 @@
 import { SEX_OPTIONS } from "@/entities/Product/data/product.data";
 import { getDate } from "@/shared/lib/dateTime.lib";
 import { getHeadingToText } from "@/shared/lib/headingToText.lib";
-import { IHeadingToText } from "@/shared/model/text.model";
+import { IGetCharacteristic, IGetDataHeadingToTextProductMainTable, IGetDataHeadingToTextProductTable, IHeadingToText } from "@/shared/model/text.model";
+import { InfoItem } from "@/shared/ui/InfoItem";
+import { EInfoItemColor } from "@/shared/ui/InfoItem/model/infoItem.model";
 import { Rating } from "@/shared/ui/Rating";
-import { IGetCharacteristic, IGetDataHeadingToTextProductMainTable, IGetDataHeadingToTextProductTable } from "../model/htt.product.model";
 
-export const getDataHeadingToTextProductTable = ({ product, isCreatedAtAndReviews, itemRating, itemReviews }: IGetDataHeadingToTextProductTable) => {
+export const getDataHeadingToTextProductTable = ({ 
+    product,
+    isDetailedPageHeader,
+    itemRating,
+    itemReviews
+}: IGetDataHeadingToTextProductTable) => {
     const warehouses = product.warehouses ? 'Есть на складе' : 'Нет'
 
     const createdAt = product.createdAt
@@ -15,8 +21,11 @@ export const getDataHeadingToTextProductTable = ({ product, isCreatedAtAndReview
     const WAREHOUSES_PRODUCT_DATA: IHeadingToText = { heading: 'Склад', body: warehouses }
     const DESCRIPTION_PRODUCT_DATA: IHeadingToText = { heading: 'Описание', body: product.characteristics.description }
 
-    const CREATED_AT_PRODUCT_DATA: IHeadingToText = { heading: 'От', body: getDate(createdAt) }
-    const REVIEWS_PRODUCT_DATA: IHeadingToText = { body: <Rating rating={itemRating ?? 0} numberOfReviews={itemReviews ?? 0} hasStar /> }
+    const ratingComponent = <Rating rating={itemRating ?? 0} numberOfReviews={itemReviews ?? 0} hasStar/>
+    const dateComponent = getDate(createdAt);
+
+    const CREATED_AT_PRODUCT_DATA: IHeadingToText = { heading: isDetailedPageHeader ? '' : 'От', body: isDetailedPageHeader ? <InfoItem heading="От:" body={dateComponent}/> : dateComponent}
+    const REVIEWS_PRODUCT_DATA: IHeadingToText = { body: isDetailedPageHeader? <InfoItem body={ratingComponent} color={EInfoItemColor.YELLOW}/> : ratingComponent }
 
     const processData: IHeadingToText[] = [
         COUNTRY_PRODUCT_DATA,
@@ -25,7 +34,7 @@ export const getDataHeadingToTextProductTable = ({ product, isCreatedAtAndReview
         DESCRIPTION_PRODUCT_DATA
     ]
 
-    if (isCreatedAtAndReviews) {
+    if (isDetailedPageHeader) {
         return [
             REVIEWS_PRODUCT_DATA,
             CREATED_AT_PRODUCT_DATA

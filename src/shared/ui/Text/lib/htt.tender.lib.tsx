@@ -1,10 +1,15 @@
 import { getTenderType } from "@/entities/Tender/lib/tender.lib";
-import { ETenderType, ICommonTender } from "@/entities/Tender/model/tender.model";
+import { ETenderType } from "@/entities/Tender/model/tender.model";
 import { getDate } from "@/shared/lib/dateTime.lib";
-import { IHeadingToText } from "@/shared/model/text.model";
+import { IGetDataTenderInfo, IHeadingToText } from "@/shared/model/text.model";
+import { InfoItem } from "../../InfoItem";
+import { CreatedAt } from "../../CreatedAt";
 
 
-export const getDataTenderInfo = (tender: ICommonTender, isCreatedAt?: boolean) => {    
+export const getDataTenderInfo = ({
+    tender,
+    isCreatedAt
+}: IGetDataTenderInfo) => {
 
     const tenderType = getTenderType(tender);
 
@@ -18,9 +23,9 @@ export const getDataTenderInfo = (tender: ICommonTender, isCreatedAt?: boolean) 
     const currency = tender.currency.code ?? '';
 
     const CREATED_AT_TENDER_DATA = {
-        heading: 'От', body: getDate(tender.createdAt), unit: ''
-    }
-    
+        body: <InfoItem body={<p>{getDate(tender.createdAt)}</p>} heading="От:"/>}
+
+
     //PURCHASE
     const MAXIMUM_BUDGET_TENDER_DATA = {
         heading: 'Максимальный бюджет', body: String(maximumBudget), unit: currency
@@ -46,9 +51,9 @@ export const getDataTenderInfo = (tender: ICommonTender, isCreatedAt?: boolean) 
         QUANTITY_TENDER_DATA
     ] : processData = [
         PRICE_TENDER_DATA,
-        MIN_ORDER_DATA 
+        MIN_ORDER_DATA
     ]
-    if(isCreatedAt){
+    if (isCreatedAt) {
         return [
             CREATED_AT_TENDER_DATA
         ].filter(it => it !== undefined) as IHeadingToText[]

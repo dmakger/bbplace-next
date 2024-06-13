@@ -2,9 +2,10 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 10px 16px;
+    padding: 8px 16px;
     border-radius: 100px;
     transition: .2s;
+    font-weight: var(--font-weight-med);
 
     &:hover {
         background-color: var(--gray-4);
@@ -16,18 +17,12 @@
     }
 }
 
-.notOutlineButton {
-    background-color: var(--gray-3);
+.outlineButton { 
+    .activeText{
+        color: var(--tertiary);
+    }
 }
 
-.outlineButton {
-    border: 1px solid var(--gray-5);
-
-    &:hover {
-        border-color: var(--gray-4);
-    }
-
-    &.active {
-        border-color: var(--white);
-    }
+.active{
+    border-color: var(--tertiary-border);
 }

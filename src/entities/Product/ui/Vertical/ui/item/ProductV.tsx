@@ -54,7 +54,7 @@ export const ProductV: FC<ProductVProps> = ({ product, className }) => {
                         classNameNavsItem={cl.supplierNavsItem}
                         navs={[
                           is768 ? ESupplierSubscribeViewItem.NONE : ESupplierSubscribeViewItem.SMALL_WIDE,
-                          is768 ? ESupplierToChatViewItem.LARGE : ESupplierToChatViewItem.LARGE_WIDE,
+                          is768 ? ESupplierToChatViewItem.SMALL_WIDE : ESupplierToChatViewItem.LARGE,
                         ]} />
         </div>
       </section>

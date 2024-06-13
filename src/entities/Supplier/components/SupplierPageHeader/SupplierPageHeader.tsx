@@ -5,8 +5,7 @@ import { SupplierWNav } from "../../ui/WNav/SupplierWNav"
 import { ESupplierView } from "../../data/supplier.data"
 import { HeadingToTextTable } from "@/shared/ui/Text"
 import { ISupplier } from "../../model/supplier.model"
-import { ISellerReview } from "@/entities/Review/model/review.model"
-import { getDataHeadingToTextSupplierTable } from "../../lib/htt.supplier.lib"
+import { getDataHeadingToTextSupplierTable } from "../../../../shared/ui/Text/lib/htt.supplier.lib"
 import { ImageAPI } from "@/shared/ui/Image/API/ImageAPI"
 import { NavSupplier } from "../Nav/NavSupplier"
 import { ESupplierSubscribeViewItem, ESupplierToChatViewItem } from "../../data/view.supplier.data"
@@ -15,14 +14,14 @@ import { EHeadingToTextVariants } from "@/shared/model/text.model"
 interface ISupplierPageHeader {
     className?: string,
     supplier: ISupplier,
-    supplierScore: number,
-    supplierReviews: ISellerReview[]
+    supplierRating: number,
+    supplierReviews: number
 }
 
 export const SupplierPageHeader = ({
     className,
     supplier,
-    supplierScore,
+    supplierRating,
     supplierReviews
 }: ISupplierPageHeader) => {
     return (
@@ -31,7 +30,11 @@ export const SupplierPageHeader = ({
 
             <div className={cl.rightContainer}>
                 <SupplierWNav id={supplier.id} view={ESupplierView.LARGE_WHITE} classNameName={cl.supplierName} />
-                <HeadingToTextTable variant={EHeadingToTextVariants.COLUMN} data={getDataHeadingToTextSupplierTable(supplier, supplierScore, supplierReviews.length, false)}
+                <HeadingToTextTable variant={EHeadingToTextVariants.COLUMN} data={getDataHeadingToTextSupplierTable({
+                    supplier,
+                    supplierRating,
+                    supplierReviews
+                })}
                 classNameColumn={cl.mainColumn}
                     classNameHeadingItem={cl.headingItem}
                     classNameTextItem={cl.textItem}

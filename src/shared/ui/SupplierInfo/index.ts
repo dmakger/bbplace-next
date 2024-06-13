@@ -1,1 +1,0 @@
-export {SupplierInfo} from './ui/SupplierInfo'

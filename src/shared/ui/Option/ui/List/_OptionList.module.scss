@@ -1,5 +1,66 @@
-.list {
+.optionList {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 10px;
+    
+    .topContainer{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+
+
+        .listTitle{
+            font-weight: var(--font-weight-med);
+            font-size: var(--font-size-reg);
+            & span{
+                color: var(--primary);
+            }
+        }
+
+        & button{
+            display: none;
+            @media (max-width: 1024px) {
+                display: flex;
+            }
+        }
+
+    }
+
+    
+    .itemContainer{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px;
+        padding: 0 20px;
+        
+        @media (max-width: 1024px) {
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            width: 100%;
+
+            &::-webkit-scrollbar {
+                display: none;
+               }
+        }
+
+        .restSizesButton{
+            padding: 0px 15px;
+            height: 40px;
+            background-color: var(--background-1);
+            color: var(--font-caption);
+            font-size: var(--font-size-s);
+            font-weight: var(--font-weight-med);
+            @media (max-width: 1024px) {
+                display: none;
+            }
+        }
+    }
+
+    .list{
+        flex-direction: column;
+        width: 100%;
+        padding: 0px; 
+    }
 }

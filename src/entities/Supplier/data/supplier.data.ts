@@ -12,6 +12,8 @@ export enum ESupplierView {
     SMALL = `small__${PREFIX_SUPPLIER_VIEW}`,
     LARGE_GRAY = `largeGray__${PREFIX_SUPPLIER_VIEW}`,
     LARGE_WHITE = `largeWhite__${PREFIX_SUPPLIER_VIEW}`,
+    LARGE_WHITE_FOR_DESCRIPTION_PAGE = `largeWhiteForDescriptionPage__${PREFIX_SUPPLIER_VIEW}`
+
 }
 
 export enum ESupplierAxis {

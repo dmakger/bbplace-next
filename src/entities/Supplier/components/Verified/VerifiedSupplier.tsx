@@ -1,20 +1,29 @@
 'use client'
 
-import { FC, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_VerifiedSupplier.module.scss'
 import { ISupplier } from "../../model/supplier.model";
 import { isVerified } from "../../lib/boolean.supplier.lib";
+import Image from "next/image";
+import VerifiedIcon from '@/shared/assets/img/Verified/VerifiedIcon.svg'
 // import { isVerified } from "../../lib/boolean.supplier.lib";
 
-interface VerifiedSupplierProps{
+interface VerifiedSupplierProps {
     supplier?: ISupplier
     _isVerified?: boolean
     className?: string,
+    hasIcon?: boolean,
 }
 
-export const VerifiedSupplier:FC<VerifiedSupplierProps> = ({supplier, _isVerified=false, className}) => {
+export const VerifiedSupplier = ({
+    supplier,
+    _isVerified = false,
+    className,
+    hasIcon = false
+}: VerifiedSupplierProps) => {
+
     const [isValid, setIsValid] = useState(_isVerified)
 
     useEffect(() => {
@@ -26,6 +35,11 @@ export const VerifiedSupplier:FC<VerifiedSupplierProps> = ({supplier, _isVerifie
         return null
 
     return (
-        <span className={cls(cl.text, className)}>Verified</span>
+        <div className={cls(cl.VerifiedSupplier, className )}>
+            {hasIcon && <Image src={VerifiedIcon} alt="verified" />}
+            <span className={cls(cl.text, className)}>
+                Проверен
+            </span>
+        </div>
     )
 }

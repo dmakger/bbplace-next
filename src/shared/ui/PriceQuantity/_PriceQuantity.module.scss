@@ -1,5 +1,6 @@
 .block {
     display: flex;
+    justify-content: flex-start;
     // display: grid;
     // grid-template-columns: repeat(2, 1fr);
     // grid-gap: 10px;
@@ -23,7 +24,7 @@
             font-size: var(--font-size-sreg) !important;
         }
         .price {
-            font-size: var(--font-size-lm) !important;
+            font-size: var(--font-size-lm);
         }
     }
 }
