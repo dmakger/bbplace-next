@@ -104,7 +104,7 @@ export default function TenderPage() {
                         id={tender.id}
                         type={tenderTypeParams}
                         name={tender.name}
-                        tableData={getDataTenderInfo(tender, true)}
+                        tableData={getDataTenderInfo({tender, isCreatedAt: true})}
                         wholesalePrices={wholesalePrices}
                         isRightContainer
                         supplierId={tender.ownerId}
