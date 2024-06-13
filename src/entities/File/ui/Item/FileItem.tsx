@@ -4,7 +4,7 @@ import { cls } from '@/shared/lib/classes.lib';
 import cl from './_FileItem.module.scss'
 import { IFileFormatObject } from "@/shared/model/file.model";
 import { Button } from "@/shared/ui/Button";
-import { getImageFile } from "@/shared/lib/file.lib";
+import { getImageFile } from "@/entities/File/lib/file.lib";
 
 interface FileItemProps{
     file: IFileFormatObject

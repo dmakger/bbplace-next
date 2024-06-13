@@ -1,8 +1,8 @@
 import { ALL_FORMATS, FILE_FORMAT_IMAGES, FileFormat } from "../data/file.data"
-import { IFileFormatObject } from "../model/file.model"
+import { IFile } from "../model/file.model"
 
 // Returns an array of string with a file format equal to [formatFilter]    
-export const filterFilesByFormat = (files: string[] | IFileFormatObject[], formatFilter: FileFormat): string[] | IFileFormatObject[] => {
+export const filterFilesByFormat = (files: string[] | IFile[], formatFilter: FileFormat): string[] | IFile[] => {
     if (files.length === 0)
         return []
     if (typeof files[0] === "string")
@@ -12,12 +12,12 @@ export const filterFilesByFormat = (files: string[] | IFileFormatObject[], forma
                 return false
             return isEqualFileFormat(curFormat, formatFilter)
         })
-    return (files as IFileFormatObject[]).filter(file => isEqualFileFormat(file.format, formatFilter))
+    return (files as IFile[]).filter(file => isEqualFileFormat(file.format, formatFilter))
 }
 
-// Returns an array of [IFileFormatObject] 
-export const filesToFormatObject = (files: string[], ): IFileFormatObject[] => {
-    return files.reduce<IFileFormatObject[]>((result, file) => {
+// Returns an array of [IFile] 
+export const filesToFormatObject = (files: string[], ): IFile[] => {
+    return files.reduce<IFile[]>((result, file) => {
         const currentFormat = getFormatFile(file)
         if (currentFormat === undefined)
             return result
@@ -43,7 +43,10 @@ export const getFormatFile = (file: string) => {
 
 
 // Равны ли форматы
-export const isEqualFileFormat = (a: FileFormat, b: FileFormat) => {
+export const isEqualFileFormat = (a?: FileFormat, b?: FileFormat) => {
+    if (a === undefined || b === undefined)
+        return a === b
+
     const aContainsB: boolean = a.includes(b);
     const bContainsA: boolean = b.includes(a);
     return aContainsB || bContainsA 
@@ -52,4 +55,13 @@ export const isEqualFileFormat = (a: FileFormat, b: FileFormat) => {
 // Получение изображения по формату
 export const getImageFile = (file?: FileFormat) => {
     return file ? FILE_FORMAT_IMAGES[file] : FILE_FORMAT_IMAGES[FileFormat.FILE]
+}
+
+/**
+ * Converting a binary file to a URL
+ * @param {File | ArrayBuffer} file - Binary file
+ * @param {FileFormat | undefined} format - Format file 
+ */
+export const binaryToURL = (file: File | ArrayBuffer, format: FileFormat) => {
+    
 }

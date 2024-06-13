@@ -2,15 +2,15 @@ import { FC } from "react"
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_FileList.module.scss'
-import { IFileFormatObject } from "@/shared/model/file.model";
 import { FileItem } from "../Item/FileItem";
+import { IFile } from "../../model/file.model";
 
-interface FileListProps{
-    files: IFileFormatObject[]
+interface FileListItemProps{
+    files: IFile[]
     className?: string,
 }
 
-export const FileList:FC<FileListProps> = ({files, className}) => {
+export const FileListItem:FC<FileListItemProps> = ({files, className}) => {
     return (
         <div className={cls(className)}>
             {files.map((file, index) => (

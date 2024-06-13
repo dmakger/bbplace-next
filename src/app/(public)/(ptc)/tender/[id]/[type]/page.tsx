@@ -22,10 +22,11 @@ import Wrapper1280 from "@/shared/ui/Wrapper/1280/Wrapper1280";
 import { useParams } from "next/navigation";
 import { ImageSlide } from '@/widgets/Slider/Image/Default/Item/ImageSlide';
 import { WrapperBlock } from '@/shared/ui/Wrapper/Block/WrapperBlock';
-import { filesToFormatObject, filterFilesByFormat } from '@/shared/lib/file.lib';
-import { FileFormat } from '@/shared/data/file.data';
-import { IFileFormatObject } from '@/shared/model/file.model';
-import { FileList } from '@/shared/ui/File/ui/List/FileList';
+import { IFile } from '@/entities/File/model/file.model';
+import { FileFormat } from '@/entities/File/data/file.data';
+import { filterFilesByFormat, filesToFormatObject } from '@/entities/File/lib/file.lib';
+import { FileListItem } from '@/entities/File/ui/List/FileListItem';
+
 
 export default function TenderPage() {
 
@@ -38,7 +39,7 @@ export default function TenderPage() {
     const [is768, setIs768] = useState<boolean>(false)
     const [tender, setTender] = useState<ISaleTender | IPurchaseTender>()
     const [images, setImages] = useState<string[]>([])
-    const [files, setFiles] = useState<IFileFormatObject[]>([])
+    const [files, setFiles] = useState<IFile[]>([])
 
     //API
     const { data: tenderAPI } = TenderAPI.useGetTenderQuery({tenderId: +tenderId, type: tenderTypeParams});
@@ -62,7 +63,7 @@ export default function TenderPage() {
 
         setImages(filterFilesByFormat(filesAsString, FileFormat.IMAGE) as string[]);
         const _files = filesToFormatObject(filesAsString)
-        setFiles(filterFilesByFormat(_files, FileFormat.FILE) as IFileFormatObject[]);
+        setFiles(filterFilesByFormat(_files, FileFormat.FILE) as IFile[]);
     }, [tender])
 
     //MEMO
@@ -130,7 +131,7 @@ export default function TenderPage() {
                         <div className={cl.right}>
                             {files.length > 0 && (
                                 <WrapperBlock className={cl.rightWrapper}>
-                                    <FileList files={files} />
+                                    <FileListItem files={files} />
                                 </WrapperBlock>
                             )}
                         </div>
