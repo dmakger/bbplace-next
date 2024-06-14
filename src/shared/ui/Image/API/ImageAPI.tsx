@@ -12,10 +12,11 @@ interface ImageAPIProps {
     width?: number
     height?: number
     priority?: boolean
+    quality?: number
     className?: string,
 }
 
-export const ImageAPI: FC<ImageAPIProps> = ({ src, alt, width = 40, height = 40, priority = true, className }) => {
+export const ImageAPI: FC<ImageAPIProps> = ({ src, alt, width = 40, height = 40, priority = true, quality=80, className }) => {
     return (
         <Image loader={() => src}
             unoptimized={true}
@@ -24,6 +25,8 @@ export const ImageAPI: FC<ImageAPIProps> = ({ src, alt, width = 40, height = 40,
             alt={alt ? alt : src}
             width={width ?? 100}
             height={height ?? 100}
+            quality={quality < 1 || quality > 100 ? 80 : quality}
+            // layout="responsive"
             className={cls(cl.image, className)}>
         </Image>
     )
