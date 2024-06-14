@@ -3,7 +3,7 @@
 import cl from './_ProductTable.module.scss'
 import { IProduct } from '@/entities/Product/model/product.model'
 import { HeadingToTextTable } from '@/shared/ui/Text'
-import { getCharacteristic, getDataHeadingToTextProductMainTable } from '@/widgets/Product/Table/HeadingToText/lib/htt.product.lib'
+import { getCharacteristic, getDataHeadingToTextProductMainTable } from '@/shared/ui/Text/lib/htt.product.lib'
 import { EHeadingToTextVariants } from '@/shared/model/text.model'
 import { CountryAPI } from '@/entities/Metrics/api/country.metrics.api'
 import { useEffect, useState } from 'react'
@@ -21,14 +21,14 @@ export const ProductTable = ({
     const [selectedWeightUnit, setSelectedWeightUnit] = useState<string | undefined>('')
 
     //API
-    const {data: countries} = CountryAPI.useGetCountriesQuery()
-    const {data: metrics} = MetricsAPI.useGetMetricsQuery()
+    const { data: countries } = CountryAPI.useGetCountriesQuery()
+    const { data: metrics } = MetricsAPI.useGetMetricsQuery()
 
 
     //EFFECT
     useEffect(() => {
-        if(countries)
-            setSelectedCountry(getCharacteristic({ characteristic: product.characteristics.country, list: countries}))
+        if (countries)
+            setSelectedCountry(getCharacteristic({ characteristic: product.characteristics.country, list: countries }))
     }, [countries])
 
     useEffect(() => {
@@ -39,16 +39,21 @@ export const ProductTable = ({
             }
         }
     }, [metrics])
-    
+
     return (
-        <HeadingToTextTable
-            variant={EHeadingToTextVariants.ROW}
-            data={getDataHeadingToTextProductMainTable({product, selectedCountry: selectedCountry ?? '' , selectedWeightUnit: selectedWeightUnit ?? ''})}
-            hasColon={false}
-            hasSpace={false}
-            classNameMainBlock={cl.Table}
-            classNameHeadingItem={cl.headingItem}
-            classNameTextItem={cl.textItem}
-        />
+        <div id='characteristics'>
+            <HeadingToTextTable
+                variant={EHeadingToTextVariants.ROW}
+                data={getDataHeadingToTextProductMainTable({ product, selectedCountry: selectedCountry ?? '', selectedWeightUnit: selectedWeightUnit ?? '' })}
+                hasColon={false}
+                hasSpace={false}
+                classNameMainBlock={cl.Table}
+                classNameRow={cl.tableRow}
+                classNameHeadingItem={cl.headingItem}
+                classNameTextItem={cl.textItem}
+                classNameLastRow={cl.lastRow}
+            />
+        </div>
+
     )
 }

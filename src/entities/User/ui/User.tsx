@@ -13,6 +13,6 @@ interface UserProps {
 
 export const User = ({ image, className, onClick }: UserProps) => {
     return (
-        <Image src={image ? image : defaultImageJPG} alt={'Avatar'} className={cls(cl.image, className)} onClick={onClick} />
+        <Image src={image ? image : defaultImageJPG} alt={'Avatar'} className={cls(cl.image, className)} onClick={onClick} priority/>
     )
 }

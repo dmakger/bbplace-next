@@ -22,6 +22,8 @@ import { FavouriteAutoToTenderButton } from "../../components/Buttons/Favourite/
 import { ETenderFavouriteViewItem } from "../../data/view.product.data"
 import { ARROW_ICON } from "@/shared/ui/Icon/data/arrow.data.icon"
 import { getDataTenderInfo } from "@/shared/ui/Text/lib/htt.tender.lib"
+import Link from "next/link"
+import { MAIN_PAGES } from "@/config/pages-url.config"
 
 interface ITenderItem {
     tender: ICommonTender
@@ -38,6 +40,8 @@ export const TenderItem = ({
     const [tenderCategory, setTenderCategory] = useState<ICategory>()
     const [tenderType, setTenderType] = useState<ETenderType>()
     const [is768, setIs768] = useState<boolean>(false);
+
+    console.log('tender list', tender)
 
     //API
     const { data: categories } = CategoryAPI.useGetCategoriesQuery()
@@ -56,12 +60,12 @@ export const TenderItem = ({
 
     const goToTheTenderMobile = () => {
         if (is768) {
-            push(`tender/${id}?type=${tenderType === ETenderType.PURCHASE ? 'purchase' : 'sale'}`);
+            push(`tender/${id}`);
         }
     };
 
     const goToTheTenderDesktop = () => {
-        push(`tender/${id}?type=${tenderType === ETenderType.PURCHASE ? 'purchase' : 'sale'}`);
+        push(`tender/${id}`);
     };
 
     const handleInfoClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -81,11 +85,11 @@ export const TenderItem = ({
                 </div>
 
                 <div className={cl.middleContainer} >
-                    <span className={cl.cardTitle}>
+                    <Link href={MAIN_PAGES.CURRENT_TENDER(tender.id, tender.type)} className={cl.cardTitle}>
                         {tender.name}
-                    </span>
+                    </Link>
                     <HeadingToTextTable
-                        data={getDataTenderInfo(tender)}
+                        data={getDataTenderInfo({tender})}
                         variant={EHeadingToTextVariants.ROW}
                         hasSpace={true}
                         classNameMainBlock={cl.TenderInfo}

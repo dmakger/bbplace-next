@@ -1,6 +1,6 @@
 import { FC } from "react"
 import { IProduct } from "@/entities/Product/model/product.model";
-import { getDataHeadingToTextProductTable } from "../lib/htt.product.lib";
+import { getDataHeadingToTextProductTable } from "@/shared/ui/Text/lib/htt.product.lib";
 
 import cl from './_HeadingToTextProductTable.module.scss'
 import { HeadingToTextTable } from "@/shared/ui/Text";
@@ -17,6 +17,7 @@ export const HeadingToTextProductTable:FC<HeadingToTextProductTableProps> = ({pr
         <HeadingToTextTable data={getDataHeadingToTextProductTable({product})} 
                             variant={EHeadingToTextVariants.COLUMN}
                             isShort={true} 
-                            classNameMainBlock={className} classNameHeadingItem={cl.headingItem} />
+                            classNameMainBlock={className} classNameHeadingItem={cl.headingItem}
+                            {...rest} />
     )
 }

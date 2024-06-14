@@ -1,0 +1,72 @@
+@mixin small {
+    height: 30px;
+    padding: 0 10px
+    & span {
+      font-size: var(--font-size-xlm);
+    }
+}
+
+@mixin medium {
+    height: 40px;
+    padding: 0 15px;
+    & span {
+      font-size: var(--font-size-s);
+    }
+}
+
+@mixin big {
+    height: 50px;
+    padding: 0 20px;
+    & span {
+      font-size: var(--font-size-reg);
+    }
+}
+  
+  .InfoItem {
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    .heading{
+        color: var(--font-caption);
+    }
+    & span{
+        margin-left: 0px;
+    }
+  }
+  
+  .green {
+    background-color: var(--n-green-3);
+  }
+  
+  .yellow {
+    background-color: var(--rating-surface);
+  }
+  
+  .default {
+    background-color: var(--background-1);
+  }
+  
+  .big {
+    @include big;
+  }
+  
+  .medium {
+    @include medium;
+  }
+  
+  .small {
+    @include small;
+  }
+  
+
+  @media (max-width: 1024px) {
+    .InfoItem {
+      @include medium;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .InfoItem {
+      @include small;
+    }
+  }

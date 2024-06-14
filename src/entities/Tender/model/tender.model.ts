@@ -1,5 +1,6 @@
 import { ICurrency } from "@/entities/Metrics/model/currency.metrics.model"
 import { IMetrics } from "@/entities/Metrics/model/metric.metrics.model"
+import { IAttachment } from "@/shared/model/attachment.model"
 
 export enum ETenderType {
     PURCHASE = 'Покупка',
@@ -19,13 +20,10 @@ export interface IBaseTender {
     description: string
     shareContacts: boolean
     createdAt: string
-    type?: string
+    type?: ETenderType
 }
 
-export interface ITenderAttachments{
-    key: string,
-    name: string
-}
+export interface ITenderAttachments extends IAttachment { }
 
 export interface ITenderAPI extends IBaseTender{
     currency: string,
@@ -57,7 +55,7 @@ export interface IPurchaseTender extends Omit<ITender, 'minOrderUnits'> {
     maximumBudget: number
 }
 
-export interface ICommonTender extends IBaseTender, ITender {
+export interface ICommonTender extends ITender {
     currency: ICurrency,
     quantity?: number
     maximumBudget?: number

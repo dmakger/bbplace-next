@@ -12,7 +12,7 @@ export const DetailedPageDescription = ({
     description
 }: IDetailedPageDescription) => {
     return (
-        <p className={cls(cl.DetailedPageDescription, className)}>
+        <p className={cls(cl.DetailedPageDescription, className)} id='description'>
             {description}
         </p>
     )

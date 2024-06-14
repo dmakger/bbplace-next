@@ -30,7 +30,7 @@ export const HeadingToTextRow = ({
     return (
         <div className={cls(cl.block, isShort ? cl.short : '', classNameRow)}>
             {heading && <span className={cls(cl.heading, classNameHeading)}>{heading}{hasColon && ':'}</span>}
-            {hasSpace &&
+            {heading && hasSpace &&
                 <>&nbsp;</>
             }
             {hasDash &&

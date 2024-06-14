@@ -3,7 +3,6 @@ import { cls } from "@/shared/lib/classes.lib";
 import { HeadingToTextRow } from '../Row/HeadingToTextRow';
 import { HeadingToTextColumn } from '../Column/HeadingToTextColumn';
 import { EHeadingToTextVariants, IHeadingToText } from '@/shared/model/text.model';
-import { Rating } from '@/shared/ui/Rating';
 import React from 'react';
 
 interface IHeadingToTextTable {
@@ -16,6 +15,7 @@ interface IHeadingToTextTable {
     classNameMainBlock?: string,
     classNameMain?: string,
     classNameRow?: string,
+    classNameLastRow?: string,
     classNameColumn?: string,
     classNameHeadingItem?: string,
     classNameTextItem?: string
@@ -32,6 +32,7 @@ export const HeadingToTextTable = ({
     classNameMain,
     classNameColumn,
     classNameRow,
+    classNameLastRow,
     classNameHeadingItem,
     classNameTextItem
 }: IHeadingToTextTable) => {
@@ -41,26 +42,25 @@ export const HeadingToTextTable = ({
             {
                 (variant === EHeadingToTextVariants.ROW ? (
                     data.map((it, index) => {
-                        const isRatingComponent = React.isValidElement(it.body) && it.body.type === Rating;                        
                         return (
-                        <HeadingToTextRow
-                            key={index}
-                            heading={it.heading}
-                            unit={it.unit}
-                            text={it.body}
-                            isShort={isShort}
-                            hasColon={hasColon}
-                            hasDash={hasDash}
-                            hasSpace={isRatingComponent ? false : hasSpace}
-                            classNameRow={cls(
-                                classNameRow,
-                                index === data.length - 1 ? cl.noBorder : '',
-                                index === 0 ? cl.topBorder : '',
-                                isRatingComponent ? cl.rating : '')}
-                            classNameHeading={classNameHeadingItem}
-                            classNameText={classNameTextItem}
-                        />
-                )}))
+                            <HeadingToTextRow
+                                key={index}
+                                heading={it.heading}
+                                unit={it.unit}
+                                text={it.body}
+                                isShort={isShort}
+                                hasColon={hasColon}
+                                hasDash={hasDash}
+                                hasSpace={hasSpace}
+                                classNameRow={cls(
+                                    classNameRow,
+                                    index === data.length - 1 ? (cl.noBorder, classNameLastRow) : '',
+                                    index === 0 ? cl.topBorder : '')}
+                                classNameHeading={classNameHeadingItem}
+                                classNameText={classNameTextItem}
+                            />
+                        )
+                    }))
                     : <HeadingToTextColumn
                         data={data}
                         isShort={isShort}

@@ -1,5 +1,10 @@
-.text {
-    font-size: var(--font-size-xxs);
-    font-weight: var(--font-weight-sb);
-    color: var(--blue-1);
+.VerifiedSupplier{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    & span{
+        font-size: var(--font-size-xxs);
+        color: var(--n-green-1);
+    }
+
 }
