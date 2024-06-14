@@ -55,7 +55,7 @@ export interface IPurchaseTender extends Omit<ITender, 'minOrderUnits'> {
     maximumBudget: number
 }
 
-export interface ICommonTender extends IBaseTender, ITender {
+export interface ICommonTender extends ITender {
     currency: ICurrency,
     quantity?: number
     maximumBudget?: number

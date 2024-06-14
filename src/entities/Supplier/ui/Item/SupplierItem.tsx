@@ -63,7 +63,7 @@ const isButton = supplierProducts && supplierProducts.length > 2;
         />
         <div className={cl.bottomContainer}>
           <div className={cl.bottomLeftContainer}>
-            {supplier.category.some(it => it !== null) && <SupplierCategoryItem category={supplier.category} />}
+            {supplier.category?.some(it => it !== null) && <SupplierCategoryItem category={supplier.category} />}
             <div className={cl.line} />
             <HeadingToTextTable
               variant={EHeadingToTextVariants.COLUMN}
