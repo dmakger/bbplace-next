@@ -5,17 +5,18 @@ import Image from 'next/image'
 import cl from './_InputTextAndSelect.module.scss'
 import { IOption } from '@/shared/model/option.model'
 import { cls } from '@/shared/lib/classes.lib'
-import InputList from '../../List/InputList'
 import WrapperClickOutside from '@/shared/ui/Wrapper/ClickOutside/WrapperClickOutside'
 import { WrapperTitleInput } from '@/shared/ui/Wrapper/Title/Input/WrapperTitleInput'
 import { EInputSizes, EInputVariants } from '../../model/input.model'
+import Input from '../../Input'
+import XMARK from '@/shared/assets/img/xmark.svg'
 
 interface ITextAndSelectInput {
     variant?: EInputVariants,
     size?: EInputSizes,
     title?: string
     listOptions?: IOption[],
-    defaultOption: IOption,
+    defaultOption?: IOption,
     onClickOption?: Function,
     name?: string,
     imageWidth?: number,
@@ -23,6 +24,11 @@ interface ITextAndSelectInput {
     className?: string,
     classNameOptions?: string,
     setIsListOpen?: Function
+    placeholder?: string,
+    success?: boolean
+    setSuccess?: Function
+    warning?: boolean,
+    setWarning?: Function
 }
 
 export function TextAndSelectInput({
@@ -37,15 +43,20 @@ export function TextAndSelectInput({
     name,
     imageWidth = 10,
     imageHeight = 10,
-    setIsListOpen
+    setIsListOpen,
+    placeholder,
+    success,
+    setSuccess,
+    warning,
+    setWarning
 }: ITextAndSelectInput) {
 
     //STATE
     const [searchQuery, setSearchQuery] = useState<string>('')
     const [showOptions, setShowOptions] = useState(false)
     const [activeOption, setActiveOption] = useState<IOption | undefined>()
-    const [warning, setWarning] = useState<boolean>(true);
-    const [success, setSuccess] = useState<boolean>(false);
+    const [isWarning, setIsWarning] = useState<boolean>(warning ?? false);
+    const [isSuccess, setIsSuccess] = useState<boolean>(success ?? false);
 
 
     //MEMO
@@ -69,29 +80,50 @@ export function TextAndSelectInput({
 
 
     // ==={ CLICK }===
+    const checkClickValue = () => {
+        if (activeOption && activeOption?.name !== '') {
+            setWarning && setWarning(false)
+            setSuccess && setSuccess(true)
+        }
+    }
+
     const toggleShowOptions = useCallback(() => {
         setShowOptions((prevShowOptions) => !prevShowOptions);
     }, []);
 
+
     const handleOnItem = useCallback((it: IOption) => {
+        checkClickValue()
         setActiveOption(it)
         if (onClickOption) onClickOption(it)
         setShowOptions(false)
     }, [setActiveOption, onClickOption, setShowOptions])
 
     // ==={ CHANGE }===
+    const checkChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (!listOptions?.some(it => it.name.toLowerCase().includes(e.target.value.trim().toLowerCase()))) {                        
+            setWarning && setWarning(true)
+            setSuccess && setSuccess(false)            
+        }
+        else{
+            setWarning && setWarning(false)
+            setSuccess && setSuccess(true)
+        }
+    }
+
     const handleInputChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
+            checkChangeValue(e)
             setSearchQuery(e.target.value.toLowerCase().replaceAll('  ', ' ').trim());
         }, []);
 
 
     return (
-        <WrapperClickOutside _ref={inputSelectRef} isShow={showOptions} handle={toggleShowOptions} className={cls(cl.block, showOptions ? cl.show : '', className)}>
+        <WrapperClickOutside _ref={inputSelectRef} isShow={showOptions} handle={toggleShowOptions} className={cls(cl.block, variant === EInputVariants.ROUNDED && showOptions ? cl.show : variant === EInputVariants.RECTANGULAR && showOptions ? cl.showOptionsRectangular : '', className)}>
             <WrapperTitleInput title={title}>
                 <div onClick={toggleShowOptions}
                     className={cl.visible}>
-                    <div className={cls(cl.mainInput, cl[variant], cl[size], showOptions ? cl.rectangularListOpen : '')}>
+                    <div className={cls(cl.mainInput, cl[variant], cl[size], showOptions && variant === EInputVariants.RECTANGULAR ? cl.rectangularListOpen : '', warning ? cl.error : success ? cl.success : '')}>
                         {showOptions ? <input
                             type="text"
                             className={cl.input}
@@ -103,8 +135,8 @@ export function TextAndSelectInput({
                             autoFocus
                         />
                             :
-                            <p className={cl.selectedOption}>
-                                {activeOption?.name}
+                            <p className={cls(cl.selectedOption, !activeOption && placeholder ? cl.placeholder : '')}>
+                                {!activeOption && placeholder ? placeholder : activeOption?.name}
                             </p>}
                         <div className={cls(cl.arrowContainer, showOptions ? cl.activeArrow : '')}>
                             <Image className={showOptions ? cl.arrowOpen : cl.arrow} src={'arrow.svg'} alt={'arrow'} width={imageWidth} height={imageHeight} />
@@ -115,7 +147,7 @@ export function TextAndSelectInput({
             </WrapperTitleInput>
 
             {filteredOptions.length ? (
-                <InputList.Radio
+                <Input.List.Radio
                     size={size}
                     variant={variant}
                     options={filteredOptions}
@@ -125,7 +157,15 @@ export function TextAndSelectInput({
                     onClickOption={handleOnItem}
                 />
             ) : (
-                <p className={cl.noResult}>К сожалению, такой страны нет (X_X)</p>
+                <>
+                    {variant === EInputVariants.ROUNDED && <p className={cl.noResult}>
+                        К сожалению, такой страны нет (X_X)
+                    </p>}
+                    {variant === EInputVariants.RECTANGULAR && <div className={cl.noResultRect}>
+                        <span>Ничего не найдено</span>
+                        <Image src={XMARK} alt='xmark' width={14} height={14} />
+                    </div>}</>
+
             )}
         </WrapperClickOutside>
     )

@@ -30,7 +30,7 @@
 }
 .error{
     color: var(--font);
-    border-color: var(--negative-border);
+    border-color: var(--negative-border) !important;
     transition-duration: 0.3s;
 }
 

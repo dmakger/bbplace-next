@@ -1,82 +1,118 @@
-.WrapperRectangleInput{
+.WrapperRectangleInput {
     display: flex;
     flex-direction: column;
 
-    .labelNTooltipContainer{
+    .labelNTooltipContainer {
         display: flex;
         justify-content: space-between;
         align-items: center;
         gap: 10px;
 
-        .label{
+        .label {
             background-color: var(--tertiary-surface-low);
             padding: 10px 10px 5px 10px;
             border-radius: 5px 5px 0 0;
             color: var(--font-caption);
         }
 
-        .tooltipsContainer{
+        .tooltipsContainer {
             display: flex;
             align-items: center;
 
-            .button{
+            .button {
                 margin: auto;
                 border: none;
                 padding: 7px;
-                transition: 0.3s;                
-            }  
-            
-            .descButton{
-                &:hover{
+                transition: 0.3s;
+            }
+
+            .tooltipDescCont {
+                position: relative;
+
+                .descWindowActive {
+                    width: 250px;
+                }
+
+                &:hover {
+                    .descWindowActive {
+                        visibility: visible;
+                        opacity: 1;
+                        transition-duration: 0.2s;
+                        left: 3px;
+                    }
+                }
+            }
+
+            .tooltipWarnCont {
+                position: relative;
+
+                &:hover {
+                    .warnWindowActive {
+                        visibility: visible;
+                        opacity: 1;
+                        transition-duration: 0.2s;
+                        left: 3px;
+                    }
+                }
+            }
+
+            //DESC
+            .descButton {
+                &:hover {
                     background-color: var(--tertiary-surface) !important;
                     transition: 0.3s;
                 }
             }
 
-            .descriptionActive{
+            .descriptionActive {
                 background-color: var(--tertiary-surface);
             }
 
-            .warnButton{
-                &:hover{
+            //WARNING / SUCCESS
+            .warnButton {
+                &:hover {
                     background-color: var(--negative-surface) !important;
                     transition: 0.3s;
                 }
             }
 
-            .warningActive{
+            .warningActive {
                 background-color: var(--negative-surface);
             }
-            
-            .successButton{
-                &:hover{
-                    background-color: var(--tertiary-surface) !important;
+
+            .successButton {
+                &:hover {
+                    background-color: var(--positive-surface) !important;
                     transition: 0.3s;
                 }
             }
-        }
 
-        
+            .successActive {
+                background-color: var(--positive-surface);
+            }
+        }
     }
 
-    .inputsContainer{
+    .inputsContainer {
+        display: flex;
+        gap: 5px;
         background-color: var(--tertiary-surface-low);
         padding: 5px;
         border-radius: 0 5px 5px 5px;
     }
 
-    .listOpen{
+    .listOpen {
         background-color: var(--tertiary-surface);
     }
 
-        .errorMessage {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            padding: 10px;
-            background-color: var(--negative-surface);
-            border-radius: 0 0 5px 5px;
-            border-top: 1px solid var(--background-2);
-            color: var(--negative);
-        }
+    .errorMessage {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        padding: 10px;
+        background-color: var(--negative-surface);
+        border-radius: 0 0 5px 5px;
+        border-top: 1px solid var(--background-2);
+        color: var(--negative);
+    }
 }

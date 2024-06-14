@@ -1,8 +1,10 @@
 .block {
     position: relative;  
     cursor: pointer;  
-}
+    width: 100%;
+    transition: 0.3s;
 
+}
 
 .mainInput{
     display: flex;
@@ -10,6 +12,12 @@
     align-items: center;
     gap: 15px;
     transition: all .3s;
+
+    &:hover{
+        .placeholder{
+            color: var(--font);
+        }
+    }
 }
 
 .rounded{
@@ -35,11 +43,26 @@
         &:hover {
             background-color: var(--gray-4);
         }
+    } 
+    
+    .input {
+        width: 90%;
+        border: none;
+        transition: all .3s;
+        outline: none;
+        background-color: var(--empty);
     }
 }
 
+
+
+.placeholder{
+    color: var(--font-caption-sub);
+    transition: 0.3s;
+}
+
 .rectangular{
-    background-color: var(--tertiary-surface-low);
+    background-color: var(--background-2);
     border: 1px solid var(--tertiary-border);
     border-radius: 5px;
     color: var(--font-caption-sub);
@@ -48,6 +71,9 @@
     &:hover{
         border-color: var(--tertiary-hovered);
         transition: .3s;
+        .arrowContainer{
+            background-color: var(--tertiary-surface-low);
+        }
     }
 
     &:active{
@@ -62,9 +88,11 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 25px;
+        min-width: 60px;
+        min-height: 60px;
         border-radius: 5px;
         transition: .3s;
+
 
         & img{
             width: 16px;
@@ -75,23 +103,34 @@
 
     .activeArrow{
         background-color: var(--tertiary-surface);
+        border-radius: 0 5px 0 0 ;
+    }
+    
+    .input {
+        width: 90%;
+        border: none;
+        transition: all .3s;
+        outline: none;
+        background-color: var(--empty);
+        font-size: var(--font-size-reg);
     }
 
-    .error{
-        color: var(--font);
-        border-color: var(--negative-border);
-        transition-duration: 0.3s;
-    }
+}
 
-    .success{
-        color: var(--font);
-        border-color: var(--positive-border);
-        transition-duration: 0.3s;
-    }
+.error{
+    color: var(--font);
+    border-color: var(--negative-border) !important;
+    transition-duration: 0.3s;
+}
+
+.success{
+    color: var(--font);
+    border-color: var(--positive-border);
+    transition-duration: 0.3s;
 }
 
 .rectangularListOpen{
-    border-color: var(--tertiary-hovered) !important;
+    border-color: var(--tertiary-hovered);
     border-radius: 5px 5px 0 0;
 }
 
@@ -108,14 +147,6 @@
     & input,p{
         padding: 13px 15px ;
     }
-}
-
-.input {
-    width: 90%;
-    border: none;
-    transition: all .3s;
-    outline: none;
-    background-color: var(--empty);
 }
 
 
@@ -139,6 +170,15 @@
     opacity: 1;
 }
 
+.showOptionsRectangular{
+    z-index: 1;
+    opacity: 1;
+    box-shadow: 0 0 0 5px var(--tertiary-surface);
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+
 .arrowOpen{
     rotate: 180deg;
     transition: rotate 0.3s;
@@ -155,5 +195,18 @@
     background-color: var(--gray-3);
     font-size: var(--font-size-s);
     text-align: center;
+}
+
+.noResultRect{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    background-color: var(--background-2);
+    padding: 20px;
+    & span{
+        font-size: var(--font-size-reg);
+        font-weight: var(--font-weight-med);
+    }
 }
 

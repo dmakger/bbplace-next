@@ -2,10 +2,18 @@
     visibility: hidden;
     opacity: 0;
     position: absolute;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
     width: fit-content;
     transition-duration: 0.3s;
-    z-index: 3; 
+    z-index: 3;
+
+    &:hover{
+        visibility: hidden !important;
+        opacity: 0 !important;
+    }
+
 
     .windowContainer {
         display: flex;
@@ -17,59 +25,79 @@
         background-color: var(--background-2);
         padding: 15px;
         gap: 10px;
+        box-shadow: 0 0 5px 0 rgba(29, 29, 31, 0.5);
 
-        .image{
+        .image {
             border-radius: 20px;
         }
     }
 
-
     .triangle {
         position: absolute;
-        transform: translate(-50%, -50%);
-        width: 0px;
-        height: 0px;
+        width: 0;
+        height: 0;
     }
 }
 
-.up{
-    left: 50%;
-    bottom: -48px;
-    .triangle{
-        bottom: -12px;
+
+.show{
+    visibility: visible !important;
+    opacity: 1 !important;
+    &:hover{
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+}
+
+//POSITION
+.up {
+    transform: translate(-50%, calc(-100% - 30px));
+
+    .triangle {
+        bottom: -11px;
         left: 50%;
+        transform: translateX(-50%);
         border-left: 16px solid transparent;
         border-right: 16px solid transparent;
-        border-top: 8px solid var(--background-1);
+        border-top: 16px solid var(--background-1);
     }
 }
 
-.down{
-    left: 50%;
-    top: 160px;
+.down {
+    transform: translate(-50%, 30px);
 
-    .triangle{
-        top: -3px;
+    .triangle {
+        top: -12px;
         left: 50%;
+        transform: translateX(-50%);
         border-left: 16px solid transparent;
         border-right: 16px solid transparent;
-        border-bottom: 8px solid var(--background-1);
+        border-bottom: 16px solid var(--background-1);
     }
 }
 
-.left{
-    top: 50%;
-    right: -15px;
+.left {
+    transform: translate(calc(-100% - 30px), -50%);
 
-    .triangle{
-        top: -3px;
-        right: -3px;
-        border-left: 16px solid transparent;
-        border-right: 16px solid transparent;
-        border-bottom: 8px solid var(--background-1);
+    .triangle {
+        right: -10px;
+        top: 50%;
+        transform: translateY(-50%);
+        border-top: 16px solid transparent;
+        border-bottom: 16px solid transparent;
+        border-left: 16px solid var(--background-1);
     }
 }
 
-.right{
+.right {
+    transform: translate(30px, -50%);
 
+    .triangle {
+        left: -11px;
+        top: 50%;
+        transform: translateY(-50%);
+        border-top: 16px solid transparent;
+        border-bottom: 16px solid transparent;
+        border-right: 16px solid var(--background-1);
+    }
 }
