@@ -6,6 +6,7 @@ import { TOOLTIP_DESCRIPTION_ICON } from '@/shared/ui/Icon/data/tooltipDescripti
 import { TOOLTIP_WARNING_ICON } from '@/shared/ui/Icon/data/tooltipWarning.data.icon';
 import { Button, ButtonVariant } from '@/shared/ui/Button';
 import { IChildProps } from '../model/wrapperRectangleInput.model';
+import { HoverWindow } from '@/shared/ui/HoverWindow';
 
 interface IWrapperRectangleInput {
   className?: string
@@ -41,18 +42,18 @@ export const WrapperRectangleInput = ({
   //CHILDREN
   const clonedChildren = React.Children.map(children, child => {
     if (React.isValidElement<IChildProps>(child)) {
-      return cloneElement<IChildProps>(child, { success, setSuccess, warning, setWarning, setInputValueLength, setIsListOpen});
+      return cloneElement<IChildProps>(child, { success, setSuccess, warning, setWarning, setInputValueLength, setIsListOpen });
     }
     return child;
   });
 
   //VARIABLE
-  const errorInputTextMessageArray:string[] = [
+  const errorInputTextMessageArray: string[] = [
     'Пожалуйста, заполните это поле!',
     `Максимальная длина - 50 символов. Сейчас ${inputValueLength}`
   ]
 
-  const errorInputSelectMessageArray:string[] = [
+  const errorInputSelectMessageArray: string[] = [
     errorInputSelectMessage
   ]
 
@@ -64,19 +65,23 @@ export const WrapperRectangleInput = ({
           {labelText}
         </label>
         <div className={cl.tooltipsContainer}>
-          {!isDescriptionTooltip && <Button variant={ButtonVariant.CLEAR}
-            className={cls(cl.button, cl.descButton, isDescriptionActive ? cl.descriptionActive : '')}
-            beforeImage={TOOLTIP_DESCRIPTION_ICON}
-            beforeProps={{ height: 14, width: 14 }}
-            active={isDescriptionActive}
-            onClick={() => setIsDescriptionActive(prevState => !prevState)} />}
-
-          {!isRequired && <Button variant={ButtonVariant.CLEAR}
-            className={cls(cl.button, !success ? cl.warnButton : cl.successButton, isWarningActive && !success ? cl.warningActive : '', isWarningActive && success ? cl.descriptionActive : '')}
-            beforeImage={TOOLTIP_WARNING_ICON}
-            beforeProps={{ height: 14, width: 14 }}
-            success={success}
-            onClick={() => setIsWarningActive(prevState => !prevState)}/>}
+          <div className={cl.tooltipDescContainer}>
+            {!isDescriptionTooltip && <Button variant={ButtonVariant.CLEAR}
+              className={cls(cl.button, cl.descButton, isDescriptionActive ? cl.descriptionActive : '')}
+              beforeImage={TOOLTIP_DESCRIPTION_ICON}
+              beforeProps={{ height: 14, width: 14 }}
+              active={isDescriptionActive}
+              onClick={() => setIsDescriptionActive(prevState => !prevState)} />}
+          </div>
+          <div className={cl.tooltipWarnCont}>
+            {!isDescriptionTooltip && <Button variant={ButtonVariant.CLEAR}
+              className={cls(cl.button, cl.descButton, isDescriptionActive ? cl.descriptionActive : '')}
+              beforeImage={TOOLTIP_DESCRIPTION_ICON}
+              beforeProps={{ height: 14, width: 14 }}
+              active={isDescriptionActive}
+              onClick={() => setIsDescriptionActive(prevState => !prevState)} />}
+              <HoverWindow text={tooltipText ?? ''}/>
+          </div>
         </div>
       </div>
       <div className={cls(cl.inputsContainer, isListOpen ? cl.listOpen : '')}>

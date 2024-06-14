@@ -2,16 +2,19 @@ import { cls } from "@/shared/lib/classes.lib"
 import cl from './_HoverWindow.module.scss'
 import { IImageSizes } from "@/shared/model/image.model"
 import { ImageAPI } from "../../Image/API/ImageAPI"
+import { EHoverWindowPosition } from "../model/hoverWindow.model"
 
 interface IHoverWindow{
     className?: string,
+    position?: EHoverWindowPosition,
     text: string,
-    image: string,
+    image?: string,
     imageSizes?: IImageSizes
 }
 
 export const HoverWindow = ({
     className,
+    position = EHoverWindowPosition.UP,
     text,
     image,
     imageSizes = {
@@ -21,9 +24,9 @@ export const HoverWindow = ({
 }:IHoverWindow) => {
     
     return (
-        <div className={cls(cl.HoverWindow, className)}>
+        <div className={cls(cl.HoverWindow, className, cl[position])}>
             <div className={cl.windowContainer}>
-                <ImageAPI src={`${image}`} className={cl.image} width={imageSizes?.width} height={imageSizes?.height} />
+                {image && <ImageAPI src={`${image}`} className={cl.image} width={imageSizes?.width} height={imageSizes?.height} />}
                 <p className={cl.windowText}>
                     {text}
                 </p>
