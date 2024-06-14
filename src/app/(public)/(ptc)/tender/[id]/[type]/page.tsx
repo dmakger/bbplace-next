@@ -38,6 +38,7 @@ export default function TenderPage() {
 
     //STATE
     const [is768, setIs768] = useState<boolean>(false)
+    const [is1028, setIs1028] = useState<boolean>(false)
     const [tender, setTender] = useState<ISaleTender | IPurchaseTender>()
     const [images, setImages] = useState<string[]>([])
     const [files, setFiles] = useState<IFile[]>([])
@@ -87,6 +88,8 @@ export default function TenderPage() {
         }
     }, [tender, tenderTypeParams]);
 
+    console.log('tender qw', wholesalePrices, tenderTypeParams)
+
     
     if(!tender) return;    
 
@@ -97,59 +100,55 @@ export default function TenderPage() {
 
     return (
         <Wrapper1280>
-                <section className={cl.TenderDetailedPage}>
-                    <DetailedPageHeader
-                        id={tender.id}
-                        type={tenderTypeParams}
-                        name={tender.name}
-                        tableData={getDataTenderInfo({tender, isCreatedAt: true})}
-                        wholesalePrices={wholesalePrices}
-                        isRightContainer
-                        supplierId={tender.ownerId}
-                    />
-                    <div className={cl.wrapper}>
-                        <div className={cl.left}>
-                            <SupplierWNav
-                                className={cl.supplierBlock}
-                                classNameNavs={cl.navSupplier}
-                                id={tender.ownerId}
-                                hasImage
-                                navs={[
-                                    ESupplierSubscribeViewItem.LARGE_OUTLINE,
-                                    is768 ? ESupplierToChatViewItem.SMALL_WIDE : ESupplierToChatViewItem.NONE
-                                ]}
+            <section className={cl.TenderDetailedPage}>
+                <DetailedPageHeader
+                    id={tender.id}
+                    type={tenderTypeParams}
+                    name={tender.name}
+                    tableData={getDataTenderInfo({tender, isCreatedAt: true})}
+                    wholesalePrices={wholesalePrices}
+                    isRightContainer
+                    supplierId={tender.ownerId}
+                />
+                <div className={cl.wrapper}>
+                    <div className={cl.left}>
+                        <SupplierWNav
+                            className={cl.supplierBlock}
+                            classNameNavs={cl.navSupplier}
+                            id={tender.ownerId}
+                            hasImage
+                            navs={[
+                                ESupplierSubscribeViewItem.LARGE_OUTLINE,
+                                is768 ? ESupplierToChatViewItem.SMALL_WIDE : ESupplierToChatViewItem.NONE
+                            ]}
+                        />
+                        
+                        {images.length > 1 && (
+                            <ScrollSlider
+                                className={cl.slider}
+                                component={ImageSlide}
+                                width={150}
+                                height={150}
+                                slides={images}
+                                classNameSlides={cl.imageSlide}
                             />
-                            
-                            {images.length > 1 && (
-                                <ScrollSlider
-                                    className={cl.slider}
-                                    component={ImageSlide}
-                                    width={150}
-                                    height={150}
-                                    slides={images}
-                                    classNameSlides={cl.imageSlide}
-                                />
-                            )}
+                        )}
 
-                            <DetailedPageInfo
-                                options={SWITCH_SELECTOR_TENDER_OPTIONS}
-                                defaultOption={SWITCH_SELECTOR_DESCRIPTION_OPTION}
-                                optionsTab={TENDER_PAGE_OPTIONS_TABLE}
-                            />
-                        </div>
-                        <div className={cl.right}>
-                            {files.length > 0 && (
-                                <FileBlock files={files} isRow={true} />
-                            )}
-                        </div>
-                        <div className={cl.right}>
-                            {files.length > 0 && (
-                                <FileBlock files={files} isRow={false} />
-                            )}
-                        </div>
+                        <DetailedPageInfo
+                            options={SWITCH_SELECTOR_TENDER_OPTIONS}
+                            defaultOption={SWITCH_SELECTOR_DESCRIPTION_OPTION}
+                            optionsTab={TENDER_PAGE_OPTIONS_TABLE}
+                        />
                     </div>
-                </section>
+                    <div className={cl.right}>
+                        {files.length > 0 && (
+                            <FileBlock files={files} isRow={is1028} />
+                        )}
+                    </div>
+                </div>
+            </section>
             <HandleSize width={768} set={setIs768} />
+            <HandleSize width={1028} set={setIs1028} />
         </Wrapper1280>
     )
 }
