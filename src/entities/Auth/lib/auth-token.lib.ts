@@ -31,6 +31,16 @@ export const saveTokensStorage = (data: IAuthResponse): void => {
     saveRefreshTokenStorage(data.refreshToken);
 };
 
+export const getHeaderAuthorization = () => {
+    return {
+        'Authorization': `Bearer ${getAccessToken()}`
+    }
+}
+
+export const getHeaderAuthorizationIfExists = () => {
+    return isAuth() ? getHeaderAuthorization() : {}
+}
+
 export const saveAccessTokenStorage = (accessToken: string): void => {
     Cookies.set(ETokens.ACCESS_TOKEN, accessToken, {
         domain: process.env.CURRENT_DOMAIN,

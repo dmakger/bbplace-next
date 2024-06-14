@@ -34,7 +34,7 @@ export const UserSlice = createSlice({
             state.brandName = data.BrandName;
             state.role = data.Role;
             state.phoneNumber = data.MobilePhone;
-            state.country = data.country;
+            state.country = data.Country;
         },
         setNotAuth(state){
             state.isAuth = false;

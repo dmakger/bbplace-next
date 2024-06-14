@@ -67,28 +67,6 @@ export const getImageFile = (file?: FileFormat) => {
 }
 
 /**
- * Получение всех форматов
- * @param {FileFormat} format - Format
- */
-export const getAllFormatsByFileFormat = (format: FileFormat) => {
-    if (!(format in FILE_FORMAT_TO_CHILD))
-        return []
-
-    const formats: FileFormat[] = []
-    if (format === FileFormat.FILE)
-        formats.push(...[FileFormat.WORD, FileFormat.EXCEL, FileFormat.POWER_POINT, FileFormat.PDF, FileFormat.TEXT])
-    else if (format === FileFormat.IMAGE)
-        formats.push(...[FileFormat.JPG, FileFormat.PNG, FileFormat.GIF, FileFormat.BMP, FileFormat.WEBP])
-    else
-        formats.push(format)
-    return formats.flatMap(it => {
-        const data = FILE_FORMAT_TO_CHILD[it]
-        return Object.keys(data).map(key => data[key].value)
-    })
-}
-
-
-/**
  * Converting a binary file to a URL
  * @param {File | ArrayBuffer} file - Binary file
  * @param {FileFormat | undefined} format - Format file 

@@ -1,7 +1,6 @@
 import { IFileFormat, IFileFormatWType } from "../model/file.model";
 import { FILE_DOC_ICON, FILE_PDF_ICON, FILE_PPT_ICON, FILE_UNKNOWN_ICON, FILE_XLS_ICON } from "../../../shared/ui/Icon/data/file.data.icon";
 import { IIcon } from "../../../shared/ui/Icon/model/model";
-import { getAllFormatsByFileFormat } from "../lib/file.lib";
 
 // ========={ TYPE FILES }=========
 
@@ -137,6 +136,29 @@ export const FILE_FORMAT_IMAGES: Record<FileFormat, IIcon> = {
 }
 
 // ========={ FORMATS }=========
+
+/**
+ * Получение всех форматов
+ * @param {FileFormat} format - Format
+ */
+export const getAllFormatsByFileFormat = (format: FileFormat) => {
+    if (!(format in FILE_FORMAT_TO_CHILD))
+        return []
+
+    const formats: FileFormat[] = []
+    if (format === FileFormat.FILE)
+        formats.push(...[FileFormat.WORD, FileFormat.EXCEL, FileFormat.POWER_POINT, FileFormat.PDF, FileFormat.TEXT])
+    else if (format === FileFormat.IMAGE)
+        formats.push(...[FileFormat.JPG, FileFormat.PNG, FileFormat.GIF, FileFormat.BMP, FileFormat.WEBP])
+    else
+        formats.push(format)
+    return formats.flatMap(it => {
+        const data = FILE_FORMAT_TO_CHILD[it]
+        return Object.keys(data).map(key => data[key].value)
+    })
+}
+
+
 
 // FILES
 export const WORD_FILE__FORMAT = getAllFormatsByFileFormat(FileFormat.WORD)
