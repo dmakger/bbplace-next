@@ -1,4 +1,13 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
-
-export default nextConfig;
+const nextConfig = {
+    experimental: {
+      // This is experimental but can
+      // be enabled to allow parallel threads
+      // with nextjs automatic static generation
+      workerThreads: false,
+      cpus: 1
+    },
+  };
+  
+  export default nextConfig;
+  
