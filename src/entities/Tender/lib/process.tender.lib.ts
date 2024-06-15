@@ -38,6 +38,7 @@ export const getTenderWholesalePrices = (tender: ISaleTender | IPurchaseTender, 
     let quantity;
     let metrics;
 
+    console.log('tender qw t', tenderType, ETenderType.SALE, tenderType === ETenderType.SALE)
     if (tenderType === ETenderType.SALE) {
         const _tender = tender as ISaleTender
 

@@ -62,12 +62,14 @@ export const DetailedPageHeader = ({
                     />
                 </div>
             </div>
-            {isRightContainer && <div className={cl.rightContainer} ref={ref}>
-                <MobileOrderFooter className={cl.topMobileOrderFooter}
-                    supplierId={supplierId ?? ''}
-                    wholesalePrices={wholesalePrices ?? []}
-                    isTop />
-            </div>}
+            {isRightContainer && 
+                <div className={cl.rightContainer} ref={ref}>
+                    <MobileOrderFooter className={cl.topMobileOrderFooter}
+                        supplierId={supplierId ?? ''}
+                        wholesalePrices={wholesalePrices ?? []}
+                        isTop />
+                </div>
+            }
         </div>
     )
 }

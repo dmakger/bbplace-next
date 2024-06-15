@@ -28,7 +28,7 @@ export const MobileOrderFooter = ({
   
 
     return (
-        <div className={cls(!isTop ? cl.MobileOrderFooter : cl.topMobileOrderFooter, className)} >
+        <div className={cls(isTop ? cl.topMobileOrderFooter : cl.MobileOrderFooter, cl.block, className)} >
             <PriceQuantity
                 wholesales={wholesalePrices ?? []}
                 className={cls(cl.priceQuantity, classNamePriceQuantity)}
@@ -41,7 +41,7 @@ export const MobileOrderFooter = ({
             <div className={cl.buttonContainer}>
                 <Button variant={ButtonVariant.BACKGROUND_RED}
                     size={ButtonSize.Medium}
-                    className={cl.button}
+                    classNameLink={cl.button}
                     href={DASHBOARD_PAGES.CURRENT_CHAT(supplierId ?? '')}
                     title="Заказать" />
             </div>

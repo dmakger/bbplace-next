@@ -23,7 +23,7 @@
     }
 
     .content {
-        overflow-x: auto;
+        // overflow-x: auto;
 
         .files {
             margin: 0 20px;
@@ -35,6 +35,9 @@
     .topLeft {
         font-size: var(--font-size-reg);
     }
+    .content {
+        overflow-x: auto;
+    }
 
     .download {
         padding: 10px 15px;
@@ -45,6 +48,11 @@
 .column {
     .topLeft {
         font-size: var(--font-size-sm);
+    }
+
+    .content {
+        max-height: 190px;
+        overflow-y: auto;
     }
 
     .bottom {
