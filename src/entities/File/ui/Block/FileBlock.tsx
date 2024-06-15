@@ -10,13 +10,13 @@ import { IFile } from "../../model/file.model";
 import { Button } from "@/shared/ui/Button";
 import { ButtonColor, ButtonType, ButtonVariant } from "@/shared/ui/Button/model/model";
 
-interface FileBlockProps{
+interface FileBlockProps {
     files: IFile[]
     isRow?: boolean
     className?: string,
 }
 
-export const FileBlock:FC<FileBlockProps> = ({files, isRow=true, className}) => {
+export const FileBlock: FC<FileBlockProps> = ({ files, isRow = true, className }) => {
     // REF
     const contentRef = useRef<HTMLDivElement>(null);
 
@@ -26,11 +26,20 @@ export const FileBlock:FC<FileBlockProps> = ({files, isRow=true, className}) => 
         if (!content) return;
 
         const onWheel = (e: WheelEvent) => {
-            if (e.deltaY !== 0) {
-                e.preventDefault();
-                content.scrollBy({
-                    left: e.deltaY < 0 ? -30 : 30,
-                });
+            if (isRow) {
+                if (e.deltaY !== 0) {
+                    e.preventDefault();
+                    content.scrollBy({
+                        left: e.deltaY < 0 ? -30 : 30,
+                    });
+                }
+            } else {
+                if (e.deltaY !== 0) {
+                    e.preventDefault();
+                    content.scrollBy({
+                        top: e.deltaY < 0 ? -30 : 30,
+                    });
+                }
             }
         };
 
@@ -39,7 +48,7 @@ export const FileBlock:FC<FileBlockProps> = ({files, isRow=true, className}) => 
         return () => {
             content.removeEventListener('wheel', onWheel);
         };
-    }, []);
+    }, [isRow]);
 
     // HANDLE
     const downloadAllFiles = () => {
@@ -67,7 +76,7 @@ export const FileBlock:FC<FileBlockProps> = ({files, isRow=true, className}) => 
                 )}
             </div>
             <div ref={contentRef} className={cl.content}>
-                <FileListItem files={files} isRow={isRow} className={cl.files}/>
+                <FileListItem files={files} isRow={isRow} className={cl.files} />
             </div>
             {!isRow && (
                 <div className={cl.bottom}>

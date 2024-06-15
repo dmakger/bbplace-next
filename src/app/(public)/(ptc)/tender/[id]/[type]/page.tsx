@@ -153,7 +153,7 @@ export default function TenderPage() {
                     </div>
                     <div className={cl.right}>
                         {files.length > 0 && (
-                            <FileBlock files={files} isRow={is1028} />
+                            <FileBlock files={files} isRow={is1028} className={cl.files} />
                         )}
                     </div>
                 </div>

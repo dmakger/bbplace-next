@@ -65,5 +65,12 @@
                 }
             }
         }
+
+        .right {
+            .files {
+                position: sticky;
+                top: 10px;
+            }
+        }
     }
 }
