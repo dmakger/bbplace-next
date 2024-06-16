@@ -3,21 +3,23 @@
 import { cls } from "@/shared/lib/classes.lib"
 import cl from './_SwitchSelector.module.scss'
 import { useCallback, useEffect, useRef, useState } from "react"
-import Link from "next/link"
 import { IOption } from "@/shared/model/option.model"
-import { IOptionsTab } from "@/features/DetailedPageInfo/model/detailedPageInfo.model"
-import { IMenuItem } from "@/shared/model/menu.model"
+import { IDetailedProductOptionsTab, IUserProductsTab } from "@/features/DetailedPageInfo/model/detailedPageInfo.model"
 import Image from "next/image"
+import { ESwitchSelectorVariants } from "../model/switchSelector.model"
+import { useRouter } from "next/navigation"
 
 interface ISwitchSelector {
+    variant?: ESwitchSelectorVariants,
     className?: string,
-    options: IOption[] | IMenuItem[],
-    selectedOption: IOption | IMenuItem,
+    options: IOption[],
+    selectedOption: IOption,
     setSelectedOption: Function
-    optionsTab: IOptionsTab
+    optionsTab?: IUserProductsTab | IDetailedProductOptionsTab
 }
 
 export const SwitchSelector = ({
+    variant = ESwitchSelectorVariants.TABS,
     className,
     options,
     selectedOption,
@@ -32,9 +34,12 @@ export const SwitchSelector = ({
     const switchSelectorRef = useRef<HTMLDivElement>(null)
     const selectedOptionRef = useRef<HTMLButtonElement>(null)
 
+    //ROUTER
+    const router = useRouter();
+
     //EFFECT
     useEffect(() => {
-        if (selectedOptionRef.current) {
+        if (selectedOptionRef.current && variant === ESwitchSelectorVariants.DEFAULT) {
             setLineStyle({
                 width: selectedOptionRef.current.offsetWidth,
                 left: selectedOptionRef.current.offsetLeft
@@ -56,14 +61,18 @@ export const SwitchSelector = ({
 
 
     //FUNCTIONS
-    const selectOption = (option: IOption | IMenuItem) => {
+    const selectOption = (option: IOption) => {
         setSelectedOption(option);
         const element = document.getElementById('value' in option ? String(option.value) : '');
-        if (element)
+        if (element) {
             element.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+        if (variant === ESwitchSelectorVariants.TABS) {
+            router.push(`?type=${option.value}`)
+        }
     }
 
-    const isChecked = useCallback((selectOption: IOption | IMenuItem, mapItem: IOption | IMenuItem) => {
+    const isChecked = useCallback((selectOption: IOption, mapItem: IOption) => {
         return selectOption.id === mapItem.id;
     }, [selectedOption]);
 
@@ -73,16 +82,15 @@ export const SwitchSelector = ({
     };
 
     return (
-        <div className={cls(cl.SwitchSelector, isAtTop ? cl.sticky : '', className)} ref={switchSelectorRef}>
+        <div className={cls(cl.SwitchSelector, cl[variant], isAtTop ? cl.sticky : '', className)} ref={switchSelectorRef}>
             <div className={cl.optionsContainer}>
                 <div className={cl.leftContainer}>
                     {options.map(it => {
                         const optionValue = (it as IOption).value ?? '';
 
-                        const isLink = 'link' in it;
-                        const optionQuantity = optionsTab[optionValue]?.optionQuantity
+                        const optionQuantity = optionsTab && optionsTab[optionValue]?.optionQuantity
 
-                        const html = (
+                        return (
                             <button className={cls(
                                 cl.option,
                                 options.length > 1 ? cl.optionHover : '',
@@ -93,29 +101,25 @@ export const SwitchSelector = ({
                                 <input
                                     type="radio"
                                     id={String(it.id)}
-                                    name={isLink ? it.title : it.name}
+                                    name={it.name}
                                     checked={isChecked(selectedOption, it)}
                                     onChange={() => { }} />
                                 <label
                                     htmlFor={String(it.id)}>
-                                    {isLink ? it.title : it.name}
-                                    {optionQuantity && <span className={cl.optionQuantity}>{optionQuantity}</span>}
+                                    {it.name}
+                                    {optionQuantity !== undefined && <span className={cl.optionQuantity}>{optionQuantity}</span>}
                                 </label>
                             </button>
                         )
-
-                        if (!isLink) return html;
-
-                        return <Link href={it.link ?? ''}>{html}</Link>
                     }
                     )}
                 </div>
-                <button className={cl.arrowUp} onClick={scrollToTop}>
+                {variant === ESwitchSelectorVariants.DEFAULT && <button className={cl.arrowUp} onClick={scrollToTop}>
                     <Image src={'/arrowUp.svg'} alt="" width={16} height={16} />
-                </button>
+                </button>}
             </div>
-            {options.length > 1 && <span
-                className={cls(cl.choosenLine, isAtTop ? cl.stickyChoosenLine : '' )}
+            {variant === ESwitchSelectorVariants.DEFAULT && options.length > 1 && <span
+                className={cls(cl.choosenLine, isAtTop ? cl.stickyChoosenLine : '')}
                 style={{ width: `${lineStyle.width}px`, left: `${lineStyle.left}px` }}
             />}
         </div>

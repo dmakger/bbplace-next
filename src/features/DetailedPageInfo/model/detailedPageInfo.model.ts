@@ -6,10 +6,17 @@ export interface IOptionTab {
     optionQuantity?: number | null
 }
 
-export interface IOptionsTab {
+export interface IDetailedProductOptionsTab {
     [key: string]: IOptionTab | undefined,
-    description: IOptionTab,
+    description?: IOptionTab,
     characteristics?: IOptionTab,
     reviews?: IOptionTab,
-    supplier?: IOptionTab
+    supplier?: IOptionTab,
+}
+
+export interface IUserProductsTab {
+    [key: string]: IOptionTab | undefined,
+    active: IOptionTab,
+    drafts: IOptionTab,
+    woPrice?: IOptionTab 
 }
