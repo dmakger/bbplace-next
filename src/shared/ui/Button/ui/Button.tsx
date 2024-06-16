@@ -35,6 +35,7 @@ export interface IButton {
 
     children?: ReactNode
     className?: string
+    classNameLink?: string
     classNameText?: string
 }
 
@@ -44,7 +45,7 @@ export const Button = ({
     beforeImage, beforeProps, afterImage, afterProps, 
     active=false, success=false, disabled=false, loading=false, noTranslation=false,
     onClick=()=>{}, onMouseEnter=()=>{}, onMouseLeave=()=>{},
-    children, className, classNameText,
+    children, className, classNameLink, classNameText,
 }: IButton) => {
 
     // STYLES
@@ -91,7 +92,7 @@ export const Button = ({
     if (!href)
         return html
     return (
-        <Link href={href}>{html}</Link>
+        <Link href={href} className={classNameLink}>{html}</Link>
     )
 }
 
