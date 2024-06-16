@@ -14,6 +14,8 @@ import { MetricsAPI } from "@/entities/Metrics/api/metrics.metrics.api";
 import { tenderToTableLK } from "@/features/Table/lib/lk.tender.table.lib";
 import { CategoryAPI } from "@/entities/Metrics/api/category.metrics.api";
 import { ICategory } from "@/entities/Metrics/model/category.metrics.model";
+import { OptionT } from "@/shared/ui/Option/ui/this/OptionT";
+import { OptionVariant } from "@/shared/data/option.data";
 
 interface LKTenderTableProps{
     className?: string,
@@ -65,6 +67,10 @@ export const LKTenderTable:FC<LKTenderTableProps> = ({className}) => {
     console.log('tenders', categoryList, tenderToTableLK(tenders))
 
     return (
-        <Table head={['Наименование', 'Категория', 'Файлы', '']} data={[]} unions={[]} />
+        <>
+            <Table head={['Наименование', 'Категория', 'Файлы', '']} data={[]} unions={[]} />
+            <OptionT text="qwer qwer q wer qw er qwer" variant={OptionVariant.TO_GRAY} />
+            <OptionT text="qwer qwer q wer qw er qwer" variant={OptionVariant.TO_BLUE} />
+        </>
     )
 }

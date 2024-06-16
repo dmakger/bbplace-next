@@ -3,7 +3,7 @@ import { FC } from "react"
 import cl from './_Table.module.scss'
 import { cls } from '@/shared/lib/classes.lib';
 import { ITable } from "../model/table.model";
-import { THead } from "../componets/head/THead";
+import { THead } from "../componets/Head/THead";
 
 interface TableProps extends ITable {
     className?: string,

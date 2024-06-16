@@ -1,0 +1,46 @@
+// CORE STYLES
+.option {
+    display: flex;
+    gap: 10px;
+    border-radius: 10px;
+    color: var(--secondary);
+    border: 1px solid var(--empty);
+    transition: .2s;
+
+    .image {
+        width: 40px;
+        height: 40px;
+        border-radius: 5px;
+    }
+
+    .text {
+        color: inherit;
+    }
+}
+
+// =========={ STYLES }==========
+.toGray {
+    padding: 10px;
+
+    &:hover {
+        background-color: var(--secondary-surface-sub);
+        border-color: var(--secondary-border);
+        color: var(--secondary-hovered);
+    }
+    &:active {
+        background-color: var(--secondary-surface);
+        color: var(--secondary-pressed);
+    }
+}
+
+.toBlue {
+    padding: 9px 15px;
+
+    &:hover {
+        background-color: var(--secondary-hovered);
+        color: var(--on-secondary);
+    }
+    &:active {
+        background-color: var(--secondary-pressed);
+    }
+}
