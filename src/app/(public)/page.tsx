@@ -6,7 +6,7 @@ import { WrapperRectangleInput } from "@/shared/ui/Wrapper/RectangleInput/ui/Wra
 export default function MainPage() {
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', backgroundColor: '#fff' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '15px', backgroundColor: '#fff' }}>
             <WrapperRectangleInput
                 labelText="Наименование"
                 warningTooltipText='Обязательно для заполнения'

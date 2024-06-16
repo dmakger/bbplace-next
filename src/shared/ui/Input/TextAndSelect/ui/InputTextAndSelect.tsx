@@ -9,7 +9,8 @@ import WrapperClickOutside from '@/shared/ui/Wrapper/ClickOutside/WrapperClickOu
 import { WrapperTitleInput } from '@/shared/ui/Wrapper/Title/Input/WrapperTitleInput'
 import { EInputSizes, EInputVariants } from '../../model/input.model'
 import Input from '../../Input'
-import XMARK from '@/shared/assets/img/xmark.svg'
+import { ImageSmart } from '@/shared/ui/Image/Smart/ImageSmart'
+import { XMARK_ICON } from '@/shared/ui/Icon/data/xmark.data.icon'
 
 interface ITextAndSelectInput {
     variant?: EInputVariants,
@@ -55,9 +56,9 @@ export function TextAndSelectInput({
     const [searchQuery, setSearchQuery] = useState<string>('')
     const [showOptions, setShowOptions] = useState(false)
     const [activeOption, setActiveOption] = useState<IOption | undefined>()
+    const [isHovered, setIsHovered] = useState(false)
     const [isWarning, setIsWarning] = useState<boolean>(warning ?? false);
     const [isSuccess, setIsSuccess] = useState<boolean>(success ?? false);
-
 
     //MEMO
     const filteredOptions = useMemo(() => {
@@ -77,6 +78,17 @@ export function TextAndSelectInput({
         setSearchQuery('')
         setIsListOpen && setIsListOpen(showOptions)
     }, [showOptions])
+
+    // HANDLE
+    const handleOnMouseEnter = () => {
+        setIsHovered(true)
+    }
+    const handleOnMouseLeave = () => {
+        setIsHovered(false)
+    }
+
+    console.log(isHovered);
+    
 
 
     // ==={ CLICK }===
@@ -101,11 +113,11 @@ export function TextAndSelectInput({
 
     // ==={ CHANGE }===
     const checkChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (!listOptions?.some(it => it.name.toLowerCase().includes(e.target.value.trim().toLowerCase()))) {                        
+        if (!listOptions?.some(it => it.name.toLowerCase().includes(e.target.value.trim().toLowerCase()))) {
             setWarning && setWarning(true)
-            setSuccess && setSuccess(false)            
+            setSuccess && setSuccess(false)
         }
-        else{
+        else {
             setWarning && setWarning(false)
             setSuccess && setSuccess(true)
         }
@@ -163,7 +175,11 @@ export function TextAndSelectInput({
                     </p>}
                     {variant === EInputVariants.RECTANGULAR && <div className={cl.noResultRect}>
                         <span>Ничего не найдено</span>
-                        <Image src={XMARK} alt='xmark' width={14} height={14} />
+                        <div className={cl.xmarkContainer}
+                            onMouseEnter={handleOnMouseEnter}
+                            onMouseLeave={handleOnMouseLeave}>
+                            <ImageSmart icon={XMARK_ICON} isHovered={isHovered} width={14} height={14}/>
+                        </div>
                     </div>}</>
 
             )}

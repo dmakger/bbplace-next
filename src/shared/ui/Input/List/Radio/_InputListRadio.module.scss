@@ -10,14 +10,9 @@
     padding: 0 5px 5px 5px;
     width: calc(100% + 10px);
     margin-left: -5px;
-
-    .lastEl{
-        border-radius: 0 0 5px 5px;
+    .optionsContainer{
+        border: 1px solid var(--tertiary-hovered);
+        border-top: none;
+        background-color: var(--background-2);
     }
-}
-
-.optionsContainer{
-    border: 1px solid var(--tertiary-hovered);
-    border-top: none;
-    background-color: var(--background-2);
 }

@@ -43,7 +43,7 @@ export default function InputListRadio({ variant = EInputVariants.ROUNDED, size 
                         isActive={activeOption ? activeOption.id === it.id : false}
                         onClick={() => handleOnItem(it)}
                         key={it.id}
-                        className={index === options.length - 1 ? cl.lastEl : ''} />
+                        />
             ))}
             </div>
         </div>

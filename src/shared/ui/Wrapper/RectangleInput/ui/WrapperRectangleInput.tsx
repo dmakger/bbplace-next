@@ -140,9 +140,11 @@ export const WrapperRectangleInput = ({
           )}
         </div>
       </div>
+      
       <div className={cls(cl.inputsContainer, isListOpen ? cl.listOpen : '')}>
         {clonedChildren}
       </div>
+
       {warning && isRequired && (
         <div className={cl.errorMessage}>
           {errorInputTextMessageArray.map((it, index) => (

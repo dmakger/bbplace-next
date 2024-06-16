@@ -1,26 +1,33 @@
 .block {
-    position: relative;  
-    cursor: pointer;  
+    position: relative;
+    cursor: pointer;
     width: 100%;
     transition: 0.3s;
-
 }
 
-.mainInput{
+.mainInput {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 15px;
     transition: all .3s;
 
-    &:hover{
-        .placeholder{
+    &:hover {
+        .placeholder {
             color: var(--font);
         }
     }
 }
 
-.rounded{
+.selectedOption {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: var(--font-size-s);
+    transition: all .3s;
+}
+
+.rounded {
     background-color: var(--gray-3);
     padding: 10px 10px 10px 15px;
     font-size: var(--font-size-s);
@@ -33,58 +40,55 @@
         border-color: var(--hover);
     }
 
-    .selectedOption{
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        font-size: var(--font-size-s);
-        transition: all .3s;
-    
+    .selectedOption {
         &:hover {
             background-color: var(--gray-4);
         }
-    } 
-    
-    .input {
-        width: 90%;
-        border: none;
-        transition: all .3s;
-        outline: none;
-        background-color: var(--empty);
     }
 }
 
+.input {
+    border: none;
+    transition: all .3s;
+    outline: none;
+    background-color: var(--empty);
+}
 
-
-.placeholder{
+.placeholder {
     color: var(--font-caption-sub);
     transition: 0.3s;
 }
 
-.rectangular{
+.rectangular {
     background-color: var(--background-2);
     border: 1px solid var(--tertiary-border);
     border-radius: 5px;
     color: var(--font-caption-sub);
     font-weight: var(--font-weight-med);
 
-    &:hover{
+    &:hover {
         border-color: var(--tertiary-hovered);
         transition: .3s;
-        .arrowContainer{
+
+        .arrowContainer {
             background-color: var(--tertiary-surface-low);
+        }
+
+        .placeholder {
+            color: var(--font-caption);
+            transition: 0.3s;
         }
     }
 
-    &:active{
-        .arrowContainer{
+    &:active {
+        .arrowContainer {
             background-color: var(--tertiary-surface);
             transition: .3s;
-        }        
+        }
     }
 
-    
-    .arrowContainer{
+
+    .arrowContainer {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -94,58 +98,62 @@
         transition: .3s;
 
 
-        & img{
+        & img {
             width: 16px;
             height: 100%;
         }
-        
+
     }
 
-    .activeArrow{
+    .activeArrow {
         background-color: var(--tertiary-surface);
-        border-radius: 0 5px 0 0 ;
+        border-radius: 0 5px 0 0;
     }
-    
+
     .input {
-        width: 90%;
-        border: none;
-        transition: all .3s;
-        outline: none;
-        background-color: var(--empty);
+        font-size: var(--font-size-reg);
+        color: var(--font-caption);
+    }
+
+    .selectedOption {
         font-size: var(--font-size-reg);
     }
 
 }
 
-.error{
+.error {
     color: var(--font);
     border-color: var(--negative-border) !important;
     transition-duration: 0.3s;
 }
 
-.success{
+.success {
     color: var(--font);
     border-color: var(--positive-border);
     transition-duration: 0.3s;
 }
 
-.rectangularListOpen{
+.rectangularListOpen {
     border-color: var(--tertiary-hovered);
     border-radius: 5px 5px 0 0;
 }
 
 //SIZES
-.default{
+.default {
     font-size: var(--font-size-reg);
-    & input,p{
+
+    & input,
+    p {
         padding: 20px;
     }
 }
 
-.small{
+.small {
     font-size: var(--font-size-s);
-    & input,p{
-        padding: 13px 15px ;
+
+    & input,
+    p {
+        padding: 13px 15px;
     }
 }
 
@@ -170,7 +178,7 @@
     opacity: 1;
 }
 
-.showOptionsRectangular{
+.showOptionsRectangular {
     z-index: 1;
     opacity: 1;
     box-shadow: 0 0 0 5px var(--tertiary-surface);
@@ -179,17 +187,17 @@
 }
 
 
-.arrowOpen{
+.arrowOpen {
     rotate: 180deg;
     transition: rotate 0.3s;
 }
 
-.arrow{
+.arrow {
     rotate: 0deg;
     transition: rotate 0.3s;
 }
 
-.noResult{
+.noResult {
     padding: 10px 10px 10px 15px;
     border-radius: 15px;
     background-color: var(--gray-3);
@@ -197,16 +205,36 @@
     text-align: center;
 }
 
-.noResultRect{
+.noResultRect {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 18px;
+    gap: 5px;
     background-color: var(--background-2);
     padding: 20px;
-    & span{
+
+    .xmarkContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        background-color: transparent;
+        border-radius: 50%;
+        transition: 0.3s;
+
+        &:hover{
+            background-color: var(--negative);
+            transition: 0.3s;
+
+            & img{
+                fill: var(--background-2)
+            }
+        }
+    }
+
+    & span {
         font-size: var(--font-size-reg);
         font-weight: var(--font-weight-med);
     }
 }
-
