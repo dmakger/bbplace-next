@@ -87,11 +87,15 @@ export function TextAndSelectInput({
         setIsHovered(false)
     }
 
-    console.log(isHovered);
-    
 
 
     // ==={ CLICK }===
+
+    const resetInputValue = () => {
+        setSearchQuery('')
+        setIsHovered(false)
+    };
+
     const checkClickValue = () => {
         if (activeOption && activeOption?.name !== '') {
             setWarning && setWarning(false)
@@ -129,23 +133,37 @@ export function TextAndSelectInput({
             setSearchQuery(e.target.value.toLowerCase().replaceAll('  ', ' ').trim());
         }, []);
 
-
     return (
         <WrapperClickOutside _ref={inputSelectRef} isShow={showOptions} handle={toggleShowOptions} className={cls(cl.block, variant === EInputVariants.ROUNDED && showOptions ? cl.show : variant === EInputVariants.RECTANGULAR && showOptions ? cl.showOptionsRectangular : '', className)}>
             <WrapperTitleInput title={title}>
                 <div onClick={toggleShowOptions}
                     className={cl.visible}>
                     <div className={cls(cl.mainInput, cl[variant], cl[size], showOptions && variant === EInputVariants.RECTANGULAR ? cl.rectangularListOpen : '', warning ? cl.error : success ? cl.success : '')}>
-                        {showOptions ? <input
-                            type="text"
-                            className={cl.input}
-                            onClick={(e) => {
-                                e.stopPropagation();
-                            }}
-                            onChange={handleInputChange}
-                            value={searchQuery}
-                            autoFocus
-                        />
+                        {showOptions ? (variant === EInputVariants.ROUNDED ?
+                            <input
+                                type="text"
+                                className={cl.input}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                }}
+                                onChange={handleInputChange}
+                                value={searchQuery}
+                                autoFocus
+                            /> :
+                            <div className={cl.inputContainer}>
+                                <Image src={"searchGray.svg"} alt={"Поиск"} width={19} height={19} className={cl.imageSearch} />
+                                <input
+                                    type="text"
+                                    className={cl.input}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                    }}
+                                    onChange={handleInputChange}
+                                    value={searchQuery}
+                                    autoFocus
+                                />
+
+                            </div>)
                             :
                             <p className={cls(cl.selectedOption, !activeOption && placeholder ? cl.placeholder : '')}>
                                 {!activeOption && placeholder ? placeholder : activeOption?.name}
@@ -177,10 +195,12 @@ export function TextAndSelectInput({
                         <span>Ничего не найдено</span>
                         <div className={cl.xmarkContainer}
                             onMouseEnter={handleOnMouseEnter}
-                            onMouseLeave={handleOnMouseLeave}>
-                            <ImageSmart icon={XMARK_ICON} isHovered={isHovered} width={14} height={14}/>
+                            onMouseLeave={handleOnMouseLeave}
+                            onClick={resetInputValue}>
+                            <ImageSmart icon={XMARK_ICON} isHovered={isHovered} width={14} height={14} />
                         </div>
-                    </div>}</>
+                    </div>}
+                </>
 
             )}
         </WrapperClickOutside>

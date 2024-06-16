@@ -4,5 +4,5 @@ import XmarkHovered from '@/shared/assets/img/Xmark/XmarkIconHovered.svg'
 
 export const XMARK_ICON: IIcon = {
     default: Xmark,
-    defaultHovered: XmarkHovered,
+    defaultHovered: XmarkHovered
 }
