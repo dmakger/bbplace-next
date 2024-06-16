@@ -5,10 +5,8 @@ import { SwitchSelector } from "@/shared/ui/SwitchSelector"
 import { IUserProductsTab, IDetailedProductOptionsTab } from "../model/detailedPageInfo.model"
 import { convertObjectToArray } from "../lib/detailedPageInfo.lib"
 import { IOption } from "@/shared/model/option.model"
-import { ESwitchSelectorVariants } from "@/shared/ui/SwitchSelector/model/switchSelector.model"
 
 interface IDetailedPageInfo {
-    variantSS?: ESwitchSelectorVariants
     className?: string,
     options: IOption[],
     defaultOption: IOption,
@@ -16,7 +14,6 @@ interface IDetailedPageInfo {
 }
 
 export const DetailedPageInfo = ({
-    variantSS = ESwitchSelectorVariants.DEFAULT,
     className,
     options,
     defaultOption,
@@ -35,21 +32,14 @@ export const DetailedPageInfo = ({
                 selectedOption={selectedOption}
                 setSelectedOption={setSelectedOption}
                 optionsTab={optionsTab}
-                variant={variantSS}
             />
             <div className={cl.optionsTabContainer}>
-                {variantSS === ESwitchSelectorVariants.DEFAULT && optionsTab && productPageOptionsArray.map(it => (
+                {optionsTab && productPageOptionsArray.map(it => (
                     <React.Fragment key={it.key}>
                         {it.value.optionTab}
                     </React.Fragment>
                 ))}
-
             </div>
-            {variantSS === ESwitchSelectorVariants.TABS && selectedOption && selectedOption.value && optionsTab[selectedOption.value] &&
-                <>
-                    {optionsTab[selectedOption.value]?.optionTab}
-                </>
-            }
         </div>
     )
 }

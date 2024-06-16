@@ -3,23 +3,22 @@
     display: flex;
     width: 100%;
     overflow-x: auto;
-    border-top-right-radius: 20px;
-    border-top-left-radius: 20px;
 
     &::-webkit-scrollbar {
         display: none;
     }
 
-    .optionsContainer{
+    .optionsContainer {
         display: flex;
         justify-content: space-between;
         width: 100%;
 
-        .leftContainer{
+        .leftContainer {
             display: flex;
         }
     }
-    .option{
+
+    .option {
         display: flex;
         transition: 0.3s ease-in-out;
         cursor: pointer;
@@ -28,7 +27,7 @@
             display: none;
         }
 
-        & label{
+        & label {
             width: fit-content;
             font-size: var(--font-size-sm);
             font-weight: var(--font-weight-med);
@@ -44,46 +43,53 @@
             }
         }
     }
-    .choosen{
+
+    .choosen {
         cursor: default;
         transition: 0.3s ease-in-out;
     }
 }
 
 //DEFAULT
-.default{
+.default {
     position: sticky;
     top: 0;
     left: 0;
     background-color: var(--white);
     border-bottom: 1px solid var(--secondary-surface);
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
 
-    .optionsContainer{
+    .optionsContainer {
         display: flex;
         justify-content: space-between;
         width: 100%;
 
-        .leftContainer{
+        .leftContainer {
             display: flex;
         }
 
-        .arrowUp{
+        .arrowUp {
             min-width: 60px;
             height: 60px;
             cursor: pointer;
             transition-duration: 0.2s;
-            & img{
+
+            & img {
                 transition-duration: 0.2s;
             }
-            &:hover{
+
+            &:hover {
                 background-color: var(--n-blue-light-3);
                 transition-duration: 0.2s;
 
             }
-            &:active{
+
+            &:active {
                 background-color: var(--secondary-surface);
                 transition-duration: 0.2s;
-                & img{
+
+                & img {
                     transform: translate(0%, -10%);
                     transition-duration: 0.2s;
                 }
@@ -114,7 +120,7 @@
 
         & label {
             color: var(--font);
-            cursor: inherit;  
+            cursor: inherit;
         }
 
         &:hover {
@@ -132,72 +138,79 @@
     }
 }
 
-.sticky{
+.sticky {
     border-top-right-radius: 0px;
     border-top-left-radius: 0px;
 }
 
-.stickyChoosenLine{
+.stickyChoosenLine {
     background-color: var(--primary) !important;
 }
 
 //TABS
-.tabs{
-    background-color: var(--secondary-surface);
+.tabs {
+    background-color: transparent;
 
-    .optionsContainer{
+    .optionsContainer {
         display: flex;
         justify-content: space-between;
         width: 100%;
 
-        .leftContainer{
+        .leftContainer {
             display: flex;
-        }
-    
-
-    .option { 
-        border-radius: 20px 20px 0 0;
-        padding: 18px 25px;
-
-        & label {
-            color: var(--secondary);
-            white-space: nowrap;
+            background-color: var(--secondary-surface);
+            border-top-right-radius: 20px;
+            border-top-left-radius: 20px;
         }
 
-        @media (max-width: 768px) {
-            padding: 14px 15px;
-            border-radius: 15px 15px 0 0;
+
+        .option {
+            border-radius: 20px 20px 0 0;
+            padding: 18px 25px;
+
+            & label {
+                color: var(--secondary);
+                white-space: nowrap;
+            }
+
+            @media (max-width: 768px) {
+                padding: 14px 15px;
+                border-radius: 15px 15px 0 0;
+            }
         }
-    }
 
-    .optionHover {
-        &:hover {
-            background-color: var(--secondary-hovered);
-            transition: 0.3s ease-in-out;
+        .optionHover {
+            &:hover {
+                background-color: var(--secondary-hovered);
+                transition: 0.3s ease-in-out;
 
-            & label{
-                color: var(--background-2);
-                cursor: inherit;
+                & label {
+                    color: var(--background-2);
+                    cursor: inherit;
+                    transition: 0.3s ease-in-out;
+                }
+            }
+
+            &:active {
+                background-color: var(--secondary-pressed);
                 transition: 0.3s ease-in-out;
             }
         }
-        &:active{
-            background-color: var(--secondary-pressed);
-            transition: 0.3s ease-in-out;
-        }
-    }
 
-    .choosen {
-        background-color: var(--background-2);
-        & label{
-            color: var(--font);
-        }  
-        &:hover {
+        .choosen {
             background-color: var(--background-2);
-            & label{
+
+            & label {
                 color: var(--font);
+            }
+
+            &:hover {
+                background-color: var(--background-2);
+
+                & label {
+                    color: var(--font);
+                }
             }
         }
     }
-}
 }
