@@ -161,52 +161,49 @@ export const getAllFormatsByFileFormat = (format: FileFormat) => {
 
 
 // FILES
-export const WORD_FILE__FORMAT = ''
-export const EXCEL_FILE__FORMAT = ''
-export const POWER_POINT_FILE__FORMAT = ''
-export const PDF_FILE__FORMAT = ''
-export const TEXT_FILE__FORMAT = ''
+export const WORD_FILE__FORMAT = getAllFormatsByFileFormat(FileFormat.WORD)
+export const EXCEL_FILE__FORMAT = getAllFormatsByFileFormat(FileFormat.EXCEL)
+export const POWER_POINT_FILE__FORMAT = getAllFormatsByFileFormat(FileFormat.POWER_POINT)
+export const PDF_FILE__FORMAT = getAllFormatsByFileFormat(FileFormat.PDF)
+export const TEXT_FILE__FORMAT = getAllFormatsByFileFormat(FileFormat.TEXT)
 
 // IMAGES
-// export const ALL_IMAGE__FORMATS = getAllFormatsByFileFormat(FileFormat.IMAGE)
-
+export const ALL_IMAGE__FORMATS = getAllFormatsByFileFormat(FileFormat.IMAGE)
 
 
 // ========={ FORMATS TO DATA }=========
 
 // FILE FORMAT
-// export const FILE__FORMATS = {
-//     WORD: {
-//         data: WORD_FILE__FORMAT,
-//         format: FileFormat.WORD,
-//     } as IFileFormat,
-//     EXCEL: {
-//         data: EXCEL_FILE__FORMAT,
-//         format: FileFormat.EXCEL,
-//     } as IFileFormat,
-//     POWER_POINT: {
-//         data: POWER_POINT_FILE__FORMAT,
-//         format: FileFormat.POWER_POINT,
-//     } as IFileFormat,
-//     PDF: {
-//         data: PDF_FILE__FORMAT,
-//         format: FileFormat.PDF,
-//     } as IFileFormat,
-// }
+export const FILE__FORMATS = {
+    WORD: {
+        data: WORD_FILE__FORMAT,
+        format: FileFormat.WORD,
+    } as IFileFormat,
+    EXCEL: {
+        data: EXCEL_FILE__FORMAT,
+        format: FileFormat.EXCEL,
+    } as IFileFormat,
+    POWER_POINT: {
+        data: POWER_POINT_FILE__FORMAT,
+        format: FileFormat.POWER_POINT,
+    } as IFileFormat,
+    PDF: {
+        data: PDF_FILE__FORMAT,
+        format: FileFormat.PDF,
+    } as IFileFormat,
+}
 
 // FORMAT IMAGE 
-// export const IMAGE__FORMATS = {
-//     IMAGE_ALL: {
-//         data: ALL_IMAGE__FORMATS,
-//         format: FileFormat.IMAGE
-//     } as IFileFormat,
-// }
+export const IMAGE__FORMATS = {
+    IMAGE_ALL: {
+        data: ALL_IMAGE__FORMATS,
+        format: FileFormat.IMAGE
+    } as IFileFormat,
+}
 
 // FORMAT ALL
-// export const ALL_FORMATS = {
-//     FILES: FILE__FORMATS,
-//     IMAGES: IMAGE__FORMATS,
-//     ALL: {...FILE__FORMATS, ...IMAGE__FORMATS},
-// }
-
-
+export const ALL_FORMATS = {
+    FILES: FILE__FORMATS,
+    IMAGES: IMAGE__FORMATS,
+    ALL: {...FILE__FORMATS, ...IMAGE__FORMATS},
+}

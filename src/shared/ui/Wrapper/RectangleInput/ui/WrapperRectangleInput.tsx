@@ -43,7 +43,6 @@ export const WrapperRectangleInput = ({
   const [warnings, setWarnings] = useState<Record<string, boolean>>({});
   const [successes, setSuccesses] = useState<Record<string, boolean>>({});
   const [inputValueLength, setInputValueLength] = useState<number>(0)
-  const [isListOpen, setIsListOpen] = useState<boolean>(false)
   const [warning, setWarning] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
 
@@ -70,8 +69,7 @@ export const WrapperRectangleInput = ({
         warning: warnings[id],
         setSuccess: (value: boolean) => setSuccesses(prev => ({ ...prev, [id]: value })),
         setWarning: (value: boolean) => setWarnings(prev => ({ ...prev, [id]: value })),
-        setInputValueLength,
-        setIsListOpen
+        setInputValueLength
       });
     }
     return child;
@@ -132,7 +130,7 @@ export const WrapperRectangleInput = ({
               <HoverWindow
                 text={warningTooltipText}
                 position={EHoverWindowPosition.RIGHT}
-                borderColor={!success ? EHoverBorderColor.WARNING : EHoverBorderColor.SUCCESS}
+                borderColor={!success ? EHoverBorderColor.WARNING : EHoverBorderColor.DEFAULT}
                 show={isWarningActive}
                 className={cls(cl.warnWindowActive, classNameWarningWindow)}
               />
@@ -141,7 +139,7 @@ export const WrapperRectangleInput = ({
         </div>
       </div>
       
-      <div className={cls(cl.inputsContainer, isListOpen ? cl.listOpen : '')}>
+      <div className={cls(cl.inputsContainer)}>
         {clonedChildren}
       </div>
 

@@ -54,12 +54,12 @@ export function InputSelect({
     warning,
     setWarning,
 }: InputSelectProps) {
+
     // STATE
     const [showOptions, setShowOptions] = useState(false)
     const [activeOption, setActiveOption] = useState<IOption | undefined>()
     const [isWarning, setIsWarning] = useState<boolean>(false);
     const [isSuccess, setIsSuccess] = useState<boolean>(false);
-
 
     // REF
     const inputSelectRef = useRef<HTMLDivElement>(null);
@@ -100,13 +100,19 @@ export function InputSelect({
     return (
         <WrapperClickOutside _ref={inputSelectRef} isShow={showOptions} handle={toggleShowOptions} className={cls(cl.block, variant === EInputVariants.ROUNDED && showOptions ? cl.show : variant === EInputVariants.RECTANGULAR && showOptions ? cl.showOptionsRectangular : '', className)}>
             <WrapperTitleInput title={title}>
-                <button type={'button'} onClick={handleOnTitle} className={cls(cl.button, cl[variant], cl[size], variant === EInputVariants.RECTANGULAR && showOptions ? cl.activeButton : '', classNameButton, warning ? cl.error : success ? cl.success : '')}>
+                <div onClick={handleOnTitle} className={cls(cl.button, cl[variant], cl[size], variant === EInputVariants.RECTANGULAR && showOptions ? cl.activeButton : '', classNameButton, warning ? cl.error : success ? cl.success : '')}>
                     <span className={cls(cl.title, classNameTitle, !activeOption && placeholder ? cl.placeholder : '')}>
                         {!activeOption && placeholder ? placeholder : activeOption?.name}
                     </span>
                     <Button variant={ButtonVariant.DEFAULT} className={cls(cl.arrowContainer, showOptions ? cl.activeArrow : '', showOptions ? cl.arrowOpen : cl.arrow)} beforeImage={ARROW_WO_ICON} beforeProps={{ width: arrowSizes.width, height: arrowSizes.height }} />
-                </button>
-                    
+                </div>
+                {/* <Button variant={ButtonVariant.DEFAULT} 
+                onClick={handleOnTitle} className={cls(cl.button, cl[variant], cl[size], variant === EInputVariants.RECTANGULAR && showOptions ? cl.activeButton : '', classNameButton, warning ? cl.error : success ? cl.success : '')}
+                    classNameText={cls(cl.title, classNameTitle, !activeOption && placeholder ? cl.placeholder : '')}
+                    title={!activeOption && placeholder ? placeholder : activeOption?.name}>
+                    <Button variant={ButtonVariant.DEFAULT} className={cls(cl.arrowContainer, showOptions ? cl.activeArrow : '', showOptions ? cl.arrowOpen : cl.arrow)} beforeImage={ARROW_WO_ICON} beforeProps={{ width: arrowSizes.width, height: arrowSizes.height }} />
+                </Button> */}
+
             </WrapperTitleInput>
             <Input.List.Radio
                 size={size}

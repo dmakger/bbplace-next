@@ -82,13 +82,13 @@
 
             .successButton {
                 &:hover {
-                    background-color: var(--positive-surface) !important;
+                    background-color: var(--tertiary-surface) !important;
                     transition: 0.3s;
                 }
             }
 
             .successActive {
-                background-color: var(--positive-surface);
+                background-color: var(--tertiary-surface);
             }
         }
     }
@@ -101,9 +101,6 @@
         border-radius: 0 5px 5px 5px;
     }
 
-    .listOpen {
-        background-color: var(--tertiary-surface);
-    }
 
     .errorMessage {
         display: flex;

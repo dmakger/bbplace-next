@@ -24,8 +24,7 @@ export const FilterCountryOrCategoryInput = ({
                     listOptions={listOptions}
                     defaultOption={defaultOption}
                     classNameOptions={cl.filterOptions}
-                    imageWidth={14}
-                    imageHeight={12}
+                    arrowSizes={{width: 14, height: 12}}
                     name={name}
                     onClickOption={onClickOption}
                 />
