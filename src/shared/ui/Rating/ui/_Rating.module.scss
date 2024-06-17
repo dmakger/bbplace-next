@@ -3,11 +3,18 @@
     align-items: center;  
     gap: 3px;
 
+    .defaultColor{
+        & span{
+            color: var(--font);
+        }
+    }
+
     .score{
         color: var(--rating);
-    }
+    }  
 }
 
 .numberOfReviews{
     color: var(--font-caption-sub);
 }
+

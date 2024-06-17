@@ -197,13 +197,17 @@
 
 
 .arrowOpen {
-    rotate: 180deg;
-    transition: rotate 0.3s;
+    & img{
+        rotate: 270deg;
+        transition: rotate 0.3s;
+    } 
 }
 
 .arrow {
-    rotate: 0deg;
-    transition: rotate 0.3s;
+    & img{
+        rotate: 90deg;
+        transition: rotate 0.3s;
+    }
 }
 
 .noResult {
@@ -222,7 +226,7 @@
     background-color: var(--background-2);
     padding: 20px;
 
-    .xmarkContainer {
+    .xmarkButton {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -235,6 +239,10 @@
         &:hover{
             background-color: var(--negative);
             transition: 0.3s;       
+        }
+        &:active{
+            background-color: var(--negative-pressed);
+            transition: 0.3s; 
         }
     }
 
