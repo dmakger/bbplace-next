@@ -34,6 +34,7 @@ export const Modal:FC<ModalProps> = ({_isOpen=false, onClickOverlay=()=>{}, view
         [EModalView.CENTER]: cl.center,
         [EModalView.LEFT]: cl.left,
         [EModalView.RIGHT]: cl.right,
+        [EModalView.BOTTOM]: cl.bottom,
     }
 
     return (

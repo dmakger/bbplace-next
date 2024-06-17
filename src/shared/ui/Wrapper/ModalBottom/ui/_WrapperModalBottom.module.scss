@@ -1,0 +1,30 @@
+.modalBelowWrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+    background-color: var(--background-1);
+    border-radius: 20px 20px 0 0;
+
+    .xmarkButton{
+        position: absolute;
+        top: -20px;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    & h4{
+        padding-top: 20px;
+        text-align: center;
+        font-size: var(--font-size-reg);
+        font-weight: var(--font-weight-med);
+    }
+
+    .buttonsContainer{
+        display: flex;
+        gap: 20px;
+        background-color: var(--background-2);
+        border-radius: 20px 20px 0 0;
+        padding: 20px;
+    }
+}
