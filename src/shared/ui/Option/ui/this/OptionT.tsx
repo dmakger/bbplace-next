@@ -10,15 +10,17 @@ export interface OptionTProps{
     text: string
     variant?: OptionVariant
     className?: string,
+    classNameImage?: string,
+    classNameText?: string,
 }
 
-export const OptionT:FC<OptionTProps> = ({image, text, variant=OptionVariant.TO_GRAY, className}) => {
+export const OptionT:FC<OptionTProps> = ({image, text, variant=OptionVariant.TO_GRAY, className, classNameImage, classNameText}) => {
     return (
         <button className={cls(cl.option, cl[variant], className)}>
             {image && 
-                <ImageAPI src={image} className={cl.image} />
+                <ImageAPI src={image} className={cls(cl.image, classNameImage)} />
             }
-            <span className={cl.text}>{text}</span>
+            <span className={cls(cl.text, classNameText)}>{text}</span>
         </button>
     )
 }

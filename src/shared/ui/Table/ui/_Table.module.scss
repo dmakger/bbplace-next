@@ -5,5 +5,24 @@
 }
 
 .white {
-    border: 1px solid grey;    
+    border: 1px solid var(--block-border);
+    border-radius: 20px;
+    background-color: var(--background-2);
+    border-collapse: collapse;
+    
+    tr {
+        &:nth-child(2n) {
+            background: var(--background-gray-low);
+        }
+
+        td, th {
+            border: 1px solid var(--background-gray);
+        }
+        th {
+            padding: 20px;
+            color: var(--font-caption);
+            font-weight: var(--font-weight-reg);
+            text-align: left;
+        }
+    }
 }

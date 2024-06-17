@@ -74,8 +74,8 @@ export const LKTenderTable:FC<LKTenderTableProps> = ({className}) => {
             tenderToTableLK(tenders).map(it => {
                 return [
                     <TableCell.Option text={it.name} />,
-                    <TableCell.Option text={it.category ? it.category.name : ''} />,
-                    <TableCell.Option text={`${it.files}`} />,
+                    <TableCell.Text text={it.category ? it.category.name : ''} />,
+                    <TableCell.Text text={`${it.files}`} />,
                     <TableCell.Option text={''} />,
                 ] as IRow
             })

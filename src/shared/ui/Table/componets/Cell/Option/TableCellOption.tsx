@@ -8,10 +8,10 @@ interface TableCellOptionProps extends OptionTProps {
     classNameCell?: string
 }
 
-export const TableCellOption:FC<TableCellOptionProps> = ({classNameCell, ...rest}) => {
+export const TableCellOption:FC<TableCellOptionProps> = ({classNameCell, className, ...rest}) => {
     return (
-        <td className={classNameCell}>
-            <OptionT {...rest}/>
+        <td className={cls(cl.cell, classNameCell)}>
+            <OptionT className={cls(cl.data, className)} {...rest}/>
         </td>
     )
 }
