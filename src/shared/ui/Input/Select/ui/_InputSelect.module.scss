@@ -142,13 +142,17 @@
 
 
 .arrowOpen{
-    rotate: 180deg;
-    transition: rotate 0.3s;
+    & img{
+        rotate: 270deg;
+        transition: rotate 0.3s;
+    } 
 }
 
 .arrow{
-    rotate: 0deg;
-    transition: rotate 0.3s;
+    & img{
+        rotate: 90deg;
+        transition: rotate 0.3s;
+    }
 }
 
 .show {

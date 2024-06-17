@@ -15,12 +15,12 @@ export default function MainPage() {
             >
                 <Input.Text variant={EInputVariants.RECTANGULAR} size={EInputSizes.DEFAULT} placeholder="ddd" />
                 <Input.Select variant={EInputVariants.RECTANGULAR} size={EInputSizes.DEFAULT} options={SWITCH_SELECTOR_PRODUCT_OPTIONS}
-                placeholder="dsadasd"/>
+                placeholder="dsadasd" arrowSizes={{width: 16, height: 16}}/>
             </WrapperRectangleInput>
             <WrapperRectangleInput
                 labelText="Категории"
                 descriptionTooltipText='Выберите наиболее подходящую нишу вашего товара из нашего списка категорий'>
-                <Input.TextAndSelect variant={EInputVariants.RECTANGULAR} size={EInputSizes.DEFAULT} placeholder="dsad" listOptions={SWITCH_SELECTOR_PRODUCT_OPTIONS} />
+                <Input.TextAndSelect variant={EInputVariants.RECTANGULAR} size={EInputSizes.DEFAULT} placeholder="dsad" listOptions={SWITCH_SELECTOR_PRODUCT_OPTIONS} arrowSizes={{width: 16, height: 16}}/>
             </WrapperRectangleInput>
         </div>
     )

@@ -9,8 +9,10 @@ import WrapperClickOutside from '@/shared/ui/Wrapper/ClickOutside/WrapperClickOu
 import { WrapperTitleInput } from '@/shared/ui/Wrapper/Title/Input/WrapperTitleInput'
 import { EInputSizes, EInputVariants } from '../../model/input.model'
 import Input from '../../Input'
-import { ImageSmart } from '@/shared/ui/Image/Smart/ImageSmart'
 import { XMARK_ICON } from '@/shared/ui/Icon/data/xmark.data.icon'
+import { Button, ButtonVariant } from '@/shared/ui/Button'
+import { ARROW_WO_ICON } from '@/shared/ui/Icon/data/arrow.data.icon'
+import { IImageSizes } from '@/shared/model/image.model'
 
 interface ITextAndSelectInput {
     variant?: EInputVariants,
@@ -20,8 +22,7 @@ interface ITextAndSelectInput {
     defaultOption?: IOption,
     onClickOption?: Function,
     name?: string,
-    imageWidth?: number,
-    imageHeight?: number
+    arrowSizes?: IImageSizes
     className?: string,
     classNameOptions?: string,
     setIsListOpen?: Function
@@ -42,8 +43,10 @@ export function TextAndSelectInput({
     defaultOption,
     onClickOption,
     name,
-    imageWidth = 10,
-    imageHeight = 10,
+    arrowSizes = {
+        width: 10,
+        height: 10
+    },
     setIsListOpen,
     placeholder,
     success,
@@ -168,9 +171,7 @@ export function TextAndSelectInput({
                             <p className={cls(cl.selectedOption, !activeOption && placeholder ? cl.placeholder : '')}>
                                 {!activeOption && placeholder ? placeholder : activeOption?.name}
                             </p>}
-                        <div className={cls(cl.arrowContainer, showOptions ? cl.activeArrow : '')}>
-                            <Image className={showOptions ? cl.arrowOpen : cl.arrow} src={'arrow.svg'} alt={'arrow'} width={imageWidth} height={imageHeight} />
-                        </div>
+                        <Button variant={ButtonVariant.DEFAULT} className={cls(cl.arrowContainer, showOptions ? cl.activeArrow : '',showOptions ? cl.arrowOpen : cl.arrow)} beforeImage={ARROW_WO_ICON} beforeProps={{ width: arrowSizes.width, height: arrowSizes.height }} />
 
                     </div>
                 </div>
@@ -193,12 +194,14 @@ export function TextAndSelectInput({
                     </p>}
                     {variant === EInputVariants.RECTANGULAR && <div className={cl.noResultRect}>
                         <span>Ничего не найдено</span>
-                        <div className={cl.xmarkContainer}
+                        <Button variant={ButtonVariant.DEFAULT}
+                            className={cl.xmarkButton}
                             onMouseEnter={handleOnMouseEnter}
                             onMouseLeave={handleOnMouseLeave}
-                            onClick={resetInputValue}>
-                            <ImageSmart icon={XMARK_ICON} isHovered={isHovered} width={14} height={14} />
-                        </div>
+                            onClick={resetInputValue}
+                            beforeImage={XMARK_ICON}
+                            beforeProps={{ width: 14, height: 14 }}
+                        />
                     </div>}
                 </>
 
