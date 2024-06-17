@@ -5,14 +5,14 @@ import cl from './_OptionT.module.scss'
 import { OptionVariant } from "@/shared/data/option.data";
 import { ImageAPI } from "@/shared/ui/Image/API/ImageAPI";
 
-interface OptionProps{
+export interface OptionTProps{
     image?: string
     text: string
     variant?: OptionVariant
     className?: string,
 }
 
-export const OptionT:FC<OptionProps> = ({image, text, variant=OptionVariant.TO_GRAY, className}) => {
+export const OptionT:FC<OptionTProps> = ({image, text, variant=OptionVariant.TO_GRAY, className}) => {
     return (
         <button className={cls(cl.option, cl[variant], className)}>
             {image && 

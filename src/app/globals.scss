@@ -61,6 +61,7 @@
   --n-gray-4: #DDDDDD;
   --n-gray-5: #F5F5F5;
   --n-gray-6: #FAFAFA;
+  --n-gray-7: #E1E1E1;
 
   --n-yellow-1: #FDFAED;
   --n-yellow-2: #E8C331;
@@ -76,6 +77,8 @@
 
   --background-1: var(--n-gray-5);
   --background-2: var(--white);
+
+  --block-border: var(--n-gray-7);
 
   --disabled: var(--n-gray-4);
   --on-disabled: var(--white);

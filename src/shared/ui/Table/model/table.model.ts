@@ -1,4 +1,5 @@
 import { ReactNode } from "react"
+import { TableVariant } from "../data/table.data"
 
 /**
  * Интерфейс для объединения колонок в таблицах
@@ -17,4 +18,5 @@ export interface ITable {
     head: (string | undefined)[]
     data: IRow[]
     unions: IUnionColumn[]
+    variant?: TableVariant
 }

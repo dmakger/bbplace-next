@@ -16,6 +16,9 @@ import { CategoryAPI } from "@/entities/Metrics/api/category.metrics.api";
 import { ICategory } from "@/entities/Metrics/model/category.metrics.model";
 import { OptionT } from "@/shared/ui/Option/ui/this/OptionT";
 import { OptionVariant } from "@/shared/data/option.data";
+import { TableCellOption } from "@/shared/ui/Table/componets/Cell/Option/TableCellOption";
+import { IRow } from "@/shared/ui/Table/model/table.model";
+import TableCell from "@/shared/ui/Table/componets/Cell";
 
 interface LKTenderTableProps{
     className?: string,
@@ -26,12 +29,13 @@ export const LKTenderTable:FC<LKTenderTableProps> = ({className}) => {
     const [pageNumber, setPageNumber] = useState<number>(1)
     const [tenders, setTenders] = useState<ITender[]>([])
     const [categoryList, setCategoryList] = useState<ICategory[]>([])
+    const [rowsTable, setRowsTable] = useState<IRow[]>([])
     
     // API
     const { data: tendersAPI, isLoading: isTendersLoading } = TenderAPI.useGetAllTendersQuery({limit: TENDER_ARGS_REQUEST.limit, page: pageNumber-1});
     const { data: currencyList } = CurrencyAPI.useGetCurrenciesQuery()          
     const { data: metrics } = MetricsAPI.useGetMetricsQuery()
-    const [getCategory] = CategoryAPI.useGetCategoryMutation();
+    const [ getCategory ] = CategoryAPI.useGetCategoryMutation();
 
     // EFFECT
     useEffect(() => {
@@ -63,12 +67,28 @@ export const LKTenderTable:FC<LKTenderTableProps> = ({className}) => {
             })
     }, [tendersAPI, metrics, currencyList, categoryList])
 
+    useEffect(() => {
+        if (tenders.length === 0)
+            return
+        setRowsTable(() => (
+            tenderToTableLK(tenders).map(it => {
+                return [
+                    <TableCell.Option text={it.name} />,
+                    <TableCell.Option text={it.category ? it.category.name : ''} />,
+                    <TableCell.Option text={`${it.files}`} />,
+                    <TableCell.Option text={''} />,
+                ] as IRow
+            })
+        ))
+
+    }, [tenders])
+
     // console.log('tenders', tenders, tenderToTableLK(tenders))
     console.log('tenders', categoryList, tenderToTableLK(tenders))
 
     return (
         <>
-            <Table head={['Наименование', 'Категория', 'Файлы', '']} data={[]} unions={[]} />
+            <Table head={['Наименование', 'Категория', 'Файлы', '']} data={rowsTable} unions={[]} />
             <OptionT text="qwer qwer q wer qw er qwer" variant={OptionVariant.TO_GRAY} />
             <OptionT text="qwer qwer q wer qw er qwer" variant={OptionVariant.TO_BLUE} />
         </>
