@@ -34,6 +34,7 @@ class DASHBOARD {
     CHATS = `${this.root}/chat`
 
     CURRENT_CHAT = (id: ISupplier['id']) => `${this.CHATS}/${id}`
+    EDIT_PRODUCT = (id: IProduct['id']) => `${this.PRODUCTS}/edit/${id}`
 
 }
 

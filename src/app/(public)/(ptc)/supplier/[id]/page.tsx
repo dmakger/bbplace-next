@@ -65,7 +65,7 @@ export default function SupplierPage() {
              buttonNode _isOpen={isOpen}
              onClickOverlay={closeTheModal}
              >
-                <WrapperModalBottom title='Выбор действия'/>
+                <WrapperModalBottom isOpen={isOpen} setIsOpen={setIsOpen}/>
 
             </Modal>
         </Wrapper1280>

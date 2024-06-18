@@ -1,0 +1,1 @@
+export {BottomProductSettingsModal} from './ui/BottomProductSettingsModal'

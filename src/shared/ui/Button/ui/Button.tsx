@@ -51,7 +51,8 @@ export const Button = ({
     const classes = variant.split(' ')    
 
     // STATE
-    const [isHovered, setIsHovered] = useState(false)
+    const [isHovered, setIsHovered] = useState<boolean>(false)
+    const [isPressed, setIsPressed] = useState<boolean>(false)
 
     // HANDLE
     const handleOnMouseEnter = () => {
@@ -60,19 +61,30 @@ export const Button = ({
     }
     const handleOnMouseLeave = () => {
         setIsHovered(false)
+        setIsPressed(false)
         onMouseLeave()
+    }
+
+    const handleOnMouseDown = () => {
+        setIsPressed(true)
+        setIsHovered(false)
+    }
+    const handleOnMouseUp = () => {
+        setIsPressed(false)
+        setIsHovered(true)
     }
     
 
     const html =  (
         <button type={type} disabled={disabled}
                 onClick={e => onClick(e)} onMouseEnter={handleOnMouseEnter} onMouseLeave={handleOnMouseLeave} 
+                onMouseDown={handleOnMouseDown} onMouseUp={handleOnMouseUp}
                 className={cls(cl.button, cl[classes[0]], cl[color], cl[size], active ? cl.active : '', classes.length > 0 && classes[1] === 'new' ? cl.new : cl.old, className)}>
             {beforeImage &&
                 <ImageSmart {...beforeProps} icon={beforeImage} 
                             width={beforeProps && beforeProps.width ? beforeProps.width: 20} 
                             height={beforeProps && beforeProps.height ? beforeProps.height: 20} 
-                            isActive={active} isHovered={isHovered} />
+                            isActive={active} isHovered={isHovered} isPressed={isPressed}/>
             }
             {title && 
                 <span className={cls(cl.title, classNameText)}>{title}</span>
