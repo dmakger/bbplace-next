@@ -3,7 +3,7 @@ import { FC, useCallback } from "react"
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_ImageMaximizeSlide.module.scss'
 import { ImageAPI } from "@/shared/ui/Image/API/ImageAPI";
-import { ButtonMaximize } from "@/shared/ui/Button/Maximize/ButtonMaximize";
+import { ButtonMaximize } from "@/shared/ui/Button/data/Maximize/ButtonMaximize";
 import React from "react";
 
 interface ImageMaximizeSlideProps{

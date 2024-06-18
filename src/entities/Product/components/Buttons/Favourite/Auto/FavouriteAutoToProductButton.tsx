@@ -3,7 +3,7 @@ import { ESupplierFavouriteViewItem } from "@/entities/Supplier/data/view.suppli
 import { IProduct } from "@/entities/Product/model/product.model";
 import { FavouriteSmallToProductButton } from "../Small/FavouriteSmallToSupplierButton";
 import { EProductFavouriteViewItem } from "@/entities/Product/data/view.product.data";
-import { ButtonFavouriteProps } from "@/shared/ui/Button/Favourite/ButtonFavourite";
+import { ButtonFavouriteProps } from "@/shared/ui/Button/data/Favourite/ButtonFavourite";
 
 
 interface FavouriteAutoToProductButtonProps{

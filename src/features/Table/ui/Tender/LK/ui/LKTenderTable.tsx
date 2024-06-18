@@ -7,7 +7,7 @@ import cl from './_TenderTable.module.scss'
 import { Table } from "@/shared/ui/Table/ui/Table";
 import { TenderAPI } from "@/entities/Tender/api/tender.api";
 import { TENDER_ARGS_REQUEST } from "@/entities/Tender/data/tender.data";
-import { ITender } from "@/entities/Tender/model/tender.model";
+import { ETenderType, ITender } from "@/entities/Tender/model/tender.model";
 import { tenderAPIListToTenderList, tenderAPIToTender } from "@/entities/Tender/lib/process.tender.lib";
 import { CurrencyAPI } from "@/entities/Metrics/api/currency.metrics.api";
 import { MetricsAPI } from "@/entities/Metrics/api/metrics.metrics.api";
@@ -19,6 +19,10 @@ import { OptionVariant } from "@/shared/data/option.data";
 import { TableCellOption } from "@/shared/ui/Table/componets/Cell/Option/TableCellOption";
 import { IRow } from "@/shared/ui/Table/model/table.model";
 import TableCell from "@/shared/ui/Table/componets/Cell";
+import { Button, ButtonVariant } from "@/shared/ui/Button";
+import { ButtonColor, ButtonSize } from "@/shared/ui/Button/model/button.model";
+import { TRASH_NEGATIVE_TO_WHITE_ICON } from "@/shared/ui/Icon/data/trash.data.icon";
+import { LKTenderTableCellTrash } from "../components/Cell/Trash/LKTenderTableCellTrash";
 
 interface LKTenderTableProps{
     className?: string,
@@ -76,7 +80,7 @@ export const LKTenderTable:FC<LKTenderTableProps> = ({className}) => {
                     <TableCell.Option text={it.name} />,
                     <TableCell.Text text={it.category ? it.category.name : ''} />,
                     <TableCell.Text text={`${it.files}`} />,
-                    <TableCell.Option text={''} />,
+                    <LKTenderTableCellTrash tenderId={""} type={ETenderType.PURCHASE} />,
                 ] as IRow
             })
         ))

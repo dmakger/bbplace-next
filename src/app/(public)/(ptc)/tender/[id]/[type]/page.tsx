@@ -27,7 +27,6 @@ import { filterFilesByFormat } from '@/entities/File/lib/file.lib';
 import { FileAPI } from '@/entities/File/api/file.api';
 import { IAttachment } from '@/shared/model/attachment.model';
 import { FileBlock } from '@/entities/File/ui/Block/FileBlock';
-import { toTenderType } from '@/entities/Tender/lib/tender.lib';
 
 
 export default function TenderPage() {

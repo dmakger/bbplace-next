@@ -43,8 +43,11 @@
   --n-red-1: #E54348;
   --n-red-2: #D71E23;
   --n-red-3: #AA181C;
+  --n-red-4: #A12232;
+  --n-red-5: #761925;
   --n-red-light-1: #F19C9F;
   --n-red-light-2: #FCE9E9;
+  --n-red-light-3: #FBEAEC;
 
   --n-blue-1: #556290;
   --n-blue-2: #424C70;
@@ -108,6 +111,14 @@
   --on-secondary: var(--white);
   --secondary-surface: var(--n-blue-light-2);
   --secondary-surface-sub: var(--n-blue-light-3);
+
+  --negative: var(--n-red-4);
+  --negative-border: var(--n-red-4);
+  --negative-hovered: var(--n-red-4);
+  --negative-pressed: var(--n-red-5);
+  --on-negative: var(--white);
+  --negative-surface: var(--n-red-light-3);
+  --negative-surface-sub: var(--n-red-light-3);
 
   --tertiary: var(--n-blue-3);
   --tertiary-border: var(--n-blue-4);

@@ -7,7 +7,7 @@ import { Button, ButtonVariant } from "@/shared/ui/Button";
 import { SUBSCRIBE_BLUE_ICON } from "@/shared/ui/Icon/data/subscribe.data.icon";
 import { FavouriteType } from "@/entities/Favourite/data/favourite.data";
 import { useFavourite } from "@/entities/Favourite/lib/favourite.lib";
-import { ButtonColor, ButtonSize } from "@/shared/ui/Button/model/model";
+import { ButtonColor, ButtonSize } from "@/shared/ui/Button/model/button.model";
 
 interface SubscribeLargeToSupplierButtonProps {
     supplierId: ISupplier['id']

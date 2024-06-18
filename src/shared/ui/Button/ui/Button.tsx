@@ -1,13 +1,15 @@
 'use client'
-import React, {ReactNode, useState} from 'react'
+import React, {ReactNode, useEffect, useState} from 'react'
 import cl from './_Button.module.scss'
 import { ButtonVariant } from '..'
 import Link from 'next/link'
 import { IIcon } from '../../Icon/model/model'
 import { IIconProps } from '@/shared/model/button.model'
-import { ButtonColor, ButtonSize, ButtonType } from '../model/model'
+import { ButtonColor, ButtonSize, ButtonType } from '../model/button.model'
 import { ImageSmart } from '../../Image/Smart/ImageSmart'
 import { cls } from '@/shared/lib/classes.lib'
+import { ButtonImageSize } from '../data/button.data'
+import { getImageSizeBySize } from '../lib/button.lib'
 
 export interface IButton {
     variant?: ButtonVariant
@@ -52,6 +54,7 @@ export const Button = ({
 
     // STATE
     const [isHovered, setIsHovered] = useState(false)
+    const [sizeImage, setSizeImage] = useState<ButtonImageSize>(ButtonImageSize.DefaultSize)
 
     // HANDLE
     const handleOnMouseEnter = () => {
@@ -62,16 +65,23 @@ export const Button = ({
         setIsHovered(false)
         onMouseLeave()
     }
+
+    // EFFECT
+    useEffect(() => {
+        setSizeImage(getImageSizeBySize(size))
+    }, [size])
     
 
     const html =  (
         <button type={type} disabled={disabled}
                 onClick={e => onClick(e)} onMouseEnter={handleOnMouseEnter} onMouseLeave={handleOnMouseLeave} 
-                className={cls(cl.button, cl[classes[0]], cl[color], cl[size], active ? cl.active : '', classes.length > 0 && classes[1] === 'new' ? cl.new : cl.old, className)}>
+                className={cls(cl.button, cl[classes[0]], cl[color], cl[size], 
+                                active ? cl.active : '', classes.length > 0 && classes[1] === 'new' ? cl.new : cl.old, 
+                                !title ? cl.noTitle : '', className)}>
             {beforeImage &&
                 <ImageSmart {...beforeProps} icon={beforeImage} 
-                            width={beforeProps && beforeProps.width ? beforeProps.width: 20} 
-                            height={beforeProps && beforeProps.height ? beforeProps.height: 20} 
+                            width={beforeProps && beforeProps.width ? beforeProps.width: sizeImage} 
+                            height={beforeProps && beforeProps.height ? beforeProps.height: sizeImage} 
                             isActive={active} isHovered={isHovered} />
             }
             {title && 
@@ -79,8 +89,8 @@ export const Button = ({
             }
             {afterImage &&
                 <ImageSmart {...afterProps} icon={afterImage} 
-                            width={afterProps && afterProps.width ? afterProps.width: 20} 
-                            height={afterProps && afterProps.height ? afterProps.height: 20} 
+                            width={afterProps && afterProps.width ? afterProps.width: sizeImage} 
+                            height={afterProps && afterProps.height ? afterProps.height: sizeImage} 
                             isActive={active} isHovered={isHovered} />
             }
             {children}

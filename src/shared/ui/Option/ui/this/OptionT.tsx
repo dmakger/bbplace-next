@@ -12,11 +12,17 @@ export interface OptionTProps{
     className?: string,
     classNameImage?: string,
     classNameText?: string,
+    onClick?: Function,
 }
 
-export const OptionT:FC<OptionTProps> = ({image, text, variant=OptionVariant.TO_GRAY, className, classNameImage, classNameText}) => {
+export const OptionT:FC<OptionTProps> = ({image, text, variant=OptionVariant.TO_GRAY, className, classNameImage, classNameText, onClick}) => {
+    const handleOnClick = () => {
+        if (onClick) 
+            onClick()
+    }
+    
     return (
-        <button className={cls(cl.option, cl[variant], className)}>
+        <button onClick={handleOnClick} className={cls(cl.option, cl[variant], className)}>
             {image && 
                 <ImageAPI src={image} className={cls(cl.image, classNameImage)} />
             }
