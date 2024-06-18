@@ -6,11 +6,11 @@ import TableCell from "@/shared/ui/Table/componets/Cell";
 import { TRASH_NEGATIVE_TO_WHITE_ICON } from "@/shared/ui/Icon/data/trash.data.icon";
 import { Button, ButtonVariant } from "@/shared/ui/Button";
 import { ButtonColor, ButtonSize } from "@/shared/ui/Button/model/button.model";
-import { ETenderType, IBaseTender } from "@/entities/Tender/model/tender.model";
+import { ETenderType, IBaseTender, ITender } from "@/entities/Tender/model/tender.model";
 
 interface LKTenderTableCellTrashProps {
-    tenderId: string
-    type: ETenderType
+    tenderId: ITender['id']
+    type?: ETenderType
     className?: string,
 }
 

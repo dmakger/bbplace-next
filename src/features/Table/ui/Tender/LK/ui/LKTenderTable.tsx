@@ -8,20 +8,13 @@ import { Table } from "@/shared/ui/Table/ui/Table";
 import { TenderAPI } from "@/entities/Tender/api/tender.api";
 import { TENDER_ARGS_REQUEST } from "@/entities/Tender/data/tender.data";
 import { ETenderType, ITender } from "@/entities/Tender/model/tender.model";
-import { tenderAPIListToTenderList, tenderAPIToTender } from "@/entities/Tender/lib/process.tender.lib";
+import { tenderAPIToTender } from "@/entities/Tender/lib/process.tender.lib";
 import { CurrencyAPI } from "@/entities/Metrics/api/currency.metrics.api";
 import { MetricsAPI } from "@/entities/Metrics/api/metrics.metrics.api";
-import { tenderToTableLK } from "@/features/Table/lib/lk.tender.table.lib";
 import { CategoryAPI } from "@/entities/Metrics/api/category.metrics.api";
 import { ICategory } from "@/entities/Metrics/model/category.metrics.model";
-import { OptionT } from "@/shared/ui/Option/ui/this/OptionT";
-import { OptionVariant } from "@/shared/data/option.data";
-import { TableCellOption } from "@/shared/ui/Table/componets/Cell/Option/TableCellOption";
 import { IRow } from "@/shared/ui/Table/model/table.model";
 import TableCell from "@/shared/ui/Table/componets/Cell";
-import { Button, ButtonVariant } from "@/shared/ui/Button";
-import { ButtonColor, ButtonSize } from "@/shared/ui/Button/model/button.model";
-import { TRASH_NEGATIVE_TO_WHITE_ICON } from "@/shared/ui/Icon/data/trash.data.icon";
 import { LKTenderTableCellTrash } from "../components/Cell/Trash/LKTenderTableCellTrash";
 
 interface LKTenderTableProps{
@@ -75,26 +68,21 @@ export const LKTenderTable:FC<LKTenderTableProps> = ({className}) => {
         if (tenders.length === 0)
             return
         setRowsTable(() => (
-            tenderToTableLK(tenders).map(it => {
+            tenders.map(it => {
                 return [
                     <TableCell.Option text={it.name} />,
                     <TableCell.Text text={it.category ? it.category.name : ''} />,
-                    <TableCell.Text text={`${it.files}`} />,
-                    <LKTenderTableCellTrash tenderId={""} type={ETenderType.PURCHASE} />,
+                    <TableCell.Text text={`${it.attachments.length}`} />,
+                    <LKTenderTableCellTrash tenderId={it.id} type={it.type} />,
                 ] as IRow
             })
         ))
 
     }, [tenders])
 
-    // console.log('tenders', tenders, tenderToTableLK(tenders))
-    console.log('tenders', categoryList, tenderToTableLK(tenders))
+    console.log('tenders', categoryList)
 
     return (
-        <>
-            <Table head={['Наименование', 'Категория', 'Файлы', '']} data={rowsTable} unions={[]} />
-            <OptionT text="qwer qwer q wer qw er qwer" variant={OptionVariant.TO_GRAY} />
-            <OptionT text="qwer qwer q wer qw er qwer" variant={OptionVariant.TO_BLUE} />
-        </>
+        <Table head={['Наименование', 'Категория', 'Файлы', '']} data={rowsTable} unions={[]} />
     )
 }
