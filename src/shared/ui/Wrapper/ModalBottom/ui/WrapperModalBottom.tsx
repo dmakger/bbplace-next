@@ -2,7 +2,7 @@
 import { BottomProductSettingsModal } from '@/features/Modal/BottomProductSettings'
 import cl from './_WrapperModalBottom.module.scss'
 import { Button, ButtonVariant } from '@/shared/ui/Button'
-import { XMARK_HOVERED_ICON, XMARK_ICON } from '@/shared/ui/Icon/data/xmark.data.icon'
+import { XMARK_HOVERED_ICON } from '@/shared/ui/Icon/data/xmark.data.icon'
 
 interface IWrapperModalBottom {
     productId?: number,

@@ -43,8 +43,12 @@
   --n-red-1: #E54348;
   --n-red-2: #D71E23;
   --n-red-3: #AA181C;
+  --n-red-4: #CA2B3E;
+  --n-red-5: #A12232;
+  --n-red-6: #761925;
   --n-red-light-1: #F19C9F;
   --n-red-light-2: #FCE9E9;
+  --n-red-light-3: #FBEAEC;
 
   --n-blue-1: #556290;
   --n-blue-2: #424C70;
@@ -69,6 +73,7 @@
   --n-green-1: #276E21;
   --n-green-2: #35952D;
   --n-green-3: #E5F7E4;
+  --n-green-4: #96C791;
 
 
   // specify
@@ -87,6 +92,11 @@
   --font-caption-sub: var(--n-gray-2);
 
   --border: var(--n-gray-3);
+  --negative-border: var(--n-red-4);
+  --negative-pressed: var(--n-red-6);
+
+  --positive-surface: var(--n-green-3);
+  --positive-border: var(--n-green-4);
 
   --primary: var(--n-red-1);
   --primary-border: var(--n-red-light-1);
@@ -122,6 +132,8 @@
   --third-family: "Segoe UI Variable", sans-serif;
 
   //FONT-SIZE
+  //10px
+  --font-size-xxxxs: 0.63rem;
   // 11px
   --font-size-xxxs: 0.69rem; 
   // 12px

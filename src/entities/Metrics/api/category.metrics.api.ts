@@ -34,5 +34,11 @@ export const CategoryAPI = createApi({
                 }
             })
         }),
+		getCategoryById: build.query<ICategory[], number>({
+			query: (id) => ({
+				url: `/GetCategory/${id}`,
+				method: 'GET',
+		})
 	})
+})
 })
