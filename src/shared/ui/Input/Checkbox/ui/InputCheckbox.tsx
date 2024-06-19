@@ -7,14 +7,13 @@ import { useRef, useState } from 'react'
 
 interface IInputCheckbox {
   className?: string,
-  success?: boolean
-  setSuccess?: Function
+  success?: boolean,
+  setSuccess?: Function,
   warning?: boolean,
   setWarning?: Function,
   required?: boolean,
   onClick?: Function
 }
-
 
 export const InputCheckbox = ({
   className,
@@ -32,25 +31,37 @@ export const InputCheckbox = ({
   //REF
   const inputRef = useRef<HTMLInputElement>(null)
 
+  const handleCheckboxChange = () => {
+    const newValue = !isChecked
+    setIsChecked(newValue)
+    if (inputRef.current) {
+      inputRef.current.checked = newValue      
+    }
+    if (onClick) {
+      onClick(newValue)
+    }
+  }
 
   return (
     <div className={cls(cl.InputCheckbox, className)}>
       <input type='checkbox'
         className={cl.input}
-        defaultChecked={isChecked}
+        checked={isChecked}
         ref={inputRef}
-        required={required} />
+        required={required}
+        onChange={handleCheckboxChange}
+      />
 
       <Button variant={ButtonVariant.DEFAULT}
         beforeImage={CHECKBOX_SECONDARY_ICON}
-        beforeProps={{classNameImage: isChecked ? cl.image : ''}}
+        beforeProps={{ classNameImage: isChecked ? cl.image : '' }}
         className={cls(
           cl.checkbox,
           isChecked ? cl.checked : '',
           warning ? cl.warning : '',
           success ? cl.success : '')}
         active={isChecked}
-        onClick={() => setIsChecked(!isChecked)}
+        onClick={handleCheckboxChange}
       />
     </div>
   )
