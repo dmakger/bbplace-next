@@ -50,10 +50,12 @@
   --n-red-light-2: #FCE9E9;
   --n-red-light-3: #FBEAEC;
 
+
   --n-blue-1: #556290;
   --n-blue-2: #424C70;
   --n-blue-3: #9294A5;
   --n-blue-4: #CACBD3;
+  --n-blue-5: #76788E;
 
   --n-blue-light-1: #CFD3E3;
   --n-blue-light-2: #EFF0F5;
@@ -64,7 +66,8 @@
   --n-gray-3: #D7D8DE;
   --n-gray-4: #DDDDDD;
   --n-gray-5: #F5F5F5;
-  --n-gray-6: #FAFAFA;
+  --n-gray-6: #F4F4F6;
+  --n-gray-7: #E6E6EA;
 
   --n-yellow-1: #FDFAED;
   --n-yellow-2: #E8C331;
@@ -116,6 +119,13 @@
 
   --tertiary: var(--n-blue-3);
   --tertiary-border: var(--n-blue-4);
+  --tertiary-hovered: var(--n-blue-3);
+  --tertiary-pressed: var(--n-blue-5);
+  --tertiary-surface-low: var(--n-gray-6);
+  --tertiary-surface: var(--n-gray-7);
+
+  --negative: var(--n-red-5);
+  --negative-surface: var(--n-red-light-3);
 
 
   --rating-surface: var(--n-yellow-1);

@@ -1,4 +1,4 @@
-import { IIcon } from "../ui/Icon/model/model"
+import { IIcon, IWarningIcon } from "../ui/Icon/model/model"
 
 export interface IButtonIconProps {
     isActive?: boolean
@@ -11,7 +11,8 @@ export interface IButtonIconProps {
 export interface IIconProps {
     icon?: IIcon
     axis?: Axis
-    isActive?: boolean
+    isActive?: boolean,
+    isSuccess?: boolean,
     width?: number
     height?: number
     isHovered?: boolean

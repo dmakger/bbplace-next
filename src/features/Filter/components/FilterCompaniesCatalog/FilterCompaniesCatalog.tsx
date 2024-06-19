@@ -2,7 +2,6 @@ import { Dispatch, RefObject, SetStateAction } from 'react'
 import cl from './_FilterCompaniesCatalog.module.scss'
 import { IOption } from '@/shared/model/option.model'
 import { cls } from '@/shared/lib/classes.lib'
-import { FilterCountryOrCategoryInput, FilterMinOrderInput } from '../FilterInputs'
 import Input from '@/shared/ui/Input/Input'
 import { ISortFilter } from '@/widgets/SortFilterSidebar/model/sortFilterSidebar.model'
 import { CORE_PARAMS } from '@/config/params/core.params.config'
@@ -41,12 +40,12 @@ export const FilterCompaniesCatalog = ({
     return (
         <div ref={inputListRef} className={cls(cl.FilterCompaniesCatalog, isFiltersOpen ? cl.withMarginTop : '')}>
             <Input.TextAndSelect title={'Категории'}
-                                 imageWidth={14} imageHeight={12}
+                                 arrowSizes={{width: 14, height: 12}}
                                  listOptions={categoryListOptions}
                                  defaultOption={filter[CORE_PARAMS.CATEGORY] as IOption}
                                  onClickOption={handleOnClickCategory} />
             <Input.TextAndSelect title={'Страна'}
-                                 imageWidth={14} imageHeight={12}
+                                 arrowSizes={{width: 14, height: 12}}
                                  listOptions={countryListOptions}
                                  defaultOption={filter[CORE_PARAMS.COUNTRY] as IOption}
                                  onClickOption={handleOnClickCountry} />
@@ -54,7 +53,7 @@ export const FilterCompaniesCatalog = ({
                         name="minOrder"
                         type='number'
                         placeholder='Введите число'
-                        variant={EInputTextVariant.W_HOVERED}
+                        variantInputText={EInputTextVariant.W_HOVERED}
                         defaultValue={filter[CORE_PARAMS.MIN_ORDER_QUANTITY] as string}
                         onChange={handleOnClickMinOrder} />
         </div>

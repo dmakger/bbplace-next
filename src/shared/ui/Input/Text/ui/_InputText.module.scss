@@ -1,9 +1,53 @@
 .input {
     width: 100%;
-    border: 1px solid var(--gray-5);
+    background-color: var(--background-2);
     transition: all .3s;
     outline: none;
+    border: 1px solid var(--gray-5);
     padding-left: 3px;
+}
+
+.rounded {
+    border: 1px solid var(--gray-5);
+    padding-left: 3px;
+}
+
+.rectangular {
+    border: 1px solid var(--tertiary-border);
+    border-radius: 5px;
+    font-weight: var(--font-weight-med);
+
+    &:hover{
+        border-color: var(--tertiary-hovered);
+        transition-duration: 0.3s;
+    }
+    &:focus, :active{
+        border-color:var(--tertiary-pressed);
+        transition-duration: 0.3s;
+    }
+
+    
+}
+.error{
+    color: var(--font);
+    border-color: var(--negative-border) !important;
+    transition-duration: 0.3s;
+}
+
+.success{
+    color: var(--font);
+    border-color: var(--positive-border);
+    transition-duration: 0.3s;
+}
+//SIZES
+.default{
+    padding: 20px;
+    font-size: var(--font-size-reg);
+}
+
+.small{
+    padding: 17px 15px;
+    font-size: var(--font-size-s);
 }
 
 .wHovered {
