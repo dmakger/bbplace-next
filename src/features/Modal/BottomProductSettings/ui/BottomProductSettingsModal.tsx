@@ -1,4 +1,5 @@
 'use client'
+
 import { Button, ButtonVariant } from '@/shared/ui/Button'
 import cl from './_BottomProductSettingsModal.module.scss'
 import { cls } from "@/shared/lib/classes.lib"
@@ -8,18 +9,17 @@ import { EDIT_ICON } from '@/shared/ui/Icon/data/edit.data.icon'
 import { useRouter } from 'next/navigation'
 import { ProductAPI } from '@/entities/Product/api/product.api'
 import { DASHBOARD_PAGES } from '@/config/pages-url.config'
+import { IProduct } from '@/entities/Product/model/product.model'
 
 interface IBottomProductSettingsModal {
     className?: string,
-    productId: number,
-    isOpen: boolean,
+    product: IProduct,
     setIsOpen: Function
 }
 
 export const BottomProductSettingsModal = ({
     className,
-    productId,
-    isOpen,
+    product,
     setIsOpen
 }:IBottomProductSettingsModal) => {
 
@@ -30,9 +30,14 @@ export const BottomProductSettingsModal = ({
     //ROUTER
     const router = useRouter()
 
-
     //FUNCTION
     const delProduct = () => {
+        if(product.media.attachments.length){
+            deleteProduct(product.id)            
+        }
+        else{
+            deleteDraft(product.id)         
+        }
         setIsOpen(false)
     }
 
