@@ -5,7 +5,6 @@ import { InputRadio } from "./Radio"
 import { InputDoubleText } from "./DoubleText"
 import { TextAndSelectInput } from "./TextAndSelect"
 import { InputSelect } from "./Select/ui/InputSelect"
-import { InputCheckbox } from "./Checkbox"
 
 interface InputProps {
     children: ReactNode
@@ -23,5 +22,3 @@ Input.Select = InputSelect
 Input.TextAndSelect = TextAndSelectInput
 Input.Radio = InputRadio
 Input.List = InputList
-Input.Checkbox = InputCheckbox
-

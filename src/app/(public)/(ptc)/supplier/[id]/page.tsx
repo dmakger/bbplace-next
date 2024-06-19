@@ -18,7 +18,6 @@ import Wrapper1280 from "@/shared/ui/Wrapper/1280/Wrapper1280";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { WrapperModalBottom } from "@/shared/ui/Wrapper/ModalBottom";
-import { LKProduct } from "@/entities/Product/ui/LKProduct";
 
 
 export default function SupplierPage() {
@@ -27,7 +26,7 @@ export default function SupplierPage() {
     const [supplier, setSupplier] = useState<ISupplier>()
     const [supplierProducts, setSupplierProducts] = useState<IProduct[]>([])
 
-    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [isOpen, setIsOpen] = useState<boolean>(true);
 
 
     //PARAMS
@@ -61,9 +60,7 @@ export default function SupplierPage() {
                 supplierRating={supplierRating ?? 0}
                 supplierReviews={supplierReviews?.length ?? 0}
             />}
-            {/* {supplierProducts && <ProductAutoList products={supplierProducts} view={EViewProduct.AT_SUPPLIER_PAGE} />} */}
-
-            {supplierProducts[1] && <LKProduct product={supplierProducts[1]} setIsOpenModal={setIsOpen}/>}
+            {supplierProducts && <ProductAutoList products={supplierProducts} view={EViewProduct.AT_SUPPLIER_PAGE} />}
             <Modal view={EModalView.BOTTOM}
              buttonNode _isOpen={isOpen}
              onClickOverlay={closeTheModal}
