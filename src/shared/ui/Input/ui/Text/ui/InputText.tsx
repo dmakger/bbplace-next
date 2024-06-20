@@ -5,18 +5,12 @@ import cl from './_InputText.module.scss'
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { WrapperTitleInput } from '@/shared/ui/Wrapper/Title/Input/WrapperTitleInput'
 import { EInputTextVariant } from '../data/text.input.data'
-import { EInputSizes, EInputVariants } from '../../model/input.model'
 import { IWrapperRectangleInputChildren } from '@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model'
+import { EInputSizes, EInputVariants, IInput } from '../../../model/input.model'
 
-interface InputTextProps extends IWrapperRectangleInputChildren{
-    variant?: EInputVariants,
-    size?: EInputSizes,
+interface InputTextProps extends IWrapperRectangleInputChildren, IInput{
     title?: string
     variantInputText?: EInputTextVariant
-    name?: string
-    placeholder?: string
-    className?: string,
-    onChange?: Function,
     defaultValue?: string,
     type?: string
 }

@@ -7,26 +7,21 @@ import { IOption } from '@/shared/model/option.model'
 import { cls } from '@/shared/lib/classes.lib'
 import WrapperClickOutside from '@/shared/ui/Wrapper/ClickOutside/WrapperClickOutside'
 import { WrapperTitleInput } from '@/shared/ui/Wrapper/Title/Input/WrapperTitleInput'
-import { EInputSizes, EInputVariants } from '../../model/input.model'
-import Input from '../../Input'
 import { XMARK_ICON } from '@/shared/ui/Icon/data/xmark.data.icon'
 import { Button, ButtonVariant } from '@/shared/ui/Button'
 import { ARROW_WO_ICON } from '@/shared/ui/Icon/data/arrow.data.icon'
 import { IImageSizes } from '@/shared/model/image.model'
 import { IWrapperRectangleInputChildren } from '@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model'
+import { EInputSizes, EInputVariants, IInput } from '../../../model/input.model'
+import Input from '../../../Input'
 
-interface ITextAndSelectInput extends IWrapperRectangleInputChildren{
-    variant?: EInputVariants,
-    size?: EInputSizes,
+interface ITextAndSelectInput extends IWrapperRectangleInputChildren, IInput{
     title?: string
     listOptions?: IOption[],
     defaultOption?: IOption,
     onClickOption?: Function,
-    name?: string,
     arrowSizes?: IImageSizes
-    className?: string,
     classNameOptions?: string,
-    placeholder?: string,
 }
 
 export function TextAndSelectInput({

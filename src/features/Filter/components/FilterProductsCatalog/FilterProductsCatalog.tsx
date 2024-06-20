@@ -4,9 +4,9 @@ import { STATUS_OPTIONS } from '../../data/filter.data'
 import { Dispatch, RefObject, SetStateAction } from 'react'
 import { cls } from '@/shared/lib/classes.lib'
 import Input from '@/shared/ui/Input/Input'
-import { EInputTextVariant } from '@/shared/ui/Input/Text/data/text.input.data'
 import { ISortFilter } from '@/widgets/SortFilterSidebar/model/sortFilterSidebar.model'
 import { CORE_PARAMS } from '@/config/params/core.params.config'
+import { EInputTextVariant } from '@/shared/ui/Input/ui/Text/data/text.input.data'
 
 interface IFilterProductsCatalog {
     isFiltersOpen: boolean,

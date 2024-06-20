@@ -50,7 +50,7 @@
 }
 
 //POSITION
-.up {
+.top {
     transform: translate(-50%, calc(-100% - 30px));
 
     .triangle {
@@ -63,7 +63,7 @@
     }
 }
 
-.down {
+.bottom {
     transform: translate(-50%, 30px);
 
     .triangle {

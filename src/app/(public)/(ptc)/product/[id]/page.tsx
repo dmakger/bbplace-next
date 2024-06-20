@@ -122,6 +122,8 @@ export default function ProductDetailPage() {
         }
     }
 
+    console.log(product);
+    
     //VARIABLE
     const productWholesalePrices = product.media.wholesalePrices;
     //FUNCTION

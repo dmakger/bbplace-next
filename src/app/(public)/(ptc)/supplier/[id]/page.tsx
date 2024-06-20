@@ -37,7 +37,7 @@ export default function SupplierPage() {
     //API
     const { data: supplierRating } = ReviewAPI.useGetSupplierScoreQuery(supplierId as string)
     const { data: supplierReviews } = ReviewAPI.useGetSellerReviewsQuery({ supplierId: supplierId, limit: REVIEW_LIMIT ?? 0, page: REVIEW_START_PAGE })
-    const { data: supplierProductsAPI } = ProductAPI.useGetProductsByUserQuery({ userId: supplierId, limit: PRODUCT_LIMIT })
+    const { data: supplierProductsAPI } = ProductAPI.useGetProductsByUserQuery({ userId: supplierId, limit: 200 })
     const { data: supplierAPI } = UserAPI.useGetUserDataQuery(supplierId)
 
     //EFFECT
@@ -63,7 +63,7 @@ export default function SupplierPage() {
             />}
             {/* {supplierProducts && <ProductAutoList products={supplierProducts} view={EViewProduct.AT_SUPPLIER_PAGE} />} */}
 
-            {supplierProducts[1] && <LKProduct product={supplierProducts[1]} setIsOpenModal={setIsOpen}/>}
+            {supplierProducts[1] && <LKProduct product={supplierProducts[128]} setIsOpenModal={setIsOpen}/>}
             <Modal view={EModalView.BOTTOM}
              buttonNode _isOpen={isOpen}
              onClickOverlay={closeTheModal}

@@ -73,8 +73,7 @@ export const WrapperRectangleInput = ({
         setSuccess: (value: boolean) => setSuccesses(prev => ({ ...prev, [id]: value })),
         setWarning: (value: boolean) => setWarnings(prev => ({ ...prev, [id]: value })),
         setInputValueLength,
-        checked,
-        setChecked
+        checked
       });
     }
     return child;
@@ -91,9 +90,9 @@ export const WrapperRectangleInput = ({
   ];
 
   return (
-    <div className={cls(cl.WrapperRectangleInput, className, cl[labelPosition])} >
+    <div className={cls(cl.WrapperRectangleInput, className, cl[labelPosition])} onClick={() => setChecked(!checked)}>
       <div className={cls(cl.labelNTooltipContainer )}>
-        <label className={cls(cl.label, classNameLabel)} onClick={() => setChecked(!checked)}>
+        <label className={cls(cl.label, classNameLabel)} >
           {labelText}
         </label>
         <div className={cl.tooltipsContainer}>
@@ -144,7 +143,7 @@ export const WrapperRectangleInput = ({
         </div>
       </div>
       
-      <div className={cls(cl.inputsContainer)}>
+      <div className={cl.inputsContainer}>
         {clonedChildren}
       </div>
 

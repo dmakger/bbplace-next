@@ -28,7 +28,6 @@ export const ProductAPI = createApi({
                 method: 'GET',
             })
         }),
-
         getProductsByGroup: build.query<IProductAPI[], string | number>({
             query: (groupId) => ({
                 url: `/GetItems/${groupId}`,

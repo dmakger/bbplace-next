@@ -1,6 +1,6 @@
 export enum EHoverWindowPosition{
-    UP = 'up',
-    DOWN = 'down',
+    TOP = 'top',
+    BOTTOM = 'bottom',
     LEFT = 'left',
     RIGHT = 'right'
 }

@@ -21,7 +21,7 @@ export const HoverWindow = ({
     className,
     classNameContainer,
     classNameTriangle,
-    position = EHoverWindowPosition.UP,
+    position = EHoverWindowPosition.TOP,
     borderColor = EHoverBorderColor.DEFAULT,
     show,
     text,
@@ -30,8 +30,8 @@ export const HoverWindow = ({
 }: IHoverWindow) => {
 
     const triangleStyles = {
-        borderTopColor: position === 'up' ? borderColor : 'transparent',
-        borderBottomColor: position === 'down' ? borderColor : 'transparent',
+        borderTopColor: position === 'top' ? borderColor : 'transparent',
+        borderBottomColor: position === 'bottom' ? borderColor : 'transparent',
         borderLeftColor: position === 'left' ? borderColor : 'transparent',
         borderRightColor: position === 'right' ? borderColor : 'transparent'
     };

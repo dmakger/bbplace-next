@@ -3,30 +3,25 @@
 import { IOption } from '@/shared/model/option.model'
 import cl from './_InputSelect.module.scss'
 import { useEffect, useRef, useState } from 'react'
-import Input from '../../Input'
 import { cls } from '@/shared/lib/classes.lib'
-import WrapperClickOutside from '../../../Wrapper/ClickOutside/WrapperClickOutside'
 import { WrapperTitleInput } from '@/shared/ui/Wrapper/Title/Input/WrapperTitleInput'
-import { EInputSizes, EInputVariants } from '../../model/input.model'
 import { Button, ButtonVariant } from '@/shared/ui/Button'
 import { ARROW_WO_ICON } from '@/shared/ui/Icon/data/arrow.data.icon'
 import { IImageSizes } from '@/shared/model/image.model'
 import { IWrapperRectangleInputChildren } from '@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model'
+import Input from '../../../Input'
+import WrapperClickOutside from '@/shared/ui/Wrapper/ClickOutside/WrapperClickOutside'
+import { EInputSizes, EInputVariants, IInput } from '../../../model/input.model'
 
-interface InputSelectProps extends IWrapperRectangleInputChildren{
-    variant?: EInputVariants,
-    size?: EInputSizes,
+interface InputSelectProps extends IWrapperRectangleInputChildren, IInput{
     options: IOption[]
     defaultOption?: IOption
-    name?: string
     onClickOption?: Function,
     arrowSizes?: IImageSizes
     title?: string
-    className?: string
     classNameTitle?: string
     classNameOptions?: string,
     classNameButton?: string
-    placeholder?: string
 }
 
 export function InputSelect({

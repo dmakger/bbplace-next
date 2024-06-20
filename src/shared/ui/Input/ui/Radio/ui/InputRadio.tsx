@@ -3,17 +3,12 @@ import Image from 'next/image'
 import { cls } from "@/shared/lib/classes.lib"
 import cl from './_InputRadio.module.scss'
 import { IOption } from "@/shared/model/option.model"
-import { EInputSizes, EInputVariants } from '../../model/input.model'
+import { EInputSizes, EInputVariants, IInput } from '../../../model/input.model'
 
-interface InputRadioProps {
-    variant?: EInputVariants,
-    size?: EInputSizes,
+interface InputRadioProps extends IInput{
     option: IOption
     isActive?: boolean
-    name?: string
-    required?: boolean
     onClick?: Function
-    className?: string
 }
 
 export function InputRadio({variant = EInputVariants.ROUNDED, size = EInputSizes.NONE, option, isActive=false, name, required=false, onClick, className}: InputRadioProps) {

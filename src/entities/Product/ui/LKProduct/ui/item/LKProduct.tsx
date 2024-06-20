@@ -8,7 +8,9 @@ import { CategoryAPI } from '@/entities/Metrics/api/category.metrics.api'
 import { GEAR_ICON } from '@/shared/ui/Icon/data/gear.data.icon'
 import { ARROW_SECONDARY_WO_ICON } from '@/shared/ui/Icon/data/arrow.data.icon'
 import { Button, ButtonVariant } from '@/shared/ui/Button'
-import { InputCheckbox } from '@/shared/ui/Input/Checkbox'
+import { InputCheckbox } from '@/shared/ui/Input/ui/Checkbox'
+import { ProductAPI } from '@/entities/Product/api/product.api'
+import { skipToken } from '@reduxjs/toolkit/query'
 
 interface ILKProduct extends IProductProps {
   className?: string,
@@ -23,9 +25,7 @@ export const LKProduct = ({
 
   //API
   const { data: category } = CategoryAPI.useGetCategoryByIdQuery(product.categoryId)
-
-
-  console.log(product);
+  const { data: productAPIListGroup } = ProductAPI.useGetProductsByGroupQuery(product && product.groupId ? product.groupId : skipToken, { refetchOnMountOrArgChange: true })
 
   return (
     <div className={cls(cl.LKProduct, className)}>
@@ -56,16 +56,17 @@ export const LKProduct = ({
               {product.media.article}
             </span>
           </div>
-          <div className={cl.groupNavigate}>
-            <p className={cl.groupQuantity}>
-              +N
+          {productAPIListGroup && productAPIListGroup?.length > 1 && <div className={cl.groupNavigate}>
+            <p className={cl.groupLength}>
+              +{productAPIListGroup?.length}
             </p>
             <Button variant={ButtonVariant.DEFAULT}
               beforeImage={ARROW_SECONDARY_WO_ICON}
               beforeProps={{ width: 14, height: 9, classNameImage: cl.arrowImage }}
               className={cl.iconWrapper}
+              onClick={() => setIsOpenModal(true)}
             />
-          </div>
+          </div>}
         </div>
       </div>
     </div>

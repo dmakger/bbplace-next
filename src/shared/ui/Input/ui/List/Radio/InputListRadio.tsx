@@ -2,19 +2,16 @@
 
 import { IOption } from '@/shared/model/option.model'
 import cl from './_InputListRadio.module.scss'
-import Input from '../../Input'
+
 import { useEffect, useState } from 'react'
 import { cls } from '@/shared/lib/classes.lib'
-import { EInputSizes, EInputVariants } from '../../model/input.model'
+import Input from '../../../Input'
+import { EInputSizes, EInputVariants, IInput } from '../../../model/input.model'
 
-interface InputListRadioProps {
-    variant?: EInputVariants,
-    size?: EInputSizes,
+interface InputListRadioProps extends IInput{
     options: IOption[]
     defaultOption?: IOption
-    name?: string
     onClickOption?: Function
-    className?: string
 }
 
 export default function InputListRadio({ variant = EInputVariants.ROUNDED, size = EInputSizes.NONE, options, defaultOption, name, onClickOption, className }: InputListRadioProps) {

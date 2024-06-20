@@ -50,7 +50,7 @@ export const OptionItem= ({
     const html = (
         
             <div className={cls(cl.optionItem, isList ? cl.row : '')} >
-                     {isOnHover && !isList && <HoverWindow text={option.name} image={optionParamsImage} className={cl.hoverWindow} position={EHoverWindowPosition.DOWN}/>}
+                     {isOnHover && !isList && <HoverWindow text={option.name} image={optionParamsImage} className={cl.hoverWindow} position={EHoverWindowPosition.TOP}/>}
 
                 {optionParamsImage &&
                     <ImageAPI src={`${optionParamsImage}`} className={cl.image} width={48} height={48} />
