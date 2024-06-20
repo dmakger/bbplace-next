@@ -5,7 +5,7 @@ import React, { ReactNode, cloneElement, useEffect, useState } from 'react';
 import { TOOLTIP_DESCRIPTION_ICON } from '@/shared/ui/Icon/data/tooltipDescription.data.icon';
 import { TOOLTIP_WARNING_ICON } from '@/shared/ui/Icon/data/tooltipWarning.data.icon';
 import { Button, ButtonVariant } from '@/shared/ui/Button';
-import { IChildProps } from '../model/wrapperRectangleInput.model';
+import { ELabelPosition, IWrapperRectangleInputChildren } from '../model/wrapperRectangleInput.model';
 import { HoverWindow } from '@/shared/ui/HoverWindow';
 import { EHoverBorderColor, EHoverWindowPosition } from '@/shared/ui/HoverWindow/model/hoverWindow.model';
 
@@ -20,7 +20,8 @@ interface IWrapperRectangleInput {
   isDescriptionTooltip?: boolean
   warningTooltipText?: string,
   descriptionTooltipText?: string,
-  errorInputSelectMessage?: string
+  errorInputSelectMessage?: string,
+  labelPosition?: ELabelPosition
 }
 
 export const WrapperRectangleInput = ({
@@ -34,7 +35,8 @@ export const WrapperRectangleInput = ({
   isDescriptionTooltip = true,
   warningTooltipText,
   descriptionTooltipText,
-  errorInputSelectMessage = 'Выберите категорию из списка'
+  errorInputSelectMessage = 'Выберите категорию из списка',
+  labelPosition = ELabelPosition.TOP
 }: IWrapperRectangleInput) => {
 
   // STATE
@@ -45,6 +47,7 @@ export const WrapperRectangleInput = ({
   const [inputValueLength, setInputValueLength] = useState<number>(0)
   const [warning, setWarning] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
+  const [checked, setChecked] = useState<boolean>(false)  
 
   //EFFECT
   useEffect(() => {
@@ -56,7 +59,7 @@ export const WrapperRectangleInput = ({
 
   // CHILDREN
   const clonedChildren = React.Children.map(children, (child, index) => {
-    if (React.isValidElement<IChildProps>(child)) {
+    if (React.isValidElement<IWrapperRectangleInputChildren>(child)) {
       const id = `child-${index}`;
       if (successes[id] === undefined) {
         setSuccesses(prev => ({ ...prev, [id]: false }));
@@ -64,12 +67,14 @@ export const WrapperRectangleInput = ({
       if (warnings[id] === undefined) {
         setWarnings(prev => ({ ...prev, [id]: false }));
       }
-      return cloneElement<IChildProps>(child, {
+      return cloneElement<IWrapperRectangleInputChildren>(child, {
         success: successes[id],
         warning: warnings[id],
         setSuccess: (value: boolean) => setSuccesses(prev => ({ ...prev, [id]: value })),
         setWarning: (value: boolean) => setWarnings(prev => ({ ...prev, [id]: value })),
-        setInputValueLength
+        setInputValueLength,
+        checked,
+        setChecked
       });
     }
     return child;
@@ -86,9 +91,9 @@ export const WrapperRectangleInput = ({
   ];
 
   return (
-    <div className={cls(cl.WrapperRectangleInput, className)}>
-      <div className={cl.labelNTooltipContainer}>
-        <label className={cls(cl.label, classNameLabel)}>
+    <div className={cls(cl.WrapperRectangleInput, className, cl[labelPosition])} >
+      <div className={cls(cl.labelNTooltipContainer )}>
+        <label className={cls(cl.label, classNameLabel)} onClick={() => setChecked(!checked)}>
           {labelText}
         </label>
         <div className={cl.tooltipsContainer}>

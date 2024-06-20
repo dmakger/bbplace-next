@@ -13,8 +13,9 @@ import { XMARK_ICON } from '@/shared/ui/Icon/data/xmark.data.icon'
 import { Button, ButtonVariant } from '@/shared/ui/Button'
 import { ARROW_WO_ICON } from '@/shared/ui/Icon/data/arrow.data.icon'
 import { IImageSizes } from '@/shared/model/image.model'
+import { IWrapperRectangleInputChildren } from '@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model'
 
-interface ITextAndSelectInput {
+interface ITextAndSelectInput extends IWrapperRectangleInputChildren{
     variant?: EInputVariants,
     size?: EInputSizes,
     title?: string
@@ -25,12 +26,7 @@ interface ITextAndSelectInput {
     arrowSizes?: IImageSizes
     className?: string,
     classNameOptions?: string,
-    setIsListOpen?: Function
     placeholder?: string,
-    success?: boolean
-    setSuccess?: Function
-    warning?: boolean,
-    setWarning?: Function
 }
 
 export function TextAndSelectInput({
@@ -89,8 +85,6 @@ export function TextAndSelectInput({
     const handleOnMouseLeave = () => {
         setIsHovered(false)
     }
-
-
 
     // ==={ CLICK }===
 

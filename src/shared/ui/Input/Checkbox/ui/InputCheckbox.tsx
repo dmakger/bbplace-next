@@ -3,9 +3,10 @@ import { cls } from '@/shared/lib/classes.lib'
 import cl from './_InputCheckbox.module.scss'
 import { Button, ButtonVariant } from '@/shared/ui/Button'
 import { CHECKBOX_SECONDARY_ICON } from '@/shared/ui/Icon/data/checkbox.data.icon'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { IWrapperRectangleInputChildren } from '@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model'
 
-interface IInputCheckbox {
+interface IInputCheckbox extends IWrapperRectangleInputChildren{
   className?: string,
   success?: boolean,
   setSuccess?: Function,
@@ -22,11 +23,13 @@ export const InputCheckbox = ({
   warning = false,
   setWarning,
   required,
-  onClick
+  onClick,
+  checked,
+  setChecked
 }: IInputCheckbox) => {
 
   //STATE
-  const [isChecked, setIsChecked] = useState<boolean>(false)
+  const [isChecked, setIsChecked] = useState<boolean>(false)  
 
   //REF
   const inputRef = useRef<HTMLInputElement>(null)
@@ -35,18 +38,26 @@ export const InputCheckbox = ({
     const newValue = !isChecked
     setIsChecked(newValue)
     if (inputRef.current) {
-      inputRef.current.checked = newValue      
+      inputRef.current.checked = newValue            
     }
     if (onClick) {
       onClick(newValue)
     }
   }
 
+  //EFFECT
+  useEffect(() => {
+    if(checked && setChecked){
+      setIsChecked(checked)
+      setChecked(checked)
+    }
+  }, [checked])
+
   return (
     <div className={cls(cl.InputCheckbox, className)}>
       <input type='checkbox'
         className={cl.input}
-        checked={isChecked}
+        checked={checked}
         ref={inputRef}
         required={required}
         onChange={handleCheckboxChange}

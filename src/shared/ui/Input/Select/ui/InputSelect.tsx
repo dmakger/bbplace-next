@@ -11,8 +11,9 @@ import { EInputSizes, EInputVariants } from '../../model/input.model'
 import { Button, ButtonVariant } from '@/shared/ui/Button'
 import { ARROW_WO_ICON } from '@/shared/ui/Icon/data/arrow.data.icon'
 import { IImageSizes } from '@/shared/model/image.model'
+import { IWrapperRectangleInputChildren } from '@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model'
 
-interface InputSelectProps {
+interface InputSelectProps extends IWrapperRectangleInputChildren{
     variant?: EInputVariants,
     size?: EInputSizes,
     options: IOption[]
@@ -25,11 +26,7 @@ interface InputSelectProps {
     classNameTitle?: string
     classNameOptions?: string,
     classNameButton?: string
-    placeholder?: string,
-    success?: boolean
-    setSuccess?: Function
-    warning?: boolean,
-    setWarning?: Function
+    placeholder?: string
 }
 
 export function InputSelect({

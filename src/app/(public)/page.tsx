@@ -1,7 +1,7 @@
 import { SWITCH_SELECTOR_PRODUCT_OPTIONS } from "@/entities/Product/data/product.data";
 import Input from "@/shared/ui/Input/Input";
 import { EInputSizes, EInputVariants } from "@/shared/ui/Input/model/input.model";
-import { WrapperRectangleInput } from "@/shared/ui/Wrapper/RectangleInput/ui/WrapperRectangleInput";
+import { WrapperRectangleInput } from "@/shared/ui/Wrapper/RectangleInput";
 
 export default function MainPage() {
 
@@ -21,6 +21,9 @@ export default function MainPage() {
                 labelText="Категории"
                 descriptionTooltipText='Выберите наиболее подходящую нишу вашего товара из нашего списка категорий'>
                 <Input.TextAndSelect variant={EInputVariants.RECTANGULAR} size={EInputSizes.DEFAULT} placeholder="dsad" listOptions={SWITCH_SELECTOR_PRODUCT_OPTIONS} arrowSizes={{width: 16, height: 16}}/>
+            </WrapperRectangleInput>
+            <WrapperRectangleInput labelText='Делиться контактами'>
+                <Input.Checkbox/>
             </WrapperRectangleInput>
         </div>
     )

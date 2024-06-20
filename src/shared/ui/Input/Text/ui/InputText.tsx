@@ -6,8 +6,9 @@ import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { WrapperTitleInput } from '@/shared/ui/Wrapper/Title/Input/WrapperTitleInput'
 import { EInputTextVariant } from '../data/text.input.data'
 import { EInputSizes, EInputVariants } from '../../model/input.model'
+import { IWrapperRectangleInputChildren } from '@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model'
 
-interface InputTextProps {
+interface InputTextProps extends IWrapperRectangleInputChildren{
     variant?: EInputVariants,
     size?: EInputSizes,
     title?: string
@@ -17,12 +18,7 @@ interface InputTextProps {
     className?: string,
     onChange?: Function,
     defaultValue?: string,
-    type?: string,
-    success?: boolean
-    setSuccess?: Function
-    warning?: boolean,
-    setWarning?: Function
-    setInputValueLength?: Function
+    type?: string
 }
 
 export function InputText({

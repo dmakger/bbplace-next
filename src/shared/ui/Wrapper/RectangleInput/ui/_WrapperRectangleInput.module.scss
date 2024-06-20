@@ -2,13 +2,14 @@
     display: flex;
     flex-direction: column;
 
-    .labelNTooltipContainer {
+    .labelNTooltipContainer, .top {
         display: flex;
         justify-content: space-between;
         align-items: center;
         gap: 10px;
 
         .label {
+            height: 100%;
             background-color: var(--tertiary-surface-low);
             padding: 10px 10px 5px 10px;
             border-radius: 5px 5px 0 0;
@@ -111,5 +112,21 @@
         border-radius: 0 0 5px 5px;
         border-top: 1px solid var(--background-2);
         color: var(--negative);
+    }
+}
+//LABEL POSITION
+.right{
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    background-color: var(--tertiary-surface-low);
+    
+    .labelNTooltipContainer {
+        background-color: var(--tertiary-surface-low);
+    }
+    .inputsContainer{
+        padding: 10px;
+
     }
 }
