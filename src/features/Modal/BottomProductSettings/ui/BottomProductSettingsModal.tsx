@@ -13,15 +13,19 @@ import { IProduct } from '@/entities/Product/model/product.model'
 
 interface IBottomProductSettingsModal {
     className?: string,
+    classNameButton?: string,
     product: IProduct,
     setIsOpen: Function
+    isTitle?: boolean
 }
 
 export const BottomProductSettingsModal = ({
     className,
+    classNameButton,
     product,
-    setIsOpen
-}:IBottomProductSettingsModal) => {
+    setIsOpen,
+    isTitle = true
+}: IBottomProductSettingsModal) => {
 
     //API
     const [deleteProduct] = ProductAPI.useDeleteProductMutation()
@@ -32,11 +36,11 @@ export const BottomProductSettingsModal = ({
 
     //FUNCTION
     const delProduct = () => {
-        if(product.media.attachments.length){
-            deleteProduct(product.id)            
+        if (product.media.attachments.length) {
+            deleteProduct(product.id)
         }
-        else{
-            deleteDraft(product.id)         
+        else {
+            deleteDraft(product.id)
         }
         setIsOpen(false)
     }
@@ -47,25 +51,24 @@ export const BottomProductSettingsModal = ({
 
     return (
         <div className={cls(cl.BottomProductSettingsModal, className)}>
-            <h4>Выбор действия</h4>
-            <div className={cl.buttonsContainer}>
-                <Button title='Удалить'
-                    variant={ButtonVariant.TONAL}
-                    color={ButtonColor.Primary}
-                    size={ButtonSize.Medium}
-                    beforeImage={TRASH_ICON}
-                    beforeProps={{ width: 20, height: 20 }}
-                    onClick={delProduct}
-                />
-                <Button title='Редактировать'
-                    variant={ButtonVariant.TONAL}
-                    color={ButtonColor.Secondary}
-                    size={ButtonSize.Medium}
-                    beforeImage={EDIT_ICON}
-                    beforeProps={{ width: 20, height: 20 }}
-                    onClick={navigateToEditProduct}
-                />
-            </div>
+            <Button title={isTitle ? 'Удалить' : ''}
+                variant={ButtonVariant.TONAL}
+                color={ButtonColor.Primary}
+                size={ButtonSize.Medium}
+                beforeImage={TRASH_ICON}
+                beforeProps={{ width: 20, height: 20 }}
+                onClick={delProduct}
+                className={cls(!isTitle ? cl.groupProductDelButton : '', classNameButton)}
+            />
+            <Button title={isTitle ? 'Редактировать' : ''}
+                variant={ButtonVariant.TONAL}
+                color={ButtonColor.Secondary}
+                size={ButtonSize.Medium}
+                beforeImage={EDIT_ICON}
+                beforeProps={{ width: 20, height: 20 }}
+                onClick={navigateToEditProduct}
+                className={cls(!isTitle ? cl.groupProductEditButton : '', classNameButton)}
+            />
         </div>
     )
 }

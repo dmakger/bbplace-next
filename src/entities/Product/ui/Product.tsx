@@ -4,9 +4,11 @@ import { ProductH } from "./Horizontal";
 import { ProductV } from "./Vertical";
 import { IProductProps } from "../model/props.product.model";
 import { ProductASC } from "./AtSupplierCard";
+import { ProductLK } from "./LKProduct";
 
 interface ProductProps extends IProductProps{
     view?: EViewProduct
+    setIsOpenModal: Function
 }
 
 export const Product:FC<ProductProps> = ({view=DEFAULT_VIEW_PRODUCT, product, ...rest}) => {
@@ -14,5 +16,7 @@ export const Product:FC<ProductProps> = ({view=DEFAULT_VIEW_PRODUCT, product, ..
         return <ProductH product={product} {...rest} />
     if(view === EViewProduct.AT_SUPPLIER_CARD)
         return <ProductASC slide={product} {...rest}/>
+    if(view === EViewProduct.LK_PRODUCT)
+        return <ProductLK product={product} {...rest} />
     return <ProductV product={product} {...rest} />
 }

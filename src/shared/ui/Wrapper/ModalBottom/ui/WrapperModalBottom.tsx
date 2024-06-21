@@ -4,20 +4,25 @@ import cl from './_WrapperModalBottom.module.scss'
 import { Button, ButtonVariant } from '@/shared/ui/Button'
 import { XMARK_HOVERED_ICON } from '@/shared/ui/Icon/data/xmark.data.icon'
 import { IProduct } from '@/entities/Product/model/product.model'
+import { ReactNode } from 'react'
 
 interface IWrapperModalBottom {
     product?: IProduct,
     isOpen: boolean,
-    setIsOpen: Function
+    setIsOpen: Function,
+    title?: string,
+    children?: ReactNode
 }
 
 export const WrapperModalBottom = ({
     product,
     isOpen,
-    setIsOpen
+    setIsOpen,
+    title,
+    children
 }: IWrapperModalBottom) => {
     const productI = {
-        id:521312321,
+        id: 521312321,
         groupId: 63,
         name: "Брус обрезной 1 сорт",
         ownerId: "55736903-ec19-4ea8-a591-fb03369910b0",
@@ -47,9 +52,9 @@ export const WrapperModalBottom = ({
             color: '150 * 200 * 6000',
             country: "РФ",
             attachments: [],
-        wholesalePrices: [{ price: 17000, quantity: 1 }],
-        sizes: [],
-        article: "107",
+            wholesalePrices: [{ price: 17000, quantity: 1 }],
+            sizes: [],
+            article: "107",
         },
         characteristics: {
             brand: "",
@@ -60,7 +65,7 @@ export const WrapperModalBottom = ({
             country: '132',
             features: ["Естественной влажности"],
             description: "Брус обрезной сорта из сосны - надежный строительный материал с точными размерами и гладкой поверхностью. Идеально подходит для строительства каркасов, стен и потолков. \\nЦена без НДС\\n\\nГОСТ 8486-86",
-            composition:"100% Сосна",
+            composition: "100% Сосна",
             equipment: ""
         },
         createdAt: "10/12/2023 07:44:36",
@@ -73,6 +78,13 @@ export const WrapperModalBottom = ({
                 beforeProps={{ width: 27, height: 27 }}
                 className={cl.xmarkButton}
                 onClick={() => setIsOpen(false)} />
+            {(children || title) && <div className={cl.topContainer}>
+                {children}
+                <h4>
+                    {title}
+                </h4>
+            </div>}
+
             {productI && <BottomProductSettingsModal
                 product={productI}
                 setIsOpen={setIsOpen} />}

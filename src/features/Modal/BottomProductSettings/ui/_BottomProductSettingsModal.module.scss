@@ -1,31 +1,27 @@
-.BottomProductSettingsModal{
+.BottomProductSettingsModal {
     display: flex;
-    flex-direction: column;
     gap: 20px;
-    .xmarkButton{
-        position: absolute;
-        top: -20px;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
+    background-color: var(--background-2);
+    border-radius: 20px 20px 0 0;
+    padding: 20px;
 
-    & h4{
-        padding-top: 20px;
-        text-align: center;
-        font-size: var(--font-size-reg);
-        font-weight: var(--font-weight-med);
+    @media(max-width: 425px) {
+        flex-direction: column;
+        gap: 10px;
+        width: 320px;
     }
-
-    .buttonsContainer{
-        display: flex;
-        gap: 20px;
+    
+    .groupProductDelButton{
         background-color: var(--background-2);
-        border-radius: 20px 20px 0 0;
-        padding: 20px;
-        @media(max-width: 425px){
-            flex-direction: column;
-            gap: 10px;
-            width: 320px;
+        &:hover{
+            background-color: var(--negative);
+        }
+    }
+
+    .groupProductEditButton{
+        background-color: var(--background-2);
+        &:hover{
+            background-color: var(--secondary);
         }
     }
 }

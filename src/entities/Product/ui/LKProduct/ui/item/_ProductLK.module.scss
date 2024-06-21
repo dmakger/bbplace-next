@@ -42,15 +42,29 @@
             }
         }
 
-        .settings {
+        .settings { 
             position: absolute;
             top: 0;
             right: 0;
-            width: 40px;
-            height: 40px;
             background-color: var(--background-2);
             border-radius: 0 0 0 20px;
+
+            & button{
+                width: 40px;
+                height: 40px;
+                padding: 0px;
+            }
+
+            .groupSettings{
+                display: flex;
+                flex-direction: column-reverse;
+                gap: 10px;
+                padding: 0px;
+                border-radius: 0 0 0 20px;
+            }
         }
+
+        
 
     }
 

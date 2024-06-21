@@ -18,7 +18,8 @@ import Wrapper1280 from "@/shared/ui/Wrapper/1280/Wrapper1280";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { WrapperModalBottom } from "@/shared/ui/Wrapper/ModalBottom";
-import { LKProduct } from "@/entities/Product/ui/LKProduct";
+import { ProductLK } from "@/entities/Product/ui/LKProduct";
+import { EProductLKVariants } from "@/entities/Product/ui/LKProduct/model/productLK.model";
 
 
 export default function SupplierPage() {
@@ -26,9 +27,7 @@ export default function SupplierPage() {
     //STATE
     const [supplier, setSupplier] = useState<ISupplier>()
     const [supplierProducts, setSupplierProducts] = useState<IProduct[]>([])
-
     const [isOpen, setIsOpen] = useState<boolean>(false);
-
 
     //PARAMS
     const params = useParams()
@@ -63,12 +62,12 @@ export default function SupplierPage() {
             />}
             {/* {supplierProducts && <ProductAutoList products={supplierProducts} view={EViewProduct.AT_SUPPLIER_PAGE} />} */}
 
-            {supplierProducts[1] && <LKProduct product={supplierProducts[128]} setIsOpenModal={setIsOpen}/>}
+            {supplierProducts[1] && <ProductLK product={supplierProducts[128]} setIsOpenModal={setIsOpen} variant={EProductLKVariants.GROUP_ITEM}/>}
             <Modal view={EModalView.BOTTOM}
              buttonNode _isOpen={isOpen}
              onClickOverlay={closeTheModal}
              >
-                <WrapperModalBottom isOpen={isOpen} setIsOpen={setIsOpen}/>
+                <WrapperModalBottom isOpen={isOpen} setIsOpen={setIsOpen} title="Выбор действия" />
 
             </Modal>
         </Wrapper1280>

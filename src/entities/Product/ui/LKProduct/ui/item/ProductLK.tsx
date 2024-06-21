@@ -1,7 +1,7 @@
 'use client'
 
 import { cls } from '@/shared/lib/classes.lib'
-import cl from './_LKProduct.module.scss'
+import cl from './_ProductLK.module.scss'
 import { IProductProps } from "@/entities/Product/model/props.product.model"
 import { ImageAPI } from '@/shared/ui/Image/API/ImageAPI'
 import { CategoryAPI } from '@/entities/Metrics/api/category.metrics.api'
@@ -11,17 +11,21 @@ import { Button, ButtonVariant } from '@/shared/ui/Button'
 import { InputCheckbox } from '@/shared/ui/Input/ui/Checkbox'
 import { ProductAPI } from '@/entities/Product/api/product.api'
 import { skipToken } from '@reduxjs/toolkit/query'
+import { BottomProductSettingsModal } from '@/features/Modal/BottomProductSettings'
+import { EProductLKVariants } from '../../model/productLK.model'
 
-interface ILKProduct extends IProductProps {
+interface IProductLK extends IProductProps {
   className?: string,
-  setIsOpenModal: Function
+  variant?: EProductLKVariants
+  setIsOpenModal: Function,
 }
 
-export const LKProduct = ({
+export const ProductLK = ({
   className,
+  variant = EProductLKVariants.DEFAULT,
   product,
-  setIsOpenModal
-}: ILKProduct) => {
+  setIsOpenModal,
+}: IProductLK) => {
 
   //API
   const { data: category } = CategoryAPI.useGetCategoryByIdQuery(product.categoryId)
@@ -34,14 +38,22 @@ export const LKProduct = ({
       </span>}
       <div className={cl.imageContainer}>
         <ImageAPI src={product.media.attachments[0]} />
-        <InputCheckbox className={cl.checkbox}/>
+        <InputCheckbox className={cl.checkbox} />
         <div className={cl.settings}>
-          <Button variant={ButtonVariant.DEFAULT}
-            className={cl.iconWrapper}
-            beforeImage={GEAR_ICON}
-            onClick={() => setIsOpenModal(true)}
-          />
+          {variant === EProductLKVariants.DEFAULT
+            ? <Button variant={ButtonVariant.DEFAULT}
+              className={cl.iconWrapper}
+              beforeImage={GEAR_ICON}
+              onClick={() => setIsOpenModal(true)}
+            /> :
+            <BottomProductSettingsModal
+              className={cl.groupSettings}
+              product={product}
+              setIsOpen={setIsOpenModal}
+              isTitle={false}
+            />}
         </div>
+
       </div>
       <div className={cl.infoContainer}>
         <h5 className={cl.productName}>
@@ -56,9 +68,9 @@ export const LKProduct = ({
               {product.media.article}
             </span>
           </div>
-          {productAPIListGroup && productAPIListGroup?.length > 1 && <div className={cl.groupNavigate}>
+          {variant === EProductLKVariants.DEFAULT && productAPIListGroup && productAPIListGroup?.length > 1 && <div className={cl.groupNavigate}>
             <p className={cl.groupLength}>
-              +{productAPIListGroup?.length}
+              +{productAPIListGroup?.length - 1}
             </p>
             <Button variant={ButtonVariant.DEFAULT}
               beforeImage={ARROW_SECONDARY_WO_ICON}
