@@ -15,7 +15,9 @@ export const TBody:FC<TBodyProps> = ({data, variant=TableVariant.WHITE, classNam
     return (
         <tbody className={cls(cl[variant], className)}>
             {data.map((row, index) => (
-                <tr key={index}>{...row}</tr>
+                <tr key={index}>{row.map((cell, index) => (
+                    <td key={index}>{cell}</td>
+                ))}</tr>
             ))}
         </tbody>
     )

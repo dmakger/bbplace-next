@@ -5,6 +5,7 @@ import { IArgsRequest } from "@/api/model/request.model.api";
 import { getURL } from "@/api/request";
 import { ETenderType, IPurchaseTender, ISaleTender, ITenderAPI, ITenderByTwoObjectsAPI } from "../model/tender.model";
 import { getArgsTender } from "../lib/args.tender.lib";
+import { tenderTypeToEn } from "../lib/tender.lib";
 
 
 export const TenderAPI = createApi({
@@ -33,6 +34,18 @@ export const TenderAPI = createApi({
                 params: args?.params
             })
         }),
+
+        // TENDERS BY [USER] AND [TYPE]
+        getUserTenders: build.query<ITenderAPI[], {userId: string, type?: ETenderType}>({
+            query: ({userId, type}) => ({
+                url: `/GetUserTenders/${userId}` + (type ? `?type=${tenderTypeToEn(type)}` : '')
+            }),
+            // transformResponse: (response: any) => {
+                
+            //     return jwtDecode(response.accessToken);
+            // }
+        }),
+
 
         // TENDER BY TYPE
         getTender: build.query<ITenderAPI, {tenderId: number, type: ETenderType}>({

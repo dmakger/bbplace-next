@@ -1,38 +1,49 @@
 "use client"
 
-import { FC, useEffect, useState } from "react"
+import { FC, SetStateAction, useEffect, useState } from "react"
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_TenderTable.module.scss'
 import { Table } from "@/shared/ui/Table/ui/Table";
 import { TenderAPI } from "@/entities/Tender/api/tender.api";
-import { TENDER_ARGS_REQUEST } from "@/entities/Tender/data/tender.data";
 import { ETenderType, ITender } from "@/entities/Tender/model/tender.model";
 import { tenderAPIToTender } from "@/entities/Tender/lib/process.tender.lib";
 import { CurrencyAPI } from "@/entities/Metrics/api/currency.metrics.api";
 import { MetricsAPI } from "@/entities/Metrics/api/metrics.metrics.api";
 import { CategoryAPI } from "@/entities/Metrics/api/category.metrics.api";
 import { ICategory } from "@/entities/Metrics/model/category.metrics.model";
-import { IRow } from "@/shared/ui/Table/model/table.model";
+import { IRow, IUnionColumn } from "@/shared/ui/Table/model/table.model";
 import TableCell from "@/shared/ui/Table/componets/Cell";
 import { LKTenderTableCellTrash } from "../components/Cell/Trash/LKTenderTableCellTrash";
+import { useAppSelector } from "@/storage/hooks";
+import { TENDER_ARGS_REQUEST } from "@/entities/Tender/data/tender.data";
+import { HandleSize } from "@/shared/ui/Handle/Size/HandleSize";
 
 interface LKTenderTableProps{
+    tenderType: ETenderType
     className?: string,
 }
 
-export const LKTenderTable:FC<LKTenderTableProps> = ({className}) => {
+export const LKTenderTable:FC<LKTenderTableProps> = ({tenderType, ...rest}) => {
     // STATE
-    const [pageNumber, setPageNumber] = useState<number>(1)
     const [tenders, setTenders] = useState<ITender[]>([])
     const [categoryList, setCategoryList] = useState<ICategory[]>([])
     const [rowsTable, setRowsTable] = useState<IRow[]>([])
+    const [unionsColumn, setUnionsColumn] = useState<IUnionColumn[]>([])
+    const [is1024, setIs1024] = useState<boolean>(false);
+
     
+    // RTK
+    const {id: userId} = useAppSelector(state => state.user)    
+
     // API
-    const { data: tendersAPI, isLoading: isTendersLoading } = TenderAPI.useGetAllTendersQuery({limit: TENDER_ARGS_REQUEST.limit, page: pageNumber-1});
+    const { data: tendersAPI, isLoading: isTendersLoading } = TenderAPI.useGetAllTendersQuery({limit: TENDER_ARGS_REQUEST.limit, page: 0});
+    // const { data: tendersAPI, isLoading: isTendersLoading } = TenderAPI.useGetUserTendersQuery({userId, type: tenderType});
     const { data: currencyList } = CurrencyAPI.useGetCurrenciesQuery()          
     const { data: metrics } = MetricsAPI.useGetMetricsQuery()
     const [ getCategory ] = CategoryAPI.useGetCategoryMutation();
+
+    console.log('tenders API', tendersAPI)
 
     // EFFECT
     useEffect(() => {
@@ -56,14 +67,17 @@ export const LKTenderTable:FC<LKTenderTableProps> = ({className}) => {
     }, [tendersAPI, getCategory]);
 
     useEffect(() => {
-        if (tendersAPI && metrics && currencyList && categoryList)
+        if (tendersAPI && metrics && currencyList && categoryList) {
+            console.log('! tendersAPI', tendersAPI)
             setTenders(() => {
                 return tendersAPI.map((it, index) => (
                     {...tenderAPIToTender({tenderAPI: it, metrics, currencyList}), category: categoryList[index]}
                 ))
             })
+        }
     }, [tendersAPI, metrics, currencyList, categoryList])
 
+    // set rows table
     useEffect(() => {
         if (tenders.length === 0)
             return
@@ -80,9 +94,16 @@ export const LKTenderTable:FC<LKTenderTableProps> = ({className}) => {
 
     }, [tenders])
 
+    useEffect(() => {
+        setUnionsColumn(() => is1024 ? [{start: 1, end: 3}] : [])
+    }, [is1024])
+
     console.log('tenders', categoryList)
 
     return (
-        <Table head={['Наименование', 'Категория', 'Файлы', '']} data={rowsTable} unions={[]} />
+        <>
+            <Table head={['Наименование', 'Категория', 'Файлы', '']} data={rowsTable} unions={unionsColumn} {...rest} />
+            <HandleSize width={1024} set={setIs1024} />
+        </>
     )
 }

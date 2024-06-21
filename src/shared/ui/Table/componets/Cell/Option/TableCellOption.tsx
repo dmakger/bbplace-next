@@ -4,15 +4,11 @@ import { cls } from '@/shared/lib/classes.lib';
 import cl from './_TableCellOption.module.scss'
 import { OptionT, OptionTProps } from "@/shared/ui/Option/ui/this/OptionT";
 
-interface TableCellOptionProps extends OptionTProps {
-    classNameCell?: string
-}
+interface TableCellOptionProps extends OptionTProps {}
 
-export const TableCellOption:FC<TableCellOptionProps> = ({classNameCell, className, ...rest}) => {
+export const TableCellOption:FC<TableCellOptionProps> = ({className, ...rest}) => {
     return (
-        <td className={cls(cl.cell, classNameCell)}>
-            <OptionT className={cls(cl.data, className)} {...rest}/>
-        </td>
+        <OptionT className={cls(cl.data, className)} {...rest}/>
     )
 }
 

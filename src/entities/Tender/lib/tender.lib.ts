@@ -17,3 +17,9 @@ export const toTenderType = (tenderType: string): string => {
     const key = tenderType as keyof typeof ETenderType;
     return key in ETenderType ? ETenderType[key] : '';
 }
+
+export const tenderTypeToEn = (tenderType: ETenderType) => {
+    if (tenderType === ETenderType.PURCHASE)
+        return 'Purchase'
+    return 'Sale'
+}

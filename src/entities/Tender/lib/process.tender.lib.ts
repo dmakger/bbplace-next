@@ -62,3 +62,4 @@ export const getTenderWholesalePrices = (tender: ISaleTender | IPurchaseTender, 
     } as IWholesale
 
 }
+

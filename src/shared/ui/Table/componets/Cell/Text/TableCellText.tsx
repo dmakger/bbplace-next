@@ -6,13 +6,12 @@ import cl from './_TableCellText.module.scss'
 interface TableCellTextProps {
     text: string
     className?: string,
-    classNameCell?: string,
 }
 
-export const TableCellText:FC<TableCellTextProps> = ({text, className, classNameCell}) => {
+export const TableCellText:FC<TableCellTextProps> = ({text, className}) => {
     return (
-        <td className={cls(cl.cell, classNameCell)}>
+        <span className={cls(cl.cell, className)}>
             {text}
-        </td>
+        </span>
     )
 }
