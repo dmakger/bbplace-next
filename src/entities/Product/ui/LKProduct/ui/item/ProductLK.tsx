@@ -33,7 +33,7 @@ export const ProductLK = ({
 
   return (
     <div className={cls(cl.LKProduct, className)}>
-      {category && <span className={cl.category}>
+      {variant === EProductLKVariants.DEFAULT && category && <span className={cl.category}>
         {category[0].name}
       </span>}
       <div className={cl.imageContainer}>

@@ -20,6 +20,7 @@ import { useEffect, useState } from "react";
 import { WrapperModalBottom } from "@/shared/ui/Wrapper/ModalBottom";
 import { ProductLK } from "@/entities/Product/ui/LKProduct";
 import { EProductLKVariants } from "@/entities/Product/ui/LKProduct/model/productLK.model";
+import { BottomProductSettingsModal } from "@/features/Modal/BottomProductSettings";
 
 
 export default function SupplierPage() {
@@ -62,13 +63,18 @@ export default function SupplierPage() {
             />}
             {/* {supplierProducts && <ProductAutoList products={supplierProducts} view={EViewProduct.AT_SUPPLIER_PAGE} />} */}
 
-            {supplierProducts[1] && <ProductLK product={supplierProducts[128]} setIsOpenModal={setIsOpen} variant={EProductLKVariants.GROUP_ITEM}/>}
+            {supplierProducts[1] && <ProductLK product={supplierProducts[128]} setIsOpenModal={setIsOpen} variant={EProductLKVariants.GROUP_ITEM} />}
             <Modal view={EModalView.BOTTOM}
-             buttonNode _isOpen={isOpen}
-             onClickOverlay={closeTheModal}
-             >
-                <WrapperModalBottom isOpen={isOpen} setIsOpen={setIsOpen} title="Выбор действия" />
-
+                buttonNode _isOpen={isOpen}
+                onClickOverlay={closeTheModal}>
+                <WrapperModalBottom isOpen={isOpen}
+                    setIsOpen={setIsOpen}
+                    title="Выбор действия"
+                    bottomChildren={supplierProducts[128] && <BottomProductSettingsModal
+                        product={supplierProducts[128]}
+                        setIsOpen={setIsOpen}
+                    />}
+                />
             </Modal>
         </Wrapper1280>
 

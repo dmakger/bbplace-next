@@ -1,5 +1,4 @@
 
-import { BottomProductSettingsModal } from '@/features/Modal/BottomProductSettings'
 import cl from './_WrapperModalBottom.module.scss'
 import { Button, ButtonVariant } from '@/shared/ui/Button'
 import { XMARK_HOVERED_ICON } from '@/shared/ui/Icon/data/xmark.data.icon'
@@ -11,7 +10,8 @@ interface IWrapperModalBottom {
     isOpen: boolean,
     setIsOpen: Function,
     title?: string,
-    children?: ReactNode
+    topChildren?: ReactNode,
+    bottomChildren?: ReactNode
 }
 
 export const WrapperModalBottom = ({
@@ -19,7 +19,8 @@ export const WrapperModalBottom = ({
     isOpen,
     setIsOpen,
     title,
-    children
+    topChildren,
+    bottomChildren
 }: IWrapperModalBottom) => {
     const productI = {
         id: 521312321,
@@ -78,16 +79,13 @@ export const WrapperModalBottom = ({
                 beforeProps={{ width: 27, height: 27 }}
                 className={cl.xmarkButton}
                 onClick={() => setIsOpen(false)} />
-            {(children || title) && <div className={cl.topContainer}>
-                {children}
+            {(topChildren || title) && <div className={cl.topContainer}>
+                {topChildren}
                 <h4>
                     {title}
                 </h4>
             </div>}
-
-            {productI && <BottomProductSettingsModal
-                product={productI}
-                setIsOpen={setIsOpen} />}
+            {bottomChildren}
         </div>
     )
 }

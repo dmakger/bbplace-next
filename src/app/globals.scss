@@ -95,8 +95,6 @@
   --font-caption-sub: var(--n-gray-2);
 
   --border: var(--n-gray-3);
-  --negative-border: var(--n-red-4);
-  --negative-pressed: var(--n-red-6);
 
   --positive-surface: var(--n-green-3);
   --positive-border: var(--n-green-4);
@@ -126,6 +124,9 @@
 
   --negative: var(--n-red-5);
   --negative-surface: var(--n-red-light-3);
+  --negative-border: var(--n-red-4);
+  --negative-hovered: var(--n-red-5);
+  --negative-pressed: var(--n-red-6);
 
 
   --rating-surface: var(--n-yellow-1);
