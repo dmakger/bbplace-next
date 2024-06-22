@@ -58,7 +58,7 @@ export const BottomProductSettingsModal = ({
                 beforeImage={TRASH_ICON}
                 beforeProps={{ width: 20, height: 20 }}
                 onClick={delProduct}
-                className={cls(!isTitle ? cl.groupProductDelButton : '', classNameButton)}
+                className={classNameButton}
             />
             <Button title={isTitle ? 'Редактировать' : ''}
                 variant={ButtonVariant.TONAL}
@@ -67,7 +67,7 @@ export const BottomProductSettingsModal = ({
                 beforeImage={EDIT_ICON}
                 beforeProps={{ width: 20, height: 20 }}
                 onClick={navigateToEditProduct}
-                className={cls(!isTitle ? cl.groupProductEditButton : '', classNameButton)}
+                className={classNameButton}
             />
         </div>
     )

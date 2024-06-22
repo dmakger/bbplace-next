@@ -28,7 +28,8 @@ export default function SupplierPage() {
     //STATE
     const [supplier, setSupplier] = useState<ISupplier>()
     const [supplierProducts, setSupplierProducts] = useState<IProduct[]>([])
-    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [isOpenSettings, setIsOpenSettings] = useState<boolean>(false);
+    const [isOpenGroup, setIsOpenGroup] = useState<boolean>(false);
 
     //PARAMS
     const params = useParams()
@@ -52,7 +53,8 @@ export default function SupplierPage() {
     }, [supplierProductsAPI])
 
     const closeTheModal = () => {
-        setIsOpen(prevState => !prevState)
+        if (isOpenSettings) setIsOpenSettings(false)
+        if (isOpenGroup) setIsOpenGroup(false)
     }
 
     return (
@@ -63,17 +65,29 @@ export default function SupplierPage() {
             />}
             {/* {supplierProducts && <ProductAutoList products={supplierProducts} view={EViewProduct.AT_SUPPLIER_PAGE} />} */}
 
-            {supplierProducts[1] && <ProductLK product={supplierProducts[128]} setIsOpenModal={setIsOpen} variant={EProductLKVariants.GROUP_ITEM} />}
+            {supplierProducts[1] && <ProductLK product={supplierProducts[128]} setIsOpenGroup={setIsOpenGroup} setIsOpenSettings={setIsOpenSettings} variant={EProductLKVariants.DEFAULT} />}
             <Modal view={EModalView.BOTTOM}
-                buttonNode _isOpen={isOpen}
+                buttonNode
+                _isOpen={isOpenSettings}
                 onClickOverlay={closeTheModal}>
-                <WrapperModalBottom isOpen={isOpen}
-                    setIsOpen={setIsOpen}
+                <WrapperModalBottom isOpen={isOpenSettings}
+                    setIsOpen={setIsOpenSettings}
                     title="Выбор действия"
                     bottomChildren={supplierProducts[128] && <BottomProductSettingsModal
                         product={supplierProducts[128]}
-                        setIsOpen={setIsOpen}
+                        setIsOpen={setIsOpenSettings}
                     />}
+                />
+            </Modal>
+
+            <Modal view={EModalView.BOTTOM}
+                buttonNode
+                _isOpen={isOpenGroup}
+                onClickOverlay={closeTheModal}>
+                <WrapperModalBottom isOpen={isOpenGroup}
+                    setIsOpen={setIsOpenGroup}
+                    title="Варианты товаров"
+                    bottomChildren={supplierProducts[1] && <ProductLK product={supplierProducts[128]} variant={EProductLKVariants.GROUP_ITEM} />}
                 />
             </Modal>
         </Wrapper1280>

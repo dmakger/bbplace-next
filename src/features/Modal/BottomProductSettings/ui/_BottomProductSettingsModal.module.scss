@@ -1,14 +1,16 @@
 .BottomProductSettingsModal {
     display: flex;
     gap: 20px;
-    background-color: var(--background-2);
     border-radius: 20px 20px 0 0;
     padding: 20px;
     height: 80px;
     width: 425px;
     & button{
-        background-color: var(--background-2);
         width: 182px;
+    }
+
+    .groupProductButton{
+        border-radius: 50%;
     }
 
     @media(max-width: 425px) {
@@ -16,10 +18,10 @@
         gap: 10px;
         width: 320px;
         height: 100%;
+
         & button{
             width: 100%;
             padding: 10px; 
         }
     }
- 
 }

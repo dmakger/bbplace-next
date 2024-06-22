@@ -17,19 +17,32 @@ import { EProductLKVariants } from '../../model/productLK.model'
 interface IProductLK extends IProductProps {
   className?: string,
   variant?: EProductLKVariants
-  setIsOpenModal: Function,
+  setIsOpenSettings?: Function,
+  setIsOpenGroup?: Function
 }
 
 export const ProductLK = ({
   className,
   variant = EProductLKVariants.DEFAULT,
   product,
-  setIsOpenModal,
+  setIsOpenSettings,
+  setIsOpenGroup
 }: IProductLK) => {
 
   //API
   const { data: category } = CategoryAPI.useGetCategoryByIdQuery(product.categoryId)
   const { data: productAPIListGroup } = ProductAPI.useGetProductsByGroupQuery(product && product.groupId ? product.groupId : skipToken, { refetchOnMountOrArgChange: true })
+
+  //FUNCTION
+  const showSettingsModal = () => {
+    if(setIsOpenSettings)
+     setIsOpenSettings(true)
+  }
+
+  const showGroupModal = () => {
+    if(setIsOpenGroup)
+     setIsOpenGroup(true)
+  }
 
   return (
     <div className={cls(cl.LKProduct, className)}>
@@ -44,12 +57,12 @@ export const ProductLK = ({
             ? <Button variant={ButtonVariant.DEFAULT}
               className={cl.iconWrapper}
               beforeImage={GEAR_ICON}
-              onClick={() => setIsOpenModal(true)}
+              onClick={showSettingsModal}
             /> :
             <BottomProductSettingsModal
               className={cl.groupSettings}
               product={product}
-              setIsOpen={setIsOpenModal}
+              setIsOpen={setIsOpenGroup ? setIsOpenGroup : ()=>{}}
               isTitle={false}
             />}
         </div>
@@ -76,7 +89,7 @@ export const ProductLK = ({
               beforeImage={ARROW_SECONDARY_WO_ICON}
               beforeProps={{ width: 14, height: 9, classNameImage: cl.arrowImage }}
               className={cl.iconWrapper}
-              onClick={() => setIsOpenModal(true)}
+              onClick={showGroupModal}
             />
           </div>}
         </div>
