@@ -2,6 +2,11 @@
     display: flex;
     justify-content: space-between;   
     width: 100%;
+    position: sticky;
+    top: 0;
+    left: 0;
+    background-color: var(--background-1);
+    padding-top: 10px;
 
     .leftContainer {
         display: flex;

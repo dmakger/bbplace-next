@@ -11,6 +11,7 @@ import { IUserProductsTab } from "@/features/DetailedPageInfo/model/detailedPage
 import { ButtonColor } from "@/shared/ui/Button/model/model"
 import { useRouter } from "next/navigation"
 import { DASHBOARD_PAGES } from "@/config/pages-url.config"
+import { ESwitchSelectorVariants } from "@/shared/ui/SwitchSelector/model/switchSelector.model"
 
 interface IHeaderPT {
     className?: string,
@@ -42,7 +43,8 @@ export const HeaderLKPT = ({
         <div className={cls(cl.HeaderLKPT, className)}>
             <div className={cl.leftContainer}>
                 <div className={cl.backNTitle}>
-                    <ButtonArrowWLine className={cl.backButton}
+                    <ButtonArrowWLine
+                        className={cl.backButton}
                         axis={Axis.Bottom}
                         onClick={backNavigation}
                     />
@@ -52,7 +54,8 @@ export const HeaderLKPT = ({
                 <SwitchSelector className={cl.switchSelector}
                 options={[SWITCH_SELECTOR_CREATED_PRODUCTS_OPTION, SWITCH_SELECTOR_WO_PRICE_PRODUCTS_OPTION, SWITCH_SELECTOR_DRAFT_PRODUCTS_OPTION]} setSelectedOption={setSelectedOption}
                     selectedOption={selectedOption}
-                    optionsTab={optionsTab} />
+                    optionsTab={optionsTab}
+                    variant={ESwitchSelectorVariants.TABS} />
             </div>
             {isButtonAdd && <div className={cl.addButtonContainer}>
                 <Button variant={ButtonVariant.FILL}

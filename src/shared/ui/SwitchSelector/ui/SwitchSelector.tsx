@@ -19,7 +19,7 @@ interface ISwitchSelector {
 }
 
 export const SwitchSelector = ({
-    variant = ESwitchSelectorVariants.TABS,
+    variant = ESwitchSelectorVariants.DEFAULT,
     className,
     options,
     selectedOption,

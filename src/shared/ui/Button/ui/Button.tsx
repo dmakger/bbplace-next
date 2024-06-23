@@ -93,7 +93,7 @@ export const Button = ({
                 <ImageSmart {...afterProps} icon={afterImage} 
                             width={afterProps && afterProps.width ? afterProps.width: 20} 
                             height={afterProps && afterProps.height ? afterProps.height: 20} 
-                            isActive={active} isHovered={isHovered} />
+                            isActive={active} isHovered={isHovered} isPressed={isPressed}/>
             }
             {children}
         </button>
