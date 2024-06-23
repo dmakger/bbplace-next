@@ -36,15 +36,16 @@ export const unionDataTable = (data: IRow[], unions: IUnionColumn[], wrapper?: I
             const before = updatedRow.slice(0, union.start);
 
             const newColumnContent = updatedRow.slice(union.start, union.end);
+            const newColumnClassName = newColumnContent[0].className;
+            const newColumnNodes = newColumnContent.map(it => it.cell);
 
-            let newColumn = <>{newColumnContent}</>;
+            let newColumn = <>{newColumnNodes}</>;
             if (wrapper) {
-                // newColumn = <wrapper>{newColumn}</wrapper>
-                newColumn = React.createElement(wrapper, {}, newColumnContent); 
+                newColumn = React.createElement(wrapper, {}, newColumnNodes); 
             }
             const after = updatedRow.slice(union.end);
 
-            return [...before, newColumn, ...after];
+            return [...before, {cell: newColumn, className: newColumnClassName}, ...after];
         }, row);
     });
 };

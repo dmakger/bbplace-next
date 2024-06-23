@@ -12,7 +12,11 @@ export interface IUnionColumn {
     end: number
 }
 
-export type ICell = ReactNode
+// export type ICell = ReactNode
+export type ICell = {
+    className?: string,
+    cell: ReactNode,
+}
 // export type ICell = JSX.Element
 export type IRow = ICell[]
 

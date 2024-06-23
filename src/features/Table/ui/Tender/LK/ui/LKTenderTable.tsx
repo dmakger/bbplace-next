@@ -37,8 +37,8 @@ export const LKTenderTable:FC<LKTenderTableProps> = ({tenderType, ...rest}) => {
     const {id: userId} = useAppSelector(state => state.user)    
 
     // API
-    const { data: tendersAPI, isLoading: isTendersLoading } = TenderAPI.useGetAllTendersQuery({limit: TENDER_ARGS_REQUEST.limit, page: 0});
-    // const { data: tendersAPI, isLoading: isTendersLoading } = TenderAPI.useGetUserTendersQuery({userId, type: tenderType});
+    // const { data: tendersAPI, isLoading: isTendersLoading } = TenderAPI.useGetAllTendersQuery({limit: TENDER_ARGS_REQUEST.limit, page: 0});
+    const { data: tendersAPI, isLoading: isTendersLoading } = TenderAPI.useGetUserTendersQuery({userId, type: tenderType});
     const { data: currencyList } = CurrencyAPI.useGetCurrenciesQuery()          
     const { data: metrics } = MetricsAPI.useGetMetricsQuery()
     const [ getCategory ] = CategoryAPI.useGetCategoryMutation();
@@ -84,10 +84,13 @@ export const LKTenderTable:FC<LKTenderTableProps> = ({tenderType, ...rest}) => {
         setRowsTable(() => (
             tenders.map(it => {
                 return [
-                    <TableCell.Option text={it.name} />,
-                    <TableCell.Text text={it.category ? it.category.name : ''} />,
-                    <TableCell.Text text={`${it.attachments.length}`} />,
-                    <LKTenderTableCellTrash tenderId={it.id} type={it.type} />,
+                    {cell: <TableCell.Option text={it.name} />},
+                    {cell: <TableCell.Text text={it.category ? it.category.name : ''} />, className: cl.cell},
+                    {cell: <TableCell.Text text={`${it.attachments.length}`} />, className: cl.cell},
+                    {cell: <LKTenderTableCellTrash tenderId={it.id} type={it.type} />, className: cl.cell},
+                    // <TableCell.Text text={it.category ? it.category.name : ''} />,
+                    // <TableCell.Text text={`${it.attachments.length}`} />,
+                    // <LKTenderTableCellTrash tenderId={it.id} type={it.type} />,
                 ] as IRow
             })
         ))
