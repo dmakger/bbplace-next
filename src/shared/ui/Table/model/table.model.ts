@@ -20,5 +20,9 @@ export interface ITable {
     head: (string | undefined)[]
     data: IRow[]
     unions: IUnionColumn[]
+    wrapperForUnions?: React.FC<{
+        className?: string,
+        children?: ReactNode
+    }>
     variant?: TableVariant
 }

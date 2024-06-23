@@ -1,6 +1,6 @@
 "use client"
 
-import { FC, SetStateAction, useEffect, useState } from "react"
+import { FC, useEffect, useState } from "react"
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_TenderTable.module.scss'
@@ -18,6 +18,7 @@ import { LKTenderTableCellTrash } from "../components/Cell/Trash/LKTenderTableCe
 import { useAppSelector } from "@/storage/hooks";
 import { TENDER_ARGS_REQUEST } from "@/entities/Tender/data/tender.data";
 import { HandleSize } from "@/shared/ui/Handle/Size/HandleSize";
+import { isEqual } from "lodash";
 
 interface LKTenderTableProps{
     tenderType: ETenderType
@@ -31,7 +32,6 @@ export const LKTenderTable:FC<LKTenderTableProps> = ({tenderType, ...rest}) => {
     const [rowsTable, setRowsTable] = useState<IRow[]>([])
     const [unionsColumn, setUnionsColumn] = useState<IUnionColumn[]>([])
     const [is1024, setIs1024] = useState<boolean>(false);
-
     
     // RTK
     const {id: userId} = useAppSelector(state => state.user)    
@@ -96,9 +96,7 @@ export const LKTenderTable:FC<LKTenderTableProps> = ({tenderType, ...rest}) => {
 
     useEffect(() => {
         setUnionsColumn(() => is1024 ? [{start: 1, end: 3}] : [])
-    }, [is1024])
-
-    console.log('tenders', categoryList)
+    }, [unionsColumn, is1024])
 
     return (
         <>

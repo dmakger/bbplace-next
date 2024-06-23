@@ -10,12 +10,13 @@ import { TBody } from "../componets/Body/TBody";
 import { TableVariant } from "../data/table.data";
 import { isEqual } from "lodash";
 import { unionDataTable, unionHeadTable } from "../lib/table.lib";
+import { WrapperForUnions } from "../componets/WrapperForUnions/WrapperForUnions";
 
 interface TableProps extends ITable {
     className?: string,
 }
 
-export const Table:FC<TableProps> = ({head, data, unions, variant=TableVariant.WHITE, className}) => {
+export const Table:FC<TableProps> = ({head, data, unions, wrapperForUnions=WrapperForUnions, variant=TableVariant.WHITE, className}) => {
     // STATE
     const [currentHead, setCurrentHead] = useState<ITable['head']>([])
     const [currentData, setCurrentData] = useState<ITable['data']>([])
@@ -32,7 +33,7 @@ export const Table:FC<TableProps> = ({head, data, unions, variant=TableVariant.W
 
     useEffect(() => {
         setCurrentHead(prevHead => unionHeadTable(prevHead, unions))
-        setCurrentData(prevData => unionDataTable(prevData, unions))
+        setCurrentData(prevData => unionDataTable(prevData, unions, wrapperForUnions))
     }, [unions])
 
     console.log('table qwe', currentData)

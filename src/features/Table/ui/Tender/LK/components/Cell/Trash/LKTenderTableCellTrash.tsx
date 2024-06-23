@@ -19,6 +19,6 @@ export const LKTenderTableCellTrash:FC<LKTenderTableCellTrashProps> = ({tenderId
         <Button variant={ButtonVariant.CONTENT} 
                 color={ButtonColor.Negative} 
                 size={ButtonSize.Medium} 
-                beforeImage={TRASH_NEGATIVE_TO_WHITE_ICON} />
+                beforeImage={TRASH_NEGATIVE_TO_WHITE_ICON} className={cls(cl.cell, className)} />
     )
 }
