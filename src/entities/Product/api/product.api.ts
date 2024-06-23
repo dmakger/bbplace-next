@@ -1,5 +1,5 @@
-import {createApi} from "@reduxjs/toolkit/query/react";
-import {fetchBaseQuery} from "@reduxjs/toolkit/query";
+import { createApi } from "@reduxjs/toolkit/query/react";
+import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 import { options } from "@/api/interceptors";
 import { IGetProductsByUser, IProduct, IProductAPI } from "../model/product.model";
 import { IArgsRequest } from "@/api/model/request.model.api";
@@ -18,14 +18,14 @@ export const ProductAPI = createApi({
         getProducts: build.query<IProductAPI[], IArgsRequest | undefined>({
             query: (args) => ({
                 url: getURL(`/GetItems/Filter/`, getArgsProduct(args)),
-				method: 'GET',
+                method: 'GET',
             })
         }),
 
         getCountProducts: build.query<number, IArgsRequest | undefined>({
             query: (args) => ({
-                url: getURL(`/GetItems/Filter/${args?.limit}/CountPages/`, {params: args?.params}),
-				method: 'GET',
+                url: getURL(`/GetItems/Filter/${args?.limit}/CountPages/`, { params: args?.params }),
+                method: 'GET',
             })
         }),
 
@@ -44,20 +44,42 @@ export const ProductAPI = createApi({
             }),
             // providesTags: result => ['Item']
         }),
+        deleteProduct: build.mutation<IProductAPI, number | string>({
+            query: (itemId) => ({
+                url: `/DeleteItem/${itemId}`,
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                },
+                body: {}
+            }),
+        }),
 
         //GET PRODUCTS BY USER
         getProductsByUser: build.query<IProductAPI[], IGetProductsByUser>({
-            query: ({page = PRODUCT_START_PAGE, limit = PRODUCT_BY_USER_LIMIT, userId}) => ({
+            query: ({ page = PRODUCT_START_PAGE, limit = PRODUCT_BY_USER_LIMIT, userId }) => ({
                 url: `/GetItems/ByUser/${userId}/${limit}/${page}`,
                 method: 'GET',
 
             }),
         }),
         getPagesProductsByUser: build.query<number, IGetProductsByUser>({
-            query: ({limit = PRODUCT_BY_USER_LIMIT, userId}) => ({
+            query: ({ limit = PRODUCT_BY_USER_LIMIT, userId }) => ({
                 url: `/GetItems/ByUser/${userId}/${limit}/CountPages`,
                 method: 'GET',
             })
         }),
-	})
+        //DRAFT
+        deleteDraft: build.mutation<void, number | string>({
+            query: (draftId) => ({
+                url: `/DeleteItemDraft/${draftId}`,
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                },
+                body: {}
+            }),
+        })
+    })
+
 })

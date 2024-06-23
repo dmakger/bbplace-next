@@ -29,6 +29,8 @@
         z-index: -1;
         opacity: 0;
     }
+
+
 }
 
 .activeWrapper {
@@ -43,6 +45,18 @@
     }
 
     .hover {
+        z-index: 1;
+        opacity: 1;
+    }
+}
+
+.pressedWrapper, .wrapper:active {
+    .visible {
+        z-index: -1;
+        opacity: 0;
+    }
+
+    .pressed {
         z-index: 1;
         opacity: 1;
     }
