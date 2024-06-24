@@ -81,6 +81,10 @@ export const ProductListChild:FC<ProductListProps> = ({view, className}) => {
         }
     }, [dispatch, countProducts, isCountAllProductsLoading])
 
+    useEffect(() => {
+        setPageNumber(prevPageNumber => prevPageNumber === 1 ? prevPageNumber : 1)
+    }, [newParams])
+
     if (isProductLoading && isCountProductsLoading)
         return <div>Loading...</div>
     return (
