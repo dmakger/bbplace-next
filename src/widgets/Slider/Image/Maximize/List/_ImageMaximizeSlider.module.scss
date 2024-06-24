@@ -7,7 +7,8 @@
 }
 
 .slider {
-    width: 690px;
+    width: calc(100vw - 600px);
+    max-width: 690px;
 }
 
 .hint {
@@ -29,17 +30,30 @@
 }
 
 .fullWindow {
-    // width: 100vw !important;
-    width: calc(100vw - 131px) !important;
+    width: 100vw !important;
+    // width: calc(100vw - 131px) !important;
+    max-width: max-content !important;
 }
 
 
+@media (max-width: 1024px) { 
+    .slider {
+        width: calc(100vw - 165px) !important;
+        max-width: max-content;
+    }
+
+    // .hint {
+    //     z-index: 20;
+    // }
+}
+
 @media (max-width: 768px) { 
     .slider {
-        width: 100vw;
+        width: 100vw !important;
+        max-width: max-content;
     }
 
     .hint {
-        z-index: 20;
+        z-index: 2;
     }
 }

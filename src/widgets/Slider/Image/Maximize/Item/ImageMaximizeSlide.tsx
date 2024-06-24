@@ -8,19 +8,21 @@ import React from "react";
 
 interface ImageMaximizeSlideProps{
     slide: string
+    style?: object
     onClickMaximize?: Function
     isFullWindow?: boolean
     className?: string,
     classNameSlide?: string,
 }
 
-export const ImageMaximizeSlide:FC<ImageMaximizeSlideProps> = React.memo(({slide, onClickMaximize, isFullWindow, className, classNameSlide}) => {
+export const ImageMaximizeSlide:FC<ImageMaximizeSlideProps> = React.memo(({slide, style, onClickMaximize, isFullWindow, className, classNameSlide}) => {
     const handleOnClickMaximize = useCallback(() => {
         if (onClickMaximize) onClickMaximize()
     }, [])
     
     return (
-        <div className={cls(cl.wrapper, isFullWindow ? cl.fullWindow : '', className, classNameSlide)}>
+        <div style={style} className={cls(cl.wrapper, isFullWindow ? cl.fullWindow : '', className, classNameSlide)}>
+        {/* <div className={cls(cl.wrapper, isFullWindow ? cl.fullWindow : '', className, classNameSlide)}> */}
             {onClickMaximize && 
                 <ButtonMaximize onClick={handleOnClickMaximize} className={cl.maximize} />
             }

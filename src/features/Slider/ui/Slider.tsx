@@ -44,7 +44,10 @@ export const Slider = <T extends (object | string)>({
     // EFFECT
     useEffect(() => {
         const handleResize = () => {
+            
             if (slidesRef.current) {
+                console.log('slides ', slidesRef.current.offsetWidth);
+
                 setSlidesWidth(slidesRef.current.offsetWidth);
             }
         };
@@ -109,8 +112,7 @@ export const Slider = <T extends (object | string)>({
     };
 
     return (
-        <div 
-            style={style} 
+        <div style={style} 
             className={cls(cl.slider, className)} 
             ref={slidesRef}
             onTouchStart={handleTouchStart}
@@ -125,7 +127,7 @@ export const Slider = <T extends (object | string)>({
                 {slides.map((slide, index) => (
                     <SlideComponent {...slideProps} slide={slide}
                         setTypeOfFile={setTypeOfFile}
-                        style={{ width: `${getWidthSlide()}px` }}
+                        style={{ width: `${getWidthSlide() + 10}px` }}
                         className={classNameSlides} key={index} />
                 ))}
             </div>

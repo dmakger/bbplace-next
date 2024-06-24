@@ -2,12 +2,12 @@
 import { Button, ButtonVariant } from '@/shared/ui/Button'
 import cl from './_BottomProductSettingsModal.module.scss'
 import { cls } from "@/shared/lib/classes.lib"
-import { ButtonColor, ButtonSize } from '@/shared/ui/Button/model/model'
 import { TRASH_ICON } from '@/shared/ui/Icon/data/trash.data.icon'
 import { EDIT_ICON } from '@/shared/ui/Icon/data/edit.data.icon'
 import { useRouter } from 'next/navigation'
 import { ProductAPI } from '@/entities/Product/api/product.api'
 import { DASHBOARD_PAGES } from '@/config/pages-url.config'
+import { ButtonColor, ButtonSize } from '@/shared/ui/Button/model/button.model'
 
 interface IBottomProductSettingsModal {
     className?: string,
