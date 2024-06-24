@@ -5,7 +5,7 @@ import { HeadingToTextTable } from "@/shared/ui/Text"
 import { EHeadingToTextVariants, IHeadingToText } from "@/shared/model/text.model"
 import { FavouriteAutoToProductButton } from "@/entities/Product/components/Buttons/Favourite/Auto/FavouriteAutoToProductButton"
 import { EProductFavouriteViewItem } from "@/entities/Product/data/view.product.data"
-import { ButtonFavouriteVariant } from "@/shared/ui/Button/Favourite/ButtonFavourite"
+import { ButtonFavouriteVariant } from "@/shared/ui/Button/data/Favourite/ButtonFavourite"
 import { MobileOrderFooter } from "@/shared/ui/DetailedPage"
 import { useInView } from "react-intersection-observer"
 

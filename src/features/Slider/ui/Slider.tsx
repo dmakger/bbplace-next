@@ -4,7 +4,7 @@ import { cls } from '@/shared/lib/classes.lib';
 import cl from './_Slider.module.scss';
 import { Axis } from "@/shared/model/button.model";
 import { ISlider } from "../model/slider.model";
-import { ButtonArrowWLine } from "@/shared/ui/Button/Arrow/WLine/ButtonArrowWLine";
+import { ButtonArrowWLine } from "@/shared/ui/Button/data/Arrow/WLine/ButtonArrowWLine";
 
 interface SliderProps<T> extends ISlider {
     slides?: T[];

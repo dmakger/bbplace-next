@@ -4,8 +4,8 @@ import { FC, useEffect, useState } from "react"
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_ViewButtonsProduct.module.scss'
-import { GalleryViewButton } from "@/shared/ui/Button/GalleryView/GalleryViewButton";
-import { ListViewButton } from "@/shared/ui/Button/ListView/ListViewButton";
+import { GalleryViewButton } from "@/shared/ui/Button/data/GalleryView/GalleryViewButton";
+import { ListViewButton } from "@/shared/ui/Button/data/ListView/ListViewButton";
 import { MAIN_PAGES } from "@/config/pages-url.config";
 import { usePathname, useSearchParams } from "next/navigation";
 import { PRODUCT_PARAMS } from "@/config/params/product.params.config";

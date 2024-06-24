@@ -1,3 +1,4 @@
+import { ICategory } from "@/entities/Metrics/model/category.metrics.model"
 import { ICurrency } from "@/entities/Metrics/model/currency.metrics.model"
 import { IMetrics } from "@/entities/Metrics/model/metric.metrics.model"
 import { IAttachment } from "@/shared/model/attachment.model"
@@ -17,6 +18,7 @@ export interface IBaseTender {
     name: string
     ownerId: string
     categoryId: number
+    category?: ICategory
     description: string
     shareContacts: boolean
     createdAt: string
@@ -67,4 +69,5 @@ export interface IProcessTender{
     tenderAPI: ITenderAPI, 
     metrics?: IMetrics[], 
     currencyList?: ICurrency[]
+    getCategory?: Function
 }

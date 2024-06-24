@@ -2,9 +2,9 @@ import { FC, useCallback, useEffect, useState } from "react"
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_ButtonFavourite.module.scss'
-import { Button } from "../ui/Button";
-import { ButtonVariant } from "../model/model";
-import { FAVOURITE_ICON, FAVOURITE_NEW_ICON } from "../../Icon/data/favourite.data.icon";
+import { Button } from "../../ui/Button";
+import { ButtonVariant } from "../../model/button.model";
+import { FAVOURITE_ICON, FAVOURITE_NEW_ICON } from "../../../Icon/data/favourite.data.icon";
 import { IFavouriteRequest } from "@/entities/Favourite/model/favourite.model";
 import { useFavourite } from "@/entities/Favourite/lib/favourite.lib";
 

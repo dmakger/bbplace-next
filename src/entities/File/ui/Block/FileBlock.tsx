@@ -7,8 +7,8 @@ import cl from './_FileBlock.module.scss'
 import { WrapperBlock } from "@/shared/ui/Wrapper/Block/WrapperBlock";
 import { FileListItem } from "../List/FileListItem";
 import { IFile } from "../../model/file.model";
-import { Button } from "@/shared/ui/Button";
-import { ButtonColor, ButtonType, ButtonVariant } from "@/shared/ui/Button/model/model";
+import { Button, ButtonVariant } from "@/shared/ui/Button";
+import { ButtonColor } from "@/shared/ui/Button/model/button.model";
 
 interface FileBlockProps {
     files: IFile[]

@@ -6,6 +6,7 @@ export enum ButtonType {
 export enum ButtonColor {
     Primary = 'primary',
     Secondary = 'secondary',
+    Negative = 'negative',
     Tertiary = 'tertiary'
 }
 
@@ -36,4 +37,3 @@ export enum ButtonVariant{
     BACKGROUND_GRAY = 'background-gray',
     BORDERED_BLUE = 'bordered-blue'
 }
-
