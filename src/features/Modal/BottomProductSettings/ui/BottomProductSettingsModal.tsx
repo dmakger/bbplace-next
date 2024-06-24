@@ -26,7 +26,6 @@ export const BottomProductSettingsModal = ({
     setIsOpen,
     isTitle = true
 }: IBottomProductSettingsModal) => {
-
     //API
     const [deleteProduct] = ProductAPI.useDeleteProductMutation()
     const [deleteDraft] = ProductAPI.useDeleteDraftMutation()
@@ -35,12 +34,12 @@ export const BottomProductSettingsModal = ({
     const router = useRouter()
 
     //FUNCTION
-    const delProduct = () => {
+    const delProduct = async(id: number) => {
         if (product.media.attachments.length) {
-            deleteProduct(product.id)
+            await deleteProduct(id)
         }
         else {
-            deleteDraft(product.id)
+            await deleteDraft(id)
         }
         setIsOpen(false)
     }
@@ -57,7 +56,7 @@ export const BottomProductSettingsModal = ({
                 size={ButtonSize.Medium}
                 beforeImage={TRASH_ICON}
                 beforeProps={{ width: 20, height: 20 }}
-                onClick={delProduct}
+                onClick={() => delProduct(product.id)}
                 className={classNameButton}
             />
             <Button title={isTitle ? 'Редактировать' : ''}

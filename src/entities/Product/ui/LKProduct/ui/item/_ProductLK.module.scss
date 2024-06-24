@@ -84,9 +84,13 @@
 
 
         .productName {
+            display: flex;
+            justify-content: flex-start;
             background-color: transparent;
             padding: 9px 10px;
+            width: 100%;
             border-radius: 10px;
+            text-align: left;
             color: var(--secondary);
             cursor: pointer;
             transition: 0.3s;

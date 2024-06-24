@@ -31,7 +31,7 @@ export const ProductLK = ({
 }: IProductLK) => {
 
   //API
-  const { data: category } = CategoryAPI.useGetCategoryByIdQuery(product.categoryId)
+  const { data: category } = CategoryAPI.useGetCategoryByIdQuery(product?.categoryId)
   const { data: productAPIListGroup } = ProductAPI.useGetProductsByGroupQuery(product && product.groupId ? product.groupId : skipToken, { refetchOnMountOrArgChange: true })
 
   //FUNCTION
@@ -44,6 +44,8 @@ export const ProductLK = ({
     if (setIsOpenGroup)
       setIsOpenGroup(true)
   }
+  
+  if(!product) return null;
 
   return (
     <div className={cls(cl.LKProduct, className)}>
