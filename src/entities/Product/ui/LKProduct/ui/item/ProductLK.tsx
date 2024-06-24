@@ -13,6 +13,7 @@ import { ProductAPI } from '@/entities/Product/api/product.api'
 import { skipToken } from '@reduxjs/toolkit/query'
 import { BottomProductSettingsModal } from '@/features/Modal/BottomProductSettings'
 import { EProductLKVariants } from '../../model/productLK.model'
+import { MAIN_PAGES } from '@/config/pages-url.config'
 
 interface IProductLK extends IProductProps {
   className?: string,
@@ -35,13 +36,13 @@ export const ProductLK = ({
 
   //FUNCTION
   const showSettingsModal = () => {
-    if(setIsOpenSettings)
-     setIsOpenSettings(true)
+    if (setIsOpenSettings)
+      setIsOpenSettings(true)
   }
 
   const showGroupModal = () => {
-    if(setIsOpenGroup)
-     setIsOpenGroup(true)
+    if (setIsOpenGroup)
+      setIsOpenGroup(true)
   }
 
   return (
@@ -62,16 +63,17 @@ export const ProductLK = ({
             <BottomProductSettingsModal
               className={cl.groupSettings}
               product={product}
-              setIsOpen={setIsOpenGroup ? setIsOpenGroup : ()=>{}}
+              setIsOpen={setIsOpenGroup ? setIsOpenGroup : () => { }}
               isTitle={false}
             />}
         </div>
 
       </div>
       <div className={cl.infoContainer}>
-        <h5 className={cl.productName}>
-          {product.name}
-        </h5>
+        <Button variant={ButtonVariant.DEFAULT}
+          className={cl.productName}
+          title={product.name ?? ''}
+          href={MAIN_PAGES.CURRENT_PRODUCT(product.id)} />
         <div className={cl.bottomContainer}>
           <div className={cl.productRestInfo}>
             <p className={cl.productColor}>
