@@ -3,9 +3,10 @@ import {fetchBaseQuery} from "@reduxjs/toolkit/query";
 import { options } from "@/api/interceptors";
 import { IArgsRequest } from "@/api/model/request.model.api";
 import { getURL } from "@/api/request";
-import { ETenderType, IPurchaseTender, ISaleTender, ITenderAPI, ITenderByTwoObjectsAPI } from "../model/tender.model";
+import { ETenderType, IPurchaseTender, ISaleTender, ITender, ITenderAPI, ITenderByTwoObjectsAPI } from "../model/tender.model";
 import { getArgsTender } from "../lib/args.tender.lib";
 import { tenderTypeToEn } from "../lib/tender.lib";
+import { getHeaderAuthorization } from "@/entities/Auth/lib/auth-token.lib";
 
 
 export const TenderAPI = createApi({
@@ -40,10 +41,15 @@ export const TenderAPI = createApi({
             query: ({userId, type}) => ({
                 url: `/GetUserTenders/${userId}` + (type ? `?type=${tenderTypeToEn(type)}` : '')
             }),
-            // transformResponse: (response: any) => {
-                
-            //     return jwtDecode(response.accessToken);
-            // }
+        }),
+
+        deleteTender: build.mutation<void, {tenderId: ITender['id'], type?: ETenderType}>({
+            query: ({tenderId, type}) => ({
+                url: `/DeleteTender/${type}/${tenderId}`,
+                method: 'DELETE',
+                // body,
+                headers: getHeaderAuthorization(),
+            }),
         }),
 
 

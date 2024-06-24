@@ -2,7 +2,6 @@
 
 import { FC, useEffect, useState } from "react"
 
-import { cls } from '@/shared/lib/classes.lib';
 import cl from './_TenderTable.module.scss'
 import { Table } from "@/shared/ui/Table/ui/Table";
 import { TenderAPI } from "@/entities/Tender/api/tender.api";
@@ -16,9 +15,7 @@ import { IRow, IUnionColumn } from "@/shared/ui/Table/model/table.model";
 import TableCell from "@/shared/ui/Table/componets/Cell";
 import { LKTenderTableCellTrash } from "../components/Cell/Trash/LKTenderTableCellTrash";
 import { useAppSelector } from "@/storage/hooks";
-import { TENDER_ARGS_REQUEST } from "@/entities/Tender/data/tender.data";
 import { HandleSize } from "@/shared/ui/Handle/Size/HandleSize";
-import { isEqual } from "lodash";
 import { useParams } from "next/navigation";
 import { toTenderType } from "@/entities/Tender/lib/tender.lib";
 import { skipToken } from "@reduxjs/toolkit/query";
@@ -34,7 +31,7 @@ export const LKTenderTable: FC<LKTenderTableProps> = ({ tenderType, ...rest }) =
     const tenderTypeSuccess = tenderType ? tenderType : toTenderType(params.type as string) as ETenderType
 
     // STATE
-    const [tenders, setTenders] = useState<ITender[]>([])
+    const [tenders, setTenders] = useState<ITender[] | undefined>(undefined)
     const [categoryList, setCategoryList] = useState<ICategory[]>([])
     const [rowsTable, setRowsTable] = useState<IRow[]>([])
     const [unionsColumn, setUnionsColumn] = useState<IUnionColumn[]>([])
@@ -48,8 +45,26 @@ export const LKTenderTable: FC<LKTenderTableProps> = ({ tenderType, ...rest }) =
     const { data: currencyList } = CurrencyAPI.useGetCurrenciesQuery()
     const { data: metrics } = MetricsAPI.useGetMetricsQuery()
     const [getCategory] = CategoryAPI.useGetCategoryMutation();
+    const [deleteTender] = TenderAPI.useDeleteTenderMutation()
 
-    // EFFECT
+    // HANDLE
+    const onClickDelete = async (tenderId: ITender['id'], type?: ETenderType) => {
+        if (type === undefined || tenders === undefined) return
+        // deleteTender()
+        await deleteTender({tenderId, type}).unwrap().then(
+            () => {                
+                setTenders(prevTenders => {
+                    if (prevTenders === undefined) return
+
+                    return prevTenders.filter(it => it.id !== tenderId)
+                })
+            }
+        )
+    }
+
+    // ======={ EFFECT }=======
+    
+    // SET CATEGORIES
     useEffect(() => {
         if (!tendersAPI) return;
 
@@ -70,6 +85,7 @@ export const LKTenderTable: FC<LKTenderTableProps> = ({ tenderType, ...rest }) =
         fetchCategories();
     }, [tendersAPI, getCategory]);
 
+    // SET TENDERS
     useEffect(() => {
         if (tendersAPI && metrics && currencyList && categoryList) {
             setTenders(() => {
@@ -80,9 +96,9 @@ export const LKTenderTable: FC<LKTenderTableProps> = ({ tenderType, ...rest }) =
         }
     }, [tendersAPI, metrics, currencyList, categoryList])
 
-    // set rows table
+    // SET ROWS TABLE
     useEffect(() => {
-        if (tenders.length === 0)
+        if (tenders === undefined)
             return
         setRowsTable(() => (
             tenders.map(it => {
@@ -90,13 +106,15 @@ export const LKTenderTable: FC<LKTenderTableProps> = ({ tenderType, ...rest }) =
                     { cell: <TableCell.Option text={it.name} /> },
                     { cell: <TableCell.Text text={it.category ? it.category.name : ''} />, className: cl.cell },
                     { cell: <TableCell.Text text={`${it.attachments.length}`} />, className: cl.cell },
-                    { cell: <LKTenderTableCellTrash tenderId={it.id} type={it.type} />, className: cl.cell },
+                    { cell: <LKTenderTableCellTrash onClick={() => onClickDelete(it.id, it.type)} />, className: cl.cell },
                 ] as IRow
             })
         ))
 
     }, [tenders])
 
+
+    // SET UNIONS
     useEffect(() => {
         setUnionsColumn(() => is1024 ? [{ start: 1, end: 3 }] : [])
     }, [is1024])
@@ -111,7 +129,6 @@ export const LKTenderTable: FC<LKTenderTableProps> = ({ tenderType, ...rest }) =
         <>
             {rowsTable.length > 0 &&
                 <Table head={['Наименование', 'Категория', 'Файлы', '']} data={rowsTable} unions={unionsColumn} {...rest} />
-                // <Table head={['Наименование', 'Категория', 'Файлы', '']} data={rowsTable} unions={} {...rest} />
             }
             <HandleSize width={1024} set={setIs1024} />
         </>

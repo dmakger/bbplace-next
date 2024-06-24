@@ -9,16 +9,16 @@ import { ButtonColor, ButtonSize } from "@/shared/ui/Button/model/button.model";
 import { ETenderType, IBaseTender, ITender } from "@/entities/Tender/model/tender.model";
 
 interface LKTenderTableCellTrashProps {
-    tenderId: ITender['id']
-    type?: ETenderType
+    onClick: Function
     className?: string,
 }
 
-export const LKTenderTableCellTrash:FC<LKTenderTableCellTrashProps> = ({tenderId, type, className}) => {
+export const LKTenderTableCellTrash:FC<LKTenderTableCellTrashProps> = ({onClick, className}) => {
     return (
         <Button variant={ButtonVariant.CONTENT} 
                 color={ButtonColor.Negative} 
                 size={ButtonSize.Medium} 
-                beforeImage={TRASH_NEGATIVE_TO_WHITE_ICON} className={cls(cl.cell, className)} />
+                beforeImage={TRASH_NEGATIVE_TO_WHITE_ICON} 
+                onClick={onClick} className={cls(cl.cell, className)} />
     )
 }
