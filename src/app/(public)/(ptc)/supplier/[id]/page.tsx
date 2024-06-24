@@ -2,25 +2,18 @@
 
 import { UserAPI } from "@/entities/Auth/api/auth.api";
 import { ProductAPI } from "@/entities/Product/api/product.api";
-import { PRODUCT_LIMIT } from "@/entities/Product/data/product.data";
 import { productApiListToProductList } from "@/entities/Product/lib/product.lib";
 import { IProduct } from "@/entities/Product/model/product.model";
-import { EViewProduct } from "@/entities/Product/model/view.product.model";
-import { ProductAutoList } from "@/entities/Product/ui/List/Auto/ProductAutoList";
 import { ReviewAPI } from "@/entities/Review/api/review.api";
 import { REVIEW_LIMIT, REVIEW_START_PAGE } from "@/entities/Review/data/review.data";
 import { SupplierPageHeader } from "@/entities/Supplier/components/SupplierPageHeader/SupplierPageHeader";
 import { supplierApiToSupplier } from "@/entities/Supplier/lib/process.supplier.lib";
 import { ISupplier } from "@/entities/Supplier/model/supplier.model";
-import { EModalView } from "@/shared/data/modal.data";
-import { Modal } from "@/shared/ui/Modal/Modal";
 import Wrapper1280 from "@/shared/ui/Wrapper/1280/Wrapper1280";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { WrapperModalBottom } from "@/shared/ui/Wrapper/ModalBottom";
 import { ProductLK } from "@/entities/Product/ui/LKProduct";
 import { EProductLKVariants } from "@/entities/Product/ui/LKProduct/model/productLK.model";
-import { BottomProductSettingsModal } from "@/features/Modal/BottomProductSettings";
 
 
 export default function SupplierPage() {
@@ -28,8 +21,6 @@ export default function SupplierPage() {
     //STATE
     const [supplier, setSupplier] = useState<ISupplier>()
     const [supplierProducts, setSupplierProducts] = useState<IProduct[]>([])
-    const [isOpenSettings, setIsOpenSettings] = useState<boolean>(false);
-    const [isOpenGroup, setIsOpenGroup] = useState<boolean>(false);
 
     //PARAMS
     const params = useParams()
@@ -38,7 +29,7 @@ export default function SupplierPage() {
     //API
     const { data: supplierRating } = ReviewAPI.useGetSupplierScoreQuery(supplierId as string)
     const { data: supplierReviews } = ReviewAPI.useGetSellerReviewsQuery({ supplierId: supplierId, limit: REVIEW_LIMIT ?? 0, page: REVIEW_START_PAGE })
-    const { data: supplierProductsAPI } = ProductAPI.useGetProductsByUserQuery({ userId: supplierId, limit: 200 })
+    const { data: supplierProductsAPI } = ProductAPI.useGetProductsByUserQuery({ userId: supplierId, limit: 129 })
     const { data: supplierAPI } = UserAPI.useGetUserDataQuery(supplierId)
 
     //EFFECT
@@ -52,10 +43,6 @@ export default function SupplierPage() {
             setSupplierProducts(productApiListToProductList(supplierProductsAPI))
     }, [supplierProductsAPI])
 
-    const closeTheModal = () => {
-        if (isOpenSettings) setIsOpenSettings(false)
-        if (isOpenGroup) setIsOpenGroup(false)
-    }
 
     return (
         <Wrapper1280>
@@ -65,31 +52,10 @@ export default function SupplierPage() {
             />}
             {/* {supplierProducts && <ProductAutoList products={supplierProducts} view={EViewProduct.AT_SUPPLIER_PAGE} />} */}
 
-            {supplierProducts[1] && <ProductLK product={supplierProducts[128]} setIsOpenGroup={setIsOpenGroup} setIsOpenSettings={setIsOpenSettings} variant={EProductLKVariants.DEFAULT} />}
-            <Modal view={EModalView.BOTTOM}
-                buttonNode
-                _isOpen={isOpenSettings}
-                onClickOverlay={closeTheModal}>
-                <WrapperModalBottom isOpen={isOpenSettings}
-                    setIsOpen={setIsOpenSettings}
-                    title="Выбор действия"
-                    bottomChildren={supplierProducts[128] && <BottomProductSettingsModal
-                        product={supplierProducts[128]}
-                        setIsOpen={setIsOpenSettings}
-                    />}
-                />
-            </Modal>
-
-            <Modal view={EModalView.BOTTOM}
-                buttonNode
-                _isOpen={isOpenGroup}
-                onClickOverlay={closeTheModal}>
-                <WrapperModalBottom isOpen={isOpenGroup}
-                    setIsOpen={setIsOpenGroup}
-                    title="Варианты товаров"
-                    bottomChildren={supplierProducts[1] && <ProductLK product={supplierProducts[128]} variant={EProductLKVariants.GROUP_ITEM} />}
-                />
-            </Modal>
+            {supplierProducts && <ProductLK product={supplierProducts[128]}
+                variant={EProductLKVariants.DEFAULT}
+            />}
+            
         </Wrapper1280>
 
     )

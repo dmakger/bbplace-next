@@ -120,10 +120,7 @@ export default function ProductDetailPage() {
                 classNameVerified={cl.verifiedSupplier}
             />
         }
-    }
-
-    console.log(product);
-    
+    }   
     //VARIABLE
     const productWholesalePrices = product.media.wholesalePrices;
     //FUNCTION

@@ -2,13 +2,14 @@
     display: flex;
     flex-direction: column;
     gap: 18px;
-    background-color: var(--background-1);
-    border-radius: 20px 20px 0 0;
     position: relative;
+    max-height: 70vh;
+    background-color: var(--background-1);
+    border-radius: 20px 20px 0 0; 
+    width: 425px;
 
     .topContainer {
         background-color: var(--background-1);
-
         margin-top: 18px;
 
         & h4 {
@@ -19,8 +20,10 @@
     }
 
     .bottomChildren{
+        padding: 20px 0;
         background-color: var(--background-2);
         border-radius: 20px 20px 0 0;
+        overflow-y: auto;
     }
 
     .xmarkButton {
