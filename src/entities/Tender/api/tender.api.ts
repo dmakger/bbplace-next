@@ -50,7 +50,7 @@ export const TenderAPI = createApi({
         // TENDER BY TYPE
         getTender: build.query<ITenderAPI, {tenderId: number, type: ETenderType}>({
             query: ({tenderId, type}) => ({
-                url: `/GetTender/?id=${tenderId}&type=${type}`
+                url: `/GetTender/?id=${tenderId}&type=${tenderTypeToEn(type)}`
             })
         }),
 

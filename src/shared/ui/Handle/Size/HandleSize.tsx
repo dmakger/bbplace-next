@@ -1,3 +1,5 @@
+"use client"
+
 import { Dispatch, FC, SetStateAction, useEffect } from "react"
 
 interface HandleSizeProps {

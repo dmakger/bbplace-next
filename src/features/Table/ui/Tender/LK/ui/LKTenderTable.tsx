@@ -19,31 +19,35 @@ import { useAppSelector } from "@/storage/hooks";
 import { TENDER_ARGS_REQUEST } from "@/entities/Tender/data/tender.data";
 import { HandleSize } from "@/shared/ui/Handle/Size/HandleSize";
 import { isEqual } from "lodash";
+import { useParams } from "next/navigation";
+import { toTenderType } from "@/entities/Tender/lib/tender.lib";
+import { skipToken } from "@reduxjs/toolkit/query";
 
-interface LKTenderTableProps{
-    tenderType: ETenderType
+interface LKTenderTableProps {
+    tenderType?: ETenderType
     className?: string,
 }
 
-export const LKTenderTable:FC<LKTenderTableProps> = ({tenderType, ...rest}) => {
+export const LKTenderTable: FC<LKTenderTableProps> = ({ tenderType, ...rest }) => {
+    //PARAMS
+    const params = useParams()
+    const tenderTypeSuccess = tenderType ? tenderType : toTenderType(params.type as string) as ETenderType
+
     // STATE
     const [tenders, setTenders] = useState<ITender[]>([])
     const [categoryList, setCategoryList] = useState<ICategory[]>([])
     const [rowsTable, setRowsTable] = useState<IRow[]>([])
     const [unionsColumn, setUnionsColumn] = useState<IUnionColumn[]>([])
     const [is1024, setIs1024] = useState<boolean>(false);
-    
+
     // RTK
-    const {id: userId} = useAppSelector(state => state.user)    
+    const { id: userId } = useAppSelector(state => state.user)
 
     // API
-    // const { data: tendersAPI, isLoading: isTendersLoading } = TenderAPI.useGetAllTendersQuery({limit: TENDER_ARGS_REQUEST.limit, page: 0});
-    const { data: tendersAPI, isLoading: isTendersLoading } = TenderAPI.useGetUserTendersQuery({userId, type: tenderType});
-    const { data: currencyList } = CurrencyAPI.useGetCurrenciesQuery()          
+    const { data: tendersAPI, isLoading: isTendersLoading } = TenderAPI.useGetUserTendersQuery(userId ? { userId, type: tenderTypeSuccess } : skipToken);
+    const { data: currencyList } = CurrencyAPI.useGetCurrenciesQuery()
     const { data: metrics } = MetricsAPI.useGetMetricsQuery()
-    const [ getCategory ] = CategoryAPI.useGetCategoryMutation();
-
-    console.log('tenders API', tendersAPI)
+    const [getCategory] = CategoryAPI.useGetCategoryMutation();
 
     // EFFECT
     useEffect(() => {
@@ -68,10 +72,9 @@ export const LKTenderTable:FC<LKTenderTableProps> = ({tenderType, ...rest}) => {
 
     useEffect(() => {
         if (tendersAPI && metrics && currencyList && categoryList) {
-            console.log('! tendersAPI', tendersAPI)
             setTenders(() => {
                 return tendersAPI.map((it, index) => (
-                    {...tenderAPIToTender({tenderAPI: it, metrics, currencyList}), category: categoryList[index]}
+                    { ...tenderAPIToTender({ tenderAPI: it, metrics, currencyList }), category: categoryList[index] }
                 ))
             })
         }
@@ -84,13 +87,10 @@ export const LKTenderTable:FC<LKTenderTableProps> = ({tenderType, ...rest}) => {
         setRowsTable(() => (
             tenders.map(it => {
                 return [
-                    {cell: <TableCell.Option text={it.name} />},
-                    {cell: <TableCell.Text text={it.category ? it.category.name : ''} />, className: cl.cell},
-                    {cell: <TableCell.Text text={`${it.attachments.length}`} />, className: cl.cell},
-                    {cell: <LKTenderTableCellTrash tenderId={it.id} type={it.type} />, className: cl.cell},
-                    // <TableCell.Text text={it.category ? it.category.name : ''} />,
-                    // <TableCell.Text text={`${it.attachments.length}`} />,
-                    // <LKTenderTableCellTrash tenderId={it.id} type={it.type} />,
+                    { cell: <TableCell.Option text={it.name} /> },
+                    { cell: <TableCell.Text text={it.category ? it.category.name : ''} />, className: cl.cell },
+                    { cell: <TableCell.Text text={`${it.attachments.length}`} />, className: cl.cell },
+                    { cell: <LKTenderTableCellTrash tenderId={it.id} type={it.type} />, className: cl.cell },
                 ] as IRow
             })
         ))
@@ -98,12 +98,21 @@ export const LKTenderTable:FC<LKTenderTableProps> = ({tenderType, ...rest}) => {
     }, [tenders])
 
     useEffect(() => {
-        setUnionsColumn(() => is1024 ? [{start: 1, end: 3}] : [])
-    }, [unionsColumn, is1024])
+        setUnionsColumn(() => is1024 ? [{ start: 1, end: 3 }] : [])
+    }, [is1024])
+
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            setIs1024(window.innerWidth <= 1024);
+        }
+    }, []);
 
     return (
         <>
-            <Table head={['Наименование', 'Категория', 'Файлы', '']} data={rowsTable} unions={unionsColumn} {...rest} />
+            {rowsTable.length > 0 &&
+                <Table head={['Наименование', 'Категория', 'Файлы', '']} data={rowsTable} unions={unionsColumn} {...rest} />
+                // <Table head={['Наименование', 'Категория', 'Файлы', '']} data={rowsTable} unions={} {...rest} />
+            }
             <HandleSize width={1024} set={setIs1024} />
         </>
     )

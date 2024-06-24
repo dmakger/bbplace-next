@@ -3,22 +3,20 @@ import { ETenderType, ITender, ITenderAPI } from "../model/tender.model";
 export const getTenderType = (tender: ITender | ITenderAPI) => tender?.hasOwnProperty('minOrderUnits') ?  ETenderType.SALE : ETenderType.PURCHASE;
 
 
+export const toTenderType = (tenderType?: string) => {
+    if (!tenderType) return
 
-export const toTenderType = (tenderType: string): string => {
-    if (Object.values(ETenderType).includes(tenderType as ETenderType)) {
-        return tenderType;
-    }
-    if (tenderType.toLocaleLowerCase() === 'sale')
+    const tenderTypeLower = tenderType.toLocaleLowerCase()
+    if (tenderTypeLower === 'sale' || tenderTypeLower === 'продажа')
         return ETenderType.SALE
     
-    if (tenderType.toLocaleLowerCase() === 'purchase')
+    if (tenderTypeLower === 'purchase' || tenderTypeLower === 'покупка')
         return ETenderType.PURCHASE
-
-    const key = tenderType as keyof typeof ETenderType;
-    return key in ETenderType ? ETenderType[key] : '';
 }
 
 export const tenderTypeToEn = (tenderType: ETenderType) => {
+    console.log('tenderTypeToEn', tenderType, tenderType === ETenderType.PURCHASE ? 'Purchase' : 'Sale');
+    
     if (tenderType === ETenderType.PURCHASE)
         return 'Purchase'
     return 'Sale'
