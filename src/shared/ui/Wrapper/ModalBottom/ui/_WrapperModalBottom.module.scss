@@ -23,6 +23,10 @@
         }
     }
 
+    .wBorder{
+        border-top: 1px solid var(--block-border);
+    }
+
     .bottomChildren{
         padding: 20px 0;
         background-color: var(--background-2);

@@ -9,6 +9,7 @@ interface IWrapperModalBottom {
     setIsOpen: Function,
     title?: string,
     topChildren?: ReactNode,
+    isBorderTopOnBottomChild?: boolean,
     bottomChildren?: ReactNode,
     classNameTopChild?: string,
     classNameBottomChild?: string
@@ -18,6 +19,7 @@ export const WrapperModalBottom = ({
     setIsOpen,
     title,
     topChildren,
+    isBorderTopOnBottomChild = false,
     bottomChildren,
     classNameTopChild,
     classNameBottomChild
@@ -35,7 +37,7 @@ export const WrapperModalBottom = ({
                     {title}
                 </h4>
             </div>}
-            <div className={cls(cl.bottomChildren, classNameBottomChild)}>
+            <div className={cls(cl.bottomChildren, classNameBottomChild, isBorderTopOnBottomChild ? cl.wBorder : '')}>
                 {bottomChildren}
             </div>
         </div>

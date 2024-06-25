@@ -44,7 +44,7 @@ export const BottomProductSettingsModal = ({
         setIsOpen(false)
     }
 
-    const navigateToEditProduct = (productId: number) => {
+    const navigateToEditProduct = (productId: number) => {        
         router.push(DASHBOARD_PAGES.EDIT_PRODUCT(productId))
     }
 
@@ -65,7 +65,7 @@ export const BottomProductSettingsModal = ({
                 size={ButtonSize.Medium}
                 beforeImage={EDIT_ICON}
                 beforeProps={{ width: 20, height: 20 }}
-                onClick={navigateToEditProduct}
+                onClick={() => navigateToEditProduct(product.id)}
                 className={classNameButton}
             />
         </div>
