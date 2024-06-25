@@ -1,6 +1,18 @@
-.options {
+.rounded{
     padding: 5px;
     border-radius: 16px;
-    // background-color: var(--background);
     background-color: var(--gray-3);
+}
+
+.rectangular{
+    border-radius: 0 0 5px 5px;
+    background-color: var(--tertiary-surface);
+    padding: 0 5px 5px 5px;
+    width: calc(100% + 10px);
+    margin-left: -5px;
+    .optionsContainer{
+        border: 1px solid var(--tertiary-hovered);
+        border-top: none;
+        background-color: var(--background-2);
+    }
 }

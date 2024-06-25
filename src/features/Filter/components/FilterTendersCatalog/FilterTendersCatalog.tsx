@@ -3,7 +3,6 @@ import { APPLICATION_OPTIONS } from '../../data/filter.data'
 import cl from './_FilterTendersCatalog.module.scss'
 import { cls } from '@/shared/lib/classes.lib'
 import { Dispatch, RefObject, SetStateAction } from 'react'
-import { FilterStatusOrApplicationInput } from '../FilterInputs'
 import Input from '@/shared/ui/Input/Input'
 import { ISortFilter } from '@/widgets/SortFilterSidebar/model/sortFilterSidebar.model'
 import { CORE_PARAMS } from '@/config/params/core.params.config'
@@ -39,9 +38,9 @@ export const FilterTendersCatalog = ({
                           options={APPLICATION_OPTIONS}
                           defaultOption={filter[CORE_PARAMS.APPLICATION] as IOption}
                           onClickOption={handleOnClickApplication}
-                          width={14} height={12} />
+                          arrowSizes={{width: 14, height: 12}} />
             <Input.TextAndSelect title={'Категории'}
-                                 imageWidth={14} imageHeight={12}
+                                 arrowSizes={{width: 14, height: 12}}
                                  listOptions={categoryListOptions}
                                  defaultOption={filter[CORE_PARAMS.CATEGORY] as IOption}
                                  onClickOption={handleOnClickCategory} />

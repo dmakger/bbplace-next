@@ -43,16 +43,19 @@
   --n-red-1: #E54348;
   --n-red-2: #D71E23;
   --n-red-3: #AA181C;
-  --n-red-4: #A12232;
-  --n-red-5: #761925;
+  --n-red-4: #CA2B3E;
+  --n-red-5: #A12232;
+  --n-red-6: #761925;
   --n-red-light-1: #F19C9F;
   --n-red-light-2: #FCE9E9;
   --n-red-light-3: #FBEAEC;
+
 
   --n-blue-1: #556290;
   --n-blue-2: #424C70;
   --n-blue-3: #9294A5;
   --n-blue-4: #CACBD3;
+  --n-blue-5: #76788E;
 
   --n-blue-light-1: #CFD3E3;
   --n-blue-light-2: #EFF0F5;
@@ -63,7 +66,8 @@
   --n-gray-3: #D7D8DE;
   --n-gray-4: #DDDDDD;
   --n-gray-5: #F5F5F5;
-  --n-gray-6: #FAFAFA;
+  --n-gray-6: #F4F4F6;
+  --n-gray-7: #E6E6EA;
   --n-gray-7: #E1E1E1;
 
   --n-yellow-1: #FDFAED;
@@ -73,6 +77,7 @@
   --n-green-1: #276E21;
   --n-green-2: #35952D;
   --n-green-3: #E5F7E4;
+  --n-green-4: #96C791;
 
 
   // specify
@@ -95,6 +100,11 @@
   --font-caption-sub: var(--n-gray-2);
 
   --border: var(--n-gray-3);
+  --negative-border: var(--n-red-4);
+  --negative-pressed: var(--n-red-6);
+
+  --positive-surface: var(--n-green-3);
+  --positive-border: var(--n-green-4);
 
   --primary: var(--n-red-1);
   --primary-border: var(--n-red-light-1);
@@ -122,6 +132,13 @@
 
   --tertiary: var(--n-blue-3);
   --tertiary-border: var(--n-blue-4);
+  --tertiary-hovered: var(--n-blue-3);
+  --tertiary-pressed: var(--n-blue-5);
+  --tertiary-surface-low: var(--n-gray-6);
+  --tertiary-surface: var(--n-gray-7);
+
+  --negative: var(--n-red-5);
+  --negative-surface: var(--n-red-light-3);
 
 
   --rating-surface: var(--n-yellow-1);

@@ -26,6 +26,7 @@ export interface IButton {
     afterProps?: IIconProps
     
     active?: boolean
+    success?: boolean,
     loading?: boolean
     disabled?: boolean
     noTranslation?: boolean
@@ -44,7 +45,7 @@ export const Button = ({
     variant = ButtonVariant.BORDERED_RED_WIDE, color=ButtonColor.Primary, type = ButtonType.Button, size=ButtonSize.DefaultSize,
     title, href,
     beforeImage, beforeProps, afterImage, afterProps, 
-    active=false, disabled=false, loading=false, noTranslation=false,
+    active=false, success=false, disabled=false, loading=false, noTranslation=false,
     onClick=()=>{}, onMouseEnter=()=>{}, onMouseLeave=()=>{},
     children, className, classNameLink, classNameText,
 }: IButton) => {
@@ -91,18 +92,18 @@ export const Button = ({
                                 !title ? cl.noTitle : '', className)}>
             {beforeImage &&
                 <ImageSmart {...beforeProps} icon={beforeImage} 
-                            width={beforeProps && beforeProps.width ? beforeProps.width: sizeImage} 
-                            height={beforeProps && beforeProps.height ? beforeProps.height: sizeImage} 
-                            isActive={active} isHovered={isHovered} isPressed={isPressed} />                
+                            width={beforeProps && beforeProps.width ? beforeProps.width: 20} 
+                            height={beforeProps && beforeProps.height ? beforeProps.height: 20} 
+                            isActive={active && !success} isHovered={isHovered} isSuccess={success} />
             }
             {title && 
                 <span className={cls(cl.title, classNameText)}>{title}</span>
             }
             {afterImage &&
                 <ImageSmart {...afterProps} icon={afterImage} 
-                            width={afterProps && afterProps.width ? afterProps.width: sizeImage} 
-                            height={afterProps && afterProps.height ? afterProps.height: sizeImage} 
-                            isActive={active} isHovered={isHovered} />
+                            width={afterProps && afterProps.width ? afterProps.width: 20} 
+                            height={afterProps && afterProps.height ? afterProps.height: 20} 
+                            isActive={active} isHovered={isHovered} isSuccess={success}/>
             }
             {children}
         </button>

@@ -1,0 +1,115 @@
+.WrapperRectangleInput {
+    display: flex;
+    flex-direction: column;
+
+    .labelNTooltipContainer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+
+        .label {
+            background-color: var(--tertiary-surface-low);
+            padding: 10px 10px 5px 10px;
+            border-radius: 5px 5px 0 0;
+            color: var(--font-caption);
+        }
+
+        .tooltipsContainer {
+            display: flex;
+            align-items: center;
+
+            .button {
+                margin: auto;
+                border: none;
+                padding: 7px;
+                transition: 0.3s;
+            }
+
+            .tooltipDescCont {
+                position: relative;
+
+                .descWindowActive {
+                    width: 250px;
+                }
+
+                &:hover {
+                    .descWindowActive {
+                        visibility: visible;
+                        opacity: 1;
+                        transition-duration: 0.2s;
+                        left: 3px;
+                    }
+                }
+            }
+
+            .tooltipWarnCont {
+                position: relative;
+
+                &:hover {
+                    .warnWindowActive {
+                        visibility: visible;
+                        opacity: 1;
+                        transition-duration: 0.2s;
+                        left: 3px;
+                    }
+                }
+            }
+
+            //DESC
+            .descButton {
+                &:hover {
+                    background-color: var(--tertiary-surface) !important;
+                    transition: 0.3s;
+                }
+            }
+
+            .descriptionActive {
+                background-color: var(--tertiary-surface);
+            }
+
+            //WARNING / SUCCESS
+            .warnButton {
+                &:hover {
+                    background-color: var(--negative-surface) !important;
+                    transition: 0.3s;
+                }
+            }
+
+            .warningActive {
+                background-color: var(--negative-surface);
+            }
+
+            .successButton {
+                &:hover {
+                    background-color: var(--tertiary-surface) !important;
+                    transition: 0.3s;
+                }
+            }
+
+            .successActive {
+                background-color: var(--tertiary-surface);
+            }
+        }
+    }
+
+    .inputsContainer {
+        display: flex;
+        gap: 5px;
+        background-color: var(--tertiary-surface-low);
+        padding: 5px;
+        border-radius: 0 5px 5px 5px;
+    }
+
+
+    .errorMessage {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        padding: 10px;
+        background-color: var(--negative-surface);
+        border-radius: 0 0 5px 5px;
+        border-top: 1px solid var(--background-2);
+        color: var(--negative);
+    }
+}

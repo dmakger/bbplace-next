@@ -1,5 +1,6 @@
 .block {
     position: relative;
+    width: 100%;
 }
 
 .button {
@@ -8,15 +9,24 @@
     align-items: center;
     gap: 15px;
     width: 100%;
-    background-color: var(--gray-3);
-    border: none;
-    font-size: 14px;
-    // color: var(--foreground);
+    transition: .3s;
+    cursor: pointer;
 
+    &:hover{
+        .placeholder{
+            color: var(--font);
+            transition: .3s;
+        }
+    }
+}
+
+.rounded{
+    background-color: var(--gray-3);
+    // color: var(--foreground);
     padding: 10px 10px 10px 15px;
     border-radius: 40px;
     border: 1px var(--gray-5) solid;
-    transition: .3s;
+    font-size: var(--font-size-s);
 
     &:hover {
         background-color: var(--gray-4);
@@ -24,8 +34,95 @@
     }
 }
 
+.rectangular{
+    background-color: var(--background-2);
+    border: 1px solid var(--tertiary-border);
+    border-radius: 5px;
+    color: var(--font-caption-sub);
+    font-weight: var(--font-weight-med);
+
+    &:hover{
+        border-color: var(--tertiary-hovered);
+        transition: .3s;
+        .arrowContainer{
+            background-color: var(--tertiary-surface-low);
+            transition: .3s;
+        }
+    }
+    &:active{
+        .arrowContainer{
+            background-color: var(--tertiary-surface);
+            transition: .3s;
+        }        
+        transition: .3s;
+    }
+
+    .title{
+        color: var(--font);
+    }
+
+    .placeholder{
+        color: var(--font-caption-sub);
+        transition: .3s;
+    }
+
+    .arrowContainer{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 60px;
+        height: 60px;
+        border-radius: 5px;
+        transition: .3s;
+
+        & img{
+            width: 16px;
+            height: 100%;
+        } 
+    }
+
+    .activeArrow{
+        background-color: var(--tertiary-surface);
+        border-radius: 0 5px 0 0 ;
+    }
+}
+
+.error{
+    color: var(--font);
+    border-color: var(--negative-border);
+    transition-duration: 0.3s;
+}
+
+.success{
+    color: var(--font);
+    border-color: var(--positive-border);
+    transition-duration: 0.3s;
+}
+
+//SIZES
+.default{
+    font-size: var(--font-size-reg);
+    .title{
+        padding: 20px;
+    }
+}
+
+.small{
+    font-size: var(--font-size-s);
+    .title{
+        padding: 13px 15px ;
+    }
+}
+
+.activeButton{
+    border-radius: 5px 5px 0 0;
+
+    .arrowContainer{
+        border-radius: 5px 5px 0 0;
+    }
+}
+
 .options {
-    border-radius: 16px;
     position: absolute;
     z-index: -1;
     // top: 40px;
@@ -34,21 +131,42 @@
     right: 0;
 
     opacity: 0;
-    transition: all .3s;
+    transition: all .2s;
+
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.roundedOptions{
+    border-radius: 16px;
 }
 
 
 .arrowOpen{
-    rotate: 180deg;
-    transition: rotate 0.3s;
+    & img{
+        rotate: 270deg;
+        transition: rotate 0.3s;
+    } 
 }
 
 .arrow{
-    rotate: 0deg;
-    transition: rotate 0.3s;
+    & img{
+        rotate: 90deg;
+        transition: rotate 0.3s;
+    }
 }
 
 .show {
+    .options {
+        z-index: 1;
+        opacity: 1;
+    }
+}
+
+.showOptionsRectangular{
+    box-shadow: 0 0 0 5px var(--tertiary-surface);
+    border-radius: 5px;
+    transition: 0.3s;
     .options {
         z-index: 1;
         opacity: 1;

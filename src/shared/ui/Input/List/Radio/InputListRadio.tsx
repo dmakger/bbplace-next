@@ -5,8 +5,11 @@ import cl from './_InputListRadio.module.scss'
 import Input from '../../Input'
 import { useEffect, useState } from 'react'
 import { cls } from '@/shared/lib/classes.lib'
+import { EInputSizes, EInputVariants } from '../../model/input.model'
 
 interface InputListRadioProps {
+    variant?: EInputVariants,
+    size?: EInputSizes,
     options: IOption[]
     defaultOption?: IOption
     name?: string
@@ -14,7 +17,7 @@ interface InputListRadioProps {
     className?: string
 }
 
-export default function InputListRadio({options, defaultOption, name, onClickOption, className}: InputListRadioProps) {
+export default function InputListRadio({ variant = EInputVariants.ROUNDED, size = EInputSizes.NONE, options, defaultOption, name, onClickOption, className }: InputListRadioProps) {
     const [activeOption, setActiveOption] = useState<IOption | undefined>()
 
     useEffect(() => {
@@ -28,14 +31,21 @@ export default function InputListRadio({options, defaultOption, name, onClickOpt
     }
 
     return (
-        <div className={cls(cl.options, className)}>
-            {options.map(it => (
-                <Input.Radio option={it} 
-                                name={name} 
-                                isActive={activeOption ? activeOption.id === it.id : false}
-                                onClick={() => handleOnItem(it)}
-                                key={it.id} />
+        <div className={cls(cl[variant], className)}>
+            <div className={cls(variant === EInputVariants.RECTANGULAR ? cl.optionsContainer : '')}>
+            {options.map((it, index) => (
+                
+                    <Input.Radio
+                        size={size}
+                        variant={variant}
+                        option={it}
+                        name={name}
+                        isActive={activeOption ? activeOption.id === it.id : false}
+                        onClick={() => handleOnItem(it)}
+                        key={it.id}
+                        />
             ))}
+            </div>
         </div>
     )
 }
