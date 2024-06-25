@@ -7,14 +7,13 @@ import Input from '../../Input'
 import { cls } from '@/shared/lib/classes.lib'
 import WrapperClickOutside from '../../../Wrapper/ClickOutside/WrapperClickOutside'
 import { WrapperTitleInput } from '@/shared/ui/Wrapper/Title/Input/WrapperTitleInput'
-import { EInputSizes, EInputVariants } from '../../model/input.model'
+import { EInputVariants } from '../../model/input.model'
 import { Button, ButtonVariant } from '@/shared/ui/Button'
 import { ARROW_WO_ICON } from '@/shared/ui/Icon/data/arrow.data.icon'
 import { IImageSizes } from '@/shared/model/image.model'
 
 interface InputSelectProps {
     variant?: EInputVariants,
-    size?: EInputSizes,
     options: IOption[]
     defaultOption?: IOption
     name?: string
@@ -34,7 +33,6 @@ interface InputSelectProps {
 
 export function InputSelect({
     variant = EInputVariants.ROUNDED,
-    size = EInputSizes.NONE,
     defaultOption,
     options,
     name,
@@ -100,7 +98,7 @@ export function InputSelect({
     return (
         <WrapperClickOutside _ref={inputSelectRef} isShow={showOptions} handle={toggleShowOptions} className={cls(cl.block, variant === EInputVariants.ROUNDED && showOptions ? cl.show : variant === EInputVariants.RECTANGULAR && showOptions ? cl.showOptionsRectangular : '', className)}>
             <WrapperTitleInput title={title}>
-                <div onClick={handleOnTitle} className={cls(cl.button, cl[variant], cl[size], variant === EInputVariants.RECTANGULAR && showOptions ? cl.activeButton : '', classNameButton, warning ? cl.error : success ? cl.success : '')}>
+                <div onClick={handleOnTitle} className={cls(cl.button, cl[variant],  variant === EInputVariants.RECTANGULAR && showOptions ? cl.activeButton : '', classNameButton, warning ? cl.error : success ? cl.success : '')}>
                     <span className={cls(cl.title, classNameTitle, !activeOption && placeholder ? cl.placeholder : '')}>
                         {!activeOption && placeholder ? placeholder : activeOption?.name}
                     </span>
@@ -115,7 +113,6 @@ export function InputSelect({
 
             </WrapperTitleInput>
             <Input.List.Radio
-                size={size}
                 variant={variant}
                 options={options}
                 defaultOption={activeOption}

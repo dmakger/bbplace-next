@@ -4,17 +4,19 @@ import { cls } from '@/shared/lib/classes.lib'
 import cl from './_InputText.module.scss'
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { WrapperTitleInput } from '@/shared/ui/Wrapper/Title/Input/WrapperTitleInput'
-import { EInputTextVariant } from '../data/text.input.data'
-import { EInputSizes, EInputVariants } from '../../model/input.model'
+import { EInputVariants } from '../../model/input.model'
+import { EInputTextTypeVariants, EInputTextVariant } from '../model/text.input.model'
 
 interface InputTextProps {
     variant?: EInputVariants,
-    size?: EInputSizes,
+    inputTypeVariant?: EInputTextTypeVariants,
     title?: string
     variantInputText?: EInputTextVariant
     name?: string
-    placeholder?: string
-    className?: string,
+    placeholder?: string,
+    required?: boolean,
+    classNameInputText?: string,
+    classNameTextArea?: string,
     onChange?: Function,
     defaultValue?: string,
     type?: string,
@@ -27,10 +29,14 @@ interface InputTextProps {
 
 export function InputText({
     variant = EInputVariants.ROUNDED,
-    size = EInputSizes.NONE,
+    inputTypeVariant = EInputTextTypeVariants.TEXT,
     title,
     variantInputText = EInputTextVariant.DEFAULT,
-    className,
+    name,
+    placeholder,
+    required = false,
+    classNameInputText,
+    classNameTextArea,
     type = 'text',
     onChange = () => { },
     defaultValue = '',
@@ -47,14 +53,19 @@ export function InputText({
 
     //REF
     const inputRef = useRef<HTMLInputElement>(null)
+    const textAreaRef = useRef<HTMLTextAreaElement>(null)
+
 
     //EFFECT
     useEffect(() => {
         if (inputRef.current) {
             inputRef.current.value = defaultValue
         }
-    }, [defaultValue])
 
+        if (textAreaRef.current) {
+            textAreaRef.current.value = defaultValue
+        }
+    }, [defaultValue])
 
 
     //FUNCTIONS
@@ -69,7 +80,7 @@ export function InputText({
         }
     }
 
-    const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleOnChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const value = e.target.value
         setInputValueLength?.(value.length)
         checkValue(value)
@@ -78,22 +89,42 @@ export function InputText({
 
     return (
         <WrapperTitleInput title={title}>
-            <input
+            {inputTypeVariant === EInputTextTypeVariants.TEXT ? <input
                 className={cls(
                     cl[variant],
                     variantInputText === EInputTextVariant.W_HOVERED ? cl.wHovered : '',
                     cl.input,
-                    cl[size],
                     isSuccess ? cl.success : '',
                     isWarning ? cl.error : '',
-                    className
+                    classNameInputText
                 )}
+                name={name}
                 ref={inputRef}
                 type={type}
+                required={required}
+                placeholder={placeholder}
                 defaultValue={defaultValue}
                 onChange={handleOnChange}
                 {...rest}
-            />
+            /> :
+                <textarea
+                    className={cls(
+                        cl[variant],
+                        variantInputText === EInputTextVariant.W_HOVERED ? cl.wHovered : '',
+                        cl.textarea,
+                        isSuccess ? cl.success : '',
+                        isWarning ? cl.error : '',
+                        classNameTextArea)}
+                    name={name}
+                    ref={textAreaRef}
+                    defaultValue={defaultValue}
+                    required={required}
+                    placeholder={placeholder}
+                    onChange={handleOnChange}
+
+                    {...rest}
+                />}
+
         </WrapperTitleInput>
     )
 }

@@ -7,7 +7,7 @@ import { IOption } from '@/shared/model/option.model'
 import { cls } from '@/shared/lib/classes.lib'
 import WrapperClickOutside from '@/shared/ui/Wrapper/ClickOutside/WrapperClickOutside'
 import { WrapperTitleInput } from '@/shared/ui/Wrapper/Title/Input/WrapperTitleInput'
-import { EInputSizes, EInputVariants } from '../../model/input.model'
+import { EInputVariants } from '../../model/input.model'
 import Input from '../../Input'
 import { XMARK_ICON } from '@/shared/ui/Icon/data/xmark.data.icon'
 import { Button, ButtonVariant } from '@/shared/ui/Button'
@@ -16,7 +16,6 @@ import { IImageSizes } from '@/shared/model/image.model'
 
 interface ITextAndSelectInput {
     variant?: EInputVariants,
-    size?: EInputSizes,
     title?: string
     listOptions?: IOption[],
     defaultOption?: IOption,
@@ -35,7 +34,6 @@ interface ITextAndSelectInput {
 
 export function TextAndSelectInput({
     variant = EInputVariants.ROUNDED,
-    size = EInputSizes.NONE,
     title,
     className,
     classNameOptions,
@@ -90,8 +88,6 @@ export function TextAndSelectInput({
         setIsHovered(false)
     }
 
-
-
     // ==={ CLICK }===
 
     const resetInputValue = () => {
@@ -141,7 +137,7 @@ export function TextAndSelectInput({
             <WrapperTitleInput title={title}>
                 <div onClick={toggleShowOptions}
                     className={cl.visible}>
-                    <div className={cls(cl.mainInput, cl[variant], cl[size], showOptions && variant === EInputVariants.RECTANGULAR ? cl.rectangularListOpen : '', warning ? cl.error : success ? cl.success : '')}>
+                    <div className={cls(cl.mainInput, cl[variant], showOptions && variant === EInputVariants.RECTANGULAR ? cl.rectangularListOpen : '', warning ? cl.error : success ? cl.success : '')}>
                         {showOptions ? (variant === EInputVariants.ROUNDED ?
                             <input
                                 type="text"
@@ -179,7 +175,6 @@ export function TextAndSelectInput({
 
             {filteredOptions.length ? (
                 <Input.List.Radio
-                    size={size}
                     variant={variant}
                     options={filteredOptions}
                     className={cls(cl.options, classNameOptions, showOptions ? cl.show : '')}
