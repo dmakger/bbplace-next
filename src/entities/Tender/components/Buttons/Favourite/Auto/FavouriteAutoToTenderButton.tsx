@@ -2,7 +2,7 @@ import { FC } from "react"
 import { ETenderFavouriteViewItem } from "@/entities/Tender/data/view.product.data";
 import { IBaseTender } from "@/entities/Tender/model/tender.model";
 import { FavouriteSmallToTenderButton } from "../Small/FavouriteSmallToTenderButton";
-import { ButtonFavouriteProps } from "@/shared/ui/Button/Favourite/ButtonFavourite";
+import { ButtonFavouriteProps } from "@/shared/ui/Button/data/Favourite/ButtonFavourite";
 
 
 interface FavouriteAutoToTenderButtonProps{

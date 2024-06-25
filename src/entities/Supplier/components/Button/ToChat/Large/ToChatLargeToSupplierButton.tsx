@@ -5,7 +5,7 @@ import cl from './_ToChatLargeToSupplierButton.module.scss'
 import { Button, ButtonVariant } from "@/shared/ui/Button";
 import { ISupplier } from "@/entities/Supplier/model/supplier.model";
 import { DASHBOARD_PAGES } from "@/config/pages-url.config";
-import { ButtonColor, ButtonSize } from "@/shared/ui/Button/model/model";
+import { ButtonColor, ButtonSize } from "@/shared/ui/Button/model/button.model";
 
 interface ToChatLargeToSupplierButtonProps {
     supplierId: ISupplier['id']

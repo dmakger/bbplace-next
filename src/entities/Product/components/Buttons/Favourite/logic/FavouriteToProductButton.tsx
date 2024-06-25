@@ -1,7 +1,7 @@
 import { FC } from "react"
 
 import { FavouriteType } from "@/entities/Favourite/data/favourite.data";
-import { ButtonFavourite, ButtonFavouriteProps } from "@/shared/ui/Button/Favourite/ButtonFavourite";
+import { ButtonFavourite, ButtonFavouriteProps } from "@/shared/ui/Button/data/Favourite/ButtonFavourite";
 import { IProduct } from "@/entities/Product/model/product.model";
 
 interface FavouriteToProductButtonProps extends ButtonFavouriteProps {

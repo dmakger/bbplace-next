@@ -5,7 +5,7 @@ import cl from './_ToProfileLargeToSupplierButton.module.scss'
 import { Button, ButtonVariant } from "@/shared/ui/Button";
 import { MAIN_PAGES } from "@/config/pages-url.config";
 import { ISupplier } from "@/entities/Supplier/model/supplier.model";
-import { ButtonColor, ButtonSize } from "@/shared/ui/Button/model/model";
+import { ButtonColor, ButtonSize } from "@/shared/ui/Button/model/button.model";
 
 interface ToProfileLargeToSupplierButtonProps {
     supplierId: ISupplier['id']

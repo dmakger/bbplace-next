@@ -2,9 +2,9 @@ import { FC } from "react"
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_ButtonMaximize.module.scss'
-import { Button, IButton } from "../ui/Button";
-import { ButtonVariant } from "../model/model";
-import { MAXIMIZE_SECONDARY_ICON } from "../../Icon/data/maximize.data.icon";
+import { Button, IButton } from "../../ui/Button";
+import { ButtonVariant } from "../../model/button.model";
+import { MAXIMIZE_SECONDARY_ICON } from "../../../Icon/data/maximize.data.icon";
 
 interface ButtonMaximizeProps {
     onClick?: IButton['onClick']

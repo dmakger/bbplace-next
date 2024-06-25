@@ -2,7 +2,7 @@
 
 import { FC } from "react"
 
-import { ButtonGrayToBlack } from "@/shared/ui/Button/GrayToBlack/ButtonGrayToBlack";
+import { ButtonGrayToBlack } from "@/shared/ui/Button/data/GrayToBlack/ButtonGrayToBlack";
 import { useRouter } from "next/navigation";
 import { MAIN_PAGES } from "@/config/pages-url.config";
 

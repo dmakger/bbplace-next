@@ -19,6 +19,16 @@
     --button-color-surface-sub: var(--secondary-surface-sub);
 }
 
+.negative {
+    --button-color: var(--negative);
+    --button-color-border: var(--negative-border);
+    --button-color-hovered: var(--negative-hovered);
+    --button-color-pressed: var(--negative-pressed);
+    --button-color-on: var(--on-negative);
+    --button-color-surface: var(--negative-surface);
+    --button-color-surface-sub: var(--negative-surface-sub);
+}
+
 .tertiary{
     --button-color: var(--tertiary);
     --button-color-border: var(--tertiary-border);
@@ -84,18 +94,30 @@
 // >>> ========={ SIZE }========= >>>
 .big {
     padding: 17px 29px;
-    border-radius: 25px;
+    // border-radius: 25px;
     font-size: var(--font-size-reg);
+
+    &.noTitle {
+        padding: 17px;
+    }
 }
 .medium {
     padding: 13px 25px;
-    border-radius: 20px;
+    // border-radius: 20px;
     font-size: var(--font-size-s);
+
+    &.noTitle {
+        padding: 13px;
+    }
 }
 .small {
     padding: 10px 20px;
-    border-radius: 15px;
+    // border-radius: 15px;
     font-size: var(--font-size-xxs);
+
+    &.noTitle {
+        padding: 10px;
+    }
 }
 // <<< ========={ SIZE }========= <<<
 

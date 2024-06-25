@@ -1,23 +1,27 @@
-import { Dispatch, FC, SetStateAction, useEffect, useState } from "react"
+"use client"
 
-interface HandleSizeProps{
-    width: number
-    set: Dispatch<SetStateAction<boolean>>
+import { Dispatch, FC, SetStateAction, useEffect } from "react"
+
+interface HandleSizeProps {
+    width: number;
+    set: Dispatch<SetStateAction<boolean>>;
 }
 
-export const HandleSize:FC<HandleSizeProps> = ({width, set}) => {
+export const HandleSize: FC<HandleSizeProps> = ({ width, set }) => {
     useEffect(() => {
         const mediaQuery = window.matchMedia(`(max-width: ${width}px)`);
-        set(mediaQuery.matches);
-
+        
         const handleResize = (e: MediaQueryListEvent) => {
             set(e.matches);
         };
 
-        mediaQuery.addListener(handleResize);
+        // Устанавливаем начальное значение
+        set(mediaQuery.matches);
+
+        mediaQuery.addEventListener('change', handleResize);
 
         return () => {
-            mediaQuery.removeListener(handleResize);
+            mediaQuery.removeEventListener('change', handleResize);
         };
     }, [width, set]);
 

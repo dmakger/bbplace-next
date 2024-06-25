@@ -1,13 +1,15 @@
 'use client'
-import React, {ReactNode, useState} from 'react'
+import React, {ReactNode, useEffect, useState} from 'react'
 import cl from './_Button.module.scss'
 import { ButtonVariant } from '..'
 import Link from 'next/link'
 import { IIcon } from '../../Icon/model/model'
 import { IIconProps } from '@/shared/model/button.model'
-import { ButtonColor, ButtonSize, ButtonType } from '../model/model'
+import { ButtonColor, ButtonSize, ButtonType } from '../model/button.model'
 import { ImageSmart } from '../../Image/Smart/ImageSmart'
 import { cls } from '@/shared/lib/classes.lib'
+import { ButtonImageSize } from '../data/button.data'
+import { getImageSizeBySize } from '../lib/button.lib'
 
 export interface IButton {
     variant?: ButtonVariant
@@ -52,8 +54,9 @@ export const Button = ({
     const classes = variant.split(' ')    
 
     // STATE
-    const [isHovered, setIsHovered] = useState<boolean>(false)
+    const [isHovered, setIsHovered] = useState(false)
     const [isPressed, setIsPressed] = useState<boolean>(false)
+    const [sizeImage, setSizeImage] = useState<ButtonImageSize>(ButtonImageSize.DefaultSize)
 
     // HANDLE
     const handleOnMouseEnter = () => {
@@ -65,7 +68,6 @@ export const Button = ({
         setIsPressed(false)
         onMouseLeave()
     }
-
     const handleOnMouseDown = () => {
         setIsPressed(true)
         setIsHovered(false)
@@ -74,13 +76,20 @@ export const Button = ({
         setIsPressed(false)
         setIsHovered(true)
     }
+
+    // EFFECT
+    useEffect(() => {
+        setSizeImage(getImageSizeBySize(size))
+    }, [size])
     
 
     const html =  (
         <button type={type} disabled={disabled}
-                onClick={e => onClick(e)} onMouseEnter={handleOnMouseEnter} onMouseLeave={handleOnMouseLeave} 
-                onMouseDown={handleOnMouseDown} onMouseUp={handleOnMouseUp}
-                className={cls(cl.button, cl[classes[0]], cl[color], cl[size], active ? cl.active : '', classes.length > 0 && classes[1] === 'new' ? cl.new : cl.old, className)}>
+                onClick={e => onClick(e)} 
+                onMouseEnter={handleOnMouseEnter} onMouseLeave={handleOnMouseLeave} 
+                className={cls(cl.button, cl[classes[0]], cl[color], cl[size], 
+                                active ? cl.active : '', classes.length > 0 && classes[1] === 'new' ? cl.new : cl.old, 
+                                !title ? cl.noTitle : '', className)}>
             {beforeImage &&
                 <ImageSmart {...beforeProps} icon={beforeImage} 
                             width={beforeProps && beforeProps.width ? beforeProps.width: 20} 

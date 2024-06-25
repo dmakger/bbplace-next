@@ -37,4 +37,3 @@ export enum ButtonVariant{
     BACKGROUND_GRAY = 'background-gray',
     BORDERED_BLUE = 'bordered-blue'
 }
-
