@@ -77,7 +77,7 @@ export default function LKProductPage() {
 
     return (
         <Wrapper1280>
-            {activeProducts && <ProductLK product={activeProducts[0]}
+            {activeProducts && <ProductLK product={activeProducts[128]}
                 setIsOpenGroup={setIsOpenGroup}
                 setIsOpenSettings={setIsOpenSettings}
                 variant={EProductLKVariants.DEFAULT} />}
@@ -91,7 +91,7 @@ export default function LKProductPage() {
                     bottomChildren={isOpenSettings ? activeProducts && <BottomProductSettingsModal
                         product={activeProducts[0]}
                         setIsOpen={setIsOpenSettings}
-                    /> : isOpenGroup && activeProducts && <ProductLKList products={activeProducts}
+                    /> : isOpenGroup && activeProducts && <ProductLKList products={[]}
                         variant={EProductLKVariants.GROUP_ITEM} />}
                 />
             </Modal>

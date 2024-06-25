@@ -1,6 +1,7 @@
 .WrapperRectangleInput {
     display: flex;
     flex-direction: column;
+    cursor: pointer;
 
     .labelNTooltipContainer, .top {
         display: flex;
@@ -13,6 +14,7 @@
             padding: 10px 10px 5px 10px;
             border-radius: 5px 5px 0 0;
             color: var(--font-caption);
+            cursor: pointer;
         }
 
         .tooltipsContainer {
