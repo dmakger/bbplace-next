@@ -22,7 +22,6 @@ export const WrapperModalBottom = ({
     classNameTopChild,
     classNameBottomChild
 }: IWrapperModalBottom) => {
-
     return (
         <div className={cl.modalBelowWrapper}>
             <Button variant={ButtonVariant.DEFAULT}

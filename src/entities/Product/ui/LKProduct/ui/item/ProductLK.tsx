@@ -13,44 +13,26 @@ import { ProductAPI } from '@/entities/Product/api/product.api'
 import { skipToken } from '@reduxjs/toolkit/query'
 import { BottomProductSettingsModal } from '@/features/Modal/BottomProductSettings'
 import { EProductLKVariants } from '../../model/productLK.model'
-import { Modal } from '@/shared/ui/Modal/Modal'
-import { EModalView } from '@/shared/data/modal.data'
-import { WrapperModalBottom } from '@/shared/ui/Wrapper/ModalBottom'
-import { ProductLKList } from '../..'
-import { CurrencyAPI } from '@/entities/Metrics/api/currency.metrics.api'
-import { MetricsAPI } from '@/entities/Metrics/api/metrics.metrics.api'
-import { useEffect, useState } from 'react'
-import { IProduct } from '@/entities/Product/model/product.model'
-import { productApiListToProductList } from '@/entities/Product/lib/product.lib'
 import { MAIN_PAGES } from '@/config/pages-url.config'
 
 interface IProductLK extends IProductProps {
   className?: string,
   variant?: EProductLKVariants
+  setIsOpenSettings?: Function,
+  setIsOpenGroup?: Function
 }
 
 export const ProductLK = ({
   className,
   variant = EProductLKVariants.DEFAULT,
-  product
+  product,
+  setIsOpenSettings,
+  setIsOpenGroup
 }: IProductLK) => {
-
-  //STATE
-  const [groupProducts, setGroupProducts] = useState<IProduct[]>([])
-  const [isOpenSettings, setIsOpenSettings] = useState<boolean>(false);
-  const [isOpenGroup, setIsOpenGroup] = useState<boolean>(false);
 
   //API
   const { data: category } = CategoryAPI.useGetCategoryByIdQuery(product?.categoryId)
-  const { data: currencyList } = CurrencyAPI.useGetCurrenciesQuery()
-  const { data: metrics } = MetricsAPI.useGetMetricsQuery()
   const { data: productAPIListGroup } = ProductAPI.useGetProductsByGroupQuery(product && product.groupId ? product.groupId : skipToken, { refetchOnMountOrArgChange: true })
-
-  //EFFECT
-  useEffect(() => {
-    if (productAPIListGroup && currencyList && metrics)
-      setGroupProducts(productApiListToProductList(productAPIListGroup, metrics, currencyList))
-  }, [productAPIListGroup, currencyList, metrics])
 
   //FUNCTION
   const showSettingsModal = () => {
@@ -62,15 +44,8 @@ export const ProductLK = ({
     if (setIsOpenGroup)
       setIsOpenGroup(true)
   }
-
-  const closeTheModal = () => { 
-      if (isOpenSettings) setIsOpenSettings(false)
-      if (isOpenGroup) setIsOpenGroup(false)
-      console.log(isOpenGroup);
-      
-  }
-
-  if(!product) return
+  
+  if(!product) return null;
 
   return (
     <div className={cls(cl.LKProduct, className)}>
@@ -90,13 +65,17 @@ export const ProductLK = ({
             <BottomProductSettingsModal
               className={cl.groupSettings}
               product={product}
-              setIsOpen={setIsOpenGroup}
+              setIsOpen={setIsOpenGroup ? setIsOpenGroup : () => { }}
               isTitle={false}
             />}
         </div>
 
       </div>
       <div className={cl.infoContainer}>
+        <Button variant={ButtonVariant.DEFAULT}
+          className={cl.productName}
+          title={product.name ?? ''}
+          href={MAIN_PAGES.CURRENT_PRODUCT(product.id)} />
         <Button variant={ButtonVariant.DEFAULT}
          className={cl.productName}
          title={product.name ?? ''}
