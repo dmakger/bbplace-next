@@ -4,6 +4,7 @@ import { Button, ButtonVariant } from '@/shared/ui/Button'
 import { XMARK_HOVERED_ICON } from '@/shared/ui/Icon/data/xmark.data.icon'
 import { ReactNode } from 'react'
 import { cls } from '@/shared/lib/classes.lib'
+import { LKSubheader } from '@/features/LKSubheader'
 
 interface IWrapperModalBottom {
     setIsOpen: Function,
@@ -30,6 +31,7 @@ export const WrapperModalBottom = ({
                 beforeProps={{ width: 27, height: 27 }}
                 className={cl.xmarkButton}
                 onClick={() => setIsOpen(false)} />
+                <LKSubheader checkedItemsNumber={4}/>
             {(topChildren || title) && <div className={cls(cl.topContainer, classNameTopChild )}>
                 {topChildren}
                 <h4>
