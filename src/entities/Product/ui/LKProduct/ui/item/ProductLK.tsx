@@ -26,7 +26,9 @@ interface IProductLK extends IProductProps {
   setChoosenProduct?: Function,
   setGroupProducts?: Function
   setIsOpenSettings?: Function,
-  setIsOpenGroup?: Function
+  setIsOpenGroup?: Function,
+  checkedProductsId?: number[],
+  setCheckedProducts?: Function
 }
 
 export const ProductLK = ({
@@ -36,11 +38,14 @@ export const ProductLK = ({
   setChoosenProduct,
   setGroupProducts,
   setIsOpenSettings,
-  setIsOpenGroup
+  setIsOpenGroup,
+  checkedProductsId,
+  setCheckedProducts
 }: IProductLK) => {
 
   //STATE
   const [groupProductsLength, setGroupProductsLength] = useState<number>(0)
+  const [isChecked, setIsChecked] = useState<boolean>(false)
 
   //API
   const { data: category } = CategoryAPI.useGetCategoryByIdQuery(product?.categoryId)
@@ -49,6 +54,11 @@ export const ProductLK = ({
   const { data: metrics } = MetricsAPI.useGetMetricsQuery()
 
   //EFFECT
+
+  useEffect(() => {
+    if(checkedProductsId) setIsChecked(checkedProductsId.includes(product.id));
+  }, [checkedProductsId]);
+
   useEffect(() => {
     if (setGroupProducts && productAPIListGroup && currencyList && metrics){
       setGroupProducts(productApiListToProductList(productAPIListGroup, metrics, currencyList).filter(it => it.id !== product.id))
@@ -56,7 +66,10 @@ export const ProductLK = ({
     productAPIListGroup && setGroupProductsLength(productAPIListGroup.filter(it => it.id !== product.id).length)
   }, [productAPIListGroup, currencyList, metrics])
 
-  
+  useEffect(() => {
+    if(checkedProductsId && setCheckedProducts && isChecked && !checkedProductsId.includes(product.id)) setCheckedProducts([...checkedProductsId, product.id])
+    else if(!isChecked && setCheckedProducts) setCheckedProducts(checkedProductsId?.filter(it => it !== product.id))
+  }, [isChecked])
 
   //FUNCTION
   const showSettingsModal = (product: IProduct) => {
@@ -82,7 +95,11 @@ export const ProductLK = ({
       </span>}
       <div className={cl.imageContainer}>
         <ImageAPI src={product.media.attachments[0]} />
-        <InputCheckbox className={cl.checkbox} />
+        <InputCheckbox className={cl.checkbox}
+          setIsChecked={setIsChecked} 
+          isChecked={isChecked}
+
+           />
         <div className={cl.settings}>
           {variant === EProductLKVariants.DEFAULT
             ? <Button variant={ButtonVariant.DEFAULT}

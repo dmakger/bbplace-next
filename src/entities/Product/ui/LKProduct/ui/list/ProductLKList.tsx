@@ -11,7 +11,9 @@ interface IProductLKList{
     setGroupProducts?: Function,
     setChoosenProduct?: Function,
     setIsOpenSettings?: Function,
-    setIsOpenGroup?: Function
+    setIsOpenGroup?: Function,
+    checkedProductsId?: number[],
+    setCheckedProducts?: Function
 }
 
 export const ProductLKList = ({
@@ -21,7 +23,9 @@ export const ProductLKList = ({
     setGroupProducts,
     setChoosenProduct,
     setIsOpenSettings,
-    setIsOpenGroup
+    setIsOpenGroup,
+    checkedProductsId,
+    setCheckedProducts
 }:IProductLKList) => {
   return (
       <div className={cls(cl.LKProductList, className)}>
@@ -32,7 +36,9 @@ export const ProductLKList = ({
                   setGroupProducts={setGroupProducts}
                   setIsOpenGroup={setIsOpenGroup}
                   setIsOpenSettings={setIsOpenSettings}
-                  setChoosenProduct={setChoosenProduct} />
+                  setChoosenProduct={setChoosenProduct}
+                  checkedProductsId={checkedProductsId}
+                  setCheckedProducts={setCheckedProducts} />
           ))}
       </div>
   )

@@ -42,3 +42,8 @@ export interface IProduct extends IBaseProduct {
 export interface IGetProductsByUser extends IArgsRequest{
     userId: string
 }
+
+export interface IGroupData {
+    productId: number,
+    groupId: number
+}

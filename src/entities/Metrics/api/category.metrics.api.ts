@@ -38,7 +38,13 @@ export const CategoryAPI = createApi({
 			query: (id) => ({
 				url: `/GetCategory/${id}`,
 				method: 'GET',
+		}),
+	}),
+	getCategory: build.mutation<ICategory[], number>({
+		query: (categoryId) => ({
+			url: `/GetCategory/${categoryId}`,
+			method: 'GET',
 		})
-	})
+	}),
 })
 })

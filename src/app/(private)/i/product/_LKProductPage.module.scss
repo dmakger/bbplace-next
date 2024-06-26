@@ -1,0 +1,22 @@
+.noPadding {
+    gap: 0px;
+}
+
+.noMarginTop {
+    margin-top: 0px !important;
+    border-radius: 20px;
+}
+
+.subHeaderModal {
+    border-radius: 20px;
+}
+
+.showSubheader{
+    visibility: visible;
+    opacity: 1;
+    transition: 0.3s;
+}
+
+.showTitle{
+    margin-top: -38px;
+}
