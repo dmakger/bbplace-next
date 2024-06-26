@@ -12,7 +12,7 @@ import { getTenderWholesalePrices, tenderAPIToTender } from "@/entities/Tender/l
 import { ETenderType, IPurchaseTender, ISaleTender, ITenderAttachments } from "@/entities/Tender/model/tender.model";
 import { DetailedPageHeader } from "@/features/DetailedPageHeader";
 import { DetailedPageInfo } from "@/features/DetailedPageInfo";
-import { IOptionsTab } from "@/features/DetailedPageInfo/model/detailedPageInfo.model";
+import { IDetailedProductOptionsTab, IOptionTab } from "@/features/DetailedPageInfo/model/detailedPageInfo.model";
 import { ScrollSlider } from "@/features/ScrollSlider";
 import { DetailedPageDescription } from "@/shared/ui/DetailedPage";
 import { HandleSize } from "@/shared/ui/Handle/Size/HandleSize";
@@ -105,7 +105,7 @@ export default function TenderPage() {
     if(!tender) return;    
 
     //OPTIONS
-    const TENDER_PAGE_OPTIONS_TABLE: IOptionsTab = {
+    const TENDER_PAGE_OPTIONS_TABLE: IDetailedProductOptionsTab = {
         description: { optionTab: <DetailedPageDescription description={tender.description} /> }
     }
 
