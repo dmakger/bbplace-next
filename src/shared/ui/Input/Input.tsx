@@ -4,7 +4,7 @@ import { InputText } from "./Text"
 import { InputRadio } from "./Radio"
 import { InputDoubleText } from "./DoubleText"
 import { TextAndSelectInput } from "./TextAndSelect"
-import { InputSelect } from "./Select/ui/InputSelect"
+import { InputSelect } from "./Select"
 
 interface InputProps {
     children: ReactNode

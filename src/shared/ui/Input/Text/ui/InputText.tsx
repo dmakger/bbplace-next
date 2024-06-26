@@ -10,8 +10,8 @@ import { EInputTextTypeVariants, EInputTextVariant } from '../model/text.input.m
 interface InputTextProps {
     variant?: EInputVariants,
     inputTypeVariant?: EInputTextTypeVariants,
-    title?: string
     variantInputText?: EInputTextVariant
+    title?: string
     name?: string
     placeholder?: string,
     required?: boolean,
@@ -30,8 +30,8 @@ interface InputTextProps {
 export function InputText({
     variant = EInputVariants.ROUNDED,
     inputTypeVariant = EInputTextTypeVariants.TEXT,
-    title,
     variantInputText = EInputTextVariant.DEFAULT,
+    title,
     name,
     placeholder,
     required = false,
@@ -55,18 +55,11 @@ export function InputText({
     const inputRef = useRef<HTMLInputElement>(null)
     const textAreaRef = useRef<HTMLTextAreaElement>(null)
 
-
     //EFFECT
     useEffect(() => {
-        if (inputRef.current) {
-            inputRef.current.value = defaultValue
-        }
-
-        if (textAreaRef.current) {
-            textAreaRef.current.value = defaultValue
-        }
+        if (inputRef.current) inputRef.current.value = defaultValue;
+        if (textAreaRef.current) textAreaRef.current.value = defaultValue;
     }, [defaultValue])
-
 
     //FUNCTIONS
     const checkValue = (value: string) => {
@@ -110,7 +103,6 @@ export function InputText({
                 <textarea
                     className={cls(
                         cl[variant],
-                        variantInputText === EInputTextVariant.W_HOVERED ? cl.wHovered : '',
                         cl.textarea,
                         isSuccess ? cl.success : '',
                         isWarning ? cl.error : '',

@@ -5,11 +5,10 @@ import cl from './_InputListRadio.module.scss'
 import Input from '../../Input'
 import { useEffect, useState } from 'react'
 import { cls } from '@/shared/lib/classes.lib'
-import { EInputSizes, EInputVariants } from '../../model/input.model'
+import {EInputVariants } from '../../model/input.model'
 
 interface InputListRadioProps {
     variant?: EInputVariants,
-    size?: EInputSizes,
     options: IOption[]
     defaultOption?: IOption
     name?: string
@@ -17,7 +16,7 @@ interface InputListRadioProps {
     className?: string
 }
 
-export default function InputListRadio({ variant = EInputVariants.ROUNDED, size = EInputSizes.NONE, options, defaultOption, name, onClickOption, className }: InputListRadioProps) {
+export default function InputListRadio({ variant = EInputVariants.ROUNDED, options, defaultOption, name, onClickOption, className }: InputListRadioProps) {
     const [activeOption, setActiveOption] = useState<IOption | undefined>()
 
     useEffect(() => {
@@ -36,7 +35,6 @@ export default function InputListRadio({ variant = EInputVariants.ROUNDED, size 
             {options.map((it, index) => (
                 
                     <Input.Radio
-                        size={size}
                         variant={variant}
                         option={it}
                         name={name}
