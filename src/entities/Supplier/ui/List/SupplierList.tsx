@@ -65,7 +65,7 @@ export const SupplierListChild = () => {
         return <div>Loading...</div>
 
     return (
-        <WrapperSortFilter variant={ECatalogVariants.COMPANIES}>
+        <WrapperSortFilter variant={ECatalogVariants.COMPANIES} pageNumberKey={SUPPLIER_PARAMS.NUMBER_PAGE__KEY}>
             <WrapperPagination amount={countSuppliers ? countSuppliers : 1}
                 active={pageNumber}
                 set={setPageNumber} keyPageParam={SUPPLIER_PARAMS.NUMBER_PAGE__KEY}>

@@ -17,10 +17,11 @@ import { CORE_PARAMS } from '@/config/params/core.params.config';
 
 interface ISortFilterSidebar{
     variant: ECatalogVariants,
+    pageNumberKey?: string
     className?: string
 }
 
-export const SortFilterSidebar = ({ variant, className }: ISortFilterSidebar) => {
+export const SortFilterSidebar = ({ variant, pageNumberKey, className }: ISortFilterSidebar) => {
 
     // ROUTER
     const pathname = usePathname();
@@ -72,6 +73,8 @@ export const SortFilterSidebar = ({ variant, className }: ISortFilterSidebar) =>
         });
         if (Object.keys(sortData).length === 0)
             params = new URLSearchParams();
+        if (pageNumberKey)
+            params.set(pageNumberKey, '1');
         router.push(`${pathname}?${params.toString()}`);
     };
 

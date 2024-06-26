@@ -7,16 +7,17 @@ import { SuspenseL } from "../../SuspenseL/SuspenseL";
 
 interface WrapperSortFilterProps{
     variant?: ECatalogVariants
+    pageNumberKey?: string
     children: ReactNode
     className?: string,
 }
 
-export const WrapperSortFilter:FC<WrapperSortFilterProps> = ({variant=ECatalogVariants.NONE, children, className}) => {
+export const WrapperSortFilter:FC<WrapperSortFilterProps> = ({variant=ECatalogVariants.NONE, pageNumberKey, children, className}) => {
     return (
         <div className={cls(cl.wrapper, className)}>
             <SuspenseL>
                 {children}
-                <SortFilterSidebar variant={variant} className={cl.sidebar}/>
+                <SortFilterSidebar variant={variant} pageNumberKey={pageNumberKey} className={cl.sidebar}/>
             </SuspenseL>
         </div>
     )
