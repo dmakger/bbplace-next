@@ -3,13 +3,13 @@
 import { Button, ButtonVariant } from '@/shared/ui/Button'
 import cl from './_BottomProductSettingsModal.module.scss'
 import { cls } from "@/shared/lib/classes.lib"
-import { ButtonColor, ButtonSize } from '@/shared/ui/Button/model/model'
 import { TRASH_ICON } from '@/shared/ui/Icon/data/trash.data.icon'
 import { EDIT_ICON } from '@/shared/ui/Icon/data/edit.data.icon'
 import { useRouter } from 'next/navigation'
 import { ProductAPI } from '@/entities/Product/api/product.api'
 import { DASHBOARD_PAGES } from '@/config/pages-url.config'
 import { IProduct } from '@/entities/Product/model/product.model'
+import { ButtonColor, ButtonSize } from '@/shared/ui/Button/model/button.model'
 
 interface IBottomProductSettingsModal {
     className?: string,
@@ -26,7 +26,6 @@ export const BottomProductSettingsModal = ({
     setIsOpen,
     isTitle = true
 }: IBottomProductSettingsModal) => {
-
     //API
     const [deleteProduct] = ProductAPI.useDeleteProductMutation()
     const [deleteDraft] = ProductAPI.useDeleteDraftMutation()
@@ -35,17 +34,17 @@ export const BottomProductSettingsModal = ({
     const router = useRouter()
 
     //FUNCTION
-    const delProduct = () => {
+    const delProduct = async(id: number) => {
         if (product.media.attachments.length) {
-            deleteProduct(product.id)
+            await deleteProduct(id)
         }
         else {
-            deleteDraft(product.id)
+            await deleteDraft(id)
         }
         setIsOpen(false)
     }
 
-    const navigateToEditProduct = (productId: number) => {
+    const navigateToEditProduct = (productId: number) => {        
         router.push(DASHBOARD_PAGES.EDIT_PRODUCT(productId))
     }
 
@@ -57,7 +56,7 @@ export const BottomProductSettingsModal = ({
                 size={ButtonSize.Medium}
                 beforeImage={TRASH_ICON}
                 beforeProps={{ width: 20, height: 20 }}
-                onClick={delProduct}
+                onClick={() => delProduct(product.id)}
                 className={classNameButton}
             />
             <Button title={isTitle ? 'Редактировать' : ''}
@@ -66,7 +65,7 @@ export const BottomProductSettingsModal = ({
                 size={ButtonSize.Medium}
                 beforeImage={EDIT_ICON}
                 beforeProps={{ width: 20, height: 20 }}
-                onClick={navigateToEditProduct}
+                onClick={() => navigateToEditProduct(product.id)}
                 className={classNameButton}
             />
         </div>

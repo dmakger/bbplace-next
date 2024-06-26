@@ -3,7 +3,7 @@
 import { FormEvent, useRef } from "react";
 import cl from './_Search.module.scss'
 import Input from "@/shared/ui/Input/Input";
-import ButtonSearch from "@/shared/ui/Button/Search/ButtonSearch";
+import ButtonSearch from "@/shared/ui/Button/data/Search/ButtonSearch";
 import { PTCSelect } from "@/features/Select";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAppSelector } from "@/storage/hooks";

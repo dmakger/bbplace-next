@@ -4,7 +4,7 @@ import { FC, useEffect, useState } from "react"
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_ListViewButton.module.scss'
-import { ListViewIcon } from "../../Icon/ui/ListView/ListViewIcon";
+import { ListViewIcon } from "../../../Icon/ui/ListView/ListViewIcon";
 import { IButtonIconProps } from "@/shared/model/button.model";
 import Link from "next/link";
 

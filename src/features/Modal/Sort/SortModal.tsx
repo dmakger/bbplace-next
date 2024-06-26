@@ -4,7 +4,7 @@ import { cls } from '@/shared/lib/classes.lib';
 import cl from './_SortModal.module.scss'
 import { ECatalogVariants, SortFilterSidebar } from "@/widgets/SortFilterSidebar";
 import { Modal } from "@/shared/ui/Modal/Modal";
-import { ButtonSort } from "@/shared/ui/Button/Sort/ButtonSort";
+import { ButtonSort } from "@/shared/ui/Button/data/Sort/ButtonSort";
 import { EModalView } from "@/shared/data/modal.data";
 
 interface SortModalProps{

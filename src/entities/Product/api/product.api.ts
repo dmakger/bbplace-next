@@ -1,11 +1,12 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 import { options } from "@/api/interceptors";
-import { IGetProductsByUser, IProduct, IProductAPI } from "../model/product.model";
+import { IGetProductsByUser, IProductAPI } from "../model/product.model";
 import { IArgsRequest } from "@/api/model/request.model.api";
 import { getArgsProduct } from "../lib/args.product.lib";
 import { getURL } from "@/api/request";
 import { PRODUCT_BY_USER_LIMIT, PRODUCT_START_PAGE } from "../data/product.data";
+import { getHeaderAuthorization } from "@/entities/Auth/lib/auth-token.lib";
 
 
 export const ProductAPI = createApi({
@@ -47,9 +48,7 @@ export const ProductAPI = createApi({
             query: (itemId) => ({
                 url: `/DeleteItem/${itemId}`,
                 method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
-                },
+                headers: getHeaderAuthorization(),
                 body: {}
             }),
         }),
@@ -73,12 +72,24 @@ export const ProductAPI = createApi({
             query: (draftId) => ({
                 url: `/DeleteItemDraft/${draftId}`,
                 method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
-                },
+                headers: getHeaderAuthorization(),
                 body: {}
             }),
-        })
+        }),
+        //GET PRODUCTS BY USER
+        getDraftsByUser: build.query<IProductAPI[], IArgsRequest>({
+            query: ({ page = PRODUCT_START_PAGE, limit = PRODUCT_BY_USER_LIMIT }) => ({
+                url: `/GetItemsDrafts/ByUser/${limit}/${page}`,
+                method: 'GET',
+                headers: getHeaderAuthorization(),
+            }),
+        }),
+        getPagesDraftsByUser: build.query<number, IGetProductsByUser>({
+            query: ({ limit = PRODUCT_BY_USER_LIMIT, userId }) => ({
+                url: `/GetItemsDrafts/ByUser/${userId}/${limit}/CountPages`,
+                method: 'GET',
+            })
+        }),
     })
 
 })

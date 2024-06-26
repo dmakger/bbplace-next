@@ -5,9 +5,9 @@ import { ButtonVariant } from '..'
 import Link from 'next/link'
 import { IIcon } from '../../Icon/model/model'
 import { IIconProps } from '@/shared/model/button.model'
-import { ButtonColor, ButtonSize, ButtonType } from '../model/model'
 import { ImageSmart } from '../../Image/Smart/ImageSmart'
 import { cls } from '@/shared/lib/classes.lib'
+import { ButtonColor, ButtonSize, ButtonType } from '../model/button.model'
 
 export interface IButton {
     variant?: ButtonVariant
@@ -65,7 +65,7 @@ export const Button = ({
         setIsPressed(false)
         onMouseLeave()
     }
-
+    
     const handleOnMouseDown = () => {
         setIsPressed(true)
         setIsHovered(false)
@@ -112,4 +112,3 @@ Button.Variant = ButtonVariant;
 Button.Type = ButtonType;
 Button.Color = ButtonColor;
 Button.Size = ButtonSize;
-

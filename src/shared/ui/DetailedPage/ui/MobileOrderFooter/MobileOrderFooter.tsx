@@ -5,7 +5,7 @@ import { Button, ButtonVariant } from "@/shared/ui/Button"
 import { DASHBOARD_PAGES } from "@/config/pages-url.config"
 import { IWholesale } from "@/entities/Metrics/model/wholesale.metrics.model"
 import { IProduct } from "@/entities/Product/model/product.model"
-import { ButtonSize } from "@/shared/ui/Button/model/model"
+import { ButtonSize } from "@/shared/ui/Button/model/button.model"
 
 interface IMobileOrderFooter {
     className?: string,

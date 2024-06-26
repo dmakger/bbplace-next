@@ -7,7 +7,7 @@ import { getTenderType } from "./tender.lib";
 import { IWholesale } from "@/entities/Metrics/model/wholesale.metrics.model";
 
 
-export const tenderAPIListToTenderList = (tenderListAPI: ITenderAPI[], metrics: IMetrics[], currencyList: ICurrency[]): ITender[] => {
+export const tenderAPIListToTenderList = (tenderListAPI: ITenderAPI[], metrics?: IMetrics[], currencyList?: ICurrency[]): ITender[] => {
     return tenderListAPI.map(it => tenderAPIToTender({ tenderAPI: it, metrics, currencyList }))
 }
 
@@ -62,3 +62,4 @@ export const getTenderWholesalePrices = (tender: ISaleTender | IPurchaseTender, 
     } as IWholesale
 
 }
+

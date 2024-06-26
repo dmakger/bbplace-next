@@ -28,7 +28,6 @@ export default function Layout({ children }: PropsWithChildren<unknown>) {
                 }
             }
             const data = await refreshToken().unwrap()
-            console.log('qwe initialRefresh', data)
             if(data){
                 actionCreators.setAuth(data)
             }

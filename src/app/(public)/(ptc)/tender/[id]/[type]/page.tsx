@@ -27,7 +27,8 @@ import { filterFilesByFormat } from '@/entities/File/lib/file.lib';
 import { FileAPI } from '@/entities/File/api/file.api';
 import { IAttachment } from '@/shared/model/attachment.model';
 import { FileBlock } from '@/entities/File/ui/Block/FileBlock';
-import { toTenderType } from '@/entities/Tender/lib/tender.lib';
+import { tenderTypeToEn, toTenderType } from '@/entities/Tender/lib/tender.lib';
+import { skipToken } from '@reduxjs/toolkit/query';
 
 
 export default function TenderPage() {
@@ -36,7 +37,7 @@ export default function TenderPage() {
     const params = useParams()
     const tenderId = params.id as string
     // const tenderTypeParams = toTenderType(params.type as string) as ETenderType
-    const tenderTypeParams = params.type as ETenderType
+    const tenderTypeParams = toTenderType(params.type as string) as ETenderType
 
     //STATE
     const [is768, setIs768] = useState<boolean>(false)
@@ -47,12 +48,13 @@ export default function TenderPage() {
     const [files, setFiles] = useState<IFile[]>([])
 
     //API
+    // const { data: tenderAPI } = TenderAPI.useGetTenderQuery({tenderId: +tenderId, type: tenderTypeParams as ETenderType});
     const { data: tenderAPI } = TenderAPI.useGetTenderQuery({tenderId: +tenderId, type: tenderTypeParams});
     const { data: currencyList } = CurrencyAPI.useGetCurrenciesQuery()
     const { data: metrics } = MetricsAPI.useGetMetricsQuery()
     const [getFile] = FileAPI.useGetFileMutation()
 
-    console.log('tender', tender)
+    // console.log('tender type', tenderTypeParams, tenderTypeToEn(tenderTypeParams), tender)
 
     // EFFECT
     useEffect(() => {
@@ -61,13 +63,13 @@ export default function TenderPage() {
         }
     }, [tenderAPI, metrics, currencyList])
 
-    useEffect(() => {
-        const f = () => {
-            const _tenderType = (tenderTypeParams as string).toLocaleLowerCase()
-            setTenderType(_tenderType === 'sale' ? ETenderType.SALE : ETenderType.PURCHASE)
-        }
-        f()
-    }, [tenderTypeParams])
+    // useEffect(() => {
+    //     const f = () => {
+    //         const _tenderType = (tenderTypeParams as string).toLocaleLowerCase()
+    //         setTenderType(_tenderType === 'sale' ? ETenderType.SALE : ETenderType.PURCHASE)
+    //     }
+    //     f()
+    // }, [tenderTypeParams])
 
     useEffect(() => {
         if (!tender) return;
@@ -93,13 +95,12 @@ export default function TenderPage() {
     //MEMO
     const wholesalePrices = useMemo(() => {
         if (tender) {
-            return [getTenderWholesalePrices(tender, tenderType)];
-        } else {
-            return [];
+            return [getTenderWholesalePrices(tender, tenderTypeParams)];
         }
-    }, [tender, tenderType]);
+        return [];
+    }, [tender, tenderTypeParams]);
 
-    console.log('tender qw', wholesalePrices, tenderType)
+    // console.log('tender qw', wholesalePrices, tenderType)
 
     
     if(!tender) return;    

@@ -4,9 +4,9 @@ import { cls } from '@/shared/lib/classes.lib';
 import cl from './_OptionList.module.scss'
 import { IOption } from "@/shared/model/option.model";
 import { Button, ButtonVariant } from "@/shared/ui/Button";
-import { ButtonColor, ButtonSize } from "@/shared/ui/Button/model/model";
 import { OptionItem } from "../Item/OptionItem";
 import { HandleSize } from "@/shared/ui/Handle/Size/HandleSize";
+import { ButtonColor, ButtonSize } from "@/shared/ui/Button/model/button.model";
 
 interface OptionListProps {
     title?: string,

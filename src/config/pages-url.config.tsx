@@ -29,9 +29,11 @@ class DASHBOARD {
 
     HOME = this.root
     PROFILE_EDIT = `${this.root}/edit`
-    PRODUCTS = `${this.root}/product`
     FAVORITE = `${this.root}/favorite`
     CHATS = `${this.root}/chat`
+
+    PRODUCTS = `${this.root}/product`
+    TENDERS = `${this.root}/tender`
 
     CURRENT_CHAT = (id: ISupplier['id']) => `${this.CHATS}/${id}`
     EDIT_PRODUCT = (id: IProduct['id']) => `${this.PRODUCTS}/edit/${id}`
