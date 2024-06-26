@@ -8,7 +8,7 @@ import { ProductLK } from "./LKProduct";
 
 interface ProductProps extends IProductProps{
     view?: EViewProduct
-    setIsOpenModal: Function
+    setIsOpenModal?: Function
 }
 
 export const Product:FC<ProductProps> = ({view=DEFAULT_VIEW_PRODUCT, product, ...rest}) => {
