@@ -18,8 +18,8 @@ export const SortBy = ({
     defaultOption,
     classNameTitle,
     onClickOption,
-    arrowWidth,
-    arrowHeight
+    arrowWidth = 10,
+    arrowHeight = 10
 }: ISortBy) => {
     return (
         <div className={cl.inputsContainer}>
@@ -29,8 +29,7 @@ export const SortBy = ({
                 options={options}
                 defaultOption={defaultOption}
                 classNameTitle={classNameTitle}
-                width={arrowWidth}
-                height={arrowHeight}
+                arrowSizes={{width: arrowWidth, height: arrowHeight}}
                 onClickOption={onClickOption}
             />
         </div>

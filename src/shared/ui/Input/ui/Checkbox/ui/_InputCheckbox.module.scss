@@ -1,0 +1,59 @@
+.InputCheckbox {
+    background-color: var(--background-2);
+    position: relative;
+    border-radius: 5px;  
+
+    .input {
+       z-index: -1;
+       position: absolute;     
+    }
+
+
+    .checkbox{
+        width: 30px;
+        height: 30px;
+        border: 1px solid var(--secondary-border);
+        border-radius: 5px;  
+        transition: 0.3s;
+
+        &:hover{
+            background-color: var(--secondary-surface-sub);
+            transition: 0.3s;
+        }
+
+        &:active{
+            background-color: var(--secondary-surface);
+            transition: 0.3s;
+            & img{
+                transform: scale(1.1);
+            }
+        } 
+    }
+    .checked{
+        background-color: var(--secondary) !important;
+        border: 1px solid transparent;
+        &:hover{
+            & img{
+                opacity: 0.7;
+            }
+        }
+        &:active{
+            & img{
+                opacity: 0.5;
+                transform: scale(0.9);
+            }
+        }
+    }
+
+    .warning{
+        border: 1px solid var(--negative-border) !important;
+    }
+
+    .success{
+        border: 1px solid var(--positive-border) !important;
+    }
+
+    
+
+    
+}

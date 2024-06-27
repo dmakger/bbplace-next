@@ -6,6 +6,7 @@ import { ImageAPI } from "@/shared/ui/Image/API/ImageAPI";
 import Link from "next/link";
 import { IOption } from "@/shared/model/option.model";
 import { HoverWindow } from "@/shared/ui/HoverWindow";
+import { EHoverWindowPosition } from "@/shared/ui/HoverWindow/model/hoverWindow.model";
 
 interface IOptionItem {
     option: IOption
@@ -46,11 +47,10 @@ export const OptionItem= ({
 
     const optionParamsImage = typeof(option.params?.image) === 'string' ? option.params.image : '';    
     
-
     const html = (
         
             <div className={cls(cl.optionItem, isList ? cl.row : '')} >
-                     {isOnHover && !isList && <HoverWindow text={option.name} image={optionParamsImage} className={cl.hoverWindow}/>}
+                     {isOnHover && !isList && <HoverWindow text={option.name} image={optionParamsImage} className={cl.hoverWindow} position={EHoverWindowPosition.TOP}/>}
 
                 {optionParamsImage &&
                     <ImageAPI src={`${optionParamsImage}`} className={cl.image} width={48} height={48} />

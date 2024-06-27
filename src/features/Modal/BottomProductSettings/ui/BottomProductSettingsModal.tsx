@@ -1,4 +1,5 @@
 'use client'
+
 import { Button, ButtonVariant } from '@/shared/ui/Button'
 import cl from './_BottomProductSettingsModal.module.scss'
 import { cls } from "@/shared/lib/classes.lib"
@@ -7,22 +8,25 @@ import { EDIT_ICON } from '@/shared/ui/Icon/data/edit.data.icon'
 import { useRouter } from 'next/navigation'
 import { ProductAPI } from '@/entities/Product/api/product.api'
 import { DASHBOARD_PAGES } from '@/config/pages-url.config'
+
 import { ButtonColor, ButtonSize } from '@/shared/ui/Button/model/button.model'
+import { IProduct } from '@/entities/Product/model/product.model'
 
 interface IBottomProductSettingsModal {
     className?: string,
-    productId: number,
-    isOpen: boolean,
+    classNameButton?: string,
+    product: IProduct,
     setIsOpen: Function
+    isTitle?: boolean
 }
 
 export const BottomProductSettingsModal = ({
     className,
-    productId,
-    isOpen,
-    setIsOpen
-}:IBottomProductSettingsModal) => {
-
+    classNameButton,
+    product,
+    setIsOpen,
+    isTitle = true
+}: IBottomProductSettingsModal) => {
     //API
     const [deleteProduct] = ProductAPI.useDeleteProductMutation()
     const [deleteDraft] = ProductAPI.useDeleteDraftMutation()
@@ -30,9 +34,14 @@ export const BottomProductSettingsModal = ({
     //ROUTER
     const router = useRouter()
 
-
     //FUNCTION
-    const delProduct = () => {
+    const delProduct = async(id: number) => {
+        if (product.media.attachments.length) {
+            await deleteProduct(id)
+        }
+        else {
+            await deleteDraft(id)
+        }
         setIsOpen(false)
     }
 
@@ -42,25 +51,24 @@ export const BottomProductSettingsModal = ({
 
     return (
         <div className={cls(cl.BottomProductSettingsModal, className)}>
-            <h4>Выбор действия</h4>
-            <div className={cl.buttonsContainer}>
-                <Button title='Удалить'
-                    variant={ButtonVariant.TONAL}
-                    color={ButtonColor.Primary}
-                    size={ButtonSize.Medium}
-                    beforeImage={TRASH_ICON}
-                    beforeProps={{ width: 20, height: 20 }}
-                    onClick={delProduct}
-                />
-                <Button title='Редактировать'
-                    variant={ButtonVariant.TONAL}
-                    color={ButtonColor.Secondary}
-                    size={ButtonSize.Medium}
-                    beforeImage={EDIT_ICON}
-                    beforeProps={{ width: 20, height: 20 }}
-                    onClick={navigateToEditProduct}
-                />
-            </div>
+            <Button title={isTitle ? 'Удалить' : ''}
+                variant={ButtonVariant.TONAL}
+                color={ButtonColor.Negative}
+                size={ButtonSize.Medium}
+                beforeImage={TRASH_ICON}
+                beforeProps={{ width: 20, height: 20 }}
+                onClick={() => delProduct(product.id)}
+                className={classNameButton}
+            />
+            <Button title={isTitle ? 'Редактировать' : ''}
+                variant={ButtonVariant.TONAL}
+                color={ButtonColor.Secondary}
+                size={ButtonSize.Medium}
+                beforeImage={EDIT_ICON}
+                beforeProps={{ width: 20, height: 20 }}
+                onClick={navigateToEditProduct}
+                className={classNameButton}
+            />
         </div>
     )
 }

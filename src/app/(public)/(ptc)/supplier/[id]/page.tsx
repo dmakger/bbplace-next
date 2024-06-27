@@ -12,22 +12,16 @@ import { REVIEW_LIMIT, REVIEW_START_PAGE } from "@/entities/Review/data/review.d
 import { SupplierPageHeader } from "@/entities/Supplier/components/SupplierPageHeader/SupplierPageHeader";
 import { supplierApiToSupplier } from "@/entities/Supplier/lib/process.supplier.lib";
 import { ISupplier } from "@/entities/Supplier/model/supplier.model";
-import { EModalView } from "@/shared/data/modal.data";
-import { Modal } from "@/shared/ui/Modal/Modal";
 import Wrapper1280 from "@/shared/ui/Wrapper/1280/Wrapper1280";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { WrapperModalBottom } from "@/shared/ui/Wrapper/ModalBottom";
 
 
 export default function SupplierPage() {
 
     //STATE
     const [supplier, setSupplier] = useState<ISupplier>()
-    const [supplierProducts, setSupplierProducts] = useState<IProduct[]>([])
-
-    const [isOpen, setIsOpen] = useState<boolean>(true);
-
+    const [supplierProducts, setSupplierProducts] = useState<IProduct[]>([]) 
 
     //PARAMS
     const params = useParams()
@@ -37,7 +31,7 @@ export default function SupplierPage() {
     const { data: supplierRating } = ReviewAPI.useGetSupplierScoreQuery(supplierId as string)
     const { data: supplierReviews } = ReviewAPI.useGetSellerReviewsQuery({ supplierId: supplierId, limit: REVIEW_LIMIT ?? 0, page: REVIEW_START_PAGE })
     const { data: supplierProductsAPI } = ProductAPI.useGetProductsByUserQuery({ userId: supplierId, limit: PRODUCT_LIMIT })
-    const { data: supplierAPI } = UserAPI.useGetUserDataQuery(supplierId)
+    const { data: supplierAPI } = UserAPI.useGetUserDataQuery(supplierId)    
 
     //EFFECT
     useEffect(() => {
@@ -46,28 +40,17 @@ export default function SupplierPage() {
     }, [supplierAPI])
 
     useEffect(() => {
-        if (supplierProductsAPI)
+        if(supplierProductsAPI)
             setSupplierProducts(productApiListToProductList(supplierProductsAPI))
     }, [supplierProductsAPI])
-
-    const closeTheModal = () => {
-        setIsOpen(prevState => !prevState)
-    }
 
     return (
         <Wrapper1280>
             {supplier && <SupplierPageHeader supplier={supplier}
                 supplierRating={supplierRating ?? 0}
-                supplierReviews={supplierReviews?.length ?? 0}
+                supplierReviews = {supplierReviews?.length ?? 0}
             />}
-            {supplierProducts && <ProductAutoList products={supplierProducts} view={EViewProduct.AT_SUPPLIER_PAGE} />}
-            <Modal view={EModalView.BOTTOM}
-             buttonNode _isOpen={isOpen}
-             onClickOverlay={closeTheModal}
-             >
-                <WrapperModalBottom isOpen={isOpen} setIsOpen={setIsOpen}/>
-
-            </Modal>
+            {supplierProducts && <ProductAutoList products={supplierProducts} view={EViewProduct.AT_SUPPLIER_PAGE}/>}
         </Wrapper1280>
 
     )
