@@ -7,6 +7,8 @@ import cl from './_Subblock.module.scss'
 import { cls } from "@/shared/lib/classes.lib"
 import { ButtonColor } from '../../Button/model/button.model'
 import { ESubblockVariants } from '../model/subblock.model'
+import { Axis } from '@/shared/model/button.model'
+import { ARROW_SECONDARY_WO_ICON } from '../../Icon/data/arrow.data.icon'
 
 interface ISubblock {
     className?: string,
@@ -30,11 +32,7 @@ export const Subblock = ({
 
     //STATE
     const [isVisibleContainer, setIsVisibleContainer] = useState<boolean>(false);
-    // const [hiddenContainerHeight, setHiddenContainerHeight] = useState<number>(0)
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-
-    //REF
-    const hiddenContainerRef = useRef<HTMLDivElement>(null)
 
     // //EFFECT
     useEffect(() => {
@@ -47,13 +45,14 @@ export const Subblock = ({
     return (
         <div className={cls(cl.Subblock, className)}>
             <div className={cls(cl.DesktopWrapper, wModal ? cl.displayNone : cl.desktopVariant)}>
-                <div className={cls(cl.topContainer, isVisibleContainer ? cl.borderRadiusBottom : '')}>
+                <div className={cl.topContainer}>
 
                     <h5 className={cl.title}>
                         {title}
                     </h5>
 
                     {variant === ESubblockVariants.DEFAULT && <ButtonArrowWOLine
+                        axis={isVisibleContainer ? Axis.Top : Axis.Default}
                         className={cl.arrowButton}
                         classNameImage={cl.arrowIcon}
                         onClick={() => setIsVisibleContainer(!isVisibleContainer)} />}
@@ -64,8 +63,8 @@ export const Subblock = ({
                     cl.bottomContainer,
                     variant === ESubblockVariants.DEFAULT ? cl.hiddenContainer : '',
                     variant === ESubblockVariants.DEFAULT && isVisibleContainer ? cl.visible : ''
-                )}
-                    ref={hiddenContainerRef}>
+                )}>
+
                     {textChildren ? <p className={cl.text}>
                         {textChildren}
                     </p> :
@@ -78,10 +77,12 @@ export const Subblock = ({
             </div>
 
             {wModal && <Button variant={ButtonVariant.CONTENT}
+            afterImage={ARROW_SECONDARY_WO_ICON}
+            afterProps={{width: 13, height: 7, classNameImage: isModalOpen ? cl.active : ''}}
                 color={ButtonColor.Secondary}
                 title='Title'
-                className={cl.mobileSubblock}
-                onClick={() => setIsModalOpen(true)}
+                className={cls(cl.mobileSubblock)}
+                onClick={() => setIsModalOpen(!isModalOpen)}
             />}
         </div>
     )

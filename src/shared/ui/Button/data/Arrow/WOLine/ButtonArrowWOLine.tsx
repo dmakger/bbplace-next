@@ -1,11 +1,11 @@
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_ButtonArrowWOLine.module.scss'
 import { Button, IButton } from "../../../ui/Button";
-import { ARROW_WLINE_SECONDARY_ICON } from "@/shared/ui/Icon/data/arrow.data.icon";
+import { ARROW_SECONDARY_WO_ICON } from "@/shared/ui/Icon/data/arrow.data.icon";
 import { Axis } from "@/shared/model/button.model";
 import { ButtonVariant } from "../../../model/button.model";
 
-interface IButtonArrawWOLine {
+interface IButtonArrowWOLine {
     axis?: Axis
     onClick?: IButton['onClick']
     className?: string,
@@ -13,16 +13,22 @@ interface IButtonArrawWOLine {
 }
 
 export const ButtonArrowWOLine = ({
-    axis,
+    axis = Axis.Default,
     onClick,
     className,
     classNameImage
-}: IButtonArrawWOLine) => {
+}: IButtonArrowWOLine) => {
     return (
-        <Button afterImage={ARROW_WLINE_SECONDARY_ICON} afterProps={{ axis, classNameImage }}
-            variant={ButtonVariant.DEFAULT} 
+        <Button
+            afterImage={ARROW_SECONDARY_WO_ICON}
+            afterProps={{ 
+            axis,
+            width: 14, height: 9, 
+            className: axis === Axis.Default ? cl.default : axis === Axis.Top ? cl.active : '',
+             classNameImage }}
+            variant={ButtonVariant.DEFAULT}
             onClick={onClick}
             className={cls(cl.button, className)}
-             />
+        />
     )
 }

@@ -2,10 +2,43 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    
     width: 40px;
     height: 40px;
-    padding: 10px;
-    background-color: var(--n-blue-light-3);
     border-radius: 50%;
+    background-color: transparent;
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:hover {
+        background-color: var(--secondary-hovered);
+        transition: 0.3s;
+    }
+
+    &:active {
+        background-color: var(--secondary-pressed);
+        transition: 0.3s;
+
+        .top{
+            transform: rotate(180deg);
+        }
+
+        .active {
+            transform: translate(0px, -2px);
+            transition: 0.3s;
+        }
+
+        .default {
+            transform: translate(0px, 2px);
+            transition: 0.3s;
+        }
+    }
+}
+
+
+
+.default {
+    &:active {
+        transform: translate(0px, 2px);
+
+    }
 }

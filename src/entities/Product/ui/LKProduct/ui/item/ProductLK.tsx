@@ -14,6 +14,7 @@ import { skipToken } from '@reduxjs/toolkit/query'
 import { BottomProductSettingsModal } from '@/features/Modal/BottomProductSettings'
 import { EProductLKVariants } from '../../model/productLK.model'
 import { MAIN_PAGES } from '@/config/pages-url.config'
+import { ButtonArrowWOLine } from '@/shared/ui/Button/data/Arrow/WOLine/ButtonArrowWOLine'
 
 interface IProductLK extends IProductProps {
   className?: string,
@@ -89,10 +90,7 @@ export const ProductLK = ({
             <p className={cl.groupLength}>
               +{productAPIListGroup?.length - 1}
             </p>
-            <Button variant={ButtonVariant.DEFAULT}
-              beforeImage={ARROW_SECONDARY_WO_ICON}
-              beforeProps={{ width: 14, height: 9, classNameImage: cl.arrowImage }}
-              className={cl.iconWrapper}
+            <ButtonArrowWOLine
               onClick={showGroupModal}
             />
           </div>}
