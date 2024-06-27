@@ -7,7 +7,7 @@ export default function MainPage() {
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', width: '50%', justifyContent: 'center', gap: '15px', backgroundColor: '#fff' }}>
-            <WrapperRectangleInput
+            {/* <WrapperRectangleInput
                 labelText="Наименование"
                 warningTooltipText='Обязательно для заполнения'
                 descriptionTooltipText='tooltip'
@@ -24,7 +24,7 @@ export default function MainPage() {
             </WrapperRectangleInput>
             <WrapperRectangleInput labelText='Делиться контактами'>
                 <Input.Checkbox/>
-            </WrapperRectangleInput>
+            </WrapperRectangleInput> */}
         </div>
     )
 }
