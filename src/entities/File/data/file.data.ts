@@ -207,5 +207,3 @@ export const ALL_FORMATS = {
     IMAGES: IMAGE__FORMATS,
     ALL: {...FILE__FORMATS, ...IMAGE__FORMATS},
 }
-
-

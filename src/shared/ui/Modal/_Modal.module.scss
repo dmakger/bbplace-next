@@ -42,7 +42,7 @@
         display: flex;
         justify-self: center;
         margin-top: auto;
-        bottom: -200px;
+        bottom: -100%;
         left: 0;
         right: 0;
         width: fit-content;
@@ -87,5 +87,5 @@
     left: 0 !important;
 }
 .bottom.openSidebar{
-    bottom: 0px !important;
+    bottom: 0 !important;
 }

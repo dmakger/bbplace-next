@@ -5,8 +5,7 @@ import { ProductASP } from "../.."
 
 interface IProductASPList{
     className?: string,
-    products: IProduct[],
-
+    products: IProduct[]
 }
 
 export const ProductASPList = ({

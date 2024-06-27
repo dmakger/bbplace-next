@@ -26,8 +26,7 @@ export const FilterStatusOrApplicationInput = ({
                     options={listOptions}
                     defaultOption={defaultOption}
                     classNameOptions={cl.filterOptions}
-                    width={14}
-                    height={12}
+                    arrowSizes={{width: 14, height: 12}}
                     onClickOption={onClickOption}
                 />
             </div>
