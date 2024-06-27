@@ -1,0 +1,107 @@
+.HeaderLKPT {
+    display: flex;
+    justify-content: space-between;   
+    width: 100%;
+    position: sticky;
+    top: 0;
+    left: 0;
+    background-color: var(--background-1);
+    padding-top: 10px;
+
+    .leftContainer {
+        display: flex;
+        align-items: center;
+        gap: 25px;
+        width: 100%;
+
+
+        @media (max-width: 768px) {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .switchSelector{
+            padding-left: 10px;
+        }
+
+
+        .backNTitle {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 25px;
+            margin-left: 10px;
+
+            .backButton {
+                width: 40px;
+                height: 40px;
+                padding: 10px;
+                border: 1px solid var(--secondary-border);
+                border-radius: 50%;
+                transition: 0.3s;
+
+                & img {
+                    rotate: -90deg;
+                }
+
+                &:hover {
+                    background-color: var(--secondary-hovered);
+                    transition: 0.3s;
+                }
+
+                &:active {
+                    background-color: var(--secondary-pressed);
+                    transition: 0.3s;
+
+                    & img {
+                        transform: translate(0px, -1px);
+                    }
+                }
+            }
+
+            .headerTitle {
+                font-size: var(--font-size-sm);
+                font-weight: var(--font-weight-med);
+                white-space: nowrap;
+                @media (max-width: 768px) {
+                    font-size: var(--font-size-reg);
+                }
+            }
+        }
+    }
+
+    .addButtonContainer {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        width: 100%;
+        .addButton {
+            padding: 17px 25px;
+            font-size: var(--font-size-reg);
+            font-weight: var(--font-weight-sb);
+
+            @media (max-width: 1024px) {
+                width: 100%;
+            }
+
+            @media (max-width: 768px) {
+                padding: 13px 25px;
+                font-size: var(--font-size-s);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            background-color: var(--background-2);
+            outline: 1px solid var(--background-2);
+            padding: 10px 20px;
+        }
+    }
+}

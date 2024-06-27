@@ -1,57 +1,25 @@
+//MAIN
 .SwitchSelector {
     display: flex;
     width: 100%;
     overflow-x: auto;
-    position: sticky;
-    top: 0;
-    left: 0;
-    background-color: var(--white);
-    border-top-right-radius: 20px;
-    border-top-left-radius: 20px;
-    border-bottom: 1px solid var(--secondary-surface);
 
     &::-webkit-scrollbar {
         display: none;
     }
 
-    .optionsContainer{
+    .optionsContainer {
         display: flex;
         justify-content: space-between;
         width: 100%;
 
-        .leftContainer{
+        .leftContainer {
             display: flex;
-        }
-
-        .arrowUp{
-            min-width: 60px;
-            height: 60px;
-            cursor: pointer;
-            transition-duration: 0.2s;
-            & img{
-                transition-duration: 0.2s;
-            }
-            &:hover{
-                background-color: var(--n-blue-light-3);
-                transition-duration: 0.2s;
-
-            }
-            &:active{
-                background-color: var(--secondary-surface);
-                transition-duration: 0.2s;
-                & img{
-                    transform: translate(0%, -10%);
-                    transition-duration: 0.2s;
-                }
-
-            }
         }
     }
 
     .option {
         display: flex;
-        padding: 18px 20px;
-        border-bottom: 1px solid transparent;
         transition: 0.3s ease-in-out;
         cursor: pointer;
 
@@ -61,16 +29,81 @@
 
         & label {
             width: fit-content;
-            color: var(--n-blue-2);
             font-size: var(--font-size-sm);
             font-weight: var(--font-weight-med);
-            cursor: inherit;
             transition: 0.3s ease-in-out;
 
             .optionQuantity {
                 margin-left: 5px;
                 color: var(--font-caption-sub);
             }
+
+            @media (max-width: 768px) {
+                font-size: var(--font-size-reg);
+            }
+        }
+    }
+
+    .choosen {
+        cursor: default;
+        transition: 0.3s ease-in-out;
+    }
+}
+
+//DEFAULT
+.default {
+    position: sticky;
+    top: 0;
+    left: 0;
+    background-color: var(--white);
+    border-bottom: 1px solid var(--secondary-surface);
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+
+    .optionsContainer {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+
+        .leftContainer {
+            display: flex;
+        }
+
+        .arrowUp {
+            min-width: 60px;
+            height: 60px;
+            cursor: pointer;
+            transition-duration: 0.2s;
+
+            & img {
+                transition-duration: 0.2s;
+            }
+
+            &:hover {
+                background-color: var(--n-blue-light-3);
+                transition-duration: 0.2s;
+
+            }
+
+            &:active {
+                background-color: var(--secondary-surface);
+                transition-duration: 0.2s;
+
+                & img {
+                    transform: translate(0%, -10%);
+                    transition-duration: 0.2s;
+                }
+
+            }
+        }
+    }
+
+    .option {
+        padding: 18px 20px;
+        border-bottom: 1px solid transparent;
+
+        & label {
+            color: var(--n-blue-2);
         }
     }
 
@@ -86,9 +119,8 @@
         cursor: default;
 
         & label {
-            cursor: inherit;
             color: var(--font);
-            transition: 0.3s ease-in-out;
+            cursor: inherit;
         }
 
         &:hover {
@@ -106,11 +138,79 @@
     }
 }
 
-.sticky{
+.sticky {
     border-top-right-radius: 0px;
     border-top-left-radius: 0px;
 }
 
-.stickyChoosenLine{
+.stickyChoosenLine {
     background-color: var(--primary) !important;
+}
+
+//TABS
+.tabs {
+    background-color: transparent;
+
+    .optionsContainer {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+
+        .leftContainer {
+            display: flex;
+            background-color: var(--secondary-surface);
+            border-top-right-radius: 20px;
+            border-top-left-radius: 20px;
+        }
+
+
+        .option {
+            border-radius: 20px 20px 0 0;
+            padding: 18px 25px;
+
+            & label {
+                color: var(--secondary);
+                white-space: nowrap;
+            }
+
+            @media (max-width: 768px) {
+                padding: 14px 15px;
+                border-radius: 15px 15px 0 0;
+            }
+        }
+
+        .optionHover {
+            &:hover {
+                background-color: var(--secondary-hovered);
+                transition: 0.3s ease-in-out;
+
+                & label {
+                    color: var(--background-2);
+                    cursor: inherit;
+                    transition: 0.3s ease-in-out;
+                }
+            }
+
+            &:active {
+                background-color: var(--secondary-pressed);
+                transition: 0.3s ease-in-out;
+            }
+        }
+
+        .choosen {
+            background-color: var(--background-2);
+
+            & label {
+                color: var(--font);
+            }
+
+            &:hover {
+                background-color: var(--background-2);
+
+                & label {
+                    color: var(--font);
+                }
+            }
+        }
+    }
 }

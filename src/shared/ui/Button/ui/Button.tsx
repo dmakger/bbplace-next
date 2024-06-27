@@ -99,10 +99,10 @@ export const Button = ({
                 <span className={cls(cl.title, classNameText)}>{title}</span>
             }
             {afterImage &&
-                <ImageSmart {...afterProps} icon={afterImage} 
+                <ImageSmart {...afterProps} icon={afterImage}
                             width={afterProps && afterProps.width ? afterProps.width: sizeImage} 
                             height={afterProps && afterProps.height ? afterProps.height: sizeImage} 
-                            isActive={active} isHovered={isHovered} />
+                            isActive={active} isHovered={isHovered} isPressed={isPressed}/>
             }
             {children}
         </button>
