@@ -1,0 +1,21 @@
+.ProductMultipleCreationPage{
+    display: flex;
+    gap: 25px;
+    flex: 1;
+    padding: 20px;
+    background-color: var(--background-2);
+
+    @media(max-width: 768px){
+        flex-direction: column;
+        gap: 20px;
+    }
+    .instructionContainer{
+        display: flex;
+        flex: 0.25;
+        min-width: 241px;
+    }
+
+    .formContainer{
+
+    }
+}

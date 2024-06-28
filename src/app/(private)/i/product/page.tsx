@@ -1,5 +1,5 @@
 'use client'
-import { SWITCH_SELECTOR_WO_PRICE_PRODUCTS_OPTION } from "@/shared/ui/SwitchSelector/data/switchSelector.data"
+import { PRODUCT_PAGE_OPTIONS_ARRAY, SWITCH_SELECTOR_WO_PRICE_PRODUCTS_OPTION } from "@/shared/ui/SwitchSelector/data/switchSelector.data"
 import { IUserProductsTab } from "@/features/DetailedPageInfo/model/detailedPageInfo.model"
 import { HeaderLKPT } from "@/features/Headers/HeaderLK"
 import { IOption } from '@/shared/model/option.model'
@@ -92,6 +92,7 @@ export default function LKProductPage() {
             <div className={cl.LKProductPage}>
                 <HeaderLKPT title={'Мои товары'}
                     selectedOption={selectedOption}
+                    options={PRODUCT_PAGE_OPTIONS_ARRAY}
                     setSelectedOption={setSelectedOption}
                     optionsTab={MY_PRODUCTS_OPTIONS_TAB} />
                 <LKPTPage optionsTab={MY_PRODUCTS_OPTIONS_TAB}

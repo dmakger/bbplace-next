@@ -4,7 +4,7 @@ import { cls } from "@/shared/lib/classes.lib"
 import cl from './_SwitchSelector.module.scss'
 import { useCallback, useEffect, useRef, useState } from "react"
 import { IOption } from "@/shared/model/option.model"
-import { IDetailedProductOptionsTab, IUserProductsTab } from "@/features/DetailedPageInfo/model/detailedPageInfo.model"
+import { ICreateNewProductsTab, IDetailedProductOptionsTab, IUserProductsTab } from "@/features/DetailedPageInfo/model/detailedPageInfo.model"
 import Image from "next/image"
 import { ESwitchSelectorVariants } from "../model/switchSelector.model"
 import { useRouter } from "next/navigation"
@@ -15,7 +15,7 @@ interface ISwitchSelector {
     options: IOption[],
     selectedOption: IOption,
     setSelectedOption: Function
-    optionsTab?: IUserProductsTab | IDetailedProductOptionsTab
+    optionsTab?: IUserProductsTab | IDetailedProductOptionsTab | ICreateNewProductsTab
 }
 
 export const SwitchSelector = ({

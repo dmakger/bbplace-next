@@ -20,3 +20,9 @@ export interface IUserProductsTab {
     drafts: IOptionTab,
     woPrice?: IOptionTab 
 }
+
+export interface ICreateNewProductsTab {
+    [key: string]: IOptionTab | undefined,
+    single: IOptionTab,
+    multiple: IOptionTab,
+}

@@ -5,9 +5,8 @@ import { Button, ButtonVariant } from "@/shared/ui/Button"
 // import { ButtonArrowWLine } from "@/shared/ui/Button/Arrow/WLine/ButtonArrowWLine"
 import { Axis } from "@/shared/model/button.model"
 import { SwitchSelector } from "@/shared/ui/SwitchSelector"
-import { SWITCH_SELECTOR_CREATED_PRODUCTS_OPTION, SWITCH_SELECTOR_DRAFT_PRODUCTS_OPTION, SWITCH_SELECTOR_WO_PRICE_PRODUCTS_OPTION } from "@/shared/ui/SwitchSelector/data/switchSelector.data"
 import { IOption } from "@/shared/model/option.model"
-import { IUserProductsTab } from "@/features/DetailedPageInfo/model/detailedPageInfo.model"
+import { ICreateNewProductsTab, IDetailedProductOptionsTab, IUserProductsTab } from "@/features/DetailedPageInfo/model/detailedPageInfo.model"
 // import { ButtonColor } from "@/shared/ui/Button/model/model"
 import { useRouter } from "next/navigation"
 import { DASHBOARD_PAGES } from "@/config/pages-url.config"
@@ -21,7 +20,8 @@ interface IHeaderPT {
     title: string,
     selectedOption: IOption,
     setSelectedOption: Function
-    optionsTab: IUserProductsTab
+    options: IOption[],
+    optionsTab: IUserProductsTab | IDetailedProductOptionsTab | ICreateNewProductsTab
 }
 
 export const HeaderLKPT = ({
@@ -30,6 +30,7 @@ export const HeaderLKPT = ({
     title,
     selectedOption,
     setSelectedOption,
+    options,
     optionsTab
 }: IHeaderPT) => {
 
@@ -54,7 +55,7 @@ export const HeaderLKPT = ({
                 </div>
 
                 <SwitchSelector className={cl.switchSelector}
-                options={[SWITCH_SELECTOR_CREATED_PRODUCTS_OPTION, SWITCH_SELECTOR_WO_PRICE_PRODUCTS_OPTION, SWITCH_SELECTOR_DRAFT_PRODUCTS_OPTION]} setSelectedOption={setSelectedOption}
+                options={options} setSelectedOption={setSelectedOption}
                     selectedOption={selectedOption}
                     optionsTab={optionsTab}
                     variant={ESwitchSelectorVariants.TABS} />
