@@ -1,7 +1,7 @@
 'use client'
 
 import cl from './_WrapperLKPT.module.scss'
-import { ICreateNewProductsTab, IDetailedProductOptionsTab, IUserProductsTab } from "@/features/DetailedPageInfo/model/detailedPageInfo.model"
+import { OptionsTabType } from "@/features/DetailedPageInfo/model/detailedPageInfo.model"
 import { HeaderLKPT } from "@/features/Headers/HeaderLK"
 import { LKPTPage } from '@/features/LKPTPage'
 import { cls } from "@/shared/lib/classes.lib"
@@ -13,7 +13,7 @@ interface IWrapperLKPT {
     className?: string
     startPage: IOption,
     pageTitle: string,
-    optionsTab: IUserProductsTab | IDetailedProductOptionsTab | ICreateNewProductsTab,
+    optionsTab: OptionsTabType,
     options: IOption[],
     isButtonAdd?: boolean
 }

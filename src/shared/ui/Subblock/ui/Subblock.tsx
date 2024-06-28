@@ -15,6 +15,7 @@ import { EModalView } from '@/shared/data/modal.data'
 
 interface ISubblock {
     className?: string,
+    classNameBottomContainer?: string,
     variant?: ESubblockVariants,
     title?: string,
 
@@ -31,6 +32,7 @@ interface ISubblock {
 
 export const Subblock = ({
     className,
+    classNameBottomContainer,
     variant = ESubblockVariants.DEFAULT,
     title,
     textChildren,
@@ -76,7 +78,8 @@ export const Subblock = ({
                 <div className={cls(
                     cl.bottomContainer,
                     variant === ESubblockVariants.DEFAULT ? cl.hiddenContainer : '',
-                    variant === ESubblockVariants.DEFAULT && isVisibleContainer ? cl.visible : ''
+                    variant === ESubblockVariants.DEFAULT && isVisibleContainer ? cl.visible : '',
+                    classNameBottomContainer
                 )}>
 
                     {textChildren ? <p className={cl.text}>

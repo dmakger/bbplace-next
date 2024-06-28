@@ -26,3 +26,5 @@ export interface ICreateNewProductsTab {
     single: IOptionTab,
     multiple: IOptionTab,
 }
+
+export type OptionsTabType = IUserProductsTab | IDetailedProductOptionsTab | ICreateNewProductsTab;

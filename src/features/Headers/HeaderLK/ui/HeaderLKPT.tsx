@@ -6,7 +6,7 @@ import { Button, ButtonVariant } from "@/shared/ui/Button"
 import { Axis } from "@/shared/model/button.model"
 import { SwitchSelector } from "@/shared/ui/SwitchSelector"
 import { IOption } from "@/shared/model/option.model"
-import { ICreateNewProductsTab, IDetailedProductOptionsTab, IUserProductsTab } from "@/features/DetailedPageInfo/model/detailedPageInfo.model"
+import { OptionsTabType } from "@/features/DetailedPageInfo/model/detailedPageInfo.model"
 // import { ButtonColor } from "@/shared/ui/Button/model/model"
 import { useRouter } from "next/navigation"
 import { DASHBOARD_PAGES } from "@/config/pages-url.config"
@@ -21,7 +21,7 @@ interface IHeaderPT {
     selectedOption: IOption,
     setSelectedOption: Function
     options: IOption[],
-    optionsTab: IUserProductsTab | IDetailedProductOptionsTab | ICreateNewProductsTab
+    optionsTab: OptionsTabType
 }
 
 export const HeaderLKPT = ({
