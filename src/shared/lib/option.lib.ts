@@ -1,3 +1,4 @@
+import { ICategoriesWithSubcategories } from "@/entities/Metrics/model/category.metrics.model";
 import { IOption } from "../model/option.model";
 
 export const getValueOption = (option: IOption) => {
@@ -15,4 +16,20 @@ export const getOptionByKeyAndValue = (key: string, value: string | number, opti
             return option.options.find(it => it.value == value || it.name == value || it.id == value)
         }
     }
+}
+
+export const getOptionsFromCategoriesWithSubcategories = (categories:ICategoriesWithSubcategories[]) => {
+    if(!categories) return;
+
+    let optionsArray:IOption[] = [];
+
+    optionsArray = categories.map(it => {
+        return {
+            id: it.id,
+            name: it.name,
+            options: getOptionsFromCategoriesWithSubcategories(it.subcategories)
+        }
+    })
+
+    return optionsArray;
 }

@@ -1,0 +1,22 @@
+.RecursiveSelect {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .firstSelect {
+        border-radius: 5px 5px 0 0;
+    }
+
+    .otherSelect,
+    .lastSelect {
+        border-radius: 0;
+        border-top: none;
+    }
+
+    .optionsContainer{
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        padding: 5px 10px;
+    }
+}

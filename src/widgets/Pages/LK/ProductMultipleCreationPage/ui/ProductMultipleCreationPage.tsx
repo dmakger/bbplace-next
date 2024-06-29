@@ -1,8 +1,10 @@
+'use client'
 
 import cl from './_ProductMultipleCreationPage.module.scss'
-import { MuptipleCreationInstructionSubblock } from '../components/MuptipleCreationInstructionSubblock/MultipleCreationInstructionSubblock'
+import { MuptipleCreationInstructionSubblock } from '../components/InstructionSubblock/MultipleCreationInstructionSubblock'
+import { MultipleCreationForm } from '../components/Form/MultipleCreationForm'
 
-interface IProductMultipleCreationPage {}
+interface IProductMultipleCreationPage { }
 
 export const ProductMultipleCreationPage = ({
 
@@ -10,10 +12,10 @@ export const ProductMultipleCreationPage = ({
   return (
     <div className={cl.ProductMultipleCreationPage}>
       <div className={cl.instructionContainer}>
-        <MuptipleCreationInstructionSubblock/>
+        <MuptipleCreationInstructionSubblock />
       </div>
       <div className={cl.formContainer}>
-
+        <MultipleCreationForm />
       </div>
     </div>
   )

@@ -12,24 +12,27 @@ import { Button, ButtonVariant } from '@/shared/ui/Button'
 import { ARROW_WO_ICON } from '@/shared/ui/Icon/data/arrow.data.icon'
 import { IImageSizes } from '@/shared/model/image.model'
 import { IWrapperRectangleInputChildren } from '@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model'
-import { EInputSizes, EInputVariants, IInput } from '../../../model/input.model'
+import { EInputVariants, IInput } from '../../../model/input.model'
 import Input from '../../../Input'
+import SEARCH_ICON from '@/../public/searchGray.svg'
 
-interface ITextAndSelectInput extends IWrapperRectangleInputChildren, IInput{
+interface ITextAndSelectInput extends IWrapperRectangleInputChildren, IInput {
     title?: string
     listOptions?: IOption[],
     defaultOption?: IOption,
     onClickOption?: Function,
     arrowSizes?: IImageSizes
     classNameOptions?: string,
+    classNameMainInput?: string,
+    disabled?: boolean
 }
 
 export function TextAndSelectInput({
     variant = EInputVariants.ROUNDED,
-    size = EInputSizes.NONE,
     title,
     className,
     classNameOptions,
+    classNameMainInput,
     listOptions,
     defaultOption,
     onClickOption,
@@ -40,10 +43,11 @@ export function TextAndSelectInput({
     },
     setIsListOpen,
     placeholder,
-    success,
-    setSuccess,
     warning,
-    setWarning
+    setWarning,
+    disabled,
+    success,
+    setSuccess
 }: ITextAndSelectInput) {
 
     //STATE
@@ -52,7 +56,7 @@ export function TextAndSelectInput({
     const [activeOption, setActiveOption] = useState<IOption | undefined>()
     const [isHovered, setIsHovered] = useState(false)
     const [isWarning, setIsWarning] = useState<boolean>(warning ?? false);
-    const [isSuccess, setIsSuccess] = useState<boolean>(success ?? false);
+    const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
     //MEMO
     const filteredOptions = useMemo(() => {
@@ -61,12 +65,21 @@ export function TextAndSelectInput({
     }, [listOptions, searchQuery])
 
     //REF
-    const inputSelectRef = useRef<HTMLDivElement>(null);
+    const inputSelectRef = useRef<HTMLDivElement>(null);        
 
     // EFFECT
     useEffect(() => {
         setActiveOption(defaultOption)
     }, [defaultOption])
+
+    useEffect(() => {
+        setIsSuccess(success ?? false);
+    }, [success]);
+
+    useEffect(() => {
+        setSuccess && setSuccess(isSuccess);
+    }, [isSuccess]);
+
 
     useEffect(() => {
         setSearchQuery('')
@@ -91,7 +104,7 @@ export function TextAndSelectInput({
     const checkClickValue = () => {
         if (activeOption && activeOption?.name !== '') {
             setWarning && setWarning(false)
-            setSuccess && setSuccess(true)
+            setIsSuccess(true)
         }
     }
 
@@ -102,8 +115,13 @@ export function TextAndSelectInput({
 
     const handleOnItem = useCallback((it: IOption) => {
         checkClickValue()
-        setActiveOption(it)
-        if (onClickOption) onClickOption(it)
+        setIsSuccess(true)
+
+        if (onClickOption) onClickOption(it) 
+        else setActiveOption(it)
+
+        if(!it.options?.length) setIsSuccess(false)
+
         setShowOptions(false)
     }, [setActiveOption, onClickOption, setShowOptions])
 
@@ -111,11 +129,11 @@ export function TextAndSelectInput({
     const checkChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!listOptions?.some(it => it.name.toLowerCase().includes(e.target.value.trim().toLowerCase()))) {
             setWarning && setWarning(true)
-            setSuccess && setSuccess(false)
+            setIsSuccess(false)
         }
         else {
             setWarning && setWarning(false)
-            setSuccess && setSuccess(true)
+            setIsSuccess(true)
         }
     }
 
@@ -128,9 +146,14 @@ export function TextAndSelectInput({
     return (
         <WrapperClickOutside _ref={inputSelectRef} isShow={showOptions} handle={toggleShowOptions} className={cls(cl.block, variant === EInputVariants.ROUNDED && showOptions ? cl.show : variant === EInputVariants.RECTANGULAR && showOptions ? cl.showOptionsRectangular : '', className)}>
             <WrapperTitleInput title={title}>
-                <div onClick={toggleShowOptions}
+                <div onClick={!disabled ? toggleShowOptions : () => { }}
                     className={cl.visible}>
-                    <div className={cls(cl.mainInput, cl[variant], cl[size], showOptions && variant === EInputVariants.RECTANGULAR ? cl.rectangularListOpen : '', warning ? cl.error : success ? cl.success : '')}>
+                    <div className={cls(cl.mainInput,
+                        cl[variant],
+                        showOptions && variant === EInputVariants.RECTANGULAR ? cl.rectangularListOpen : '',
+                        warning ? cl.error : isSuccess ? cl.success : '',
+                        disabled ? cl.disabled : '',
+                        classNameMainInput)}>
                         {showOptions ? (variant === EInputVariants.ROUNDED ?
                             <input
                                 type="text"
@@ -143,7 +166,7 @@ export function TextAndSelectInput({
                                 autoFocus
                             /> :
                             <div className={cl.inputContainer}>
-                                <Image src={"searchGray.svg"} alt={"Поиск"} width={19} height={19} className={cl.imageSearch} />
+                                <Image src={SEARCH_ICON} alt={"Поиск"} width={19} height={19} className={cl.imageSearch} />
                                 <input
                                     type="text"
                                     className={cl.input}
@@ -157,10 +180,12 @@ export function TextAndSelectInput({
 
                             </div>)
                             :
-                            <p className={cls(cl.selectedOption, !activeOption && placeholder ? cl.placeholder : '')}>
+                            <p className={cls(cl.selectedOption,
+                             !activeOption && placeholder ? cl.placeholder : '',
+                             disabled ? cl.disabledPlaceholder : '')}>
                                 {!activeOption && placeholder ? placeholder : activeOption?.name}
                             </p>}
-                        <Button variant={ButtonVariant.DEFAULT} className={cls(cl.arrowContainer, showOptions ? cl.activeArrow : '',showOptions ? cl.arrowOpen : cl.arrow)} beforeImage={ARROW_WO_ICON} beforeProps={{ width: arrowSizes.width, height: arrowSizes.height }} />
+                        <Button variant={ButtonVariant.DEFAULT} className={cls(cl.arrowContainer, showOptions ? cl.activeArrow : '', showOptions ? cl.arrowOpen : cl.arrow)} beforeImage={ARROW_WO_ICON} beforeProps={{ width: arrowSizes.width, height: arrowSizes.height }} />
 
                     </div>
                 </div>
@@ -168,7 +193,6 @@ export function TextAndSelectInput({
 
             {filteredOptions.length ? (
                 <Input.List.Radio
-                    size={size}
                     variant={variant}
                     options={filteredOptions}
                     className={cls(cl.options, classNameOptions, showOptions ? cl.show : '')}
@@ -181,7 +205,7 @@ export function TextAndSelectInput({
                     {variant === EInputVariants.ROUNDED && <p className={cl.noResult}>
                         К сожалению, такой страны нет (X_X)
                     </p>}
-                    {variant === EInputVariants.RECTANGULAR && <div className={cl.noResultRect}>
+                    {showOptions && variant === EInputVariants.RECTANGULAR && <div className={cl.noResultRect}>
                         <span>Ничего не найдено</span>
                         <Button variant={ButtonVariant.DEFAULT}
                             className={cl.xmarkButton}
