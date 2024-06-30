@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import Image from 'next/image'
 import cl from './_InputTextAndSelect.module.scss'
 import { IOption } from '@/shared/model/option.model'
@@ -43,10 +43,9 @@ export function TextAndSelectInput({
     },
     setIsListOpen,
     placeholder,
-    warning,
-    setWarning,
     disabled,
     success,
+    setWarning,
     setSuccess
 }: ITextAndSelectInput) {
 
@@ -55,7 +54,7 @@ export function TextAndSelectInput({
     const [showOptions, setShowOptions] = useState(false)
     const [activeOption, setActiveOption] = useState<IOption | undefined>()
     const [isHovered, setIsHovered] = useState(false)
-    const [isWarning, setIsWarning] = useState<boolean>(warning ?? false);
+    const [isWarning, setIsWarning] = useState<boolean>(false);
     const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
     //MEMO
@@ -73,12 +72,16 @@ export function TextAndSelectInput({
     }, [defaultOption])
 
     useEffect(() => {
-        setIsSuccess(success ?? false);
-    }, [success]);
+        activeOption === undefined && setIsSuccess(false)
+    }, [activeOption]);
 
     useEffect(() => {
         setSuccess && setSuccess(isSuccess);
     }, [isSuccess]);
+
+    useEffect(() => {
+        setWarning && setWarning(isWarning)
+    }, [isWarning])
 
 
     useEffect(() => {
@@ -103,19 +106,17 @@ export function TextAndSelectInput({
 
     const checkClickValue = () => {
         if (activeOption && activeOption?.name !== '') {
-            setWarning && setWarning(false)
             setIsSuccess(true)
         }
     }
 
-    const toggleShowOptions = useCallback(() => {
-        setShowOptions((prevShowOptions) => !prevShowOptions);
-    }, []);
+    const toggleShowOptions = () => setShowOptions((prevShowOptions) => !prevShowOptions);
 
 
-    const handleOnItem = useCallback((it: IOption) => {
+    const handleOnItem = (it: IOption) => {
         checkClickValue()
         setIsSuccess(true)
+        setIsWarning(false)
 
         if (onClickOption) onClickOption(it) 
         else setActiveOption(it)
@@ -123,25 +124,25 @@ export function TextAndSelectInput({
         if(!it.options?.length) setIsSuccess(false)
 
         setShowOptions(false)
-    }, [setActiveOption, onClickOption, setShowOptions])
+    }
 
     // ==={ CHANGE }===
     const checkChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!listOptions?.some(it => it.name.toLowerCase().includes(e.target.value.trim().toLowerCase()))) {
-            setWarning && setWarning(true)
+            setIsWarning(true)
             setIsSuccess(false)
         }
         else {
-            setWarning && setWarning(false)
+            setIsWarning(false)
             setIsSuccess(true)
         }
     }
 
-    const handleInputChange = useCallback(
-        (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
             checkChangeValue(e)
             setSearchQuery(e.target.value.toLowerCase().replaceAll('  ', ' ').trim());
-        }, []);
+            if(e.target.value === '') setIsWarning(true)
+    }
 
     return (
         <WrapperClickOutside _ref={inputSelectRef} isShow={showOptions} handle={toggleShowOptions} className={cls(cl.block, variant === EInputVariants.ROUNDED && showOptions ? cl.show : variant === EInputVariants.RECTANGULAR && showOptions ? cl.showOptionsRectangular : '', className)}>
@@ -151,7 +152,7 @@ export function TextAndSelectInput({
                     <div className={cls(cl.mainInput,
                         cl[variant],
                         showOptions && variant === EInputVariants.RECTANGULAR ? cl.rectangularListOpen : '',
-                        warning ? cl.error : isSuccess ? cl.success : '',
+                        isWarning ? cl.error : isSuccess ? cl.success : '',
                         disabled ? cl.disabled : '',
                         classNameMainInput)}>
                         {showOptions ? (variant === EInputVariants.ROUNDED ?

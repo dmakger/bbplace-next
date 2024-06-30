@@ -1,9 +1,32 @@
-.MultipleCreationForm{
+.MultipleCreationForm {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
     width: 100%;
-    .label{
+
+    .label {
         padding: 15px 20px !important;
         border-radius: 20px 20px 0 0 !important;
         font-weight: var(--font-weight-med);
         color: var(--font) !important;
+
+        @media (max-width: 768px) {
+            font-size: var(--font-size-s);
+        }
     }
+}
+
+//RECURSIVE_SELECT
+.firstSelect {
+    border-radius: 5px 5px 0 0;
+}
+
+.otherSelect,
+.lastSelect {
+    border-radius: 0;
+    border-top: none;
+}
+
+.lastSelect{
+    border-radius: 0 0 5px 5px;
 }

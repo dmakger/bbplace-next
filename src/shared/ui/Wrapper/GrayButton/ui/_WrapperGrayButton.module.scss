@@ -1,0 +1,21 @@
+.WrapperGrayButton{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    background: linear-gradient(90deg, #f4f4f6 60%, rgba(255, 255, 255, 0) 100%);;
+    padding: 5px 0px 5px 20px;
+    border-radius: 20px 0 0 20px;
+
+    .label{
+        font-size: var(--font-size-reg);
+        font-weight: var(--font-weight-med);
+        @media (max-width: 768px) {
+            font-size: var(--font-size-s);
+        }
+    }
+    & button{
+        width: 100%;
+    }
+
+}

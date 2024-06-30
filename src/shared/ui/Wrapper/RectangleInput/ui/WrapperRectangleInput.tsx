@@ -60,7 +60,7 @@ export const WrapperRectangleInput = ({
   const [successes, setSuccesses] = useState<Record<string, boolean>>({});
   const [warning, setWarning] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
- 
+
 
   //EFFECT
   useEffect(() => {
@@ -160,18 +160,19 @@ export const WrapperRectangleInput = ({
       <div className={cl.inputsContainer}>
         {clonedChildren}
       </div>
-      {buttonText && <Button variant={ButtonVariant.FILL}
-        title={buttonText}
-        className={cls(cl.button, !selectedOptionsArray.length ? cl.disabled : '')}
-        disabled={!selectedOptionsArray.length} />}
 
-      {warning && isRequired && (
+      {warning && (
         <div className={cl.errorMessage}>
           {errorInputTextMessageArray.map((it, index) => (
             <p key={index}>{it}</p>
           ))}
         </div>
       )}
+
+      {buttonText && <Button variant={ButtonVariant.FILL}
+        title={buttonText}
+        className={cls(cl.button, !selectedOptionsArray.length ? cl.disabled : '')}
+        disabled={!selectedOptionsArray.length} />}
     </div>
   )
 }

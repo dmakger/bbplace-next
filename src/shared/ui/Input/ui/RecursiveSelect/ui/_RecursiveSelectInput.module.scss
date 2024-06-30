@@ -3,20 +3,36 @@
     flex-direction: column;
     width: 100%;
 
-    .firstSelect {
-        border-radius: 5px 5px 0 0;
-    }
-
-    .otherSelect,
-    .lastSelect {
-        border-radius: 0;
-        border-top: none;
-    }
-
-    .optionsContainer{
+    .optionsContainer {
         display: flex;
         gap: 10px;
         flex-wrap: wrap;
         padding: 5px 10px;
+    }
+
+    .optionsAttachmentShow {
+        opacity: 0;
+        transform: translateY(-20px);
+        animation: fadeIn 0.3s forwards;
+    }
+
+    .optionsAttachmentHide {
+        opacity: 1;
+        transform: translateY(0);
+        animation: fadeOut 0.3s forwards;
+    }
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
     }
 }
