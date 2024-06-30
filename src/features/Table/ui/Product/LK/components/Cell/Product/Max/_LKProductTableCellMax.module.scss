@@ -1,0 +1,27 @@
+.block {
+    display: flex;
+
+    .wrapperImage {
+        padding: 10px;
+        .image {
+            width: 90px;
+            height: 90px;
+            border: 1px solid var(--background-gray);
+        }
+    }
+
+    .right {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 10px 0;
+
+        .category {
+            padding: 0 10px; 
+            line-height: 1.2em;
+            max-height: 1.2em;
+            overflow: hidden;
+
+        }
+    }
+}

@@ -2,7 +2,7 @@ import { FC } from "react"
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_LKTenderTableCellTrash.module.scss'
-import TableCell from "@/shared/ui/Table/componets/Cell";
+import TableCell from "@/shared/ui/Table/components/Cell";
 import { TRASH_NEGATIVE_TO_WHITE_ICON } from "@/shared/ui/Icon/data/trash.data.icon";
 import { Button, ButtonVariant } from "@/shared/ui/Button";
 import { ButtonColor, ButtonSize } from "@/shared/ui/Button/model/button.model";

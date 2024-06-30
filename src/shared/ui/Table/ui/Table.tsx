@@ -5,12 +5,12 @@ import { FC, useEffect, useState } from "react"
 import cl from './_Table.module.scss'
 import { cls } from '@/shared/lib/classes.lib';
 import { ITable } from "../model/table.model";
-import { TBody } from "../componets/Body/TBody";
-import { THead } from "../componets/head/THead";
+import { TBody } from "../components/Body/TBody";
+import { THead } from "../components/head/THead";
 import { TableVariant } from "../data/table.data";
 import { isEqual } from "lodash";
 import { unionDataTable, unionHeadTable } from "../lib/table.lib";
-import { WrapperForUnions } from "../componets/WrapperForUnions/WrapperForUnions";
+import { WrapperForUnions } from "../components/WrapperForUnions/WrapperForUnions";
 
 interface TableProps extends ITable {
     className?: string,

@@ -6,13 +6,16 @@ import { cls } from '@/shared/lib/classes.lib';
 import cl from './_LKProductTable.module.scss'
 import { ProductAPI } from "@/entities/Product/api/product.api";
 import { IProduct } from "@/entities/Product/model/product.model";
-import { productApiListToProductList } from "@/entities/Product/lib/product.lib";
+import { productApiListToProductList, productApiToProduct } from "@/entities/Product/lib/product.lib";
 import { CurrencyAPI } from "@/entities/Metrics/api/currency.metrics.api";
 import { MetricsAPI } from "@/entities/Metrics/api/metrics.metrics.api";
 import { IRow, IUnionColumn } from "@/shared/ui/Table/model/table.model";
 import { Table } from "@/shared/ui/Table/ui/Table";
 import { HandleSize } from "@/shared/ui/Handle/Size/HandleSize";
-import TableCell from "@/shared/ui/Table/componets/Cell";
+import TableCell from "@/shared/ui/Table/components/Cell";
+import { LKProductTableCellMax } from "../components/Cell/Product/Max/LKProductTableCellMax";
+import { CategoryAPI } from "@/entities/Metrics/api/category.metrics.api";
+import { ICategory } from "@/entities/Metrics/model/category.metrics.model";
 
 interface LKProductTableProps{
     className?: string,
@@ -20,6 +23,7 @@ interface LKProductTableProps{
 
 export const LKProductTable:FC<LKProductTableProps> = ({...rest}) => {
     // STATE
+    const [categoryList, setCategoryList] = useState<ICategory[]>([])
     const [products, setProducts] = useState<IProduct[]>([]);
     const [rowsTable, setRowsTable] = useState<IRow[]>([])
     const [unionsColumn, setUnionsColumn] = useState<IUnionColumn[]>([])
@@ -30,11 +34,42 @@ export const LKProductTable:FC<LKProductTableProps> = ({...rest}) => {
         { limit: 16, page: 0 },
         { refetchOnMountOrArgChange: true }
     );
+    const [getCategory] = CategoryAPI.useGetCategoryMutation();
 
-    // EFFECT
+
+    // ======={ EFFECT }=======
+    
+    // SET CATEGORIES
     useEffect(() => {
-        if (productsAPI) setProducts(productApiListToProductList(productsAPI));
-    }, [productsAPI]);
+        if (!productsAPI) return;
+
+        const fetchCategories = async () => {
+            try {
+                const categories = await Promise.all(
+                    productsAPI.map(async (it) => {
+                        const categoryResponse = await getCategory(it.categoryId).unwrap();
+                        return categoryResponse[0]; // Assuming the response is an array and we need the first element
+                    })
+                );
+                setCategoryList(categories);
+            } catch (error) {
+                console.error("Failed to fetch categories", error);
+            }
+        };
+
+        fetchCategories();
+    }, [productsAPI, getCategory]);
+
+    // SET PRODUCTS
+    useEffect(() => {
+        if (productsAPI && categoryList) {
+            setProducts(() => {
+                return productsAPI.map((it, index) => (
+                    { ...productApiToProduct({ productAPI: it }), category: categoryList[index] }
+                ))
+            })
+        }
+    }, [productsAPI, categoryList])
 
     // SET ROWS TABLE
     useEffect(() => {
@@ -43,8 +78,8 @@ export const LKProductTable:FC<LKProductTableProps> = ({...rest}) => {
         setRowsTable(() => (
             products.map(it => {
                 return [
-                    { cell: <TableCell.Option text={''} /> },
-                    { cell: <TableCell.Option text={it.name ? it.name : ''} /> },
+                    { cell: <TableCell.Text text={''} />, className: cl.cell },
+                    { cell: <LKProductTableCellMax product={it} /> },
                     { cell: <TableCell.Text text={it.media.color} />, className: cl.cell },
                     { cell: <TableCell.Text text={it.media.article} />, className: cl.cell },
                     { cell: <TableCell.Text text={''} />, className: cl.cell },
