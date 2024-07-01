@@ -16,6 +16,8 @@ import TableCell from "@/shared/ui/Table/components/Cell";
 import { LKProductTableCellMax } from "../components/Cell/Product/Max/LKProductTableCellMax";
 import { CategoryAPI } from "@/entities/Metrics/api/category.metrics.api";
 import { ICategory } from "@/entities/Metrics/model/category.metrics.model";
+import { THeadTop } from "@/shared/ui/Table/components/Head/components/HeadTop/THeadTop";
+import { LKProductTableCellCheckbox } from "../components/Cell/Checkbox/LKProductTableCellCheckbox";
 
 interface LKProductTableProps{
     className?: string,
@@ -27,14 +29,15 @@ export const LKProductTable:FC<LKProductTableProps> = ({...rest}) => {
     const [products, setProducts] = useState<IProduct[]>([]);
     const [rowsTable, setRowsTable] = useState<IRow[]>([])
     const [unionsColumn, setUnionsColumn] = useState<IUnionColumn[]>([])
+    const [selectedProducts, setSelectedProducts] = useState<IProduct[]>([]);
     const [is1024, setIs1024] = useState<boolean>(false);
 
     // API
+    const [getCategory] = CategoryAPI.useGetCategoryMutation();
     const { data: productsAPI, isLoading: isProductLoading } = ProductAPI.useGetProductsQuery(
         { limit: 16, page: 0 },
         { refetchOnMountOrArgChange: true }
     );
-    const [getCategory] = CategoryAPI.useGetCategoryMutation();
 
 
     // ======={ EFFECT }=======
@@ -78,7 +81,7 @@ export const LKProductTable:FC<LKProductTableProps> = ({...rest}) => {
         setRowsTable(() => (
             products.map(it => {
                 return [
-                    { cell: <TableCell.Text text={''} />, className: cl.cell },
+                    { cell: <LKProductTableCellCheckbox product={it} onClick={onClickCheckbox} />, className: cl.cell },
                     { cell: <LKProductTableCellMax product={it} /> },
                     { cell: <TableCell.Text text={it.media.color} />, className: cl.cell },
                     { cell: <TableCell.Text text={it.media.article} />, className: cl.cell },
@@ -101,12 +104,35 @@ export const LKProductTable:FC<LKProductTableProps> = ({...rest}) => {
         }
     }, []);
 
-    console.log('product 123', products)
+    // HANDLES
+    const onClickCheckbox = (product: IProduct, isChecked: boolean) => {
+        setSelectedProducts(prevSelectedProducts => {
+            const prevSelectedProductIds = prevSelectedProducts.map(it => it.id)
+            if (isChecked)
+                return prevSelectedProductIds.includes(product.id) ? prevSelectedProducts : [...prevSelectedProducts, product]
+            return prevSelectedProducts.filter(it => it.id !== product.id)
+        })
+    }
+
+    const onClickCancel = () => {
+        setSelectedProducts([])
+    }
+
+    const onClickDelete = () => {
+        // setSelectedProducts([])
+    }
 
     return (
         <>
             {rowsTable.length > 0 &&
-                <Table head={['', 'Категория, Наименование', 'Тип', 'Артикул', '']} data={rowsTable} unions={unionsColumn} {...rest} />
+                <Table head={['', 'Категория, Наименование', 'Тип', 'Артикул', '']} 
+                        data={rowsTable} 
+                        unions={unionsColumn} 
+                        isVisibleHeadTop={selectedProducts.length > 0}
+                        headTop={
+                            <THeadTop amount={selectedProducts.length} onClickCancel={onClickCancel} onClickDelete={onClickDelete} />
+                        }
+                        {...rest} />
             }
             <HandleSize width={1024} set={setIs1024} />
         </>

@@ -6,7 +6,7 @@ import cl from './_Table.module.scss'
 import { cls } from '@/shared/lib/classes.lib';
 import { ITable } from "../model/table.model";
 import { TBody } from "../components/Body/TBody";
-import { THead } from "../components/head/THead";
+import { THead } from "../components/Head/ui/THead";
 import { TableVariant } from "../data/table.data";
 import { isEqual } from "lodash";
 import { unionDataTable, unionHeadTable } from "../lib/table.lib";
@@ -16,7 +16,7 @@ interface TableProps extends ITable {
     className?: string,
 }
 
-export const Table: FC<TableProps> = ({ head, data, unions, wrapperForUnions = WrapperForUnions, variant = TableVariant.WHITE, className }) => {
+export const Table: FC<TableProps> = ({ head, data, unions, wrapperForUnions = WrapperForUnions, variant = TableVariant.WHITE, headTop, isVisibleHeadTop, className }) => {
     // STATE
     const [currentHead, setCurrentHead] = useState<ITable['head']>([])
     const [currentData, setCurrentData] = useState<ITable['data']>([])
@@ -38,7 +38,7 @@ export const Table: FC<TableProps> = ({ head, data, unions, wrapperForUnions = W
 
     return (
         <table className={cls(cl.table, cl[variant], className)}>
-            <THead head={currentHead} variant={variant} />
+            <THead head={currentHead} variant={variant} headTop={headTop} isVisibleHeadTop={isVisibleHeadTop}/>
             <TBody data={currentData} variant={variant} />
         </table>
     )

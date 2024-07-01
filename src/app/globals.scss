@@ -79,6 +79,7 @@
   --n-yellow-1: #FDFAED;
   --n-yellow-2: #E8C331;
   --n-yellow-3: #9F8212;
+  --n-yellow-4: #E1DDBA;
 
   --n-green-1: #276E21;
   --n-green-2: #35952D;
@@ -147,10 +148,11 @@
   --negative-hovered: var(--n-red-5);
   --negative-pressed: var(--n-red-6);
 
-
   --rating-surface: var(--n-yellow-1);
   --rating-low: var(--n-yellow-2);
   --rating: var(--n-yellow-3);
+
+  --dialog-surface: var(--n-yellow-4);
 
   // ===={ FONT }====
 

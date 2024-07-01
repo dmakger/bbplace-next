@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react'
 import { IWrapperRectangleInputChildren } from '@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model'
 import { IInput } from '../../../model/input.model'
 
-interface IInputCheckbox extends IWrapperRectangleInputChildren, IInput {
+export interface IInputCheckbox extends IWrapperRectangleInputChildren, IInput {
   onClick?: (value: boolean) => void
 }
 
@@ -26,21 +26,22 @@ export const InputCheckbox = ({
   // STATE
   const [isChecked, setIsChecked] = useState<boolean>(checked || false)
 
+  // FUNCTION
+  const handleCheckboxChange = () => {
+    setIsChecked(prevIsChecked => {
+      const newValue = !prevIsChecked
+      if (onClick)
+        onClick(newValue)
+      return newValue
+    })
+  }
+
   // EFFECT
   useEffect(() => {
     if (checked !== undefined) {
       setIsChecked(checked)
     }
   }, [checked])
-
-  // FUNCTION
-  const handleCheckboxChange = () => {
-    const newValue = !isChecked
-    setIsChecked(newValue)
-    if (onClick) {
-      onClick(newValue)
-    }
-  }
 
   return (
     <div className={cls(cl.InputCheckbox, className)}>

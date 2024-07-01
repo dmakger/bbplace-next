@@ -19,9 +19,18 @@
         .category {
             padding: 0 10px; 
             line-height: 1.2em;
-            max-height: 1.2em;
+            max-height: 1.8em;
             overflow: hidden;
+        }
+        .option {
+            margin-top: auto;
+        }
 
+        .optionText {
+            line-height: 1.2em;
+            max-height: 2.4em;
+            overflow: hidden;
+            max-width: 410px;
         }
     }
 }

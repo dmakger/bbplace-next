@@ -27,7 +27,7 @@ export const LKProductTableCellMax:FC<LKProductTableCellMaxProps> = ({product, c
                 {product.category && 
                     <TableCell.Text text={product.category.name} className={cl.category} />
                 }
-                <OptionT text={product.name} />
+                <OptionT text={product.name} className={cl.option} classNameText={cl.optionText} />
             </div>
         </div>
     )
