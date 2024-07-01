@@ -8,9 +8,11 @@ interface IProductLKList{
     className?: string,
     variant?: EProductLKVariants
     products: IProduct[],
+    choosenProduct?: IProduct,
     setGroupProducts?: Function,
     setChoosenProduct?: Function,
     setIsOpenSettings?: Function,
+    isOpenGroup?: boolean,
     setIsOpenGroup?: Function,
     checkedProductsId?: number[],
     setCheckedProducts?: Function
@@ -21,8 +23,10 @@ export const ProductLKList = ({
     variant = EProductLKVariants.DEFAULT,
     products,
     setGroupProducts,
+    choosenProduct,
     setChoosenProduct,
     setIsOpenSettings,
+    isOpenGroup,
     setIsOpenGroup,
     checkedProductsId,
     setCheckedProducts
@@ -34,8 +38,10 @@ export const ProductLKList = ({
                   key={it.id}
                   variant={variant}
                   setGroupProducts={setGroupProducts}
+                  isOpenGroup={isOpenGroup}
                   setIsOpenGroup={setIsOpenGroup}
                   setIsOpenSettings={setIsOpenSettings}
+                  choosenProduct={choosenProduct}
                   setChoosenProduct={setChoosenProduct}
                   checkedProductsId={checkedProductsId}
                   setCheckedProducts={setCheckedProducts} />

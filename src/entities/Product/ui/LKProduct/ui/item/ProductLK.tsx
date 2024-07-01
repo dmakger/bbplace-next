@@ -19,13 +19,17 @@ import { productApiListToProductList } from '@/entities/Product/lib/product.lib'
 import { useEffect, useState } from 'react'
 import { CurrencyAPI } from '@/entities/Metrics/api/currency.metrics.api'
 import { MetricsAPI } from '@/entities/Metrics/api/metrics.metrics.api'
+import { ButtonArrowWOLine } from '@/shared/ui/Button/data/Arrow/WOLine/ButtonArrowWOLine'
+import { Axis } from '@/shared/model/button.model'
 
 interface IProductLK extends IProductProps {
   className?: string,
   variant?: EProductLKVariants,
+  choosenProduct?: IProduct,
   setChoosenProduct?: Function,
   setGroupProducts?: Function
   setIsOpenSettings?: Function,
+  isOpenGroup?: boolean,
   setIsOpenGroup?: Function,
   checkedProductsId?: number[],
   setCheckedProducts?: Function
@@ -35,9 +39,11 @@ export const ProductLK = ({
   className,
   variant = EProductLKVariants.DEFAULT,
   product,
+  choosenProduct,
   setChoosenProduct,
   setGroupProducts,
   setIsOpenSettings,
+  isOpenGroup,
   setIsOpenGroup,
   checkedProductsId,
   setCheckedProducts
@@ -56,19 +62,19 @@ export const ProductLK = ({
   //EFFECT
 
   useEffect(() => {
-    if(checkedProductsId) setIsChecked(checkedProductsId.includes(product.id));
+    if (checkedProductsId) setIsChecked(checkedProductsId.includes(product.id));
   }, [checkedProductsId]);
 
   useEffect(() => {
-    if (setGroupProducts && productAPIListGroup && currencyList && metrics){
+    if (setGroupProducts && productAPIListGroup && currencyList && metrics) {
       setGroupProducts(productApiListToProductList(productAPIListGroup, metrics, currencyList).filter(it => it.id !== product.id))
     }
     productAPIListGroup && setGroupProductsLength(productAPIListGroup.filter(it => it.id !== product.id).length)
   }, [productAPIListGroup, currencyList, metrics])
 
   useEffect(() => {
-    if(checkedProductsId && setCheckedProducts && isChecked && !checkedProductsId.includes(product.id)) setCheckedProducts([...checkedProductsId, product.id])
-    else if(!isChecked && setCheckedProducts) setCheckedProducts(checkedProductsId?.filter(it => it !== product.id))
+    if (checkedProductsId && setCheckedProducts && isChecked && !checkedProductsId.includes(product.id)) setCheckedProducts([...checkedProductsId, product.id])
+    else if (!isChecked && setCheckedProducts) setCheckedProducts(checkedProductsId?.filter(it => it !== product.id))
   }, [isChecked])
 
   //FUNCTION
@@ -96,10 +102,10 @@ export const ProductLK = ({
       <div className={cl.imageContainer}>
         <ImageAPI src={product.media.attachments[0]} />
         <InputCheckbox className={cl.checkbox}
-          setIsChecked={setIsChecked} 
+          setIsChecked={setIsChecked}
           isChecked={isChecked}
 
-           />
+        />
         <div className={cl.settings}>
           {variant === EProductLKVariants.DEFAULT
             ? <Button variant={ButtonVariant.DEFAULT}
@@ -134,12 +140,9 @@ export const ProductLK = ({
             <p className={cl.groupLength}>
               +{groupProductsLength}
             </p>
-            <Button variant={ButtonVariant.DEFAULT}
-              beforeImage={ARROW_SECONDARY_WO_ICON}
-              beforeProps={{ width: 14, height: 9, classNameImage: cl.arrowImage }}
-              className={cl.iconWrapper}
-              onClick={() => showGroupModal(product)}
-            />
+            <ButtonArrowWOLine
+              axis={choosenProduct && choosenProduct.id === product.id && isOpenGroup ? Axis.Top : Axis.Default}
+              onClick={() => showGroupModal(product)} />
           </div>}
         </div>
       </div>

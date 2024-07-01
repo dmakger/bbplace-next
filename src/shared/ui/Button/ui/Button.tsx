@@ -68,12 +68,9 @@ export const Button = ({
     
     const handleOnMouseDown = () => {
         setIsPressed(true)
-        setIsHovered(false)
-    }
-    const handleOnMouseUp = () => {
-        setIsPressed(false)
         setIsHovered(true)
     }
+    const handleOnMouseUp = () => {}
     
 
     const html =  (

@@ -90,7 +90,9 @@ export default function LKProductPage() {
                 {activeProducts.length > 0 && (
                     <ProductLKList products={activeProducts}
                         setIsOpenSettings={setIsOpenSettings}
+                        isOpenGroup={isOpenGroup}
                         setIsOpenGroup={setIsOpenGroup}
+                        choosenProduct={choosenProduct}
                         setChoosenProduct={setChoosenProduct}
                         setGroupProducts={setGroupProducts}
                         checkedProductsId={checkedProductsId}
@@ -129,6 +131,7 @@ export default function LKProductPage() {
                                     variant={EProductLKVariants.GROUP_ITEM}
                                     checkedProductsId={checkedProductsId}
                                     setCheckedProducts={setCheckedProductsId}
+                                    
                                 />
                             )
                         )}
