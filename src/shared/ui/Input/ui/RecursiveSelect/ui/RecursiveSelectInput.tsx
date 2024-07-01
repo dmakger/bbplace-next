@@ -9,16 +9,18 @@ import { useState } from "react"
 import { OptionsAttachmentItem } from "@/shared/ui/Form/OptionsAttachmentItem"
 import { EOptionsAttachmentSize } from "@/shared/ui/Form/OptionsAttachmentItem/model/optionsAttachment.model"
 import { IWrapperRectangleInputChildren } from "@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model"
-import { IResursiveSelectInputs } from "../model/recursiveSelect.model"
+import { IResursiveSelectInputsArray } from "../model/recursiveSelect.model"
 
 interface IRecursiveSelectInput extends IWrapperRectangleInputChildren {
     className?: string,
     variant?: EInputVariants,
     arrowSizes?: IImageSizes,
     inputLevels: number,
-    inputsProps: IResursiveSelectInputs[],
+    inputsProps: IResursiveSelectInputsArray[],
     selectedOptionsCommonArray: IOption[],
-    setSelectedOptionsCommonArray: Function
+    setSelectedOptionsCommonArray: Function,
+    selectedOptions: IOption[],
+    setSelectedOptions: Function
 }
 
 export const RecursiveSelectInput = ({
@@ -30,6 +32,8 @@ export const RecursiveSelectInput = ({
     },
     selectedOptionsCommonArray,
     setSelectedOptionsCommonArray,
+    selectedOptions,
+    setSelectedOptions,
     inputsProps,
     setWarning,
     success,
@@ -39,7 +43,6 @@ export const RecursiveSelectInput = ({
 }: IRecursiveSelectInput) => {
 
     //STATE
-    const [selectedOptions, setSelectedOptions] = useState<IOption[]>([])
     const [deletingOption, setDeletingOption] = useState<number>()
 
     const addSelectedOption = (option: IOption, level: number) => {
@@ -61,7 +64,7 @@ export const RecursiveSelectInput = ({
     const handleDeleteItem = (option: IOption) => {
         setDeletingOption(option.id)
         setTimeout(() => {
-            setSelectedOptions(prevSelectedOptions =>
+            setSelectedOptions((prevSelectedOptions: IOption[]) =>
                 prevSelectedOptions.filter(item => item.id !== option.id)
             )
             setSelectedOptionsArray && setSelectedOptionsArray(selectedOptions.filter(item => item.id !== option.id)) //Для связи с WrapperRectangleInput

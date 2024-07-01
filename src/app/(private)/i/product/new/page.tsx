@@ -3,6 +3,7 @@ import { LK_PRODUCT_PAGE_CREATE, SWITCH_SELECTOR_PRODUCT_PAGE_MULTIPLE } from "@
 import Wrapper1280 from "@/shared/ui/Wrapper/1280/Wrapper1280";
 import { WrapperLKPT } from "@/shared/ui/Wrapper/LKPT";
 import { ProductMultipleCreationPage } from "@/widgets/Pages/LK/ProductMultipleCreationPage";
+import { ProductSingleCreationPage } from "@/widgets/Pages/LK/ProductSingleCreationPage";
 
 
 export default function ProductNewPage() {
@@ -13,7 +14,7 @@ export default function ProductNewPage() {
                 <ProductMultipleCreationPage />
         },
         single: {
-            optionTab: <>dsadasdasd</>
+            optionTab: <ProductSingleCreationPage />
         }
     }
     return (

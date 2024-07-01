@@ -18,6 +18,7 @@ interface IWrapperRectangleInput {
   labelText: string
   children: ReactNode,
   buttonText?: string,
+  onClickBellowButton?: Function,
   isRequired?: boolean
   isDescriptionTooltip?: boolean
   warningTooltipText?: string,
@@ -34,6 +35,7 @@ export const WrapperRectangleInput = ({
   labelText,
   children,
   buttonText,
+  onClickBellowButton,
   isRequired = false,
   isDescriptionTooltip = true,
   warningTooltipText,
@@ -172,7 +174,8 @@ export const WrapperRectangleInput = ({
       {buttonText && <Button variant={ButtonVariant.FILL}
         title={buttonText}
         className={cls(cl.button, !selectedOptionsArray.length ? cl.disabled : '')}
-        disabled={!selectedOptionsArray.length} />}
+        disabled={!selectedOptionsArray.length}
+        onClick={onClickBellowButton} />}
     </div>
   )
 }

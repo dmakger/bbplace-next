@@ -90,6 +90,24 @@ export const ProductAPI = createApi({
                 method: 'GET',
             })
         }),
+
+        //EXCEL
+        getImportExcelTemplate: build.mutation<void, number[]>({
+            query: (selectedCategoriesId: number[]) => ({
+                url: `/GetImportExcelTemplate`,
+                method: 'POST',
+                headers: getHeaderAuthorization(),
+                body: JSON.stringify(selectedCategoriesId)
+            })
+        }),
+        importProductsFromExcel: build.query<File, void>({
+            query: (formData) => ({
+                url: `/ImportItemsFromExcel`,
+                method: 'POST',
+                headers: getHeaderAuthorization(),
+                body: formData
+            })
+        }) 
     })
 
 })

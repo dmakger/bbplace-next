@@ -1,5 +1,5 @@
 import { IOption } from "@/shared/model/option.model";
-import { IResursiveSelectInputs } from "../model/recursiveSelect.model";
+import { IResursiveSelectInputsArray } from "../model/recursiveSelect.model";
 
 export const createInputArray = (
     inputLevels: number, 
@@ -7,8 +7,8 @@ export const createInputArray = (
     selectedOptionsCommonArray: IOption[],
     classNames: string[],
     placeholders: string[]
-): IResursiveSelectInputs[] => {
-    const inputsArray: IResursiveSelectInputs[] = [];
+): IResursiveSelectInputsArray[] => {
+    const inputsArray: IResursiveSelectInputsArray[] = [];
     
     for (let i = 0; i < inputLevels; i++) {
         inputsArray.push({

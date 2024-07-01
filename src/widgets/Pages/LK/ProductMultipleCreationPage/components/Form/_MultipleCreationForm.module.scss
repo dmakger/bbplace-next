@@ -16,17 +16,3 @@
     }
 }
 
-//RECURSIVE_SELECT
-.firstSelect {
-    border-radius: 5px 5px 0 0;
-}
-
-.otherSelect,
-.lastSelect {
-    border-radius: 0;
-    border-top: none;
-}
-
-.lastSelect{
-    border-radius: 0 0 5px 5px;
-}
