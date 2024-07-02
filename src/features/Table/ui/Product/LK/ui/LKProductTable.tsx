@@ -2,22 +2,20 @@
 
 import { FC, useEffect, useState } from "react"
 
-import { cls } from '@/shared/lib/classes.lib';
 import cl from './_LKProductTable.module.scss'
 import { ProductAPI } from "@/entities/Product/api/product.api";
 import { IProduct } from "@/entities/Product/model/product.model";
-import { productApiListToProductList, productApiToProduct } from "@/entities/Product/lib/product.lib";
-import { CurrencyAPI } from "@/entities/Metrics/api/currency.metrics.api";
-import { MetricsAPI } from "@/entities/Metrics/api/metrics.metrics.api";
+import { productApiToProduct } from "@/entities/Product/lib/product.lib";
 import { IRow, IUnionColumn } from "@/shared/ui/Table/model/table.model";
 import { Table } from "@/shared/ui/Table/ui/Table";
 import { HandleSize } from "@/shared/ui/Handle/Size/HandleSize";
 import TableCell from "@/shared/ui/Table/components/Cell";
-import { LKProductTableCellMax } from "../components/Cell/Product/Max/LKProductTableCellMax";
+import { LKProductTableCellProduct } from "../components/Cell/Product/LKProductTableCellProduct";
 import { CategoryAPI } from "@/entities/Metrics/api/category.metrics.api";
 import { ICategory } from "@/entities/Metrics/model/category.metrics.model";
 import { THeadTop } from "@/shared/ui/Table/components/Head/components/HeadTop/THeadTop";
 import { LKProductTableCellCheckbox } from "../components/Cell/Checkbox/LKProductTableCellCheckbox";
+import { LKTenderTableCellEditDelete } from "../components/Cell/EditDelete/LKTenderTableCellEditDelete";
 
 interface LKProductTableProps{
     className?: string,
@@ -30,10 +28,11 @@ export const LKProductTable:FC<LKProductTableProps> = ({...rest}) => {
     const [rowsTable, setRowsTable] = useState<IRow[]>([])
     const [unionsColumn, setUnionsColumn] = useState<IUnionColumn[]>([])
     const [selectedProducts, setSelectedProducts] = useState<IProduct[]>([]);
-    const [is1024, setIs1024] = useState<boolean>(false);
+    const [is768, setIs768] = useState<boolean>(false);
 
     // API
     const [getCategory] = CategoryAPI.useGetCategoryMutation();
+    const [deleteProduct] = ProductAPI.useDeleteProductMutation();
     const { data: productsAPI, isLoading: isProductLoading } = ProductAPI.useGetProductsQuery(
         { limit: 16, page: 0 },
         { refetchOnMountOrArgChange: true }
@@ -81,30 +80,41 @@ export const LKProductTable:FC<LKProductTableProps> = ({...rest}) => {
         setRowsTable(() => (
             products.map(it => {
                 return [
-                    { cell: <LKProductTableCellCheckbox product={it} onClick={onClickCheckbox} />, className: cl.cell },
-                    { cell: <LKProductTableCellMax product={it} /> },
-                    { cell: <TableCell.Text text={it.media.color} />, className: cl.cell },
-                    { cell: <TableCell.Text text={it.media.article} />, className: cl.cell },
-                    { cell: <TableCell.Text text={''} />, className: cl.cell },
-                    // { cell: <LKTenderTableCellTrash onClick={() => onClickDelete(it.id, it.type)} />, className: cl.cell },
+                    { cell: <LKProductTableCellCheckbox product={it} checked={selectedProducts.some(sp => sp.id === it.id)} onClick={onClickCheckbox} />, className: cl.p15 },
+                    { cell: <LKProductTableCellProduct product={it} /> },
+                    { cell: <TableCell.Text text={it.media.color} />, className: cl.p20 },
+                    { cell: <TableCell.Text text={it.media.article} />, className: cl.p20 },
+                    { cell: <LKTenderTableCellEditDelete onClickDelete={() => onClickDelete([it])} onClickEdit={() => onClickEdit(it)} />, className: cl.p20 },
                 ] as IRow
             })
         ))
 
-    }, [products])
+    }, [selectedProducts, products])
+
+    // useEffect(() => {
+    //     const selectedProductsIds = new Set(selectedProducts.map(it => it.id))
+    //     setRowsTable(prevRowsTable => {
+    //         return prevRowsTable.map(it => {
+    //             it.cell
+    //         })
+    //     })
+    // }, [selectedProducts, rowsTable])
 
     // SET UNIONS
     useEffect(() => {
-        setUnionsColumn(() => is1024 ? [{ start: 1, end: 3 }] : [])
-    }, [is1024])
+        // setUnionsColumn(() => is1024 ? [{ start: 1, end: 3 }] : [])
+        setUnionsColumn(() => is768 ? [{ start: 2, end: 4 }] : [])
+    }, [is768])
 
     useEffect(() => {
         if (typeof window !== "undefined") {
-            setIs1024(window.innerWidth <= 1024);
+            setIs768(window.innerWidth <= 768);
         }
     }, []);
 
-    // HANDLES
+
+    // ======={ HANDLES }=======
+    // CHECKBOX ON CLICK
     const onClickCheckbox = (product: IProduct, isChecked: boolean) => {
         setSelectedProducts(prevSelectedProducts => {
             const prevSelectedProductIds = prevSelectedProducts.map(it => it.id)
@@ -114,13 +124,33 @@ export const LKProductTable:FC<LKProductTableProps> = ({...rest}) => {
         })
     }
 
+    // CANCEL ON CLICK
     const onClickCancel = () => {
         setSelectedProducts([])
     }
 
-    const onClickDelete = () => {
-        // setSelectedProducts([])
+    // DELETE ON CLICK
+    const onClickDelete = (_productList?: IProduct[]) => {
+        const _products = _productList === undefined ? [...selectedProducts] : _productList
+                
+        const productsIds = new Set(_products.map(it => it.id))
+        setProducts(prevProducts => {
+            return prevProducts.filter(it => !productsIds.has(it.id))
+        })
+        setSelectedProducts(prevSelectedProducts => {
+            return prevSelectedProducts.filter(it => !productsIds.has(it.id))
+        })
+
+        const errorsProduct: IProduct[] = []
+        _products.map(async it => {
+            // await deleteProduct(it.id).unwrap().catch(() => {
+            //     errorsProduct.push(it)
+            // })
+        })
     }
+
+    // EDIT ON CLICK
+    const onClickEdit = (_product: IProduct) => { }
 
     return (
         <>
@@ -130,11 +160,12 @@ export const LKProductTable:FC<LKProductTableProps> = ({...rest}) => {
                         unions={unionsColumn} 
                         isVisibleHeadTop={selectedProducts.length > 0}
                         headTop={
-                            <THeadTop amount={selectedProducts.length} onClickCancel={onClickCancel} onClickDelete={onClickDelete} />
+                            <THeadTop amount={selectedProducts.length} 
+                                      onClickCancel={onClickCancel} onClickDelete={() => onClickDelete()} />
                         }
                         {...rest} />
             }
-            <HandleSize width={1024} set={setIs1024} />
+            <HandleSize width={768} set={setIs768} />
         </>
     )
 }

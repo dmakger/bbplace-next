@@ -9,10 +9,11 @@ import { IInput } from "@/shared/ui/Input/model/input.model";
 
 interface LKProductTableCellCheckboxProps extends IInput{
     product: IProduct,
+    checked?: boolean
     onClick?: Function
 }
 
-export const LKProductTableCellCheckbox:FC<LKProductTableCellCheckboxProps> = ({product, onClick, ...rest}) => {
+export const LKProductTableCellCheckbox:FC<LKProductTableCellCheckboxProps> = ({product, checked, onClick, ...rest}) => {
     
     // HANDLE
     const onClickCheckbox: IInputCheckbox['onClick'] = (value) => {
@@ -21,6 +22,6 @@ export const LKProductTableCellCheckbox:FC<LKProductTableCellCheckboxProps> = ({
     }
     
     return (
-        <TableCell.Checkbox onClick={onClickCheckbox} {...rest}/>
+        <TableCell.Checkbox onClick={onClickCheckbox} checked={checked} {...rest}/>
     )
 }
