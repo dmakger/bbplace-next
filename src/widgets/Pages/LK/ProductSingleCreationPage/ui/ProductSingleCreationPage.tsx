@@ -10,12 +10,11 @@ export const ProductSingleCreationPage = ({ className }: IProductSingleCreationP
 
     return (
         <div className={cls(cl.ProductSingleCreationPage, className)}>
-            <CategoryRecursiveSelect 
+            <CategoryRecursiveSelect
                 labelText="Категория"
                 isRequired
                 isDescriptionTooltip
-                descriptionTooltipText=' '
-                warningTooltipText=" " />
+                descriptionTooltipText=' ' />
         </div>
     )
 }

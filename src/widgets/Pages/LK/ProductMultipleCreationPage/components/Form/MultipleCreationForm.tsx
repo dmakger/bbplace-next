@@ -8,10 +8,10 @@ import { ButtonSize } from "@/shared/ui/Button/model/button.model"
 import { CategoryRecursiveSelect } from "@/features/CategoryRecursiveSelect"
 import { ProductAPI } from "@/entities/Product/api/product.api"
 import { useState } from "react"
+import { ERecursiveSelectVariant } from "@/shared/ui/Input/ui/RecursiveSelect/model/recursiveSelect.model"
 
 interface IMultipleCreationForm {
     className?: string,
-
 }
 
 export const MultipleCreationForm = ({
@@ -19,7 +19,7 @@ export const MultipleCreationForm = ({
 }: IMultipleCreationForm) => {
 
     //STATE
-    const [selectedCategoriesId, setSelectedCategoriesId] = useState<number[]>([])    
+    const [selectedCategoriesId, setSelectedCategoriesId] = useState<number[]>([])
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
 
@@ -30,6 +30,7 @@ export const MultipleCreationForm = ({
         <div className={cls(cl.MultipleCreationForm, className)}>
 
             <CategoryRecursiveSelect
+                variant={ERecursiveSelectVariant.MULTIPLE}
                 buttonWrapperText="Скачать шаблон"
                 labelText="1. Генерация шаблона"
                 classNameLabel={cl.label}

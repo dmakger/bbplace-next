@@ -3,7 +3,7 @@
 import cl from './_CategoryRecursiveSelect.module.scss'
 import { WrapperRectangleInput } from '@/shared/ui/Wrapper/RectangleInput'
 import Input from '@/shared/ui/Input/Input'
-import { IResursiveSelectInputsArray } from '@/shared/ui/Input/ui/RecursiveSelect/model/recursiveSelect.model'
+import { ERecursiveSelectVariant, IResursiveSelectInputsArray } from '@/shared/ui/Input/ui/RecursiveSelect/model/recursiveSelect.model'
 import { IOption } from '@/shared/model/option.model'
 import { useEffect, useState } from 'react'
 import { CategoryAPI } from '@/entities/Metrics/api/category.metrics.api'
@@ -12,6 +12,7 @@ import { createInputArray } from '@/shared/ui/Input/ui/RecursiveSelect'
 
 interface ICategoryRecursiveSelect {
     className?: string,
+    variant?: ERecursiveSelectVariant
     labelText?: string,
     classNameLabel?: string,
     setSelectedCategoriesId?: Function,
@@ -35,6 +36,7 @@ interface ICategoryRecursiveSelect {
 export const CategoryRecursiveSelect = ({
     className,
     labelText = '',
+    variant = ERecursiveSelectVariant.SINGLE,
     classNameLabel,
     setSelectedCategoriesId,
     onClickBellowButton,
@@ -53,7 +55,7 @@ export const CategoryRecursiveSelect = ({
     isRequired = false,
     descriptionTooltipText = '',
     classNameDescriptionWindow,
-    warningTooltipText = '',
+    warningTooltipText = 'Обязательно для заполнения',
     classNameWarningWindow
 }: ICategoryRecursiveSelect) => {
 
@@ -104,6 +106,7 @@ export const CategoryRecursiveSelect = ({
             onClickBellowButton={onClickBellowButton}
         >
             <Input.RecursiveSelect
+                variantRecursive={variant}
                 inputLevels={inputsArray.length}
                 selectedOptions={selectedOptions}
                 setSelectedOptions={setSelectedOptions}

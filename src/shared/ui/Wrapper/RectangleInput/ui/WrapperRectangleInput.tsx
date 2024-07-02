@@ -38,7 +38,7 @@ export const WrapperRectangleInput = ({
   onClickBellowButton,
   isRequired = false,
   isDescriptionTooltip = true,
-  warningTooltipText,
+  warningTooltipText = 'Обязательно для заполнения',
   descriptionTooltipText,
   errorInputSelectMessage = 'Выберите категорию из списка',
   labelPosition = ELabelPosition.TOP
@@ -131,7 +131,7 @@ export const WrapperRectangleInput = ({
               />
             </div>
           )}
-          {isRequired && warningTooltipText && (
+          {isRequired && (
             <div className={cl.tooltipWarnCont}>
               <Button
                 variant={ButtonVariant.CLEAR}

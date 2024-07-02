@@ -15,8 +15,10 @@ import { IWrapperRectangleInputChildren } from '@/shared/ui/Wrapper/RectangleInp
 import { EInputVariants, IInput } from '../../../model/input.model'
 import Input from '../../../Input'
 import SEARCH_ICON from '@/../public/searchGray.svg'
+import { ERecursiveSelectVariant } from '../../RecursiveSelect/model/recursiveSelect.model'
 
 interface ITextAndSelectInput extends IWrapperRectangleInputChildren, IInput {
+    variantRecursive?: ERecursiveSelectVariant,
     title?: string
     listOptions?: IOption[],
     defaultOption?: IOption,
@@ -29,6 +31,7 @@ interface ITextAndSelectInput extends IWrapperRectangleInputChildren, IInput {
 
 export function TextAndSelectInput({
     variant = EInputVariants.ROUNDED,
+    variantRecursive = ERecursiveSelectVariant.SINGLE,
     title,
     className,
     classNameOptions,
@@ -64,7 +67,7 @@ export function TextAndSelectInput({
     }, [listOptions, searchQuery])
 
     //REF
-    const inputSelectRef = useRef<HTMLDivElement>(null);        
+    const inputSelectRef = useRef<HTMLDivElement>(null);
 
     // EFFECT
     useEffect(() => {
@@ -75,9 +78,6 @@ export function TextAndSelectInput({
         activeOption === undefined && setIsSuccess(false)
     }, [activeOption]);
 
-    useEffect(() => {
-        setSuccess && setSuccess(isSuccess);
-    }, [isSuccess]);
 
     useEffect(() => {
         setWarning && setWarning(isWarning)
@@ -98,31 +98,27 @@ export function TextAndSelectInput({
     }
 
     // ==={ CLICK }===
-
     const resetInputValue = () => {
         setSearchQuery('')
         setIsHovered(false)
     };
 
-    const checkClickValue = () => {
-        if (activeOption && activeOption?.name !== '') {
-            setIsSuccess(true)
-        }
-    }
-
     const toggleShowOptions = () => setShowOptions((prevShowOptions) => !prevShowOptions);
 
 
     const handleOnItem = (it: IOption) => {
-        checkClickValue()
         setIsSuccess(true)
         setIsWarning(false)
 
-        if (onClickOption) onClickOption(it) 
+        if (onClickOption) onClickOption(it)
         else setActiveOption(it)
 
-        if(!it.options?.length) setIsSuccess(false)
-
+        if (!it.options?.length) {
+            setSuccess && setSuccess(true)
+            if (variantRecursive === ERecursiveSelectVariant.MULTIPLE) {
+                setIsSuccess(false)
+            }
+        }
         setShowOptions(false)
     }
 
@@ -139,9 +135,9 @@ export function TextAndSelectInput({
     }
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-            checkChangeValue(e)
-            setSearchQuery(e.target.value.toLowerCase().replaceAll('  ', ' ').trim());
-            if(e.target.value === '') setIsWarning(true)
+        checkChangeValue(e)
+        setSearchQuery(e.target.value.toLowerCase().replaceAll('  ', ' ').trim());
+        if (e.target.value === '') setIsWarning(true)
     }
 
     return (
@@ -182,8 +178,8 @@ export function TextAndSelectInput({
                             </div>)
                             :
                             <p className={cls(cl.selectedOption,
-                             !activeOption && placeholder ? cl.placeholder : '',
-                             disabled ? cl.disabledPlaceholder : '')}>
+                                !activeOption && placeholder ? cl.placeholder : '',
+                                disabled ? cl.disabledPlaceholder : '')}>
                                 {!activeOption && placeholder ? placeholder : activeOption?.name}
                             </p>}
                         <Button variant={ButtonVariant.DEFAULT} className={cls(cl.arrowContainer, showOptions ? cl.activeArrow : '', showOptions ? cl.arrowOpen : cl.arrow)} beforeImage={ARROW_WO_ICON} beforeProps={{ width: arrowSizes.width, height: arrowSizes.height }} />
