@@ -70,7 +70,7 @@ export const CategoryRecursiveSelect = ({
     //EFFECT
     useEffect(() => {
         if (categories) {
-            const options = getOptionsFromCategoriesWithSubcategories(categories)
+            const options = getOptionsFromCategoriesWithSubcategories(categories.filter(it => it.name !== 'Нет категории'))
             setUpdatedCategories(options ?? [])
         }
     }, [categories])
