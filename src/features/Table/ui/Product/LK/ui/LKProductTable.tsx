@@ -16,6 +16,7 @@ import { ICategory } from "@/entities/Metrics/model/category.metrics.model";
 import { THeadTop } from "@/shared/ui/Table/components/Head/components/HeadTop/THeadTop";
 import { LKProductTableCellCheckbox } from "../components/Cell/Checkbox/LKProductTableCellCheckbox";
 import { LKTenderTableCellEditDelete } from "../components/Cell/EditDelete/LKTenderTableCellEditDelete";
+import { useAppSelector } from "@/storage/hooks";
 
 interface LKProductTableProps{
     className?: string,
@@ -29,6 +30,10 @@ export const LKProductTable:FC<LKProductTableProps> = ({...rest}) => {
     const [unionsColumn, setUnionsColumn] = useState<IUnionColumn[]>([])
     const [selectedProducts, setSelectedProducts] = useState<IProduct[]>([]);
     const [is768, setIs768] = useState<boolean>(false);
+
+    // RTK
+    const { id: userId } = useAppSelector(state => state.user)
+    console.log('userId qwe', userId)
 
     // API
     const [getCategory] = CategoryAPI.useGetCategoryMutation();
