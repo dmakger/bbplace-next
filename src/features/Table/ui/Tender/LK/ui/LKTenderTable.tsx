@@ -12,7 +12,7 @@ import { MetricsAPI } from "@/entities/Metrics/api/metrics.metrics.api";
 import { CategoryAPI } from "@/entities/Metrics/api/category.metrics.api";
 import { ICategory } from "@/entities/Metrics/model/category.metrics.model";
 import { IRow, IUnionColumn } from "@/shared/ui/Table/model/table.model";
-import TableCell from "@/shared/ui/Table/componets/Cell";
+import TableCell from "@/shared/ui/Table/components/Cell";
 import { LKTenderTableCellTrash } from "../components/Cell/Trash/LKTenderTableCellTrash";
 import { useAppSelector } from "@/storage/hooks";
 import { HandleSize } from "@/shared/ui/Handle/Size/HandleSize";

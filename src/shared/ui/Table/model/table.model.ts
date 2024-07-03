@@ -29,4 +29,7 @@ export interface ITable {
         children?: ReactNode
     }>
     variant?: TableVariant
+
+    headTop?: ReactNode
+    isVisibleHeadTop?: boolean
 }

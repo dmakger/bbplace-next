@@ -1,0 +1,24 @@
+.head {
+    position: relative;
+
+}
+
+.headTop {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 20px;
+    background-color: #fff;
+    transition: .2s;
+}
+
+.visible {
+    z-index: 10;
+    opacity: 1;
+}
