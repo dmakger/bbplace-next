@@ -11,15 +11,17 @@ import { Button, ButtonVariant } from '@/shared/ui/Button'
 import { InputCheckbox } from '@/shared/ui/Input/ui/Checkbox'
 import { ProductAPI } from '@/entities/Product/api/product.api'
 import { skipToken } from '@reduxjs/toolkit/query'
-import { BottomProductSettingsModal } from '@/features/Modal/BottomProductSettings'
 import { EProductLKVariants } from '../../model/productLK.model'
 import { MAIN_PAGES } from '@/config/pages-url.config'
+import { BottomInfoModal } from '@/features/Modal/BottomInfo'
+import { EBottomInfoVariant } from '@/features/Modal/BottomInfo/model/bottomInfoModal.model'
 
 interface IProductLK extends IProductProps {
   className?: string,
   variant?: EProductLKVariants
   setIsOpenSettings?: Function,
-  setIsOpenGroup?: Function
+  setIsOpenGroup?: Function,
+  setGroupProducts?: Function
 }
 
 export const ProductLK = ({
@@ -62,8 +64,10 @@ export const ProductLK = ({
               beforeImage={GEAR_ICON}
               onClick={showSettingsModal}
             /> :
-            <BottomProductSettingsModal
-              className={cl.groupSettings}
+            <BottomInfoModal
+              variant={EBottomInfoVariant.SETTINGS}
+              className={cl.noPadding}
+              classNameButtonContainer={cl.groupSettings}
               product={product}
               setIsOpen={setIsOpenGroup ? setIsOpenGroup : () => { }}
               isTitle={false}

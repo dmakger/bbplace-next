@@ -1,0 +1,30 @@
+.BottomInfo {
+    display: flex;
+
+    .buttonsContainer {
+        display: flex;
+        gap: 20px;
+        
+        & button{
+            width: 182px;
+        }
+    
+        .groupProductButton{
+            border-radius: 50%;
+        }
+    
+        @media(max-width: 425px) {
+            flex-direction: column;
+            gap: 10px;
+            width: 320px;
+            height: 100%;
+    
+            & button{
+                width: 100%;
+                padding: 10px; 
+            }
+        }
+    }
+
+
+}

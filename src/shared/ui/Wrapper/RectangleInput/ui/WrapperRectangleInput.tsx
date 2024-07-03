@@ -8,6 +8,10 @@ import { Button, ButtonVariant } from '@/shared/ui/Button';
 import { ELabelPosition, IWrapperRectangleInputChildren } from '../model/wrapperRectangleInput.model';
 import { HoverWindow } from '@/shared/ui/HoverWindow';
 import { EHoverBorderColor, EHoverWindowPosition } from '@/shared/ui/HoverWindow/model/hoverWindow.model';
+import { WrapperModalBottom } from '../../ModalBottom';
+import { Modal } from '@/shared/ui/Modal/Modal';
+import { BottomInfoModal } from '@/features/Modal/BottomInfo';
+import { EModalView } from '@/shared/data/modal.data';
 
 interface IWrapperRectangleInput {
   className?: string
@@ -33,7 +37,7 @@ export const WrapperRectangleInput = ({
   children,
   isRequired = false,
   isDescriptionTooltip = true,
-  warningTooltipText,
+  warningTooltipText = 'Обязательно для заполнения',
   descriptionTooltipText,
   errorInputSelectMessage = 'Выберите категорию из списка',
   labelPosition = ELabelPosition.TOP
@@ -79,6 +83,12 @@ export const WrapperRectangleInput = ({
     return child;
   });
 
+  //FUNCTION
+  const closeTheModal = () => {
+    isDescriptionActive && setIsDescriptionActive(false)
+    isWarningActive && setIsWarningActive(false)
+  }
+
   // VARIABLE
   const errorInputTextMessageArray: string[] = [
     'Пожалуйста, заполните это поле!',
@@ -111,7 +121,7 @@ export const WrapperRectangleInput = ({
                 position={EHoverWindowPosition.RIGHT}
                 borderColor={EHoverBorderColor.DEFAULT}
                 show={isDescriptionActive}
-                className={cls(cl.descWindowActive, classNameDescriptionWindow)}
+                className={cls(cl.descWindowActive, cl.windowActive, classNameDescriptionWindow)}
               />
             </div>
           )}
@@ -136,7 +146,7 @@ export const WrapperRectangleInput = ({
                 position={EHoverWindowPosition.RIGHT}
                 borderColor={!success ? EHoverBorderColor.WARNING : EHoverBorderColor.DEFAULT}
                 show={isWarningActive}
-                className={cls(cl.warnWindowActive, classNameWarningWindow)}
+                className={cls(cl.warnWindowActive, cl.windowActive,classNameWarningWindow)}
               />
             </div>
           )}
@@ -154,6 +164,20 @@ export const WrapperRectangleInput = ({
           ))}
         </div>
       )}
+      <div className={cl.mobileModal}>
+        <Modal
+        view={EModalView.BOTTOM} 
+        buttonNode
+        _isOpen={isDescriptionActive || isWarningActive}
+        onClickOverlay={closeTheModal}
+        >
+          <WrapperModalBottom title={labelText}
+          bottomChildren={<BottomInfoModal
+          text={isDescriptionActive && descriptionTooltipText ? descriptionTooltipText : isWarningActive ? warningTooltipText : ''}/>}
+          setIsOpen={closeTheModal} />
+        </Modal>
+        
+      </div>
     </div>
   )
 }

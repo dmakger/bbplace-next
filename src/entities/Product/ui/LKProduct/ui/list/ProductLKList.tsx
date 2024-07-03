@@ -7,18 +7,20 @@ import { EProductLKVariants } from '../../model/productLK.model'
 interface IProductLKList{
     className?: string,
     products: IProduct[],
-    variant: EProductLKVariants
+    variant: EProductLKVariants,
+    setGroupProducts?: Function
 }
 
 export const ProductLKList = ({
     className,
     products,
-    variant = EProductLKVariants.DEFAULT
+    variant = EProductLKVariants.DEFAULT,
+    setGroupProducts
 }:IProductLKList) => {
   return (
     <div className={cls(cl.LKProductList, className)}>
         {products.map(it => (
-            <ProductLK product={it} variant={variant}/>
+            <ProductLK product={it} variant={variant} setGroupProducts={setGroupProducts}/>
         ))}
     </div>
   )

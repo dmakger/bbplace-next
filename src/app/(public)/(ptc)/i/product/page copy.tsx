@@ -15,12 +15,13 @@ import { Modal } from '@/shared/ui/Modal/Modal'
 import { EProductLKVariants } from '@/entities/Product/ui/LKProduct/model/productLK.model'
 import { EModalView } from '@/shared/data/modal.data'
 import { WrapperModalBottom } from '@/shared/ui/Wrapper/ModalBottom'
-import { BottomProductSettingsModal } from '@/features/Modal/BottomProductSettings'
 import { IProduct } from '@/entities/Product/model/product.model'
 import { productApiListToProductList } from '@/entities/Product/lib/product.lib'
 import { CurrencyAPI } from '@/entities/Metrics/api/currency.metrics.api'
 import { MetricsAPI } from '@/entities/Metrics/api/metrics.metrics.api'
 import { UserAPI } from '@/entities/Auth/api/auth.api'
+import { BottomInfoModal } from "@/features/Modal/BottomInfo"
+import { EBottomInfoVariant } from "@/features/Modal/BottomInfo/model/bottomInfoModal.model"
 
 
 export default function LKProductPage() {
@@ -30,7 +31,8 @@ export default function LKProductPage() {
     const [isOpenGroup, setIsOpenGroup] = useState<boolean>(false);
     const [activeProducts, setActiveProducts] = useState<IProduct[]>([])
     const [draftsProducts, setDraftsProducts] = useState<IProduct[]>([])
-    const [selectedOption, setSelectedOption] = useState<IOption>(SWITCH_SELECTOR_WO_PRICE_PRODUCTS_OPTION)     
+    const [selectedOption, setSelectedOption] = useState<IOption>(SWITCH_SELECTOR_WO_PRICE_PRODUCTS_OPTION) 
+    const [groupProduct, setGroupProducts] = useState<IProduct[]>([])    
 
     //API
     const [userLogin] = UserAPI.useUserLoginMutation();
@@ -110,10 +112,12 @@ export default function LKProductPage() {
                 <WrapperModalBottom
                     setIsOpen={closeTheModal}
                     title={isOpenSettings ? "Выбор действия" : 'Варианты товара'}
-                    bottomChildren={isOpenSettings ? activeProducts && <BottomProductSettingsModal
+                    bottomChildren={isOpenSettings ? activeProducts && <BottomInfoModal
+                        variant={EBottomInfoVariant.SETTINGS}
                         product={activeProducts[0]}
                         setIsOpen={setIsOpenSettings}
                     /> : isOpenGroup && activeProducts && <ProductLKList products={[]}
+                    setGroupProducts={setGroupProducts}
                         variant={EProductLKVariants.GROUP_ITEM} />}
                 />
             </Modal>
