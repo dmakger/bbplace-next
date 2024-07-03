@@ -1,0 +1,46 @@
+.block {
+    display: flex;
+
+    @media (max-width: 1024px) {
+        flex-direction: column;
+    }
+
+    .wrapperImage {
+        padding: 10px;
+        
+        .image {
+            width: 90px;
+            height: 90px;
+            border: 1px solid var(--background-gray);
+        }
+    }
+
+    .right {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 10px 0;
+
+        .option {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+        }
+
+        .optionImage {
+            width: 40px;
+            height: 40px;
+        }
+
+        .optionText {
+            line-height: 1.2em;
+            max-height: 2.4em;
+            overflow: hidden;
+            max-width: 410px;
+        }
+    }
+
+    .category {
+        padding: 0 10px;
+    }
+}

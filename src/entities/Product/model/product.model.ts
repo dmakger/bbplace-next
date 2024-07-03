@@ -1,6 +1,7 @@
 import { IMediaProduct } from "./media.product.model"
 import { ICharacteristic } from "./characteristic.product.model"
 import { IArgsRequest } from "@/api/model/request.model.api"
+import { ICategory } from "@/entities/Metrics/model/category.metrics.model"
 
 interface IBaseProduct {
     id: number
@@ -36,6 +37,7 @@ export interface IProductAPI extends IBaseProduct {
 export interface IProduct extends IBaseProduct {
     media: IMediaProduct
     characteristics: ICharacteristic
+    category?: ICategory
 }
 
 
