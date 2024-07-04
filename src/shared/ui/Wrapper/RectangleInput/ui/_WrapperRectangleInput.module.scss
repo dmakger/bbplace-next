@@ -43,6 +43,12 @@
                 }
             }
 
+            .windowActive{
+                @media (max-width: 768px) {
+                    display: none;
+                }
+            }
+
             .tooltipWarnCont {
                 position: relative;
 
@@ -111,6 +117,13 @@
         border-radius: 0 0 5px 5px;
         border-top: 1px solid var(--background-2);
         color: var(--negative);
+    }
+
+    .mobileModal{
+        display: none;
+        @media (max-width: 768px) {
+            display: flex;
+        }
     }
 }
 //LABEL POSITION

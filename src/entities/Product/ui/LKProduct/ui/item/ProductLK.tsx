@@ -6,12 +6,10 @@ import { IProductProps } from "@/entities/Product/model/props.product.model"
 import { ImageAPI } from '@/shared/ui/Image/API/ImageAPI'
 import { CategoryAPI } from '@/entities/Metrics/api/category.metrics.api'
 import { GEAR_ICON } from '@/shared/ui/Icon/data/gear.data.icon'
-import { ARROW_SECONDARY_WO_ICON } from '@/shared/ui/Icon/data/arrow.data.icon'
 import { Button, ButtonVariant } from '@/shared/ui/Button'
 import { InputCheckbox } from '@/shared/ui/Input/ui/Checkbox'
 import { ProductAPI } from '@/entities/Product/api/product.api'
 import { skipToken } from '@reduxjs/toolkit/query'
-import { BottomProductSettingsModal } from '@/features/Modal/BottomProductSettings'
 import { EProductLKVariants } from '../../model/productLK.model'
 import { MAIN_PAGES } from '@/config/pages-url.config'
 import { IProduct } from '@/entities/Product/model/product.model'
@@ -21,6 +19,8 @@ import { CurrencyAPI } from '@/entities/Metrics/api/currency.metrics.api'
 import { MetricsAPI } from '@/entities/Metrics/api/metrics.metrics.api'
 import { ButtonArrowWOLine } from '@/shared/ui/Button/data/Arrow/WOLine/ButtonArrowWOLine'
 import { Axis } from '@/shared/model/button.model'
+import { BottomInfoModal } from '@/features/Modal/BottomInfo'
+import { EBottomInfoVariant } from '@/features/Modal/BottomInfo/model/bottomInfoModal.model'
 
 interface IProductLK extends IProductProps {
   className?: string,
@@ -113,8 +113,9 @@ export const ProductLK = ({
               beforeImage={GEAR_ICON}
               onClick={() => showSettingsModal(product)}
             /> :
-            <BottomProductSettingsModal
-              className={cl.groupSettings}
+            <BottomInfoModal
+              variant={EBottomInfoVariant.SETTINGS}
+              classNameButtonContainer={cl.groupSettings}
               product={product}
               setIsOpen={setIsOpenGroup ? setIsOpenGroup : () => { }}
               isTitle={false}

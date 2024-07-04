@@ -10,7 +10,6 @@ import { Modal } from '@/shared/ui/Modal/Modal'
 import { EProductLKVariants } from '@/entities/Product/ui/LKProduct/model/productLK.model'
 import { EModalView } from '@/shared/data/modal.data'
 import { WrapperModalBottom } from '@/shared/ui/Wrapper/ModalBottom'
-import { BottomProductSettingsModal } from '@/features/Modal/BottomProductSettings'
 import { IProduct } from '@/entities/Product/model/product.model'
 import { productApiListToProductList } from '@/entities/Product/lib/product.lib'
 import { CurrencyAPI } from '@/entities/Metrics/api/currency.metrics.api'
@@ -19,6 +18,8 @@ import { UserAPI } from '@/entities/Auth/api/auth.api'
 import { LKSubheader } from '@/features/LKSubheader'
 import { cls } from '@/shared/lib/classes.lib'
 import { SuspenseL } from '@/shared/ui/Wrapper/SuspenseL/SuspenseL'
+import { BottomInfoModal } from '@/features/Modal/BottomInfo'
+import { EBottomInfoVariant } from '@/features/Modal/BottomInfo/model/bottomInfoModal.model'
 
 
 export default function LKProductPage() {
@@ -119,7 +120,8 @@ export default function LKProductPage() {
                         )}
                         bottomChildren={isOpenSettings ? (
                             activeProducts.length > 0 && (
-                                <BottomProductSettingsModal
+                                <BottomInfoModal
+                                    variant={EBottomInfoVariant.SETTINGS}
                                     product={choosenProduct!}
                                     setIsOpen={setIsOpenSettings}
                                 />
@@ -131,10 +133,10 @@ export default function LKProductPage() {
                                     variant={EProductLKVariants.GROUP_ITEM}
                                     checkedProductsId={checkedProductsId}
                                     setCheckedProducts={setCheckedProductsId}
-                                    
                                 />
                             )
                         )}
+                        classNameBottomChild={isOpenGroup ? cl.paddingTop : ''}
                         isBorderTopOnBottomChild={isOpenGroup && groupProducts.length > 2}
                     />
                 </Modal>
