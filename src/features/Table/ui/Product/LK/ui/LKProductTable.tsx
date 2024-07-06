@@ -19,7 +19,8 @@ import { LKTenderTableCellEditDelete } from "../components/Cell/EditDelete/LKTen
 import { useAppSelector } from "@/storage/hooks";
 import { createGroupProducts } from "@/entities/Product/lib/group.product.lib";
 import { IGroupProducts } from "@/entities/Product/model/group.product.model";
-import { TableCellMany } from "@/shared/ui/Table/components/Cell/Many/TableCellMany";
+import { LKProductTableCellToggleWCheckbox } from "../components/Cell/ToggleWCheckbox/LKProductTableCellToggleWCheckbox";
+import { cls } from "@/shared/lib/classes.lib";
 
 interface LKProductTableProps{
     className?: string,
@@ -97,15 +98,25 @@ export const LKProductTable:FC<LKProductTableProps> = ({...rest}) => {
             groupsProducts.map((it, index) => {
                 return {
                     row: [
-                        { cell: <TableCellMany isShow={showRestProducts[index]} onClick={() => onClickShowRestProducts(index)}/>, className: cl.p15 },
-                        { cell: <LKProductTableCellCheckbox product={it.main} checked={selectedProducts.some(sp => sp.id === it.main.id)} onClick={onClickCheckbox} />, className: cl.p15 },
+                        { cell: <LKProductTableCellToggleWCheckbox groupProducts={it} 
+                                    checked={selectedProducts.some(sp => sp.id === it.main.id)} isShow={showRestProducts[index]} 
+                                    onClickCheckbox={onClickCheckbox} onClickToggle={() => onClickShowRestProducts(index)} />, 
+                          className: cls(cl.p0, cl.top) 
+                        },
                         { cell: <LKProductTableCellProduct product={it.main} /> },
                         { cell: <TableCell.Text text={it.main.media.color} />, className: cl.p20 },
                         { cell: <TableCell.Text text={it.main.media.article} />, className: cl.p20 },
                         { cell: <LKTenderTableCellEditDelete onClickDelete={() => onClickDelete([it.main])} onClickEdit={() => onClickEdit(it.main)} />, className: cl.p20 },
                     ],
-                    rest: [],
-                    isShowRest: selectedProducts.some(sp => sp.id === it.main.id),
+                    rest: it.rest.map(restItem => {
+                        return [
+                            { cell: <LKProductTableCellProduct product={restItem} isMin={true} showCategory={false} /> },
+                            { cell: <TableCell.Text text={restItem.media.color} />, className: cl.p20 },
+                            { cell: <TableCell.Text text={restItem.media.article} />, className: cl.p20 },
+                            { cell: <LKTenderTableCellEditDelete isRow={true} onClickDelete={() => onClickDelete([restItem])} onClickEdit={() => onClickEdit(restItem)} />, className: cl.p20 },
+                        ]
+                    }),
+                    isShowRest: showRestProducts[index],
                 } as IRow
             })
         ))
