@@ -16,7 +16,7 @@ interface TableProps extends ITable {
     className?: string,
 }
 
-export const Table: FC<TableProps> = ({ head, data, unions, wrapperForUnions = WrapperForUnions, variant = TableVariant.WHITE, headTop, isVisibleHeadTop, className }) => {
+export const Table: FC<TableProps> = ({ head, data, unions, unionsRest, wrapperForUnions = WrapperForUnions, variant = TableVariant.WHITE, headTop, isVisibleHeadTop, className }) => {
     // STATE
     const [currentHead, setCurrentHead] = useState<ITable['head']>([])
     const [currentData, setCurrentData] = useState<ITable['data']>([])
@@ -33,7 +33,7 @@ export const Table: FC<TableProps> = ({ head, data, unions, wrapperForUnions = W
 
     useEffect(() => {
         setCurrentHead(prevHead => unionHeadTable(prevHead, unions))
-        setCurrentData(prevData => unionDataTable(prevData, unions, wrapperForUnions))
+        setCurrentData(prevData => unionDataTable(prevData, unions, unionsRest, wrapperForUnions))
     }, [unions])
 
     return (

@@ -1,6 +1,6 @@
 "use client"
 
-import { FC, useEffect, useState } from "react"
+import { FC, useEffect, useMemo, useState } from "react"
 
 import cl from './_LKProductTable.module.scss'
 import { ProductAPI } from "@/entities/Product/api/product.api";
@@ -17,6 +17,9 @@ import { THeadTop } from "@/shared/ui/Table/components/Head/components/HeadTop/T
 import { LKProductTableCellCheckbox } from "../components/Cell/Checkbox/LKProductTableCellCheckbox";
 import { LKTenderTableCellEditDelete } from "../components/Cell/EditDelete/LKTenderTableCellEditDelete";
 import { useAppSelector } from "@/storage/hooks";
+import { createGroupProducts } from "@/entities/Product/lib/group.product.lib";
+import { IGroupProducts } from "@/entities/Product/model/group.product.model";
+import { TableCellMany } from "@/shared/ui/Table/components/Cell/Many/TableCellMany";
 
 interface LKProductTableProps{
     className?: string,
@@ -26,23 +29,25 @@ export const LKProductTable:FC<LKProductTableProps> = ({...rest}) => {
     // STATE
     const [categoryList, setCategoryList] = useState<ICategory[]>([])
     const [products, setProducts] = useState<IProduct[]>([]);
+    const [groupsProducts, setGroupsProducts] = useState<IGroupProducts[]>([]);
+
     const [rowsTable, setRowsTable] = useState<IRow[]>([])
+    const [showRestProducts, setShowRestProducts] = useState<boolean[]>([])
     const [unionsColumn, setUnionsColumn] = useState<IUnionColumn[]>([])
+    const [unionsRestColumn, setUnionsRestColumn] = useState<IUnionColumn[]>([])
     const [selectedProducts, setSelectedProducts] = useState<IProduct[]>([]);
     const [is768, setIs768] = useState<boolean>(false);
 
     // RTK
     const { id: userId } = useAppSelector(state => state.user)
-    console.log('userId qwe', userId)
 
     // API
     const [getCategory] = CategoryAPI.useGetCategoryMutation();
     const [deleteProduct] = ProductAPI.useDeleteProductMutation();
     const { data: productsAPI, isLoading: isProductLoading } = ProductAPI.useGetProductsQuery(
-        { limit: 16, page: 0 },
+        { limit: 24, page: 11 },
         { refetchOnMountOrArgChange: true }
     );
-
 
     // ======={ EFFECT }=======
     
@@ -78,23 +83,34 @@ export const LKProductTable:FC<LKProductTableProps> = ({...rest}) => {
         }
     }, [productsAPI, categoryList])
 
+    useEffect(() => {
+        if (!products) return;
+        setGroupsProducts(createGroupProducts(products))
+        setShowRestProducts(products.map(() => false));
+    }, [products])
+
     // SET ROWS TABLE
     useEffect(() => {
-        if (products === undefined)
+        if (groupsProducts === undefined)
             return
         setRowsTable(() => (
-            products.map(it => {
-                return [
-                    { cell: <LKProductTableCellCheckbox product={it} checked={selectedProducts.some(sp => sp.id === it.id)} onClick={onClickCheckbox} />, className: cl.p15 },
-                    { cell: <LKProductTableCellProduct product={it} /> },
-                    { cell: <TableCell.Text text={it.media.color} />, className: cl.p20 },
-                    { cell: <TableCell.Text text={it.media.article} />, className: cl.p20 },
-                    { cell: <LKTenderTableCellEditDelete onClickDelete={() => onClickDelete([it])} onClickEdit={() => onClickEdit(it)} />, className: cl.p20 },
-                ] as IRow
+            groupsProducts.map((it, index) => {
+                return {
+                    row: [
+                        { cell: <TableCellMany isShow={showRestProducts[index]} onClick={() => onClickShowRestProducts(index)}/>, className: cl.p15 },
+                        { cell: <LKProductTableCellCheckbox product={it.main} checked={selectedProducts.some(sp => sp.id === it.main.id)} onClick={onClickCheckbox} />, className: cl.p15 },
+                        { cell: <LKProductTableCellProduct product={it.main} /> },
+                        { cell: <TableCell.Text text={it.main.media.color} />, className: cl.p20 },
+                        { cell: <TableCell.Text text={it.main.media.article} />, className: cl.p20 },
+                        { cell: <LKTenderTableCellEditDelete onClickDelete={() => onClickDelete([it.main])} onClickEdit={() => onClickEdit(it.main)} />, className: cl.p20 },
+                    ],
+                    rest: [],
+                    isShowRest: selectedProducts.some(sp => sp.id === it.main.id),
+                } as IRow
             })
         ))
 
-    }, [selectedProducts, products])
+    }, [showRestProducts, selectedProducts, groupsProducts])
 
     // useEffect(() => {
     //     const selectedProductsIds = new Set(selectedProducts.map(it => it.id))
@@ -109,6 +125,7 @@ export const LKProductTable:FC<LKProductTableProps> = ({...rest}) => {
     useEffect(() => {
         // setUnionsColumn(() => is1024 ? [{ start: 1, end: 3 }] : [])
         setUnionsColumn(() => is768 ? [{ start: 2, end: 4 }] : [])
+        setUnionsRestColumn(() => is768 ? [{ start: 1, end: 3 }] : [])
     }, [is768])
 
     useEffect(() => {
@@ -119,6 +136,14 @@ export const LKProductTable:FC<LKProductTableProps> = ({...rest}) => {
 
 
     // ======={ HANDLES }=======
+    const onClickShowRestProducts = (index: number) => {
+        setShowRestProducts(prev => {
+            const newPrev = [...prev]
+            newPrev[index] = !newPrev[index]
+            return newPrev
+        })
+    }
+
     // CHECKBOX ON CLICK
     const onClickCheckbox = (product: IProduct, isChecked: boolean) => {
         setSelectedProducts(prevSelectedProducts => {
@@ -162,7 +187,7 @@ export const LKProductTable:FC<LKProductTableProps> = ({...rest}) => {
             {rowsTable.length > 0 &&
                 <Table head={['', 'Категория, Наименование', 'Тип', 'Артикул', '']} 
                         data={rowsTable} 
-                        unions={unionsColumn} 
+                        unions={unionsColumn} unionsRest={unionsRestColumn}
                         isVisibleHeadTop={selectedProducts.length > 0}
                         headTop={
                             <THeadTop amount={selectedProducts.length} 

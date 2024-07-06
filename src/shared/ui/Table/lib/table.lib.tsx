@@ -1,5 +1,5 @@
 import { ReactElement, ReactNode, isValidElement } from "react";
-import { IRow, ITable, IUnionColumn } from "../model/table.model";
+import { IRow, ITable, IUnionColumn, _IRow } from "../model/table.model";
 import React from "react";
 
 // 1, 4; 2, 3;
@@ -30,22 +30,31 @@ export const unionHeadTable = (head: ITable['head'], unions: IUnionColumn[], sep
 
 
 
-export const unionDataTable = (data: IRow[], unions: IUnionColumn[], wrapper?: ITable['wrapperForUnions']): IRow[] => {
+export const unionDataTable = (data: IRow[], unions: IUnionColumn[], unionsRest?: IUnionColumn[], wrapper?: ITable['wrapperForUnions']): IRow[] => {
     return data.map((row) => {
-        return unions.reduce((updatedRow, union) => {
-            const before = updatedRow.slice(0, union.start);
-
-            const newColumnContent = updatedRow.slice(union.start, union.end);
-            const newColumnClassName = newColumnContent[0].className;
-            const newColumnNodes = newColumnContent.map(it => it.cell);
-
-            let newColumn = <>{newColumnNodes}</>;
-            if (wrapper) {
-                newColumn = React.createElement(wrapper, {}, newColumnNodes); 
-            }
-            const after = updatedRow.slice(union.end);
-
-            return [...before, {cell: newColumn, className: newColumnClassName}, ...after];
-        }, row);
+        return {
+            row: unionCellTable(row.row, unions, wrapper),
+            rest: row.rest?.map(it => unionCellTable(it, unions, wrapper)),
+            isShowRest: row.isShowRest
+        } as IRow
     });
 };
+
+
+export const unionCellTable = (row: _IRow, unions: IUnionColumn[], wrapper?: ITable['wrapperForUnions']) => {
+    return unions.reduce((updatedRow, union) => {
+        const before = updatedRow.slice(0, union.start);
+
+        const newColumnContent = updatedRow.slice(union.start, union.end);
+        const newColumnClassName = newColumnContent[0].className;
+        const newColumnNodes = newColumnContent.map(it => it.cell);
+
+        let newColumn = <>{newColumnNodes}</>;
+        if (wrapper) {
+            newColumn = React.createElement(wrapper, {}, newColumnNodes); 
+        }
+        const after = updatedRow.slice(union.end);
+
+        return [...before, {cell: newColumn, className: newColumnClassName}, ...after];
+    }, row);
+}
