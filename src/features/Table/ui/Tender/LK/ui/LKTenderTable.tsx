@@ -102,12 +102,14 @@ export const LKTenderTable: FC<LKTenderTableProps> = ({ tenderType, ...rest }) =
             return
         setRowsTable(() => (
             tenders.map(it => {
-                return [
-                    { cell: <TableCell.Option text={it.name} /> },
-                    { cell: <TableCell.Text text={it.category ? it.category.name : ''} />, className: cl.cell },
-                    { cell: <TableCell.Text text={`${it.attachments.length}`} />, className: cl.cell },
-                    { cell: <LKTenderTableCellTrash onClick={() => onClickDelete(it.id, it.type)} />, className: cl.cell },
-                ] as IRow
+                return {
+                    row: [
+                        { cell: <TableCell.Option text={it.name} /> },
+                        { cell: <TableCell.Text text={it.category ? it.category.name : ''} />, className: cl.cell },
+                        { cell: <TableCell.Text text={`${it.attachments.length}`} />, className: cl.cell },
+                        { cell: <LKTenderTableCellTrash onClick={() => onClickDelete(it.id, it.type)} />, className: cl.cell },
+                    ]
+                } as IRow
             })
         ))
 
