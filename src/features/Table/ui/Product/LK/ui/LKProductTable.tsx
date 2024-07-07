@@ -21,12 +21,14 @@ import { createGroupProducts } from "@/entities/Product/lib/group.product.lib";
 import { IGroupProducts } from "@/entities/Product/model/group.product.model";
 import { LKProductTableCellToggleWCheckbox } from "../components/Cell/ToggleWCheckbox/LKProductTableCellToggleWCheckbox";
 import { cls } from "@/shared/lib/classes.lib";
+import { skipToken } from "@reduxjs/toolkit/query";
 
-interface LKProductTableProps{
+interface LKProductTableProps {
+    _products?: IProduct[]
     className?: string,
 }
 
-export const LKProductTable:FC<LKProductTableProps> = ({...rest}) => {
+export const LKProductTable:FC<LKProductTableProps> = ({_products, ...rest}) => {
     // STATE
     const [categoryList, setCategoryList] = useState<ICategory[]>([])
     const [products, setProducts] = useState<IProduct[]>([]);
@@ -46,7 +48,7 @@ export const LKProductTable:FC<LKProductTableProps> = ({...rest}) => {
     const [getCategory] = CategoryAPI.useGetCategoryMutation();
     const [deleteProduct] = ProductAPI.useDeleteProductMutation();
     const { data: productsAPI, isLoading: isProductLoading } = ProductAPI.useGetProductsQuery(
-        { limit: 24, page: 11 },
+        _products === undefined ? { limit: 24, page: 11 } : skipToken, 
         { refetchOnMountOrArgChange: true }
     );
 
@@ -54,7 +56,7 @@ export const LKProductTable:FC<LKProductTableProps> = ({...rest}) => {
     
     // SET CATEGORIES
     useEffect(() => {
-        if (!productsAPI) return;
+        if (!productsAPI || _products !== undefined) return;
 
         const fetchCategories = async () => {
             try {
@@ -71,11 +73,11 @@ export const LKProductTable:FC<LKProductTableProps> = ({...rest}) => {
         };
 
         fetchCategories();
-    }, [productsAPI, getCategory]);
+    }, [_products, productsAPI, getCategory]);
 
     // SET PRODUCTS
     useEffect(() => {
-        if (productsAPI && categoryList) {
+        if (productsAPI && categoryList && _products === undefined) {
             setProducts(() => {
                 return productsAPI.map((it, index) => (
                     { ...productApiToProduct({ productAPI: it }), category: categoryList[index] }
@@ -83,6 +85,11 @@ export const LKProductTable:FC<LKProductTableProps> = ({...rest}) => {
             })
         }
     }, [productsAPI, categoryList])
+
+    useEffect(() => {
+        if (_products !== undefined)
+            setProducts(_products)
+    }, [_products])
 
     useEffect(() => {
         if (!products) return;
