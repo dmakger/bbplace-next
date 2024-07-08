@@ -110,11 +110,16 @@ export default function LKProductPage() {
                 <WrapperModalBottom
                     setIsOpen={closeTheModal}
                     title={isOpenSettings ? "Выбор действия" : 'Варианты товара'}
-                    bottomChildren={isOpenSettings ? activeProducts && <BottomProductSettingsModal
-                        product={activeProducts[0]}
-                        setIsOpen={setIsOpenSettings}
-                    /> : isOpenGroup && activeProducts && <ProductLKList products={[]}
-                        variant={EProductLKVariants.GROUP_ITEM} />}
+                    bottomChildren={isOpenSettings ? activeProducts && (
+                        <BottomProductSettingsModal
+                            product={activeProducts[0]}
+                            setIsOpen={setIsOpenSettings}
+                        />
+                    ) : (isOpenGroup && activeProducts && (
+                        <ProductLKList products={[]}
+                            variant={EProductLKVariants.GROUP_ITEM} />
+                    )
+                    )}
                 />
             </Modal>
         </Wrapper1280>
