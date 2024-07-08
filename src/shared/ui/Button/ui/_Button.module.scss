@@ -32,6 +32,11 @@
 .tertiary{
     --button-color: var(--tertiary);
     --button-color-border: var(--tertiary-border);
+    --button-color-hovered: var(--tertiary-hovered);
+    --button-color-pressed: var(--tertiary-pressed);
+    --button-color-on: var(--on-tertiary);
+
+
 }
 
 .negative{

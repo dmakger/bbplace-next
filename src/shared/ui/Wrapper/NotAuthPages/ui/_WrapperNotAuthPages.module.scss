@@ -1,0 +1,44 @@
+.WrapperNotAuthPages{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    & img{
+        margin: 40px 0;
+    }
+
+    .formContainer{
+        background-color: var(--background-2);
+        padding: 20px;
+        border: 1px solid  var(--block-border);
+        border-radius: 20px;
+
+        @media (max-width: 768px) {
+            border-radius: 0px;
+            border: none;
+        }
+
+        .pageTitle{
+            background-color: var(--tertiary-surface);
+            padding: 20px;
+            border-radius: 20px 20px 0 0;
+            color: var(--font-size-reg);
+            font-weight: var(--font-weight-med);
+
+            @media (max-width: 768px) {
+                padding: 12px 20px;
+                font-size: var(--font-size-s);
+            }
+        }
+
+    }
+
+    .buttonsContainer{
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        width: 100%;
+        & button{
+            width: 100%;
+        }
+    }
+}
