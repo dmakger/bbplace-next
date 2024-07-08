@@ -32,14 +32,14 @@ export const InputCheckbox = ({
   const [isOwnChecked, setIsOwnChecked] = useState<boolean>(checked || isChecked || false);
 
   // FUNCTION
-  const handleCheckboxChange = () => {
-    setIsChecked(prevIsChecked => {
-      const newValue = !prevIsChecked
-      if (onClick)
-        onClick(newValue)
-      return newValue
-    })
-  }
+  // const handleCheckboxChange = () => {
+  //   setIsChecked(prevIsChecked => {
+  //     const newValue = !prevIsChecked
+  //     if (onClick)
+  //       onClick(newValue)
+  //     return newValue
+  //   })
+  // }
 
   // EFFECT
   useEffect(() => {
