@@ -10,6 +10,11 @@ import ArrowWOSecondaryHoveredIcon from '@/shared/assets/img/Arrow/ArrowWOSecond
 import ArrowWLineSecondaryIcon from '@/shared/assets/img/Arrow/ArrowWLineSecondary.svg'
 import ArrowWLineSecondaryHoveredIcon from '@/shared/assets/img/Arrow/ArrowWLineSecondaryHovered.svg'
 
+import ArrowWLineTertiaryIcon from '@/shared/assets/img/Arrow/ArrowWLineTertiary.svg'
+import ArrowWLineTertiaryHoveredIcon from '@/shared/assets/img/Arrow/ArrowWLineTertiaryHovered.svg'
+import ArrowWLineTertiaryPressedIcon from '@/shared/assets/img/Arrow/ArrowWLineTertiaryPressed.svg'
+
+
 
 export const ARROW_ICON: IIcon = {
     default: ArrowDefaultIcon,
@@ -34,4 +39,10 @@ export const ARROW_WLINE_SECONDARY_ICON: IIcon = {
     default: ArrowWLineSecondaryIcon,
     defaultHovered: ArrowWLineSecondaryHoveredIcon,
     defaultPressed: ArrowWLineSecondaryHoveredIcon,
+}
+
+export const ARROW_WLINE_TERTIARY_ICON: IIcon = {
+    default: ArrowWLineTertiaryIcon,
+    defaultHovered: ArrowWLineTertiaryHoveredIcon,
+    defaultPressed: ArrowWLineTertiaryPressedIcon,
 }
