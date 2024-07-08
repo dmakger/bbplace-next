@@ -21,7 +21,7 @@ export default function SupplierPage() {
 
     //STATE
     const [supplier, setSupplier] = useState<ISupplier>()
-    const [supplierProducts, setSupplierProducts] = useState<IProduct[]>([]) 
+    const [supplierProducts, setSupplierProducts] = useState<IProduct[]>([])
 
     //PARAMS
     const params = useParams()
