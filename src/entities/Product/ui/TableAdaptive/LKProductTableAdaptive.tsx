@@ -8,7 +8,7 @@ import { HandleSize } from "@/shared/ui/Handle/Size/HandleSize";
 import { LKProductTable } from "@/features/Table/ui/Product/LK/ui/LKProductTable";
 import { FetchProduct } from "../FetchProduct/FetchProduct";
 import { IProduct } from "../../model/product.model";
-import { ProductLK } from "../LKProduct";
+import { ProductLK, ProductLKList } from "../LKProduct";
 import { EProductLKVariants } from "../LKProduct/model/productLK.model";
 
 interface LKProductTableAdaptiveProps{
@@ -16,10 +16,12 @@ interface LKProductTableAdaptiveProps{
 }
 
 export const LKProductTableAdaptive:FC<LKProductTableAdaptiveProps> = ({className}) => {
+    // STATE
     const [is768, setIs768] = useState(false)
     const [products, setProducts] = useState<IProduct[]>([])
-    
-    // console.log('products qwe', products)
+    const [isOpenSettings, setIsOpenSettings] = useState<boolean>(false);
+    const [isOpenGroup, setIsOpenGroup] = useState<boolean>(false);
+
 
     return (
         <>
@@ -31,14 +33,14 @@ export const LKProductTableAdaptive:FC<LKProductTableAdaptiveProps> = ({classNam
             )} */}
             {products.length > 0 && (
                 // <div className={cl.products}>
-                <div>
-                    {products.map(it => (
-                        <ProductLK product={it}
-                            // setIsOpenGroup={setIsOpenGroup}
-                            // setIsOpenSettings={setIsOpenSettings}
-                            variant={EProductLKVariants.DEFAULT} />
-                    ))}
-                </div>
+                //     {products.map(it => (
+                //         <ProductLK product={it}
+                //             // setIsOpenGroup={setIsOpenGroup}
+                //             // setIsOpenSettings={setIsOpenSettings}
+                //             variant={EProductLKVariants.DEFAULT} />
+                //     ))}
+                // </div>
+                <ProductLKList products={products} variant={EProductLKVariants.DEFAULT} />
             )}
             
             <LKProductTable _products={products} />
