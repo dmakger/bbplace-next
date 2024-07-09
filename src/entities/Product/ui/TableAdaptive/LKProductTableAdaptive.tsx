@@ -10,12 +10,15 @@ import { FetchProduct } from "../FetchProduct/FetchProduct";
 import { IProduct } from "../../model/product.model";
 import { ProductLK, ProductLKList } from "../LKProduct";
 import { EProductLKVariants } from "../LKProduct/model/productLK.model";
+import { ProductLKSmartList } from "../LKProduct/ui/SmartList/ProductLKSmartList";
+import { ProductsTypeLK } from "@/shared/ui/SwitchSelector/data/switchSelector.data";
 
 interface LKProductTableAdaptiveProps{
+    typeProduct: ProductsTypeLK
     className?: string,
 }
 
-export const LKProductTableAdaptive:FC<LKProductTableAdaptiveProps> = ({className}) => {
+export const LKProductTableAdaptive:FC<LKProductTableAdaptiveProps> = ({typeProduct, className}) => {
     // STATE
     const [is768, setIs768] = useState(false)
     const [products, setProducts] = useState<IProduct[]>([])
@@ -26,24 +29,12 @@ export const LKProductTableAdaptive:FC<LKProductTableAdaptiveProps> = ({classNam
     return (
         <>
             <FetchProduct set={setProducts} propsProduct={{ limit: 24, page: 11 }} hasCategory={true} />
-            {/* {is768 ? (
-                <LKProductTable  />
+            {is768 ? (
+                // <ProductLKList products={products} variant={EProductLKVariants.DEFAULT} />
+                <ProductLKSmartList typeProduct={typeProduct} />
             ) : (
                 <LKProductTable _products={products} />
-            )} */}
-            {products.length > 0 && (
-                // <div className={cl.products}>
-                //     {products.map(it => (
-                //         <ProductLK product={it}
-                //             // setIsOpenGroup={setIsOpenGroup}
-                //             // setIsOpenSettings={setIsOpenSettings}
-                //             variant={EProductLKVariants.DEFAULT} />
-                //     ))}
-                // </div>
-                <ProductLKList products={products} variant={EProductLKVariants.DEFAULT} />
             )}
-            
-            <LKProductTable _products={products} />
             <HandleSize set={setIs768} width={768} />
         </>
     )

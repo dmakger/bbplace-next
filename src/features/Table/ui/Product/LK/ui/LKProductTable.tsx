@@ -39,7 +39,7 @@ export const LKProductTable:FC<LKProductTableProps> = ({_products, ...rest}) => 
     const [unionsColumn, setUnionsColumn] = useState<IUnionColumn[]>([])
     const [unionsRestColumn, setUnionsRestColumn] = useState<IUnionColumn[]>([])
     const [selectedProducts, setSelectedProducts] = useState<IProduct[]>([]);
-    const [is768, setIs768] = useState<boolean>(false);
+    const [is1024, setIs1024] = useState<boolean>(false);
 
     // RTK
     const { id: userId } = useAppSelector(state => state.user)
@@ -144,13 +144,13 @@ export const LKProductTable:FC<LKProductTableProps> = ({_products, ...rest}) => 
     // SET UNIONS
     useEffect(() => {
         // setUnionsColumn(() => is1024 ? [{ start: 1, end: 3 }] : [])
-        setUnionsColumn(() => is768 ? [{ start: 2, end: 4 }] : [])
-        setUnionsRestColumn(() => is768 ? [{ start: 1, end: 3 }] : [])
-    }, [is768])
+        setUnionsColumn(() => is1024 ? [{ start: 2, end: 4 }] : [])
+        setUnionsRestColumn(() => is1024 ? [{ start: 1, end: 3 }] : [])
+    }, [is1024])
 
     useEffect(() => {
         if (typeof window !== "undefined") {
-            setIs768(window.innerWidth <= 768);
+            setIs1024(window.innerWidth <= 768);
         }
     }, []);
 
@@ -215,7 +215,7 @@ export const LKProductTable:FC<LKProductTableProps> = ({_products, ...rest}) => 
                         }
                         {...rest} />
             }
-            <HandleSize width={768} set={setIs768} />
+            <HandleSize width={1024} set={setIs1024} />
         </>
     )
 }
