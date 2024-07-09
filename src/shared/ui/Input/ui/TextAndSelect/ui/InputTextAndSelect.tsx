@@ -9,7 +9,7 @@ import WrapperClickOutside from '@/shared/ui/Wrapper/ClickOutside/WrapperClickOu
 import { WrapperTitleInput } from '@/shared/ui/Wrapper/Title/Input/WrapperTitleInput'
 import { XMARK_ICON } from '@/shared/ui/Icon/data/xmark.data.icon'
 import { Button, ButtonVariant } from '@/shared/ui/Button'
-import { ARROW_WO_ICON } from '@/shared/ui/Icon/data/arrow.data.icon'
+import { ARROW_TERTIARY_WO_ICON, ARROW_WO_ICON } from '@/shared/ui/Icon/data/arrow.data.icon'
 import { IImageSizes } from '@/shared/model/image.model'
 import { IWrapperRectangleInputChildren } from '@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model'
 import { EInputVariants, IInput } from '../../../model/input.model'
@@ -107,8 +107,10 @@ export function TextAndSelectInput({
 
 
     const handleOnItem = (it: IOption) => {
-        setIsSuccess(true)
-        setIsWarning(false)
+        if(variant == EInputVariants.RECTANGULAR){
+            setIsSuccess(true)
+            setIsWarning(false)
+        }
 
         if (onClickOption) onClickOption(it)
         else setActiveOption(it)
@@ -124,7 +126,7 @@ export function TextAndSelectInput({
 
     // ==={ CHANGE }===
     const checkChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (!listOptions?.some(it => it.name.toLowerCase().includes(e.target.value.trim().toLowerCase()))) {
+        if (variant == EInputVariants.RECTANGULAR && !listOptions?.some(it => it.name.toLowerCase().includes(e.target.value.trim().toLowerCase()))) {
             setIsWarning(true)
             setIsSuccess(false)
         }
@@ -182,7 +184,7 @@ export function TextAndSelectInput({
                                 disabled ? cl.disabledPlaceholder : '')}>
                                 {!activeOption && placeholder ? placeholder : activeOption?.name}
                             </p>}
-                        <Button variant={ButtonVariant.DEFAULT} className={cls(cl.arrowContainer, showOptions ? cl.activeArrow : '', showOptions ? cl.arrowOpen : cl.arrow)} beforeImage={ARROW_WO_ICON} beforeProps={{ width: arrowSizes.width, height: arrowSizes.height }} />
+                        <Button variant={ButtonVariant.DEFAULT} className={cls(cl.arrowContainer, showOptions ? cl.activeArrow : '', showOptions ? cl.arrowOpen : '')} beforeImage={ARROW_TERTIARY_WO_ICON} beforeProps={{ width: arrowSizes.width, height: arrowSizes.height}} disabled={disabled} />
 
                     </div>
                 </div>

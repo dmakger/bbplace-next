@@ -113,6 +113,7 @@ export const CategoryRecursiveSelect = ({
                 selectedOptionsCommonArray={selectedOptionsCommonArray}
                 setSelectedOptionsCommonArray={setSelectedOptionsCommonArray}
                 inputsProps={inputsArray}
+                arrowSizes={{width: 16, height: 15}}
 
             />
         </WrapperRectangleInput>

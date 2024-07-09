@@ -144,17 +144,12 @@
 
 .arrowOpen{
     & img{
-        rotate: 270deg;
+        rotate: 180deg;
         transition: rotate 0.3s;
     } 
 }
 
-.arrow{
-    & img{
-        rotate: 90deg;
-        transition: rotate 0.3s;
-    }
-}
+
 
 .show {
     .options {

@@ -146,13 +146,21 @@
     color: var(--font-caption-sub);
     font-weight: var(--font-weight-med);
 
+    .arrowContainer{
+        background-color: var(--tertiary-surface-low);
+    }
+
     &:hover{
         border-color: var(--disabled);
-        .arrowContainer {
-            background-color: var(--tertiary-surface-low);
-        }
+    
         .placeholder {
             color: var(--disabled) !important;
+        }
+    }
+
+    &:hover{
+        .arrowContainer{
+            background-color: var(--tertiary-surface-low);
         }
     }
     .disabledPlaceholder{
@@ -229,16 +237,9 @@
 
 .arrowOpen {
     & img{
-        rotate: 270deg;
+        rotate: 180deg;
         transition: rotate 0.3s;
     } 
-}
-
-.arrow {
-    & img{
-        rotate: 90deg;
-        transition: rotate 0.3s;
-    }
 }
 
 .noResult {

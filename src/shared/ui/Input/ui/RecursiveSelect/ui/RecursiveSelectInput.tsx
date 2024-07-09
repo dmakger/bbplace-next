@@ -70,10 +70,14 @@ export const RecursiveSelectInput = ({
     const handleDeleteItem = (option: IOption) => {
         setDeletingOption(option.id)
         setTimeout(() => { // Для плавной анимации добавления и удаления OptionsAttachmentItem
-            setSelectedOptions((prevSelectedOptions: IOption[]) =>
-                prevSelectedOptions.filter(item => item.id !== option.id)
-            )
-            setSelectedOptionsArray && setSelectedOptionsArray(selectedOptions.filter(item => item.id !== option.id)) //Для связи с WrapperRectangleInput
+            const updatedSelectedOptions = selectedOptions.filter(item => item.id !== option.id);
+
+            setSelectedOptions(updatedSelectedOptions)
+            if(variantRecursive === ERecursiveSelectVariant.SINGLE){
+                setSelectedOptionsCommonArray([])
+                setSuccess && setSuccess(false)
+            }
+            setSelectedOptionsArray && setSelectedOptionsArray(updatedSelectedOptions) //Для связи с WrapperRectangleInput
             setDeletingOption(0)
         }, 300)
     }
@@ -100,7 +104,7 @@ export const RecursiveSelectInput = ({
 
     return (
         <div className={cls(cl.RecursiveSelect, cl[variant], className)}>
-            {inputsProps.map((inputProps, index) => (
+            {(variantRecursive === ERecursiveSelectVariant.SINGLE ? !selectedOptions.length : true) && inputsProps.map((inputProps, index) => (
                 renderSelect(
                     inputProps.currentOptions,
                     inputProps.placeholder,
@@ -110,7 +114,7 @@ export const RecursiveSelectInput = ({
                 )
             ))}
 
-            {variantRecursive === ERecursiveSelectVariant.MULTIPLE && <div className={cl.optionsContainer}>
+            {selectedOptions.length > 0 && <div className={cl.optionsContainer}>
                 {selectedOptions.map(option => (
                     <OptionsAttachmentItem
                         size={EOptionsAttachmentSize.MEDIUM}
