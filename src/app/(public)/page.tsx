@@ -7,8 +7,8 @@ import { WrapperRectangleInput } from "@/shared/ui/Wrapper/RectangleInput/ui/Wra
 export default function MainPage() {
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '15px', backgroundColor: '#fff', height: '100%' }}>
-            <WrapperRectangleInput
+        <div style={{ display: 'flex', flexDirection: 'column', width: '50%', justifyContent: 'center', gap: '15px', backgroundColor: '#fff' }}>
+            {/* <WrapperRectangleInput
                 labelText="Наименование"
                 warningTooltipText='Обязательно для заполнения'
                 descriptionTooltipText='tooltip'
@@ -43,6 +43,9 @@ export default function MainPage() {
                 variant={EInputVariants.RECTANGULAR}
                />
             </WrapperRectangleInput>
+            <WrapperRectangleInput labelText='Делиться контактами'>
+                <Input.Checkbox/>
+            </WrapperRectangleInput> */}
         </div>
     )
 }

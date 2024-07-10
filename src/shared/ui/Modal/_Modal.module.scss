@@ -1,12 +1,14 @@
 .modal {
     position: absolute;
+    transition: 1s;
+
     
     .sidebar {
         position: fixed;
         top: 0;
         bottom: 0;
         z-index: -1;
-        transition: .3s;
+        transition: .5s;
         background-color: var(--background-2);
         opacity: 0;
 
@@ -42,7 +44,7 @@
         display: flex;
         justify-self: center;
         margin-top: auto;
-        bottom: -200px;
+        bottom: -100%;
         left: 0;
         right: 0;
         width: fit-content;
@@ -87,5 +89,5 @@
     left: 0 !important;
 }
 .bottom.openSidebar{
-    bottom: 0px !important;
+    bottom: 0 !important;
 }

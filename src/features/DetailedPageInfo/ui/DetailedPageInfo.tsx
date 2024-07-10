@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { cls } from "@/shared/lib/classes.lib"
 import cl from './_DetailedPageInfo.module.scss'
 import { SwitchSelector } from "@/shared/ui/SwitchSelector"
-import { IOptionsTab } from "../model/detailedPageInfo.model"
+import { IUserProductsTab, IDetailedProductOptionsTab } from "../model/detailedPageInfo.model"
 import { convertObjectToArray } from "../lib/detailedPageInfo.lib"
 import { IOption } from "@/shared/model/option.model"
 
@@ -10,7 +10,7 @@ interface IDetailedPageInfo {
     className?: string,
     options: IOption[],
     defaultOption: IOption,
-    optionsTab: IOptionsTab
+    optionsTab: IUserProductsTab | IDetailedProductOptionsTab
 }
 
 export const DetailedPageInfo = ({
@@ -38,7 +38,6 @@ export const DetailedPageInfo = ({
                     <React.Fragment key={it.key}>
                         {it.value.optionTab}
                     </React.Fragment>
-                    
                 ))}
             </div>
         </div>

@@ -1,0 +1,23 @@
+.block {
+    border-radius: 20px 20px 0 0;
+    background-color: var(--dialog-surface);
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .content {
+        background-color: var(--background-2);
+        border-radius: 100px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+
+        .blockAmount {
+            font-size: var(--font-size-s);
+            
+        }
+    }
+}

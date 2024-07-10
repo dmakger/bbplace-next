@@ -1,7 +1,5 @@
-"use client"
-
-import { FC, useEffect, useState } from "react"
-import cl from './_ProductList.module.scss'
+import { FC, useEffect, useState } from "react";
+import cl from './_ProductList.module.scss';
 
 import { DEFAULT_VIEW_PRODUCT, EViewProduct } from "../../../model/view.product.model";
 import { IProduct } from "../../../model/product.model";
@@ -22,37 +20,47 @@ import { useSearchParams } from "next/navigation";
 import { paramsToBack } from "@/config/params/backend.params.config";
 import { SuspenseL } from "@/shared/ui/Wrapper/SuspenseL/SuspenseL";
 import { getViewProductByParam } from "@/entities/Product/lib/params.product.lib";
+import { isEqual } from "lodash";
 
-interface ProductListProps{
-    view?: EViewProduct
-    className?: string,
+interface ProductListProps {
+    view?: EViewProduct;
+    className?: string;
 }
 
-export const ProductList:FC<ProductListProps> = ({...rest}) => {
+export const ProductList: FC<ProductListProps> = ({ ...rest }) => {
     return (
         <SuspenseL>
-            <ProductListChild {...rest}/>
+            <ProductListChild {...rest} />
         </SuspenseL>
-    )
-}
+    );
+};
 
-
-export const ProductListChild:FC<ProductListProps> = ({view, className}) => {
+export const ProductListChild: FC<ProductListProps> = ({ view, className }) => {
     // ROUTER
     const searchParams = useSearchParams();
-    const newParams = paramsToBack(searchParams)
+    const backParams = paramsToBack(searchParams);
 
     // STATE
-    const [productList, setProductList] = useState<IProduct[]>([])
-    const [pageNumber, setPageNumber] = useState<number>(1) 
-    const [viewProductList, setViewProductList] = useState<EViewProduct>(DEFAULT_VIEW_PRODUCT)    
+    const [prevBackParams, setPrevBackParams] = useState<Record<string, string>>({});
+    const [productList, setProductList] = useState<IProduct[]>([]);
+    const [pageNumber, setPageNumber] = useState<number>(1);
+    const [viewProductList, setViewProductList] = useState<EViewProduct>(DEFAULT_VIEW_PRODUCT);
 
     // API
-    const {data: currencyList} = CurrencyAPI.useGetCurrenciesQuery()          
-    const {data: metrics} = MetricsAPI.useGetMetricsQuery()          
-    const {data: productsAPI, isLoading: isProductLoading} = ProductAPI.useGetProductsQuery({limit: PRODUCT_ARGS_REQUEST.limit, page: pageNumber-1, params: newParams}, {refetchOnMountOrArgChange: true})
-    const {data: countProducts, isLoading: isCountProductsLoading} = ProductAPI.useGetCountProductsQuery({limit: PRODUCT_ARGS_REQUEST.limit, params: newParams}, {refetchOnMountOrArgChange: true})
-    const {data: countAllProducts, isLoading: isCountAllProductsLoading} = ProductAPI.useGetCountProductsQuery({limit: 1, params: newParams}, {refetchOnMountOrArgChange: true})  
+    const { data: currencyList } = CurrencyAPI.useGetCurrenciesQuery();
+    const { data: metrics } = MetricsAPI.useGetMetricsQuery();
+    const { data: productsAPI, isLoading: isProductLoading } = ProductAPI.useGetProductsQuery(
+        { limit: PRODUCT_ARGS_REQUEST.limit, page: pageNumber - 1, params: backParams },
+        { refetchOnMountOrArgChange: true }
+    );
+    const { data: countProducts, isLoading: isCountProductsLoading } = ProductAPI.useGetCountProductsQuery(
+        { limit: PRODUCT_ARGS_REQUEST.limit, params: backParams },
+        { refetchOnMountOrArgChange: true }
+    );
+    const { data: countAllProducts, isLoading: isCountAllProductsLoading } = ProductAPI.useGetCountProductsQuery(
+        { limit: 1, params: backParams },
+        { refetchOnMountOrArgChange: true }
+    );
 
     // RTK
     const dispatch = useDispatch();
@@ -60,40 +68,58 @@ export const ProductListChild:FC<ProductListProps> = ({view, className}) => {
     // EFFECT
     useEffect(() => {
         if (view !== undefined) {
-            setViewProductList(view)
-            return
+            setViewProductList(view);
+            return;
         }
 
-        const productView = PRODUCT_PARAMS.getView(searchParams.get(PRODUCT_PARAMS.VIEW__KEY))
-        setViewProductList(getViewProductByParam(productView))
-    }, [view])
+        const productView = PRODUCT_PARAMS.getView(searchParams.get(PRODUCT_PARAMS.VIEW__KEY));
+        setViewProductList(getViewProductByParam(productView));
+    }, [view, searchParams]);
+
     useEffect(() => {
-        if (productsAPI)
-            setProductList(productApiListToProductList(productsAPI, metrics, currencyList))
-    }, [productsAPI, metrics, currencyList])
+        if (productsAPI) setProductList(productApiListToProductList(productsAPI, metrics, currencyList));
+    }, [productsAPI, metrics, currencyList]);
+
+    useEffect(() => {
+        if (!isEqual(backParams, prevBackParams)) {
+            setPrevBackParams(backParams)
+        }
+    }, [backParams])
 
     useEffect(() => {
         if (!isCountAllProductsLoading && countAllProducts !== undefined) {
-            dispatch(PTCSlice.actions.setPTC({
-                amount: countAllProducts,
-                view: EPTC.PRODUCT,
-            }), {refetchOnMountOrArgChange: true});
+            dispatch(
+                PTCSlice.actions.setPTC({
+                    amount: countAllProducts,
+                    view: EPTC.PRODUCT,
+                })
+            );
         }
-    }, [dispatch, countProducts, isCountAllProductsLoading])
+    }, [dispatch, countAllProducts, isCountAllProductsLoading]);
+    
 
     useEffect(() => {
-        setPageNumber(prevPageNumber => prevPageNumber === 1 ? prevPageNumber : 1)
-    }, [newParams])
+        if (searchParams) {
+            const pageParam = searchParams.get(PRODUCT_PARAMS.NUMBER_PAGE__KEY);
+            if (pageParam) {
+                setPageNumber(+pageParam);
+            }
+        }
+    }, [searchParams]);
 
-    if (isProductLoading && isCountProductsLoading)
-        return <div>Loading...</div>
+    if (isProductLoading && isCountProductsLoading) return <div>Loading...</div>;
+
     return (
-        <WrapperSortFilter variant={ECatalogVariants.PRODUCTS}>
-            <WrapperPagination amount={countProducts || 1}
-                                active={pageNumber} keyPageParam={PRODUCT_PARAMS.NUMBER_PAGE__KEY} 
-                                set={setPageNumber} className={cl.block}>
+        <WrapperSortFilter variant={ECatalogVariants.PRODUCTS} pageNumberKey={PRODUCT_PARAMS.NUMBER_PAGE__KEY}>
+            <WrapperPagination
+                amount={countProducts || 1}
+                active={pageNumber}
+                keyPageParam={PRODUCT_PARAMS.NUMBER_PAGE__KEY}
+                set={setPageNumber}
+                className={cl.block}
+            >
                 <ProductAutoList products={productList} view={viewProductList} className={className} />
             </WrapperPagination>
         </WrapperSortFilter>
-    )
-}
+    );
+};

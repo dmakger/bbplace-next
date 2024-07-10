@@ -67,6 +67,8 @@ export const SORT_FRONT_TO_BACK = {
 
 export const paramsToBack = (searchParams: ReadonlyURLSearchParams) => {
     const searchParamsDict = Object.fromEntries(searchParams.entries());
+    // console.log('asd searchParamsDict', searchParamsDict);
+    
     // const newSearchParams = new URLSearchParams();
     const newSearchParams: Record<string, string> = {};
 

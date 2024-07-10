@@ -1,11 +1,12 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 import { options } from "@/api/interceptors";
-import { IGetProductsByUser, IProduct, IProductAPI } from "../model/product.model";
+import { IGetProductsByUser, IGroupData, IProductAPI } from "../model/product.model";
 import { IArgsRequest } from "@/api/model/request.model.api";
 import { getArgsProduct } from "../lib/args.product.lib";
 import { getURL } from "@/api/request";
 import { PRODUCT_BY_USER_LIMIT, PRODUCT_START_PAGE } from "../data/product.data";
+import { getHeaderAuthorization } from "@/entities/Auth/lib/auth-token.lib";
 
 
 export const ProductAPI = createApi({
@@ -28,7 +29,6 @@ export const ProductAPI = createApi({
                 method: 'GET',
             })
         }),
-
         getProductsByGroup: build.query<IProductAPI[], string | number>({
             query: (groupId) => ({
                 url: `/GetItems/${groupId}`,
@@ -48,9 +48,7 @@ export const ProductAPI = createApi({
             query: (itemId) => ({
                 url: `/DeleteItem/${itemId}`,
                 method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
-                },
+                headers: getHeaderAuthorization(),
                 body: {}
             }),
         }),
@@ -74,12 +72,83 @@ export const ProductAPI = createApi({
             query: (draftId) => ({
                 url: `/DeleteItemDraft/${draftId}`,
                 method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
-                },
+                headers: getHeaderAuthorization(),
                 body: {}
             }),
-        })
+        }),
+        //GET PRODUCTS BY USER
+        getDraftsByUser: build.query<IProductAPI[], IArgsRequest>({
+            query: ({ page = PRODUCT_START_PAGE, limit = PRODUCT_BY_USER_LIMIT }) => ({
+                url: `/GetItemsDrafts/ByUser/${limit}/${page}`,
+                method: 'GET',
+                headers: getHeaderAuthorization(),
+            }),
+        }),
+        getPagesDraftsByUser: build.query<number, IGetProductsByUser>({
+            query: ({ limit = PRODUCT_BY_USER_LIMIT, userId }) => ({
+                url: `/GetItemsDrafts/ByUser/${userId}/${limit}/CountPages`,
+                method: 'GET',
+            })
+        }),
+        //GROUP
+        createGroup: build.mutation<number, void>({
+            query: () => ({
+                url: `/CreateGroup`,
+                method: 'POST',
+                headers: getHeaderAuthorization(),
+                body: {}
+            })
+        }),
+        createDraftGroup: build.mutation<number, void>({
+            query: () => ({
+                url: `/CreateDraftGroup`,
+                method: 'POST',
+                headers: getHeaderAuthorization(),
+                body: {}
+            })
+        }),
+        addProductToGroup: build.mutation<number, IGroupData>({
+            query: ({groupId, productId}) => ({
+                url: `/AddItemToGroup/${productId}/${groupId}`,
+                method: 'POST',
+                headers: getHeaderAuthorization(),
+                body: {}
+            })
+        }),
+        addItemToDraftGroup: build.mutation<number, IGroupData>({
+            query: ({groupId, productId}) => ({
+                url: `/AddItemToDraftGroup/${productId}/${groupId}`,
+                method: 'POST',
+                headers: getHeaderAuthorization(),
+                body: {}
+            })
+        }),
+        getGroupProducts: build.query<IProductAPI[], string | number>({
+            query: (groupId) => ({
+                url: `/GetItems/${groupId}`,
+            })
+        }),
+        getGroupDrafts: build.query<IProductAPI[], string | number>({
+            query: (groupId) => ({
+                url: `/GetItemsDrafts/${groupId}`,
+            })
+        }),
+        deleteProducts: build.mutation<void, number[]>({
+            query: (checkedItems) => ({
+                url: `/DeleteItems`,
+                method: 'POST',
+                headers: getHeaderAuthorization(),
+                body: checkedItems
+            }),
+        }),
+        deleteProductsDrafts: build.mutation<void, number[]>({
+            query: (checkedItems) => ({
+                url: `/DeleteItemsDrafts`,
+                method: 'POST',
+                headers: getHeaderAuthorization(),
+                body: checkedItems
+            }),
+        }),
     })
 
 })

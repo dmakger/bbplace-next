@@ -7,10 +7,11 @@ import { Axis, IIconProps } from "@/shared/model/button.model";
 import { IWarningIcon } from "../../Icon/model/model";
 
 interface ImageSmartProps extends IIconProps, Omit<IIconProps, 'icon'> {
-    icon: IWarningIcon
+    icon: IWarningIcon,
+    isPressed?: boolean
 }
 
-export const ImageSmart:FC<ImageSmartProps> = ({icon, axis=Axis.Default, isActive=false, isSuccess = false, width, height, isHovered=false, className, classNameImage}) => {
+export const ImageSmart:FC<ImageSmartProps> = ({icon, axis=Axis.Default, isActive=false, isSuccess = false, width, height, isHovered=false, isPressed = false, className, classNameImage}) => {
     const style = {
         width: `${width !== undefined ? width : 20}px`,
         height: `${height !== undefined ? height : 20}px`,
@@ -20,12 +21,18 @@ export const ImageSmart:FC<ImageSmartProps> = ({icon, axis=Axis.Default, isActiv
         <div style={style} className={cls(cl.block, className)}>
 
             {/* default */}
-            {!isSuccess && <div className={cls(isActive ? '' : cl.activeWrapper, isHovered && icon.defaultHovered ? cl.hoveredWrapper : '',  cl.wrapper)}>
-                <Image src={icon.default} alt={'default'} style={style} className={cls(isActive ? "" : cl.static , cl.image, cl[axis], icon.defaultHovered ? cl.visible : '', classNameImage)}/>
-                {icon.defaultHovered &&
-                    <Image src={icon.defaultHovered} alt={'defaultHovered'} style={style} className={cls(cl.image, cl.hover, cl[axis], classNameImage)}/>
-                }
-            </div>}
+
+            {!isSuccess && 
+                <div className={cls(isActive ? '' : cl.activeWrapper, isHovered && icon.defaultHovered ? cl.hoveredWrapper : isPressed && icon.defaultPressed ? cl.pressedWrapper : '',  cl.wrapper)}>
+                    <Image src={icon.default} alt={'default'} style={style} className={cls(isActive ? "" : cl.static , cl.image, cl[axis], icon.defaultHovered ? cl.visible : '', classNameImage)}/>
+                    {icon.defaultHovered &&
+                        <Image src={icon.defaultHovered} alt={'defaultHovered'} style={style} className={cls(cl.image, cl.hover, cl[axis], classNameImage)}/>
+                    }
+                    {icon.defaultPressed && 
+                        <Image src={icon.defaultPressed} alt={'defaultPressed'} style={style} className={cls(cl.image, cl.pressed, cl[axis], classNameImage)}/>
+                    }
+                </div>
+            }
 
             {/* active */}
             {icon.active  &&
@@ -45,3 +52,4 @@ export const ImageSmart:FC<ImageSmartProps> = ({icon, axis=Axis.Default, isActiv
         </div>
     )
 }
+

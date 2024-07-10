@@ -103,7 +103,7 @@ export const TenderList = () => {
         return <div>Loading...</div>
 
     return (
-        <WrapperSortFilter variant={ECatalogVariants.TENDERS}>
+        <WrapperSortFilter variant={ECatalogVariants.TENDERS} pageNumberKey={TENDER_PARAMS.NUMBER_PAGE__KEY}>
             <WrapperPagination amount={countPages} 
                                 active={pageNumber} keyPageParam={TENDER_PARAMS.NUMBER_PAGE__KEY} 
                                 set={setPageNumber}>

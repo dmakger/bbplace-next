@@ -20,7 +20,7 @@ import { DetailedPageInfo } from "@/features/DetailedPageInfo";
 import { SWITCH_SELECTOR_PRODUCT_OPTIONS } from "@/entities/Product/data/product.data";
 import { SWITCH_SELECTOR_DESCRIPTION_OPTION } from "@/shared/ui/SwitchSelector";
 import { DetailedPageDescription, MobileOrderFooter } from "@/shared/ui/DetailedPage";
-import { IOptionsTab } from "@/features/DetailedPageInfo/model/detailedPageInfo.model";
+import { IDetailedProductOptionsTab } from "@/features/DetailedPageInfo/model/detailedPageInfo.model";
 import { ProductTable } from "@/features/ProductTable";
 import { SupplierWNav } from "@/entities/Supplier/ui/WNav/SupplierWNav";
 import { ESupplierSubscribeViewItem } from "@/entities/Supplier/data/view.supplier.data";
@@ -107,7 +107,7 @@ export default function ProductDetailPage() {
     if (!product) return
 
     //OPTIONS
-    const PRODUCT_PAGE_OPTIONS_TAB: IOptionsTab = {
+    const PRODUCT_PAGE_OPTIONS_TAB: IDetailedProductOptionsTab = {
         description: { optionTab: <DetailedPageDescription description={product.characteristics.description} /> },
         characteristics: { optionTab: <ProductTable product={product} /> },
         reviews: { optionTab: null, optionQuantity: (itemReviews && itemReviews.length > 0) ? itemReviews.length : null },
@@ -120,8 +120,7 @@ export default function ProductDetailPage() {
                 classNameVerified={cl.verifiedSupplier}
             />
         }
-    }
-
+    }   
     //VARIABLE
     const productWholesalePrices = product.media.wholesalePrices;
     //FUNCTION

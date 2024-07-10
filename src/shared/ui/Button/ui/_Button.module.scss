@@ -34,6 +34,14 @@
     --button-color-border: var(--tertiary-border);
 }
 
+.negative{
+    --button-color: var(--negative);
+    --button-color-on: var(--on-primary);
+    --button-color-hovered: var(--negative-hovered) !important;
+    --button-color-pressed: var(--negative-pressed);
+    --button-color-surface: var(--negative-surface);
+}
+
 // <<< ========={ BUTTON COLOR }========= <<<
 
 .wrapper {
@@ -73,11 +81,11 @@
     font-weight: var(--font-weight-sb);
 
     &:hover {
-        background-color: var(--button-color-hovered);
+        background-color: var(--button-color-hovered) !important;
         color: var(--button-color-on);
     }
     &:active {
-        background-color: var(--button-color-pressed);
+        background-color: var(--button-color-pressed) !important;
         color: var(--button-color-on);
     }
 }
