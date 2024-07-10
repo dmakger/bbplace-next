@@ -171,6 +171,7 @@
 //STATES
 .error {
     color: var(--font);
+    border-top: 1px solid var(--negative-border) !important;
     border-color: var(--negative-border) !important;
     transition-duration: 0.3s;
 }

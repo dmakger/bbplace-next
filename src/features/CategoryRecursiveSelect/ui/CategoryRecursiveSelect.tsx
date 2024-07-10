@@ -29,11 +29,12 @@ interface ICategoryRecursiveSelect {
     descriptionTooltipText?: string,
     classNameDescriptionWindow?: string,
     warningTooltipText?: string,
-    classNameWarningWindow?: string
+    classNameWarningWindow?: string,
+    errorInputMessage?: string
 }
 
 
-export const CategoryRecursiveSelect = ({
+export const  CategoryRecursiveSelect = ({
     className,
     labelText = '',
     variant = ERecursiveSelectVariant.SINGLE,
@@ -56,7 +57,8 @@ export const CategoryRecursiveSelect = ({
     descriptionTooltipText = '',
     classNameDescriptionWindow,
     warningTooltipText = 'Обязательно для заполнения',
-    classNameWarningWindow
+    classNameWarningWindow,
+    errorInputMessage
 }: ICategoryRecursiveSelect) => {
 
     //STATE
@@ -104,6 +106,7 @@ export const CategoryRecursiveSelect = ({
             classNameDescriptionWindow={classNameDescriptionWindow}
             classNameWarningWindow={classNameWarningWindow}
             onClickBellowButton={onClickBellowButton}
+            errorInputMessage={errorInputMessage}
         >
             <Input.RecursiveSelect
                 variantRecursive={variant}

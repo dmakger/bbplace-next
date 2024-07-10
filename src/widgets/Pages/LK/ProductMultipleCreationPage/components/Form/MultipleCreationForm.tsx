@@ -35,6 +35,7 @@ export const MultipleCreationForm = ({
                 labelText="1. Генерация шаблона"
                 classNameLabel={cl.label}
                 setSelectedCategoriesId={setSelectedCategoriesId}
+                errorInputMessage='Выберите категории из списка'       
             />
             <WrapperGrayButton labelText="2.">
                 <Button title="Загрузить таблицу"

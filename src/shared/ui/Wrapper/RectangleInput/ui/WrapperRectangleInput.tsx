@@ -23,7 +23,7 @@ interface IWrapperRectangleInput {
   isDescriptionTooltip?: boolean
   warningTooltipText?: string,
   descriptionTooltipText?: string,
-  errorInputSelectMessage?: string,
+  errorInputMessage?: string,
   labelPosition?: ELabelPosition
 }
 
@@ -40,7 +40,7 @@ export const WrapperRectangleInput = ({
   isDescriptionTooltip = true,
   warningTooltipText = 'Обязательно для заполнения',
   descriptionTooltipText,
-  errorInputSelectMessage = 'Выберите категорию из списка',
+  errorInputMessage = 'Выберите категорию из списка',
   labelPosition = ELabelPosition.TOP
 }: IWrapperRectangleInput) => {
 
@@ -96,13 +96,9 @@ export const WrapperRectangleInput = ({
   });
 
   // VARIABLE
-  const errorInputTextMessageArray: string[] = [
-    'Пожалуйста, заполните это поле!',
-    `Максимальная длина - 50 символов. Сейчас ${inputValueLength}`
-  ];
-
   const errorInputSelectMessageArray: string[] = [
-    errorInputSelectMessage
+    'Пожалуйста, заполните это поле!',
+    errorInputMessage  || `Максимальная длина - 50 символов. Сейчас ${inputValueLength}`
   ];
 
   return (
@@ -163,9 +159,9 @@ export const WrapperRectangleInput = ({
         {clonedChildren}
       </div>
 
-      {warning && (
+      {warning && errorInputSelectMessageArray && (
         <div className={cl.errorMessage}>
-          {errorInputTextMessageArray.map((it, index) => (
+          {errorInputSelectMessageArray.map((it, index) => (
             <p key={index}>{it}</p>
           ))}
         </div>
