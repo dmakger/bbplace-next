@@ -1,14 +1,17 @@
-'use client'
-import { cls } from '@/shared/lib/classes.lib'
-import cl from './_InputCheckbox.module.scss'
-import { Button, ButtonVariant } from '@/shared/ui/Button'
-import { CHECKBOX_SECONDARY_ICON } from '@/shared/ui/Icon/data/checkbox.data.icon'
-import { useEffect, useState } from 'react'
-import { IWrapperRectangleInputChildren } from '@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model'
-import { IInput } from '../../../model/input.model'
+'use client';
 
-interface IInputCheckbox extends IWrapperRectangleInputChildren, IInput {
-  onClick?: (value: boolean) => void
+import { cls } from '@/shared/lib/classes.lib';
+import cl from './_InputCheckbox.module.scss';
+import { Button, ButtonVariant } from '@/shared/ui/Button';
+import { CHECKBOX_SECONDARY_ICON } from '@/shared/ui/Icon/data/checkbox.data.icon';
+import { useEffect, useState } from 'react';
+import { IWrapperRectangleInputChildren } from '@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model';
+import { IInput } from '../../../model/input.model';
+
+export interface IInputCheckbox extends IWrapperRectangleInputChildren, IInput {
+  onClick?: (value: boolean) => void;
+  isChecked?: boolean;
+  setIsChecked?: (value: boolean) => void;
 }
 
 export const InputCheckbox = ({
@@ -20,35 +23,50 @@ export const InputCheckbox = ({
   setWarning,
   required,
   onClick,
-  checked
+  checked,
+  isChecked,
+  setIsChecked,
 }: IInputCheckbox) => {
 
-  // STATE
-  const [isChecked, setIsChecked] = useState<boolean>(checked || false)
+  //STATE
+  const [isOwnChecked, setIsOwnChecked] = useState<boolean>(checked || isChecked || false);
+
+  // FUNCTION
+  // const handleCheckboxChange = () => {
+  //   setIsChecked(prevIsChecked => {
+  //     const newValue = !prevIsChecked
+  //     if (onClick)
+  //       onClick(newValue)
+  //     return newValue
+  //   })
+  // }
 
   // EFFECT
   useEffect(() => {
     if (checked !== undefined) {
-      setIsChecked(checked)
+      setIsOwnChecked(checked);
+    } else if (isChecked !== undefined) {
+      setIsOwnChecked(isChecked);
     }
-  }, [checked])
+  }, [checked, isChecked]);
 
   // FUNCTION
   const handleCheckboxChange = () => {
-    const newValue = !isChecked
-    setIsChecked(newValue)
+    const newValue = !isOwnChecked;
+    setIsOwnChecked(newValue);
+    setIsChecked && setIsChecked(newValue);
     if (onClick) {
-      onClick(newValue)
+      onClick(newValue);
     }
-  }
+  };
 
   return (
     <div className={cls(cl.InputCheckbox, className)}>
       <input
-        type='checkbox'
+        type="checkbox"
         className={cl.input}
         name={name}
-        checked={isChecked}
+        checked={isOwnChecked}
         required={required}
         onChange={handleCheckboxChange}
       />
@@ -56,16 +74,16 @@ export const InputCheckbox = ({
       <Button
         variant={ButtonVariant.DEFAULT}
         beforeImage={CHECKBOX_SECONDARY_ICON}
-        beforeProps={{ classNameImage: isChecked ? cl.image : '' }}
+        beforeProps={{ classNameImage: isOwnChecked ? cl.image : '' }}
         className={cls(
           cl.checkbox,
-          isChecked ? cl.checked : '',
+          isOwnChecked ? cl.checked : '',
           warning ? cl.warning : '',
           success ? cl.success : ''
         )}
-        active={isChecked}
+        active={isOwnChecked}
         onClick={handleCheckboxChange}
       />
     </div>
-  )
-}
+  );
+};

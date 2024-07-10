@@ -29,6 +29,14 @@ export const Modal:FC<ModalProps> = ({_isOpen=false, onClickOverlay=()=>{}, view
         setIsOpen(_isOpen)
     }, [_isOpen])
 
+    useEffect(() => {
+        if(_isOpen)
+            document.body.style.overflow = 'hidden'
+        else{
+            document.body.style.overflow = 'visible'
+        }
+    }, [_isOpen])
+
     // VIEWS
     const views = {
         [EModalView.CENTER]: cl.center,

@@ -21,15 +21,18 @@ export const ImageSmart:FC<ImageSmartProps> = ({icon, axis=Axis.Default, isActiv
         <div style={style} className={cls(cl.block, className)}>
 
             {/* default */}
-            {!isSuccess && <div className={cls(isActive ? '' : cl.activeWrapper, isHovered && icon.defaultHovered ? cl.hoveredWrapper : isPressed && icon.defaultPressed ? cl.pressedWrapper : '',  cl.wrapper)}>
-                <Image src={icon.default} alt={'default'} style={style} className={cls(isActive ? "" : cl.static , cl.image, cl[axis], icon.defaultHovered ? cl.visible : '', classNameImage)}/>
-                {icon.defaultHovered &&
-                    <Image src={icon.defaultHovered} alt={'defaultHovered'} style={style} className={cls(cl.image, cl.hover, cl[axis], classNameImage)}/>
-                }
-                {icon.defaultPressed && 
-                    <Image src={icon.defaultPressed} alt={'defaultPressed'} style={style} className={cls(cl.image, cl.pressed, cl[axis], classNameImage)}/>
-                }
-            </div>}
+
+            {!isSuccess && 
+                <div className={cls(isActive ? '' : cl.activeWrapper, isHovered && icon.defaultHovered ? cl.hoveredWrapper : isPressed && icon.defaultPressed ? cl.pressedWrapper : '',  cl.wrapper)}>
+                    <Image src={icon.default} alt={'default'} style={style} className={cls(isActive ? "" : cl.static , cl.image, cl[axis], icon.defaultHovered ? cl.visible : '', classNameImage)}/>
+                    {icon.defaultHovered &&
+                        <Image src={icon.defaultHovered} alt={'defaultHovered'} style={style} className={cls(cl.image, cl.hover, cl[axis], classNameImage)}/>
+                    }
+                    {icon.defaultPressed && 
+                        <Image src={icon.defaultPressed} alt={'defaultPressed'} style={style} className={cls(cl.image, cl.pressed, cl[axis], classNameImage)}/>
+                    }
+                </div>
+            }
 
             {/* active */}
             {icon.active  &&

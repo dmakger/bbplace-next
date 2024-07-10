@@ -14,19 +14,28 @@ export interface IUnionColumn {
 
 // export type ICell = ReactNode
 export type ICell = {
-    className?: string,
     cell: ReactNode,
+    className?: string,
 }
 // export type ICell = JSX.Element
-export type IRow = ICell[]
+export type _IRow = ICell[]
+export type IRow = {
+    row: _IRow,
+    rest?: _IRow[]
+    isShowRest?: boolean
+}
 
 export interface ITable {
     head: (string | undefined)[]
     data: IRow[]
-    unions: IUnionColumn[]
+    unions: IUnionColumn[],
+    unionsRest?: IUnionColumn[],
     wrapperForUnions?: React.FC<{
         className?: string,
         children?: ReactNode
     }>
     variant?: TableVariant
+
+    headTop?: ReactNode
+    isVisibleHeadTop?: boolean
 }

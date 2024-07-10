@@ -1,3 +1,4 @@
+import { IUserProductsTab } from "@/features/DetailedPageInfo/model/detailedPageInfo.model"
 import { IOption } from "@/shared/model/option.model"
 
 export const SWITCH_SELECTOR_DESCRIPTION_OPTION: IOption = {
@@ -52,4 +53,10 @@ export const SWITCH_SELECTOR_SALE_TENDERS_OPTION: IOption = {
     id: 9,
     name: 'Продажа',
     value: 'saleTenders'
+}
+
+export enum ProductsTypeLK {
+    Active,
+    Draft,
+    WithoutPrice,
 }

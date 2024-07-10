@@ -1,0 +1,37 @@
+.LKSubheader{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 3;
+    padding: 10px 0;
+    background-color: var(--dialog-surface);
+    transition: 0.3s;
+
+    .container{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        height: 40px;
+        background-color: var(--background-2);
+        border-radius: 20px;
+
+
+        .delButton{
+            @media (max-width: 425px) {
+                padding: 10px;
+                border-radius: 50%;
+            }
+        }
+        .checkedItemsNumber{
+            font-size: var(--font-size-s);
+            & span{
+                font-weight: var(--font-weight-med);
+            }
+        }
+    }
+}
