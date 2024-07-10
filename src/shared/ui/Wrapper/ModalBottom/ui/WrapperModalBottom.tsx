@@ -9,7 +9,10 @@ interface IWrapperModalBottom {
     setIsOpen: Function,
     title?: string,
     topChildren?: ReactNode,
+    isBorderTopOnBottomChild?: boolean,
     bottomChildren?: ReactNode,
+    className?: string,
+    classNameTitle?: string,
     classNameTopChild?: string,
     classNameBottomChild?: string
 }
@@ -18,12 +21,15 @@ export const WrapperModalBottom = ({
     setIsOpen,
     title,
     topChildren,
+    isBorderTopOnBottomChild = false,
     bottomChildren,
+    className,
+    classNameTitle,
     classNameTopChild,
     classNameBottomChild
 }: IWrapperModalBottom) => {
     return (
-        <div className={cl.modalBelowWrapper}>
+        <div className={cls(cl.modalBelowWrapper, className)}>
             <Button variant={ButtonVariant.DEFAULT}
                 beforeImage={XMARK_HOVERED_ICON}
                 beforeProps={{ width: 27, height: 27 }}
@@ -31,11 +37,11 @@ export const WrapperModalBottom = ({
                 onClick={() => setIsOpen(false)} />
             {(topChildren || title) && <div className={cls(cl.topContainer, classNameTopChild )}>
                 {topChildren}
-                <h4>
+                {title && <h4 className={cls(cl.title, classNameTitle)}>
                     {title}
-                </h4>
+                </h4>}
             </div>}
-            <div className={cls(cl.bottomChildren, classNameBottomChild)}>
+            <div className={cls(cl.bottomChildren, classNameBottomChild, isBorderTopOnBottomChild ? cl.wBorder : '')}>
                 {bottomChildren}
             </div>
         </div>

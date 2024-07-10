@@ -9,6 +9,10 @@ import { ELabelPosition, IWrapperRectangleInputChildren } from '../model/wrapper
 import { HoverWindow } from '@/shared/ui/HoverWindow';
 import { EHoverBorderColor, EHoverWindowPosition } from '@/shared/ui/HoverWindow/model/hoverWindow.model';
 import { IOption } from '@/shared/model/option.model';
+import { Modal } from '@/shared/ui/Modal/Modal';
+import { EModalView } from '@/shared/data/modal.data';
+import { BottomInfoModal } from '@/features/Modal/BottomInfo';
+import { WrapperModalBottom } from '../../ModalBottom';
 
 interface IWrapperRectangleInput {
   className?: string
@@ -62,7 +66,7 @@ export const WrapperRectangleInput = ({
   const [successes, setSuccesses] = useState<Record<string, boolean>>({});
   const [warning, setWarning] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
-
+  const [checked, setChecked] = useState<boolean>(false)
 
   //EFFECT
   useEffect(() => {
@@ -95,6 +99,12 @@ export const WrapperRectangleInput = ({
     return child;
   });
 
+  //FUNCTION
+  const closeTheModal = () => {
+    isDescriptionActive && setIsDescriptionActive(false)
+    isWarningActive && setIsWarningActive(false)
+  }
+
   // VARIABLE
   const errorInputSelectMessageArray: string[] = [
     'Пожалуйста, заполните это поле!',
@@ -123,7 +133,7 @@ export const WrapperRectangleInput = ({
                 position={EHoverWindowPosition.RIGHT}
                 borderColor={EHoverBorderColor.DEFAULT}
                 show={isDescriptionActive}
-                className={cls(cl.descWindowActive, classNameDescriptionWindow)}
+                className={cls(cl.descWindowActive, cl.windowActive, classNameDescriptionWindow)}
               />
             </div>
           )}
@@ -148,7 +158,7 @@ export const WrapperRectangleInput = ({
                 position={EHoverWindowPosition.RIGHT}
                 borderColor={!success ? EHoverBorderColor.WARNING : EHoverBorderColor.DEFAULT}
                 show={isWarningActive}
-                className={cls(cl.warnWindowActive, classNameWarningWindow)}
+                className={cls(cl.warnWindowActive, cl.windowActive, classNameWarningWindow)}
               />
             </div>
           )}
@@ -167,11 +177,27 @@ export const WrapperRectangleInput = ({
         </div>
       )}
 
-      {buttonText && <Button variant={ButtonVariant.FILL}
-        title={buttonText}
-        className={cls(cl.button, !selectedOptionsArray.length ? cl.disabled : '')}
-        disabled={!selectedOptionsArray.length}
-        onClick={onClickBellowButton} />}
+      {buttonText && 
+        <Button variant={ButtonVariant.FILL}
+          title={buttonText}
+          className={cls(cl.button, !selectedOptionsArray.length ? cl.disabled : '')}
+          disabled={!selectedOptionsArray.length}
+          onClick={onClickBellowButton} />
+      } 
+      <div className={cl.mobileModal}>
+        <Modal
+          view={EModalView.BOTTOM}
+          buttonNode
+          _isOpen={isDescriptionActive || isWarningActive}
+          onClickOverlay={closeTheModal}
+        >
+          <WrapperModalBottom title={labelText}
+            bottomChildren={<BottomInfoModal
+              text={isDescriptionActive && descriptionTooltipText ? descriptionTooltipText : isWarningActive ? warningTooltipText : ''} />}
+            setIsOpen={closeTheModal} />
+        </Modal>
+
+      </div>
     </div>
   )
 }

@@ -2,9 +2,10 @@
     display: flex;
     flex-direction: column;
     gap: 18px;
-    background-color: var(--background-1);
-    border-radius: 20px 20px 0 0;
     position: relative;
+    max-height: 70vh;
+    background-color: var(--background-1);
+    border-radius: 20px 20px 0 0; 
     width: 425px;
     max-height: 70vh;
 
@@ -14,7 +15,6 @@
 
     .topContainer {
         background-color: var(--background-1);
-
         margin-top: 18px;
 
         & h4 {
@@ -24,10 +24,16 @@
         }
     }
 
+    .wBorder{
+        border-top: 1px solid var(--block-border);
+    }
+
     .bottomChildren{
+        padding: 20px;
         background-color: var(--background-2);
         padding: 20px;
         border-radius: 20px 20px 0 0;
+        overflow-y: auto;
     }
 
     .xmarkButton {

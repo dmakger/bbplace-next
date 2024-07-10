@@ -145,8 +145,7 @@ export function TextAndSelectInput({
     return (
         <WrapperClickOutside _ref={inputSelectRef} isShow={showOptions} handle={toggleShowOptions} className={cls(cl.block, variant === EInputVariants.ROUNDED && showOptions ? cl.show : variant === EInputVariants.RECTANGULAR && showOptions ? cl.showOptionsRectangular : '', className)}>
             <WrapperTitleInput title={title}>
-                <div onClick={!disabled ? toggleShowOptions : () => { }}
-                    className={cl.visible}>
+                <div onClick={!disabled ? toggleShowOptions : () => { }} className={cl.visible}>
                     <div className={cls(cl.mainInput,
                         cl[variant],
                         showOptions && variant === EInputVariants.RECTANGULAR ? cl.rectangularListOpen : '',

@@ -10,12 +10,13 @@ import { EDIT_ICON } from "@/shared/ui/Icon/data/edit.data.icon";
 interface LKTenderTableCellEditDeleteProps {
     onClickDelete: Function
     onClickEdit: Function
+    isRow?: boolean
     className?: string,
 }
 
-export const LKTenderTableCellEditDelete:FC<LKTenderTableCellEditDeleteProps> = ({onClickEdit, onClickDelete, className}) => {
+export const LKTenderTableCellEditDelete:FC<LKTenderTableCellEditDeleteProps> = ({onClickEdit, onClickDelete, isRow=false, className}) => {
     return (
-        <div className={cls(cl.cell, className)}>
+        <div className={cls(cl.cell, isRow ? cl.row : '', className)}>
             <Button variant={ButtonVariant.CONTENT} 
                 color={ButtonColor.Secondary} 
                 size={ButtonSize.Medium} 

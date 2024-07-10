@@ -13,30 +13,32 @@ import { HandleSize } from "@/shared/ui/Handle/Size/HandleSize";
 
 interface LKProductTableCellProductProps{
     product: IProduct
+    showCategory?: boolean
+    isMin?: boolean
     className?: string,
 }
 
-export const LKProductTableCellProduct:FC<LKProductTableCellProductProps> = ({product, className}) => {
+export const LKProductTableCellProduct:FC<LKProductTableCellProductProps> = ({product, showCategory=true, isMin=false, className}) => {
     // STATE
     const [is1024, setIs1024] = useState(false) 
 
     return (
         <>
             <div className={cls(cl.block, className)}>
-                {is1024 && product.category &&
+                {(isMin || is1024) && product.category && showCategory &&
                     <TableCell.Text text={product.category.name} className={cl.category} />
                 }
 
-                {!is1024 && product.media.attachments.length > 0 &&
+                {!(isMin || is1024) && product.media.attachments.length > 0 &&
                     <div className={cl.wrapperImage}>
                         <ImageAPI src={getImage(product.media.attachments[0])} className={cl.image} />
                     </div>
                 }
                 <div className={cl.right}>
-                    {!is1024 && product.category && 
+                    {!(isMin || is1024) && product.category && showCategory && 
                         <TableCell.Text text={product.category.name} className={cl.category} />
                     }
-                    <OptionT image={is1024 && product.media.attachments.length > 0 ? getImage(product.media.attachments[0]) : undefined} classNameImage={cl.optionImage}
+                    <OptionT image={(isMin || is1024) && product.media.attachments.length > 0 ? getImage(product.media.attachments[0]) : undefined} classNameImage={cl.optionImage}
                              text={product.name} 
                              className={cl.option} classNameText={cl.optionText} />
                 </div>

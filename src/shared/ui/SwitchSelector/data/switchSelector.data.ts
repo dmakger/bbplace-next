@@ -1,3 +1,4 @@
+import { IUserProductsTab } from "@/features/DetailedPageInfo/model/detailedPageInfo.model"
 import { IOption } from "@/shared/model/option.model"
 
 export const SWITCH_SELECTOR_DESCRIPTION_OPTION: IOption = {
@@ -82,3 +83,8 @@ export const LK_PRODUCT_PAGE_CREATE: IOption[] = [
     SWITCH_SELECTOR_PRODUCT_PAGE_MULTIPLE,
     SWITCH_SELECTOR_PRODUCT_PAGE_SINGLE
 ]
+export enum ProductsTypeLK {
+    Active,
+    Draft,
+    WithoutPrice,
+}

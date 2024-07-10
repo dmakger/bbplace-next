@@ -1,0 +1,10 @@
+.LKProductList{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 425px;
+    @media (max-width: 425px) {
+        max-width: 425px;
+    }
+}

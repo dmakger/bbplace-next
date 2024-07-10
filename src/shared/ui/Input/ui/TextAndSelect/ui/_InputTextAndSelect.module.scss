@@ -68,8 +68,7 @@
     font-weight: var(--font-weight-med);
     font-size: var(--font-size-reg);
 
-    & input,
-    p {
+    & input, p {
         padding: 20px;
     }
 
@@ -97,7 +96,6 @@
             transition: .3s;
         }
     }
-
 
     .arrowContainer {
         display: flex;
@@ -168,6 +166,46 @@
     }
 }
 
+    //ADAPTIVE
+    @media (max-width: 768px){
+        font-size: var(--font-size-s);
+        
+
+    & input, p {
+        padding: 13px 15px;
+    }
+
+    .imageSearch{
+        display: none;
+    }
+
+    .arrowContainer {
+        min-width: 50px;
+        min-height: 50px;
+    }
+
+
+    .selectedOption {
+        font-size: var(--font-size-s);
+    }
+
+    .inputContainer{
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        width: 100%;
+        padding-left: 15px;
+
+        .input {
+            font-size: var(--font-size-s);
+        }
+    }
+    }
+
+
+}
+
+
 //STATES
 .error {
     color: var(--font);
@@ -188,22 +226,12 @@
 }
 
 //SIZES
-.default {
-    font-size: var(--font-size-reg);
-
-    & input,
-    p {
-        padding: 20px;
-    }
+.medium {
+    
 }
 
 .small {
-    font-size: var(--font-size-s);
-
-    & input,
-    p {
-        padding: 13px 15px;
-    }
+    
 }
 
 

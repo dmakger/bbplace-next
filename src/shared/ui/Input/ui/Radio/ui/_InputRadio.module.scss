@@ -43,11 +43,14 @@
 
     .text {
         margin-left: 10px;
-        font-size: var(--font-size-reg) !important;  
+        font-size: var(--font-size-reg) !important;    
+        @media (max-width: 768px) {
+            font-size: var(--font-size-s) !important;    
+
+        }
     }
 
 }
-
 
 .active {
     .image {
