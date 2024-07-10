@@ -21,7 +21,6 @@ export const ButtonArrowWOLine = ({
     return (
         <Button
             afterImage={ARROW_SECONDARY_WO_ICON}
-            
             afterProps={{ 
             axis,
             width: 14, height: 9, 

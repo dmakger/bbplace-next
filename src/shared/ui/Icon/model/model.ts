@@ -7,6 +7,8 @@ export interface IIcon {
     active?: string
     activeHovered?: string
     activePressed?: string
+
+    disabled?: string
 }
 
 export interface IWarningIcon extends IIcon{

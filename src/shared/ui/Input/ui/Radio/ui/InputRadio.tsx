@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { cls } from "@/shared/lib/classes.lib"
 import cl from './_InputRadio.module.scss'
 import { IOption } from "@/shared/model/option.model"
-import { EInputSizes, EInputVariants, IInput } from '../../../model/input.model'
+import { EInputVariants, IInput } from '../../../model/input.model'
 
 interface InputRadioProps extends IInput{
     option: IOption

@@ -6,7 +6,7 @@ import cl from './_InputListRadio.module.scss'
 import { useEffect, useState } from 'react'
 import { cls } from '@/shared/lib/classes.lib'
 import Input from '../../../Input'
-import { EInputSizes, EInputVariants, IInput } from '../../../model/input.model'
+import { EInputVariants, IInput } from '../../../model/input.model'
 
 interface InputListRadioProps extends IInput{
     options: IOption[]

@@ -12,6 +12,7 @@ import { ProductAPI } from '@/entities/Product/api/product.api'
 import { skipToken } from '@reduxjs/toolkit/query'
 import { EProductLKVariants } from '../../model/productLK.model'
 import { MAIN_PAGES } from '@/config/pages-url.config'
+
 import { IProduct } from '@/entities/Product/model/product.model'
 import { productApiListToProductList } from '@/entities/Product/lib/product.lib'
 import { useEffect, useState } from 'react'
@@ -29,8 +30,6 @@ interface IProductLK extends IProductProps {
   setChoosenProduct?: Function,
   setGroupProducts?: Function
   setIsOpenSettings?: Function,
-  setIsOpenGroup?: Function,
-  setGroupProducts?: Function
   isOpenGroup?: boolean,
   setIsOpenGroup?: Function,
   checkedProductsId?: number[],
@@ -117,7 +116,6 @@ export const ProductLK = ({
             /> :
             <BottomInfoModal
               variant={EBottomInfoVariant.SETTINGS}
-              className={cl.noPadding}
               classNameButtonContainer={cl.groupSettings}
               product={product}
               setIsOpen={setIsOpenGroup ? setIsOpenGroup : () => { }}
@@ -145,6 +143,7 @@ export const ProductLK = ({
               +{groupProductsLength}
             </p>
             <ButtonArrowWOLine
+              // onClick={showGroupModal}
               axis={choosenProduct && choosenProduct.id === product.id && isOpenGroup ? Axis.Top : Axis.Default}
               onClick={() => showGroupModal(product)} />
           </div>}

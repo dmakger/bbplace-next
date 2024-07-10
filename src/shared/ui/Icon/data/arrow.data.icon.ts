@@ -7,6 +7,9 @@ import ArrowWOGrayIcon from '@/shared/assets/img/Arrow/ArrowWOGrayIcon.svg'
 import ArrowWOSecondaryIcon from '@/shared/assets/img/Arrow/ArrowWOSecondaryIcon.svg'
 import ArrowWOSecondaryHoveredIcon from '@/shared/assets/img/Arrow/ArrowWOSecondaryHoveredIcon.svg'
 
+import ArrowWOTertiaryIcon from '@/shared/assets/img/Arrow/ArrowWOLineTertiaryIcon.svg'
+import ArrowWOTertiaryDisabledIcon from '@/shared/assets/img/Arrow/ArrowWOLineTertiaryDisabledIcon.svg'
+
 import ArrowWLineSecondaryIcon from '@/shared/assets/img/Arrow/ArrowWLineSecondary.svg'
 import ArrowWLineSecondaryHoveredIcon from '@/shared/assets/img/Arrow/ArrowWLineSecondaryHovered.svg'
 
@@ -27,6 +30,11 @@ export const ARROW_SECONDARY_WO_ICON: IIcon = {
     default: ArrowWOSecondaryIcon,
     defaultHovered: ArrowWOSecondaryHoveredIcon,
     defaultPressed: ArrowWOSecondaryHoveredIcon
+}
+
+export const ARROW_TERTIARY_WO_ICON: IIcon = {
+    default: ArrowWOTertiaryIcon,
+    disabled: ArrowWOTertiaryDisabledIcon
 }
 
 // ======{ WITH LINE }======

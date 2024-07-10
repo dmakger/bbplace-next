@@ -147,8 +147,9 @@
 }
 
 
-.arrowOpen {
-    & img {
+.arrowOpen{
+    & img{
+        // rotate: 180deg;
         rotate: 270deg;
         transition: rotate 0.3s;
     }

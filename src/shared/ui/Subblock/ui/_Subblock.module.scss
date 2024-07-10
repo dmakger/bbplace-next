@@ -1,0 +1,93 @@
+.Subblock {
+    .DesktopWrapper {
+        display: flex;
+        flex-direction: column;
+        background-color: var(--background-1);
+        border-radius: 20px;
+        transition: 0.3s;
+
+        .topContainer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 10px 10px 20px;
+
+            .title {
+                padding: 10px;
+                font-size: var(--font-size-reg);
+                font-weight: var(--font-weight-med);
+            }
+        }
+
+        .bottomContainer {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 20px;
+            background-color: #FAFAFA;
+        }
+
+        .hiddenContainer{
+            margin-top: -40px;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            border-radius: 0 0 20px 20px;
+            transition: 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        .visible {
+            margin-top: 0px;
+            max-height: 1000px; 
+            opacity: 1;
+            visibility: visible;
+            transition: 0.4s ease-in;
+        }
+    }
+
+
+
+    .displayNone {
+        @media (max-width: 768px) {
+            display: none;
+        }
+    }
+
+    .desktopVariant {
+        @media (max-width: 768px) {
+            .topContainer {
+
+                .title {
+                    font-size: var(--font-size-s);
+                }
+
+            }
+        }
+    }
+
+    .mobileSubblock {
+        display: none;
+        padding: 12px 17px;
+        border-radius: 20px;
+        border: 1px solid var(--secondary-border);
+
+        &:active{
+            .active  {
+                margin-top: -3px;
+            } 
+        }
+
+        .active  {
+            transform: rotate(180deg);
+        }
+
+        &:active img {
+            margin-top: 3px ;
+        }
+        
+        @media (max-width: 768px) {
+            display: flex;
+        }
+    }
+}

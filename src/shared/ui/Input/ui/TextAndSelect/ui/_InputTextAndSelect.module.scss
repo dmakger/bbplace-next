@@ -56,7 +56,7 @@
 }
 
 .placeholder {
-    color: var(--font-caption-sub);
+    color: var(--font-caption-sub) !important;
     transition: 0.3s;
 }
 
@@ -72,6 +72,10 @@
         padding: 20px;
     }
 
+    .selectedOption{
+        color: var(--font);
+    }
+
     &:hover {
         border-color: var(--tertiary-hovered);
         transition: .3s;
@@ -81,7 +85,7 @@
         }
 
         .placeholder {
-            color: var(--font-caption);
+            color: var(--font-caption) !important;
             transition: 0.3s;
         }
     }
@@ -131,6 +135,36 @@
             color: var(--font-caption);
         }
     }
+}
+//DISABLED
+.disabled{
+    background-color: var(--tertiary-surface-low);
+    border: 1px solid var(--disabled);
+    border-radius: 5px;
+    color: var(--font-caption-sub);
+    font-weight: var(--font-weight-med);
+
+    .arrowContainer{
+        background-color: var(--tertiary-surface-low);
+    }
+
+    &:hover{
+        border-color: var(--disabled);
+    
+        .placeholder {
+            color: var(--disabled) !important;
+        }
+    }
+
+    &:hover{
+        .arrowContainer{
+            background-color: var(--tertiary-surface-low);
+        }
+    }
+    .disabledPlaceholder{
+        color: var(--disabled) !important;
+    }
+}
 
     //ADAPTIVE
     @media (max-width: 768px){
@@ -175,13 +209,14 @@
 //STATES
 .error {
     color: var(--font);
+    border-top: 1px solid var(--negative-border) !important;
     border-color: var(--negative-border) !important;
     transition-duration: 0.3s;
 }
 
 .success {
     color: var(--font);
-    border-color: var(--positive-border);
+    border-color: var(--positive-border) !important;
     transition-duration: 0.3s;
 }
 
@@ -231,16 +266,9 @@
 
 .arrowOpen {
     & img{
-        rotate: 270deg;
+        rotate: 180deg;
         transition: rotate 0.3s;
     } 
-}
-
-.arrow {
-    & img{
-        rotate: 90deg;
-        transition: rotate 0.3s;
-    }
 }
 
 .noResult {
