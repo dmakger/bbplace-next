@@ -107,7 +107,7 @@ export const ProductAPI = createApi({
                 headers: getHeaderAuthorization(),
                 body: formData
             })
-        }) 
+        }),
         //GROUP
         createGroup: build.mutation<number, void>({
             query: () => ({

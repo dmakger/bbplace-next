@@ -66,7 +66,6 @@ export const WrapperRectangleInput = ({
   const [successes, setSuccesses] = useState<Record<string, boolean>>({});
   const [warning, setWarning] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
-  const [checked, setChecked] = useState<boolean>(false)
 
   //EFFECT
   useEffect(() => {
