@@ -33,8 +33,7 @@ export const ProductLKSmartList:FC<ProductLKSmartListProps> = ({typeProduct, cla
     //STATE
     const [isOpenSettings, setIsOpenSettings] = useState<boolean>(false);
     const [isOpenGroup, setIsOpenGroup] = useState<boolean>(false);
-    const [activeProducts, setActiveProducts] = useState<IProduct[]>([])
-    const [draftsProducts, setDraftsProducts] = useState<IProduct[]>([])
+    const [products, setProducts] = useState<IProduct[]>([])
     const [choosenProduct, setChoosenProduct] = useState<IProduct>()
     const [groupProducts, setGroupProducts] = useState<IProduct[]>([])
     const [checkedProductsId, setCheckedProductsId] = useState<number[]>([])
@@ -44,19 +43,19 @@ export const ProductLKSmartList:FC<ProductLKSmartListProps> = ({typeProduct, cla
 
     //API
     // const { data: activeProductsAPI } = ProductAPI.useGetProductsByUserQuery({ userId: `55736903-ec19-4ea8-a591-fb03369910b0`, limit: 100000000, page: 0 }, { refetchOnMountOrArgChange: true })
-    const { data: activeProductsAPI } = ProductAPI.useGetProductsByUserQuery(typeProduct === ProductsTypeLK.Active ? { userId, limit: 24, page: 0 } : skipToken, { refetchOnMountOrArgChange: true })
+    const { data: activeProductsAPI } = ProductAPI.useGetProductsByUserQuery(typeProduct === ProductsTypeLK.Active ? { userId, limit: 100000000, page: 0 } : skipToken, { refetchOnMountOrArgChange: true })
     // const { data: draftsProductsAPI } = ProductAPI.useGetDraftsByUserQuery({ limit: 100000000, page: 0 }, { refetchOnMountOrArgChange: true })
-    const { data: draftsProductsAPI } = ProductAPI.useGetDraftsByUserQuery(typeProduct === ProductsTypeLK.Draft ? { limit: 24, page: 0 } : skipToken, { refetchOnMountOrArgChange: true })
+    const { data: draftsProductsAPI } = ProductAPI.useGetDraftsByUserQuery(typeProduct === ProductsTypeLK.Draft ? { limit: 100000000, page: 0 } : skipToken, { refetchOnMountOrArgChange: true })
     const { data: currencyList } = CurrencyAPI.useGetCurrenciesQuery()
     const { data: metrics } = MetricsAPI.useGetMetricsQuery()
 
     //EFFECT
     useEffect(() => {
         if (activeProductsAPI && metrics && currencyList) {
-            setActiveProducts(productApiListToProductList(activeProductsAPI, metrics, currencyList));
+            setProducts(productApiListToProductList(activeProductsAPI, metrics, currencyList));
         }
         if (draftsProductsAPI && metrics && currencyList) {
-            setDraftsProducts(productApiListToProductList(draftsProductsAPI, metrics, currencyList));
+            setProducts(productApiListToProductList(draftsProductsAPI, metrics, currencyList));
         }
     }, [activeProductsAPI, draftsProductsAPI, metrics, currencyList]);
 
@@ -74,8 +73,8 @@ export const ProductLKSmartList:FC<ProductLKSmartListProps> = ({typeProduct, cla
                 checkedProductsId={checkedProductsId}
                 setCheckedProductsId={setCheckedProductsId} />
 
-            {activeProducts.length > 0 && (
-                <ProductLKList products={activeProducts}
+            {products.length > 0 && (
+                <ProductLKList products={products}
                     setIsOpenSettings={setIsOpenSettings}
                     isOpenGroup={isOpenGroup}
                     setIsOpenGroup={setIsOpenGroup}
@@ -104,7 +103,7 @@ export const ProductLKSmartList:FC<ProductLKSmartListProps> = ({typeProduct, cla
                             checkedProductsId={checkedProductsId}
                             setCheckedProductsId={setCheckedProductsId} />
                     )}
-                    bottomChildren={isOpenSettings ? (activeProducts.length > 0 && (
+                    bottomChildren={isOpenSettings ? (products.length > 0 && (
                         <BottomInfoModal
                             variant={EBottomInfoVariant.SETTINGS}
                             product={choosenProduct!}

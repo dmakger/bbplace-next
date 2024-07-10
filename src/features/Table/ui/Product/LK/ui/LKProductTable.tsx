@@ -96,8 +96,6 @@ export const LKProductTable:FC<LKProductTableProps> = ({_products, ...rest}) => 
         setGroupsProducts(createGroupProducts(products))
         setShowRestProducts(products.map(() => false));
     }, [products])
-
-    console.log('qwe group', groupsProducts);
     
     // SET ROWS TABLE
     useEffect(() => {

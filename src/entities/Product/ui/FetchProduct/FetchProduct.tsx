@@ -4,14 +4,17 @@ import { Dispatch, FC, SetStateAction, useEffect, useState } from "react"
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_FetchProduct.module.scss'
-import { IProduct } from "../../model/product.model";
+import { IProduct, IProductAPI } from "../../model/product.model";
 import { ICategory } from "@/entities/Metrics/model/category.metrics.model";
 import { ProductAPI } from "../../api/product.api";
 import { CategoryAPI } from "@/entities/Metrics/api/category.metrics.api";
 import { productApiToProduct } from "../../lib/product.lib";
+import { FetchProductTypes } from "../../data/fetch.product.data";
+import { skipToken } from "@reduxjs/toolkit/query";
 
 interface FetchProductProps {
     set: Dispatch<SetStateAction<IProduct[]>>
+    type: FetchProductTypes
     propsProduct?: any
     hasCategory?: boolean
 }
@@ -19,17 +22,38 @@ interface FetchProductProps {
 /**
  * Данный компонент принимает в себя set, и записывает в него получаемые продукты с учетом передаваемых пропсов
  */
-export const FetchProduct:FC<FetchProductProps> = ({set, propsProduct, hasCategory=false}) => {
+export const FetchProduct:FC<FetchProductProps> = ({set, type, propsProduct, hasCategory=false}) => {
     // STATE
     const [categoryList, setCategoryList] = useState<ICategory[]>([])
+    const [productsAPI, setProductsAPI] = useState<IProductAPI[]>([])
 
     // API
     const [getCategory] = CategoryAPI.useGetCategoryMutation();
-    const { data: productsAPI, isLoading: isProductLoading } = ProductAPI.useGetProductsQuery(
-        // { limit: 24, page: 11 }, 
-        {...propsProduct}, 
+    const { data: allProductsAPI } = ProductAPI.useGetProductsQuery(
+        type === FetchProductTypes.All ? {...propsProduct} : skipToken, 
         { refetchOnMountOrArgChange: true }
     );
+    const { data: byUserProductsAPI } = ProductAPI.useGetProductsByUserQuery(
+        type === FetchProductTypes.ByUser ? {...propsProduct} : skipToken, 
+        { refetchOnMountOrArgChange: true }
+    );
+    const { data: draftProductsAPI } = ProductAPI.useGetDraftsByUserQuery(
+        type === FetchProductTypes.Draft ? {...propsProduct} : skipToken, 
+        { refetchOnMountOrArgChange: true }
+    );
+
+    // EFFECT
+    useEffect(() => {
+        setProductsAPI(prev => {
+            if (type === FetchProductTypes.All && allProductsAPI)
+                return allProductsAPI
+            if (type === FetchProductTypes.ByUser && byUserProductsAPI)
+                return byUserProductsAPI
+            if (type === FetchProductTypes.Draft && draftProductsAPI)
+                return draftProductsAPI
+            return prev
+        })
+    }, [type, allProductsAPI, byUserProductsAPI, draftProductsAPI])
     
     // SET CATEGORIES
     useEffect(() => {
@@ -50,7 +74,7 @@ export const FetchProduct:FC<FetchProductProps> = ({set, propsProduct, hasCatego
         };
 
         fetchCategories();
-    }, [hasCategory, productsAPI, getCategory]);
+    }, [hasCategory, allProductsAPI, getCategory]);
     
     
     // SET PRODUCTS

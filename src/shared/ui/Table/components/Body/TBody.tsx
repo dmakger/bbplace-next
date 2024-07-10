@@ -13,7 +13,6 @@ interface TBodyProps {
 }
 
 export const TBody: FC<TBodyProps> = ({ data, variant = TableVariant.WHITE, className }) => {
-    console.log('qwe table', data);
     return (
         <tbody className={cls(cl[variant], className)}>
             {data.map((row, rowIndex) => (
