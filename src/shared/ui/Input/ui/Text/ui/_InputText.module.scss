@@ -1,10 +1,21 @@
-.input {
+.input, .textarea {
     width: 100%;
     background-color: var(--background-2);
     transition: all .3s;
     outline: none;
     border: 1px solid var(--gray-5);
-    padding-left: 3px;
+    padding: 20px;
+    font-size: var(--font-size-reg);
+    transition: all .3s;
+}
+
+
+.textarea{
+    min-height: 180px;
+    resize: none;
+    @media (max-width: 768px){
+        min-height: 150px;
+    }
 }
 
 .rounded {
@@ -17,17 +28,32 @@
     border-radius: 5px;
     font-weight: var(--font-weight-med);
 
+    &::placeholder{
+        transition: .3s;
+    }
+
     &:hover{
         border-color: var(--tertiary-hovered);
         transition-duration: 0.3s;
+
+        &::placeholder{
+            color: var(--font);
+            transition: .3s;
+        }
     }
     &:focus, :active{
         border-color:var(--tertiary-pressed);
         transition-duration: 0.3s;
     }
 
+    @media (max-width: 768px){
+        padding: 17px 15px;
+        font-size: var(--font-size-s);   
+    }
+
     
 }
+//STATES
 .error{
     color: var(--font);
     border-color: var(--negative-border) !important;
@@ -36,18 +62,8 @@
 
 .success{
     color: var(--font);
-    border-color: var(--positive-border);
+    border-color: var(--positive-border) ;
     transition-duration: 0.3s;
-}
-//SIZES
-.default{
-    padding: 20px;
-    font-size: var(--font-size-reg);
-}
-
-.small{
-    padding: 17px 15px;
-    font-size: var(--font-size-s);
 }
 
 .wHovered {

@@ -8,10 +8,10 @@ import { Button, ButtonVariant } from '@/shared/ui/Button';
 import { ELabelPosition, IWrapperRectangleInputChildren } from '../model/wrapperRectangleInput.model';
 import { HoverWindow } from '@/shared/ui/HoverWindow';
 import { EHoverBorderColor, EHoverWindowPosition } from '@/shared/ui/HoverWindow/model/hoverWindow.model';
-import { WrapperModalBottom } from '../../ModalBottom';
 import { Modal } from '@/shared/ui/Modal/Modal';
-import { BottomInfoModal } from '@/features/Modal/BottomInfo';
 import { EModalView } from '@/shared/data/modal.data';
+import { BottomInfoModal } from '@/features/Modal/BottomInfo';
+import { WrapperModalBottom } from '../../ModalBottom';
 
 interface IWrapperRectangleInput {
   className?: string
@@ -51,7 +51,7 @@ export const WrapperRectangleInput = ({
   const [inputValueLength, setInputValueLength] = useState<number>(0)
   const [warning, setWarning] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
-  const [checked, setChecked] = useState<boolean>(false)  
+  const [checked, setChecked] = useState<boolean>(false)
 
   //EFFECT
   useEffect(() => {
@@ -101,7 +101,7 @@ export const WrapperRectangleInput = ({
 
   return (
     <div className={cls(cl.WrapperRectangleInput, className, cl[labelPosition])} onClick={() => setChecked(!checked)}>
-      <div className={cls(cl.labelNTooltipContainer )}>
+      <div className={cls(cl.labelNTooltipContainer)}>
         <label className={cls(cl.label, classNameLabel)} >
           {labelText}
         </label>
@@ -146,13 +146,12 @@ export const WrapperRectangleInput = ({
                 position={EHoverWindowPosition.RIGHT}
                 borderColor={!success ? EHoverBorderColor.WARNING : EHoverBorderColor.DEFAULT}
                 show={isWarningActive}
-                className={cls(cl.warnWindowActive, cl.windowActive,classNameWarningWindow)}
-              />
+                className={cls(cl.warnWindowActive, cl.windowActive, classNameWarningWindow)}              />
             </div>
           )}
         </div>
       </div>
-      
+
       <div className={cl.inputsContainer}>
         {clonedChildren}
       </div>
@@ -164,19 +163,19 @@ export const WrapperRectangleInput = ({
           ))}
         </div>
       )}
+
       <div className={cl.mobileModal}>
         <Modal
-        view={EModalView.BOTTOM} 
-        buttonNode
-        _isOpen={isDescriptionActive || isWarningActive}
-        onClickOverlay={closeTheModal}
+          view={EModalView.BOTTOM}
+          buttonNode
+          _isOpen={isDescriptionActive || isWarningActive}
+          onClickOverlay={closeTheModal}
         >
           <WrapperModalBottom title={labelText}
-          bottomChildren={<BottomInfoModal
-          text={isDescriptionActive && descriptionTooltipText ? descriptionTooltipText : isWarningActive ? warningTooltipText : ''}/>}
-          setIsOpen={closeTheModal} />
+            bottomChildren={<BottomInfoModal
+            text={isDescriptionActive && descriptionTooltipText ? descriptionTooltipText : isWarningActive ? warningTooltipText : ''} />}
+            setIsOpen={closeTheModal} />
         </Modal>
-        
       </div>
     </div>
   )

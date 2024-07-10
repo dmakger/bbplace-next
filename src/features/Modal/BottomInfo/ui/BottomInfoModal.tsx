@@ -1,3 +1,5 @@
+'use client'
+
 import { cls } from "@/shared/lib/classes.lib"
 import cl from './_BottomInfoModal.module.scss'
 import { EBottomInfoVariant } from "../model/bottomInfoModal.model"
@@ -58,7 +60,7 @@ export const BottomInfoModal = ({
     return (
 
         <div className={cls(cl.BottomInfo, className)}>
-            {variant === EBottomInfoVariant.SETTINGS && <div className={cls(cl.buttonsContainer, classNameButtonContainer)}>
+            {variant === EBottomInfoVariant.SETTINGS && <div className={cls(cl.buttonsContainer, !isTitle ? cl.noPadding : '', classNameButtonContainer)}>
                 <Button title={isTitle ? 'Удалить' : ''}
                     variant={ButtonVariant.TONAL}
                     color={ButtonColor.Negative}

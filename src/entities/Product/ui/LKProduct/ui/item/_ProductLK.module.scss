@@ -163,6 +163,10 @@
     }
 }
 
+.wBorder{
+    border-top: 1px solid var(--block-border);
+}
+
 //ICON
 .iconWrapper {
     display: flex;

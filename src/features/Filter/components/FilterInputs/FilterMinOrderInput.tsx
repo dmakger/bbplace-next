@@ -17,7 +17,7 @@ export const FilterMinOrderInput = ({
                     defaultValue={minOrderDefaultValue}
                     name="minOrder"
                     type='number'
-                    className={cl.filterInput}
+                    classNameInputText={cl.filterInput}
                     placeholder='Введите число'
                     onChange={minOrderOnChange}
                 />

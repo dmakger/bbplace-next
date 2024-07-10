@@ -14,7 +14,7 @@ interface InputListRadioProps extends IInput{
     onClickOption?: Function
 }
 
-export default function InputListRadio({ variant = EInputVariants.ROUNDED, size = EInputSizes.NONE, options, defaultOption, name, onClickOption, className }: InputListRadioProps) {
+export default function InputListRadio({ variant = EInputVariants.ROUNDED, options, defaultOption, name, onClickOption, className }: InputListRadioProps) {
     const [activeOption, setActiveOption] = useState<IOption | undefined>()
 
     useEffect(() => {
@@ -33,7 +33,6 @@ export default function InputListRadio({ variant = EInputVariants.ROUNDED, size 
             {options.map((it, index) => (
                 
                     <Input.Radio
-                        size={size}
                         variant={variant}
                         option={it}
                         name={name}

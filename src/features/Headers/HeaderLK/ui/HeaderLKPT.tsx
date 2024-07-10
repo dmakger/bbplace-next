@@ -23,7 +23,9 @@ interface IHeaderPT {
     setSelectedOption: Function
     optionsTab: IUserProductsTab
 }
-
+/**
+ * LKPT - Личный Кабинет Product Table
+ */
 export const HeaderLKPT = ({
     className,
     isButtonAdd = true,
@@ -54,18 +56,25 @@ export const HeaderLKPT = ({
                 </div>
 
                 <SwitchSelector className={cl.switchSelector}
-                options={[SWITCH_SELECTOR_CREATED_PRODUCTS_OPTION, SWITCH_SELECTOR_WO_PRICE_PRODUCTS_OPTION, SWITCH_SELECTOR_DRAFT_PRODUCTS_OPTION]} setSelectedOption={setSelectedOption}
+                    options={[
+                        SWITCH_SELECTOR_CREATED_PRODUCTS_OPTION, 
+                        SWITCH_SELECTOR_WO_PRICE_PRODUCTS_OPTION, 
+                        SWITCH_SELECTOR_DRAFT_PRODUCTS_OPTION
+                    ]} 
+                    setSelectedOption={setSelectedOption}
                     selectedOption={selectedOption}
                     optionsTab={optionsTab}
                     variant={ESwitchSelectorVariants.TABS} />
             </div>
-            {isButtonAdd && <div className={cl.addButtonContainer}>
-                <Button variant={ButtonVariant.FILL}
-                    color={ButtonColor.Primary}
-                    title="Добавить"
-                    className={cl.addButton}
-                />
-            </div>}
+            {isButtonAdd && 
+                <div className={cl.addButtonContainer}>
+                    <Button variant={ButtonVariant.FILL}
+                        color={ButtonColor.Primary}
+                        title="Добавить"
+                        className={cl.addButton}
+                    />
+                </div>
+            }
 
         </div>
     )

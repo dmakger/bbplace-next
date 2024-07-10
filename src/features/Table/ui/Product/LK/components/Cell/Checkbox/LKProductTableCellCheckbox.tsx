@@ -11,9 +11,10 @@ interface LKProductTableCellCheckboxProps extends IInput{
     product: IProduct,
     checked?: boolean
     onClick?: Function
+    classNameInput?: string
 }
 
-export const LKProductTableCellCheckbox:FC<LKProductTableCellCheckboxProps> = ({product, checked, onClick, ...rest}) => {
+export const LKProductTableCellCheckbox:FC<LKProductTableCellCheckboxProps> = ({product, checked, onClick, classNameInput, className, ...rest}) => {
     
     // HANDLE
     const onClickCheckbox: IInputCheckbox['onClick'] = (value) => {
@@ -22,6 +23,8 @@ export const LKProductTableCellCheckbox:FC<LKProductTableCellCheckboxProps> = ({
     }
     
     return (
-        <TableCell.Checkbox onClick={onClickCheckbox} checked={checked} {...rest}/>
+        <div className={cls(cl.block, className)}>
+            <TableCell.Checkbox onClick={onClickCheckbox} checked={checked} className={classNameInput} {...rest}/>
+        </div>
     )
 }

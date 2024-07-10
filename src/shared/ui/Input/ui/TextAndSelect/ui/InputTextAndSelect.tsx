@@ -26,7 +26,6 @@ interface ITextAndSelectInput extends IWrapperRectangleInputChildren, IInput{
 
 export function TextAndSelectInput({
     variant = EInputVariants.ROUNDED,
-    size = EInputSizes.NONE,
     title,
     className,
     classNameOptions,
@@ -130,7 +129,7 @@ export function TextAndSelectInput({
             <WrapperTitleInput title={title}>
                 <div onClick={toggleShowOptions}
                     className={cl.visible}>
-                    <div className={cls(cl.mainInput, cl[variant], cl[size], showOptions && variant === EInputVariants.RECTANGULAR ? cl.rectangularListOpen : '', warning ? cl.error : success ? cl.success : '')}>
+                    <div className={cls(cl.mainInput, cl[variant], showOptions && variant === EInputVariants.RECTANGULAR ? cl.rectangularListOpen : '', warning ? cl.error : success ? cl.success : '')}>
                         {showOptions ? (variant === EInputVariants.ROUNDED ?
                             <input
                                 type="text"
@@ -168,7 +167,6 @@ export function TextAndSelectInput({
 
             {filteredOptions.length ? (
                 <Input.List.Radio
-                    size={size}
                     variant={variant}
                     options={filteredOptions}
                     className={cls(cl.options, classNameOptions, showOptions ? cl.show : '')}

@@ -6,22 +6,46 @@ import { EProductLKVariants } from '../../model/productLK.model'
 
 interface IProductLKList{
     className?: string,
+    variant?: EProductLKVariants
     products: IProduct[],
-    variant: EProductLKVariants,
-    setGroupProducts?: Function
+    choosenProduct?: IProduct,
+    setGroupProducts?: Function,
+    setChoosenProduct?: Function,
+    setIsOpenSettings?: Function,
+    isOpenGroup?: boolean,
+    setIsOpenGroup?: Function,
+    checkedProductsId?: number[],
+    setCheckedProducts?: Function
 }
 
 export const ProductLKList = ({
     className,
-    products,
     variant = EProductLKVariants.DEFAULT,
-    setGroupProducts
+    products,
+    setGroupProducts,
+    choosenProduct,
+    setChoosenProduct,
+    setIsOpenSettings,
+    isOpenGroup,
+    setIsOpenGroup,
+    checkedProductsId,
+    setCheckedProducts
 }:IProductLKList) => {
   return (
-    <div className={cls(cl.LKProductList, className)}>
-        {products.map(it => (
-            <ProductLK product={it} variant={variant} setGroupProducts={setGroupProducts}/>
-        ))}
-    </div>
+      <div className={cls(cl.LKProductList, className)}>
+          {products.map(it => (
+              <ProductLK product={it}
+                  key={it.id}
+                  variant={variant}
+                  setGroupProducts={setGroupProducts}
+                  isOpenGroup={isOpenGroup}
+                  setIsOpenGroup={setIsOpenGroup}
+                  setIsOpenSettings={setIsOpenSettings}
+                  choosenProduct={choosenProduct}
+                  setChoosenProduct={setChoosenProduct}
+                  checkedProductsId={checkedProductsId}
+                  setCheckedProducts={setCheckedProducts} />
+          ))}
+      </div>
   )
 }
