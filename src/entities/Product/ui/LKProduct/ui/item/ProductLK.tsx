@@ -29,6 +29,8 @@ interface IProductLK extends IProductProps {
   setChoosenProduct?: Function,
   setGroupProducts?: Function
   setIsOpenSettings?: Function,
+  setIsOpenGroup?: Function,
+  setGroupProducts?: Function
   isOpenGroup?: boolean,
   setIsOpenGroup?: Function,
   checkedProductsId?: number[],
@@ -115,6 +117,7 @@ export const ProductLK = ({
             /> :
             <BottomInfoModal
               variant={EBottomInfoVariant.SETTINGS}
+              className={cl.noPadding}
               classNameButtonContainer={cl.groupSettings}
               product={product}
               setIsOpen={setIsOpenGroup ? setIsOpenGroup : () => { }}

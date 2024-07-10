@@ -146,8 +146,7 @@ export const WrapperRectangleInput = ({
                 position={EHoverWindowPosition.RIGHT}
                 borderColor={!success ? EHoverBorderColor.WARNING : EHoverBorderColor.DEFAULT}
                 show={isWarningActive}
-                className={cls(cl.warnWindowActive, cl.windowActive, classNameWarningWindow)}
-              />
+                className={cls(cl.warnWindowActive, cl.windowActive, classNameWarningWindow)}              />
             </div>
           )}
         </div>
@@ -174,10 +173,9 @@ export const WrapperRectangleInput = ({
         >
           <WrapperModalBottom title={labelText}
             bottomChildren={<BottomInfoModal
-              text={isDescriptionActive && descriptionTooltipText ? descriptionTooltipText : isWarningActive ? warningTooltipText : ''} />}
+            text={isDescriptionActive && descriptionTooltipText ? descriptionTooltipText : isWarningActive ? warningTooltipText : ''} />}
             setIsOpen={closeTheModal} />
         </Modal>
-
       </div>
     </div>
   )
