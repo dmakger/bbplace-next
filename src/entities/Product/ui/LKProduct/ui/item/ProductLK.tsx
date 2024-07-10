@@ -55,7 +55,7 @@ export const ProductLK = ({
 
   //API
   const { data: category } = CategoryAPI.useGetCategoryByIdQuery(product?.categoryId)
-  const { data: productAPIListGroup } = ProductAPI.useGetProductsByGroupQuery(product.groupId ?? skipToken, { refetchOnMountOrArgChange: true })
+  const { data: productAPIListGroup } = ProductAPI.useGetProductsByGroupQuery(product.groupId ? product.groupId : skipToken, { refetchOnMountOrArgChange: true })
   const { data: currencyList } = CurrencyAPI.useGetCurrenciesQuery()
   const { data: metrics } = MetricsAPI.useGetMetricsQuery()
 

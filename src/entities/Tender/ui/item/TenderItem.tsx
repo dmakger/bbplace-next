@@ -41,8 +41,6 @@ export const TenderItem = ({
     const [tenderType, setTenderType] = useState<ETenderType>()
     const [is768, setIs768] = useState<boolean>(false);
 
-    console.log('tender list', tender)
-
     //API
     const { data: categories } = CategoryAPI.useGetCategoriesQuery()
 

@@ -1,5 +1,5 @@
 'use client'
-import React, {ReactNode, useState} from 'react'
+import React, {ReactNode, useEffect, useState} from 'react'
 import cl from './_Button.module.scss'
 import { ButtonVariant } from '..'
 import Link from 'next/link'
@@ -8,6 +8,8 @@ import { IIconProps } from '@/shared/model/button.model'
 import { ImageSmart } from '../../Image/Smart/ImageSmart'
 import { cls } from '@/shared/lib/classes.lib'
 import { ButtonColor, ButtonSize, ButtonType } from '../model/button.model'
+import { ButtonImageSize } from '../data/button.data'
+import { getImageSizeBySize } from '../lib/button.lib'
 
 export interface IButton {
     variant?: ButtonVariant
@@ -54,6 +56,7 @@ export const Button = ({
     // STATE
     const [isHovered, setIsHovered] = useState<boolean>(false)
     const [isPressed, setIsPressed] = useState<boolean>(false)
+    const [sizeImage, setSizeImage] = useState<ButtonImageSize>(ButtonImageSize.DefaultSize)
 
     // HANDLE
     const handleOnMouseEnter = () => {
@@ -70,8 +73,15 @@ export const Button = ({
         setIsPressed(true)
         setIsHovered(true)
     }
-    const handleOnMouseUp = () => {}
+    const handleOnMouseUp = () => {
+        setIsPressed(false)
+        setIsHovered(true)
+    }
     
+    // EFFECT
+    useEffect(() => {
+        setSizeImage(getImageSizeBySize(size))
+    }, [size])
 
     const html =  (
         <button type={type} disabled={disabled}
