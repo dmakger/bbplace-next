@@ -7,12 +7,16 @@ import { WrapperTitleInput } from '@/shared/ui/Wrapper/Title/Input/WrapperTitleI
 import { EInputTextVariant } from '../data/text.input.data'
 import { IWrapperRectangleInputChildren } from '@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model'
 import { EInputSizes, EInputVariants, IInput } from '../../../model/input.model'
+import { EInputTextTypeVariants } from '../../../Text/model/text.input.model'
 
 interface InputTextProps extends IWrapperRectangleInputChildren, IInput{
     title?: string
     variantInputText?: EInputTextVariant
     defaultValue?: string,
-    type?: string
+    type?: string,
+    inputTypeVariant?: EInputTextTypeVariants
+    classNameInputText?: string
+    classNameTextArea?: string
 }
 
 export function InputText({
@@ -33,6 +37,7 @@ export function InputText({
     warning,
     setWarning,
     setInputValueLength,
+    size,
     ...rest }: InputTextProps) {
 
     //STATE
@@ -70,26 +75,26 @@ export function InputText({
 
     return (
         <WrapperTitleInput title={title}>
-            {inputTypeVariant === EInputTextTypeVariants.TEXT ? <input
-                className={cls(
-                    cl[variant],
-                    variantInputText === EInputTextVariant.W_HOVERED ? cl.wHovered : '',
-                    cl.input,
-                    isSuccess ? cl.success : '',
-                    isWarning ? cl.error : '',
-                    classNameInputText
-                )}
-                name={name}
-                ref={inputRef}
-                type={type}
-                required={required}
-                placeholder={placeholder}
-                defaultValue={defaultValue}
-                onChange={handleOnChange}
-                {...rest}
-            /> :
-                <textarea
-                    className={cls(
+            {inputTypeVariant === EInputTextTypeVariants.TEXT ? (
+                <input className={cls(
+                        cl[variant],
+                        variantInputText === EInputTextVariant.W_HOVERED ? cl.wHovered : '',
+                        cl.input,
+                        isSuccess ? cl.success : '',
+                        isWarning ? cl.error : '',
+                        classNameInputText
+                    )}
+                    name={name}
+                    ref={inputRef}
+                    type={type}
+                    required={required}
+                    placeholder={placeholder}
+                    defaultValue={defaultValue}
+                    onChange={handleOnChange}
+                    {...rest}
+                    />
+            ) : (
+                <textarea className={cls(
                         cl[variant],
                         cl.textarea,
                         isSuccess ? cl.success : '',
@@ -101,9 +106,11 @@ export function InputText({
                     required={required}
                     placeholder={placeholder}
                     onChange={handleOnChange}
+                    // size={size}
 
                     {...rest}
-                />}
+                />
+            )}
 
         </WrapperTitleInput>
     )

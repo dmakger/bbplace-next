@@ -1,20 +1,11 @@
 import { ReactNode } from "react"
-// <<<<<<< HEAD
-import InputList from "./List/InputList"
-import { InputText } from "./Text"
-import { InputRadio } from "./Radio"
-import { InputDoubleText } from "./DoubleText"
-import { TextAndSelectInput } from "./TextAndSelect"
-import { InputSelect } from "./Select"
-// =======
-// import { InputText } from "./ui/Text"
-// import { InputDoubleText } from "./ui/DoubleText"
-// import { InputSelect } from "./ui/Select/ui/InputSelect"
-// import { TextAndSelectInput } from "./ui/TextAndSelect"
-// import { InputRadio } from "./ui/Radio"
-// import InputList from "./ui/List/InputList"
-// import { InputCheckbox } from "./ui/Checkbox"
-// >>>>>>> origin/master
+import { InputText } from "./ui/Text"
+import { InputDoubleText } from "./ui/DoubleText"
+import { InputSelect } from "./ui/Select/ui/InputSelect"
+import { TextAndSelectInput } from "./ui/TextAndSelect"
+import { InputRadio } from "./ui/Radio"
+import InputList from "./ui/List/InputList"
+import { InputCheckbox } from "./ui/Checkbox"
 
 interface InputProps {
     children: ReactNode
