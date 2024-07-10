@@ -26,13 +26,13 @@ export function InputDoubleText({
     return (
         <div className={cls(cl.InputDoubleText, className)}>
             <InputText
-                className={cls(cl.inputsText, classNameInputs && classNameInputs.first)}
+                classNameInputText={cls(cl.inputsText, classNameInputs && classNameInputs.first)}
                 name={name && name.first}
                 placeholder={placeholder && placeholder.first}
                 onChange={(e:ChangeEvent<HTMLInputElement>) => setFirstPrice(e.target.value)}
             />
             <InputText
-                className={cls(cl.inputsText, classNameInputs && classNameInputs.second)}
+                classNameInputText={cls(cl.inputsText, classNameInputs && classNameInputs.second)}
                 name={name && name.second}
                 placeholder={placeholder && placeholder.second}
                 onChange={(e:ChangeEvent<HTMLInputElement>) => setSecondPrice(e.target.value)}

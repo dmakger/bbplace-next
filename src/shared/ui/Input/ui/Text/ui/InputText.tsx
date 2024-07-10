@@ -17,10 +17,14 @@ interface InputTextProps extends IWrapperRectangleInputChildren, IInput{
 
 export function InputText({
     variant = EInputVariants.ROUNDED,
-    size = EInputSizes.NONE,
-    title,
+    inputTypeVariant = EInputTextTypeVariants.TEXT,
     variantInputText = EInputTextVariant.DEFAULT,
-    className,
+    title,
+    name,
+    placeholder,
+    required = false,
+    classNameInputText,
+    classNameTextArea,
     type = 'text',
     onChange = () => { },
     defaultValue = '',
@@ -37,15 +41,13 @@ export function InputText({
 
     //REF
     const inputRef = useRef<HTMLInputElement>(null)
+    const textAreaRef = useRef<HTMLTextAreaElement>(null)
 
     //EFFECT
     useEffect(() => {
-        if (inputRef.current) {
-            inputRef.current.value = defaultValue
-        }
+        if (inputRef.current) inputRef.current.value = defaultValue;
+        if (textAreaRef.current) textAreaRef.current.value = defaultValue;
     }, [defaultValue])
-
-
 
     //FUNCTIONS
     const checkValue = (value: string) => {
@@ -59,7 +61,7 @@ export function InputText({
         }
     }
 
-    const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleOnChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const value = e.target.value
         setInputValueLength?.(value.length)
         checkValue(value)
@@ -68,22 +70,41 @@ export function InputText({
 
     return (
         <WrapperTitleInput title={title}>
-            <input
+            {inputTypeVariant === EInputTextTypeVariants.TEXT ? <input
                 className={cls(
                     cl[variant],
                     variantInputText === EInputTextVariant.W_HOVERED ? cl.wHovered : '',
                     cl.input,
-                    cl[size],
                     isSuccess ? cl.success : '',
                     isWarning ? cl.error : '',
-                    className
+                    classNameInputText
                 )}
+                name={name}
                 ref={inputRef}
                 type={type}
+                required={required}
+                placeholder={placeholder}
                 defaultValue={defaultValue}
                 onChange={handleOnChange}
                 {...rest}
-            />
+            /> :
+                <textarea
+                    className={cls(
+                        cl[variant],
+                        cl.textarea,
+                        isSuccess ? cl.success : '',
+                        isWarning ? cl.error : '',
+                        classNameTextArea)}
+                    name={name}
+                    ref={textAreaRef}
+                    defaultValue={defaultValue}
+                    required={required}
+                    placeholder={placeholder}
+                    onChange={handleOnChange}
+
+                    {...rest}
+                />}
+
         </WrapperTitleInput>
     )
 }
