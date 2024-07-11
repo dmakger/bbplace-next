@@ -14,7 +14,7 @@ export default function LoginPage(){
             isDescriptionTooltip
             descriptionTooltipText="Введите адрес электронной почты, на которую был или будет зарегистрирован профиль"
             >
-                <Input.Text type="email" variant={EInputVariants.RECTANGULAR}size={EInputSizes.DEFAULT} placeholder="Введите email"/>
+                <Input.Text type="email" variant={EInputVariants.RECTANGULAR} size={EInputSizes.DEFAULT} placeholder="Введите email"/>
             </WrapperRectangleInput>
         </WrapperNotAuthPages>
        </Wrapper1280>

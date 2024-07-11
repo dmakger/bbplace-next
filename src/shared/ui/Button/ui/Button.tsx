@@ -80,8 +80,8 @@ export const Button = ({
                 className={cls(cl.button, cl[classes[0]], cl[color], cl[size], active ? cl.active : '', classes.length > 0 && classes[1] === 'new' ? cl.new : cl.old, className)}>
             {beforeImage &&
                 <ImageSmart {...beforeProps} icon={beforeImage} 
-                            width={beforeProps && beforeProps.width ? beforeProps.width: sizeImage} 
-                            height={beforeProps && beforeProps.height ? beforeProps.height: sizeImage} 
+                            width={beforeProps && beforeProps.width ? beforeProps.width: 0} 
+                            height={beforeProps && beforeProps.height ? beforeProps.height: 0} 
                             isActive={active && !success} isHovered={isHovered} isSuccess={success} isPressed={isPressed}/>
             }
             {title && 
@@ -89,8 +89,8 @@ export const Button = ({
             }
             {afterImage &&
                 <ImageSmart {...afterProps} icon={afterImage}
-                            width={afterProps && afterProps.width ? afterProps.width: sizeImage} 
-                            height={afterProps && afterProps.height ? afterProps.height: sizeImage} 
+                            width={afterProps && afterProps.width ? afterProps.width: 0} 
+                            height={afterProps && afterProps.height ? afterProps.height: 0} 
                             isActive={active} isHovered={isHovered} isPressed={isPressed} isSuccess={success}/>
             }
             {children}

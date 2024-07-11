@@ -1,11 +1,11 @@
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_HeaderTop.module.scss'
-import Logo from '@/shared/ui/Logo/Logo';
 import { Search } from '@/features/Search';
 import { MenuWEB } from '@/widgets/Menu/WEB';
 import Wrapper1280 from '@/shared/ui/Wrapper/1280/Wrapper1280';
 import { CategoryButton } from '@/entities/Metrics/ui/Category';
 import { HeaderUser } from '@/features/User/Auth';
+import { Logo } from '@/shared/ui/Logo';
 
 interface HeaderTopProps {
     className?: string

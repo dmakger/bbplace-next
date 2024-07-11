@@ -14,6 +14,8 @@ class MAIN {
 
     SUPPORT = `${this.root}/support`
 
+    LOGIN = `${this.root}/login`
+
     CURRENT_SUPPLIER = (id: ISupplier['id']) => `${this.SUPPLIERS}/${id}`
     CURRENT_PRODUCT = (id: IProduct['id']) => `${this.PRODUCTS}/${id}`
     CURRENT_TENDER = (id: ITender['id'], type: IBaseTender['type'] = ETenderType.PURCHASE) => `${this.TENDERS}/${id}/${type}`

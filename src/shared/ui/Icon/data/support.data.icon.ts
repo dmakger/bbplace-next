@@ -2,12 +2,21 @@ import { IIcon } from "../model/model";
 
 import SupportDefaultIcon from '@/shared/assets/img/Support/SupportDefaultIcon.svg'
 import SupportHoveredIcon from '@/shared/assets/img/Support/SupportHoveredIcon.svg'
+import SupportActiveIcon from '@/shared/assets/img/Support/SupportActiveIcon.svg'
 
+
+export const SUPPORT_DEFAULT_ICON:IIcon = {
+    default: SupportDefaultIcon
+}
+
+export const SUPPORT_ACTIVE_ICON: IIcon = {
+    default: SupportActiveIcon
+}
 
 export const SUPPORT_ICON: IIcon = {
-    default: SupportDefaultIcon,
+    default: SUPPORT_DEFAULT_ICON.default,
     defaultHovered: SupportHoveredIcon,
-    active: SupportHoveredIcon,
+    active: SUPPORT_ACTIVE_ICON.default
 }
 
 

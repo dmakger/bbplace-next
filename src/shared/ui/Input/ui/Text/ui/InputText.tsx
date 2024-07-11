@@ -49,8 +49,12 @@ export function InputText({
 
     //FUNCTIONS
     const checkValue = (value: string) => {
-        const isErr = value.trim() === ''
-
+        let isErr = false;
+        isErr = value.trim() === '';
+        if(type === 'email'){
+            isErr = !(value.includes('@') && value.includes('.'));
+           
+        } 
         if (setWarning && setSuccess) {
             setWarning(isErr)
             setIsWarning(isErr)
@@ -62,7 +66,6 @@ export function InputText({
     const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value
         setInputValueLength?.(value.length)
-        checkValue(value)
         onChange(value)
     }
 
@@ -82,6 +85,7 @@ export function InputText({
                 type={type}
                 defaultValue={defaultValue}
                 onChange={handleOnChange}
+                onBlur={(e) => checkValue(e.target.value)}
                 {...rest}
             />
         </WrapperTitleInput>
