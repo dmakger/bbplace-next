@@ -8,6 +8,7 @@ import { Button, ButtonVariant } from '@/shared/ui/Button';
 import { ELabelPosition, IWrapperRectangleInputChildren } from '../model/wrapperRectangleInput.model';
 import { HoverWindow } from '@/shared/ui/HoverWindow';
 import { EHoverBorderColor, EHoverWindowPosition } from '@/shared/ui/HoverWindow/model/hoverWindow.model';
+import { IOption } from '@/shared/model/option.model';
 import { Modal } from '@/shared/ui/Modal/Modal';
 import { EModalView } from '@/shared/data/modal.data';
 import { BottomInfoModal } from '@/features/Modal/BottomInfo';
@@ -20,11 +21,13 @@ interface IWrapperRectangleInput {
   classNameWarningWindow?: string,
   labelText: string
   children: ReactNode,
+  buttonText?: string,
+  onClickBellowButton?: Function,
   isRequired?: boolean
   isDescriptionTooltip?: boolean
   warningTooltipText?: string,
   descriptionTooltipText?: string,
-  errorInputSelectMessage?: string,
+  errorInputMessage?: string,
   labelPosition?: ELabelPosition
 }
 
@@ -35,23 +38,34 @@ export const WrapperRectangleInput = ({
   classNameWarningWindow,
   labelText,
   children,
+  buttonText,
+  onClickBellowButton,
   isRequired = false,
   isDescriptionTooltip = true,
   warningTooltipText = 'Обязательно для заполнения',
   descriptionTooltipText,
-  errorInputSelectMessage = 'Выберите категорию из списка',
+  errorInputMessage = 'Выберите категорию из списка',
   labelPosition = ELabelPosition.TOP
 }: IWrapperRectangleInput) => {
 
   // STATE
   const [isWarningActive, setIsWarningActive] = useState<boolean>(false)
   const [isDescriptionActive, setIsDescriptionActive] = useState<boolean>(false);
+
+  //Для InputText
+  const [inputValueLength, setInputValueLength] = useState<number>(0)
+
+  //Для RecursiveSelectInput
+  const [selectedOptionsArray, setSelectedOptionsArray] = useState<IOption[]>([])
+
+  //Для InputCheckbox
+  const [checked, setChecked] = useState<boolean>(false)
+
+
   const [warnings, setWarnings] = useState<Record<string, boolean>>({});
   const [successes, setSuccesses] = useState<Record<string, boolean>>({});
-  const [inputValueLength, setInputValueLength] = useState<number>(0)
   const [warning, setWarning] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
-  const [checked, setChecked] = useState<boolean>(false)
 
   //EFFECT
   useEffect(() => {
@@ -77,6 +91,7 @@ export const WrapperRectangleInput = ({
         setSuccess: (value: boolean) => setSuccesses(prev => ({ ...prev, [id]: value })),
         setWarning: (value: boolean) => setWarnings(prev => ({ ...prev, [id]: value })),
         setInputValueLength,
+        setSelectedOptionsArray,
         checked
       });
     }
@@ -90,13 +105,9 @@ export const WrapperRectangleInput = ({
   }
 
   // VARIABLE
-  const errorInputTextMessageArray: string[] = [
-    'Пожалуйста, заполните это поле!',
-    `Максимальная длина - 50 символов. Сейчас ${inputValueLength}`
-  ];
-
   const errorInputSelectMessageArray: string[] = [
-    errorInputSelectMessage
+    'Пожалуйста, заполните это поле!',
+    errorInputMessage  || `Максимальная длина - 50 символов. Сейчас ${inputValueLength}`
   ];
 
   return (
@@ -125,7 +136,7 @@ export const WrapperRectangleInput = ({
               />
             </div>
           )}
-          {isRequired && warningTooltipText && (
+          {isRequired && (
             <div className={cl.tooltipWarnCont}>
               <Button
                 variant={ButtonVariant.CLEAR}
@@ -157,14 +168,21 @@ export const WrapperRectangleInput = ({
         {clonedChildren}
       </div>
 
-      {warning && isRequired && (
+      {warning && errorInputSelectMessageArray && (
         <div className={cl.errorMessage}>
-          {errorInputTextMessageArray.map((it, index) => (
+          {errorInputSelectMessageArray.map((it, index) => (
             <p key={index}>{it}</p>
           ))}
         </div>
       )}
 
+      {buttonText && 
+        <Button variant={ButtonVariant.FILL}
+          title={buttonText}
+          className={cls(cl.button, !selectedOptionsArray.length ? cl.disabled : '')}
+          disabled={!selectedOptionsArray.length}
+          onClick={onClickBellowButton} />
+      } 
       <div className={cl.mobileModal}>
         <Modal
           view={EModalView.BOTTOM}

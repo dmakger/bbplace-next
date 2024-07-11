@@ -12,6 +12,7 @@ import { ProductAPI } from '@/entities/Product/api/product.api'
 import { skipToken } from '@reduxjs/toolkit/query'
 import { EProductLKVariants } from '../../model/productLK.model'
 import { MAIN_PAGES } from '@/config/pages-url.config'
+
 import { IProduct } from '@/entities/Product/model/product.model'
 import { productApiListToProductList } from '@/entities/Product/lib/product.lib'
 import { useEffect, useState } from 'react'
@@ -55,7 +56,7 @@ export const ProductLK = ({
 
   //API
   const { data: category } = CategoryAPI.useGetCategoryByIdQuery(product?.categoryId)
-  const { data: productAPIListGroup } = ProductAPI.useGetProductsByGroupQuery(product.groupId ?? skipToken, { refetchOnMountOrArgChange: true })
+  const { data: productAPIListGroup } = ProductAPI.useGetProductsByGroupQuery(product.groupId ? product.groupId : skipToken, { refetchOnMountOrArgChange: true })
   const { data: currencyList } = CurrencyAPI.useGetCurrenciesQuery()
   const { data: metrics } = MetricsAPI.useGetMetricsQuery()
 
@@ -142,6 +143,7 @@ export const ProductLK = ({
               +{groupProductsLength}
             </p>
             <ButtonArrowWOLine
+              // onClick={showGroupModal}
               axis={choosenProduct && choosenProduct.id === product.id && isOpenGroup ? Axis.Top : Axis.Default}
               onClick={() => showGroupModal(product)} />
           </div>}

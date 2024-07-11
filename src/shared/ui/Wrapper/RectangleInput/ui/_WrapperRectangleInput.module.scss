@@ -1,7 +1,6 @@
 .WrapperRectangleInput {
     display: flex;
     flex-direction: column;
-    cursor: pointer;
 
     .labelNTooltipContainer, .top {
         display: flex;
@@ -25,6 +24,7 @@
                 margin: auto;
                 border: none;
                 padding: 7px;
+                border-radius: 50%;
                 transition: 0.3s;
             }
 
@@ -53,6 +53,7 @@
 
             .tooltipWarnCont {
                 position: relative;
+
 
                 &:hover {
                     .warnWindowActive {
@@ -109,7 +110,18 @@
         border-radius: 0 5px 5px 5px;
     }
 
+    //BUTTON
+    .button{
+        border-radius: 0 0 20px 20px;
+        padding: 17px 25px;
+    }
+    .disabled{
+        &:hover{
+            background-color: var(--disabled) !important;
+        }
+    }
 
+    //ERROR
     .errorMessage {
         display: flex;
         flex-direction: column;

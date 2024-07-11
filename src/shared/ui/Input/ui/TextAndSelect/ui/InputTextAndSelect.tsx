@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import Image from 'next/image'
 import cl from './_InputTextAndSelect.module.scss'
 import { IOption } from '@/shared/model/option.model'
@@ -9,27 +9,33 @@ import WrapperClickOutside from '@/shared/ui/Wrapper/ClickOutside/WrapperClickOu
 import { WrapperTitleInput } from '@/shared/ui/Wrapper/Title/Input/WrapperTitleInput'
 import { XMARK_ICON } from '@/shared/ui/Icon/data/xmark.data.icon'
 import { Button, ButtonVariant } from '@/shared/ui/Button'
-import { ARROW_WO_ICON } from '@/shared/ui/Icon/data/arrow.data.icon'
+import { ARROW_TERTIARY_WO_ICON, ARROW_WO_ICON } from '@/shared/ui/Icon/data/arrow.data.icon'
 import { IImageSizes } from '@/shared/model/image.model'
 import { IWrapperRectangleInputChildren } from '@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model'
-import { EInputSizes, EInputVariants, IInput } from '../../../model/input.model'
+import { EInputVariants, IInput } from '../../../model/input.model'
 import Input from '../../../Input'
+import SEARCH_ICON from '@/../public/searchGray.svg'
+import { ERecursiveSelectVariant } from '../../RecursiveSelect/model/recursiveSelect.model'
 
-interface ITextAndSelectInput extends IWrapperRectangleInputChildren, IInput{
+interface ITextAndSelectInput extends IWrapperRectangleInputChildren, IInput {
+    variantRecursive?: ERecursiveSelectVariant,
     title?: string
     listOptions?: IOption[],
     defaultOption?: IOption,
     onClickOption?: Function,
     arrowSizes?: IImageSizes
     classNameOptions?: string,
+    classNameMainInput?: string,
+    disabled?: boolean
 }
 
 export function TextAndSelectInput({
     variant = EInputVariants.ROUNDED,
-    size = EInputSizes.NONE,
+    variantRecursive = ERecursiveSelectVariant.SINGLE,
     title,
     className,
     classNameOptions,
+    classNameMainInput,
     listOptions,
     defaultOption,
     onClickOption,
@@ -40,10 +46,10 @@ export function TextAndSelectInput({
     },
     setIsListOpen,
     placeholder,
+    disabled,
     success,
-    setSuccess,
-    warning,
-    setWarning
+    setWarning,
+    setSuccess
 }: ITextAndSelectInput) {
 
     //STATE
@@ -51,8 +57,8 @@ export function TextAndSelectInput({
     const [showOptions, setShowOptions] = useState(false)
     const [activeOption, setActiveOption] = useState<IOption | undefined>()
     const [isHovered, setIsHovered] = useState(false)
-    const [isWarning, setIsWarning] = useState<boolean>(warning ?? false);
-    const [isSuccess, setIsSuccess] = useState<boolean>(success ?? false);
+    const [isWarning, setIsWarning] = useState<boolean>(false);
+    const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
     //MEMO
     const filteredOptions = useMemo(() => {
@@ -69,6 +75,16 @@ export function TextAndSelectInput({
     }, [defaultOption])
 
     useEffect(() => {
+        activeOption === undefined && setIsSuccess(false)
+    }, [activeOption]);
+
+
+    useEffect(() => {
+        setWarning && setWarning(isWarning)
+    }, [isWarning])
+
+
+    useEffect(() => {
         setSearchQuery('')
         setIsListOpen && setIsListOpen(showOptions)
     }, [showOptions])
@@ -82,55 +98,60 @@ export function TextAndSelectInput({
     }
 
     // ==={ CLICK }===
-
     const resetInputValue = () => {
         setSearchQuery('')
         setIsHovered(false)
     };
 
-    const checkClickValue = () => {
-        if (activeOption && activeOption?.name !== '') {
-            setWarning && setWarning(false)
-            setSuccess && setSuccess(true)
+    const toggleShowOptions = () => setShowOptions((prevShowOptions) => !prevShowOptions);
+
+
+    const handleOnItem = (it: IOption) => {
+        if(variant == EInputVariants.RECTANGULAR){
+            setIsSuccess(true)
+            setIsWarning(false)
         }
-    }
 
-    const toggleShowOptions = useCallback(() => {
-        setShowOptions((prevShowOptions) => !prevShowOptions);
-    }, []);
-
-
-    const handleOnItem = useCallback((it: IOption) => {
-        checkClickValue()
-        setActiveOption(it)
         if (onClickOption) onClickOption(it)
+        else setActiveOption(it)
+
+        if (!it.options?.length) {
+            setSuccess && setSuccess(true)
+            if (variantRecursive === ERecursiveSelectVariant.MULTIPLE) {
+                setIsSuccess(false)
+            }
+        }
         setShowOptions(false)
-    }, [setActiveOption, onClickOption, setShowOptions])
+    }
 
     // ==={ CHANGE }===
     const checkChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (!listOptions?.some(it => it.name.toLowerCase().includes(e.target.value.trim().toLowerCase()))) {
-            setWarning && setWarning(true)
-            setSuccess && setSuccess(false)
+        if (variant == EInputVariants.RECTANGULAR && !listOptions?.some(it => it.name.toLowerCase().includes(e.target.value.trim().toLowerCase()))) {
+            setIsWarning(true)
+            setIsSuccess(false)
         }
         else {
-            setWarning && setWarning(false)
-            setSuccess && setSuccess(true)
+            setIsWarning(false)
+            setIsSuccess(true)
         }
     }
 
-    const handleInputChange = useCallback(
-        (e: React.ChangeEvent<HTMLInputElement>) => {
-            checkChangeValue(e)
-            setSearchQuery(e.target.value.toLowerCase().replaceAll('  ', ' ').trim());
-        }, []);
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        checkChangeValue(e)
+        setSearchQuery(e.target.value.toLowerCase().replaceAll('  ', ' ').trim());
+        if (e.target.value === '') setIsWarning(true)
+    }
 
     return (
         <WrapperClickOutside _ref={inputSelectRef} isShow={showOptions} handle={toggleShowOptions} className={cls(cl.block, variant === EInputVariants.ROUNDED && showOptions ? cl.show : variant === EInputVariants.RECTANGULAR && showOptions ? cl.showOptionsRectangular : '', className)}>
             <WrapperTitleInput title={title}>
-                <div onClick={toggleShowOptions}
-                    className={cl.visible}>
-                    <div className={cls(cl.mainInput, cl[variant], cl[size], showOptions && variant === EInputVariants.RECTANGULAR ? cl.rectangularListOpen : '', warning ? cl.error : success ? cl.success : '')}>
+                <div onClick={!disabled ? toggleShowOptions : () => { }} className={cl.visible}>
+                    <div className={cls(cl.mainInput,
+                        cl[variant],
+                        showOptions && variant === EInputVariants.RECTANGULAR ? cl.rectangularListOpen : '',
+                        isWarning ? cl.error : isSuccess ? cl.success : '',
+                        disabled ? cl.disabled : '',
+                        classNameMainInput)}>
                         {showOptions ? (variant === EInputVariants.ROUNDED ?
                             <input
                                 type="text"
@@ -143,7 +164,7 @@ export function TextAndSelectInput({
                                 autoFocus
                             /> :
                             <div className={cl.inputContainer}>
-                                <Image src={"searchGray.svg"} alt={"Поиск"} width={19} height={19} className={cl.imageSearch} />
+                                <Image src={SEARCH_ICON} alt={"Поиск"} width={19} height={19} className={cl.imageSearch} />
                                 <input
                                     type="text"
                                     className={cl.input}
@@ -157,10 +178,12 @@ export function TextAndSelectInput({
 
                             </div>)
                             :
-                            <p className={cls(cl.selectedOption, !activeOption && placeholder ? cl.placeholder : '')}>
+                            <p className={cls(cl.selectedOption,
+                                !activeOption && placeholder ? cl.placeholder : '',
+                                disabled ? cl.disabledPlaceholder : '')}>
                                 {!activeOption && placeholder ? placeholder : activeOption?.name}
                             </p>}
-                        <Button variant={ButtonVariant.DEFAULT} className={cls(cl.arrowContainer, showOptions ? cl.activeArrow : '',showOptions ? cl.arrowOpen : cl.arrow)} beforeImage={ARROW_WO_ICON} beforeProps={{ width: arrowSizes.width, height: arrowSizes.height }} />
+                        <Button variant={ButtonVariant.DEFAULT} className={cls(cl.arrowContainer, showOptions ? cl.activeArrow : '', showOptions ? cl.arrowOpen : '')} beforeImage={ARROW_TERTIARY_WO_ICON} beforeProps={{ width: arrowSizes.width, height: arrowSizes.height}} disabled={disabled} />
 
                     </div>
                 </div>
@@ -168,7 +191,6 @@ export function TextAndSelectInput({
 
             {filteredOptions.length ? (
                 <Input.List.Radio
-                    size={size}
                     variant={variant}
                     options={filteredOptions}
                     className={cls(cl.options, classNameOptions, showOptions ? cl.show : '')}
@@ -181,7 +203,7 @@ export function TextAndSelectInput({
                     {variant === EInputVariants.ROUNDED && <p className={cl.noResult}>
                         К сожалению, такой страны нет (X_X)
                     </p>}
-                    {variant === EInputVariants.RECTANGULAR && <div className={cl.noResultRect}>
+                    {showOptions && variant === EInputVariants.RECTANGULAR && <div className={cl.noResultRect}>
                         <span>Ничего не найдено</span>
                         <Button variant={ButtonVariant.DEFAULT}
                             className={cl.xmarkButton}

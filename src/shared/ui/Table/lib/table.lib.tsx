@@ -34,7 +34,7 @@ export const unionDataTable = (data: IRow[], unions: IUnionColumn[], unionsRest?
     return data.map((row) => {
         return {
             row: unionCellTable(row.row, unions, wrapper),
-            rest: row.rest?.map(it => unionCellTable(it, unions, wrapper)),
+            rest: row.rest && unionsRest ? row.rest.map(it => unionCellTable(it, unionsRest, wrapper)) : row.rest,
             isShowRest: row.isShowRest
         } as IRow
     });

@@ -1,5 +1,5 @@
 'use client'
-import React, {ReactNode, useState} from 'react'
+import React, {ReactNode, useEffect, useState} from 'react'
 import cl from './_Button.module.scss'
 import { ButtonVariant } from '..'
 import Link from 'next/link'
@@ -8,6 +8,8 @@ import { IIconProps } from '@/shared/model/button.model'
 import { ImageSmart } from '../../Image/Smart/ImageSmart'
 import { cls } from '@/shared/lib/classes.lib'
 import { ButtonColor, ButtonSize, ButtonType } from '../model/button.model'
+import { ButtonImageSize } from '../data/button.data'
+import { getImageSizeBySize } from '../lib/button.lib'
 
 export interface IButton {
     variant?: ButtonVariant
@@ -54,6 +56,7 @@ export const Button = ({
     // STATE
     const [isHovered, setIsHovered] = useState<boolean>(false)
     const [isPressed, setIsPressed] = useState<boolean>(false)
+    const [sizeImage, setSizeImage] = useState<ButtonImageSize>(ButtonImageSize.DefaultSize)
 
     // HANDLE
     const handleOnMouseEnter = () => {
@@ -70,8 +73,15 @@ export const Button = ({
         setIsPressed(true)
         setIsHovered(true)
     }
-    const handleOnMouseUp = () => {}
+    const handleOnMouseUp = () => {
+        setIsPressed(false)
+        setIsHovered(true)
+    }
     
+    // EFFECT
+    useEffect(() => {
+        setSizeImage(getImageSizeBySize(size))
+    }, [size])
 
     const html =  (
         <button type={type} disabled={disabled}
@@ -80,18 +90,20 @@ export const Button = ({
                 className={cls(cl.button, cl[classes[0]], cl[color], cl[size], active ? cl.active : '', classes.length > 0 && classes[1] === 'new' ? cl.new : cl.old, className)}>
             {beforeImage &&
                 <ImageSmart {...beforeProps} icon={beforeImage} 
-                            width={beforeProps && beforeProps.width ? beforeProps.width: 0} 
-                            height={beforeProps && beforeProps.height ? beforeProps.height: 0} 
-                            isActive={active && !success} isHovered={isHovered} isSuccess={success} isPressed={isPressed}/>
+                            width={beforeProps && beforeProps.width ? beforeProps.width: sizeImage} 
+                            height={beforeProps && beforeProps.height ? beforeProps.height: sizeImage} 
+                            isActive={active && !success} isHovered={isHovered} isSuccess={success} isPressed={isPressed} isDisabled={disabled}/>
+
             }
             {title && 
                 <span className={cls(cl.title, classNameText)}>{title}</span>
             }
             {afterImage &&
                 <ImageSmart {...afterProps} icon={afterImage}
-                            width={afterProps && afterProps.width ? afterProps.width: 0} 
-                            height={afterProps && afterProps.height ? afterProps.height: 0} 
-                            isActive={active} isHovered={isHovered} isPressed={isPressed} isSuccess={success}/>
+                            width={afterProps && afterProps.width ? afterProps.width: sizeImage} 
+                            height={afterProps && afterProps.height ? afterProps.height: sizeImage} 
+                            isActive={active} isHovered={isHovered} isPressed={isPressed} isSuccess={success}
+                            isDisabled={disabled}/>
             }
             {children}
         </button>

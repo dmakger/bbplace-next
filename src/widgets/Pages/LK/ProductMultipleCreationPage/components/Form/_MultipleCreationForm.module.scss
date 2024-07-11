@@ -1,0 +1,18 @@
+.MultipleCreationForm {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    width: 100%;
+
+    .label {
+        padding: 15px 20px !important;
+        border-radius: 20px 20px 0 0 !important;
+        font-weight: var(--font-weight-med);
+        color: var(--font) !important;
+
+        @media (max-width: 768px) {
+            font-size: var(--font-size-s);
+        }
+    }
+}
+

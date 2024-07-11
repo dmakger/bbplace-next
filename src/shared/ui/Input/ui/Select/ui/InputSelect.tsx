@@ -6,12 +6,15 @@ import { useEffect, useRef, useState } from 'react'
 import { cls } from '@/shared/lib/classes.lib'
 import { WrapperTitleInput } from '@/shared/ui/Wrapper/Title/Input/WrapperTitleInput'
 import { Button, ButtonVariant } from '@/shared/ui/Button'
+import { ARROW_TERTIARY_WO_ICON } from '@/shared/ui/Icon/data/arrow.data.icon'
 import { ARROW_WO_ICON } from '@/shared/ui/Icon/data/arrow.data.icon'
 import { IImageSizes } from '@/shared/model/image.model'
 import { IWrapperRectangleInputChildren } from '@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model'
 import Input from '../../../Input'
 import WrapperClickOutside from '@/shared/ui/Wrapper/ClickOutside/WrapperClickOutside'
 import { EInputSizes, EInputVariants, IInput } from '../../../model/input.model'
+// import { Button } from '@/shared/ui/Button/ui/Button'
+// import { ButtonVariant } from '@/shared/ui/Button'
 
 interface InputSelectProps extends IWrapperRectangleInputChildren, IInput{
     options: IOption[]
@@ -26,7 +29,6 @@ interface InputSelectProps extends IWrapperRectangleInputChildren, IInput{
 
 export function InputSelect({
     variant = EInputVariants.ROUNDED,
-    size = EInputSizes.NONE,
     defaultOption,
     options,
     name,
@@ -92,11 +94,11 @@ export function InputSelect({
     return (
         <WrapperClickOutside _ref={inputSelectRef} isShow={showOptions} handle={toggleShowOptions} className={cls(cl.block, variant === EInputVariants.ROUNDED && showOptions ? cl.show : variant === EInputVariants.RECTANGULAR && showOptions ? cl.showOptionsRectangular : '', className)}>
             <WrapperTitleInput title={title}>
-                <div onClick={handleOnTitle} className={cls(cl.button, cl[variant], cl[size], variant === EInputVariants.RECTANGULAR && showOptions ? cl.activeButton : '', classNameButton, warning ? cl.error : success ? cl.success : '')}>
+                <div onClick={handleOnTitle} className={cls(cl.button, cl[variant],  variant === EInputVariants.RECTANGULAR && showOptions ? cl.activeButton : '', classNameButton, warning ? cl.error : success ? cl.success : '')}>
                     <span className={cls(cl.title, classNameTitle, !activeOption && placeholder ? cl.placeholder : '')}>
                         {!activeOption && placeholder ? placeholder : activeOption?.name}
                     </span>
-                    <Button variant={ButtonVariant.DEFAULT} className={cls(cl.arrowContainer, showOptions ? cl.activeArrow : '', showOptions ? cl.arrowOpen : cl.arrow)} beforeImage={ARROW_WO_ICON} beforeProps={{ width: arrowSizes.width, height: arrowSizes.height }} />
+                    <Button variant={ButtonVariant.DEFAULT} className={cls(cl.arrowContainer, showOptions ? cl.activeArrow : '', showOptions ? cl.arrowOpen : '')} beforeImage={ARROW_TERTIARY_WO_ICON} beforeProps={{ width: arrowSizes.width, height: arrowSizes.height }} />
                 </div>
                 {/* <Button variant={ButtonVariant.DEFAULT} 
                 onClick={handleOnTitle} className={cls(cl.button, cl[variant], cl[size], variant === EInputVariants.RECTANGULAR && showOptions ? cl.activeButton : '', classNameButton, warning ? cl.error : success ? cl.success : '')}
@@ -107,7 +109,6 @@ export function InputSelect({
 
             </WrapperTitleInput>
             <Input.List.Radio
-                size={size}
                 variant={variant}
                 options={options}
                 defaultOption={activeOption}

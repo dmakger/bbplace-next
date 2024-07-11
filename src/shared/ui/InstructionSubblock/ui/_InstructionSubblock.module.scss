@@ -1,0 +1,14 @@
+.InstructionSubblock{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    & p{
+        font-size: var(--font-size-reg);
+    }
+    
+    @media (max-width: 768px) {
+        p{
+            font-size: var(--font-size-s);
+        }
+    }
+}

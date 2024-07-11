@@ -5,15 +5,15 @@ import { Button, ButtonVariant } from "@/shared/ui/Button"
 // import { ButtonArrowWLine } from "@/shared/ui/Button/Arrow/WLine/ButtonArrowWLine"
 import { Axis } from "@/shared/model/button.model"
 import { SwitchSelector } from "@/shared/ui/SwitchSelector"
-import { SWITCH_SELECTOR_CREATED_PRODUCTS_OPTION, SWITCH_SELECTOR_DRAFT_PRODUCTS_OPTION, SWITCH_SELECTOR_WO_PRICE_PRODUCTS_OPTION } from "@/shared/ui/SwitchSelector/data/switchSelector.data"
 import { IOption } from "@/shared/model/option.model"
-import { IUserProductsTab } from "@/features/DetailedPageInfo/model/detailedPageInfo.model"
+import { OptionsTabType } from "@/features/DetailedPageInfo/model/detailedPageInfo.model"
 // import { ButtonColor } from "@/shared/ui/Button/model/model"
 import { useRouter } from "next/navigation"
 import { DASHBOARD_PAGES } from "@/config/pages-url.config"
 import { ESwitchSelectorVariants } from "@/shared/ui/SwitchSelector/model/switchSelector.model"
 import { ButtonArrowWLine } from "@/shared/ui/Button/data/Arrow/WLine/ButtonArrowWLine"
 import { ButtonColor } from "@/shared/ui/Button/model/button.model"
+import { SWITCH_SELECTOR_CREATED_PRODUCTS_OPTION, SWITCH_SELECTOR_DRAFT_PRODUCTS_OPTION, SWITCH_SELECTOR_WO_PRICE_PRODUCTS_OPTION } from "@/shared/ui/SwitchSelector/data/switchSelector.data"
 
 interface IHeaderPT {
     className?: string,
@@ -21,15 +21,19 @@ interface IHeaderPT {
     title: string,
     selectedOption: IOption,
     setSelectedOption: Function
-    optionsTab: IUserProductsTab
+    // options: IOption[],
+    optionsTab: OptionsTabType
 }
-
+/**
+ * LKPT - Личный Кабинет Product Table
+ */
 export const HeaderLKPT = ({
     className,
     isButtonAdd = true,
     title,
     selectedOption,
     setSelectedOption,
+    // options,
     optionsTab
 }: IHeaderPT) => {
 
@@ -54,18 +58,28 @@ export const HeaderLKPT = ({
                 </div>
 
                 <SwitchSelector className={cl.switchSelector}
-                options={[SWITCH_SELECTOR_CREATED_PRODUCTS_OPTION, SWITCH_SELECTOR_WO_PRICE_PRODUCTS_OPTION, SWITCH_SELECTOR_DRAFT_PRODUCTS_OPTION]} setSelectedOption={setSelectedOption}
+// <<<<<<< HEAD
+//                 options={options} setSelectedOption={setSelectedOption}
+// =======
+                    options={[
+                        SWITCH_SELECTOR_CREATED_PRODUCTS_OPTION, 
+                        SWITCH_SELECTOR_WO_PRICE_PRODUCTS_OPTION, 
+                        SWITCH_SELECTOR_DRAFT_PRODUCTS_OPTION
+                    ]} 
+                    setSelectedOption={setSelectedOption}
                     selectedOption={selectedOption}
                     optionsTab={optionsTab}
                     variant={ESwitchSelectorVariants.TABS} />
             </div>
-            {isButtonAdd && <div className={cl.addButtonContainer}>
-                <Button variant={ButtonVariant.FILL}
-                    color={ButtonColor.Primary}
-                    title="Добавить"
-                    className={cl.addButton}
-                />
-            </div>}
+            {isButtonAdd && 
+                <div className={cl.addButtonContainer}>
+                    <Button variant={ButtonVariant.FILL}
+                        color={ButtonColor.Primary}
+                        title="Добавить"
+                        className={cl.addButton}
+                    />
+                </div>
+            }
 
         </div>
     )

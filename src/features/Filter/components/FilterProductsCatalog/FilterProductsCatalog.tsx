@@ -6,7 +6,8 @@ import { cls } from '@/shared/lib/classes.lib'
 import Input from '@/shared/ui/Input/Input'
 import { ISortFilter } from '@/widgets/SortFilterSidebar/model/sortFilterSidebar.model'
 import { CORE_PARAMS } from '@/config/params/core.params.config'
-import { EInputTextVariant } from '@/shared/ui/Input/ui/Text/data/text.input.data'
+import { EInputTextVariant } from '@/shared/ui/Input/Text/model/text.input.model'
+// import { EInputTextVariant } from '@/shared/ui/Input/ui/Text/data/text.input.data'
 
 interface IFilterProductsCatalog {
     isFiltersOpen: boolean,
@@ -45,18 +46,18 @@ export const FilterProductsCatalog = ({
     return (
         <div ref={inputListRef} className={cls(cl.FilterProductsCatalog, isFiltersOpen ? cl.withMarginTop : '')}>
             <Input.TextAndSelect title={'Категории'}
-                                 arrowSizes={{width: 14, height: 12}}
+                                 arrowSizes={{width: 11, height: 15}}
                                  listOptions={categoryListOptions}
                                  defaultOption={filter[CORE_PARAMS.CATEGORY] as IOption}
                                  onClickOption={handleOnClickCategory} />
             
             <Input.TextAndSelect title='Страна'
-                                 arrowSizes={{width: 14, height: 12}}
+                                 arrowSizes={{width: 11, height: 15}}
                                  defaultOption={filter[CORE_PARAMS.COUNTRY] as IOption}
                                  listOptions={countryListOptions}
                                  onClickOption={handleOnClickCountry}/>
             <Input.Select title={'Статус товара'} 
-                          arrowSizes={{width: 14, height: 12}}
+                          arrowSizes={{width: 11, height: 15}}
                           options={STATUS_OPTIONS}
                           defaultOption={filter[CORE_PARAMS.STATUS] as IOption}
                           onClickOption={handleOnClickStatus}/>

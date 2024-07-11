@@ -46,5 +46,6 @@ export const CategoryAPI = createApi({
 				method: 'GET',
 			}),
 		}),
+	})
 })
 })

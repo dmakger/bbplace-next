@@ -6,21 +6,29 @@ import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { WrapperTitleInput } from '@/shared/ui/Wrapper/Title/Input/WrapperTitleInput'
 import { EInputTextVariant } from '../data/text.input.data'
 import { IWrapperRectangleInputChildren } from '@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model'
-import { EInputSizes, EInputVariants, IInput } from '../../../model/input.model'
+import { EInputVariants, IInput } from '../../../model/input.model'
+import { EInputTextTypeVariants } from '../../../Text/model/text.input.model'
 
 interface InputTextProps extends IWrapperRectangleInputChildren, IInput{
     title?: string
     variantInputText?: EInputTextVariant
     defaultValue?: string,
-    type?: string
+    type?: string,
+    inputTypeVariant?: EInputTextTypeVariants
+    classNameInputText?: string
+    classNameTextArea?: string
 }
 
 export function InputText({
     variant = EInputVariants.ROUNDED,
-    size = EInputSizes.NONE,
-    title,
+    inputTypeVariant = EInputTextTypeVariants.TEXT,
     variantInputText = EInputTextVariant.DEFAULT,
-    className,
+    title,
+    name,
+    placeholder,
+    required = false,
+    classNameInputText,
+    classNameTextArea,
     type = 'text',
     onChange = () => { },
     defaultValue = '',
@@ -29,6 +37,7 @@ export function InputText({
     warning,
     setWarning,
     setInputValueLength,
+    size,
     ...rest }: InputTextProps) {
 
     //STATE
@@ -37,15 +46,13 @@ export function InputText({
 
     //REF
     const inputRef = useRef<HTMLInputElement>(null)
+    const textAreaRef = useRef<HTMLTextAreaElement>(null)
 
     //EFFECT
     useEffect(() => {
-        if (inputRef.current) {
-            inputRef.current.value = defaultValue
-        }
+        if (inputRef.current) inputRef.current.value = defaultValue;
+        if (textAreaRef.current) textAreaRef.current.value = defaultValue;
     }, [defaultValue])
-
-
 
     //FUNCTIONS
     const checkValue = (value: string) => {
@@ -63,7 +70,7 @@ export function InputText({
         }
     }
 
-    const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleOnChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const value = e.target.value
         setInputValueLength?.(value.length)
         onChange(value)
@@ -71,23 +78,45 @@ export function InputText({
 
     return (
         <WrapperTitleInput title={title}>
-            <input
-                className={cls(
-                    cl[variant],
-                    variantInputText === EInputTextVariant.W_HOVERED ? cl.wHovered : '',
-                    cl.input,
-                    cl[size],
-                    isSuccess ? cl.success : '',
-                    isWarning ? cl.error : '',
-                    className
-                )}
-                ref={inputRef}
-                type={type}
-                defaultValue={defaultValue}
-                onChange={handleOnChange}
-                onBlur={(e) => checkValue(e.target.value)}
-                {...rest}
-            />
+            {inputTypeVariant === EInputTextTypeVariants.TEXT ? (
+                <input className={cls(
+                        cl[variant],
+                        variantInputText === EInputTextVariant.W_HOVERED ? cl.wHovered : '',
+                        cl.input,
+                        isSuccess ? cl.success : '',
+                        isWarning ? cl.error : '',
+                        classNameInputText
+                    )}
+                    name={name}
+                    ref={inputRef}
+                    type={type}
+                    required={required}
+                    placeholder={placeholder}
+                    defaultValue={defaultValue}
+                    onBlur={(e) => checkValue(e.target.value)}
+                    onChange={handleOnChange}
+                    {...rest}
+                    />
+            ) : (
+                <textarea className={cls(
+                        cl[variant],
+                        cl.textarea,
+                        isSuccess ? cl.success : '',
+                        isWarning ? cl.error : '',
+                        classNameTextArea)}
+                    name={name}
+                    ref={textAreaRef}
+                    defaultValue={defaultValue}
+                    required={required}
+                    placeholder={placeholder}
+                    onChange={handleOnChange}
+                    onBlur={(e) => checkValue(e.target.value)}
+                    // size={size}
+
+                    {...rest}
+                />
+            )}
+
         </WrapperTitleInput>
     )
 }

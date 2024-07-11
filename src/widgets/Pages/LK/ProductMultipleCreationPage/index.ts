@@ -1,0 +1,1 @@
+export {ProductMultipleCreationPage} from './ui/ProductMultipleCreationPage'

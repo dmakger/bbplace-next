@@ -1,3 +1,4 @@
+import { IUserProductsTab } from "@/features/DetailedPageInfo/model/detailedPageInfo.model"
 import { IOption } from "@/shared/model/option.model"
 
 export const SWITCH_SELECTOR_DESCRIPTION_OPTION: IOption = {
@@ -24,6 +25,8 @@ export const SWITCH_SELECTOR_SUPPLIER_OPTION: IOption = {
     value: 'supplier'
 }
 
+//LK_PRODUCT_PAGE
+
 export const SWITCH_SELECTOR_CREATED_PRODUCTS_OPTION: IOption = {
     id: 5,
     name: 'Cозданные',
@@ -42,6 +45,14 @@ export const SWITCH_SELECTOR_DRAFT_PRODUCTS_OPTION: IOption = {
     value: 'drafts'
 }
 
+export const PRODUCT_PAGE_OPTIONS_ARRAY: IOption[] = [
+    SWITCH_SELECTOR_CREATED_PRODUCTS_OPTION,
+    SWITCH_SELECTOR_WO_PRICE_PRODUCTS_OPTION,
+    SWITCH_SELECTOR_DRAFT_PRODUCTS_OPTION
+]
+
+//TENDER
+
 export const SWITCH_SELECTOR_PURCHASE_TENDERS_OPTION: IOption = {
     id: 8,
     name: 'Покупка',
@@ -52,4 +63,28 @@ export const SWITCH_SELECTOR_SALE_TENDERS_OPTION: IOption = {
     id: 9,
     name: 'Продажа',
     value: 'saleTenders'
+}
+
+//LK_PRODUCT_PAGE_CREATE
+
+export const SWITCH_SELECTOR_PRODUCT_PAGE_SINGLE: IOption = {
+    id: 10,
+    name: 'Формой',
+    value: 'single'
+}
+
+export const SWITCH_SELECTOR_PRODUCT_PAGE_MULTIPLE: IOption = {
+    id: 11,
+    name: 'Таблицей',
+    value: 'multiple'
+}
+
+export const LK_PRODUCT_PAGE_CREATE: IOption[] = [
+    SWITCH_SELECTOR_PRODUCT_PAGE_MULTIPLE,
+    SWITCH_SELECTOR_PRODUCT_PAGE_SINGLE
+]
+export enum ProductsTypeLK {
+    Active,
+    Draft,
+    WithoutPrice,
 }

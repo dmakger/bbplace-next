@@ -1,0 +1,1 @@
+export {WrapperGrayButton} from './ui/WrapperGrayButton';

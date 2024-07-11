@@ -49,6 +49,7 @@ export const Sort = ({ variant = ECatalogVariants.PRODUCTS, filter, setFilter }:
             <div className={cl.sortContainer}>
                 {sorts.map((it, index) => (
                     <Input.Select
+                        arrowSizes={{width: 11, height: 15}}
                         name='selectSort'
                         title={it.title}
                         options={it.options}

@@ -240,7 +240,7 @@ body {
   max-width: 100vw;
   height: 100vh;
   
-  input {
+  input, textarea {
     color: var(--foreground-1);
     font-family: var(--inter-font);
 
