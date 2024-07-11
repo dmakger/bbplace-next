@@ -4,7 +4,7 @@ import cl from './_MobileNavbar.module.scss'
 import { Button, ButtonVariant } from '@/shared/ui/Button';
 import { MOBILE_MENU_DATA } from '@/shared/data/menu/mobile.menu.data';
 import { cls } from '@/shared/lib/classes.lib';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { IIconVariants } from '@/shared/model/icon.model';
 
 interface IMobileNavbar {
@@ -17,7 +17,10 @@ export const MobileNavbar = ({
 }: IMobileNavbar) => {
 
   //ROUTER
-  const pathname = usePathname()  
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const goBack = () => router.back();
 
   return (
     <nav className={cl.MobileNavbar}>
@@ -31,7 +34,8 @@ export const MobileNavbar = ({
             className={cls(cl.mobileNavbarButton, pathname === el.link ?? '' ? cl.active : '')}
             title={el.title}
             beforeImage={el.image}
-            beforeProps={{width: 18, height: 18}}/>
+            beforeProps={{width: 18, height: 18}}
+            onClick={!el.link ? goBack : ()=>{}}/>
         ))}
       </div>
     </nav>
