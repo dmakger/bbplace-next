@@ -2,8 +2,8 @@ import { createApi, BaseQueryFn } from '@reduxjs/toolkit/query/react';
 import { AxiosRequestConfig, AxiosError } from 'axios';
 import apiClient from './interceptor.auth.api';
 import { ISupplierAPI } from '@/entities/Supplier/model/supplier.model';
-import { IAuthForm, ILoginResponseDecoded, IAuthResponse } from '../model/auth.model';
-import { saveTokensStorage, getAccessToken, getRefreshToken } from '../lib/auth-token.lib';
+import { IAuthForm, ILoginResponseDecoded, IAuthResponse, ICheckEmailExists } from '../model/auth.model';
+import { saveTokensStorage, getAccessToken, getRefreshToken, getHeaderAuthorizationIfExists } from '../lib/auth-token.lib';
 import { jwtDecode } from 'jwt-decode';
 
 const axiosBaseQuery: BaseQueryFn<
@@ -72,6 +72,14 @@ export const UserAPI = createApi({
                 return jwtDecode(response.accessToken);
             }
         }),
+        checkEmailExists: builder.query<boolean, string>({
+            query: (email: string) => ({
+                url: `Authenticate/CheckEmailExists?email=${email}`,
+                method: 'GET',
+                headers: getHeaderAuthorizationIfExists(),
+            }),
+            transformResponse: (response: ICheckEmailExists) => response.exists,
+        })
     }),
 });
 

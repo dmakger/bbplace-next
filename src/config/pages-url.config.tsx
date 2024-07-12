@@ -14,7 +14,10 @@ class MAIN {
 
     SUPPORT = `${this.root}/support`
 
-    LOGIN = `${this.root}/login`
+    CHECK_EMAIL = `${this.root}/checkEmail`
+    LOGIN = `${this.root}/signIn`
+    REGISTRATION = `${this.root}/signUp`
+    FORGOT_PASSWORD = `${this.root}/forgotPassword`
 
     CURRENT_SUPPLIER = (id: ISupplier['id']) => `${this.SUPPLIERS}/${id}`
     CURRENT_PRODUCT = (id: IProduct['id']) => `${this.PRODUCTS}/${id}`

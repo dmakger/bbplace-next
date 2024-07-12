@@ -1,122 +1,141 @@
 .WrapperRectangleInput {
     display: flex;
     flex-direction: column;
-
-    .labelNTooltipContainer, .top {
+    
+    .labelNInputsContainer {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 10px;
+        flex-direction: column;
 
-        .label {
-            background-color: var(--tertiary-surface-low);
-            padding: 10px 10px 5px 10px;
-            border-radius: 5px 5px 0 0;
-            color: var(--font-caption);
-            cursor: pointer;
-        }
-
-        .tooltipsContainer {
+        .labelNTooltipContainer,
+        .top {
             display: flex;
+            justify-content: space-between;
             align-items: center;
+            gap: 10px;
 
-            .button {
-                margin: auto;
-                border: none;
-                padding: 7px;
-                border-radius: 50%;
-                transition: 0.3s;
-            }
+            .label {
+                background-color: var(--tertiary-surface-low);
+                padding: 10px 10px 5px 10px;
+                border-radius: 5px 5px 0 0;
+                color: var(--font-caption);
+                cursor: pointer;
 
-            .tooltipDescCont {
-                position: relative;
-
-                .descWindowActive {
-                    width: 250px;
-                }
-
-                &:hover {
-                    .descWindowActive {
-                        visibility: visible;
-                        opacity: 1;
-                        transition-duration: 0.2s;
-                        left: 3px;
-                    }
-                }
-            }
-
-            .windowActive{
                 @media (max-width: 768px) {
-                    display: none;
+                    font-size: var(--font-size-s);
                 }
             }
 
-            .tooltipWarnCont {
-                position: relative;
+            .tooltipsContainer {
+                display: flex;
+                align-items: center;
 
+                .button {
+                    margin: auto;
+                    border: none;
+                    padding: 7px;
+                    border-radius: 50%;
+                    transition: 0.3s;
+                }
 
-                &:hover {
-                    .warnWindowActive {
-                        visibility: visible;
-                        opacity: 1;
-                        transition-duration: 0.2s;
-                        left: 3px;
+                .tooltipDescCont {
+                    position: relative;
+
+                    .descWindowActive {
+                        width: 250px;
+                    }
+
+                    &:hover {
+                        .descWindowActive {
+                            visibility: visible;
+                            opacity: 1;
+                            transition-duration: 0.2s;
+                            left: 3px;
+                        }
                     }
                 }
-            }
 
-            //DESC
-            .descButton {
-                &:hover {
-                    background-color: var(--tertiary-surface) !important;
-                    transition: 0.3s;
+                .windowActive {
+                    @media (max-width: 768px) {
+                        display: none;
+                    }
+                }
+
+                .tooltipWarnCont {
+                    position: relative;
+
+
+                    &:hover {
+                        .warnWindowActive {
+                            visibility: visible;
+                            opacity: 1;
+                            transition-duration: 0.2s;
+                            left: 3px;
+                        }
+                    }
+                }
+
+                //DESC
+                .descButton {
+                    &:hover {
+                        background-color: var(--tertiary-surface) !important;
+                        transition: 0.3s;
+                    }
+                }
+
+                .descriptionActive {
+                    background-color: var(--tertiary-surface);
+                }
+
+                //WARNING / SUCCESS
+                .warnButton {
+                    &:hover {
+                        background-color: var(--negative-surface) !important;
+                        transition: 0.3s;
+                    }
+                }
+
+                .warningActive {
+                    background-color: var(--negative-surface);
+                }
+
+                .successButton {
+                    &:hover {
+                        background-color: var(--tertiary-surface) !important;
+                        transition: 0.3s;
+                    }
+                }
+
+                .successActive {
+                    background-color: var(--tertiary-surface);
                 }
             }
+        }
 
-            .descriptionActive {
-                background-color: var(--tertiary-surface);
-            }
-
-            //WARNING / SUCCESS
-            .warnButton {
-                &:hover {
-                    background-color: var(--negative-surface) !important;
-                    transition: 0.3s;
-                }
-            }
-
-            .warningActive {
-                background-color: var(--negative-surface);
-            }
-
-            .successButton {
-                &:hover {
-                    background-color: var(--tertiary-surface) !important;
-                    transition: 0.3s;
-                }
-            }
-
-            .successActive {
-                background-color: var(--tertiary-surface);
-            }
+        .inputsContainer {
+            display: flex;
+            gap: 5px;
+            background-color: var(--tertiary-surface-low);
+            padding: 5px;
+            border-radius: 0 5px 5px 5px;
         }
     }
 
-    .inputsContainer {
-        display: flex;
-        gap: 5px;
-        background-color: var(--tertiary-surface-low);
-        padding: 5px;
-        border-radius: 0 5px 5px 5px;
-    }
+
 
     //BUTTON
-    .button{
+    .bellowButton {
         border-radius: 0 0 20px 20px;
         padding: 17px 25px;
+        margin-top: 20px;
+
+        @media (max-width: 768px) {
+            padding: 13px 25px;
+            font-size: var(--font-size-s);
+        }
     }
-    .disabled{
-        &:hover{
+
+    .disabled {
+        &:hover {
             background-color: var(--disabled) !important;
         }
     }
@@ -133,29 +152,36 @@
         color: var(--negative);
     }
 
-    .mobileModal{
+    .mobileModal {
         display: none;
+
         @media (max-width: 768px) {
             display: flex;
         }
     }
 }
+
 //LABEL POSITION
-.right{
-    flex-direction: row-reverse;
-    justify-content: flex-end;
-    width: 100%;
-    background-color: var(--tertiary-surface-low);
-    cursor: pointer;
-    
-    .labelNTooltipContainer {
-        background-color: var(--tertiary-surface-low);
-        .label{
-            padding: 0px;
-            cursor: inherit;
+.right {
+
+    .labelNInputsContainer {
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+        width: 100%;
+        cursor: pointer;
+
+        .labelNTooltipContainer {
+            width: 100%;
+            background-color: var(--tertiary-surface-low);
+
+            .label {
+                padding: 0px;
+                cursor: inherit;
+            }
         }
-    }
-    .inputsContainer{
-        padding: 10px;
+
+        .inputsContainer {
+            padding: 10px;
+        }
     }
 }

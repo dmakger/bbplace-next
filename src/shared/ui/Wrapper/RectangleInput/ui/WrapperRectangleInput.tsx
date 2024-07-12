@@ -21,7 +21,8 @@ interface IWrapperRectangleInput {
   classNameWarningWindow?: string,
   labelText: string
   children: ReactNode,
-  buttonText?: string,
+  bellowButtonText?: string,
+  isCanDisabledBellowButton?: boolean,
   onClickBellowButton?: Function,
   isRequired?: boolean
   isDescriptionTooltip?: boolean
@@ -38,7 +39,8 @@ export const WrapperRectangleInput = ({
   classNameWarningWindow,
   labelText,
   children,
-  buttonText,
+  bellowButtonText,
+  isCanDisabledBellowButton = false,
   onClickBellowButton,
   isRequired = false,
   isDescriptionTooltip = true,
@@ -107,82 +109,89 @@ export const WrapperRectangleInput = ({
   // VARIABLE
   const errorInputSelectMessageArray: string[] = [
     'Пожалуйста, заполните это поле!',
-    errorInputMessage  || `Максимальная длина - 50 символов. Сейчас ${inputValueLength}`
+    errorInputMessage || `Максимальная длина - 50 символов. Сейчас ${inputValueLength}`
   ];
+
+  const isDisabled = !selectedOptionsArray.length && isCanDisabledBellowButton;
 
   return (
     <div className={cls(cl.WrapperRectangleInput, className, cl[labelPosition])} onClick={() => setChecked(!checked)}>
-      <div className={cls(cl.labelNTooltipContainer)}>
-        <label className={cls(cl.label, classNameLabel)} >
-          {labelText}
-        </label>
-        <div className={cl.tooltipsContainer}>
-          {isDescriptionTooltip && descriptionTooltipText && (
-            <div className={cl.tooltipDescCont}>
-              <Button
-                variant={ButtonVariant.CLEAR}
-                className={cls(cl.button, cl.descButton, isDescriptionActive ? cl.descriptionActive : '')}
-                beforeImage={TOOLTIP_DESCRIPTION_ICON}
-                beforeProps={{ height: 14, width: 14 }}
-                active={isDescriptionActive}
-                onClick={() => setIsDescriptionActive(prevState => !prevState)}
-              />
-              <HoverWindow
-                text={descriptionTooltipText}
-                position={EHoverWindowPosition.RIGHT}
-                borderColor={EHoverBorderColor.DEFAULT}
-                show={isDescriptionActive}
-                className={cls(cl.descWindowActive, cl.windowActive, classNameDescriptionWindow)}
-              />
-            </div>
-          )}
-          {isRequired && (
-            <div className={cl.tooltipWarnCont}>
-              <Button
-                variant={ButtonVariant.CLEAR}
-                className={cls(
-                  cl.button,
-                  !success ? cl.warnButton : cl.successButton,
-                  isWarningActive && !success ? cl.warningActive : '',
-                  isWarningActive && success ? cl.successActive : ''
-                )}
-                beforeImage={TOOLTIP_WARNING_ICON}
-                active={isWarningActive}
-                beforeProps={{ height: 14, width: 14 }}
-                success={success}
-                onClick={() => setIsWarningActive(prevState => !prevState)}
-              />
-              <HoverWindow
-                text={warningTooltipText}
-                position={EHoverWindowPosition.RIGHT}
-                borderColor={!success ? EHoverBorderColor.WARNING : EHoverBorderColor.DEFAULT}
-                show={isWarningActive}
-                className={cls(cl.warnWindowActive, cl.windowActive, classNameWarningWindow)}
-              />
-            </div>
-          )}
+      <div className={cl.labelNInputsContainer}>
+        <div className={cl.labelNTooltipContainer}>
+          <label className={cls(cl.label, classNameLabel)} >
+            {labelText}
+          </label>
+          <div className={cl.tooltipsContainer}>
+            {isDescriptionTooltip && descriptionTooltipText && (
+              <div className={cl.tooltipDescCont}>
+                <Button
+                  variant={ButtonVariant.CLEAR}
+                  className={cls(cl.button, cl.descButton, isDescriptionActive ? cl.descriptionActive : '')}
+                  beforeImage={TOOLTIP_DESCRIPTION_ICON}
+                  beforeProps={{ height: 14, width: 14 }}
+                  active={isDescriptionActive}
+                  onClick={() => setIsDescriptionActive(prevState => !prevState)}
+                />
+                <HoverWindow
+                  text={descriptionTooltipText}
+                  position={EHoverWindowPosition.RIGHT}
+                  borderColor={EHoverBorderColor.DEFAULT}
+                  show={isDescriptionActive}
+                  className={cls(cl.descWindowActive, cl.windowActive, classNameDescriptionWindow)}
+                />
+              </div>
+            )}
+            {isRequired && (
+              <div className={cl.tooltipWarnCont}>
+                <Button
+                  variant={ButtonVariant.CLEAR}
+                  className={cls(
+                    cl.button,
+                    !success ? cl.warnButton : cl.successButton,
+                    isWarningActive && !success ? cl.warningActive : '',
+                    isWarningActive && success ? cl.successActive : ''
+                  )}
+                  beforeImage={TOOLTIP_WARNING_ICON}
+                  active={isWarningActive}
+                  beforeProps={{ height: 14, width: 14 }}
+                  success={success}
+                  onClick={() => setIsWarningActive(prevState => !prevState)}
+                />
+                <HoverWindow
+                  text={warningTooltipText}
+                  position={EHoverWindowPosition.RIGHT}
+                  borderColor={!success ? EHoverBorderColor.WARNING : EHoverBorderColor.DEFAULT}
+                  show={isWarningActive}
+                  className={cls(cl.warnWindowActive, cl.windowActive, classNameWarningWindow)}
+                />
+              </div>
+            )}
+          </div>
         </div>
-      </div>
 
-      <div className={cl.inputsContainer}>
-        {clonedChildren}
-      </div>
+        <div className={cl.inputsContainer}>
+          {clonedChildren}
+        </div>
 
-      {warning && errorInputSelectMessageArray && (
+        {warning && errorInputSelectMessageArray && (
         <div className={cl.errorMessage}>
           {errorInputSelectMessageArray.map((it, index) => (
             <p key={index}>{it}</p>
           ))}
         </div>
       )}
+      </div>
 
-      {buttonText && 
+
+      
+
+      {bellowButtonText &&
         <Button variant={ButtonVariant.FILL}
-          title={buttonText}
-          className={cls(cl.button, !selectedOptionsArray.length ? cl.disabled : '')}
-          disabled={!selectedOptionsArray.length}
+          title={bellowButtonText}
+          className={cls(cl.bellowButton, isDisabled ? cl.disabled : '')}
+          disabled={isDisabled}
           onClick={onClickBellowButton} />
-      } 
+      }
       <div className={cl.mobileModal}>
         <Modal
           view={EModalView.BOTTOM}

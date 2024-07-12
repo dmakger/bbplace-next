@@ -33,5 +33,9 @@ export interface ILoginResponseDecoded {
     Country: string
 }
 
+export interface ICheckEmailExists{
+    exists: boolean
+}
+
 
 // export type TypeUserForm = Omit<IUser, 'id'> & { password?: string }

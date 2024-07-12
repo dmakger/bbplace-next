@@ -4,7 +4,7 @@ import { IIcon } from "../ui/Icon/model/model";
 export interface IIconVariants {
     id: number,
     title?: string,
-    image: IIcon,
+    image: IIcon | ReactNode,
     link?: string
 }
 

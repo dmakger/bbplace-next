@@ -52,6 +52,11 @@ export function InputText({
     useEffect(() => {
         if (inputRef.current) inputRef.current.value = defaultValue;
         if (textAreaRef.current) textAreaRef.current.value = defaultValue;
+
+        if(defaultValue && setSuccess){
+            setSuccess(true)
+            setIsSuccess(true)
+        } 
     }, [defaultValue])
 
     //FUNCTIONS
@@ -60,7 +65,6 @@ export function InputText({
         isErr = value.trim() === '';
         if(type === 'email'){
             isErr = !(value.includes('@') && value.includes('.'));
-           
         } 
         if (setWarning && setSuccess) {
             setWarning(isErr)

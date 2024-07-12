@@ -33,6 +33,7 @@ export const MultipleCreationForm = ({
                 variant={ERecursiveSelectVariant.MULTIPLE}
                 buttonWrapperText="Скачать шаблон"
                 labelText="1. Генерация шаблона"
+                className={cl.wrapperRectangleInput}
                 classNameLabel={cl.label}
                 setSelectedCategoriesId={setSelectedCategoriesId}
                 errorInputMessage='Выберите категории из списка'       

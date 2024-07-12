@@ -8,7 +8,7 @@ interface MenuWEBProps {
     className?: string
 }
 
-export const MenuWEB = ({className}: MenuWEBProps) => {
+export const MenuWEB = ({ className }: MenuWEBProps) => {
     return (
         <div className={cls(cl.block, className)}>
             <div className={cl.menu}>
@@ -18,7 +18,7 @@ export const MenuWEB = ({className}: MenuWEBProps) => {
                         classNameText={'menuItem'}
                         textLink={el.title}
                         link={el.link}>
-                        {el.image}
+                        {el.image as React.ReactNode}
                     </DefaultIcon>
                 ))}
                 <div className={cl.line} />
@@ -27,11 +27,11 @@ export const MenuWEB = ({className}: MenuWEBProps) => {
                         <DefaultIcon key={el.id}
                             link={el.link}
                             className='menuWebButton'>
-                            {el.image}
+                            {el.image as React.ReactNode}
                         </DefaultIcon>
                     ))}
                 </div>
-                    
+
             </div>
         </div>
     )

@@ -97,7 +97,7 @@ export const  CategoryRecursiveSelect = ({
         <WrapperRectangleInput
             labelText={labelText}
             classNameLabel={classNameLabel}
-            buttonText={buttonWrapperText}
+            bellowButtonText={buttonWrapperText}
             className={className}
             isDescriptionTooltip={isDescriptionTooltip}
             isRequired={isRequired}
@@ -107,6 +107,7 @@ export const  CategoryRecursiveSelect = ({
             classNameWarningWindow={classNameWarningWindow}
             onClickBellowButton={onClickBellowButton}
             errorInputMessage={errorInputMessage}
+            isCanDisabledBellowButton
         >
             <Input.RecursiveSelect
                 variantRecursive={variant}
