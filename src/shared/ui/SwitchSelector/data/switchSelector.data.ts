@@ -56,14 +56,21 @@ export const PRODUCT_PAGE_OPTIONS_ARRAY: IOption[] = [
 export const SWITCH_SELECTOR_PURCHASE_TENDERS_OPTION: IOption = {
     id: 8,
     name: 'Покупка',
-    value: 'purchaseTenders'
+    // value: 'purchaseTenders'
+    value: 'purchase'
 }
 
 export const SWITCH_SELECTOR_SALE_TENDERS_OPTION: IOption = {
     id: 9,
     name: 'Продажа',
-    value: 'saleTenders'
+    // value: 'saleTenders'
+    value: 'sale'
 }
+
+export const TENDER_TYPE_OPTIONS: IOption[] = [
+    SWITCH_SELECTOR_PURCHASE_TENDERS_OPTION,
+    SWITCH_SELECTOR_SALE_TENDERS_OPTION,
+]
 
 //LK_PRODUCT_PAGE_CREATE
 
