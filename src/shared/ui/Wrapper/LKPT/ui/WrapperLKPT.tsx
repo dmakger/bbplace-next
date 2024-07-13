@@ -33,7 +33,7 @@ export const WrapperLKPT = ({
     return (
         <div className={cls(cl.WrapperLKPT, className)}>
             <HeaderLKPT title={pageTitle}
-                // options={options}
+                options={options}
                 optionsTab={optionsTab}
                 selectedOption={selectedPage}
                 setSelectedOption={setSelectedPage}

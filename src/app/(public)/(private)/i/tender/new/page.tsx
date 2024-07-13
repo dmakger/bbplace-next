@@ -11,6 +11,8 @@ import Wrapper1280 from '@/shared/ui/Wrapper/1280/Wrapper1280';
 import { SuspenseL } from "@/shared/ui/Wrapper/SuspenseL/SuspenseL";
 import { useSearchParams } from "next/navigation";
 import { FC, useState } from "react";
+import cl from './_LKTenderNewPage.module.scss'
+import { FormTenderSaleNew } from "@/features/Form/Tender/New/Sale/FormTenderSaleNew";
 
 export default function LKTenderNewPage() {
     return (
@@ -42,16 +44,21 @@ export const LKTenderNewChild: FC = () => {
                         selectedOption={selectedOption} setSelectedOption={setSelectedOption} 
                         options={TENDER_TYPE_OPTIONS} optionsTab={{}}
                         isButtonAdd={false} />
-            <Subblock
-                title="Совет"
-                wModal={true}
-                mobileButtonTitle='Совет'
-                modalTitle="Совет"
-                children={(
-                    <SubblockChild.Text textList={adviceText} />
-                )}
-                // classNameBottomContainer={cl.bottomContainer}
-            />
+            <div className={cl.block}>
+                <Subblock
+                    title="Совет"
+                    wModal={true}
+                    mobileButtonTitle='Совет'
+                    modalTitle="Совет"
+                    children={(
+                        <SubblockChild.Text textList={adviceText} />
+                    )}
+                    className={cl.subblock}
+                    // classNameBottomContainer={cl.bottomContainer}
+                />
+                <FormTenderSaleNew />
+            </div>
+            
         </Wrapper1280>
     );
 }
