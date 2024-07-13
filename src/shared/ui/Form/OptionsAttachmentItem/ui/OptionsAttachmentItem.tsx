@@ -32,7 +32,7 @@ export const OptionsAttachmentItem = ({
                 </span>
             </div>
 
-            <ButtonDelete handleDelete={() => handleDelete()} />
+            <ButtonDelete handleDelete={() => handleDelete()} classNameButton={cl.buttonDelete}/>
         </div>
     )
 }
