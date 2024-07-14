@@ -37,5 +37,17 @@ export interface ICheckEmailExists{
     exists: boolean
 }
 
+export interface IRegistrationRequest {
+    country: string
+    role: string
+    email: string
+    password: string
+    legalName: string
+    brandName: string
+    fullName: string
+    phoneNumber: string,
+    emailSubscription: string
+}
+
 
 // export type TypeUserForm = Omit<IUser, 'id'> & { password?: string }

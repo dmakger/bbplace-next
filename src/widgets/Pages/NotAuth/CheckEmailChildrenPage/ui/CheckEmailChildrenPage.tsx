@@ -26,7 +26,9 @@ export const CheckEmailChildrenPage = () => {
 
     // FUNCTIONS
     const CheckEmail = async () => {
+        if (!formRef.current) return;
         const formData = getFormData(formRef.current)
+        
         try {
             const isExists = await triggerCheckEmailExists(formData.email).unwrap()
             

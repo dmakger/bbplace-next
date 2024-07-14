@@ -1,3 +1,5 @@
+import { IOption } from "@/shared/model/option.model";
+
 export interface IWrapperRectangleInputChildren {
     success?: boolean;
     setSuccess?: Function,
@@ -7,7 +9,9 @@ export interface IWrapperRectangleInputChildren {
     setInputValueLength?: Function,
     checked?: boolean,
     setChecked?: Function,
-    setSelectedOptionsArray?: Function 
+    setSelectedOptionsArray?: Function,
+    selectedOption?: IOption,
+    setSelectedOption?: Function
 }
 
 export enum ELabelPosition{

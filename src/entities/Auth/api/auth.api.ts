@@ -2,7 +2,7 @@ import { createApi, BaseQueryFn } from '@reduxjs/toolkit/query/react';
 import { AxiosRequestConfig, AxiosError } from 'axios';
 import apiClient from './interceptor.auth.api';
 import { ISupplierAPI } from '@/entities/Supplier/model/supplier.model';
-import { IAuthForm, ILoginResponseDecoded, IAuthResponse, ICheckEmailExists } from '../model/auth.model';
+import { IAuthForm, ILoginResponseDecoded, ICheckEmailExists, IRegistrationRequest } from '../model/auth.model';
 import { saveTokensStorage, getAccessToken, getRefreshToken, getHeaderAuthorizationIfExists } from '../lib/auth-token.lib';
 import { jwtDecode } from 'jwt-decode';
 
@@ -57,6 +57,13 @@ export const UserAPI = createApi({
                 saveTokensStorage(response); // Сохранение токенов в куки
                 return jwtDecode(response.accessToken);
             }
+        }),
+        userRegistration: builder.mutation<ILoginResponseDecoded, IRegistrationRequest>({
+            query: (body) => ({
+                url: `/Authenticate/register`,
+                method: 'POST',
+                body,
+            })
         }),
         refreshToken: builder.mutation<ILoginResponseDecoded, void>({
             query: () => ({

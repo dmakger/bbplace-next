@@ -9,14 +9,16 @@ import { IWrapperRectangleInputChildren } from '@/shared/ui/Wrapper/RectangleInp
 import { EInputVariants, IInput } from '../../../model/input.model'
 import { EInputTextTypeVariants } from '../../../Text/model/text.input.model'
 
-interface InputTextProps extends IWrapperRectangleInputChildren, IInput{
+interface InputTextProps extends IWrapperRectangleInputChildren, IInput {
     title?: string
     variantInputText?: EInputTextVariant
     defaultValue?: string,
     type?: string,
     inputTypeVariant?: EInputTextTypeVariants
     classNameInputText?: string
-    classNameTextArea?: string
+    classNameTextArea?: string,
+    error?: boolean,
+    setError?: Function
 }
 
 export function InputText({
@@ -38,6 +40,8 @@ export function InputText({
     setWarning,
     setInputValueLength,
     size,
+    error = false,
+    setError,
     ...rest }: InputTextProps) {
 
     //STATE
@@ -53,19 +57,34 @@ export function InputText({
         if (inputRef.current) inputRef.current.value = defaultValue;
         if (textAreaRef.current) textAreaRef.current.value = defaultValue;
 
-        if(defaultValue && setSuccess){
+        if (defaultValue && setSuccess) {
             setSuccess(true)
             setIsSuccess(true)
-        } 
+        }
     }, [defaultValue])
+
+    useEffect(() => {
+        if (error) {
+            if (textAreaRef && textAreaRef.current) textAreaRef.current.value = ''
+            if (inputRef && inputRef.current) inputRef.current.value = ''
+            
+            setWarning && setWarning(true)
+            setSuccess && setSuccess(false)
+            setIsSuccess(false)
+            setIsWarning(true)
+        }
+
+    },[error])
+
 
     //FUNCTIONS
     const checkValue = (value: string) => {
         let isErr = false;
         isErr = value.trim() === '';
-        if(type === 'email'){
+        setError && setError(false)
+        if (type === 'email') {
             isErr = !(value.includes('@') && value.includes('.'));
-        } 
+        }
         if (setWarning && setSuccess) {
             setWarning(isErr)
             setIsWarning(isErr)
@@ -84,13 +103,13 @@ export function InputText({
         <WrapperTitleInput title={title}>
             {inputTypeVariant === EInputTextTypeVariants.TEXT ? (
                 <input className={cls(
-                        cl[variant],
-                        variantInputText === EInputTextVariant.W_HOVERED ? cl.wHovered : '',
-                        cl.input,
-                        isSuccess ? cl.success : '',
-                        isWarning ? cl.error : '',
-                        classNameInputText
-                    )}
+                    cl[variant],
+                    variantInputText === EInputTextVariant.W_HOVERED ? cl.wHovered : '',
+                    cl.input,
+                    isSuccess ? cl.success : '',
+                    isWarning ? cl.error : '',
+                    classNameInputText
+                )}
                     name={name}
                     ref={inputRef}
                     type={type}
@@ -100,14 +119,14 @@ export function InputText({
                     onBlur={(e) => checkValue(e.target.value)}
                     onChange={handleOnChange}
                     {...rest}
-                    />
+                />
             ) : (
                 <textarea className={cls(
-                        cl[variant],
-                        cl.textarea,
-                        isSuccess ? cl.success : '',
-                        isWarning ? cl.error : '',
-                        classNameTextArea)}
+                    cl[variant],
+                    cl.textarea,
+                    isSuccess ? cl.success : '',
+                    isWarning ? cl.error : '',
+                    classNameTextArea)}
                     name={name}
                     ref={textAreaRef}
                     defaultValue={defaultValue}
