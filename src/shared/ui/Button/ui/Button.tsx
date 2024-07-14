@@ -1,5 +1,5 @@
 'use client'
-import React, {ReactNode, useEffect, useState} from 'react'
+import React, {ReactNode, RefObject, useEffect, useState} from 'react'
 import cl from './_Button.module.scss'
 import { ButtonVariant } from '..'
 import Link from 'next/link'
@@ -16,6 +16,8 @@ export interface IButton {
     color?: ButtonColor
     type?: ButtonType
     size?: ButtonSize
+
+    ref?: RefObject<HTMLButtonElement>
 
     title?: string,
     href?: string
@@ -43,6 +45,7 @@ export interface IButton {
 
 export const Button = ({
     variant = ButtonVariant.BORDERED_RED_WIDE, color=ButtonColor.Primary, type = ButtonType.Button, size=ButtonSize.DefaultSize,
+    ref,
     title, href,
     beforeImage, beforeProps, afterImage, afterProps, 
     active=false, success=false, disabled=false, loading=false, noTranslation=false,
@@ -84,7 +87,7 @@ export const Button = ({
     }, [size])
 
     const html =  (
-        <button type={type} disabled={disabled}
+        <button type={type} ref={ref} disabled={disabled}
                 onClick={e => onClick(e)} onMouseEnter={handleOnMouseEnter} onMouseLeave={handleOnMouseLeave} 
                 onMouseDown={handleOnMouseDown} onMouseUp={handleOnMouseUp}
                 className={cls(cl.button, cl[classes[0]], cl[color], cl[size], active ? cl.active : '', classes.length > 0 && classes[1] === 'new' ? cl.new : cl.old, className)}>
@@ -102,8 +105,7 @@ export const Button = ({
                 <ImageSmart {...afterProps} icon={afterImage}
                             width={afterProps && afterProps.width ? afterProps.width: sizeImage} 
                             height={afterProps && afterProps.height ? afterProps.height: sizeImage} 
-                            isActive={active} isHovered={isHovered} isPressed={isPressed} isSuccess={success}
-                            isDisabled={disabled}/>
+                            isActive={active && !success} isHovered={isHovered} isSuccess={success} isPressed={isPressed} isDisabled={disabled}/>
             }
             {children}
         </button>

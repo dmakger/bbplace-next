@@ -63,17 +63,22 @@ export const FormTenderSaleNew:FC<FormTenderSaleNewProps> = ({className}) => {
                 <Input.Select name={'selectMinOrder'} placeholder="Измерение" options={metricOptions}
                               required={true} variant={EInputVariants.RECTANGULAR} />
             </WrapperRectangleInput>
-            <WrapperRectangleInput labelText={"Цена"} isRequired={true}>
+            <WrapperRectangleInput labelText={"Цена"}>
                 <Input.Text name={'numberPrice'} placeholder="Введите число"
-                                required={true} variant={EInputVariants.RECTANGULAR} />
+                                variant={EInputVariants.RECTANGULAR} />
                 <Input.Select name={'selectPrice'} placeholder="Валюта" options={currencyOptions}
-                              required={true} variant={EInputVariants.RECTANGULAR} />
+                              variant={EInputVariants.RECTANGULAR} />
             </WrapperRectangleInput>
             <WrapperRectangleInput labelText={"Описание"} isRequired={true}>
                 <Input.Text name={'description'} placeholder="Начните вводить"
                             required={true} variant={EInputVariants.RECTANGULAR} 
                             inputTypeVariant={EInputTextTypeVariants.TEXTAREA} />
             </WrapperRectangleInput>
+            <WrapperRectangleInput labelText={"Описание"} isRequired={true}>
+                <Input.File name={'files'} placeholder="Начните вводить"
+                            variant={EInputVariants.RECTANGULAR}  />
+            </WrapperRectangleInput>
+
         </form>
     )
 }

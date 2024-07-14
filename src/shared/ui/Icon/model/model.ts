@@ -9,6 +9,7 @@ export interface IIcon {
     activePressed?: string
 
     disabled?: string
+    loading?: string
 }
 
 export interface IWarningIcon extends IIcon{
