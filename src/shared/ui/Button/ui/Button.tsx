@@ -29,8 +29,9 @@ export interface IButton {
     
     active?: boolean
     success?: boolean,
-    loading?: boolean
     disabled?: boolean
+    hovered?: boolean
+    loading?: boolean
     noTranslation?: boolean
 
     onClick?: Function
@@ -48,7 +49,7 @@ export const Button = ({
     ref,
     title, href,
     beforeImage, beforeProps, afterImage, afterProps, 
-    active=false, success=false, disabled=false, loading=false, noTranslation=false,
+    active=false, success=false, disabled=false, hovered, loading=false, noTranslation=false,
     onClick=()=>{}, onMouseEnter=()=>{}, onMouseLeave=()=>{},
     children, className, classNameLink, classNameText,
 }: IButton) => {
@@ -85,6 +86,11 @@ export const Button = ({
     useEffect(() => {
         setSizeImage(getImageSizeBySize(size))
     }, [size])
+
+    useEffect(() => {
+        if (hovered !== undefined)
+            setIsHovered(hovered)
+    }, [hovered])
 
     const html =  (
         <button type={type} ref={ref} disabled={disabled}

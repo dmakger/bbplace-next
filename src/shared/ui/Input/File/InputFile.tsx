@@ -32,7 +32,8 @@ export const InputFile:FC<InputFileProps> = ({
 
     // STATE
     const [locTitle, setLocTitle] = useState('Нажмите или перенесите файлы в эту область')
-    
+    const [isHovered, setIsHovered] = useState<boolean>(false)
+
     // EFFECT
     useEffect(() => {
         if (title)
@@ -49,28 +50,27 @@ export const InputFile:FC<InputFileProps> = ({
         // inputRef.current?.onmouseenter
     }
 
-    // const handleOnMouseEnter = () => {
-    //     buttonRef.current?.dispatchEvent(new Event('mouseenter'))
-    // }
+    const handleOnMouseEnterInput = () => {
+        setIsHovered(true)
+    }
 
-    // const handleOnMouseLeave = () => {
-    //     buttonRef.current?.dispatchEvent(new Event('mouseleave'))
-    // }
+    const handleOnMouseLeaveInput = () => {
+        setIsHovered(false)
+    }    
 
     return (
-        <label className={cls(cl.block, cl[variant])}>
+        <label onMouseEnter={handleOnMouseEnterInput} 
+                onMouseLeave={handleOnMouseLeaveInput} 
+                className={cls(cl.block, cl[variant])}>
             <input type="file" 
                     ref={inputRef}
                     onChange={e => handleOnChange(e)}
-                    // onMouseEnter={() => buttonRef.current?.onmouseenter?.()}
-                    // onMouseEnter={handleOnMouseEnter}
-                    // onMouseLeave={handleOnMouseLeave}
                     className={cl.input} {...rest}/>
             <Button ref={buttonRef} beforeImage={FILE_ADD_ICON}
                     title={locTitle} 
                     variant={ButtonVariant.DEFAULT}
                     onClick={handleOnClickButton}
-                    // onMouseEnter={}
+                    hovered={isHovered}
                     className={cl.button} />
         </label>
     )
