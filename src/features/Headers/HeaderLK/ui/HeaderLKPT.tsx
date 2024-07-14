@@ -13,7 +13,6 @@ import { DASHBOARD_PAGES } from "@/config/pages-url.config"
 import { ESwitchSelectorVariants } from "@/shared/ui/SwitchSelector/model/switchSelector.model"
 import { ButtonArrowWLine } from "@/shared/ui/Button/data/Arrow/WLine/ButtonArrowWLine"
 import { ButtonColor } from "@/shared/ui/Button/model/button.model"
-import { SWITCH_SELECTOR_CREATED_PRODUCTS_OPTION, SWITCH_SELECTOR_DRAFT_PRODUCTS_OPTION, SWITCH_SELECTOR_WO_PRICE_PRODUCTS_OPTION } from "@/shared/ui/SwitchSelector/data/switchSelector.data"
 
 interface IHeaderPT {
     className?: string,
@@ -21,7 +20,7 @@ interface IHeaderPT {
     title: string,
     selectedOption: IOption,
     setSelectedOption: Function
-    // options: IOption[],
+    options: IOption[],
     optionsTab: OptionsTabType
 }
 /**
@@ -33,7 +32,7 @@ export const HeaderLKPT = ({
     title,
     selectedOption,
     setSelectedOption,
-    // options,
+    options,
     optionsTab
 }: IHeaderPT) => {
 
@@ -53,25 +52,19 @@ export const HeaderLKPT = ({
                         className={cl.backButton}
                         axis={Axis.Bottom}
                         onClick={backNavigation}
+                        sizes={{width: 17, height: 17}}
                     />
                     <span className={cl.headerTitle}>{title}</span>
                 </div>
 
                 <SwitchSelector className={cl.switchSelector}
-// <<<<<<< HEAD
-//                 options={options} setSelectedOption={setSelectedOption}
-// =======
-                    options={[
-                        SWITCH_SELECTOR_CREATED_PRODUCTS_OPTION, 
-                        SWITCH_SELECTOR_WO_PRICE_PRODUCTS_OPTION, 
-                        SWITCH_SELECTOR_DRAFT_PRODUCTS_OPTION
-                    ]} 
+                    options={options} 
                     setSelectedOption={setSelectedOption}
                     selectedOption={selectedOption}
                     optionsTab={optionsTab}
                     variant={ESwitchSelectorVariants.TABS} />
             </div>
-            {isButtonAdd && 
+            {isButtonAdd &&
                 <div className={cl.addButtonContainer}>
                     <Button variant={ButtonVariant.FILL}
                         color={ButtonColor.Primary}

@@ -14,7 +14,8 @@ export const ProductSingleCreationPage = ({ className }: IProductSingleCreationP
                 labelText="Категория"
                 isRequired
                 isDescriptionTooltip
-                descriptionTooltipText=' ' />
+                descriptionTooltipText='Выберите категорию из списка'
+                classNameDescriptionWindow={cl.descriptionTooltip}/>
         </div>
     )
 }
