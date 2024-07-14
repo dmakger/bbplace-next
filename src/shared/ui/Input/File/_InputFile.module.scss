@@ -3,6 +3,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 5px;
 
     width: 100%;
     background-color: var(--background-2);
@@ -18,13 +19,17 @@
         opacity: 0;
         overflow: hidden;
     }
-
-    .button {
-        flex-direction: column;
-        gap: 5px;
-        // position: absolute;
-    }
 }   
+
+.text {
+    color: var(--font-caption);
+}
+.textHovered {
+    color: var(--font-caption);
+}
+.textDisabled {
+    color: var(--font-caption-sub);
+}
 
 .rounded {
     border: 1px solid var(--gray-5);

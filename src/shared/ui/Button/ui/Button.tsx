@@ -42,6 +42,9 @@ export interface IButton {
     className?: string
     classNameLink?: string
     classNameText?: string
+    classNameTextHovered?: string
+    classNameTextPressed?: string
+    classNameTextDisabled?: string
 }
 
 export const Button = ({
@@ -51,7 +54,8 @@ export const Button = ({
     beforeImage, beforeProps, afterImage, afterProps, 
     active=false, success=false, disabled=false, hovered, loading=false, noTranslation=false,
     onClick=()=>{}, onMouseEnter=()=>{}, onMouseLeave=()=>{},
-    children, className, classNameLink, classNameText,
+    children, className, classNameLink, 
+    classNameText, classNameTextHovered, classNameTextPressed, classNameTextDisabled,
 }: IButton) => {
 
     // STYLES
@@ -105,7 +109,12 @@ export const Button = ({
 
             }
             {title && 
-                <span className={cls(cl.title, classNameText)}>{title}</span>
+                <span className={cls(
+                    cl.title, classNameText,
+                    isHovered ? classNameTextHovered : '',
+                    isPressed ? classNameTextPressed : '',
+                    disabled ? classNameTextDisabled : '',
+                )}>{title}</span>
             }
             {afterImage &&
                 <ImageSmart {...afterProps} icon={afterImage}
