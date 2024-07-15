@@ -13,6 +13,8 @@ import { Modal } from '@/shared/ui/Modal/Modal';
 import { EModalView } from '@/shared/data/modal.data';
 import { BottomInfoModal } from '@/features/Modal/BottomInfo';
 import { WrapperModalBottom } from '../../ModalBottom';
+import { IFile } from '@/entities/File/model/file.model';
+import { FileItem } from '@/entities/File/ui/Item/FileItem';
 
 interface IWrapperRectangleInput {
   className?: string
@@ -29,6 +31,8 @@ interface IWrapperRectangleInput {
   descriptionTooltipText?: string,
   errorInputMessage?: string,
   labelPosition?: ELabelPosition
+
+  fileList?: IFile[]
 }
 
 export const WrapperRectangleInput = ({
@@ -45,7 +49,9 @@ export const WrapperRectangleInput = ({
   warningTooltipText = 'Обязательно для заполнения',
   descriptionTooltipText,
   errorInputMessage = 'Выберите категорию из списка',
-  labelPosition = ELabelPosition.TOP
+  labelPosition = ELabelPosition.TOP,
+
+  fileList=[],
 }: IWrapperRectangleInput) => {
 
   // STATE
@@ -167,6 +173,14 @@ export const WrapperRectangleInput = ({
       <div className={cl.inputsContainer}>
         {clonedChildren}
       </div>
+
+      {fileList && fileList.length > 0 && (
+        <div className={cl.files}>
+          {fileList.map(file => (
+            <FileItem file={file} key={file.url} />
+          ))}
+        </div>
+      )}
 
       {warning && errorInputSelectMessageArray && (
         <div className={cl.errorMessage}>

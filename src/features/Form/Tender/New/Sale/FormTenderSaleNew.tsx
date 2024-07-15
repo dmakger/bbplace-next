@@ -13,6 +13,7 @@ import { metricListToOptionList } from "@/entities/Metrics/lib/option.metric.met
 import { CurrencyAPI } from "@/entities/Metrics/api/currency.metrics.api";
 import { currencyListToOptionList } from "@/entities/Metrics/lib/option.currency.metrics.lib";
 import { EInputTextTypeVariants } from "@/shared/ui/Input/Text/model/text.input.model";
+import { IFile } from "@/entities/File/model/file.model";
 
 interface FormTenderSaleNewProps{
     className?: string,
@@ -23,6 +24,7 @@ export const FormTenderSaleNew:FC<FormTenderSaleNewProps> = ({className}) => {
     const [categoryOptions, setCategoryOptions] = useState<IOption[]>([])
     const [metricOptions, setMetricOptions] = useState<IOption[]>([])
     const [currencyOptions, setCurrencyOptions] = useState<IOption[]>([])
+    const [fileList, setFileList] = useState<IFile[]>([])
 
     // API
     const {data: categoryList} = CategoryAPI.useGetCategoriesByIdQuery(undefined)              
@@ -74,7 +76,7 @@ export const FormTenderSaleNew:FC<FormTenderSaleNewProps> = ({className}) => {
                             required={true} variant={EInputVariants.RECTANGULAR} 
                             inputTypeVariant={EInputTextTypeVariants.TEXTAREA} />
             </WrapperRectangleInput>
-            <WrapperRectangleInput labelText={"Файлы"}>
+            <WrapperRectangleInput labelText={"Файлы"} fileList={fileList}>
                 <Input.File name={'files'} placeholder="Начните вводить"
                             variant={EInputVariants.RECTANGULAR}  />
             </WrapperRectangleInput>

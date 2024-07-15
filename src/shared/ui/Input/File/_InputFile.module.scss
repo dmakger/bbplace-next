@@ -22,13 +22,14 @@
 }   
 
 .text {
-    color: var(--font-caption);
+    color: var(--font-caption-low);
+    transition: .3s;
 }
 .textHovered {
     color: var(--font-caption);
 }
 .textDisabled {
-    color: var(--font-caption-sub);
+    color: var(--disabled);
 }
 
 .rounded {
