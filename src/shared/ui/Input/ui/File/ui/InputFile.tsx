@@ -4,17 +4,28 @@ import { ChangeEvent, FC, useEffect, useRef, useState } from "react"
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_InputFile.module.scss'
-import { IWrapperRectangleInputChildren } from "../../Wrapper/RectangleInput/model/wrapperRectangleInput.model";
-import { EInputVariants, IInput } from "../model/input.model";
-import { Button, ButtonVariant } from "../../Button";
-import { FILE_ADD_ICON } from "../../Icon/data/file.data.icon";
+import { IWrapperRectangleInputChildren } from "../../../../Wrapper/RectangleInput/model/wrapperRectangleInput.model";
+import { EInputVariants, IInput } from "../../../model/input.model";
+import { Button, ButtonVariant } from "../../../../Button";
+import { FILE_ADD_ICON } from "../../../../Icon/data/file.data.icon";
+import { getInputFilePrompt } from "../lib/file.input.lib";
 
 interface InputFileProps extends IWrapperRectangleInputChildren, IInput {
     title?: string
+    multiple?: boolean
+    setFiles?: Function
 }
 
+/**
+ * 
+ * @param multiple - изначально true. Если {true}, то принимает 1 и более файлов, если {false}, то принимает строго 1 файл 
+ * @returns 
+ */
 export const InputFile:FC<InputFileProps> = ({
-    title, 
+    title,
+    multiple=true,
+    setFiles,
+    
     variant=EInputVariants.ROUNDED,
     onChange, 
 
@@ -30,17 +41,24 @@ export const InputFile:FC<InputFileProps> = ({
     const inputRef = useRef<HTMLInputElement>(null)
 
     // STATE
-    const [locTitle, setLocTitle] = useState('Нажмите или перенесите файлы в эту область')
+    const [locTitle, setLocTitle] = useState<string>(getInputFilePrompt(multiple))
 
     // EFFECT
     useEffect(() => {
-        if (title)
+        if (title) {
             setLocTitle(title)
-    }, [title])
+        } else {
+            setLocTitle(getInputFilePrompt(multiple))
+        }
+    }, [title, multiple])
 
     // HANDLE
     const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (onChange) onChange(e)
+        
+        if (e.target.files && e.target.files.length > 0) {
+            
+        }
     }
 
     const handleOnClickButton = () => {
@@ -57,6 +75,7 @@ export const InputFile:FC<InputFileProps> = ({
                 classNameTextHovered={cl.textHovered}
                 classNameTextDisabled={cl.textDisabled}>
             <input type="file" 
+                    multiple={multiple}
                     ref={inputRef}
                     onChange={e => handleOnChange(e)}
                     className={cl.input} {...rest}/>

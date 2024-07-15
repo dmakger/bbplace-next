@@ -7,7 +7,7 @@ import { InputRadio } from "./ui/Radio"
 import InputList from "./ui/List/InputList"
 import { InputCheckbox } from "./ui/Checkbox"
 import { RecursiveSelectInput } from "./ui/RecursiveSelect"
-import { InputFile } from "./File/InputFile"
+import { InputFile } from "./ui/File/ui/InputFile"
 
 interface InputProps {
     children: ReactNode
