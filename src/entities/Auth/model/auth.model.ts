@@ -37,6 +37,10 @@ export interface ICheckEmailExists{
     exists: boolean
 }
 
+export interface ISendResetPassword{
+    email: string
+}
+
 export interface IRegistrationRequest {
     country: string
     role: string
@@ -47,6 +51,12 @@ export interface IRegistrationRequest {
     fullName: string
     phoneNumber: string,
     emailSubscription: string
+}
+
+export interface IResetPassword {
+    email: string
+    token: string
+    password: string
 }
 
 

@@ -8,6 +8,7 @@ import { EInputTextVariant } from '../data/text.input.data'
 import { IWrapperRectangleInputChildren } from '@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model'
 import { EInputVariants, IInput } from '../../../model/input.model'
 import { EInputTextTypeVariants } from '../../../Text/model/text.input.model'
+import { PASSWORD_VALID_RULES, isPasswordValid } from '@/entities/Auth/data/password.data'
 
 interface InputTextProps extends IWrapperRectangleInputChildren, IInput {
     title?: string
@@ -17,8 +18,7 @@ interface InputTextProps extends IWrapperRectangleInputChildren, IInput {
     inputTypeVariant?: EInputTextTypeVariants
     classNameInputText?: string
     classNameTextArea?: string,
-    error?: boolean,
-    setError?: Function
+    disabled?: boolean
 }
 
 export function InputText({
@@ -42,6 +42,8 @@ export function InputText({
     size,
     error = false,
     setError,
+    disabled,
+    setErrorMessageArray,
     ...rest }: InputTextProps) {
 
     //STATE
@@ -81,11 +83,21 @@ export function InputText({
     const checkValue = (value: string) => {
         let isErr = false;
         isErr = value.trim() === '';
-        setError && setError(false)
+
+        if(isErr) return setErrorMessageArray && setErrorMessageArray(['Пожалуйста заполните это поле'])
+
         if (type === 'email') {
             isErr = !(value.includes('@') && value.includes('.'));
+            isErr && setErrorMessageArray && setErrorMessageArray(['Введите корректный адрес электронной почты'])
         }
+        if(type === 'password'){
+            isErr = !isPasswordValid(value);
+            if(isErr) setErrorMessageArray && setErrorMessageArray([PASSWORD_VALID_RULES])
+        }
+
         if (setWarning && setSuccess) {
+            setError && setError(isErr)
+
             setWarning(isErr)
             setIsWarning(isErr)
             setSuccess(!isErr)
@@ -108,6 +120,7 @@ export function InputText({
                     cl.input,
                     isSuccess ? cl.success : '',
                     isWarning ? cl.error : '',
+                    disabled ? cl.disabled : '',
                     classNameInputText
                 )}
                     name={name}
@@ -118,6 +131,7 @@ export function InputText({
                     defaultValue={defaultValue}
                     onBlur={(e) => checkValue(e.target.value)}
                     onChange={handleOnChange}
+                    disabled={disabled}
                     {...rest}
                 />
             ) : (

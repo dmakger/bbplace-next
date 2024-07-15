@@ -6,6 +6,8 @@ export interface IInput{
     placeholder?: string
     onChange?: Function,
     required?: boolean,
+    error?: boolean,
+    setError?: Function
 }
 
 export enum EInputVariants{

@@ -2,7 +2,7 @@ import { createApi, BaseQueryFn } from '@reduxjs/toolkit/query/react';
 import { AxiosRequestConfig, AxiosError } from 'axios';
 import apiClient from './interceptor.auth.api';
 import { ISupplierAPI } from '@/entities/Supplier/model/supplier.model';
-import { IAuthForm, ILoginResponseDecoded, ICheckEmailExists, IRegistrationRequest } from '../model/auth.model';
+import { IAuthForm, ILoginResponseDecoded, ICheckEmailExists, IRegistrationRequest, IResetPassword, ISendResetPassword } from '../model/auth.model';
 import { saveTokensStorage, getAccessToken, getRefreshToken, getHeaderAuthorizationIfExists } from '../lib/auth-token.lib';
 import { jwtDecode } from 'jwt-decode';
 
@@ -86,7 +86,22 @@ export const UserAPI = createApi({
                 headers: getHeaderAuthorizationIfExists(),
             }),
             transformResponse: (response: ICheckEmailExists) => response.exists,
-        })
+        }),
+        //PASSWORD RESET
+        sendResetPasswordLink: builder.mutation<any, ISendResetPassword>({
+            query: (body) => ({
+                url: `/Authenticate/SendResetPasswordLink`,
+                method: 'POST',
+                body
+            })
+        }),
+        resetPassword: builder.mutation<any, IResetPassword>({
+            query: (body) => ({
+                url: `/Authenticate/ResetPassword`,
+                method: 'POST',
+                body,
+            })
+        }),
     }),
 });
 

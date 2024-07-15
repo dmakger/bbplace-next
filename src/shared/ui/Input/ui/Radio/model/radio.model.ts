@@ -1,4 +1,4 @@
-export enum EVariantRadio {
+export enum ERadioVariant {
     LIST = 'list',
     SINGLE = 'single'
 }

@@ -3,29 +3,39 @@
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_InputCheckbox.module.scss';
 import { Button, ButtonVariant } from '@/shared/ui/Button';
-import { CHECKBOX_SECONDARY_ICON } from '@/shared/ui/Icon/data/checkbox.data.icon';
+import { CHECKBOX_SECONDARY_ICON, CHECKBOX_TERTIARY_ICON } from '@/shared/ui/Icon/data/checkbox.data.icon';
 import { useEffect, useState } from 'react';
 import { IWrapperRectangleInputChildren } from '@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model';
 import { IInput } from '../../../model/input.model';
+import { ECheckboxVariant } from '../model/checkbox.model';
+import { IImageSizes } from '@/shared/model/image.model';
 
 export interface IInputCheckbox extends IWrapperRectangleInputChildren, IInput {
   onClick?: (value: boolean) => void;
   isChecked?: boolean;
   setIsChecked?: (value: boolean) => void;
+  variantCheckbox?: ECheckboxVariant,
+  checkMarkSizes?: IImageSizes
 }
 
 export const InputCheckbox = ({
   className,
   name,
+  variantCheckbox = ECheckboxVariant.TERTIARY,
+  checkMarkSizes = {
+    width: 20,
+    height: 15,
+},
   success = false,
-  setSuccess,
   warning = false,
-  setWarning,
   required,
+  setSuccess,
+  setWarning,
   onClick,
   checked,
   isChecked,
   setIsChecked,
+  error
 }: IInputCheckbox) => {
 
   //STATE
@@ -39,7 +49,7 @@ export const InputCheckbox = ({
   //       onClick(newValue)
   //     return newValue
   //   })
-  // }
+  // }  
 
   // EFFECT
   useEffect(() => {
@@ -50,18 +60,43 @@ export const InputCheckbox = ({
     }
   }, [checked, isChecked]);
 
+
+  useEffect(() => {
+    if (error) {
+        setWarning && setWarning(true)
+        setSuccess && setSuccess(false)
+
+    }
+
+},[error])
+
   // FUNCTION
   const handleCheckboxChange = () => {
     const newValue = !isOwnChecked;
     setIsOwnChecked(newValue);
     setIsChecked && setIsChecked(newValue);
+
     if (onClick) {
       onClick(newValue);
     }
+
+    if(required && !newValue){
+      setWarning && setWarning(true)
+      setSuccess && setSuccess(false)
+    } 
+    else if(!newValue){
+      setSuccess && setSuccess(false)
+    }
+    else if(newValue){
+      setWarning && setWarning(false)
+      setSuccess && setSuccess(true)
+    }
   };
 
+  
+
   return (
-    <div className={cls(cl.InputCheckbox, className)}>
+    <div className={cls(cl.InputCheckbox, cl[variantCheckbox], className)}>
       <input
         type="checkbox"
         className={cl.input}
@@ -73,8 +108,8 @@ export const InputCheckbox = ({
 
       <Button
         variant={ButtonVariant.DEFAULT}
-        beforeImage={CHECKBOX_SECONDARY_ICON}
-        beforeProps={{ classNameImage: isOwnChecked ? cl.image : '' }}
+        beforeImage={variantCheckbox === ECheckboxVariant.SECONDARY ? CHECKBOX_SECONDARY_ICON : CHECKBOX_TERTIARY_ICON}
+        beforeProps={{ width: checkMarkSizes.width, height: checkMarkSizes.height, classNameImage: isOwnChecked ? cl.image : '' }}
         className={cls(
           cl.checkbox,
           isOwnChecked ? cl.checked : '',

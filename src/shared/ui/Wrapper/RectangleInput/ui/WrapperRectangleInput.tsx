@@ -32,7 +32,6 @@ interface IWrapperRectangleInput {
   descriptionTooltipText?: string,
   errorInputMessage?: string,
   labelPosition?: ELabelPosition,
-  errorStatus?: number
 }
 
 export const WrapperRectangleInput = ({
@@ -52,13 +51,13 @@ export const WrapperRectangleInput = ({
   descriptionTooltipText,
   errorInputMessage = 'Пожалуйста заполните это поле',
   labelPosition = ELabelPosition.TOP,
-  errorStatus
 }: IWrapperRectangleInput) => {
 
   // STATE
   const [isWarningActive, setIsWarningActive] = useState<boolean>(false)
   const [isDescriptionActive, setIsDescriptionActive] = useState<boolean>(false);
   const [is768, setIs768] = useState<boolean>(false)
+  const [errorMessageArray, setErrorMessageArray] = useState<string[]>([])
 
   //Для InputText
   const [inputValueLength, setInputValueLength] = useState<number>(0)
@@ -91,6 +90,10 @@ export const WrapperRectangleInput = ({
     else setIsWarningActive(false)
   }, [warning])
 
+  useEffect(() => {
+    setErrorMessageArray([errorInputMessage])
+  }, [errorInputMessage])
+
   // CHILDREN
   const clonedChildren = React.Children.map(children, (child, index) => {
     if (React.isValidElement<IWrapperRectangleInputChildren>(child)) {
@@ -110,7 +113,8 @@ export const WrapperRectangleInput = ({
         setSelectedOptionsArray,
         selectedOption,
         setSelectedOption,
-        checked 
+        checked ,
+        setErrorMessageArray
       });
     }
     return child;
@@ -132,12 +136,6 @@ export const WrapperRectangleInput = ({
     setIsDescriptionActive(prevState => !prevState);
   };
 
-  // VARIABLE
-  const errorMessage = errorStatus === 400 ? 'Пожалуйста заполните поле' : errorInputMessage;
-
-  const errorInputSelectMessageArray: string[] = [
-    errorMessage
-  ];
 
   const isDisabled = !selectedOptionsArray.length && isCanDisabledBellowButton;
 
@@ -201,14 +199,15 @@ export const WrapperRectangleInput = ({
             {clonedChildren}
           </div>
 
-          {errorStatus && errorInputSelectMessageArray.length && (
+        </div>
+
+        {warning && errorMessageArray.length > 0 && (
             <div className={cl.errorMessage}>
-              {errorInputSelectMessageArray.map((it, index) => (
+              {errorMessageArray.map((it, index) => (
                 <p key={index}>{it}</p>
               ))}
             </div>
           )}
-        </div>
 
         {bellowButtonText &&
           <Button variant={ButtonVariant.FILL}

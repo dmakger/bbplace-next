@@ -15,7 +15,9 @@ import { MAIN_PAGES } from "@/config/pages-url.config"
 export const SignInChildrenPage = () => {
 
     //STATE
-    const [error, setError] = useState<number>()
+    const [error, setError] = useState<boolean>(false)
+    const [errorEmail, setErrorEmail] = useState<string>('')
+    const [errorPassword, setErrorPassword] = useState<string>('')
 
     // REF
     const formRef = useRef<HTMLFormElement>(null)
@@ -34,7 +36,20 @@ export const SignInChildrenPage = () => {
     //FUNCTIONS
     const LogIn = async() => {
         if (!formRef.current) return;
-        const {email, password} = getFormData(formRef?.current)
+        const {emailValue, password} = getFormData(formRef?.current)
+
+        
+        //EMAIL
+        if (!emailValue) {
+            setErrorEmail('Пожалуйста заполните поле');
+        } else if (emailValue && (!emailValue.includes('@') || !emailValue.includes('.'))) {
+            setErrorEmail('Введите корректный адрес электронной почты');
+        }
+
+        //PASSWORD        
+        if (!password) setErrorPassword('Пожалуйста заполните поле');
+        
+        
 
         try{
             const data = await userLogin({username: email, password: password}).unwrap()
@@ -56,21 +71,19 @@ export const SignInChildrenPage = () => {
                 isRequired
                 isDescriptionTooltip
                 descriptionTooltipText="Введите адрес электронной почты, на которую был зарегистрирован профиль"
-                errorInputMessage="Введите корректный адрес электронной почты"
-                errorStatus={error}      
+                errorInputMessage={errorEmail}
                 
             >
-                <Input.Text type="email" variant={EInputVariants.RECTANGULAR} placeholder="Введите email" name="email" defaultValue={email} success={!!email} error={!!error} warning={!!error} setError={setError}/>
+                <Input.Text type="email" variant={EInputVariants.RECTANGULAR} placeholder="Введите email" name="email" defaultValue={email} success={!!email} error={error && !!errorEmail} warning={error && !!errorEmail}/>
             </WrapperRectangleInput>
             <WrapperRectangleInput
                 labelText="Пароль"
                 isRequired
                 bellowButtonText="Войти"
-                errorInputMessage="Введите корректный пароль"
-                errorStatus={error}      
+                errorInputMessage={errorPassword}
                 onClickBellowButton={LogIn}
             >
-                <Input.Text type="password" variant={EInputVariants.RECTANGULAR} placeholder="Введите пароль" name="password" error={!!error} warning={!!error} setError={setError}/>
+                <Input.Text type="password" variant={EInputVariants.RECTANGULAR} placeholder="Введите пароль" name="password" error={error && !!errorPassword} warning={error && !!errorPassword}/>
             </WrapperRectangleInput>
         </WrapperNotAuthPages>
     )

@@ -44,12 +44,14 @@ export function TextAndSelectInput({
         width: 10,
         height: 10
     },
+    required,
     setIsListOpen,
     placeholder,
     disabled,
-    success,
     setWarning,
-    setSuccess
+    setSuccess,
+    setSelectedOption,
+    error
 }: ITextAndSelectInput) {
 
     //STATE
@@ -75,13 +77,26 @@ export function TextAndSelectInput({
     }, [defaultOption])
 
     useEffect(() => {
-        activeOption === undefined && setIsSuccess(false)
+        if(activeOption === undefined){
+            setIsSuccess(false)
+        } 
+        activeOption !== undefined && setSelectedOption && setSelectedOption(activeOption)
     }, [activeOption]);
 
 
     useEffect(() => {
         setWarning && setWarning(isWarning)
     }, [isWarning])
+
+    useEffect(() => {
+        if (error) {
+            setWarning && setWarning(true)
+            setSuccess && setSuccess(false)
+            setIsSuccess(false)
+            setIsWarning(true)
+        }
+
+    },[error])
 
 
     useEffect(() => {
@@ -162,6 +177,7 @@ export function TextAndSelectInput({
                                 onChange={handleInputChange}
                                 value={searchQuery}
                                 autoFocus
+                                required={required}
                             /> :
                             <div className={cl.inputContainer}>
                                 <Image src={SEARCH_ICON} alt={"Поиск"} width={19} height={19} className={cl.imageSearch} />
@@ -174,6 +190,7 @@ export function TextAndSelectInput({
                                     onChange={handleInputChange}
                                     value={searchQuery}
                                     autoFocus
+                                    required={required}
                                 />
 
                             </div>)

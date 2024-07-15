@@ -9,33 +9,29 @@ import { CHECKBOX_TERTIARY_ICON } from '@/shared/ui/Icon/data/checkbox.data.icon
 import { useEffect, useState } from 'react';
 import { IWrapperRectangleInputChildren } from '@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model';
 import { IImageSizes } from '@/shared/model/image.model';
-import { EVariantRadio } from '../model/radio.model';
+import { ERadioVariant } from '../model/radio.model';
 
 interface InputRadioProps extends IInput, IWrapperRectangleInputChildren {
     option: IOption;
     isActive?: boolean;
     onClick?: Function;
     checkMarkSizes?: IImageSizes;
-    variantRadio?: EVariantRadio;
-    error?: boolean,
-    setError?: Function
+    variantRadio?: ERadioVariant
 }
 
 export function InputRadio({
     variant = EInputVariants.ROUNDED,
-    variantRadio = EVariantRadio.LIST,
+    variantRadio = ERadioVariant.LIST,
     option,
     isActive = false,
     name,
     required = false,
     onClick,
     checkMarkSizes = {
-        width: 18,
-        height: 13,
+        width: 20,
+        height: 15,
     },
     className,
-    checked,
-    setChecked,
     warning,
     success,
     selectedOption,
@@ -61,7 +57,7 @@ export function InputRadio({
     }, [selectedOption]);
 
     useEffect(() => {
-        if (error) {
+        if (error && !selectedOption) {
             setWarning && setWarning(true)
             setSuccess && setSuccess(false)
         }
@@ -93,8 +89,8 @@ export function InputRadio({
                 cl[variant],
                 isActive ? cl.active : '',
                 className,
-                variantRadio === EVariantRadio.SINGLE ? cl.singleRadio : '',
-                variantRadio === EVariantRadio.LIST && variant === EInputVariants.RECTANGULAR ? cl.listRadio : '',
+                variantRadio === ERadioVariant.SINGLE ? cl.singleRadio : '',
+                variantRadio === ERadioVariant.LIST && variant === EInputVariants.RECTANGULAR ? cl.listRadio : '',
             )}
         >
             <input
@@ -106,7 +102,7 @@ export function InputRadio({
                 className={cl.input}
                 checked={isOwnChecked}
             />
-            {variantRadio === EVariantRadio.SINGLE && (
+            {variantRadio === ERadioVariant.SINGLE && (
                 <Button
                     variant={ButtonVariant.DEFAULT}
                     beforeImage={CHECKBOX_TERTIARY_ICON}

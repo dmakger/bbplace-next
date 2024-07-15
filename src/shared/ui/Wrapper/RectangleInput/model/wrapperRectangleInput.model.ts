@@ -11,7 +11,8 @@ export interface IWrapperRectangleInputChildren {
     setChecked?: Function,
     setSelectedOptionsArray?: Function,
     selectedOption?: IOption,
-    setSelectedOption?: Function
+    setSelectedOption?: Function,
+    setErrorMessageArray?: Function
 }
 
 export enum ELabelPosition{
