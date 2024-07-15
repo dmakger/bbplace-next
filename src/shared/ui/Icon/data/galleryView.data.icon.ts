@@ -1,4 +1,4 @@
-import { IIcon } from "../model/model";
+import { IIcon } from "../model/icon.model";
 
 import GalleryGrayOutlineIcon from '@/shared/assets/img/View/Gallery/GalleryGrayOutline.svg'
 import GalleryBlackOutline from '@/shared/assets/img/View/Gallery/GalleryBlackOutline.svg'

@@ -1,6 +1,6 @@
 import { IFileFormat, IFileFormatWType } from "../model/file.model";
 import { FILE_DOC_ICON, FILE_PDF_ICON, FILE_PPT_ICON, FILE_UNKNOWN_ICON, FILE_XLS_ICON } from "../../../shared/ui/Icon/data/file.data.icon";
-import { IIcon } from "../../../shared/ui/Icon/model/model";
+import { IIcon } from "../../../shared/ui/Icon/model/icon.model";
 
 // ========={ TYPE FILES }=========
 

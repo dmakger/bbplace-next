@@ -1,4 +1,4 @@
-import { IIcon } from "../model/model";
+import { IIcon } from "../model/icon.model";
 
 import ChevronSecondary from '@/shared/assets/img/Chevron/ChevronSecondary.svg'
 import ChevronOnSecondary from '@/shared/assets/img/Chevron/ChevronOnSecondary.svg'

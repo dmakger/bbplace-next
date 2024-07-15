@@ -1,6 +1,6 @@
 'use client'
 
-import { ChangeEvent, FC, useEffect, useRef, useState } from "react"
+import { ChangeEvent, Dispatch, FC, SetStateAction, useEffect, useRef, useState } from "react"
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_InputFile.module.scss'
@@ -9,11 +9,13 @@ import { EInputVariants, IInput } from "../../../model/input.model";
 import { Button, ButtonVariant } from "../../../../Button";
 import { FILE_ADD_ICON } from "../../../../Icon/data/file.data.icon";
 import { getInputFilePrompt } from "../lib/file.input.lib";
+import { IFile } from "@/entities/File/model/file.model";
+import { fileListToIFileList } from "@/entities/File/lib/to.file.lib";
 
 interface InputFileProps extends IWrapperRectangleInputChildren, IInput {
     title?: string
     multiple?: boolean
-    setFiles?: Function
+    setFiles?: Dispatch<SetStateAction<IFile[]>>
 }
 
 /**
@@ -56,8 +58,13 @@ export const InputFile:FC<InputFileProps> = ({
     const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (onChange) onChange(e)
         
-        if (e.target.files && e.target.files.length > 0) {
-            
+        if (setFiles && e.target.files && e.target.files.length > 0) {
+            const fileArray = fileListToIFileList(Array.from(e.target.files))
+            console.log(fileArray[0])
+            if (!multiple)
+                setFiles([fileArray[0]])
+            else
+                setFiles(prevFiles => [...prevFiles, ...fileArray])
         }
     }
 

@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_ImageSmart.module.scss'
 import { Axis, IIconProps } from "@/shared/model/button.model";
-import { IWarningIcon } from "../../Icon/model/model";
+import { IWarningIcon } from "../../Icon/model/icon.model";
 
 interface ImageSmartProps extends IIconProps, Omit<IIconProps, 'icon'> {
     icon: IWarningIcon,

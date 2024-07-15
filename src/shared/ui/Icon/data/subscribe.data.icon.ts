@@ -1,4 +1,4 @@
-import { IIcon } from "../model/model";
+import { IIcon } from "../model/icon.model";
 
 import SubscribeDefaultGrayIcon from '@/shared/assets/img/Subscribe/SubscribeDefaultGrayIcon.svg'
 import SubscribeDefaultBlueIcon from '@/shared/assets/img/Subscribe/SubscribeDefaultBlueIcon.svg'

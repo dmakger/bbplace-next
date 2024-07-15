@@ -34,8 +34,6 @@ export const filesToFormatObject = (files: string[], ): IFile[] => {
     }, [])
 }
 
-
-
 // Возвращает [FileFormat] если расширение файла есть в [ALL_FORMATS], 
 // : в противном случае [undefined]
 export const getFormatFile = (file: string) => {

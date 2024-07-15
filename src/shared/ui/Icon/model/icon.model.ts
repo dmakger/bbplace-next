@@ -17,6 +17,21 @@ export interface IWarningIcon extends IIcon{
     positive?: string
 }
 
+/**
+ * Наследует все поля из {IIcon}
+ */
+export interface IIconBoolean {
+    defaultHovered?: boolean
+    defaultPressed?: boolean
+
+    active?: boolean
+    activeHovered?: boolean
+    activePressed?: boolean
+
+    disabled?: boolean
+    loading?: boolean
+}
+
 export enum FavouriteIconVariant{
     EMPTY = 'empty-heart',
     IN_CIRCLE_HEART = 'in-circle-heart'

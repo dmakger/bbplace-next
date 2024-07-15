@@ -1,4 +1,4 @@
-import { IIcon } from "../model/model";
+import { IIcon } from "../model/icon.model";
 
 import SortBlackIcon from '@/shared/assets/img/Sort/SortBlack.svg'
 

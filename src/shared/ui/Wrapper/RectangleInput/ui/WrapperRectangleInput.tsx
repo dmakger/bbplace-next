@@ -14,7 +14,8 @@ import { EModalView } from '@/shared/data/modal.data';
 import { BottomInfoModal } from '@/features/Modal/BottomInfo';
 import { WrapperModalBottom } from '../../ModalBottom';
 import { IFile } from '@/entities/File/model/file.model';
-import { FileItem } from '@/entities/File/ui/Item/FileItem';
+import { FileItem } from '@/entities/File/ui/Item/ui/Base/FileItem';
+import { FileItemAttachment } from '@/entities/File/ui/Item/ui/Attachment/FileItemAttachment';
 
 interface IWrapperRectangleInput {
   className?: string
@@ -176,8 +177,8 @@ export const WrapperRectangleInput = ({
 
       {fileList && fileList.length > 0 && (
         <div className={cl.files}>
-          {fileList.map(file => (
-            <FileItem file={file} key={file.url} />
+          {fileList.map((file, index) => (
+            <FileItemAttachment file={file} key={index} />
           ))}
         </div>
       )}

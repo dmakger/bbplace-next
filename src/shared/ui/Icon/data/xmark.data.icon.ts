@@ -1,4 +1,4 @@
-import { IIcon } from "../model/model";
+import { IIcon } from "../model/icon.model";
 import Xmark from '@/shared/assets/img/Xmark/XmarkIcon.svg'
 import XmarkHovered from '@/shared/assets/img/Xmark/XmarkIconHovered.svg'
 

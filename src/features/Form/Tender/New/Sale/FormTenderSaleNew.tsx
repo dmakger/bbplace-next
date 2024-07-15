@@ -77,7 +77,7 @@ export const FormTenderSaleNew:FC<FormTenderSaleNewProps> = ({className}) => {
                             inputTypeVariant={EInputTextTypeVariants.TEXTAREA} />
             </WrapperRectangleInput>
             <WrapperRectangleInput labelText={"Файлы"} fileList={fileList}>
-                <Input.File name={'files'} placeholder="Начните вводить"
+                <Input.File name={'files'} placeholder="Начните вводить" setFiles={setFileList}
                             variant={EInputVariants.RECTANGULAR}  />
             </WrapperRectangleInput>
 

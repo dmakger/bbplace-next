@@ -1,4 +1,4 @@
-import { IIcon } from "../model/model";
+import { IIcon } from "../model/icon.model";
 
 import FileUpload from '@/shared/assets/img/File/FileUpload.svg'
 import FileUploadHovered from '@/shared/assets/img/File/FileUploadPressed.svg'
