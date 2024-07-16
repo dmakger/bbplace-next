@@ -4,7 +4,6 @@ import { LKProductTableAdaptive } from "@/entities/Product/ui/TableAdaptive/LKPr
 import { IUserProductsTab } from "@/features/DetailedPageInfo/model/detailedPageInfo.model";
 import { HeaderLKPT } from "@/features/Headers/HeaderLK";
 import { LKPTPage } from "@/features/LKPTPage";
-import { LKProductTable } from "@/features/Table/ui/Product/LK/ui/LKProductTable";
 import { IOption } from "@/shared/model/option.model";
 import { SwitchSelector } from "@/shared/ui/SwitchSelector";
 import { ProductsTypeLK, SWITCH_SELECTOR_CREATED_PRODUCTS_OPTION, SWITCH_SELECTOR_DRAFT_PRODUCTS_OPTION, SWITCH_SELECTOR_WO_PRICE_PRODUCTS_OPTION } from "@/shared/ui/SwitchSelector/data/switchSelector.data";

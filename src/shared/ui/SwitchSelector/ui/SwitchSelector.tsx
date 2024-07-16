@@ -21,7 +21,7 @@ interface ISwitchSelector {
 export const SwitchSelector = ({
     variant = ESwitchSelectorVariants.DEFAULT,
     className,
-    options,
+    options = [],
     selectedOption,
     setSelectedOption,
     optionsTab
