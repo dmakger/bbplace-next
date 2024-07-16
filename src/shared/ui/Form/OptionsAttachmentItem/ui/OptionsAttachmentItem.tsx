@@ -3,7 +3,7 @@ import cl from './_OptionsAttachmentItem.module.scss'
 import { EOptionsAttachmentSize, EOptionsAttachmentVariants } from "../model/optionsAttachment.model"
 import { ButtonDelete } from "@/shared/ui/Button/data/Delete/ButtonDelete"
 import { ImageSmart } from "@/shared/ui/Image/Smart/ImageSmart"
-import { IWarningIcon } from "@/shared/ui/Icon/model/model"
+import { IWarningIcon } from "@/shared/ui/Icon/model/icon.model"
 
 interface IOptionsAttachmentItem {
     className?: string,

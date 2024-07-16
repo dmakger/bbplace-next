@@ -24,7 +24,7 @@ interface IHeaderPT {
     optionsTab: OptionsTabType
 }
 /**
- * LKPT - Личный Кабинет Product Table
+ * LKPT - Личный Кабинет Product Tender
  */
 export const HeaderLKPT = ({
     className,

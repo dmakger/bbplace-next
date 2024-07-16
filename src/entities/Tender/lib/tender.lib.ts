@@ -15,8 +15,6 @@ export const toTenderType = (tenderType?: string) => {
 }
 
 export const tenderTypeToEn = (tenderType: ETenderType) => {
-    console.log('tenderTypeToEn', tenderType, tenderType === ETenderType.PURCHASE ? 'Purchase' : 'Sale');
-    
     if (tenderType === ETenderType.PURCHASE)
         return 'Purchase'
     return 'Sale'

@@ -9,11 +9,27 @@ export interface IIcon {
     activePressed?: string
 
     disabled?: string
+    loading?: string
 }
 
 export interface IWarningIcon extends IIcon{
     negative?: string,
     positive?: string
+}
+
+/**
+ * Наследует все поля из {IIcon}
+ */
+export interface IIconBoolean {
+    defaultHovered?: boolean
+    defaultPressed?: boolean
+
+    active?: boolean
+    activeHovered?: boolean
+    activePressed?: boolean
+
+    disabled?: boolean
+    loading?: boolean
 }
 
 export enum FavouriteIconVariant{

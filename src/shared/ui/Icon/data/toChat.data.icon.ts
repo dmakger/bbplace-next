@@ -1,4 +1,4 @@
-import { IIcon } from "../model/model";
+import { IIcon } from "../model/icon.model";
 
 import ToChatDefaultIcon from '@/shared/assets/img/ToChat/ToChatDefaultIcon.svg'
 

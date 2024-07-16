@@ -1,7 +1,7 @@
 'use client'
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_WrapperRectangleInput.module.scss';
-import React, { MouseEvent, ReactNode, cloneElement, useEffect, useState } from 'react';
+import React, { Dispatch, MouseEvent, ReactNode, SetStateAction, cloneElement, useEffect, useState } from 'react';
 import { TOOLTIP_DESCRIPTION_ICON } from '@/shared/ui/Icon/data/tooltipDescription.data.icon';
 import { TOOLTIP_WARNING_ICON } from '@/shared/ui/Icon/data/tooltipWarning.data.icon';
 import { Button, ButtonVariant } from '@/shared/ui/Button';
@@ -14,6 +14,10 @@ import { EModalView } from '@/shared/data/modal.data';
 import { BottomInfoModal } from '@/features/Modal/BottomInfo';
 import { WrapperModalBottom } from '../../ModalBottom';
 import { HandleSize } from '@/shared/ui/Handle/Size/HandleSize';
+import { IFile } from '@/entities/File/model/file.model';
+import { FileItem } from '@/entities/File/ui/Item/ui/Base/FileItem';
+import { FileItemAttachment } from '@/entities/File/ui/Item/ui/Attachment/FileItemAttachment';
+import { FileWrapList } from '@/entities/File/ui/Wrap/FileWrapList';
 
 interface IWrapperRectangleInput {
   className?: string
@@ -31,7 +35,10 @@ interface IWrapperRectangleInput {
   warningTooltipText?: string,
   descriptionTooltipText?: string,
   errorInputMessage?: string,
-  labelPosition?: ELabelPosition,
+  labelPosition?: ELabelPosition
+
+  fileList?: IFile[]
+  setFileList?: Dispatch<SetStateAction<IFile[]>>
 }
 
 export const WrapperRectangleInput = ({
@@ -51,6 +58,9 @@ export const WrapperRectangleInput = ({
   descriptionTooltipText,
   errorInputMessage = 'Пожалуйста заполните это поле',
   labelPosition = ELabelPosition.TOP,
+  fileList=[],
+  setFileList,
+
 }: IWrapperRectangleInput) => {
 
   // STATE
@@ -78,10 +88,10 @@ export const WrapperRectangleInput = ({
 
   //EFFECT
   useEffect(() => {
-    const allSuccess = Object.values(successes).every(v => v === true);
-    const anyWarning = Object.values(warnings).some(v => v === true);
-    setSuccess(allSuccess);
-    setWarning(anyWarning);
+	const allSuccess = Object.values(successes).every(v => v === true);
+	const anyWarning = Object.values(warnings).some(v => v === true);
+	setSuccess(allSuccess);
+	setWarning(anyWarning);
   }, [successes, warnings]);
 
 
@@ -123,8 +133,8 @@ export const WrapperRectangleInput = ({
 
   //FUNCTIONS
   const closeTheModal = () => {
-    isDescriptionActive && setIsDescriptionActive(false)
-    isWarningActive && setIsWarningActive(false)
+	isDescriptionActive && setIsDescriptionActive(false)
+	isWarningActive && setIsWarningActive(false)
   }
 
   const toggleWarningWindow = (e: MouseEvent<HTMLButtonElement>) => {
@@ -215,6 +225,10 @@ export const WrapperRectangleInput = ({
           <div className={cls(cl.inputsContainer, classNameInputsContainer)}>
             {clonedChildren}
           </div>
+
+          {fileList && fileList.length > 0 && (
+		  <FileWrapList fileList={fileList} setFileList={setFileList} className={cl.fileList}/>
+		)}
 
         </div>
 

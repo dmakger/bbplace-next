@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { IIcon } from "../ui/Icon/model/model";
+import { IIcon } from "../ui/Icon/model/icon.model";
 
 export interface IIconVariants {
     id: number,

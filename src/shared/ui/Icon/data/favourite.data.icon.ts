@@ -1,4 +1,4 @@
-import { IIcon } from "../model/model";
+import { IIcon } from "../model/icon.model";
 
 import FavouriteGrayOutline from '@/shared/assets/img/Favourite/FavouriteGrayOutline.svg'
 import FavouriteBlackOutline from '@/shared/assets/img/Favourite/FavouriteBlackOutline.svg'

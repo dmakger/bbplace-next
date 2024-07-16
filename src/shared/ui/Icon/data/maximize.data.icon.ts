@@ -1,4 +1,4 @@
-import { IIcon } from "../model/model";
+import { IIcon } from "../model/icon.model";
 
 import MaximizeSecondaryIcon from '@/shared/assets/img/Maximize/MaximizeSecondary.svg'
 import MaximizeSecondaryPressed from '@/shared/assets/img/Maximize/MaximizeSecondaryPressed.svg'

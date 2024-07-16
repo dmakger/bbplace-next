@@ -15,8 +15,9 @@ export interface IFileFormatWType {
 
 export interface IFile {
     name?: string
-    url?: string,
-    format?: FileFormat,
+    url?: string
+    format?: FileFormat
+    file?: File
 }
 
 

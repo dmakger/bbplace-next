@@ -1,4 +1,4 @@
-import { IIcon } from "../model/model";
+import { IIcon } from "../model/icon.model";
 
 import TrashDefaultIcon from '@/shared/assets/img/Trash/TrashDefaultIcon.svg'
 import TrashHoveredIcon from '@/shared/assets/img/Trash/TrashHoveredIcon.svg'
