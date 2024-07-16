@@ -1,4 +1,4 @@
-import { FC } from "react"
+import { FC, memo } from "react"
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_FileItemAttachment.module.scss'
@@ -16,7 +16,7 @@ interface FileItemAttachmentProps {
     className?: string,
 }
 
-export const FileItemAttachment:FC<FileItemAttachmentProps> = ({file, onClickDelete, className}) => {
+export const FileItemAttachment:FC<FileItemAttachmentProps> = memo(({file, onClickDelete, className}) => {
 
     // HANDLE
     const handleOnClickDelete = () => {
@@ -38,4 +38,4 @@ export const FileItemAttachment:FC<FileItemAttachmentProps> = ({file, onClickDel
                     className={cl.delete} />
         </div>
     )
-}
+})

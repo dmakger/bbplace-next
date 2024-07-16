@@ -1,7 +1,7 @@
 'use client'
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_WrapperRectangleInput.module.scss';
-import React, { ReactNode, cloneElement, useEffect, useState } from 'react';
+import React, { Dispatch, ReactNode, SetStateAction, cloneElement, useEffect, useState } from 'react';
 import { TOOLTIP_DESCRIPTION_ICON } from '@/shared/ui/Icon/data/tooltipDescription.data.icon';
 import { TOOLTIP_WARNING_ICON } from '@/shared/ui/Icon/data/tooltipWarning.data.icon';
 import { Button, ButtonVariant } from '@/shared/ui/Button';
@@ -16,6 +16,7 @@ import { WrapperModalBottom } from '../../ModalBottom';
 import { IFile } from '@/entities/File/model/file.model';
 import { FileItem } from '@/entities/File/ui/Item/ui/Base/FileItem';
 import { FileItemAttachment } from '@/entities/File/ui/Item/ui/Attachment/FileItemAttachment';
+import { FileWrapList } from '@/entities/File/ui/Wrap/FileWrapList';
 
 interface IWrapperRectangleInput {
   className?: string
@@ -34,6 +35,7 @@ interface IWrapperRectangleInput {
   labelPosition?: ELabelPosition
 
   fileList?: IFile[]
+  setFileList?: Dispatch<SetStateAction<IFile[]>>
 }
 
 export const WrapperRectangleInput = ({
@@ -53,6 +55,8 @@ export const WrapperRectangleInput = ({
   labelPosition = ELabelPosition.TOP,
 
   fileList=[],
+  setFileList,
+
 }: IWrapperRectangleInput) => {
 
   // STATE
@@ -76,142 +80,138 @@ export const WrapperRectangleInput = ({
 
   //EFFECT
   useEffect(() => {
-    const allSuccess = Object.values(successes).every(v => v === true);
-    const anyWarning = Object.values(warnings).some(v => v === true);
-    setSuccess(allSuccess);
-    setWarning(anyWarning);
+	const allSuccess = Object.values(successes).every(v => v === true);
+	const anyWarning = Object.values(warnings).some(v => v === true);
+	setSuccess(allSuccess);
+	setWarning(anyWarning);
   }, [successes, warnings]);
 
   // CHILDREN
   const clonedChildren = React.Children.map(children, (child, index) => {
-    if (React.isValidElement<IWrapperRectangleInputChildren>(child)) {
-      const id = `child-${index}`;
-      if (successes[id] === undefined) {
-        setSuccesses(prev => ({ ...prev, [id]: false }));
-      }
-      if (warnings[id] === undefined) {
-        setWarnings(prev => ({ ...prev, [id]: false }));
-      }
-      return cloneElement<IWrapperRectangleInputChildren>(child, {
-        success: successes[id],
-        warning: warnings[id],
-        setSuccess: (value: boolean) => setSuccesses(prev => ({ ...prev, [id]: value })),
-        setWarning: (value: boolean) => setWarnings(prev => ({ ...prev, [id]: value })),
-        setInputValueLength,
-        setSelectedOptionsArray,
-        checked
-      });
-    }
-    return child;
+	if (React.isValidElement<IWrapperRectangleInputChildren>(child)) {
+	  const id = `child-${index}`;
+	  if (successes[id] === undefined) {
+		setSuccesses(prev => ({ ...prev, [id]: false }));
+	  }
+	  if (warnings[id] === undefined) {
+		setWarnings(prev => ({ ...prev, [id]: false }));
+	  }
+	  return cloneElement<IWrapperRectangleInputChildren>(child, {
+		success: successes[id],
+		warning: warnings[id],
+		setSuccess: (value: boolean) => setSuccesses(prev => ({ ...prev, [id]: value })),
+		setWarning: (value: boolean) => setWarnings(prev => ({ ...prev, [id]: value })),
+		setInputValueLength,
+		setSelectedOptionsArray,
+		checked
+	  });
+	}
+	return child;
   });
 
   //FUNCTION
   const closeTheModal = () => {
-    isDescriptionActive && setIsDescriptionActive(false)
-    isWarningActive && setIsWarningActive(false)
+	isDescriptionActive && setIsDescriptionActive(false)
+	isWarningActive && setIsWarningActive(false)
   }
 
   // VARIABLE
   const errorInputSelectMessageArray: string[] = [
-    'Пожалуйста, заполните это поле!',
-    errorInputMessage  || `Максимальная длина - 50 символов. Сейчас ${inputValueLength}`
+	'Пожалуйста, заполните это поле!',
+	errorInputMessage  || `Максимальная длина - 50 символов. Сейчас ${inputValueLength}`
   ];
 
   return (
-    <div className={cls(cl.WrapperRectangleInput, className, cl[labelPosition])} onClick={() => setChecked(!checked)}>
-      <div className={cls(cl.labelNTooltipContainer)}>
-        <label className={cls(cl.label, classNameLabel)} >
-          {labelText}
-        </label>
-        <div className={cl.tooltipsContainer}>
-          {isDescriptionTooltip && descriptionTooltipText && (
-            <div className={cl.tooltipDescCont}>
-              <Button
-                variant={ButtonVariant.CLEAR}
-                className={cls(cl.button, cl.descButton, isDescriptionActive ? cl.descriptionActive : '')}
-                beforeImage={TOOLTIP_DESCRIPTION_ICON}
-                beforeProps={{ height: 14, width: 14 }}
-                active={isDescriptionActive}
-                onClick={() => setIsDescriptionActive(prevState => !prevState)}
-              />
-              <HoverWindow
-                text={descriptionTooltipText}
-                position={EHoverWindowPosition.RIGHT}
-                borderColor={EHoverBorderColor.DEFAULT}
-                show={isDescriptionActive}
-                className={cls(cl.descWindowActive, cl.windowActive, classNameDescriptionWindow)}
-              />
-            </div>
-          )}
-          {isRequired && (
-            <div className={cl.tooltipWarnCont}>
-              <Button
-                variant={ButtonVariant.CLEAR}
-                className={cls(
-                  cl.button,
-                  !success ? cl.warnButton : cl.successButton,
-                  isWarningActive && !success ? cl.warningActive : '',
-                  isWarningActive && success ? cl.successActive : ''
-                )}
-                beforeImage={TOOLTIP_WARNING_ICON}
-                active={isWarningActive}
-                beforeProps={{ height: 14, width: 14 }}
-                success={success}
-                onClick={() => setIsWarningActive(prevState => !prevState)}
-              />
-              <HoverWindow
-                text={warningTooltipText}
-                position={EHoverWindowPosition.RIGHT}
-                borderColor={!success ? EHoverBorderColor.WARNING : EHoverBorderColor.DEFAULT}
-                show={isWarningActive}
-                className={cls(cl.warnWindowActive, cl.windowActive, classNameWarningWindow)}
-              />
-            </div>
-          )}
-        </div>
-      </div>
+	<div className={cls(cl.WrapperRectangleInput, className, cl[labelPosition])} onClick={() => setChecked(!checked)}>
+	  <div className={cls(cl.labelNTooltipContainer)}>
+		<label className={cls(cl.label, classNameLabel)} >
+		  {labelText}
+		</label>
+		<div className={cl.tooltipsContainer}>
+		  {isDescriptionTooltip && descriptionTooltipText && (
+			<div className={cl.tooltipDescCont}>
+			  <Button
+				variant={ButtonVariant.CLEAR}
+				className={cls(cl.button, cl.descButton, isDescriptionActive ? cl.descriptionActive : '')}
+				beforeImage={TOOLTIP_DESCRIPTION_ICON}
+				beforeProps={{ height: 14, width: 14 }}
+				active={isDescriptionActive}
+				onClick={() => setIsDescriptionActive(prevState => !prevState)}
+			  />
+			  <HoverWindow
+				text={descriptionTooltipText}
+				position={EHoverWindowPosition.RIGHT}
+				borderColor={EHoverBorderColor.DEFAULT}
+				show={isDescriptionActive}
+				className={cls(cl.descWindowActive, cl.windowActive, classNameDescriptionWindow)}
+			  />
+			</div>
+		  )}
+		  {isRequired && (
+			<div className={cl.tooltipWarnCont}>
+			  <Button
+				variant={ButtonVariant.CLEAR}
+				className={cls(
+				  cl.button,
+				  !success ? cl.warnButton : cl.successButton,
+				  isWarningActive && !success ? cl.warningActive : '',
+				  isWarningActive && success ? cl.successActive : ''
+				)}
+				beforeImage={TOOLTIP_WARNING_ICON}
+				active={isWarningActive}
+				beforeProps={{ height: 14, width: 14 }}
+				success={success}
+				onClick={() => setIsWarningActive(prevState => !prevState)}
+			  />
+			  <HoverWindow
+				text={warningTooltipText}
+				position={EHoverWindowPosition.RIGHT}
+				borderColor={!success ? EHoverBorderColor.WARNING : EHoverBorderColor.DEFAULT}
+				show={isWarningActive}
+				className={cls(cl.warnWindowActive, cl.windowActive, classNameWarningWindow)}
+			  />
+			</div>
+		  )}
+		</div>
+	  </div>
 
-      <div className={cl.inputsContainer}>
-        {clonedChildren}
-      </div>
+	  <div className={cl.inputsContainer}>
+		{clonedChildren}
+	  </div>
 
-      {fileList && fileList.length > 0 && (
-        <div className={cl.files}>
-          {fileList.map((file, index) => (
-            <FileItemAttachment file={file} key={index} />
-          ))}
-        </div>
-      )}
+	  {fileList && fileList.length > 0 && (
+		  <FileWrapList fileList={fileList} setFileList={setFileList} className={cl.fileList}/>
+		)}
 
-      {warning && errorInputSelectMessageArray && (
-        <div className={cl.errorMessage}>
-          {errorInputSelectMessageArray.map((it, index) => (
-            <p key={index}>{it}</p>
-          ))}
-        </div>
-      )}
+	  {warning && errorInputSelectMessageArray && (
+		<div className={cl.errorMessage}>
+		  {errorInputSelectMessageArray.map((it, index) => (
+			<p key={index}>{it}</p>
+		  ))}
+		</div>
+	  )}
 
-      {buttonText && 
-        <Button variant={ButtonVariant.FILL}
-          title={buttonText}
-          className={cls(cl.button, !selectedOptionsArray.length ? cl.disabled : '')}
-          disabled={!selectedOptionsArray.length}
-          onClick={onClickBellowButton} />
-      } 
-      <div className={cl.mobileModal}>
-        <Modal
-          view={EModalView.BOTTOM}
-          buttonNode
-          _isOpen={isDescriptionActive || isWarningActive}
-          onClickOverlay={closeTheModal}
-        >
-          <WrapperModalBottom title={labelText}
-            bottomChildren={<BottomInfoModal
-              text={isDescriptionActive && descriptionTooltipText ? descriptionTooltipText : isWarningActive ? warningTooltipText : ''} />}
-            setIsOpen={closeTheModal} />
-        </Modal>
+	  {buttonText && 
+		<Button variant={ButtonVariant.FILL}
+		  title={buttonText}
+		  className={cls(cl.button, !selectedOptionsArray.length ? cl.disabled : '')}
+		  disabled={!selectedOptionsArray.length}
+		  onClick={onClickBellowButton} />
+	  } 
+	  <div className={cl.mobileModal}>
+		<Modal
+		  view={EModalView.BOTTOM}
+		  buttonNode
+		  _isOpen={isDescriptionActive || isWarningActive}
+		  onClickOverlay={closeTheModal}
+		>
+		  <WrapperModalBottom title={labelText}
+			bottomChildren={<BottomInfoModal
+			  text={isDescriptionActive && descriptionTooltipText ? descriptionTooltipText : isWarningActive ? warningTooltipText : ''} />}
+			setIsOpen={closeTheModal} />
+		</Modal>
 
-      </div>
-    </div>
+	  </div>
+	</div>
   )
 }
