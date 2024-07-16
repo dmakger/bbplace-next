@@ -10,6 +10,9 @@ import { getFormData } from "@/shared/lib/formData.lib"
 import { useRouter, useSearchParams } from "next/navigation"
 import { MAIN_PAGES } from "@/config/pages-url.config"
 import { useAppSelector } from "@/storage/hooks"
+import { EMAIL_VALID_RULES } from "@/entities/Auth/data/email.data"
+import { PASSWORD_MATCHING_ERROR, PASSWORD_VALID_RULES, isPasswordValid } from "@/entities/Auth/data/password.data"
+import { FILL_THE_FIELD } from "@/entities/Auth/data/errorMessages.data"
 
 
 export const ForgotPasswordChildrenPage = () => {
@@ -47,11 +50,11 @@ export const ForgotPasswordChildrenPage = () => {
         try {
             const { emailValue } = getFormData(formRef?.current)
 
-            if (!emailValue) setErrorMessage('Пожалуйста заполните это поле')
+            if (!emailValue) setErrorMessage(FILL_THE_FIELD)
             await sendResetPasswordLink({ email: emailValue })
 
         } catch (e) {
-            setErrorMessage('Введите корректный адрес электронной почты')
+            setErrorMessage(EMAIL_VALID_RULES)
         }
     }
 
@@ -59,8 +62,13 @@ export const ForgotPasswordChildrenPage = () => {
 
         if(!formRef.current) return;
         const {email, password, confirmPassword} = getFormData(formRef.current)
-        if(password !== confirmPassword){
-            setErrorMessage('Пароли не совпадают')
+        //PASSWORD        
+        if (!password || !confirmPassword) {
+            setErrorMessage(FILL_THE_FIELD);
+        } else if (password !== confirmPassword) {
+            setErrorMessage(PASSWORD_MATCHING_ERROR);
+        } else if (!isPasswordValid(password)) {
+            setErrorMessage(PASSWORD_VALID_RULES);
         }
         resetPassword({
             password: password,

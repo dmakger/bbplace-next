@@ -149,6 +149,10 @@
         border-radius: 0 0 5px 5px;
         border-top: 1px solid var(--background-2);
         color: var(--negative);
+        
+        @media (max-width: 768px) {
+            font-size: var(--font-size-s);
+        }
     }
 
     .mobileModal {
@@ -173,6 +177,7 @@
         .labelNTooltipContainer {
             width: 100%;
             background-color: var(--tertiary-surface-low);
+            border-radius: 0 5px 5px 0 !important;
 
             .label {
                 padding: 0px;
@@ -181,6 +186,7 @@
         }
 
         .inputsContainer {
+            border-radius: 5px 0 0 5px !important;
             padding: 10px;
         }
     }

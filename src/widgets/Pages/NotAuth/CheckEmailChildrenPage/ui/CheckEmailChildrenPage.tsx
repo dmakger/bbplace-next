@@ -10,6 +10,7 @@ import { getFormData } from "@/shared/lib/formData.lib"
 import { useRouter } from "next/navigation"
 import { MAIN_PAGES } from "@/config/pages-url.config"
 import { useActionCreators } from "@/storage/hooks"
+import { EMAIL_VALID_RULES } from "@/entities/Auth/data/email.data"
 
 export const CheckEmailChildrenPage = () => {
     // REF
@@ -61,7 +62,7 @@ export const CheckEmailChildrenPage = () => {
                 isDescriptionTooltip
                 descriptionTooltipText="Введите адрес электронной почты, на которую был или будет зарегистрирован профиль"
                 bellowButtonText="Продолжить"
-                errorInputMessage="Введите корректный адрес электронной почты"
+                errorInputMessage={EMAIL_VALID_RULES}
                 onClickBellowButton={CheckEmail}
             >
                 <Input.Text type="email" variant={EInputVariants.RECTANGULAR} placeholder="Введите email" name="email" />

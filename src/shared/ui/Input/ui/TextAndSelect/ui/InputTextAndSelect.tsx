@@ -50,7 +50,7 @@ export function TextAndSelectInput({
     disabled,
     setWarning,
     setSuccess,
-    setSelectedOption,
+    setselectedoption,
     error
 }: ITextAndSelectInput) {
 
@@ -80,7 +80,7 @@ export function TextAndSelectInput({
         if(activeOption === undefined){
             setIsSuccess(false)
         } 
-        activeOption !== undefined && setSelectedOption && setSelectedOption(activeOption)
+        activeOption !== undefined && setselectedoption && setselectedoption(activeOption)
     }, [activeOption]);
 
 
@@ -195,7 +195,7 @@ export function TextAndSelectInput({
 
                             </div>)
                             :
-                            <p className={cls(cl.selectedOption,
+                            <p className={cls(cl.selectedoption,
                                 !activeOption && placeholder ? cl.placeholder : '',
                                 disabled ? cl.disabledPlaceholder : '')}>
                                 {!activeOption && placeholder ? placeholder : activeOption?.name}

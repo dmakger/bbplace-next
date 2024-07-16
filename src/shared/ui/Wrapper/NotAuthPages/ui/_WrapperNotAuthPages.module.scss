@@ -1,35 +1,42 @@
-.WrapperNotAuthPages{
+.WrapperNotAuthPages {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 610px;
+    padding-bottom: 20px;
 
-        @media (max-width: 1280px) {
-            width: 582px;
-        }
+    @media (max-width: 768px) {
+        padding-bottom: 60px;
+    }
 
-        @media (max-width: 1024px) {
-            width: 541px;
-        }
-        @media (max-width: 768px) {
-            width: 425px;
-        }
-        @media (max-width: 425px) {
-            width: 320px;
-        }
+    @media (max-width: 1280px) {
+        width: 582px;
+    }
 
-    .logoButton{
+    @media (max-width: 1024px) {
+        width: 541px;
+    }
+
+    @media (max-width: 768px) {
+        width: 425px;
+    }
+
+    @media (max-width: 425px) {
+        width: 320px;
+    }
+
+    .logoButton {
         margin: 40px 0;
     }
 
-    .formContainer{
+    .formContainer {
         display: flex;
         flex-direction: column;
         gap: 20px;
         background-color: var(--background-2);
         padding: 20px;
         width: 100%;
-        border: 1px solid  var(--block-border);
+        border: 1px solid var(--block-border);
         border-radius: 20px;
 
         @media (max-width: 768px) {
@@ -37,24 +44,32 @@
             border: none;
         }
 
-        .pageTitle{
+        .pageTitleContainer {
             position: sticky;
             top: 0;
             left: 0;
+            background-color: var(--background-2);
+            padding-top: 10px;
+            padding-bottom: 4px;
             z-index: 2;
-            background-color: var(--tertiary-surface);
-            padding: 20px;
-            border-radius: 20px 20px 0 0;
-            color: var(--font-size-reg);
-            font-weight: var(--font-weight-med);
+            .pageTitle {
 
-            @media (max-width: 768px) {
-                padding: 12px 20px;
-                font-size: var(--font-size-s);
+                z-index: 2;
+                background-color: var(--tertiary-surface);
+                padding: 20px;
+                border-radius: 20px 20px 0 0;
+                color: var(--font-size-reg);
+                font-weight: var(--font-weight-med);
+
+                @media (max-width: 768px) {
+                    padding: 12px 20px;
+                    font-size: var(--font-size-s);
+                }
             }
         }
 
-        .forgotPasswordButton{
+
+        .forgotPasswordButton {
             width: 100%;
             padding: 17px 35px;
 
@@ -66,14 +81,18 @@
 
     }
 
-    .buttonsContainer{
+    .buttonsContainer {
         display: flex;
         justify-content: space-between;
         gap: 10px;
         width: 100%;
         margin-top: 20px;
 
-        & button{
+        @media (max-width: 768px) {
+            display: none;
+        }
+
+        & button {
             display: flex;
             align-items: center;
             width: 100%;

@@ -30,7 +30,7 @@ export const MobileNavbar = ({
           <Button 
             variant={ButtonVariant.CLEAR}
             href={el.link ?? ''}
-            key={el.link}
+            key={el.id}
             active={pathname === el.link}
             className={cls(cl.mobileNavbarButton, pathname === el.link ?? '' ? cl.active : '')}
             title={el.title}

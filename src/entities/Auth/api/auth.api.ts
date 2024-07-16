@@ -62,7 +62,11 @@ export const UserAPI = createApi({
             query: (body) => ({
                 url: `/Authenticate/register`,
                 method: 'POST',
-                body,
+                data: body,
+                transformResponse: (response: any) => {
+                    saveTokensStorage(response); // Сохранение токенов в куки
+                    return jwtDecode(response.accessToken);
+                }
             })
         }),
         refreshToken: builder.mutation<ILoginResponseDecoded, void>({
@@ -99,7 +103,7 @@ export const UserAPI = createApi({
             query: (body) => ({
                 url: `/Authenticate/ResetPassword`,
                 method: 'POST',
-                body,
+                data: body,
             })
         }),
     }),

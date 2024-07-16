@@ -35,12 +35,12 @@ export const WrapperLKPT = ({
             <HeaderLKPT title={pageTitle}
                 options={options}
                 optionsTab={optionsTab}
-                selectedOption={selectedPage}
-                setSelectedOption={setSelectedPage}
+                selectedoption={selectedPage}
+                setselectedoption={setSelectedPage}
                 isButtonAdd={isButtonAdd}
             />
             <LKPTPage optionsTab={optionsTab}
-            selectedOption={selectedPage}/>
+            selectedoption={selectedPage}/>
         </div>
     )
 }

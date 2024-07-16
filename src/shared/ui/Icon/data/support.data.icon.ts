@@ -19,4 +19,9 @@ export const SUPPORT_ICON: IIcon = {
     active: SUPPORT_ACTIVE_ICON.default
 }
 
+export const SUPPORT_MENU_ICON: IIcon = {
+    default: SUPPORT_DEFAULT_ICON.default,
+    active: SUPPORT_ACTIVE_ICON.default
+}
+
 

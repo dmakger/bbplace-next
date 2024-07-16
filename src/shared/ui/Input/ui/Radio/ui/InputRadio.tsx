@@ -34,8 +34,8 @@ export function InputRadio({
     className,
     warning,
     success,
-    selectedOption,
-    setSelectedOption,
+    selectedoption,
+    setselectedoption,
     setWarning,
     setSuccess,
     error
@@ -46,18 +46,18 @@ export function InputRadio({
 
     // EFFECT
     useEffect(() => {
-        if (selectedOption?.id !== option.id) {
+        if (selectedoption?.id !== option.id) {
             setIsOwnChecked(false); 
         } 
-        if(selectedOption){
+        if(selectedoption){
             setWarning && setWarning(false)
             setSuccess && setSuccess(true)
         } 
         
-    }, [selectedOption]);
+    }, [selectedoption]);
 
     useEffect(() => {
-        if (error && !selectedOption) {
+        if (error && !selectedoption) {
             setWarning && setWarning(true)
             setSuccess && setSuccess(false)
         }
@@ -68,9 +68,9 @@ export function InputRadio({
     const handleRadioClick = (opt: IOption) => {
         setWarning && setWarning(false)
             setSuccess && setSuccess(true) 
-        if (selectedOption?.id !== opt.id) {
+        if (selectedoption?.id !== opt.id) {
             setIsOwnChecked(true);
-            setSelectedOption && setSelectedOption(opt);
+            setselectedoption && setselectedoption(opt);
             
         }
     };
@@ -97,10 +97,11 @@ export function InputRadio({
                 type="radio"
                 name={name}
                 value={option.value ? option.value : option.id}
-                defaultChecked={isActive}
+                // defaultChecked={isActive}
                 required={required}
                 className={cl.input}
-                checked={isOwnChecked}
+                checked={isActive ?? isOwnChecked}
+                onChange={handleOnClick}
             />
             {variantRadio === ERadioVariant.SINGLE && (
                 <Button

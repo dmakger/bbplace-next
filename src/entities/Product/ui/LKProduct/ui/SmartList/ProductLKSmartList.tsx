@@ -36,7 +36,7 @@ export const ProductLKSmartList:FC<ProductLKSmartListProps> = ({typeProduct, cla
     const [products, setProducts] = useState<IProduct[]>([])
     const [choosenProduct, setChoosenProduct] = useState<IProduct>()
     const [groupProducts, setGroupProducts] = useState<IProduct[]>([])
-    const [checkedProductsId, setCheckedProductsId] = useState<number[]>([])
+    const [checkedProductsId, setсheckedProductsId] = useState<number[]>([])
 
     // RTK
     const { id: userId } = useAppSelector(state => state.user)
@@ -71,7 +71,7 @@ export const ProductLKSmartList:FC<ProductLKSmartListProps> = ({typeProduct, cla
                 checkedItemsNumber={checkedProductsId.length}
                 className={checkedProductsId.length ? cl.showSubheader : ''}
                 checkedProductsId={checkedProductsId}
-                setCheckedProductsId={setCheckedProductsId} />
+                setсheckedProductsId={setсheckedProductsId} />
 
             {products.length > 0 && (
                 <ProductLKList products={products}
@@ -82,7 +82,7 @@ export const ProductLKSmartList:FC<ProductLKSmartListProps> = ({typeProduct, cla
                     setChoosenProduct={setChoosenProduct}
                     setGroupProducts={setGroupProducts}
                     checkedProductsId={checkedProductsId}
-                    setCheckedProducts={setCheckedProductsId}
+                    setсheckedProducts={setсheckedProductsId}
                     variant={EProductLKVariants.DEFAULT} />
             )}
 
@@ -101,7 +101,7 @@ export const ProductLKSmartList:FC<ProductLKSmartListProps> = ({typeProduct, cla
                             checkedItemsNumber={checkedProductsId.length}
                             className={cls(cl.subHeaderModal, checkedProductsId.length ? cl.showSubheader : '')}
                             checkedProductsId={checkedProductsId}
-                            setCheckedProductsId={setCheckedProductsId} />
+                            setсheckedProductsId={setсheckedProductsId} />
                     )}
                     bottomChildren={isOpenSettings ? (products.length > 0 && (
                         <BottomInfoModal
@@ -114,7 +114,7 @@ export const ProductLKSmartList:FC<ProductLKSmartListProps> = ({typeProduct, cla
                             products={groupProducts}
                             variant={EProductLKVariants.GROUP_ITEM}
                             checkedProductsId={checkedProductsId}
-                            setCheckedProducts={setCheckedProductsId}
+                            setсheckedProducts={setсheckedProductsId}
                         />
                     ))}
                     classNameBottomChild={isOpenGroup ? cl.paddingTop : ''}

@@ -1,24 +1,25 @@
 'use client'
 
-import { cls } from '@/shared/lib/classes.lib'
-import cl from './_InputText.module.scss'
-import { ChangeEvent, useEffect, useRef, useState } from 'react'
-import { WrapperTitleInput } from '@/shared/ui/Wrapper/Title/Input/WrapperTitleInput'
-import { EInputTextVariant } from '../data/text.input.data'
-import { IWrapperRectangleInputChildren } from '@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model'
-import { EInputVariants, IInput } from '../../../model/input.model'
-import { EInputTextTypeVariants } from '../../../Text/model/text.input.model'
-import { PASSWORD_VALID_RULES, isPasswordValid } from '@/entities/Auth/data/password.data'
+import { cls } from '@/shared/lib/classes.lib';
+import cl from './_InputText.module.scss';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { WrapperTitleInput } from '@/shared/ui/Wrapper/Title/Input/WrapperTitleInput';
+import { EInputTextVariant } from '../data/text.input.data';
+import { IWrapperRectangleInputChildren } from '@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model';
+import { EInputVariants, IInput } from '../../../model/input.model';
+import { EInputTextTypeVariants } from '../../../Text/model/text.input.model';
+import { PASSWORD_VALID_RULES, isPasswordValid } from '@/entities/Auth/data/password.data';
+import { EMAIL_VALID_RULES, isEmailValid } from '@/entities/Auth/data/email.data';
 
 interface InputTextProps extends IWrapperRectangleInputChildren, IInput {
-    title?: string
-    variantInputText?: EInputTextVariant
-    defaultValue?: string,
-    type?: string,
-    inputTypeVariant?: EInputTextTypeVariants
-    classNameInputText?: string
-    classNameTextArea?: string,
-    disabled?: boolean
+    title?: string;
+    variantInputText?: EInputTextVariant;
+    defaultValue?: string;
+    type?: string;
+    inputTypeVariant?: EInputTextTypeVariants;
+    classNameInputText?: string;
+    classNameTextArea?: string;
+    disabled?: boolean;
 }
 
 export function InputText({
@@ -32,7 +33,7 @@ export function InputText({
     classNameInputText,
     classNameTextArea,
     type = 'text',
-    onChange = () => { },
+    onChange = () => {},
     defaultValue = '',
     success,
     setSuccess,
@@ -44,85 +45,85 @@ export function InputText({
     setError,
     disabled,
     setErrorMessageArray,
-    ...rest }: InputTextProps) {
-
-    //STATE
+    ...rest
+}: InputTextProps) {
+    // Состояния для отображения статусов
     const [isWarning, setIsWarning] = useState<boolean>(warning ?? false);
     const [isSuccess, setIsSuccess] = useState<boolean>(success ?? false);
 
-    //REF
-    const inputRef = useRef<HTMLInputElement>(null)
-    const textAreaRef = useRef<HTMLTextAreaElement>(null)
+    // Ref для элементов ввода
+    const inputRef = useRef<HTMLInputElement>(null);
+    const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
-    //EFFECT
-    useEffect(() => {
-        if (inputRef.current) inputRef.current.value = defaultValue;
-        if (textAreaRef.current) textAreaRef.current.value = defaultValue;
-
-        if (defaultValue && setSuccess) {
-            setSuccess(true)
-            setIsSuccess(true)
-        }
-    }, [defaultValue])
-
+    // Эффект для обработки ошибок
     useEffect(() => {
         if (error) {
-            if (textAreaRef && textAreaRef.current) textAreaRef.current.value = ''
-            if (inputRef && inputRef.current) inputRef.current.value = ''
-            
-            setWarning && setWarning(true)
-            setSuccess && setSuccess(false)
-            setIsSuccess(false)
-            setIsWarning(true)
+            // Ошибка обнаружена
+            if (textAreaRef.current) textAreaRef.current.value = '';
+            if (inputRef.current) inputRef.current.value = '';
+
+            // Обновление состояний ошибок и успеха
+            setError?.(true);
+            setWarning?.(true);
+            setIsWarning(true);
+            setSuccess?.(false);
+            setIsSuccess(false);
         }
+    }, [error]);
 
-    },[error])
-
-
-    //FUNCTIONS
+    // Функция для проверки значения ввода
     const checkValue = (value: string) => {
-        let isErr = false;
-        isErr = value.trim() === '';
+        let isErr = value.trim() === '';
 
-        if(isErr) return setErrorMessageArray && setErrorMessageArray(['Пожалуйста заполните это поле'])
+        if (isErr) {
+            setError?.(true);
+            setWarning?.(true);
+            setIsWarning(true);
+            setSuccess?.(false);
+            setIsSuccess(false);
+            setErrorMessageArray?.(['Пожалуйста, заполните это поле']);
+            return;
+        }
 
+        //EMAIL
         if (type === 'email') {
-            isErr = !(value.includes('@') && value.includes('.'));
-            isErr && setErrorMessageArray && setErrorMessageArray(['Введите корректный адрес электронной почты'])
+            isErr = !isEmailValid(value);
+            if (isErr) setErrorMessageArray?.([EMAIL_VALID_RULES]);
         }
-        if(type === 'password'){
+
+        //PASSWORD
+        if (type === 'password') {
             isErr = !isPasswordValid(value);
-            if(isErr) setErrorMessageArray && setErrorMessageArray([PASSWORD_VALID_RULES])
+            if (isErr) setErrorMessageArray?.([PASSWORD_VALID_RULES]);
         }
 
-        if (setWarning && setSuccess) {
-            setError && setError(isErr)
+        setError?.(isErr);
+        setWarning?.(isErr);
+        setIsWarning(isErr);
+        setSuccess?.(!isErr);
+        setIsSuccess(!isErr);
+    };
 
-            setWarning(isErr)
-            setIsWarning(isErr)
-            setSuccess(!isErr)
-            setIsSuccess(!isErr)
-        }
-    }
-
+    // Обработчик изменения значения ввода
     const handleOnChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const value = e.target.value
-        setInputValueLength?.(value.length)
-        onChange(value)
-    }
+        const value = e.target.value;
+        setInputValueLength?.(value.length);
+        onChange(value);
+    };
 
     return (
         <WrapperTitleInput title={title}>
             {inputTypeVariant === EInputTextTypeVariants.TEXT ? (
-                <input className={cls(
-                    cl[variant],
-                    variantInputText === EInputTextVariant.W_HOVERED ? cl.wHovered : '',
-                    cl.input,
-                    isSuccess ? cl.success : '',
-                    isWarning ? cl.error : '',
-                    disabled ? cl.disabled : '',
-                    classNameInputText
-                )}
+                <input
+                    className={cls(
+                        cl[variant],
+                        variantInputText === EInputTextVariant.W_HOVERED ? cl.wHovered : '',
+                        cl.input,
+                        isSuccess ? cl.success : '',
+                        isWarning ? cl.error : '',
+                        disabled ? cl.disabled : '',
+                        classNameInputText
+                    )}
                     name={name}
                     ref={inputRef}
                     type={type}
@@ -135,12 +136,14 @@ export function InputText({
                     {...rest}
                 />
             ) : (
-                <textarea className={cls(
-                    cl[variant],
-                    cl.textarea,
-                    isSuccess ? cl.success : '',
-                    isWarning ? cl.error : '',
-                    classNameTextArea)}
+                <textarea
+                    className={cls(
+                        cl[variant],
+                        cl.textarea,
+                        isSuccess ? cl.success : '',
+                        isWarning ? cl.error : '',
+                        classNameTextArea
+                    )}
                     name={name}
                     ref={textAreaRef}
                     defaultValue={defaultValue}
@@ -148,12 +151,9 @@ export function InputText({
                     placeholder={placeholder}
                     onChange={handleOnChange}
                     onBlur={(e) => checkValue(e.target.value)}
-                    // size={size}
-
                     {...rest}
                 />
             )}
-
         </WrapperTitleInput>
-    )
+    );
 }

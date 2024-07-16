@@ -8,10 +8,10 @@ export interface IWrapperRectangleInputChildren {
     setIsListOpen?: Function,
     setInputValueLength?: Function,
     checked?: boolean,
-    setChecked?: Function,
-    setSelectedOptionsArray?: Function,
-    selectedOption?: IOption,
-    setSelectedOption?: Function,
+    setсhecked?: Function,
+    setselectedoptionsarray?: Function,
+    selectedoption?: IOption,
+    setselectedoption?: Function,
     setErrorMessageArray?: Function
 }
 

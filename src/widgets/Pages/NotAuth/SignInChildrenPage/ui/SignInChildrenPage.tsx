@@ -4,18 +4,20 @@ import { WrapperNotAuthPages } from "@/shared/ui/Wrapper/NotAuthPages"
 import { WrapperRectangleInput } from "@/shared/ui/Wrapper/RectangleInput"
 import Input from "@/shared/ui/Input/Input"
 import { EInputVariants } from "@/shared/ui/Input/model/input.model"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useRouter } from "next/navigation"
 import { useActionCreators, useAppSelector } from "@/storage/hooks"
 import { UserAPI } from "@/entities/Auth/api/auth.api"
 import { getFormData } from "@/shared/lib/formData.lib"
 import { MAIN_PAGES } from "@/config/pages-url.config"
+import { EMAIL_VALID_RULES, isEmailValid } from "@/entities/Auth/data/email.data"
+import { FILL_THE_FIELD, LOGIN_ERROR } from "@/entities/Auth/data/errorMessages.data"
 
 
 export const SignInChildrenPage = () => {
 
     //STATE
-    const [error, setError] = useState<boolean>(false)
+    const [error, setError] = useState<number>()
     const [errorEmail, setErrorEmail] = useState<string>('')
     const [errorPassword, setErrorPassword] = useState<string>('')
 
@@ -32,27 +34,31 @@ export const SignInChildrenPage = () => {
     const {email} = useAppSelector(state => state.user)
     const actionCreators = useActionCreators();
 
+    //EFFECT
+    useEffect(() => {
+        
+    }, [error])
+
 
     //FUNCTIONS
     const LogIn = async() => {
+        setError(0)
         if (!formRef.current) return;
-        const {emailValue, password} = getFormData(formRef?.current)
+        const {email: emailValue, password} = getFormData(formRef?.current)
 
-        
         //EMAIL
         if (!emailValue) {
-            setErrorEmail('Пожалуйста заполните поле');
-        } else if (emailValue && (!emailValue.includes('@') || !emailValue.includes('.'))) {
-            setErrorEmail('Введите корректный адрес электронной почты');
+            setErrorEmail(FILL_THE_FIELD);
+        } else if (emailValue && !isEmailValid(emailValue)) {
+            setErrorEmail(EMAIL_VALID_RULES);
         }
 
         //PASSWORD        
-        if (!password) setErrorPassword('Пожалуйста заполните поле');
-        
-        
+        if (!password) setErrorPassword(FILL_THE_FIELD);
+
 
         try{
-            const data = await userLogin({username: email, password: password}).unwrap()
+            const data = await userLogin({username: emailValue, password: password}).unwrap()
             if(data){
                 actionCreators.setAuth(data);
                 router.push(MAIN_PAGES.HOME)
@@ -60,8 +66,12 @@ export const SignInChildrenPage = () => {
         }
         catch(e: any){
             setError(e.data.status)
+            if(emailValue && password && e.data.status === 400 || e.data.status === 401){
+                setErrorEmail(LOGIN_ERROR)
+                setErrorPassword(LOGIN_ERROR);
+            }
+            
         }
-        
     }
 
     return (
@@ -74,7 +84,7 @@ export const SignInChildrenPage = () => {
                 errorInputMessage={errorEmail}
                 
             >
-                <Input.Text type="email" variant={EInputVariants.RECTANGULAR} placeholder="Введите email" name="email" defaultValue={email} success={!!email} error={error && !!errorEmail} warning={error && !!errorEmail}/>
+                <Input.Text type="email" variant={EInputVariants.RECTANGULAR} placeholder="Введите email" name="email" defaultValue={email} success={!!email} error={!!error && !!errorEmail} warning={!!error && !!errorEmail}/>
             </WrapperRectangleInput>
             <WrapperRectangleInput
                 labelText="Пароль"
@@ -83,7 +93,7 @@ export const SignInChildrenPage = () => {
                 errorInputMessage={errorPassword}
                 onClickBellowButton={LogIn}
             >
-                <Input.Text type="password" variant={EInputVariants.RECTANGULAR} placeholder="Введите пароль" name="password" error={error && !!errorPassword} warning={error && !!errorPassword}/>
+                <Input.Text type="password" variant={EInputVariants.RECTANGULAR} placeholder="Введите пароль" name="password" error={!!error && !!errorPassword} warning={!!error && !!errorPassword}/>
             </WrapperRectangleInput>
         </WrapperNotAuthPages>
     )

@@ -13,7 +13,7 @@ import { useState } from "react";
 export default function LKProductPage() {
 
     // STATE
-    const [selectedOption, setSelectedOption] = useState<IOption>(SWITCH_SELECTOR_CREATED_PRODUCTS_OPTION)     
+    const [selectedoption, setselectedoption] = useState<IOption>(SWITCH_SELECTOR_CREATED_PRODUCTS_OPTION)     
 
 
     const MY_PRODUCTS_OPTIONS_TAB: IUserProductsTab = {
@@ -36,10 +36,10 @@ export default function LKProductPage() {
     return (
         <Wrapper1280>
             <WrapperAuth>
-                <HeaderLKPT title={'Мои товары'} selectedOption={selectedOption} setSelectedOption={setSelectedOption} optionsTab={MY_PRODUCTS_OPTIONS_TAB} options={PRODUCT_PAGE_OPTIONS_ARRAY}/>
-                <LKPTPage optionsTab={MY_PRODUCTS_OPTIONS_TAB} selectedOption={selectedOption} />
-                {/* <HeaderLKPT title={""} selectedOption={undefined} setSelectedOption={undefined} optionsTab={undefined} /> */}
-                {/* <SwitchSelector options={[]} selectedOption={undefined} setSelectedOption={undefined}> */}
+                <HeaderLKPT title={'Мои товары'} selectedoption={selectedoption} setselectedoption={setselectedoption} optionsTab={MY_PRODUCTS_OPTIONS_TAB} options={PRODUCT_PAGE_OPTIONS_ARRAY}/>
+                <LKPTPage optionsTab={MY_PRODUCTS_OPTIONS_TAB} selectedoption={selectedoption} />
+                {/* <HeaderLKPT title={""} selectedoption={undefined} setselectedoption={undefined} optionsTab={undefined} /> */}
+                {/* <SwitchSelector options={[]} selectedoption={undefined} setselectedoption={undefined}> */}
                     {/* <LKProductTableAdaptive /> */}
                 {/* </SwitchSelector> */}
             </WrapperAuth>

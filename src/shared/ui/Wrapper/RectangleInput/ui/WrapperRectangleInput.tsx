@@ -63,13 +63,13 @@ export const WrapperRectangleInput = ({
   const [inputValueLength, setInputValueLength] = useState<number>(0)
 
   //Для RecursiveSelectInput
-  const [selectedOptionsArray, setSelectedOptionsArray] = useState<IOption[]>([])
+  const [selectedoptionsArray, setselectedoptionsarray] = useState<IOption[]>([])
 
   //Для InputRadio
-  const [selectedOption, setSelectedOption] = useState<IOption>()
+  const [selectedoption, setselectedoption] = useState<IOption>()
 
   //Для InputCheckbox
-  const [checked, setChecked] = useState<boolean>(false)
+  const [checked, setсhecked] = useState<boolean>(false)
 
   const [warnings, setWarnings] = useState<Record<string, boolean>>({});
   const [successes, setSuccesses] = useState<Record<string, boolean>>({});
@@ -110,10 +110,11 @@ export const WrapperRectangleInput = ({
         setSuccess: (value: boolean) => setSuccesses(prev => ({ ...prev, [id]: value })),
         setWarning: (value: boolean) => setWarnings(prev => ({ ...prev, [id]: value })),
         setInputValueLength,
-        setSelectedOptionsArray,
-        selectedOption,
-        setSelectedOption,
-        checked ,
+        setselectedoptionsarray,
+        selectedoption,
+        setselectedoption,
+        checked,
+        setсhecked,
         setErrorMessageArray
       });
     }
@@ -136,15 +137,31 @@ export const WrapperRectangleInput = ({
     setIsDescriptionActive(prevState => !prevState);
   };
 
+  const handleLabelClick = () => {
+    setсhecked(prevChecked => {
+      const newChecked = !prevChecked;
+      if (isRequired && !newChecked) {
+        setWarning(true);
+        setSuccess(false);
+      } else if (!newChecked) {
+        setSuccess(false);
+      } else if (newChecked) {
+        setWarning(false);
+        setSuccess(true);
+      }
+      return newChecked;
+    });
+  }
 
-  const isDisabled = !selectedOptionsArray.length && isCanDisabledBellowButton;
+
+  const isDisabled = !selectedoptionsArray.length && isCanDisabledBellowButton;
 
   return (
     <>
       <div className={cls(cl.WrapperRectangleInput, className, cl[labelPosition])}>
         <div className={cl.labelNInputsContainer}>
           <div className={cl.labelNTooltipContainer}>
-            <label className={cls(cl.label, classNameLabel)} onClick={() => setChecked(!checked)}>
+            <label className={cls(cl.label, classNameLabel)} onClick={labelPosition === ELabelPosition.RIGHT ? handleLabelClick : ()=>{}}>
               {labelText}
             </label>
             <div className={cl.tooltipsContainer}>
@@ -178,7 +195,7 @@ export const WrapperRectangleInput = ({
                       isWarningActive && success ? cl.successActive : ''
                     )}
                     beforeImage={TOOLTIP_WARNING_ICON}
-                    active={isWarningActive}
+                    active={!success ? isWarningActive : false}
                     beforeProps={{ height: 14, width: 14 }}
                     success={success}
                     onClick={toggleWarningWindow}

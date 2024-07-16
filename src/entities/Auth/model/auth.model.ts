@@ -50,7 +50,7 @@ export interface IRegistrationRequest {
     brandName: string
     fullName: string
     phoneNumber: string,
-    emailSubscription: string
+    emailSubscription: boolean
 }
 
 export interface IResetPassword {

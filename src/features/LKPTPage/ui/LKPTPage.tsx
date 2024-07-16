@@ -6,19 +6,19 @@ import { IOption } from "@/shared/model/option.model"
 interface ILKPTPage {
     className?: string,
     optionsTab:  IUserProductsTab | IDetailedProductOptionsTab | ICreateNewProductsTab,
-    selectedOption: IOption
+    selectedoption: IOption
 }
 
 export const LKPTPage = ({
     className,
     optionsTab,
-    selectedOption,
+    selectedoption,
 }: ILKPTPage) => {
     return (
         <div className={cls(cl.LKPTPage, className)}>
-            {selectedOption && selectedOption.value && optionsTab[selectedOption.value] &&
+            {selectedoption && selectedoption.value && optionsTab[selectedoption.value] &&
                 <>
-                    {optionsTab[selectedOption.value]?.optionTab}
+                    {optionsTab[selectedoption.value]?.optionTab}
                 </>
             }
         </div>

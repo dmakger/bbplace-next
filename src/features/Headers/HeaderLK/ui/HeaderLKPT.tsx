@@ -18,8 +18,8 @@ interface IHeaderPT {
     className?: string,
     isButtonAdd?: boolean,
     title: string,
-    selectedOption: IOption,
-    setSelectedOption: Function
+    selectedoption: IOption,
+    setselectedoption: Function
     options: IOption[],
     optionsTab: OptionsTabType
 }
@@ -30,8 +30,8 @@ export const HeaderLKPT = ({
     className,
     isButtonAdd = true,
     title,
-    selectedOption,
-    setSelectedOption,
+    selectedoption,
+    setselectedoption,
     options,
     optionsTab
 }: IHeaderPT) => {
@@ -59,8 +59,8 @@ export const HeaderLKPT = ({
 
                 <SwitchSelector className={cl.switchSelector}
                     options={options} 
-                    setSelectedOption={setSelectedOption}
-                    selectedOption={selectedOption}
+                    setselectedoption={setselectedoption}
+                    selectedoption={selectedoption}
                     optionsTab={optionsTab}
                     variant={ESwitchSelectorVariants.TABS} />
             </div>

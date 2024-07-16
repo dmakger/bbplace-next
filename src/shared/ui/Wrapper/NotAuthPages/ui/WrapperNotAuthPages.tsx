@@ -44,7 +44,9 @@ export const WrapperNotAuthPages = ({
             <Logo sizes={{ width: 120, height: 120 }}
                 className={cl.logoButton} />
             <form className={cl.formContainer} onSubmit={onSubmitFunc} ref={formRef}>
-                <h4 className={cl.pageTitle}>{pageTitle}</h4>
+                <div className={cl.pageTitleContainer}>
+                    <h4 className={cl.pageTitle}>{pageTitle}</h4>
+                </div>
                 {children}
                 {forgotPasswordButton && <Button 
                     className={cl.forgotPasswordButton}

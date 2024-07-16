@@ -33,7 +33,7 @@ interface IProductLK extends IProductProps {
   isOpenGroup?: boolean,
   setIsOpenGroup?: Function,
   checkedProductsId?: number[],
-  setCheckedProducts?: Function
+  setсheckedProducts?: Function
 }
 
 export const ProductLK = ({
@@ -47,7 +47,7 @@ export const ProductLK = ({
   isOpenGroup,
   setIsOpenGroup,
   checkedProductsId,
-  setCheckedProducts
+  setсheckedProducts
 }: IProductLK) => {
 
   //STATE
@@ -74,8 +74,8 @@ export const ProductLK = ({
   }, [productAPIListGroup, currencyList, metrics])
 
   useEffect(() => {
-    if (checkedProductsId && setCheckedProducts && isChecked && !checkedProductsId.includes(product.id)) setCheckedProducts([...checkedProductsId, product.id])
-    else if (!isChecked && setCheckedProducts) setCheckedProducts(checkedProductsId?.filter(it => it !== product.id))
+    if (checkedProductsId && setсheckedProducts && isChecked && !checkedProductsId.includes(product.id)) setсheckedProducts([...checkedProductsId, product.id])
+    else if (!isChecked && setсheckedProducts) setсheckedProducts(checkedProductsId?.filter(it => it !== product.id))
   }, [isChecked])
 
   //FUNCTION
