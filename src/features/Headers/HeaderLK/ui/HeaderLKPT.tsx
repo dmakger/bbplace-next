@@ -24,7 +24,7 @@ interface IHeaderPT {
     optionsTab: OptionsTabType
 }
 /**
- * LKPT - Личный Кабинет Product Table
+ * LKPT - Личный Кабинет Product Tender
  */
 export const HeaderLKPT = ({
     className,
@@ -58,7 +58,12 @@ export const HeaderLKPT = ({
                 </div>
 
                 <SwitchSelector className={cl.switchSelector}
-                    options={options} 
+                    options={options}
+                // options={[
+                    //     SWITCH_SELECTOR_CREATED_PRODUCTS_OPTION, 
+                    //     SWITCH_SELECTOR_WO_PRICE_PRODUCTS_OPTION, 
+                    //     SWITCH_SELECTOR_DRAFT_PRODUCTS_OPTION
+                    // ]} 
                     setSelectedOption={setSelectedOption}
                     selectedOption={selectedOption}
                     optionsTab={optionsTab}

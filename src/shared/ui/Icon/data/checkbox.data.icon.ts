@@ -1,4 +1,4 @@
-import { IIcon } from "../model/model";
+import { IIcon } from "../model/icon.model";
 import CheckboxSecondaryDefault from '@/shared/assets/img/Checkbox/CheckboxSecondaryIcon.svg'
 import CheckboxSecondaryHovered from '@/shared/assets/img/Checkbox/CheckboxSecondaryHovered.svg';
 import CheckboxSecondaryPressed from '@/shared/assets/img/Checkbox/CheckboxSecondaryPressed.svg'

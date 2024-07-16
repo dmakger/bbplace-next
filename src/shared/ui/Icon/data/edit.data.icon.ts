@@ -1,4 +1,4 @@
-import { IIcon } from "../model/model";
+import { IIcon } from "../model/icon.model";
 
 import EditDefaultIcon from '@/shared/assets/img/Edit/EditDefaultIcon.svg'
 import EditHoveredIcon from '@/shared/assets/img/Edit/EditHoveredIcon.svg'

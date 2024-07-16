@@ -1,4 +1,4 @@
-import { IIcon } from "../ui/Icon/model/model"
+import { IIcon } from "../ui/Icon/model/icon.model"
 
 export interface IButtonIconProps {
     isActive?: boolean

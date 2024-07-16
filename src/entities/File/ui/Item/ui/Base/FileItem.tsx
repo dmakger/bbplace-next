@@ -6,7 +6,7 @@ import { cls } from '@/shared/lib/classes.lib';
 import cl from './_FileItem.module.scss'
 import { Button, ButtonVariant } from "@/shared/ui/Button";
 import { getImageFile, getOnlyFormatByFile, getOnlyNameByFile } from "@/entities/File/lib/file.lib";
-import { IFile } from "../../model/file.model";
+import { IFile } from "../../../../model/file.model";
 import { ImageSmart } from "@/shared/ui/Image/Smart/ImageSmart";
 
 interface FileItemProps{
@@ -16,6 +16,7 @@ interface FileItemProps{
 }
 
 export const FileItem:FC<FileItemProps> = ({file, isRow=true, className}) => {
+    console.log('file qwe', file)
     // STATE
     const [isHovered, setIsHovered] = useState(false)
 

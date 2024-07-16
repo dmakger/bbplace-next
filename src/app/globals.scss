@@ -99,6 +99,7 @@
 
   --font: var(--n-black-1);
   --font-caption: var(--n-gray-1);
+  --font-caption-low: var(--n-gray-2);
   --font-caption-sub: var(--n-gray-2);
 
   --border: var(--n-gray-3);
@@ -210,9 +211,9 @@
 
 // ======{ DARK THEME }======
 @media (prefers-color-scheme: dark) {
-  :root {
+  // :root {
 
-  }
+  // }
 }
 
 

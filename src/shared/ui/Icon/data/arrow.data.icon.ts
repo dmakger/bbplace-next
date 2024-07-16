@@ -1,4 +1,4 @@
-import { IIcon } from "../model/model";
+import { IIcon } from "../model/icon.model";
 
 import ArrowDefaultIcon from '@/shared/assets/img/Arrow/ArrowDefaultIcon.svg'
 import ArrowWOBlackIcon from '@/shared/assets/img/Arrow/ArrowWOBlackIcon.svg'

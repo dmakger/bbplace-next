@@ -45,17 +45,17 @@ export const Subblock = ({
     bottomModalChildren
 }: ISubblock) => {
 
-    //STATE
+    // STATE
     const [isVisibleContainer, setIsVisibleContainer] = useState<boolean>(false);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-    // //EFFECT
+    // EFFECT
     useEffect(() => {
         if (variant === ESubblockVariants.WO_ARROW_ICON) 
             setIsVisibleContainer(true);
     }, [isVisibleContainer])
 
-    //FUNCTIONS
+    // FUNCTIONS
     const closeTheModal = () => setIsModalOpen(false);
 
     return (
@@ -81,13 +81,15 @@ export const Subblock = ({
                     variant === ESubblockVariants.DEFAULT && isVisibleContainer ? cl.visible : '',
                     classNameBottomContainer
                 )}>
-
-                    {textChildren ? <p className={cl.text}>
-                        {textChildren}
-                    </p> :
+                    {textChildren ? (
+                        <p className={cl.text}>
+                            {textChildren}
+                        </p> 
+                    ) : (
                         <div className={cl.children}>
                             {children}
-                        </div>}
+                        </div>
+                    )}
 
                     {childrenButton}
                 </div>

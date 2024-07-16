@@ -1,0 +1,22 @@
+.block {
+    display: flex;
+    width: fit-content;
+    background-color: var(--background-2);
+    border-radius: 5px 50px 50px 5px;
+    border-left: 1px solid var(--positive-border);
+
+    .content {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        padding: 10px 5px 10px 15px;
+
+        .name {
+            font-size: var(--font-size-s);
+        }
+    }
+
+    .delete {
+        padding: 10px;
+    }
+}

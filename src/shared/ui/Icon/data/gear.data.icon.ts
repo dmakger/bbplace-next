@@ -1,4 +1,4 @@
-import { IIcon } from "../model/model";
+import { IIcon } from "../model/icon.model";
 import GearDefaultIcon from '@/shared/assets/img/Gear/GearDefaultIcon.svg'
 import GearHoveredIcon from '@/shared/assets/img/Gear/GearHoveredIcon.svg'
 import GearPressedIcon from '@/shared/assets/img/Gear/GearPressedIcon.svg'

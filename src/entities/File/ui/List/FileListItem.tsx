@@ -2,7 +2,7 @@ import { FC } from "react"
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_FileList.module.scss'
-import { FileItem } from "../Item/FileItem";
+import { FileItem } from "../Item/ui/Base/FileItem";
 import { IFile } from "../../model/file.model";
 
 interface FileListItemProps{
