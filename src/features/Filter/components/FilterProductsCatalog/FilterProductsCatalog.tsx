@@ -47,14 +47,14 @@ export const FilterProductsCatalog = ({
         <div ref={inputListRef} className={cls(cl.FilterProductsCatalog, isFiltersOpen ? cl.withMarginTop : '')}>
             <Input.TextAndSelect title={'Категории'}
                                  arrowSizes={{width: 11, height: 15}}
-                                 listOptions={categoryListOptions}
+                                 options={categoryListOptions}
                                  defaultOption={filter[CORE_PARAMS.CATEGORY] as IOption}
                                  onClickOption={handleOnClickCategory} />
             
             <Input.TextAndSelect title='Страна'
                                  arrowSizes={{width: 11, height: 15}}
                                  defaultOption={filter[CORE_PARAMS.COUNTRY] as IOption}
-                                 listOptions={countryListOptions}
+                                 options={countryListOptions}
                                  onClickOption={handleOnClickCountry}/>
             <Input.Select title={'Статус товара'} 
                           arrowSizes={{width: 11, height: 15}}

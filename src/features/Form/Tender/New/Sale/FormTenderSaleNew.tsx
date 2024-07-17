@@ -57,19 +57,21 @@ export const FormTenderSaleNew:FC<FormTenderSaleNewProps> = ({className}) => {
             </WrapperRectangleInput>
             <WrapperRectangleInput labelText={"Категория"} isRequired={true}>
                 <Input.Select name={'category'} placeholder="Выберите категорию" options={categoryOptions}
-                              required={true} variant={EInputVariants.RECTANGULAR} />
+                              titleModal="Категория" required={true} variant={EInputVariants.RECTANGULAR} />
+                <Input.TextAndSelect name={'category'} placeholder="Выберите категорию" options={categoryOptions}
+                              titleModal="Категория" required={true} variant={EInputVariants.RECTANGULAR} /> 
             </WrapperRectangleInput>
             <WrapperRectangleInput labelText={"Минимальный заказ"} isRequired={true}>
                 <Input.Text name={'numberMinOrder'} placeholder="Введите число"
-                                required={true} variant={EInputVariants.RECTANGULAR} />
+                            required={true} variant={EInputVariants.RECTANGULAR} />
                 <Input.Select name={'selectMinOrder'} placeholder="Измерение" options={metricOptions}
-                              required={true} variant={EInputVariants.RECTANGULAR} />
+                              titleModal="Измерение" required={true} variant={EInputVariants.RECTANGULAR} />
             </WrapperRectangleInput>
             <WrapperRectangleInput labelText={"Цена"}>
                 <Input.Text name={'numberPrice'} placeholder="Введите число"
                                 variant={EInputVariants.RECTANGULAR} />
                 <Input.Select name={'selectPrice'} placeholder="Валюта" options={currencyOptions}
-                              variant={EInputVariants.RECTANGULAR} />
+                              titleModal="Валюта" variant={EInputVariants.RECTANGULAR} />
             </WrapperRectangleInput>
             <WrapperRectangleInput labelText={"Описание"} isRequired={true}>
                 <Input.Text name={'description'} placeholder="Начните вводить"

@@ -1,0 +1,24 @@
+.inputContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: 0 20px;
+    border: 1px solid var(--tertiary-border);
+    border-radius: 5px;
+
+    .imageSearch {
+        position: absolute;
+        left: 15px;
+    }
+
+    .input {
+        width: 100%;
+        height: 100%;
+        padding: 15px 0;
+        background-color: var(--background-2);
+        padding-left: 36px;
+        border-radius: inherit;
+        outline: none;
+        border: 0;
+    }
+}
