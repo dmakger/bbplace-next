@@ -96,7 +96,7 @@ export const UserAPI = createApi({
             query: (body) => ({
                 url: `/Authenticate/SendResetPasswordLink`,
                 method: 'POST',
-                body
+                data: body,
             })
         }),
         resetPassword: builder.mutation<any, IResetPassword>({

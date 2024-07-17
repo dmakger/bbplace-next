@@ -47,7 +47,6 @@ export const LK_ITEM_MOBILE_MENU_DATA: IIconVariants = {
 
 export const BACK_ITEM_MENU_DATA: IIconVariants = {
   id: 6,
-  link: MAIN_PAGES.HOME,
   title: 'Назад',
   image: ARROW_WLINE_TERTIARY_MOBILE_ICON
 }

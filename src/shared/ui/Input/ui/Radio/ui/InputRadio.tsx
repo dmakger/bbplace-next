@@ -97,10 +97,10 @@ export function InputRadio({
                 type="radio"
                 name={name}
                 value={option.value ? option.value : option.id}
-                // defaultChecked={isActive}
+                defaultChecked={isActive}
                 required={required}
                 className={cl.input}
-                checked={isActive ?? isOwnChecked}
+                checked={isOwnChecked}
                 onChange={handleOnClick}
             />
             {variantRadio === ERadioVariant.SINGLE && (

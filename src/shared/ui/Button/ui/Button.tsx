@@ -97,7 +97,7 @@ export const Button = ({
     }, [hovered])
 
     const html =  (
-        <button type={type} ref={ref} disabled={disabled}
+        <button type={type} ref={ref} disabled={disabled || loading} 
                 onClick={e => onClick(e)} onMouseEnter={handleOnMouseEnter} onMouseLeave={handleOnMouseLeave} 
                 onMouseDown={handleOnMouseDown} onMouseUp={handleOnMouseUp}
                 className={cls(cl.button, cl[classes[0]], cl[color], cl[size], active ? cl.active : '', classes.length > 0 && classes[1] === 'new' ? cl.new : cl.old, className)}>

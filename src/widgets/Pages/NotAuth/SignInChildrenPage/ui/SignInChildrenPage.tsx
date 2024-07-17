@@ -28,7 +28,7 @@ export const SignInChildrenPage = () => {
     const router = useRouter()
 
     //API
-    const [userLogin] = UserAPI.useUserLoginMutation();
+    const [userLogin, {isLoading}] = UserAPI.useUserLoginMutation();
 
     //RTK
     const {email} = useAppSelector(state => state.user)
@@ -61,7 +61,7 @@ export const SignInChildrenPage = () => {
             const data = await userLogin({username: emailValue, password: password}).unwrap()
             if(data){
                 actionCreators.setAuth(data);
-                router.push(MAIN_PAGES.HOME)
+                router.replace(MAIN_PAGES.HOME)
             }
         }
         catch(e: any){
@@ -91,6 +91,7 @@ export const SignInChildrenPage = () => {
                 isRequired
                 bellowButtonText="Войти"
                 errorInputMessage={errorPassword}
+                isLoadingBellowButton={isLoading}
                 onClickBellowButton={LogIn}
             >
                 <Input.Text type="password" variant={EInputVariants.RECTANGULAR} placeholder="Введите пароль" name="password" error={!!error && !!errorPassword} warning={!!error && !!errorPassword}/>

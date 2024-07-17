@@ -18,6 +18,9 @@ import ArrowWLineTertiaryHoveredIcon from '@/shared/assets/img/Arrow/ArrowWLineT
 import ArrowWLineTertiaryPressedIcon from '@/shared/assets/img/Arrow/ArrowWLineTertiaryPressed.svg'
 import ArrowWLineTertiaryActiveIcon from '@/shared/assets/img/Arrow/ArrowWLineTertiaryActive.svg'
 
+import ArrowInCircleIcon from '@/shared/assets/img/Arrow/ArrowInCircleIcon.svg'
+import ArrowInCirclePressed from '@/shared/assets/img/Arrow/ArrowInCirclePressed.svg'
+
 
 
 export const ARROW_ICON: IIcon = {
@@ -64,4 +67,11 @@ export const ARROW_WLINE_TERTIARY_ICON: IIcon = {
 
 export const ARROW_WLINE_TERTIARY_MOBILE_ICON: IIcon = {
     default: ARROW_WLINE_TERTIARY_DEFAULT_ICON.default
+}
+
+// ======{ INSIDE CIRCLE }======
+
+export const ARROW_IN_CIRCLE:IIcon = {
+    default: ArrowInCircleIcon,
+    defaultPressed: ArrowInCirclePressed
 }

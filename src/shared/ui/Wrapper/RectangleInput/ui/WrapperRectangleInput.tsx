@@ -18,6 +18,7 @@ import { IFile } from '@/entities/File/model/file.model';
 import { FileItem } from '@/entities/File/ui/Item/ui/Base/FileItem';
 import { FileItemAttachment } from '@/entities/File/ui/Item/ui/Attachment/FileItemAttachment';
 import { FileWrapList } from '@/entities/File/ui/Wrap/FileWrapList';
+import { ARROW_IN_CIRCLE } from '@/shared/ui/Icon/data/arrow.data.icon';
 
 interface IWrapperRectangleInput {
   className?: string
@@ -25,17 +26,24 @@ interface IWrapperRectangleInput {
   classNameDescriptionWindow?: string,
   classNameWarningWindow?: string,
   classNameInputsContainer?: string,
-  labelText: string
+
+  labelText: string,
+  labelPosition?: ELabelPosition,
   children: ReactNode,
+
+  linkText?: string,
+  linkHref?: string,
+
   bellowButtonText?: string,
   isCanDisabledBellowButton?: boolean,
   onClickBellowButton?: Function,
+  isLoadingBellowButton?: boolean,
+
   isRequired?: boolean
   isDescriptionTooltip?: boolean
   warningTooltipText?: string,
   descriptionTooltipText?: string,
   errorInputMessage?: string,
-  labelPosition?: ELabelPosition
 
   fileList?: IFile[]
   setFileList?: Dispatch<SetStateAction<IFile[]>>
@@ -47,18 +55,26 @@ export const WrapperRectangleInput = ({
   classNameDescriptionWindow,
   classNameWarningWindow,
   classNameInputsContainer,
+
   labelText,
   children,
+  labelPosition = ELabelPosition.TOP,
+
+  linkText,
+  linkHref,
+
   bellowButtonText,
   isCanDisabledBellowButton = false,
   onClickBellowButton,
+  isLoadingBellowButton,
+
+
   isRequired = false,
   isDescriptionTooltip = true,
   warningTooltipText = 'Обязательно для заполнения',
   descriptionTooltipText,
   errorInputMessage = 'Пожалуйста заполните это поле',
-  labelPosition = ELabelPosition.TOP,
-  fileList=[],
+  fileList = [],
   setFileList,
 
 }: IWrapperRectangleInput) => {
@@ -84,14 +100,14 @@ export const WrapperRectangleInput = ({
   const [warnings, setWarnings] = useState<Record<string, boolean>>({});
   const [successes, setSuccesses] = useState<Record<string, boolean>>({});
   const [warning, setWarning] = useState<boolean>(false);
-  const [success, setSuccess] = useState<boolean>(false);  
+  const [success, setSuccess] = useState<boolean>(false);
 
   //EFFECT
   useEffect(() => {
-	const allSuccess = Object.values(successes).every(v => v === true);
-	const anyWarning = Object.values(warnings).some(v => v === true);
-	setSuccess(allSuccess);
-	setWarning(anyWarning);
+    const allSuccess = Object.values(successes).every(v => v === true);
+    const anyWarning = Object.values(warnings).some(v => v === true);
+    setSuccess(allSuccess);
+    setWarning(anyWarning);
   }, [successes, warnings]);
 
 
@@ -133,8 +149,8 @@ export const WrapperRectangleInput = ({
 
   //FUNCTIONS
   const closeTheModal = () => {
-	isDescriptionActive && setIsDescriptionActive(false)
-	isWarningActive && setIsWarningActive(false)
+    isDescriptionActive && setIsDescriptionActive(false)
+    isWarningActive && setIsWarningActive(false)
   }
 
   const toggleWarningWindow = (e: MouseEvent<HTMLButtonElement>) => {
@@ -169,57 +185,69 @@ export const WrapperRectangleInput = ({
   return (
     <>
       <div className={cls(cl.WrapperRectangleInput, className, cl[labelPosition])}>
-        <div className={cl.labelNInputsContainer}>
+        <div className={cls(cl.labelNInputsContainer, linkText ? cl.columnStyle : '')}>
           <div className={cl.labelNTooltipContainer}>
-            <label className={cls(cl.label, classNameLabel)} onClick={labelPosition === ELabelPosition.RIGHT ? handleLabelClick : ()=>{}}>
+            <label className={cls(cl.label, classNameLabel)} onClick={labelPosition === ELabelPosition.RIGHT ? handleLabelClick : () => { }}>
               {labelText}
             </label>
-            <div className={cl.tooltipsContainer}>
-              {isDescriptionTooltip && descriptionTooltipText && (
-                <div className={cl.tooltipDescCont}>
-                  <Button
-                    variant={ButtonVariant.CLEAR}
-                    className={cls(cl.button, cl.descButton, isDescriptionActive ? cl.descriptionActive : '')}
-                    beforeImage={TOOLTIP_DESCRIPTION_ICON}
-                    beforeProps={{ height: 14, width: 14 }}
-                    active={isDescriptionActive}
-                    onClick={toggleDescriptionWindow}
-                  />
-                  <HoverWindow
-                    text={descriptionTooltipText}
-                    position={EHoverWindowPosition.RIGHT}
-                    borderColor={EHoverBorderColor.DEFAULT}
-                    show={isDescriptionActive}
-                    className={cls(cl.descWindowActive, cl.windowActive, classNameDescriptionWindow)}
-                  />
-                </div>
-              )}
-              {isRequired && (
-                <div className={cl.tooltipWarnCont}>
-                  <Button
-                    variant={ButtonVariant.CLEAR}
-                    className={cls(
-                      cl.button,
-                      !success ? cl.warnButton : cl.successButton,
-                      isWarningActive && !success ? cl.warningActive : '',
-                      isWarningActive && success ? cl.successActive : ''
-                    )}
-                    beforeImage={TOOLTIP_WARNING_ICON}
-                    active={!success ? isWarningActive : false}
-                    beforeProps={{ height: 14, width: 14 }}
-                    success={success}
-                    onClick={toggleWarningWindow}
-                  />
-                  <HoverWindow
-                    text={warningTooltipText}
-                    position={EHoverWindowPosition.RIGHT}
-                    borderColor={!success ? EHoverBorderColor.WARNING : EHoverBorderColor.DEFAULT}
-                    show={isWarningActive}
-                    className={cls(cl.warnWindowActive, cl.windowActive, classNameWarningWindow)}
-                  />
-                </div>
-              )}
+
+            <div className={cl.tooltipsNLinkContainer}>
+
+              {linkText && <Button title={linkText}
+                href={linkHref}
+                variant={ButtonVariant.DEFAULT}
+                className={cl.buttonLink}
+                afterImage={ARROW_IN_CIRCLE}
+                afterProps={{ width: 14, height: 14 }} />}
+
+              <div className={cl.tooltipsContainer}>
+                {isDescriptionTooltip && descriptionTooltipText && (
+                  <div className={cl.tooltipDescCont}>
+                    <Button
+                      variant={ButtonVariant.CLEAR}
+                      className={cls(cl.button, cl.descButton, isDescriptionActive ? cl.descriptionActive : '')}
+                      beforeImage={TOOLTIP_DESCRIPTION_ICON}
+                      beforeProps={{ height: 14, width: 14 }}
+                      active={isDescriptionActive}
+                      onClick={toggleDescriptionWindow}
+                    />
+                    <HoverWindow
+                      text={descriptionTooltipText}
+                      position={EHoverWindowPosition.RIGHT}
+                      borderColor={EHoverBorderColor.DEFAULT}
+                      show={isDescriptionActive}
+                      className={cls(cl.descWindowActive, cl.windowActive, classNameDescriptionWindow)}
+                    />
+                  </div>
+                )}
+                {isRequired && (
+                  <div className={cl.tooltipWarnCont}>
+                    <Button
+                      variant={ButtonVariant.CLEAR}
+                      className={cls(
+                        cl.button,
+                        !success ? cl.warnButton : cl.successButton,
+                        isWarningActive && !success ? cl.warningActive : '',
+                        isWarningActive && success ? cl.successActive : ''
+                      )}
+                      beforeImage={TOOLTIP_WARNING_ICON}
+                      active={!success ? isWarningActive : false}
+                      beforeProps={{ height: 14, width: 14 }}
+                      success={success}
+                      onClick={toggleWarningWindow}
+                    />
+                    <HoverWindow
+                      text={warningTooltipText}
+                      position={EHoverWindowPosition.RIGHT}
+                      borderColor={!success ? EHoverBorderColor.WARNING : EHoverBorderColor.DEFAULT}
+                      show={isWarningActive}
+                      className={cls(cl.warnWindowActive, cl.windowActive, classNameWarningWindow)}
+                    />
+                  </div>
+                )}
+              </div>
             </div>
+
           </div>
 
           <div className={cls(cl.inputsContainer, classNameInputsContainer)}>
@@ -227,21 +255,22 @@ export const WrapperRectangleInput = ({
           </div>
 
           {fileList && fileList.length > 0 && (
-		  <FileWrapList fileList={fileList} setFileList={setFileList} className={cl.fileList}/>
-		)}
+            <FileWrapList fileList={fileList} setFileList={setFileList} className={cl.fileList} />
+          )}
 
         </div>
 
         {warning && errorMessageArray.length > 0 && (
-            <div className={cl.errorMessage}>
-              {errorMessageArray.map((it, index) => (
-                <p key={index}>{it}</p>
-              ))}
-            </div>
-          )}
+          <div className={cl.errorMessage}>
+            {errorMessageArray.map((it, index) => (
+              <p key={index}>{it}</p>
+            ))}
+          </div>
+        )}
 
         {bellowButtonText &&
           <Button variant={ButtonVariant.FILL}
+            loading={isLoadingBellowButton}
             title={bellowButtonText}
             className={cls(cl.bellowButton, isDisabled ? cl.disabled : '')}
             disabled={isDisabled}
@@ -261,7 +290,7 @@ export const WrapperRectangleInput = ({
             setIsOpen={closeTheModal} />
         </Modal>
       </div>
-      <HandleSize width={768} set={setIs768}/>
+      <HandleSize width={768} set={setIs768} />
     </>
 
   )

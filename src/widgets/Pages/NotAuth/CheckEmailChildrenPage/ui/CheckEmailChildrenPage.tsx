@@ -5,14 +5,19 @@ import { WrapperRectangleInput } from "@/shared/ui/Wrapper/RectangleInput"
 import Input from "@/shared/ui/Input/Input"
 import { EInputVariants } from "@/shared/ui/Input/model/input.model"
 import { UserAPI } from "@/entities/Auth/api/auth.api"
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import { getFormData } from "@/shared/lib/formData.lib"
 import { useRouter } from "next/navigation"
 import { MAIN_PAGES } from "@/config/pages-url.config"
 import { useActionCreators } from "@/storage/hooks"
-import { EMAIL_VALID_RULES } from "@/entities/Auth/data/email.data"
+import { EMAIL_VALID_RULES, isEmailValid } from "@/entities/Auth/data/email.data"
+import { FILL_THE_FIELD } from "@/entities/Auth/data/errorMessages.data"
 
 export const CheckEmailChildrenPage = () => {
+
+    //STATE
+    const [errorMessage, setErrorMessage] = useState<string>('')
+
     // REF
     const formRef = useRef<HTMLFormElement>(null)
 
@@ -20,23 +25,27 @@ export const CheckEmailChildrenPage = () => {
     const router = useRouter()
 
     // API
-    const [triggerCheckEmailExists] = UserAPI.useLazyCheckEmailExistsQuery()
+    const [triggerCheckEmailExists, {isLoading}] = UserAPI.useLazyCheckEmailExistsQuery()
 
     //RTK
     const actionCreators = useActionCreators();
 
     // FUNCTIONS
     const CheckEmail = async () => {
+        setErrorMessage('')
         if (!formRef.current) return;
-        const formData = getFormData(formRef.current)
+        const {email} = getFormData(formRef.current)
         
+        if(!email) return setErrorMessage(FILL_THE_FIELD)
+        if(email && !isEmailValid(email)) return setErrorMessage(EMAIL_VALID_RULES)
+
         try {
-            const isExists = await triggerCheckEmailExists(formData.email).unwrap()
+            const isExists = await triggerCheckEmailExists(email).unwrap()
             
             if(isExists){
                 isExists && router.push(MAIN_PAGES.LOGIN)
                 actionCreators.setAuth({
-                    UserName: formData.email,
+                    UserName: email,
                     UserId: "",
                     FullName: "",
                     LegalName: "",
@@ -50,7 +59,6 @@ export const CheckEmailChildrenPage = () => {
             !isExists && router.push(MAIN_PAGES.REGISTRATION)
             
         } catch (error) {
-            console.error('Error checking email:', error)
         }
     }
 
@@ -62,10 +70,11 @@ export const CheckEmailChildrenPage = () => {
                 isDescriptionTooltip
                 descriptionTooltipText="Введите адрес электронной почты, на которую был или будет зарегистрирован профиль"
                 bellowButtonText="Продолжить"
-                errorInputMessage={EMAIL_VALID_RULES}
+                errorInputMessage={errorMessage}
                 onClickBellowButton={CheckEmail}
+                isLoadingBellowButton={isLoading}
             >
-                <Input.Text type="email" variant={EInputVariants.RECTANGULAR} placeholder="Введите email" name="email" />
+                <Input.Text type="email" variant={EInputVariants.RECTANGULAR} placeholder="Введите email" name="email" error={!!errorMessage} />
             </WrapperRectangleInput>
         </WrapperNotAuthPages>
     )

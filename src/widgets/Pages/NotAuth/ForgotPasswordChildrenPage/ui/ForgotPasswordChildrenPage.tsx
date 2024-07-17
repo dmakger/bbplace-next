@@ -20,7 +20,7 @@ export const ForgotPasswordChildrenPage = () => {
     //STATE
     const [errorMessage, setErrorMessage] = useState<string>('')
 
-    //SEARCHPARAMS
+    //SEARCH_PARAMS
     const token = false;
     const emailFromUrl = useSearchParams()
 
@@ -34,8 +34,8 @@ export const ForgotPasswordChildrenPage = () => {
     const router = useRouter()
 
     //API
-    const [sendResetPasswordLink, { isError }] = UserAPI.useSendResetPasswordLinkMutation()
-    const [resetPassword] = UserAPI.useResetPasswordMutation()
+    const [sendResetPasswordLink, { isError, isLoading: isLoadingSendResetLink }] = UserAPI.useSendResetPasswordLinkMutation()
+    const [resetPassword, {isLoading: isLoadingResetPassword}] = UserAPI.useResetPasswordMutation()
 
 
     //RTK
@@ -48,7 +48,7 @@ export const ForgotPasswordChildrenPage = () => {
         if (!formRef.current) return;
 
         try {
-            const { emailValue } = getFormData(formRef?.current)
+            const { email: emailValue } = getFormData(formRef?.current)            
 
             if (!emailValue) setErrorMessage(FILL_THE_FIELD)
             await sendResetPasswordLink({ email: emailValue })
@@ -62,6 +62,7 @@ export const ForgotPasswordChildrenPage = () => {
 
         if(!formRef.current) return;
         const {email, password, confirmPassword} = getFormData(formRef.current)
+
         //PASSWORD        
         if (!password || !confirmPassword) {
             setErrorMessage(FILL_THE_FIELD);
@@ -85,6 +86,7 @@ export const ForgotPasswordChildrenPage = () => {
                 isRequired
                 bellowButtonText={!token ? "Восстановить" : ''}
                 errorInputMessage={errorMessage}
+                isLoadingBellowButton={isLoadingSendResetLink}
                 onClickBellowButton={sendResetPasswordRequest}
             >
                 <Input.Text type="email" variant={EInputVariants.RECTANGULAR} placeholder="Введите email" name="email" defaultValue={!token ? userEmail: emailFromUrl} warning={isError} error={isError} disabled={!!token} />
@@ -94,15 +96,16 @@ export const ForgotPasswordChildrenPage = () => {
                     <WrapperRectangleInput
                         labelText="Пароль"
                         isRequired
-                        errorInputMessage="ПАРОЛЬ"
+                        errorInputMessage={errorMessage}
                     >
                         <Input.Text type="password" variant={EInputVariants.RECTANGULAR} placeholder="Введите пароль" name="password" required />
                     </WrapperRectangleInput>
                     <WrapperRectangleInput
                         labelText="Подтверждение пароля"
                         isRequired
-                        errorInputMessage="ПАРОЛЬ"
+                        errorInputMessage={errorMessage}
                         bellowButtonText='Сменить пароль'
+                        isLoadingBellowButton={isLoadingResetPassword}
                         onClickBellowButton={resetPasswordFunc}
                     >
                         <Input.Text type="password" variant={EInputVariants.RECTANGULAR} placeholder="Введите пароль еще раз" name="confirmPassword" required />

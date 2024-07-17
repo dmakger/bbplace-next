@@ -2,7 +2,7 @@
 
 import { UserAPI } from '@/entities/Auth/api/auth.api'
 import cl from './_SignUpChildrenPage.module.scss'
-import { ROLES_LIST_DATA, SELLER_N_SUPPLIER_ROLE_ITEM_DATA, SELLER_ROLE_ITEM_DATA, SUPPLIER_ROLE_ITEM_DATA } from "@/shared/data/roles.data"
+import { SELLER_N_SUPPLIER_ROLE_ITEM_DATA, SELLER_ROLE_ITEM_DATA, SUPPLIER_ROLE_ITEM_DATA } from "@/shared/data/roles.data"
 import { getFormData } from '@/shared/lib/formData.lib'
 import Input from "@/shared/ui/Input/Input"
 import { EInputVariants } from "@/shared/ui/Input/model/input.model"
@@ -31,8 +31,6 @@ export const SignUpChildrenPage = () => {
 
     const [countriesAsOption, setCountriesAsOption] = useState<IOption[]>([])
 
-    
-
     //REF
     const formRef = useRef<HTMLFormElement>(null)
 
@@ -40,7 +38,7 @@ export const SignUpChildrenPage = () => {
     const router = useRouter()
 
     //API
-    const [userRegistration] = UserAPI.useUserRegistrationMutation();
+    const [userRegistration, {isLoading}] = UserAPI.useUserRegistrationMutation();
     const {data: countries} = CountryAPI.useGetCountriesQuery()   
     
     //EFFECT
@@ -61,7 +59,7 @@ export const SignUpChildrenPage = () => {
 
         const { email: emailValue, password, confirmPassword, role, emailSubscription, country, offert } = getFormData(formRef?.current);
 
-        const selectedCountryName: string = countriesAsOption.find(it => it.id == country)?.name ?? '';
+        const selectedCountryName: string = countriesAsOption.find(it => it.id == country)?.name ?? '';        
         
         let hasError = false;        
 
@@ -115,21 +113,19 @@ export const SignUpChildrenPage = () => {
         
         console.log(requestData);
         
-
         try {
             const regData = await userRegistration(requestData).unwrap();
             console.log(regData);
 
             if (regData) {
-                console.log(2);
                 // actionCreators.setAuth(data);
-                // router.push(MAIN_PAGES.HOME)
+                // router.replace(MAIN_PAGES.HOME)
             }
         } catch (e: any) {
+            e.data.message === 'User already exists!' && setErrorEmail('Пользователь с такой почтой уже зарегистрирован')
             setError(e);
         }
     }
-    
     
     return (
         <WrapperNotAuthPages pageTitle="Регистрация профиля" onSubmitFunc={signUp} formRef={formRef} >
@@ -165,7 +161,7 @@ export const SignUpChildrenPage = () => {
                 <Input.Text type="password" variant={EInputVariants.RECTANGULAR} placeholder="Введите пароль еще раз" name="confirmPassword" required warning={error && !!errorPassword} error={error && !!errorPassword}/>
             </WrapperRectangleInput>
 
-            <WrapperRectangleInput labelText="Роль" descriptionTooltipText="Выберите роль" isRequired classNameDescriptionWindow={cl.descriptionWindow}>
+            <WrapperRectangleInput labelText="Роль" descriptionTooltipText="Выберите роль" isRequired classNameInputsContainer={cl.radioInputsContainer} classNameDescriptionWindow={cl.descriptionWindow}>
                     <Input.Radio option={SUPPLIER_ROLE_ITEM_DATA} variant={EInputVariants.RECTANGULAR} name='role' required variantRadio={ERadioVariant.SINGLE} warning={!!error} error={!!error}/>
                     <Input.Radio option={SELLER_ROLE_ITEM_DATA} variant={EInputVariants.RECTANGULAR} name='role' variantRadio={ERadioVariant.SINGLE} warning={!!error} error={!!error}/>
                     <Input.Radio option={SELLER_N_SUPPLIER_ROLE_ITEM_DATA} variant={EInputVariants.RECTANGULAR} name='role' variantRadio={ERadioVariant.SINGLE} warning={!!error} error={!!error}/>
@@ -174,7 +170,8 @@ export const SignUpChildrenPage = () => {
             <WrapperRectangleInput
                 labelText="Хочу получать новости от платформы и её партнёров"
                 labelPosition={ELabelPosition.RIGHT}
-                descriptionTooltipText="НОВОСТИ"
+                descriptionTooltipText="НОВОСТИ" 
+                classNameLabel={cl.labelNews}
             >
                 <Input.Checkbox variant={EInputVariants.RECTANGULAR} name="emailSubscription" warning={!!error} />
             </WrapperRectangleInput>
@@ -183,9 +180,10 @@ export const SignUpChildrenPage = () => {
                 labelPosition={ELabelPosition.RIGHT}
                 isRequired
                 onClickBellowButton={signUp}
+                isLoadingBellowButton={isLoading}
                 bellowButtonText="Зарегистрировать"
-                
-                
+                linkText='Оферта'
+                linkHref=''
             >
                 <Input.Checkbox variant={EInputVariants.RECTANGULAR} name="offert" error={!!errorOffert && error} required/>
             </WrapperRectangleInput>
