@@ -21,6 +21,8 @@ import { EModalView } from '@/shared/data/modal.data'
 import { Modal } from '@/shared/ui/Modal/Modal'
 import { WrapperModalBottomDropList } from '@/shared/ui/Wrapper/ModalBottom/DropList/WrapperModalBottomDropSearch'
 import { WrapperModalBottomDropSearch } from '@/shared/ui/Wrapper/ModalBottom/DropSearch/WrapperModalBottomDropSearch'
+import { EInputTextTypeVariants } from '../../../Text/model/text.input.model'
+import { SEARCH__ICON } from '@/shared/ui/Icon/data/search.data.icon'
 
 interface ITextAndSelectInput extends IWrapperRectangleInputChildren, IInput {
     variantRecursive?: ERecursiveSelectVariant,
@@ -133,6 +135,7 @@ export function TextAndSelectInput({
     }
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        console.log('qwe handleInputChange', e.target.value)
         checkChangeValue(e)
         setSearchQuery(e.target.value.toLowerCase().replaceAll('  ', ' ').trim());
         if (e.target.value === '') setIsWarning(true)
