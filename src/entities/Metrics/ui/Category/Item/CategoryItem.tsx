@@ -26,6 +26,7 @@ export const CategoryItem = ({
     const getLinkHref = (category: ICategory | ICategoriesWithSubcategories) => {
         if ('subcategories' in category) {
             if (!category.subcategories.length) {                
+                // ВМЕСТО: `${MAIN_PAGES.PRODUCTS.path}?category=${category.id}`;
                 return `${MAIN_PAGES.PRODUCTS}?category=${category.id}`;
             }
         }

@@ -19,7 +19,7 @@ export const ToChatLargeToSupplierButton: FC<ToChatLargeToSupplierButtonProps> =
         <Button variant={ButtonVariant.TONAL}
             color={ButtonColor.Secondary}
             size={ButtonSize.Medium}
-            href={DASHBOARD_PAGES.CURRENT_CHAT(supplierId)}
+            href={DASHBOARD_PAGES.CURRENT_CHAT(supplierId).path}
             className={cls(isWide ? cl.button : cl.buttonNarrow, className)}
             title='Сообщение' />
     )

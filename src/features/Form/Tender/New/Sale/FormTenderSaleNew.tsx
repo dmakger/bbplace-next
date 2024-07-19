@@ -56,22 +56,20 @@ export const FormTenderSaleNew:FC<FormTenderSaleNewProps> = ({className}) => {
                             required={true} variant={EInputVariants.RECTANGULAR} />
             </WrapperRectangleInput>
             <WrapperRectangleInput labelText={"Категория"} isRequired={true}>
-                <Input.Select name={'category'} placeholder="Выберите категорию" options={categoryOptions}
-                              titleModal="Категория" required={true} variant={EInputVariants.RECTANGULAR} />
                 <Input.TextAndSelect name={'category'} placeholder="Выберите категорию" options={categoryOptions}
                               titleModal="Категория" required={true} variant={EInputVariants.RECTANGULAR} /> 
             </WrapperRectangleInput>
             <WrapperRectangleInput labelText={"Минимальный заказ"} isRequired={true}>
                 <Input.Text name={'numberMinOrder'} placeholder="Введите число"
                             required={true} variant={EInputVariants.RECTANGULAR} />
-                <Input.Select name={'selectMinOrder'} placeholder="Измерение" options={metricOptions}
-                              titleModal="Измерение" required={true} variant={EInputVariants.RECTANGULAR} />
+                <Input.TextAndSelect name={'selectMinOrder'} placeholder="Измерение" options={metricOptions}
+                              titleModal="Измерение" required={true} variant={EInputVariants.RECTANGULAR} /> 
             </WrapperRectangleInput>
             <WrapperRectangleInput labelText={"Цена"}>
                 <Input.Text name={'numberPrice'} placeholder="Введите число"
                                 variant={EInputVariants.RECTANGULAR} />
-                <Input.Select name={'selectPrice'} placeholder="Валюта" options={currencyOptions}
-                              titleModal="Валюта" variant={EInputVariants.RECTANGULAR} />
+                <Input.TextAndSelect name={'selectPrice'} placeholder="Валюта" options={currencyOptions}
+                              titleModal="Валюта" variant={EInputVariants.RECTANGULAR} /> 
             </WrapperRectangleInput>
             <WrapperRectangleInput labelText={"Описание"} isRequired={true}>
                 <Input.Text name={'description'} placeholder="Начните вводить"

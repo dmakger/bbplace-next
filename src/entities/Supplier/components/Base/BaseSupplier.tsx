@@ -65,7 +65,7 @@ export const BaseSupplier: FC<BaseSupplierProps> = ({
     );
 
     return (
-        <Link href={MAIN_PAGES.CURRENT_SUPPLIER(supplier.id)} className={cls(cl.block, isGray ? cl.gray : '', className)}>
+        <Link href={MAIN_PAGES.CURRENT_SUPPLIER(supplier.id).path} className={cls(cl.block, isGray ? cl.gray : '', className)}>
             {html}
         </Link>
     )

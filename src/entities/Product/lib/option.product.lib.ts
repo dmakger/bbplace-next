@@ -12,7 +12,7 @@ export const productToOption = (product: IProduct) => {
         name: product.media.color,
         params: {
             image: product.media.attachments[0],
-            href: MAIN_PAGES.CURRENT_PRODUCT(product.id),
+            href: MAIN_PAGES.CURRENT_PRODUCT(product.id).path,
         },
     } as IOption
 }
