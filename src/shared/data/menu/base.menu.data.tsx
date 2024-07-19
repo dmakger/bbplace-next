@@ -10,14 +10,14 @@ export const HORIZONTAL_VIEW: IIconVariants = {
 
 export const DASHBOARD_ITEM_MENU_DATA: IIconVariants = {
     id: 3,
-    link: DASHBOARD_PAGES.CHATS,
+    link: DASHBOARD_PAGES.CHATS.path,
     title: "Чат",
     image: <ChatsSVGIcon />,
 }
 
 export const FAVORITE_ITEM_MENU_DATA: IIconVariants = {
     id: 4,
-    link: DASHBOARD_PAGES.FAVORITE,
+    link: DASHBOARD_PAGES.FAVORITE.path,
     title: "Избранное",
     image: <FavouriteSVGIcon/>,
 }

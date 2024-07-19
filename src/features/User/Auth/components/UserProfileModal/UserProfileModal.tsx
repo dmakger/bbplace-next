@@ -29,14 +29,14 @@ export const UserProfileModal = ({ isShowProfileModal }: IUserProfileModal) => {
           <p className={cl.greetings}>Здравствуйте, <span>{user.fullName}</span></p>
           <User />
         </div>
-        <Button variant={ButtonVariant.BACKGROUND_GRAY} title={"Личный кабинет"} href={DASHBOARD_PAGES.HOME} className={cl.lk} />
+        <Button variant={ButtonVariant.BACKGROUND_GRAY} title={"Личный кабинет"} href={DASHBOARD_PAGES.HOME.path} className={cl.lk} />
       </div>
       <div className={cl.bottomContainer}>
         {LK_MODAL_MENU_DATA.map(it => (
           <Button variant={ButtonVariant.ALMOST_RECTANGULAR}
                   title={it.title} href={it.link}
-                  className={cls(cl.menuButtons, it.link === MAIN_PAGES.HOME ? cl.logOutButton : '')}
-                  onClick={it.link === MAIN_PAGES.HOME ? logOut : () => {}} key={it.link} />
+                  className={cls(cl.menuButtons, it.link === MAIN_PAGES.HOME.path ? cl.logOutButton : '')}
+                  onClick={it.link === MAIN_PAGES.HOME.path ? logOut : () => {}} key={it.link} />
         ))}
       </div>
     </section>

@@ -14,7 +14,7 @@ export const MenuButtonSupport:FC<MenuButtonSupportProps> = ({className}) => {
     const router = useRouter();
 
     const handleOnClick = () => {
-        router.push(MAIN_PAGES.SUPPORT);
+        router.push(MAIN_PAGES.SUPPORT.path);
     }
 
     return (

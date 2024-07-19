@@ -13,7 +13,7 @@ interface ToProfileSmallToSupplierButtonProps{
 
 export const ToProfileSmallToSupplierButton:FC<ToProfileSmallToSupplierButtonProps> = ({supplierId, className}) => {
     return (
-        <Button variant={ButtonVariant.W_ARROW_RED} href={MAIN_PAGES.CURRENT_SUPPLIER(supplierId)} 
+        <Button variant={ButtonVariant.W_ARROW_RED} href={MAIN_PAGES.CURRENT_SUPPLIER(supplierId).path} 
                 afterImage={ARROW_ICON} afterProps={{width: 15, height: 15}}
                 className={cls(className)} />
     )

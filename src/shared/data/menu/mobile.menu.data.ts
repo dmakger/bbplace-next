@@ -9,19 +9,19 @@ import LkSVG from '@/shared/assets/img/lk.svg'
 // ===={ MOBILE MENU DATA }====
 
 export const MAIN_ITEM_MENU_DATA: IMenuItem = {
-    link: MAIN_PAGES.HOME,
+    link: MAIN_PAGES.HOME.path,
     title: "Главная",
     image: LogoSVG,
 }
 
 export const CATALOG_ITEM_MENU_DATA: IMenuItem = {
-    link: MAIN_PAGES.CATALOG,
+    link: MAIN_PAGES.CATALOG.path,
     title: "Каталог",
     image: CatalogSVG,
 }
 
 export const DASHBOARD_ITEM_MENU_DATA: IMenuItem = {
-    link: DASHBOARD_PAGES.HOME,
+    link: DASHBOARD_PAGES.HOME.path,
     title: "ЛК",
     image: LkSVG,
 }
