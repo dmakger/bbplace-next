@@ -5,24 +5,27 @@
     border-left: 1px solid var(--positive-border);
     border-radius: 5px 25px 25px 5px;
     width: fit-content;
-    max-width: 285px;
 
 
     .leftContainer {
         display: flex;
-        gap: 5px;
+        align-items: center;
+        padding-right: 5px !important;
+        
+        .title {
+            overflow: hidden;
+            display: -webkit-box;
+            word-break: break-all;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            max-width: 200px;
+            font-weight: var(--font-weight-med);
+        }
     }
 
-    .title {
-        overflow: hidden;
-        display: -webkit-box;
-        word-break: break-all;
-        -webkit-line-clamp: 1;
-        -webkit-box-orient: vertical;
-        font-weight: var(--font-weight-med);
-    }
 
-    .buttonDelete{
+
+    .buttonDelete {
         padding: 12px;
         border-radius: 50%;
     }
@@ -32,26 +35,39 @@
 .big {
     border-radius: 5px 25px 25px 5px;
 
-    .title {
-        margin: 17px 20px;
-        font-size: var(--font-size-reg);
+    .leftContainer {
+        padding: 12.5px 20px;
+        gap: 6.25px;
+
+        .title {
+            font-size: var(--font-size-reg);
+        }
     }
+
 }
 
 .medium {
     border-radius: 5px 20px 20px 5px;
 
-    .title {
-        margin: 13px 15px;
-        font-size: var(--font-size-s);
+    .leftContainer {
+        padding: 10px 16px;
+        gap: 6px;
+
+        .title {
+            font-size: var(--font-size-s);
+        }
     }
 }
 
 .small {
     border-radius: 5px 15px 15px 5px;
 
-    .title {
-        margin: 7.5px 10px;
-        font-size: var(--font-size-xs);
+    .leftContainer {
+        padding: 7.5px 10.75px;
+        gap: 5.75px;
+
+        .title {
+            font-size: var(--font-size-xs);
+        }
     }
 }

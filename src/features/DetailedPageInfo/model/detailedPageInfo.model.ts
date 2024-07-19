@@ -27,4 +27,9 @@ export interface ICreateNewProductsTab {
     multiple: IOptionTab,
 }
 
-export type OptionsTabType = IUserProductsTab | IDetailedProductOptionsTab | ICreateNewProductsTab;
+export interface IPricesNDiscountsTab {
+    [key: string]: IOptionTab | undefined,
+    pricesNDiscounts: IOptionTab,
+}
+
+export type OptionsTabType = IUserProductsTab | IDetailedProductOptionsTab | ICreateNewProductsTab | IPricesNDiscountsTab;

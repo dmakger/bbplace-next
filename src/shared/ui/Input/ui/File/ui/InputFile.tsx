@@ -7,15 +7,17 @@ import cl from './_InputFile.module.scss'
 import { IWrapperRectangleInputChildren } from "../../../../Wrapper/RectangleInput/model/wrapperRectangleInput.model";
 import { EInputVariants, IInput } from "../../../model/input.model";
 import { Button, ButtonVariant } from "../../../../Button";
-import { FILE_ADD_ICON } from "../../../../Icon/data/file.data.icon";
+import { FILE_ADD_ICON, FILE_ADD_ICON_DISABLED } from "../../../../Icon/data/file.data.icon";
 import { getInputFilePrompt } from "../lib/file.input.lib";
 import { IFile } from "@/entities/File/model/file.model";
 import { fileListToIFileList } from "@/entities/File/lib/to.file.lib";
 
 interface InputFileProps extends IWrapperRectangleInputChildren, IInput {
+    classNameField?: string,
     title?: string
     multiple?: boolean
-    setFiles?: Dispatch<SetStateAction<IFile[]>>
+    setFiles?: Dispatch<SetStateAction<IFile[]>>,
+    disabled?: boolean,
 }
 
 /**
@@ -24,6 +26,7 @@ interface InputFileProps extends IWrapperRectangleInputChildren, IInput {
  * @returns 
  */
 export const InputFile:FC<InputFileProps> = ({
+    classNameField,
     title,
     multiple=true,
     setFiles,
@@ -37,6 +40,7 @@ export const InputFile:FC<InputFileProps> = ({
     setWarning,
     setInputValueLength,
     size,
+    disabled,
     ...rest
 }) => {
     // REF
@@ -74,18 +78,20 @@ export const InputFile:FC<InputFileProps> = ({
 
     return (
         <Button variant={ButtonVariant.DEFAULT}
-                beforeImage={FILE_ADD_ICON}
+                beforeImage={!disabled ? FILE_ADD_ICON : FILE_ADD_ICON_DISABLED}
                 title={locTitle} 
                 onClick={handleOnClickButton}
-                className={cls(cl.block, cl[variant])}
+                className={cls(cl.block, cl[variant], disabled ? cl.disabled : '', classNameField)}
                 classNameText={cl.text}
                 classNameTextHovered={cl.textHovered}
-                classNameTextDisabled={cl.textDisabled}>
+                classNameTextDisabled={cl.textDisabled}
+                >
             <input type="file" 
                     multiple={multiple}
                     ref={inputRef}
                     onChange={e => handleOnChange(e)}
-                    className={cl.input} {...rest}/>
+                    className={cl.input}
+                    disabled={disabled} {...rest}/>
         </Button>
     )
 }

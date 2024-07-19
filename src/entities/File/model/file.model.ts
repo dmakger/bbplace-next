@@ -20,6 +20,16 @@ export interface IFile {
     file?: File
 }
 
+export enum EFileName {
+    EXCEL = 'xlsx'
+}
+
+export interface IFileName {
+    text?: string
+    fullName?: string
+    type?: string
+}
+
 
 /**
  * Props for file

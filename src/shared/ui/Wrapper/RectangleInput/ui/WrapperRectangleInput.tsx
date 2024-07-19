@@ -19,43 +19,54 @@ import { FileItemAttachment } from '@/entities/File/ui/Item/ui/Attachment/FileIt
 import { FileWrapList } from '@/entities/File/ui/Wrap/FileWrapList';
 
 interface IWrapperRectangleInput {
-  className?: string
-  classNameLabel?: string,
-  classNameDescriptionWindow?: string,
-  classNameWarningWindow?: string,
-  labelText: string
-  children: ReactNode,
-  buttonText?: string,
-  onClickBellowButton?: Function,
-  isRequired?: boolean
-  isDescriptionTooltip?: boolean
-  warningTooltipText?: string,
-  descriptionTooltipText?: string,
-  errorInputMessage?: string,
-  labelPosition?: ELabelPosition
-
-  fileList?: IFile[]
-  setFileList?: Dispatch<SetStateAction<IFile[]>>
+	className?: string
+	classNameLabel?: string,
+	classNameDescriptionWindow?: string,
+	classNameWarningWindow?: string,
+	classNameInputsContainer?: string,
+  
+	labelText: string,
+	labelPosition?: ELabelPosition,
+	children: ReactNode,
+  
+	bellowButtonText?: string,
+	isCanDisabledBellowButton?: boolean,
+	onClickBellowButton?: Function,
+	isLoadingBellowButton?: boolean,
+  
+	isRequired?: boolean
+	isDescriptionTooltip?: boolean
+	warningTooltipText?: string,
+	descriptionTooltipText?: string,
+	errorInputMessage?: string,
+  
+	fileList?: IFile[]
+	setFileList?: Dispatch<SetStateAction<IFile[]>>
 }
 
 export const WrapperRectangleInput = ({
-  className,
-  classNameLabel,
-  classNameDescriptionWindow,
-  classNameWarningWindow,
-  labelText,
-  children,
-  buttonText,
-  onClickBellowButton,
-  isRequired = false,
-  isDescriptionTooltip = true,
-  warningTooltipText = 'Обязательно для заполнения',
-  descriptionTooltipText,
-  errorInputMessage = 'Выберите категорию из списка',
-  labelPosition = ELabelPosition.TOP,
-
-  fileList=[],
-  setFileList,
+	className,
+	classNameLabel,
+	classNameDescriptionWindow,
+	classNameWarningWindow,
+	classNameInputsContainer,
+  
+	labelText,
+	children,
+	labelPosition = ELabelPosition.TOP,
+  
+	bellowButtonText,
+	isCanDisabledBellowButton = false,
+	onClickBellowButton,
+	isLoadingBellowButton,
+  
+	isRequired = false,
+	isDescriptionTooltip = true,
+	warningTooltipText = 'Обязательно для заполнения',
+	descriptionTooltipText,
+	errorInputMessage = 'Пожалуйста заполните это поле',
+	fileList = [],
+	setFileList,
 
 }: IWrapperRectangleInput) => {
 
@@ -120,6 +131,9 @@ export const WrapperRectangleInput = ({
 	'Пожалуйста, заполните это поле!',
 	errorInputMessage  || `Максимальная длина - 50 символов. Сейчас ${inputValueLength}`
   ];
+
+  const isDisabled = !selectedOptionsArray.length && isCanDisabledBellowButton;
+
 
   return (
 	<div className={cls(cl.WrapperRectangleInput, className, cl[labelPosition])} onClick={() => setChecked(!checked)}>
@@ -191,11 +205,11 @@ export const WrapperRectangleInput = ({
 		</div>
 	  )}
 
-	  {buttonText && 
+	  {bellowButtonText && 
 		<Button variant={ButtonVariant.FILL}
-		  title={buttonText}
-		  className={cls(cl.button, !selectedOptionsArray.length ? cl.disabled : '')}
-		  disabled={!selectedOptionsArray.length}
+		  title={bellowButtonText}
+		  className={cls(cl.button, isCanDisabledBellowButton ? cl.disabled : '')}
+		  disabled={isDisabled}
 		  onClick={onClickBellowButton} />
 	  } 
 	  <div className={cl.mobileModal}>
