@@ -87,7 +87,7 @@ const isButton = supplierProducts && supplierProducts.length > 2;
           </div>
           <div className={cl.bottomRightContainer}>
             <ScrollSlider slides={supplierProducts} component={ProductASC} classNameSlidesContainer={!isButton ? cl.noButton : ''}>
-              {isButton && <Button variant={ButtonVariant.BACKGROUND_RED_HUGE} href={MAIN_PAGES.CURRENT_SUPPLIER(supplier.id)}>
+              {isButton && <Button variant={ButtonVariant.BACKGROUND_RED_HUGE} href={MAIN_PAGES.CURRENT_SUPPLIER(supplier.id).path}>
                 Все товары
               </Button>}
             </ScrollSlider>

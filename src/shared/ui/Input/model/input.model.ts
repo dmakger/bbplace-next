@@ -5,9 +5,11 @@ export interface IInput{
     name?: string,
     placeholder?: string
     onChange?: Function,
+    onChangeEvent?: Function,
     required?: boolean,
     error?: boolean,
     setError?: Function
+    autoFocus?: boolean
 }
 
 export enum EInputVariants{

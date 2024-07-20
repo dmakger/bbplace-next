@@ -14,7 +14,7 @@ interface SupplierSmallProps{
 
 export const SupplierSmall:FC<SupplierSmallProps> = ({supplier, className}) => {
     return (
-        <Link href={MAIN_PAGES.CURRENT_SUPPLIER(supplier.id)} className={cls(cl.block, className)}>
+        <Link href={MAIN_PAGES.CURRENT_SUPPLIER(supplier.id).path} className={cls(cl.block, className)}>
             <span className={cl.name}>{getNameSupplier(supplier)}</span>
         </Link>
     )

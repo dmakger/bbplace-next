@@ -83,7 +83,7 @@ export const TenderItem = ({
                 </div>
 
                 <div className={cl.middleContainer} >
-                    <Link href={MAIN_PAGES.CURRENT_TENDER(tender.id, tender.type)} className={cl.cardTitle}>
+                    <Link href={MAIN_PAGES.CURRENT_TENDER({id: tender.id, type: tender.type}).path} className={cl.cardTitle}>
                         {tender.name}
                     </Link>
                     <HeadingToTextTable

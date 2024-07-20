@@ -2,47 +2,77 @@ import { IProduct } from "@/entities/Product/model/product.model"
 import { ISupplier } from "@/entities/Supplier/model/supplier.model"
 import { ETenderType, IBaseTender, ITender } from "@/entities/Tender/model/tender.model"
 
+interface IRoot {
+    path: string
+    onlyAuth: boolean
+
+    toString: () => string
+}
+
+
+class Route {
+    private readonly root: string;
+
+    constructor(root: string) {
+        this.root = root
+    }
+
+    createPath(subPath: string, onlyAuth: boolean=false): IRoot {
+        const path = `${this.root}${subPath}`
+        return {
+            path,
+            onlyAuth,
+            toString: () => path,
+        }
+    }
+
+    createDynamicPath<T>(subPath: (params: T) => string, onlyAuth: boolean = false): (params: T) => IRoot {
+        return (params: T) => (
+            this.createPath(subPath(params), onlyAuth)
+        );
+    }
+}
+
+
 // ======={ MAIN }=======
-class MAIN {
-    private root = ''
+class MAIN extends Route {
+    HOME = this.createPath('/');
+    CATALOG = this.createPath('/catalog');
+    PRODUCTS = this.createPath('/product');
+    TENDERS = this.createPath('/tender');
+    SUPPLIERS = this.createPath('/supplier');
 
-    HOME = `${this.root}/`
-    CATALOG = `${this.root}/catalog`
-    PRODUCTS = `${this.root}/product`
-    TENDERS = `${this.root}/tender`
-    SUPPLIERS = `${this.root}/supplier`
+    SUPPORT = this.createPath('/support');
 
-    SUPPORT = `${this.root}/support`
-
-    CHECK_EMAIL = `${this.root}/checkEmail`
-    LOGIN = `${this.root}/signIn`
-    REGISTRATION = `${this.root}/signUp`
-    FORGOT_PASSWORD = `${this.root}/forgotPassword`
-
-    CURRENT_SUPPLIER = (id: ISupplier['id']) => `${this.SUPPLIERS}/${id}`
-    CURRENT_PRODUCT = (id: IProduct['id']) => `${this.PRODUCTS}/${id}`
-    CURRENT_TENDER = (id: ITender['id'], type: IBaseTender['type'] = ETenderType.PURCHASE) => `${this.TENDERS}/${id}/${type}`
+    CURRENT_SUPPLIER = this.createDynamicPath((id: ISupplier['id']) => `/supplier/${id}`, true);
+    CURRENT_PRODUCT = this.createDynamicPath((id: IProduct['id']) => `/product/${id}`, true);
+    CURRENT_TENDER = this.createDynamicPath<{ id: ITender['id'], type?: IBaseTender['type'] }>(
+        (params) => `/tender/${params.id}/${params.type || ETenderType.PURCHASE}`, 
+        true
+    );
 
 }
 
-export const MAIN_PAGES = new MAIN()
+export const MAIN_PAGES = new MAIN('')
 
 
-// ======={ DASHBOARD }=======
-class DASHBOARD {
-    private root = '/i'
+class DASHBOARD extends Route {
+    HOME = this.createPath('/', true);
+    PROFILE_EDIT = this.createPath('/edit', true);
+    FAVORITE = this.createPath('/favorite', true);
+    CHATS = this.createPath('/chat', true);
 
-    HOME = this.root
-    PROFILE_EDIT = `${this.root}/edit`
-    FAVORITE = `${this.root}/favorite`
-    CHATS = `${this.root}/chat`
+    PRODUCTS = this.createPath('/product', true);
+    TENDERS = this.createPath('/tender', true);
 
-    PRODUCTS = `${this.root}/product`
-    TENDERS = `${this.root}/tender`
-
-    CURRENT_CHAT = (id: ISupplier['id']) => `${this.CHATS}/${id}`
-    EDIT_PRODUCT = (id: IProduct['id']) => `${this.PRODUCTS}/edit/${id}`
-
+    CURRENT_CHAT = this.createDynamicPath((id: ISupplier['id']) => `/chat/${id}`, true);
+    EDIT_PRODUCT = this.createDynamicPath((id: IProduct['id']) => `/product/edit/${id}`, true);
 }
 
-export const DASHBOARD_PAGES = new DASHBOARD()
+export const DASHBOARD_PAGES = new DASHBOARD('/i');
+
+
+// ==={ ПРИМЕНЕНИЕ }===
+// DASHBOARD_PAGES.PRODUCTS
+// MAIN_PAGES.CURRENT_TENDER({id: 123})
+// MAIN_PAGES.CURRENT_TENDER({id: 123, type: ETenderType.SALE})

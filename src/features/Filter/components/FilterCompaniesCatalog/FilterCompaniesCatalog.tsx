@@ -42,12 +42,12 @@ export const FilterCompaniesCatalog = ({
         <div ref={inputListRef} className={cls(cl.FilterCompaniesCatalog, isFiltersOpen ? cl.withMarginTop : '')}>
             <Input.TextAndSelect title={'Категории'}
                                  arrowSizes={{width: 11, height: 15}}
-                                 listOptions={categoryListOptions}
+                                 options={categoryListOptions}
                                  defaultOption={filter[CORE_PARAMS.CATEGORY] as IOption}
                                  onClickOption={handleOnClickCategory} />
             <Input.TextAndSelect title={'Страна'}
                                  arrowSizes={{width: 11, height: 15}}
-                                 listOptions={countryListOptions}
+                                 options={countryListOptions}
                                  defaultOption={filter[CORE_PARAMS.COUNTRY] as IOption}
                                  onClickOption={handleOnClickCountry} />
             <Input.Text title={'Минимальный заказ от'}
