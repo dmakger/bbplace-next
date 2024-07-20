@@ -119,7 +119,7 @@ export const SignUpChildrenPage = () => {
 
             if (regData) {
                 // actionCreators.setAuth(data);
-                // router.replace(MAIN_PAGES.HOME)
+                // router.replace(MAIN_PAGES.HOME.path)
             }
         } catch (e: any) {
             e.data.message === 'User already exists!' && setErrorEmail('Пользователь с такой почтой уже зарегистрирован')
@@ -149,7 +149,6 @@ export const SignUpChildrenPage = () => {
                 labelText="Пароль"
                 isRequired
                 errorInputMessage={errorPassword}
-                
             >
                 <Input.Text type="password" variant={EInputVariants.RECTANGULAR} placeholder="Введите пароль" name="password" required error={error && !!errorPassword} warning={error && !!errorPassword} />
             </WrapperRectangleInput>

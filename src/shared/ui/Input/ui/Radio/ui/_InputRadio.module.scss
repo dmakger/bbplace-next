@@ -12,11 +12,11 @@
         font-size: var(--font-size-s);
     }
 
-    .arrowImage {
+    .checkMark {
         opacity: 0;
         margin-left: auto;
         height: auto;
-    }
+    }  
 }
 
 .rounded {
@@ -99,9 +99,8 @@
 }
 
 
-
 .active {
-    .image {
+    .checkMark {
         opacity: 1;
     }
 }

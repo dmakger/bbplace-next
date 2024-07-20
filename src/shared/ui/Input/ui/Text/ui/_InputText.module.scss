@@ -18,7 +18,7 @@
 }
 
 .textarea {
-// .input, .textarea {
+    // .input, .textarea {
     width: 100%;
     background-color: var(--background-2);
     outline: none;
@@ -29,10 +29,11 @@
 }
 
 
-.textarea{
+.textarea {
     min-height: 180px;
     resize: none;
-    @media (max-width: 768px){
+
+    @media (max-width: 768px) {
         min-height: 150px;
     }
 }
@@ -40,6 +41,23 @@
 .rounded {
     border: 1px solid var(--gray-5);
     padding-left: 3px;
+
+
+
+    .input {
+        background-color: var(--gray-3) !important;
+        font-size: var(--font-size-s);
+
+        &::placeholder {
+            color: var(--n-gray-1);
+        }
+    }
+
+    &:hover {
+        .input {
+            background-color: var(--gray-4) !important;
+        }
+    }
 }
 
 .rectangular {
@@ -47,30 +65,32 @@
     border-radius: 5px;
     font-weight: var(--font-weight-med);
 
-    &::placeholder{
+    &::placeholder {
         transition: .3s;
     }
 
-    &:hover{
+    &:hover {
         border-color: var(--tertiary-hovered);
         transition-duration: 0.3s;
 
-        &::placeholder{
+        &::placeholder {
             color: var(--font);
             transition: .3s;
         }
     }
-    &:focus, :active{
-        border-color:var(--tertiary-pressed);
+
+    &:focus,
+    :active {
+        border-color: var(--tertiary-pressed);
         transition-duration: 0.3s;
     }
 
-    @media (max-width: 768px){
+    @media (max-width: 768px) {
         padding: 17px 15px;
-        font-size: var(--font-size-s);   
+        font-size: var(--font-size-s);
     }
 
-    
+
 }
 
 
@@ -122,16 +142,17 @@
         }
     }
 }
+
 //STATES
-.error{
+.error {
     color: var(--font);
     border-color: var(--negative-border) !important;
     transition-duration: 0.3s;
 }
 
-.success{
+.success {
     color: var(--font);
-    border-color: var(--positive-border) ;
+    border-color: var(--positive-border);
     transition-duration: 0.3s;
 }
 

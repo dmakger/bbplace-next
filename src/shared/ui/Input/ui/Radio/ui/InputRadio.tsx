@@ -1,3 +1,5 @@
+'use client'
+
 import Image from 'next/image';
 
 import { cls } from "@/shared/lib/classes.lib";
@@ -87,7 +89,7 @@ export function InputRadio({
             className={cls(
                 cl.block,
                 cl[variant],
-                isActive ? cl.active : '',
+                (variantRadio === ERadioVariant.LIST ? isActive : isOwnChecked) ? cl.active : '',
                 className,
                 variantRadio === ERadioVariant.SINGLE ? cl.singleRadio : '',
                 variantRadio === ERadioVariant.LIST && variant === EInputVariants.RECTANGULAR ? cl.listRadio : '',
@@ -107,7 +109,7 @@ export function InputRadio({
                 <Button
                     variant={ButtonVariant.DEFAULT}
                     beforeImage={CHECKBOX_TERTIARY_ICON}
-                    beforeProps={{ width: checkMarkSizes.width, height: checkMarkSizes.height, classNameImage: isOwnChecked ? cl.image : '' }}
+                    beforeProps={{ width: checkMarkSizes.width, height: checkMarkSizes.height, classNameImage: isOwnChecked ? cl.checkMark : '' }}
                     className={cls(
                         cl.radio,
                         isOwnChecked ? cl.checked : '',
@@ -119,7 +121,7 @@ export function InputRadio({
                 />
             )}
             <span className={cl.text}>{option.name}</span>
-            {variant === EInputVariants.ROUNDED && <Image src={'check-mark.svg'} alt={'check'} width={8} height={8} className={!isOwnChecked ? cl.arrowImage : ''} />}
+            {variant === EInputVariants.ROUNDED && <Image src={'check-mark.svg'} alt={'check'} width={8} height={8} className={cl.checkMark} />}
         </label>
     );
 }

@@ -22,7 +22,6 @@ import { Modal } from '@/shared/ui/Modal/Modal'
 import { WrapperModalBottomDropList } from '@/shared/ui/Wrapper/ModalBottom/DropList/WrapperModalBottomDropSearch'
 import { WrapperModalBottomDropSearch } from '@/shared/ui/Wrapper/ModalBottom/DropSearch/WrapperModalBottomDropSearch'
 import { EInputTextTypeVariants } from '../../../Text/model/text.input.model'
-import { SEARCH__ICON } from '@/shared/ui/Icon/data/search.data.icon'
 
 interface ITextAndSelectInput extends IWrapperRectangleInputChildren, IInput {
     variantRecursive?: ERecursiveSelectVariant,
@@ -199,7 +198,7 @@ export function TextAndSelectInput({
                                 )
                             ) : (
                                 <p className={cls(
-                                    cl.selectedOption,
+                                    cl.selectedoption,
                                     !activeOption && placeholder ? cl.placeholder : '',
                                     disabled ? cl.disabledPlaceholder : ''
                                     )}>
@@ -229,7 +228,7 @@ export function TextAndSelectInput({
                             <>
                                 {variant === EInputVariants.ROUNDED && 
                                     <p className={cl.noResult}>
-                                        К сожалению, такой страны нет (X_X)
+                                        К сожалению, такого варианта нет (X_X)
                                     </p>
                                 }
                                 {showOptions && variant === EInputVariants.RECTANGULAR && 

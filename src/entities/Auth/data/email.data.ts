@@ -1,5 +1,5 @@
 export const isEmailValid = (value: string) => {
-    if(value.includes('@') || value.includes('.')) return true
+    if(value.includes('@') && value.includes('.')) return true
     return false;
 }
 

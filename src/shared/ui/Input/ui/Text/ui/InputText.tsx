@@ -123,7 +123,6 @@ export function InputText({
     }
 
     const handleOnChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        console.log('qwe change', e.target.value)
         const value = e.target.value
         setInputValueLength?.(value.length)
         checkValue(value)
@@ -165,7 +164,7 @@ export function InputText({
                         isSuccess ? cl.success : '',
                         isWarning ? cl.error : '',
                         disabled ? cl.disabled : '',
-                        classNameInputText
+                        className
                     )}>
                     {beforeImage &&
                         <ImageSmart {...beforeProps} icon={beforeImage} 
