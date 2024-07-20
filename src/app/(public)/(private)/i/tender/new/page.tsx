@@ -14,15 +14,16 @@ import { FC, useState } from "react";
 import cl from './_LKTenderNewPage.module.scss'
 import { FormTenderSaleNew } from "@/features/Form/Tender/New/Sale/FormTenderSaleNew";
 
-export default function LKTenderNewPage() {
-    return (
-        <SuspenseL>
-            <LKTenderNewChild />
-        </SuspenseL>
-    );
-};
+// export default function LKTenderNewPage() {
+//     return (
+//         <SuspenseL>
+//             <LKTenderNewChild />
+//         </SuspenseL>
+//     );
+// };
 
-export const LKTenderNewChild: FC = () => {
+// export const LKTenderNewChild: FC = () => {
+export default function LKTenderNewPage() {
     // ROUTER
     const searchParams = useSearchParams();
 

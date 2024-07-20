@@ -87,7 +87,7 @@ export const RecursiveSelectInput = ({
     const renderSelect = (options: IOption[], placeholder: string, defaultOption: IOption | undefined, level: number, className?: string) => (
         <Input.TextAndSelect
             variantRecursive={variantRecursive}
-            listOptions={options}
+            options={options}
             placeholder={placeholder}
             defaultOption={defaultOption}
             variant={variant}

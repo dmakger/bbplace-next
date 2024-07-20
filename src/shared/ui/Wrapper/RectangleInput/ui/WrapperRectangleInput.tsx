@@ -217,8 +217,7 @@ export const WrapperRectangleInput = ({
 		  view={EModalView.BOTTOM}
 		  buttonNode
 		  _isOpen={isDescriptionActive || isWarningActive}
-		  onClickOverlay={closeTheModal}
-		>
+		  onClickOverlay={closeTheModal}>
 		  <WrapperModalBottom title={labelText}
 			bottomChildren={<BottomInfoModal
 			  text={isDescriptionActive && descriptionTooltipText ? descriptionTooltipText : isWarningActive ? warningTooltipText : ''} />}

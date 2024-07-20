@@ -34,21 +34,21 @@ const CompanyIcon = ({width = 30, height = 29}: IIcons) => (
 
 export const PRODUCTS_ITEM_MENU_WEB_DATA: IIconVariants = {
     id: 1,
-    link: MAIN_PAGES.PRODUCTS,
+    link: MAIN_PAGES.PRODUCTS.path,
     title: "Товары",
     image: <ItemsIcon/>
 }
 
 export const TENDERS_ITEM_MENU_WEB_DATA: IIconVariants = {
     id: 2,
-    link: MAIN_PAGES.TENDERS,
+    link: MAIN_PAGES.TENDERS.path,
     title: "Тендеры",
     image: <HorizontalIcon width={27} height={27}/>,
 }
 
 export const COMPANIES_ITEM_MENU_WEB_DATA: IIconVariants = {
     id: 3,
-    link: MAIN_PAGES.SUPPLIERS,
+    link: MAIN_PAGES.SUPPLIERS.path,
     title: "Поставщики",
     image: <CompanyIcon/>,
 }

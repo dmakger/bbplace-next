@@ -21,7 +21,7 @@ export const FilterCountryOrCategoryInput = ({
         <div className={cl.inputsContainer}>
                 <h4>{title}</h4>
                 <Input.TextAndSelect
-                    listOptions={listOptions}
+                    options={listOptions}
                     defaultOption={defaultOption}
                     classNameOptions={cl.filterOptions}
                     arrowSizes={{width: 14, height: 12}}

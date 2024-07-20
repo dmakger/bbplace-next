@@ -1,12 +1,31 @@
-.input, .textarea {
+.wrapperInput {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border-radius: 5px;
+    background-color: var(--background-2);
+    border: 1px solid var(--gray-5);
+    padding: 20px;
+}
+
+.input {
     width: 100%;
     background-color: var(--background-2);
-    transition: all .3s;
+    outline: none;
+    border: none;
+    font-size: var(--font-size-reg);
+    transition: .3s;
+}
+
+.textarea {
+// .input, .textarea {
+    width: 100%;
+    background-color: var(--background-2);
     outline: none;
     border: 1px solid var(--gray-5);
     padding: 20px;
     font-size: var(--font-size-reg);
-    transition: all .3s;
+    transition: .3s;
 }
 
 

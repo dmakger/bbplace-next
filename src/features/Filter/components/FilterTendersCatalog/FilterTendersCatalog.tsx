@@ -42,7 +42,7 @@ export const FilterTendersCatalog = ({
                           />
             <Input.TextAndSelect title={'Категории'}
                                  arrowSizes={{width: 11, height: 15}}
-                                 listOptions={categoryListOptions}
+                                 options={categoryListOptions}
                                  defaultOption={filter[CORE_PARAMS.CATEGORY] as IOption}
                                  onClickOption={handleOnClickCategory} />
         </div>

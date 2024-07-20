@@ -17,7 +17,7 @@ export const ToProfileLargeToSupplierButton: FC<ToProfileLargeToSupplierButtonPr
         <Button variant={ButtonVariant.TONAL}
             color={ButtonColor.Secondary}
             size={ButtonSize.Medium}
-            href={MAIN_PAGES.CURRENT_SUPPLIER(supplierId)}
+            href={MAIN_PAGES.CURRENT_SUPPLIER(supplierId).path}
             className={cls(cl.button, className)}
             title={'Профиль'} />
     )

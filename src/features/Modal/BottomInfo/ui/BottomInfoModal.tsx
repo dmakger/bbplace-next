@@ -55,7 +55,7 @@ export const BottomInfoModal = ({
     }
 
     const navigateToEditProduct = (productId: number) => {
-        router.push(DASHBOARD_PAGES.EDIT_PRODUCT(productId))
+        router.push(DASHBOARD_PAGES.EDIT_PRODUCT(productId).path)
     }
     return (
 
