@@ -7,6 +7,7 @@ import { ETenderType, IPurchaseTender, ISaleTender, ITender, ITenderAPI, ITender
 import { getArgsTender } from "../lib/args.tender.lib";
 import { tenderTypeToEn } from "../lib/tender.lib";
 import { getHeaderAuthorization } from "@/entities/Auth/lib/auth-token.lib";
+import { IPropsTenderSale } from "../model/props.tender.model";
 
 
 export const TenderAPI = createApi({
@@ -98,5 +99,14 @@ export const TenderAPI = createApi({
                 params: args?.params
             })
         }), 
+
+        createSaleTender: build.mutation<void, IPropsTenderSale>({
+            query: (body) => ({
+                url: `/AddSaleRequest`,
+                method: 'POST',
+                headers: getHeaderAuthorization(),
+                body,
+            })
+        })
 	})
 })

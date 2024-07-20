@@ -64,6 +64,8 @@
     &:disabled {
         background-color: var(--disabled);
         color: var(--button-color-on);
+        pointer-events: none;
+        user-select: none;
     }
 }
 

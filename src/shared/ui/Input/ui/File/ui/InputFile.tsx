@@ -11,12 +11,17 @@ import { FILE_ADD_ICON } from "../../../../Icon/data/file.data.icon";
 import { getInputFilePrompt } from "../lib/file.input.lib";
 import { IFile } from "@/entities/File/model/file.model";
 import { fileListToIFileList } from "@/entities/File/lib/to.file.lib";
+import { FileAPI } from "@/entities/File/api/file.api";
+import { uploadFileList } from "@/entities/File/lib/upload.file.lib";
+import { IResponseFile } from "@/entities/File/model/props.file.model";
 
 interface InputFileProps extends IWrapperRectangleInputChildren, IInput {
     title?: string
     multiple?: boolean
     setFiles?: Dispatch<SetStateAction<IFile[]>>
 }
+
+// TODO: Добавить уведомледния об успешной / не успешной загрузке
 
 /**
  * 
@@ -45,6 +50,9 @@ export const InputFile:FC<InputFileProps> = ({
     // STATE
     const [locTitle, setLocTitle] = useState<string>(getInputFilePrompt(multiple))
 
+    // API
+    const [uploadFile] = FileAPI.useUploadFileMutation()
+
     // EFFECT
     useEffect(() => {
         if (title) {
@@ -60,11 +68,20 @@ export const InputFile:FC<InputFileProps> = ({
         
         if (setFiles && e.target.files && e.target.files.length > 0) {
             const fileArray = fileListToIFileList(Array.from(e.target.files))
-            console.log(fileArray[0])
-            if (!multiple)
-                setFiles([fileArray[0]])
-            else
-                setFiles(prevFiles => [...prevFiles, ...fileArray])
+            uploadFileList(multiple ? fileArray : [fileArray[0]], uploadFile).then(
+                uploadedFileList => {
+                    const responseFileList = uploadedFileList.filter(file => file !== null) as IResponseFile[]
+                    if (responseFileList.length === 0) return
+                    setFiles(prevFiles => {
+                        return multiple ? [...prevFiles, ...responseFileList] : [responseFileList[0]]
+                    })
+                },
+                e => { console.error(e) }
+            )
+            // if (!multiple)
+            //     setFiles([fileArray[0]])
+            // else
+            //     setFiles(prevFiles => [...prevFiles, ...fileArray])
         }
     }
 
