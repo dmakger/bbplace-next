@@ -12,35 +12,35 @@ import { FAVOURITE_ICON_MENU } from '../../../shared/ui/Icon/data/favourite.data
 
 export const MAIN_ITEM_MOBILE_MENU_DATA: IIconVariants = {
   id: 1,
-  link: MAIN_PAGES.HOME,
+  link: MAIN_PAGES.HOME.path,
   title: "Главная",
   image: LOGO_ICON,
 }
 
 export const CATALOG_ITEM_MOBILE_MENU_DATA: IIconVariants = {
   id: 2,
-  link: MAIN_PAGES.CATALOG,
+  link: MAIN_PAGES.CATALOG.path,
   title: "Каталог",
   image: CATALOG_ICON
 }
 
 export const DASHBOARD_ITEM_MOBILE_MENU_DATA: IIconVariants = {
   id: 3,
-  link: DASHBOARD_PAGES.CHATS,
+  link: DASHBOARD_PAGES.CHATS.path,
   title: "Чат",
   image: CHAT_ICON
 }
 
 export const FAVORITE_ITEM_MOBILE_MENU_DATA: IIconVariants = {
   id: 4,
-  link: DASHBOARD_PAGES.FAVORITE,
+  link: DASHBOARD_PAGES.FAVORITE.path,
   title: "Избранное",
   image: FAVOURITE_ICON_MENU
 }
 
 export const LK_ITEM_MOBILE_MENU_DATA: IIconVariants = {
   id: 5,
-  link: DASHBOARD_PAGES.HOME,
+  link: DASHBOARD_PAGES.HOME.path,
   title: "ЛК",
   image: LK_ICON
 }
@@ -53,7 +53,7 @@ export const BACK_ITEM_MENU_DATA: IIconVariants = {
 
 export const SUPPORT_ITEM_MENU_DATA: IIconVariants = {
   id: 7,
-  link: MAIN_PAGES.SUPPORT,
+  link: MAIN_PAGES.SUPPORT.path,
   title: 'Поддержка',
   image: SUPPORT_MENU_ICON 
 }

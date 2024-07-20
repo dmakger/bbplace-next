@@ -143,7 +143,7 @@ export const SignUpChildrenPage = () => {
                 descriptionTooltipText={SELECT_THE_COUNTRIES}
                 errorInputMessage={errorCountry}
             >
-                <Input.TextAndSelect placeholder="Выберите страну" listOptions={countriesAsOption} variant={EInputVariants.RECTANGULAR} name="country" required warning={error && !!errorCountry} error={error && !!errorCountry} arrowSizes={{width: 16, height: 14}}/>
+                <Input.TextAndSelect placeholder="Выберите страну" options={countriesAsOption} variant={EInputVariants.RECTANGULAR} name="country" required warning={error && !!errorCountry} error={error && !!errorCountry} arrowSizes={{width: 16, height: 14}}/>
             </WrapperRectangleInput>
             <WrapperRectangleInput
                 labelText="Пароль"

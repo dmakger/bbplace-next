@@ -44,6 +44,11 @@ class MAIN extends Route {
 
     SUPPORT = this.createPath('/support');
 
+    CHECK_EMAIL = this.createPath('/checkEmail')
+    LOGIN = this.createPath('/signIn')
+    REGISTRATION = this.createPath('/signUp')
+    FORGOT_PASSWORD = this.createPath('/forgotPassword')
+
     CURRENT_SUPPLIER = this.createDynamicPath((id: ISupplier['id']) => `/supplier/${id}`, true);
     CURRENT_PRODUCT = this.createDynamicPath((id: IProduct['id']) => `/product/${id}`, true);
     CURRENT_TENDER = this.createDynamicPath<{ id: ITender['id'], type?: IBaseTender['type'] }>(

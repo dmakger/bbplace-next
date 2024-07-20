@@ -61,7 +61,7 @@ export const SignInChildrenPage = () => {
             const data = await userLogin({username: emailValue, password: password}).unwrap()
             if(data){
                 actionCreators.setAuth(data);
-                router.replace(MAIN_PAGES.HOME)
+                router.replace(MAIN_PAGES.HOME.path)
             }
         }
         catch(e: any){

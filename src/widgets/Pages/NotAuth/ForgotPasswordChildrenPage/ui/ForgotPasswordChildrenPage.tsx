@@ -22,7 +22,8 @@ export const ForgotPasswordChildrenPage = () => {
 
     //SEARCH_PARAMS
     const token = false;
-    const emailFromUrl = useSearchParams()
+    // const emailFromUrl = useSearchParams()
+    const emailFromUrl = ''
 
     // const email = useSearchParams()[0].get('email')
 
@@ -89,7 +90,7 @@ export const ForgotPasswordChildrenPage = () => {
                 isLoadingBellowButton={isLoadingSendResetLink}
                 onClickBellowButton={sendResetPasswordRequest}
             >
-                <Input.Text type="email" variant={EInputVariants.RECTANGULAR} placeholder="Введите email" name="email" defaultValue={!token ? userEmail: emailFromUrl} warning={isError} error={isError} disabled={!!token} />
+                <Input.Text type="email" variant={EInputVariants.RECTANGULAR} placeholder="Введите email" name="email" defaultValue={!token ? userEmail : emailFromUrl} warning={isError} error={isError} disabled={!!token} />
             </WrapperRectangleInput>
 
             {token && <>

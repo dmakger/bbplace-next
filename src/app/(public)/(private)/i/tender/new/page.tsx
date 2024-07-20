@@ -42,7 +42,7 @@ export default function LKTenderNewPage() {
     return (
         <Wrapper1280>
             <HeaderLKPT title={'Новый тендер'} 
-                        selectedOption={selectedOption} setSelectedOption={setSelectedOption} 
+                        selectedoption={selectedOption} setselectedoption={setSelectedOption} 
                         options={TENDER_TYPE_OPTIONS} optionsTab={{}}
                         isButtonAdd={false} />
             <div className={cl.block}>

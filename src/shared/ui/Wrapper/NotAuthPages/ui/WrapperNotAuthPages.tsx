@@ -33,11 +33,11 @@ export const WrapperNotAuthPages = ({
     const router = useRouter();
 
     //FUNCTION
-    const navigateToTheSupport = () => router.push(MAIN_PAGES.SUPPORT);
+    const navigateToTheSupport = () => router.push(MAIN_PAGES.SUPPORT.path);
 
     const goBack = () => router.back();
 
-    const navigateToTheForgotPassword = () => router.push(MAIN_PAGES.FORGOT_PASSWORD)
+    const navigateToTheForgotPassword = () => router.push(MAIN_PAGES.FORGOT_PASSWORD.path)
 
     return (
         <div className={cls(cl.WrapperNotAuthPages, className)}>

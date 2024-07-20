@@ -6,7 +6,7 @@ import { MOBILE_MENU_DATA } from '@/shared/data/menu/mobile.menu.data';
 import { cls } from '@/shared/lib/classes.lib';
 import { usePathname, useRouter } from 'next/navigation';
 import { IIconVariants } from '@/shared/model/icon.model';
-import { IIcon } from '@/shared/ui/Icon/model/model';
+import { IIcon } from '@/shared/ui/Icon/model/icon.model';
 
 interface IMobileNavbar {
   menuData?: IIconVariants[]
