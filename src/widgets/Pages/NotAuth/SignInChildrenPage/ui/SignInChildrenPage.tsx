@@ -1,10 +1,10 @@
 'use client'
 
-import { WrapperNotAuthPages } from "@/shared/ui/Wrapper/NotAuthPages"
+import { WrapperForLogInNSupportPages } from "@/shared/ui/Wrapper/ForLogInNSupportPages"
 import { WrapperRectangleInput } from "@/shared/ui/Wrapper/RectangleInput"
 import Input from "@/shared/ui/Input/Input"
 import { EInputVariants } from "@/shared/ui/Input/model/input.model"
-import { useEffect, useRef, useState } from "react"
+import { FormEvent, useEffect, useRef, useState } from "react"
 import { useRouter } from "next/navigation"
 import { useActionCreators, useAppSelector } from "@/storage/hooks"
 import { UserAPI } from "@/entities/Auth/api/auth.api"
@@ -12,12 +12,13 @@ import { getFormData } from "@/shared/lib/formData.lib"
 import { MAIN_PAGES } from "@/config/pages-url.config"
 import { EMAIL_VALID_RULES, isEmailValid } from "@/entities/Auth/data/email.data"
 import { FILL_THE_FIELD, LOGIN_ERROR } from "@/entities/Auth/data/errorMessages.data"
+import { ButtonType } from "@/shared/ui/Button/model/button.model"
 
 
 export const SignInChildrenPage = () => {
 
     //STATE
-    const [error, setError] = useState<number>()
+    const [error, setError] = useState<boolean>(false)
     const [errorEmail, setErrorEmail] = useState<string>('')
     const [errorPassword, setErrorPassword] = useState<string>('')
 
@@ -28,23 +29,20 @@ export const SignInChildrenPage = () => {
     const router = useRouter()
 
     //API
-    const [userLogin, {isLoading}] = UserAPI.useUserLoginMutation();
+    const [userLogin, { isLoading }] = UserAPI.useUserLoginMutation();
 
     //RTK
-    const {email} = useAppSelector(state => state.user)
+    const { email } = useAppSelector(state => state.user)
     const actionCreators = useActionCreators();
-
-    //EFFECT
-    useEffect(() => {
-        
-    }, [error])
 
 
     //FUNCTIONS
-    const LogIn = async() => {
-        setError(0)
+    const LogIn = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        setError(false)
         if (!formRef.current) return;
-        const {email: emailValue, password} = getFormData(formRef?.current)
+        const { email: emailValue, password } = getFormData(formRef?.current)
 
         //EMAIL
         if (!emailValue) {
@@ -56,46 +54,45 @@ export const SignInChildrenPage = () => {
         //PASSWORD        
         if (!password) setErrorPassword(FILL_THE_FIELD);
 
-
-        try{
-            const data = await userLogin({username: emailValue, password: password}).unwrap()
-            if(data){
+        try {
+            const data = await userLogin({ username: emailValue, password: password }).unwrap()
+            if (data) {
                 actionCreators.setAuth(data);
                 router.replace(MAIN_PAGES.HOME.path)
             }
         }
-        catch(e: any){
+        catch (e: any) {
             setError(e.data.status)
-            if(emailValue && password && e.data.status === 400 || e.data.status === 401){
+            if (emailValue && password && e.data.status === 400 || e.data.status === 401) {
                 setErrorEmail(LOGIN_ERROR)
                 setErrorPassword(LOGIN_ERROR);
             }
-            
         }
     }
 
     return (
-        <WrapperNotAuthPages pageTitle="Вход в профиль" onSubmitFunc={LogIn} formRef={formRef} forgotPasswordButton>
+        <WrapperForLogInNSupportPages pageTitle="Вход в профиль" onSubmitFunc={LogIn} formRef={formRef} forgotPasswordButton>
             <WrapperRectangleInput
                 labelText="Электронная почта"
                 isRequired
                 isDescriptionTooltip
                 descriptionTooltipText="Введите адрес электронной почты, на которую был зарегистрирован профиль"
                 errorInputMessage={errorEmail}
-                
+
             >
-                <Input.Text type="email" variant={EInputVariants.RECTANGULAR} placeholder="Введите email" name="email" defaultValue={email} success={!!email} error={!!error && !!errorEmail} warning={!!error && !!errorEmail}/>
+                <Input.Text type="email" variant={EInputVariants.RECTANGULAR} placeholder="Введите email" name="email" defaultValue={email} success={!!email} error={error && !!errorEmail} warning={error && !!errorEmail} />
             </WrapperRectangleInput>
             <WrapperRectangleInput
                 labelText="Пароль"
                 isRequired
                 bellowButtonText="Войти"
+                bellowButtonType={ButtonType.Submit}
                 errorInputMessage={errorPassword}
                 isLoadingBellowButton={isLoading}
                 onClickBellowButton={LogIn}
             >
-                <Input.Text type="password" variant={EInputVariants.RECTANGULAR} placeholder="Введите пароль" name="password" error={!!error && !!errorPassword} warning={!!error && !!errorPassword}/>
+                <Input.Text type="password" variant={EInputVariants.RECTANGULAR} placeholder="Введите пароль" name="password" error={error && !!errorPassword} warning={error && !!errorPassword} />
             </WrapperRectangleInput>
-        </WrapperNotAuthPages>
+        </WrapperForLogInNSupportPages>
     )
 }

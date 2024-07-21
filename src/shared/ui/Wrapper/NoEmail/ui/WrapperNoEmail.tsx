@@ -9,6 +9,11 @@ interface IWrapperNoEmail {
     children: ReactNode;
 }
 
+/**
+ * Враппер для страниц, для которых обязательно наличие email в RTK
+ * @returns Страницу, если email есть в RTK, если нет, то редирект на CheckEmailPage 
+ */
+
 export const WrapperNoEmail = ({ children }: IWrapperNoEmail) => {
     // RTK
     const { email } = useAppSelector(state => state.user);

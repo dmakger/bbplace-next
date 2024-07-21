@@ -1,6 +1,6 @@
 'use client'
 
-import { WrapperNotAuthPages } from "@/shared/ui/Wrapper/NotAuthPages"
+import { WrapperForLogInNSupportPages } from "@/shared/ui/Wrapper/ForLogInNSupportPages"
 import { WrapperRectangleInput } from "@/shared/ui/Wrapper/RectangleInput"
 import Input from "@/shared/ui/Input/Input"
 import { EInputVariants } from "@/shared/ui/Input/model/input.model"
@@ -13,6 +13,7 @@ import { useAppSelector } from "@/storage/hooks"
 import { EMAIL_VALID_RULES } from "@/entities/Auth/data/email.data"
 import { PASSWORD_MATCHING_ERROR, PASSWORD_VALID_RULES, isPasswordValid } from "@/entities/Auth/data/password.data"
 import { FILL_THE_FIELD } from "@/entities/Auth/data/errorMessages.data"
+import { ButtonType } from "@/shared/ui/Button/model/button.model"
 
 
 export const ForgotPasswordChildrenPage = () => {
@@ -59,7 +60,9 @@ export const ForgotPasswordChildrenPage = () => {
         }
     }
 
-    const resetPasswordFunc = async() => {  
+    const resetPasswordFunc = async(e: FormEvent<HTMLFormElement>) => { 
+        e.preventDefault();
+ 
 
         if(!formRef.current) return;
         const {email, password, confirmPassword} = getFormData(formRef.current)
@@ -81,11 +84,12 @@ export const ForgotPasswordChildrenPage = () => {
 
 
     return (
-        <WrapperNotAuthPages pageTitle="Восстановление пароля" onSubmitFunc={token ? sendResetPasswordRequest : resetPasswordFunc} formRef={formRef}>
+        <WrapperForLogInNSupportPages pageTitle="Восстановление пароля" onSubmitFunc={token ? sendResetPasswordRequest : resetPasswordFunc} formRef={formRef}>
             <WrapperRectangleInput
                 labelText="Электронная почта"
                 isRequired
                 bellowButtonText={!token ? "Восстановить" : ''}
+                bellowButtonType={ButtonType.Submit}
                 errorInputMessage={errorMessage}
                 isLoadingBellowButton={isLoadingSendResetLink}
                 onClickBellowButton={sendResetPasswordRequest}
@@ -105,6 +109,7 @@ export const ForgotPasswordChildrenPage = () => {
                         labelText="Подтверждение пароля"
                         isRequired
                         errorInputMessage={errorMessage}
+                        bellowButtonType={ButtonType.Submit}
                         bellowButtonText='Сменить пароль'
                         isLoadingBellowButton={isLoadingResetPassword}
                         onClickBellowButton={resetPasswordFunc}
@@ -112,6 +117,6 @@ export const ForgotPasswordChildrenPage = () => {
                         <Input.Text type="password" variant={EInputVariants.RECTANGULAR} placeholder="Введите пароль еще раз" name="confirmPassword" required />
                     </WrapperRectangleInput>
                 </>}
-        </WrapperNotAuthPages>
+        </WrapperForLogInNSupportPages>
     )
 }

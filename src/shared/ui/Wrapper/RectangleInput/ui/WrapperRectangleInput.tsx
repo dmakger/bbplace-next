@@ -19,6 +19,7 @@ import { FileItem } from '@/entities/File/ui/Item/ui/Base/FileItem';
 import { FileItemAttachment } from '@/entities/File/ui/Item/ui/Attachment/FileItemAttachment';
 import { FileWrapList } from '@/entities/File/ui/Wrap/FileWrapList';
 import { ARROW_IN_CIRCLE } from '@/shared/ui/Icon/data/arrow.data.icon';
+import { ButtonType } from '@/shared/ui/Button/model/button.model';
 
 interface IWrapperRectangleInput {
   className?: string
@@ -35,6 +36,7 @@ interface IWrapperRectangleInput {
   linkHref?: string,
 
   bellowButtonText?: string,
+  bellowButtonType?: ButtonType,
   isCanDisabledBellowButton?: boolean,
   onClickBellowButton?: Function,
   isLoadingBellowButton?: boolean,
@@ -64,6 +66,7 @@ export const WrapperRectangleInput = ({
   linkHref,
 
   bellowButtonText,
+  bellowButtonType = ButtonType.Button,
   isCanDisabledBellowButton = false,
   onClickBellowButton,
   isLoadingBellowButton,
@@ -275,6 +278,7 @@ export const WrapperRectangleInput = ({
             className={cls(cl.bellowButton, isDisabled ? cl.disabled : '')}
             disabled={isDisabled}
             onClick={onClickBellowButton}
+            type={bellowButtonType}
           />
         }
         <Modal

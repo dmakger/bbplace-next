@@ -6,11 +6,11 @@ import { SELLER_N_SUPPLIER_ROLE_ITEM_DATA, SELLER_ROLE_ITEM_DATA, SUPPLIER_ROLE_
 import { getFormData } from '@/shared/lib/formData.lib'
 import Input from "@/shared/ui/Input/Input"
 import { EInputVariants } from "@/shared/ui/Input/model/input.model"
-import { WrapperNotAuthPages } from "@/shared/ui/Wrapper/NotAuthPages"
+import { WrapperForLogInNSupportPages } from "@/shared/ui/Wrapper/ForLogInNSupportPages"
 import { WrapperRectangleInput } from "@/shared/ui/Wrapper/RectangleInput"
 import { ELabelPosition } from "@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model"
 import { useRouter } from "next/navigation"
-import { useEffect, useRef, useState } from "react"
+import { FormEvent, useEffect, useRef, useState } from "react"
 import { CountryAPI } from '@/entities/Metrics/api/country.metrics.api'
 import { ERadioVariant } from '@/shared/ui/Input/ui/Radio/model/radio.model'
 import { PASSWORD_MATCHING_ERROR, PASSWORD_VALID_RULES, isPasswordValid } from '@/entities/Auth/data/password.data'
@@ -18,6 +18,9 @@ import { EMAIL_VALID_RULES, isEmailValid } from '@/entities/Auth/data/email.data
 import { FILL_THE_FIELD, SELECT_THE_COUNTRIES } from '@/entities/Auth/data/errorMessages.data'
 import { IOption } from '@/shared/model/option.model'
 import { getCountriesAsOption } from '@/features/Filter/lib/filter.lib'
+import { ButtonType } from '@/shared/ui/Button/model/button.model'
+import { MAIN_PAGES } from '@/config/pages-url.config'
+import { useActionCreators } from '@/storage/hooks'
 
 
 export const SignUpChildrenPage = () => {
@@ -30,6 +33,9 @@ export const SignUpChildrenPage = () => {
     const [errorOffert, setErrorOffert] = useState<string>('')
 
     const [countriesAsOption, setCountriesAsOption] = useState<IOption[]>([])
+
+    //RTK
+    const actionCreators = useActionCreators();
 
     //REF
     const formRef = useRef<HTMLFormElement>(null)
@@ -48,7 +54,9 @@ export const SignUpChildrenPage = () => {
     }, [countries])
 
     // FUNCTIONS
-    const signUp = async() => {
+    const signUp = async(e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+
         setError(true);
         setErrorPassword('');
         setErrorEmail('');
@@ -111,15 +119,13 @@ export const SignUpChildrenPage = () => {
             emailSubscription: emailSubscription === 'on' ? true : false,
         };
         
-        console.log(requestData);
         
         try {
             const regData = await userRegistration(requestData).unwrap();
-            console.log(regData);
 
             if (regData) {
-                // actionCreators.setAuth(data);
-                // router.replace(MAIN_PAGES.HOME.path)
+                actionCreators.setAuth(regData);
+                router.replace(MAIN_PAGES.HOME.path)
             }
         } catch (e: any) {
             e.data.message === 'User already exists!' && setErrorEmail('Пользователь с такой почтой уже зарегистрирован')
@@ -128,7 +134,7 @@ export const SignUpChildrenPage = () => {
     }
     
     return (
-        <WrapperNotAuthPages pageTitle="Регистрация профиля" onSubmitFunc={signUp} formRef={formRef} >
+        <WrapperForLogInNSupportPages pageTitle="Регистрация профиля" onSubmitFunc={signUp} formRef={formRef} >
             <WrapperRectangleInput
                 labelText="Электронная почта"
                 isRequired
@@ -179,6 +185,7 @@ export const SignUpChildrenPage = () => {
                 labelPosition={ELabelPosition.RIGHT}
                 isRequired
                 onClickBellowButton={signUp}
+                bellowButtonType={ButtonType.Submit}
                 isLoadingBellowButton={isLoading}
                 bellowButtonText="Зарегистрировать"
                 linkText='Оферта'
@@ -186,6 +193,6 @@ export const SignUpChildrenPage = () => {
             >
                 <Input.Checkbox variant={EInputVariants.RECTANGULAR} name="offert" error={!!errorOffert && error} required/>
             </WrapperRectangleInput>
-        </WrapperNotAuthPages>
+        </WrapperForLogInNSupportPages>
     )
 }

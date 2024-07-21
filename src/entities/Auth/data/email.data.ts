@@ -1,6 +1,6 @@
 export const isEmailValid = (value: string) => {
-    if(value.includes('@') && value.includes('.')) return true
-    return false;
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(value);
 }
 
 export const EMAIL_VALID_RULES: string = 'Введите корректный адрес электронной почты'

@@ -1,7 +1,7 @@
 'use client'
 
 import { cls } from "@/shared/lib/classes.lib"
-import cl from './_WrapperNotAuthPages.module.scss'
+import cl from './_WrapperForLogInNSupportPages.module.scss'
 import { Button, ButtonVariant } from "@/shared/ui/Button"
 import { ButtonColor, ButtonSize } from "@/shared/ui/Button/model/button.model"
 import { SUPPORT_ICON } from "@/shared/ui/Icon/data/support.data.icon"
@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation"
 import { MAIN_PAGES } from "@/config/pages-url.config"
 import { Logo } from "@/shared/ui/Logo"
 
-interface IWrapperNotAuthPages {
+interface IWrapperForLogInNSupportPages {
     className?: string,
     pageTitle: string,
     children: ReactNode,
@@ -20,14 +20,14 @@ interface IWrapperNotAuthPages {
     forgotPasswordButton?: boolean
 }
 
-export const WrapperNotAuthPages = ({
+export const WrapperForLogInNSupportPages = ({
     className,
     pageTitle,
     children,
     formRef,
     onSubmitFunc,
     forgotPasswordButton = false
-}: IWrapperNotAuthPages) => {
+}: IWrapperForLogInNSupportPages) => {
 
     //ROUTER
     const router = useRouter();
@@ -40,7 +40,7 @@ export const WrapperNotAuthPages = ({
     const navigateToTheForgotPassword = () => router.push(MAIN_PAGES.FORGOT_PASSWORD.path)
 
     return (
-        <div className={cls(cl.WrapperNotAuthPages, className)}>
+        <div className={cls(cl.WrapperForLogInNSupportPages, className)}>
             <Logo sizes={{ width: 120, height: 120 }}
                 className={cl.logoButton} />
             <form className={cl.formContainer} onSubmit={onSubmitFunc} ref={formRef}>

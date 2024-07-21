@@ -42,10 +42,8 @@
     border: 1px solid var(--gray-5);
     padding-left: 3px;
 
-
-
     .input {
-        background-color: var(--gray-3) !important;
+        background-color: var(--gray-3) ;
         font-size: var(--font-size-s);
 
         &::placeholder {
@@ -55,7 +53,7 @@
 
     &:hover {
         .input {
-            background-color: var(--gray-4) !important;
+            background-color: var(--gray-4);
         }
     }
 }
