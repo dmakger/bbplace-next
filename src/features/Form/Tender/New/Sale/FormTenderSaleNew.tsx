@@ -33,19 +33,19 @@ export const FormTenderSaleNew:FC<FormTenderSaleNewProps> = ({className}) => {
     const [categoryOptions, setCategoryOptions] = useState<IOption[]>([])
     const [metricOptions, setMetricOptions] = useState<IOption[]>([])
     const [currencyOptions, setCurrencyOptions] = useState<IOption[]>([])
-    const [userShareContact, setUserShareContact] = useState(true)
+    const [userShareContact, setUserShareContact] = useState(false)
 
     const [selectedCategoryOption, setSelectedCategoryOption] = useState<IOption | null>(null)
     const [selectedMinOrderOption, setSelectedMinOrderOption] = useState<IOption | null>(null)
     const [selectedCurrencyOption, setSelectedCurrencyOption] = useState<IOption | null>(null)
-    const [uploadedFileList, setUploadedFileList] = useState<IResponseFile[]>([])
+    const [uploadedFileList, setUploadedFileList] = useState<IFile[]>([])
+    const [uploadedResponseFileList, setUploadedResponseFileList] = useState<IResponseFile[]>([])
     
     // API
     const {data: categoryList} = CategoryAPI.useGetCategoriesByIdQuery(undefined)              
     const {data: metricList} = MetricsAPI.useGetMetricsQuery()             
     const {data: currencyList} = CurrencyAPI.useGetCurrenciesQuery()
     const [createSaleTender] = TenderAPI.useCreateSaleTenderMutation()
-    const [getFile] = FileAPI.useGetFileMutation()
     
     // REF
     const formRef = useRef<HTMLFormElement>(null)
@@ -75,64 +75,57 @@ export const FormTenderSaleNew:FC<FormTenderSaleNewProps> = ({className}) => {
         
         const formData = getFormData(formRef.current)
         
-        console.log('qwe formData', formData, selectedCategoryOption, selectedMinOrderOption, selectedCurrencyOption, uploadedFileList)
-        getFileItemOfServer(uploadedFileList[0], getFile, true)
-        // const fileList = uploadFileList(selectedFileList, uploadFile)
-        // console.log('qwe fileList', fileList)
-        // const apiData: IPropsTenderSale = {
-        //     name: formData.name,
-        //     categoryId: selectedCategoryOption!.id,
-        //     price: formData.price,
-        //     currency: `${selectedCurrencyOption!.params!.code}`,
-        //     minOrder: formData.minOrder,
-        //     minOrderUnits: `${selectedMinOrderOption!.params!.shortName}`,
-        //     bulkDiscounts: null,
-        //     description: formData.description,
-        //     shareContacts: true,
-        //     attachments: ""
-        // }
-        // createSaleTender()
+        console.log('qwe formData', formData, selectedCategoryOption, selectedMinOrderOption, selectedCurrencyOption, uploadedFileList, uploadedResponseFileList)
+        const apiData: IPropsTenderSale = {
+            name: formData.name,
+            categoryId: selectedCategoryOption!.id,
+            price: formData.price,
+            currency: `${selectedCurrencyOption!.params!.code}`,
+            minOrder: formData.minOrder,
+            minOrderUnits: `${selectedMinOrderOption!.params!.shortName}`,
+            bulkDiscounts: false,
+            description: formData.description,
+            shareContacts: true,
+            attachments: JSON.stringify(uploadedResponseFileList),
+        }
+        createSaleTender(apiData)
     }
     
     return (
         <form onSubmit={handleOnSubmit} ref={formRef} className={cls(cl.form, className)}>
             <WrapperRectangleInput labelText={"Наименование"} isRequired={true}>
                 <Input.Text name={'name'} placeholder="До 50 символов"
-                            defaultValue="123"
                             required={true} variant={EInputVariants.RECTANGULAR} />
             </WrapperRectangleInput>
             <WrapperRectangleInput labelText={"Категория"} isRequired={true}>
                 <Input.TextAndSelect name={'category'} placeholder="Выберите категорию" 
-                                    defaultOption={categoryOptions[0]}
                                     options={categoryOptions} onClickOption={setSelectedCategoryOption}
                                     titleModal="Категория" required={true} variant={EInputVariants.RECTANGULAR} /> 
             </WrapperRectangleInput>
             <WrapperRectangleInput labelText={"Минимальный заказ"} isRequired={true}>
                 <Input.Text name={'minOrder'} placeholder="Введите число"
-                            defaultValue="123"
                             required={true} variant={EInputVariants.RECTANGULAR} />
                 <Input.TextAndSelect name={'selectMinOrder'} placeholder="Измерение" 
-                                    defaultOption={metricOptions[0]}
                                     options={metricOptions} onClickOption={setSelectedMinOrderOption}
                                     titleModal="Измерение" required={true} variant={EInputVariants.RECTANGULAR} /> 
             </WrapperRectangleInput>
             <WrapperRectangleInput labelText={"Цена"}>
                 <Input.Text name={'price'} placeholder="Введите число"
-                            defaultValue="123"
                             variant={EInputVariants.RECTANGULAR} />
                 <Input.TextAndSelect name={'currency'} placeholder="Валюта" 
-                                    defaultOption={currencyOptions[0]}
                                     options={currencyOptions} onClickOption={setSelectedCurrencyOption}
                                     titleModal="Валюта" variant={EInputVariants.RECTANGULAR} /> 
             </WrapperRectangleInput>
             <WrapperRectangleInput labelText={"Описание"} isRequired={true}>
                 <Input.Text name={'description'} placeholder="Начните вводить"
-                            defaultValue="123"
                             required={true} variant={EInputVariants.RECTANGULAR} 
                             inputTypeVariant={EInputTextTypeVariants.TEXTAREA} />
             </WrapperRectangleInput>
-            <WrapperRectangleInput labelText={"Файлы"} fileList={uploadedFileList} setFileList={setUploadedFileList}>
-                <Input.File name={'files'} placeholder="Начните вводить" setFileList={setUploadedFileList}
+            <WrapperRectangleInput labelText={"Файлы"} 
+                                fileList={uploadedFileList} setFileList={setUploadedFileList}
+                                responseFileList={uploadedResponseFileList} setResponseFileList={setUploadedResponseFileList}>
+                <Input.File name={'files'} placeholder="Начните вводить" 
+                            setFileList={setUploadedFileList} setResponseFileList={setUploadedResponseFileList}
                             variant={EInputVariants.RECTANGULAR}  />
             </WrapperRectangleInput>
             <WrapperRectangleInput labelText='Поделиться контактами' labelPosition={ELabelPosition.RIGHT}>

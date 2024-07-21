@@ -14,12 +14,8 @@ import { EModalView } from '@/shared/data/modal.data';
 import { BottomInfoModal } from '@/features/Modal/BottomInfo';
 import { WrapperModalBottom } from '../../ModalBottom';
 import { IFile } from '@/entities/File/model/file.model';
-import { FileItem } from '@/entities/File/ui/Item/ui/Base/FileItem';
-import { FileItemAttachment } from '@/entities/File/ui/Item/ui/Attachment/FileItemAttachment';
 import { FileWrapList } from '@/entities/File/ui/Wrap/FileWrapList';
 import { IResponseFile } from '@/entities/File/model/props.file.model';
-import { FileAPI } from '@/entities/File/api/file.api';
-import { getFileListOfServer } from '@/entities/File/lib/getter.file.lib';
 
 interface IWrapperRectangleInput {
   className?: string
@@ -37,8 +33,10 @@ interface IWrapperRectangleInput {
   errorInputMessage?: string,
   labelPosition?: ELabelPosition
 
-  fileList?: IResponseFile[]
-  setFileList?: Dispatch<SetStateAction<IResponseFile[]>>
+  fileList?: IFile[]
+  setFileList?: Dispatch<SetStateAction<IFile[]>>
+  responseFileList?: IResponseFile[]
+  setResponseFileList?: Dispatch<SetStateAction<IResponseFile[]>>
 }
 
 export const WrapperRectangleInput = ({
@@ -59,7 +57,8 @@ export const WrapperRectangleInput = ({
 
   fileList=[],
   setFileList,
-
+  responseFileList=[],
+  setResponseFileList,
 }: IWrapperRectangleInput) => {
 
   // STATE
@@ -81,21 +80,8 @@ export const WrapperRectangleInput = ({
   const [successes, setSuccesses] = useState<Record<string, boolean>>({});
   const [warning, setWarning] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
-  
-  // API
-  const [getFile] = FileAPI.useGetFileMutation()
 
   //EFFECT
-
-  useEffect(() => {
-	getFileListOfServer(fileList, getFile, true).then(
-		res => {
-			setUploadedFileList(res.filter(it => it !== null) as IFile[])
-		},
-		e => { console.error(e) }
-	)
-  }, [getFile, fileList])
-
   useEffect(() => {
 	const allSuccess = Object.values(successes).every(v => v === true);
 	const anyWarning = Object.values(warnings).some(v => v === true);
@@ -197,7 +183,9 @@ export const WrapperRectangleInput = ({
 	  </div>
 
 	  {fileList && fileList.length > 0 && (
-		  <FileWrapList fileList={fileList} setFileList={setFileList} className={cl.fileList}/>
+		  <FileWrapList fileList={fileList} setFileList={setFileList} 
+		  				responseFileList={responseFileList} setResponseFileList={setResponseFileList} 
+						className={cl.fileList}/>
 		)}
 
 	  {warning && errorInputSelectMessageArray && (

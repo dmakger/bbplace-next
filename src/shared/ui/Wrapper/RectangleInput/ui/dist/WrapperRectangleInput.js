@@ -27,32 +27,23 @@ var modal_data_1 = require("@/shared/data/modal.data");
 var BottomInfo_1 = require("@/features/Modal/BottomInfo");
 var ModalBottom_1 = require("../../ModalBottom");
 var FileWrapList_1 = require("@/entities/File/ui/Wrap/FileWrapList");
-var file_api_1 = require("@/entities/File/api/file.api");
-var getter_file_lib_1 = require("@/entities/File/lib/getter.file.lib");
 exports.WrapperRectangleInput = function (_a) {
-    var className = _a.className, classNameLabel = _a.classNameLabel, classNameDescriptionWindow = _a.classNameDescriptionWindow, classNameWarningWindow = _a.classNameWarningWindow, labelText = _a.labelText, children = _a.children, buttonText = _a.buttonText, onClickBellowButton = _a.onClickBellowButton, _b = _a.isRequired, isRequired = _b === void 0 ? false : _b, _c = _a.isDescriptionTooltip, isDescriptionTooltip = _c === void 0 ? true : _c, _d = _a.warningTooltipText, warningTooltipText = _d === void 0 ? 'Обязательно для заполнения' : _d, descriptionTooltipText = _a.descriptionTooltipText, _e = _a.errorInputMessage, errorInputMessage = _e === void 0 ? 'Выберите категорию из списка' : _e, _f = _a.labelPosition, labelPosition = _f === void 0 ? wrapperRectangleInput_model_1.ELabelPosition.TOP : _f, _g = _a.fileList, fileList = _g === void 0 ? [] : _g, setFileList = _a.setFileList;
+    var className = _a.className, classNameLabel = _a.classNameLabel, classNameDescriptionWindow = _a.classNameDescriptionWindow, classNameWarningWindow = _a.classNameWarningWindow, labelText = _a.labelText, children = _a.children, buttonText = _a.buttonText, onClickBellowButton = _a.onClickBellowButton, _b = _a.isRequired, isRequired = _b === void 0 ? false : _b, _c = _a.isDescriptionTooltip, isDescriptionTooltip = _c === void 0 ? true : _c, _d = _a.warningTooltipText, warningTooltipText = _d === void 0 ? 'Обязательно для заполнения' : _d, descriptionTooltipText = _a.descriptionTooltipText, _e = _a.errorInputMessage, errorInputMessage = _e === void 0 ? 'Выберите категорию из списка' : _e, _f = _a.labelPosition, labelPosition = _f === void 0 ? wrapperRectangleInput_model_1.ELabelPosition.TOP : _f, _g = _a.fileList, fileList = _g === void 0 ? [] : _g, setFileList = _a.setFileList, _h = _a.responseFileList, responseFileList = _h === void 0 ? [] : _h, setResponseFileList = _a.setResponseFileList;
     // STATE
-    var _h = react_1.useState([]), uploadedFileList = _h[0], setUploadedFileList = _h[1];
-    var _j = react_1.useState(false), isWarningActive = _j[0], setIsWarningActive = _j[1];
-    var _k = react_1.useState(false), isDescriptionActive = _k[0], setIsDescriptionActive = _k[1];
+    var _j = react_1.useState([]), uploadedFileList = _j[0], setUploadedFileList = _j[1];
+    var _k = react_1.useState(false), isWarningActive = _k[0], setIsWarningActive = _k[1];
+    var _l = react_1.useState(false), isDescriptionActive = _l[0], setIsDescriptionActive = _l[1];
     //Для InputText
-    var _l = react_1.useState(0), inputValueLength = _l[0], setInputValueLength = _l[1];
+    var _m = react_1.useState(0), inputValueLength = _m[0], setInputValueLength = _m[1];
     //Для RecursiveSelectInput
-    var _m = react_1.useState([]), selectedOptionsArray = _m[0], setSelectedOptionsArray = _m[1];
+    var _o = react_1.useState([]), selectedOptionsArray = _o[0], setSelectedOptionsArray = _o[1];
     //Для InputCheckbox
-    var _o = react_1.useState(false), checked = _o[0], setChecked = _o[1];
-    var _p = react_1.useState({}), warnings = _p[0], setWarnings = _p[1];
-    var _q = react_1.useState({}), successes = _q[0], setSuccesses = _q[1];
-    var _r = react_1.useState(false), warning = _r[0], setWarning = _r[1];
-    var _s = react_1.useState(false), success = _s[0], setSuccess = _s[1];
-    // API
-    var getFile = file_api_1.FileAPI.useGetFileMutation()[0];
+    var _p = react_1.useState(false), checked = _p[0], setChecked = _p[1];
+    var _q = react_1.useState({}), warnings = _q[0], setWarnings = _q[1];
+    var _r = react_1.useState({}), successes = _r[0], setSuccesses = _r[1];
+    var _s = react_1.useState(false), warning = _s[0], setWarning = _s[1];
+    var _t = react_1.useState(false), success = _t[0], setSuccess = _t[1];
     //EFFECT
-    react_1.useEffect(function () {
-        getter_file_lib_1.getFileListOfServer(fileList, getFile, true).then(function (res) {
-            setUploadedFileList(res.filter(function (it) { return it !== null; }));
-        }, function (e) { console.error(e); });
-    }, [getFile, fileList]);
     react_1.useEffect(function () {
         var allSuccess = Object.values(successes).every(function (v) { return v === true; });
         var anyWarning = Object.values(warnings).some(function (v) { return v === true; });
@@ -114,7 +105,7 @@ exports.WrapperRectangleInput = function (_a) {
                     react_1["default"].createElement(Button_1.Button, { variant: Button_1.ButtonVariant.CLEAR, className: classes_lib_1.cls(_WrapperRectangleInput_module_scss_1["default"].button, !success ? _WrapperRectangleInput_module_scss_1["default"].warnButton : _WrapperRectangleInput_module_scss_1["default"].successButton, isWarningActive && !success ? _WrapperRectangleInput_module_scss_1["default"].warningActive : '', isWarningActive && success ? _WrapperRectangleInput_module_scss_1["default"].successActive : ''), beforeImage: tooltipWarning_data_icon_1.TOOLTIP_WARNING_ICON, active: isWarningActive, beforeProps: { height: 14, width: 14 }, success: success, onClick: function () { return setIsWarningActive(function (prevState) { return !prevState; }); } }),
                     react_1["default"].createElement(HoverWindow_1.HoverWindow, { text: warningTooltipText, position: hoverWindow_model_1.EHoverWindowPosition.RIGHT, borderColor: !success ? hoverWindow_model_1.EHoverBorderColor.WARNING : hoverWindow_model_1.EHoverBorderColor.DEFAULT, show: isWarningActive, className: classes_lib_1.cls(_WrapperRectangleInput_module_scss_1["default"].warnWindowActive, _WrapperRectangleInput_module_scss_1["default"].windowActive, classNameWarningWindow) }))))),
         react_1["default"].createElement("div", { className: _WrapperRectangleInput_module_scss_1["default"].inputsContainer }, clonedChildren),
-        fileList && fileList.length > 0 && (react_1["default"].createElement(FileWrapList_1.FileWrapList, { fileList: fileList, setFileList: setFileList, className: _WrapperRectangleInput_module_scss_1["default"].fileList })),
+        fileList && fileList.length > 0 && (react_1["default"].createElement(FileWrapList_1.FileWrapList, { fileList: fileList, setFileList: setFileList, responseFileList: responseFileList, setResponseFileList: setResponseFileList, className: _WrapperRectangleInput_module_scss_1["default"].fileList })),
         warning && errorInputSelectMessageArray && (react_1["default"].createElement("div", { className: _WrapperRectangleInput_module_scss_1["default"].errorMessage }, errorInputSelectMessageArray.map(function (it, index) { return (react_1["default"].createElement("p", { key: index }, it)); }))),
         buttonText &&
             react_1["default"].createElement(Button_1.Button, { variant: Button_1.ButtonVariant.FILL, title: buttonText, className: classes_lib_1.cls(_WrapperRectangleInput_module_scss_1["default"].button, !selectedOptionsArray.length ? _WrapperRectangleInput_module_scss_1["default"].disabled : ''), disabled: !selectedOptionsArray.length, onClick: onClickBellowButton }),
