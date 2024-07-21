@@ -2,7 +2,7 @@ import { FileAPI } from "../api/file.api";
 import { IFile } from "../model/file.model";
 import { IResponseFile } from "../model/props.file.model";
 import { TUploadFile } from "../model/typeHook.file.model";
-import { getFile } from "./to.file.lib";
+import { getFileOfIFile } from "./to.file.lib";
 
 /**
  * @param fileList - список файлов типа `IFile | File`
@@ -17,10 +17,10 @@ export const uploadFileList = async (fileList: (IFile | File)[], uploadFile: TUp
 /**
  * @param file - передоваемый file имеет тип `IFile | File`
  * @param uploadFile - хук необходимый для загрузки файла на сервер. Реализация в `FileAPI` 
- * @returns Если `Promise` файла, в случае если успешно загружен `IResponseFile`, если нет то `null`
+ * @returns `Promise` файла, в случае если успешно загружен `IResponseFile`, если нет то `null`
  */
 export const uploadFileItem = async (file: IFile | File, uploadFile: TUploadFile) => {
-    const updatedFile = getFile(file)
+    const updatedFile = getFileOfIFile(file)
     if (!updatedFile) return null
 
     const formData = new FormData()

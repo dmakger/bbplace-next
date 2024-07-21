@@ -63,12 +63,12 @@ exports.FileAPI = react_1.createApi({
                                     file = new File([blob], 'image');
                                     if (!toFile)
                                         return [2 /*return*/, file];
-                                    console.log('tender 123', fileId, data, file);
                                     format = file_lib_1.getFormatFile(fileId);
                                     return [2 /*return*/, {
                                             name: file.name,
                                             url: file_lib_1.binaryToURL(data, format),
-                                            format: format
+                                            format: format,
+                                            file: file
                                         }];
                             }
                         });

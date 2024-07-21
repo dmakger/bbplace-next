@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-exports.getFile = exports.fileToIFile = exports.fileListToIFileList = void 0;
+exports.getFileOfIFile = exports.fileToIFile = exports.fileListToIFileList = void 0;
 var file_lib_1 = require("./file.lib");
 /**
  * Перевод списка файлов в список {IFile}
@@ -25,7 +25,7 @@ exports.fileToIFile = function (file) {
 /**
  * @returns `File` или `null`
  */
-exports.getFile = function (file) {
+exports.getFileOfIFile = function (file) {
     if (file instanceof File)
         return file;
     return file.file === undefined ? null : file.file;

@@ -17,6 +17,9 @@ import { IFile } from '@/entities/File/model/file.model';
 import { FileItem } from '@/entities/File/ui/Item/ui/Base/FileItem';
 import { FileItemAttachment } from '@/entities/File/ui/Item/ui/Attachment/FileItemAttachment';
 import { FileWrapList } from '@/entities/File/ui/Wrap/FileWrapList';
+import { IResponseFile } from '@/entities/File/model/props.file.model';
+import { FileAPI } from '@/entities/File/api/file.api';
+import { getFileListOfServer } from '@/entities/File/lib/getter.file.lib';
 
 interface IWrapperRectangleInput {
   className?: string
@@ -34,8 +37,8 @@ interface IWrapperRectangleInput {
   errorInputMessage?: string,
   labelPosition?: ELabelPosition
 
-  fileList?: IFile[]
-  setFileList?: Dispatch<SetStateAction<IFile[]>>
+  fileList?: IResponseFile[]
+  setFileList?: Dispatch<SetStateAction<IResponseFile[]>>
 }
 
 export const WrapperRectangleInput = ({
@@ -60,6 +63,8 @@ export const WrapperRectangleInput = ({
 }: IWrapperRectangleInput) => {
 
   // STATE
+  const [uploadedFileList, setUploadedFileList] = useState<IFile[]>([]);
+
   const [isWarningActive, setIsWarningActive] = useState<boolean>(false)
   const [isDescriptionActive, setIsDescriptionActive] = useState<boolean>(false);
 
@@ -72,13 +77,25 @@ export const WrapperRectangleInput = ({
   //Для InputCheckbox
   const [checked, setChecked] = useState<boolean>(false)
 
-
   const [warnings, setWarnings] = useState<Record<string, boolean>>({});
   const [successes, setSuccesses] = useState<Record<string, boolean>>({});
   const [warning, setWarning] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
+  
+  // API
+  const [getFile] = FileAPI.useGetFileMutation()
 
   //EFFECT
+
+  useEffect(() => {
+	getFileListOfServer(fileList, getFile, true).then(
+		res => {
+			setUploadedFileList(res.filter(it => it !== null) as IFile[])
+		},
+		e => { console.error(e) }
+	)
+  }, [getFile, fileList])
+
   useEffect(() => {
 	const allSuccess = Object.values(successes).every(v => v === true);
 	const anyWarning = Object.values(warnings).some(v => v === true);

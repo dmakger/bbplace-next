@@ -18,7 +18,7 @@ import { IResponseFile } from "@/entities/File/model/props.file.model";
 interface InputFileProps extends IWrapperRectangleInputChildren, IInput {
     title?: string
     multiple?: boolean
-    setFiles?: Dispatch<SetStateAction<IFile[]>>
+    setFileList?: Dispatch<SetStateAction<IResponseFile[]>>
 }
 
 // TODO: Добавить уведомледния об успешной / не успешной загрузке
@@ -31,7 +31,7 @@ interface InputFileProps extends IWrapperRectangleInputChildren, IInput {
 export const InputFile:FC<InputFileProps> = ({
     title,
     multiple=true,
-    setFiles,
+    setFileList,
     
     variant=EInputVariants.ROUNDED,
     onChange, 
@@ -66,22 +66,18 @@ export const InputFile:FC<InputFileProps> = ({
     const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (onChange) onChange(e)
         
-        if (setFiles && e.target.files && e.target.files.length > 0) {
+        if (setFileList && e.target.files && e.target.files.length > 0) {
             const fileArray = fileListToIFileList(Array.from(e.target.files))
             uploadFileList(multiple ? fileArray : [fileArray[0]], uploadFile).then(
                 uploadedFileList => {
                     const responseFileList = uploadedFileList.filter(file => file !== null) as IResponseFile[]
                     if (responseFileList.length === 0) return
-                    setFiles(prevFiles => {
-                        return multiple ? [...prevFiles, ...responseFileList] : [responseFileList[0]]
+                    setFileList(prevUploadedFiles => {
+                        return multiple ? [...prevUploadedFiles, ...responseFileList] : [responseFileList[0]]
                     })
                 },
                 e => { console.error(e) }
             )
-            // if (!multiple)
-            //     setFiles([fileArray[0]])
-            // else
-            //     setFiles(prevFiles => [...prevFiles, ...fileArray])
         }
     }
 

@@ -48,7 +48,7 @@ var upload_file_lib_1 = require("@/entities/File/lib/upload.file.lib");
  * @returns
  */
 exports.InputFile = function (_a) {
-    var title = _a.title, _b = _a.multiple, multiple = _b === void 0 ? true : _b, setFiles = _a.setFiles, _c = _a.variant, variant = _c === void 0 ? input_model_1.EInputVariants.ROUNDED : _c, onChange = _a.onChange, success = _a.success, setSuccess = _a.setSuccess, warning = _a.warning, setWarning = _a.setWarning, setInputValueLength = _a.setInputValueLength, size = _a.size, rest = __rest(_a, ["title", "multiple", "setFiles", "variant", "onChange", "success", "setSuccess", "warning", "setWarning", "setInputValueLength", "size"]);
+    var title = _a.title, _b = _a.multiple, multiple = _b === void 0 ? true : _b, setFileList = _a.setFileList, _c = _a.variant, variant = _c === void 0 ? input_model_1.EInputVariants.ROUNDED : _c, onChange = _a.onChange, success = _a.success, setSuccess = _a.setSuccess, warning = _a.warning, setWarning = _a.setWarning, setInputValueLength = _a.setInputValueLength, size = _a.size, rest = __rest(_a, ["title", "multiple", "setFileList", "variant", "onChange", "success", "setSuccess", "warning", "setWarning", "setInputValueLength", "size"]);
     // REF
     var inputRef = react_1.useRef(null);
     // STATE
@@ -68,20 +68,16 @@ exports.InputFile = function (_a) {
     var handleOnChange = function (e) {
         if (onChange)
             onChange(e);
-        if (setFiles && e.target.files && e.target.files.length > 0) {
+        if (setFileList && e.target.files && e.target.files.length > 0) {
             var fileArray = to_file_lib_1.fileListToIFileList(Array.from(e.target.files));
             upload_file_lib_1.uploadFileList(multiple ? fileArray : [fileArray[0]], uploadFile).then(function (uploadedFileList) {
                 var responseFileList = uploadedFileList.filter(function (file) { return file !== null; });
                 if (responseFileList.length === 0)
                     return;
-                setFiles(function (prevFiles) {
-                    return multiple ? __spreadArrays(prevFiles, responseFileList) : [responseFileList[0]];
+                setFileList(function (prevUploadedFiles) {
+                    return multiple ? __spreadArrays(prevUploadedFiles, responseFileList) : [responseFileList[0]];
                 });
             }, function (e) { console.error(e); });
-            // if (!multiple)
-            //     setFiles([fileArray[0]])
-            // else
-            //     setFiles(prevFiles => [...prevFiles, ...fileArray])
         }
     };
     var handleOnClickButton = function () {

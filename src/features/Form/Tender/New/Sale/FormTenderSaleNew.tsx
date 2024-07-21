@@ -21,7 +21,8 @@ import { getFormData } from "@/shared/lib/formData.lib";
 import { TenderAPI } from "@/entities/Tender/api/tender.api";
 import { IPropsTenderSale } from "@/entities/Tender/model/props.tender.model";
 import { FileAPI } from "@/entities/File/api/file.api";
-import { uploadFileList } from "@/entities/File/lib/upload.file.lib";
+import { IResponseFile } from "@/entities/File/model/props.file.model";
+import { getFileItemOfServer } from "@/entities/File/lib/getter.file.lib";
 
 interface FormTenderSaleNewProps{
     className?: string,
@@ -37,14 +38,14 @@ export const FormTenderSaleNew:FC<FormTenderSaleNewProps> = ({className}) => {
     const [selectedCategoryOption, setSelectedCategoryOption] = useState<IOption | null>(null)
     const [selectedMinOrderOption, setSelectedMinOrderOption] = useState<IOption | null>(null)
     const [selectedCurrencyOption, setSelectedCurrencyOption] = useState<IOption | null>(null)
-    const [uploadedFileList, setUploadedFileList] = useState<IFile[]>([])
+    const [uploadedFileList, setUploadedFileList] = useState<IResponseFile[]>([])
     
     // API
     const {data: categoryList} = CategoryAPI.useGetCategoriesByIdQuery(undefined)              
     const {data: metricList} = MetricsAPI.useGetMetricsQuery()             
     const {data: currencyList} = CurrencyAPI.useGetCurrenciesQuery()
     const [createSaleTender] = TenderAPI.useCreateSaleTenderMutation()
-    const [uploadFile] = FileAPI.useUploadFileMutation()
+    const [getFile] = FileAPI.useGetFileMutation()
     
     // REF
     const formRef = useRef<HTMLFormElement>(null)
@@ -75,6 +76,7 @@ export const FormTenderSaleNew:FC<FormTenderSaleNewProps> = ({className}) => {
         const formData = getFormData(formRef.current)
         
         console.log('qwe formData', formData, selectedCategoryOption, selectedMinOrderOption, selectedCurrencyOption, uploadedFileList)
+        getFileItemOfServer(uploadedFileList[0], getFile, true)
         // const fileList = uploadFileList(selectedFileList, uploadFile)
         // console.log('qwe fileList', fileList)
         // const apiData: IPropsTenderSale = {
@@ -130,7 +132,7 @@ export const FormTenderSaleNew:FC<FormTenderSaleNewProps> = ({className}) => {
                             inputTypeVariant={EInputTextTypeVariants.TEXTAREA} />
             </WrapperRectangleInput>
             <WrapperRectangleInput labelText={"Файлы"} fileList={uploadedFileList} setFileList={setUploadedFileList}>
-                <Input.File name={'files'} placeholder="Начните вводить" setFiles={setUploadedFileList}
+                <Input.File name={'files'} placeholder="Начните вводить" setFileList={setUploadedFileList}
                             variant={EInputVariants.RECTANGULAR}  />
             </WrapperRectangleInput>
             <WrapperRectangleInput labelText='Поделиться контактами' labelPosition={ELabelPosition.RIGHT}>

@@ -27,7 +27,7 @@ export const fileToIFile = (file: File) => {
 /**
  * @returns `File` или `null`
  */
-export const getFile = (file: IFile | File) => {
+export const getFileOfIFile = (file: IFile | File) => {
     if (file instanceof File) 
         return file
     return file.file === undefined ? null : file.file

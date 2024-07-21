@@ -19,12 +19,12 @@ export const FileAPI = createApi({
                     const blob = new Blob([data])
                     const file = new File([blob], 'image')
                     if (!toFile) return file
-                    console.log('tender 123', fileId, data, file)
                     const format = getFormatFile(fileId)
                     return {
                         name: file.name,
                         url: binaryToURL(data, format),
-                        format: format
+                        format: format,
+                        file,
                     } as IFile
                 },
             })

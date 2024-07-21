@@ -36,53 +36,50 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.uploadFileItem = exports.uploadFileList = void 0;
-var to_file_lib_1 = require("./to.file.lib");
+exports.getFileItemOfServer = exports.getFileListOfServer = void 0;
 /**
- * @param fileList - список файлов типа `IFile | File`
- * @param uploadFile - хук необходимый для загрузки файла на сервер. Реализация в `FileAPI`
+ *
+ * @param fileList - список файлов типа `IResponseFile`
+ * @param getFile - хук необходимый для получения файлов с сервера. Реализация в `FileAPI`
+ * @param toFile - если `true`, то вернет `IFile`, в противном случае `File`
  * @returns `Promise` списка `IResponseFile | null`
  */
-exports.uploadFileList = function (fileList, uploadFile) { return __awaiter(void 0, void 0, void 0, function () {
-    var uploadPromises;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                uploadPromises = fileList.map(function (file) { return exports.uploadFileItem(file, uploadFile); });
-                return [4 /*yield*/, Promise.all(uploadPromises)];
-            case 1: return [2 /*return*/, _a.sent()];
-        }
+exports.getFileListOfServer = function (fileList, getFile, toFile) {
+    if (toFile === void 0) { toFile = false; }
+    return __awaiter(void 0, void 0, void 0, function () {
+        var getterFileList;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    getterFileList = fileList.map(function (file) { return exports.getFileItemOfServer(file, getFile, toFile); });
+                    return [4 /*yield*/, Promise.all(getterFileList)];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        });
     });
-}); };
+};
 /**
- * @param file - передоваемый file имеет тип `IFile | File`
- * @param uploadFile - хук необходимый для загрузки файла на сервер. Реализация в `FileAPI`
- * @returns `Promise` файла, в случае если успешно загружен `IResponseFile`, если нет то `null`
+ *
+ * @param file - передоваемый file имеет тип `IResponseFile`
+ * @param getFile - хук необходимый для получения файлов с сервера. Реализация в `FileAPI`
+ * @param toFile - если `true`, то вернет `IFile`, в противном случае `File`
+ * @returns `Promise` файла, в случае если успешно загружен `File | IFile`, если нет то `null`
  */
-exports.uploadFileItem = function (file, uploadFile) { return __awaiter(void 0, void 0, void 0, function () {
-    var updatedFile, formData, fileData, _a;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
-            case 0:
-                updatedFile = to_file_lib_1.getFileOfIFile(file);
-                if (!updatedFile)
+exports.getFileItemOfServer = function (file, getFile, toFile) {
+    if (toFile === void 0) { toFile = false; }
+    return __awaiter(void 0, void 0, void 0, function () {
+        var _a;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    _b.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, getFile({ fileId: file.key, toFile: toFile }).unwrap()];
+                case 1: return [2 /*return*/, _b.sent()];
+                case 2:
+                    _a = _b.sent();
                     return [2 /*return*/, null];
-                formData = new FormData();
-                formData.append('file', updatedFile);
-                _b.label = 1;
-            case 1:
-                _b.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, uploadFile(formData).unwrap()];
-            case 2:
-                fileData = _b.sent();
-                return [2 /*return*/, {
-                        key: fileData.key,
-                        name: fileData.name ? fileData.name : file.name
-                    }];
-            case 3:
-                _a = _b.sent();
-                return [2 /*return*/, null];
-            case 4: return [2 /*return*/];
-        }
+                case 3: return [2 /*return*/];
+            }
+        });
     });
-}); };
+};
