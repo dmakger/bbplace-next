@@ -54,7 +54,8 @@ export const InputCheckbox = ({
   const handleCheckboxChange = () => {
     const newValue = !isOwnChecked;
     setIsOwnChecked(newValue);
-    setIsChecked && setIsChecked(newValue);
+    if (setIsChecked)
+      setIsChecked(newValue);
     if (onClick) {
       onClick(newValue);
     }

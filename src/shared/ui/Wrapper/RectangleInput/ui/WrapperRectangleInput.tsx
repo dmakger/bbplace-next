@@ -14,9 +14,8 @@ import { EModalView } from '@/shared/data/modal.data';
 import { BottomInfoModal } from '@/features/Modal/BottomInfo';
 import { WrapperModalBottom } from '../../ModalBottom';
 import { IFile } from '@/entities/File/model/file.model';
-import { FileItem } from '@/entities/File/ui/Item/ui/Base/FileItem';
-import { FileItemAttachment } from '@/entities/File/ui/Item/ui/Attachment/FileItemAttachment';
 import { FileWrapList } from '@/entities/File/ui/Wrap/FileWrapList';
+import { IResponseFile } from '@/entities/File/model/props.file.model';
 
 interface IWrapperRectangleInput {
 	className?: string
@@ -24,24 +23,26 @@ interface IWrapperRectangleInput {
 	classNameDescriptionWindow?: string,
 	classNameWarningWindow?: string,
 	classNameInputsContainer?: string,
-  
+
 	labelText: string,
 	labelPosition?: ELabelPosition,
 	children: ReactNode,
-  
+
 	bellowButtonText?: string,
 	isCanDisabledBellowButton?: boolean,
 	onClickBellowButton?: Function,
 	isLoadingBellowButton?: boolean,
-  
+
 	isRequired?: boolean
 	isDescriptionTooltip?: boolean
 	warningTooltipText?: string,
 	descriptionTooltipText?: string,
 	errorInputMessage?: string,
-  
+
 	fileList?: IFile[]
 	setFileList?: Dispatch<SetStateAction<IFile[]>>
+	responseFileList?: IResponseFile[]
+	setResponseFileList?: Dispatch<SetStateAction<IResponseFile[]>>
 }
 
 export const WrapperRectangleInput = ({
@@ -50,16 +51,16 @@ export const WrapperRectangleInput = ({
 	classNameDescriptionWindow,
 	classNameWarningWindow,
 	classNameInputsContainer,
-  
+
 	labelText,
 	children,
 	labelPosition = ELabelPosition.TOP,
-  
+
 	bellowButtonText,
 	isCanDisabledBellowButton = false,
 	onClickBellowButton,
 	isLoadingBellowButton,
-  
+
 	isRequired = false,
 	isDescriptionTooltip = true,
 	warningTooltipText = 'Обязательно для заполнения',
@@ -67,164 +68,169 @@ export const WrapperRectangleInput = ({
 	errorInputMessage = 'Пожалуйста заполните это поле',
 	fileList = [],
 	setFileList,
+	responseFileList = [],
+	setResponseFileList,
 
 }: IWrapperRectangleInput) => {
 
-  // STATE
-  const [isWarningActive, setIsWarningActive] = useState<boolean>(false)
-  const [isDescriptionActive, setIsDescriptionActive] = useState<boolean>(false);
+	// STATE
+	const [uploadedFileList, setUploadedFileList] = useState<IFile[]>([]);
 
-  //Для InputText
-  const [inputValueLength, setInputValueLength] = useState<number>(0)
+	const [isWarningActive, setIsWarningActive] = useState<boolean>(false)
+	const [isDescriptionActive, setIsDescriptionActive] = useState<boolean>(false);
 
-  //Для RecursiveSelectInput
-  const [selectedOptionsArray, setSelectedOptionsArray] = useState<IOption[]>([])
+	//Для InputText
+	const [inputValueLength, setInputValueLength] = useState<number>(0)
 
-  //Для InputCheckbox
-  const [checked, setChecked] = useState<boolean>(false)
+	//Для RecursiveSelectInput
+	const [selectedOptionsArray, setSelectedOptionsArray] = useState<IOption[]>([])
 
+	//Для InputCheckbox
+	const [checked, setChecked] = useState<boolean>(false)
 
-  const [warnings, setWarnings] = useState<Record<string, boolean>>({});
-  const [successes, setSuccesses] = useState<Record<string, boolean>>({});
-  const [warning, setWarning] = useState<boolean>(false);
-  const [success, setSuccess] = useState<boolean>(false);
+	const [warnings, setWarnings] = useState<Record<string, boolean>>({});
+	const [successes, setSuccesses] = useState<Record<string, boolean>>({});
+	const [warning, setWarning] = useState<boolean>(false);
+	const [success, setSuccess] = useState<boolean>(false);
 
-  //EFFECT
-  useEffect(() => {
-	const allSuccess = Object.values(successes).every(v => v === true);
-	const anyWarning = Object.values(warnings).some(v => v === true);
-	setSuccess(allSuccess);
-	setWarning(anyWarning);
-  }, [successes, warnings]);
+	//EFFECT
+	useEffect(() => {
+		const allSuccess = Object.values(successes).every(v => v === true);
+		const anyWarning = Object.values(warnings).some(v => v === true);
+		setSuccess(allSuccess);
+		setWarning(anyWarning);
+	}, [successes, warnings]);
 
-  // CHILDREN
-  const clonedChildren = React.Children.map(children, (child, index) => {
-	if (React.isValidElement<IWrapperRectangleInputChildren>(child)) {
-	  const id = `child-${index}`;
-	  if (successes[id] === undefined) {
-		setSuccesses(prev => ({ ...prev, [id]: false }));
-	  }
-	  if (warnings[id] === undefined) {
-		setWarnings(prev => ({ ...prev, [id]: false }));
-	  }
-	  return cloneElement<IWrapperRectangleInputChildren>(child, {
-		success: successes[id],
-		warning: warnings[id],
-		setSuccess: (value: boolean) => setSuccesses(prev => ({ ...prev, [id]: value })),
-		setWarning: (value: boolean) => setWarnings(prev => ({ ...prev, [id]: value })),
-		setInputValueLength,
-		setSelectedOptionsArray,
-		checked
-	  });
+	// CHILDREN
+	const clonedChildren = React.Children.map(children, (child, index) => {
+		if (React.isValidElement<IWrapperRectangleInputChildren>(child)) {
+			const id = `child-${index}`;
+			if (successes[id] === undefined) {
+				setSuccesses(prev => ({ ...prev, [id]: false }));
+			}
+			if (warnings[id] === undefined) {
+				setWarnings(prev => ({ ...prev, [id]: false }));
+			}
+			return cloneElement<IWrapperRectangleInputChildren>(child, {
+				success: successes[id],
+				warning: warnings[id],
+				setSuccess: (value: boolean) => setSuccesses(prev => ({ ...prev, [id]: value })),
+				setWarning: (value: boolean) => setWarnings(prev => ({ ...prev, [id]: value })),
+				setInputValueLength,
+				setSelectedOptionsArray,
+				checked
+			});
+		}
+		return child;
+	});
+
+	//FUNCTION
+	const closeTheModal = () => {
+		isDescriptionActive && setIsDescriptionActive(false)
+		isWarningActive && setIsWarningActive(false)
 	}
-	return child;
-  });
 
-  //FUNCTION
-  const closeTheModal = () => {
-	isDescriptionActive && setIsDescriptionActive(false)
-	isWarningActive && setIsWarningActive(false)
-  }
+	// VARIABLE
+	const errorInputSelectMessageArray: string[] = [
+		'Пожалуйста, заполните это поле!',
+		errorInputMessage || `Максимальная длина - 50 символов. Сейчас ${inputValueLength}`
+	];
 
-  // VARIABLE
-  const errorInputSelectMessageArray: string[] = [
-	'Пожалуйста, заполните это поле!',
-	errorInputMessage  || `Максимальная длина - 50 символов. Сейчас ${inputValueLength}`
-  ];
-
-  const isDisabled = !selectedOptionsArray.length && isCanDisabledBellowButton;
+	const isDisabled = !selectedOptionsArray.length && isCanDisabledBellowButton;
 
 
-  return (
-	<div className={cls(cl.WrapperRectangleInput, className, cl[labelPosition])} onClick={() => setChecked(!checked)}>
-	  <div className={cls(cl.labelNTooltipContainer)}>
-		<label className={cls(cl.label, classNameLabel)} >
-		  {labelText}
-		</label>
-		<div className={cl.tooltipsContainer}>
-		  {isDescriptionTooltip && descriptionTooltipText && (
-			<div className={cl.tooltipDescCont}>
-			  <Button
-				variant={ButtonVariant.CLEAR}
-				className={cls(cl.button, cl.descButton, isDescriptionActive ? cl.descriptionActive : '')}
-				beforeImage={TOOLTIP_DESCRIPTION_ICON}
-				beforeProps={{ height: 14, width: 14 }}
-				active={isDescriptionActive}
-				onClick={() => setIsDescriptionActive(prevState => !prevState)}
-			  />
-			  <HoverWindow
-				text={descriptionTooltipText}
-				position={EHoverWindowPosition.RIGHT}
-				borderColor={EHoverBorderColor.DEFAULT}
-				show={isDescriptionActive}
-				className={cls(cl.descWindowActive, cl.windowActive, classNameDescriptionWindow)}
-			  />
+	return (
+		<div className={cls(cl.WrapperRectangleInput, className, cl[labelPosition])} onClick={() => setChecked(!checked)}>
+			<div className={cls(cl.labelNTooltipContainer)}>
+				<label className={cls(cl.label, classNameLabel)} >
+					{labelText}
+				</label>
+				<div className={cl.tooltipsContainer}>
+					{isDescriptionTooltip && descriptionTooltipText && (
+						<div className={cl.tooltipDescCont}>
+							<Button
+								variant={ButtonVariant.CLEAR}
+								className={cls(cl.button, cl.descButton, isDescriptionActive ? cl.descriptionActive : '')}
+								beforeImage={TOOLTIP_DESCRIPTION_ICON}
+								beforeProps={{ height: 14, width: 14 }}
+								active={isDescriptionActive}
+								onClick={() => setIsDescriptionActive(prevState => !prevState)}
+							/>
+							<HoverWindow
+								text={descriptionTooltipText}
+								position={EHoverWindowPosition.RIGHT}
+								borderColor={EHoverBorderColor.DEFAULT}
+								show={isDescriptionActive}
+								className={cls(cl.descWindowActive, cl.windowActive, classNameDescriptionWindow)}
+							/>
+						</div>
+					)}
+					{isRequired && (
+						<div className={cl.tooltipWarnCont}>
+							<Button
+								variant={ButtonVariant.CLEAR}
+								className={cls(
+									cl.button,
+									!success ? cl.warnButton : cl.successButton,
+									isWarningActive && !success ? cl.warningActive : '',
+									isWarningActive && success ? cl.successActive : ''
+								)}
+								beforeImage={TOOLTIP_WARNING_ICON}
+								active={isWarningActive}
+								beforeProps={{ height: 14, width: 14 }}
+								success={success}
+								onClick={() => setIsWarningActive(prevState => !prevState)}
+							/>
+							<HoverWindow
+								text={warningTooltipText}
+								position={EHoverWindowPosition.RIGHT}
+								borderColor={!success ? EHoverBorderColor.WARNING : EHoverBorderColor.DEFAULT}
+								show={isWarningActive}
+								className={cls(cl.warnWindowActive, cl.windowActive, classNameWarningWindow)}
+							/>
+						</div>
+					)}
+				</div>
 			</div>
-		  )}
-		  {isRequired && (
-			<div className={cl.tooltipWarnCont}>
-			  <Button
-				variant={ButtonVariant.CLEAR}
-				className={cls(
-				  cl.button,
-				  !success ? cl.warnButton : cl.successButton,
-				  isWarningActive && !success ? cl.warningActive : '',
-				  isWarningActive && success ? cl.successActive : ''
-				)}
-				beforeImage={TOOLTIP_WARNING_ICON}
-				active={isWarningActive}
-				beforeProps={{ height: 14, width: 14 }}
-				success={success}
-				onClick={() => setIsWarningActive(prevState => !prevState)}
-			  />
-			  <HoverWindow
-				text={warningTooltipText}
-				position={EHoverWindowPosition.RIGHT}
-				borderColor={!success ? EHoverBorderColor.WARNING : EHoverBorderColor.DEFAULT}
-				show={isWarningActive}
-				className={cls(cl.warnWindowActive, cl.windowActive, classNameWarningWindow)}
-			  />
+
+			<div className={cl.inputsContainer}>
+				{clonedChildren}
 			</div>
-		  )}
+
+			{fileList && fileList.length > 0 && (
+				<FileWrapList fileList={fileList} setFileList={setFileList}
+					responseFileList={responseFileList} setResponseFileList={setResponseFileList}
+					className={cl.fileList} />
+			)}
+
+			{warning && errorInputSelectMessageArray && (
+				<div className={cl.errorMessage}>
+					{errorInputSelectMessageArray.map((it, index) => (
+						<p key={index}>{it}</p>
+					))}
+				</div>
+			)}
+
+			{bellowButtonText &&
+				<Button variant={ButtonVariant.FILL}
+					title={bellowButtonText}
+					className={cls(cl.button, isCanDisabledBellowButton ? cl.disabled : '')}
+					disabled={isDisabled}
+					onClick={onClickBellowButton} />
+			}
+			<div className={cl.mobileModal}>
+				<Modal
+					view={EModalView.BOTTOM}
+					buttonNode
+					_isOpen={isDescriptionActive || isWarningActive}
+					onClickOverlay={closeTheModal}>
+					<WrapperModalBottom title={labelText}
+						bottomChildren={<BottomInfoModal
+							text={isDescriptionActive && descriptionTooltipText ? descriptionTooltipText : isWarningActive ? warningTooltipText : ''} />}
+						setIsOpen={closeTheModal} />
+				</Modal>
+
+			</div>
 		</div>
-	  </div>
-
-	  <div className={cl.inputsContainer}>
-		{clonedChildren}
-	  </div>
-
-	  {fileList && fileList.length > 0 && (
-		  <FileWrapList fileList={fileList} setFileList={setFileList} className={cl.fileList}/>
-		)}
-
-	  {warning && errorInputSelectMessageArray && (
-		<div className={cl.errorMessage}>
-		  {errorInputSelectMessageArray.map((it, index) => (
-			<p key={index}>{it}</p>
-		  ))}
-		</div>
-	  )}
-
-	  {bellowButtonText && 
-		<Button variant={ButtonVariant.FILL}
-		  title={bellowButtonText}
-		  className={cls(cl.button, isCanDisabledBellowButton ? cl.disabled : '')}
-		  disabled={isDisabled}
-		  onClick={onClickBellowButton} />
-	  } 
-	  <div className={cl.mobileModal}>
-		<Modal
-		  view={EModalView.BOTTOM}
-		  buttonNode
-		  _isOpen={isDescriptionActive || isWarningActive}
-		  onClickOverlay={closeTheModal}>
-		  <WrapperModalBottom title={labelText}
-			bottomChildren={<BottomInfoModal
-			  text={isDescriptionActive && descriptionTooltipText ? descriptionTooltipText : isWarningActive ? warningTooltipText : ''} />}
-			setIsOpen={closeTheModal} />
-		</Modal>
-
-	  </div>
-	</div>
-  )
+	)
 }

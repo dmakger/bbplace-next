@@ -5,7 +5,7 @@ import { IOption } from "@/shared/model/option.model"
 
 interface ILKPTPage {
     className?: string,
-    optionsTab:  OptionsTabType,
+    optionsTab: OptionsTabType,
     selectedOption: IOption
 }
 

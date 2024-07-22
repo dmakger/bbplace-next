@@ -9,6 +9,10 @@
 
   @media (max-width:768px) {
     background-color: var(--gray-3);
+
+    .textInput {
+      background-color: var(--gray-3);
+    }
   }
   .text {
     border: none;

@@ -110,8 +110,9 @@ export function TextAndSelectInput({
             setIsWarning(false)
         }
 
-        if (onClickOption) onClickOption(it)
-        else setActiveOption(it)
+        if (onClickOption) 
+            onClickOption(it) 
+        setActiveOption(it)
 
         if (!it.options?.length) {
             setSuccess && setSuccess(true)

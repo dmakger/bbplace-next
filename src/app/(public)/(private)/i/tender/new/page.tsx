@@ -1,18 +1,17 @@
 'use client'
 
+import { useSearchParams } from "next/navigation";
+import { useState } from "react";
+
 import { toTenderType } from "@/entities/Tender/lib/tender.lib";
 import { ETenderType } from "@/entities/Tender/model/tender.model";
 import { HeaderLKPT } from "@/features/Headers/HeaderLK";
 import { IOption } from "@/shared/model/option.model";
-import { Subblock } from "@/shared/ui/Subblock";
-import SubblockChild from "@/shared/ui/Subblock/components/Child/SubblockChild";
 import { SWITCH_SELECTOR_PURCHASE_TENDERS_OPTION, SWITCH_SELECTOR_SALE_TENDERS_OPTION, TENDER_TYPE_OPTIONS } from "@/shared/ui/SwitchSelector/data/switchSelector.data";
 import Wrapper1280 from '@/shared/ui/Wrapper/1280/Wrapper1280';
-import { SuspenseL } from "@/shared/ui/Wrapper/SuspenseL/SuspenseL";
-import { useSearchParams } from "next/navigation";
-import { FC, useState } from "react";
-import cl from './_LKTenderNewPage.module.scss'
-import { FormTenderSaleNew } from "@/features/Form/Tender/New/Sale/FormTenderSaleNew";
+import { LKPTPage } from "@/features/LKPTPage";
+import { IOptionTabTender } from "@/features/DetailedPageInfo/model/detailedPageInfo.model";
+import { PageTenderNew } from "@/widgets/Pages/LK/Tender/New/PageTenderNew";
 
 // export default function LKTenderNewPage() {
 //     return (
@@ -34,32 +33,17 @@ export default function LKTenderNewPage() {
         : SWITCH_SELECTOR_SALE_TENDERS_OPTION
     )
 
-    const adviceText = [
-        'Вы можете сменить тип размещения, например, с покупки на продажу, в любой момент.',
-        'Значения уже заполненных схожих полей сохранятся.',
-    ];
-
+    const OPTIONS_TAB: IOptionTabTender = {
+        sale: { optionTab: <PageTenderNew type={ETenderType.SALE}/> },
+        purchase: { optionTab: <PageTenderNew type={ETenderType.PURCHASE}/> },
+    }
     return (
         <Wrapper1280>
             <HeaderLKPT title={'Новый тендер'} 
                         selectedOption={selectedOption} setSelectedOption={setSelectedOption} 
                         options={TENDER_TYPE_OPTIONS} optionsTab={{}}
                         isButtonAdd={false} />
-            <div className={cl.block}>
-                <Subblock
-                    title="Совет"
-                    wModal={true}
-                    mobileButtonTitle='Совет'
-                    modalTitle="Совет"
-                    children={(
-                        <SubblockChild.Text textList={adviceText} />
-                    )}
-                    className={cl.subblock}
-                    // classNameBottomContainer={cl.bottomContainer}
-                />
-                <FormTenderSaleNew />
-            </div>
-            
+            <LKPTPage optionsTab={OPTIONS_TAB} selectedOption={selectedOption} />
         </Wrapper1280>
     );
 }
