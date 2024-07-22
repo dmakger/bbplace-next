@@ -30,8 +30,14 @@ export default function LKTenderNewPage() {
     // )
 
     const OPTIONS_TAB: IOptionTabTender = {
-        sale: { optionTab: <PageTenderNew type={ETenderType.SALE}/>, optionValue: String(SWITCH_SELECTOR_SALE_TENDERS_OPTION.value) },
-        purchase: { optionTab: <PageTenderNew type={ETenderType.PURCHASE}/>, optionValue: String(SWITCH_SELECTOR_PURCHASE_TENDERS_OPTION.value) },
+        sale: { 
+            optionTab: <PageTenderNew type={ETenderType.SALE}/>,
+            optionValue: String(SWITCH_SELECTOR_SALE_TENDERS_OPTION.value)
+        },
+        purchase: { 
+            optionTab: <PageTenderNew type={ETenderType.PURCHASE}/>,
+            optionValue: String(SWITCH_SELECTOR_PURCHASE_TENDERS_OPTION.value)
+        },
     }
     return (
         <Wrapper1280>

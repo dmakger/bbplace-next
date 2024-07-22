@@ -17,17 +17,15 @@ export const LKPTPage = ({
 
     return (
         <div className={cls(cl.LKPTPage, className)}>
-            {optionsTab.map((option, index) => {
-                const isVisible = option.optionValue === selectedOption.value;
-                return (
+            {optionsTab.map((option, index) => (
                     <div
                         key={index}
-                        className={isVisible ? cl.visible : cl.hidden}
+                        className={option.optionValue === selectedOption.value ? cl.visible : cl.hidden}
                     >
                         {option.optionTab}
                     </div>
-                );
-            })}
+                )
+            )}
         </div>
     );
 };

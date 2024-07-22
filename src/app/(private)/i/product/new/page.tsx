@@ -18,13 +18,12 @@ export default function ProductNewPage() {
 
     const PRODUCT_NEW_PAGE_OPTIONS_TAB: ICreateNewProductsTab = {
         multiple: {
-            optionTab:
-                <TabPage instructionText={instructionText} variant={ETabPageVariant.MULTIPLE_CREATION} />,
-                optionValue: String(SWITCH_SELECTOR_PRODUCT_PAGE_MULTIPLE.value)
+            optionTab: <TabPage instructionText={instructionText} variant={ETabPageVariant.MULTIPLE_CREATION} />,
+            optionValue: String(SWITCH_SELECTOR_PRODUCT_PAGE_MULTIPLE.value)
         },
         single: {
             optionTab: <ProductSingleCreationPage />,
-            optionValue:  String(SWITCH_SELECTOR_PRODUCT_PAGE_SINGLE.value)
+            optionValue: String(SWITCH_SELECTOR_PRODUCT_PAGE_SINGLE.value)
         }
     }
     return (

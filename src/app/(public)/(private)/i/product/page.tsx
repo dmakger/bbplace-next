@@ -22,9 +22,18 @@ export default function LKProductPage() {
         // active: { optionTab: <LKProductTableAdaptive typeProduct={ProductsTypeLK.Active}/>, optionQuantity: 22 },
         // drafts: { optionTab: <LKProductTableAdaptive typeProduct={ProductsTypeLK.Draft}/>, optionQuantity: 3 },
         // woPrice: { optionTab: <LKProductTableAdaptive typeProduct={ProductsTypeLK.WithoutPrice}/>, optionQuantity: 0 },
-        active: { optionTab: <LKProductTableAdaptive typeProduct={ProductsTypeLK.Active}/>, optionValue: String(SWITCH_SELECTOR_CREATED_PRODUCTS_OPTION.value) },
-        drafts: { optionTab: <LKProductTableAdaptive typeProduct={ProductsTypeLK.Draft}/>, optionValue: String(SWITCH_SELECTOR_DRAFT_PRODUCTS_OPTION.value) },
-        woPrice: { optionTab: <LKProductTableAdaptive typeProduct={ProductsTypeLK.WithoutPrice}/>, optionValue: String(SWITCH_SELECTOR_DRAFT_PRODUCTS_OPTION.value) },
+        active: { 
+            optionTab: <LKProductTableAdaptive typeProduct={ProductsTypeLK.Active}/>, 
+            optionValue: String(SWITCH_SELECTOR_CREATED_PRODUCTS_OPTION.value) 
+        },
+        drafts: { 
+            optionTab: <LKProductTableAdaptive typeProduct={ProductsTypeLK.Draft}/>, 
+            optionValue: String(SWITCH_SELECTOR_DRAFT_PRODUCTS_OPTION.value) 
+        },
+        woPrice: { 
+            optionTab: <LKProductTableAdaptive typeProduct={ProductsTypeLK.WithoutPrice}/>, 
+            optionValue: String(SWITCH_SELECTOR_DRAFT_PRODUCTS_OPTION.value) 
+        },
     }
 
     // const productsUserLK: IUserProductsTab = {
