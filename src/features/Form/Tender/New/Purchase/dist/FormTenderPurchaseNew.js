@@ -1,10 +1,10 @@
 "use client";
 "use strict";
 exports.__esModule = true;
-exports.FormTenderSaleNew = void 0;
+exports.FormTenderPurchaseNew = void 0;
 var react_1 = require("react");
 var classes_lib_1 = require("@/shared/lib/classes.lib");
-var _FormTenderSaleNew_module_scss_1 = require("./_FormTenderSaleNew.module.scss");
+var _FormTenderPurchaseNew_module_scss_1 = require("./_FormTenderPurchaseNew.module.scss");
 var Input_1 = require("@/shared/ui/Input/Input");
 var RectangleInput_1 = require("@/shared/ui/Wrapper/RectangleInput");
 var input_model_1 = require("@/shared/ui/Input/model/input.model");
@@ -20,7 +20,7 @@ var button_model_1 = require("@/shared/ui/Button/model/button.model");
 var wrapperRectangleInput_model_1 = require("@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model");
 var formData_lib_1 = require("@/shared/lib/formData.lib");
 var tender_api_1 = require("@/entities/Tender/api/tender.api");
-exports.FormTenderSaleNew = function (_a) {
+exports.FormTenderPurchaseNew = function (_a) {
     var className = _a.className;
     // STATE
     var _b = react_1.useState([]), categoryOptions = _b[0], setCategoryOptions = _b[1];
@@ -28,7 +28,7 @@ exports.FormTenderSaleNew = function (_a) {
     var _d = react_1.useState([]), currencyOptions = _d[0], setCurrencyOptions = _d[1];
     var _e = react_1.useState(false), userShareContact = _e[0], setUserShareContact = _e[1];
     var _f = react_1.useState(null), selectedCategoryOption = _f[0], setSelectedCategoryOption = _f[1];
-    var _g = react_1.useState(null), selectedMinOrderOption = _g[0], setSelectedMinOrderOption = _g[1];
+    var _g = react_1.useState(null), selectedQuantityUnitsOption = _g[0], setSelectedQuantityUnitsOption = _g[1];
     var _h = react_1.useState(null), selectedCurrencyOption = _h[0], setSelectedCurrencyOption = _h[1];
     var _j = react_1.useState([]), uploadedFileList = _j[0], setUploadedFileList = _j[1];
     var _k = react_1.useState([]), uploadedResponseFileList = _k[0], setUploadedResponseFileList = _k[1];
@@ -36,7 +36,7 @@ exports.FormTenderSaleNew = function (_a) {
     var categoryList = category_metrics_api_1.CategoryAPI.useGetCategoriesByIdQuery(undefined).data;
     var metricList = metrics_metrics_api_1.MetricsAPI.useGetMetricsQuery().data;
     var currencyList = currency_metrics_api_1.CurrencyAPI.useGetCurrenciesQuery().data;
-    var createSaleTender = tender_api_1.TenderAPI.useCreateSaleTenderMutation()[0];
+    var createPurchaseTender = tender_api_1.TenderAPI.useCreatePurchaseTenderMutation()[0];
     // REF
     var formRef = react_1.useRef(null);
     // EFFECT
@@ -68,28 +68,27 @@ exports.FormTenderSaleNew = function (_a) {
         var apiData = {
             name: formData.name,
             categoryId: selectedCategoryOption.id,
-            price: formData.price,
+            quantity: formData.quantity,
+            quantityUnits: "" + selectedQuantityUnitsOption.params.shortname,
+            maximumBudget: formData.maximumBudget,
             currency: "" + selectedCurrencyOption.params.code,
-            minOrder: formData.minOrder,
-            minOrderUnits: "" + selectedMinOrderOption.params.shortName,
-            bulkDiscounts: false,
             description: formData.description,
             shareContacts: true,
             attachments: JSON.stringify(uploadedResponseFileList)
         };
-        createSaleTender(apiData).then(function (res) {
+        createPurchaseTender(apiData).then(function (res) {
         });
     };
-    return (React.createElement("form", { onSubmit: handleOnSubmit, ref: formRef, className: classes_lib_1.cls(_FormTenderSaleNew_module_scss_1["default"].form, className) },
+    return (React.createElement("form", { onSubmit: handleOnSubmit, ref: formRef, className: classes_lib_1.cls(_FormTenderPurchaseNew_module_scss_1["default"].form, className) },
         React.createElement(RectangleInput_1.WrapperRectangleInput, { labelText: "Наименование", isRequired: true },
             React.createElement(Input_1["default"].Text, { name: 'name', placeholder: "\u0414\u043E 50 \u0441\u0438\u043C\u0432\u043E\u043B\u043E\u0432", required: true, variant: input_model_1.EInputVariants.RECTANGULAR })),
         React.createElement(RectangleInput_1.WrapperRectangleInput, { labelText: "Категория", isRequired: true },
             React.createElement(Input_1["default"].TextAndSelect, { name: 'category', placeholder: "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u044E", options: categoryOptions, onClickOption: setSelectedCategoryOption, titleModal: "\u041A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u044F", required: true, variant: input_model_1.EInputVariants.RECTANGULAR })),
-        React.createElement(RectangleInput_1.WrapperRectangleInput, { labelText: "Минимальный заказ", isRequired: true },
-            React.createElement(Input_1["default"].Text, { name: 'minOrder', placeholder: "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0447\u0438\u0441\u043B\u043E", required: true, variant: input_model_1.EInputVariants.RECTANGULAR }),
-            React.createElement(Input_1["default"].TextAndSelect, { name: 'selectMinOrder', placeholder: "\u0418\u0437\u043C\u0435\u0440\u0435\u043D\u0438\u0435", options: metricOptions, onClickOption: setSelectedMinOrderOption, titleModal: "\u0418\u0437\u043C\u0435\u0440\u0435\u043D\u0438\u0435", required: true, variant: input_model_1.EInputVariants.RECTANGULAR })),
-        React.createElement(RectangleInput_1.WrapperRectangleInput, { labelText: "Цена" },
-            React.createElement(Input_1["default"].Text, { name: 'price', placeholder: "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0447\u0438\u0441\u043B\u043E", variant: input_model_1.EInputVariants.RECTANGULAR }),
+        React.createElement(RectangleInput_1.WrapperRectangleInput, { labelText: "Количество", isRequired: true },
+            React.createElement(Input_1["default"].Text, { name: 'quantity', placeholder: "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0447\u0438\u0441\u043B\u043E", required: true, variant: input_model_1.EInputVariants.RECTANGULAR }),
+            React.createElement(Input_1["default"].TextAndSelect, { name: 'quantityUnits', placeholder: "\u0418\u0437\u043C\u0435\u0440\u0435\u043D\u0438\u0435", options: metricOptions, onClickOption: setSelectedQuantityUnitsOption, titleModal: "\u0418\u0437\u043C\u0435\u0440\u0435\u043D\u0438\u0435", required: true, variant: input_model_1.EInputVariants.RECTANGULAR })),
+        React.createElement(RectangleInput_1.WrapperRectangleInput, { labelText: "Максимальнй бюджет" },
+            React.createElement(Input_1["default"].Text, { name: 'maximumBudget', placeholder: "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0447\u0438\u0441\u043B\u043E", variant: input_model_1.EInputVariants.RECTANGULAR }),
             React.createElement(Input_1["default"].TextAndSelect, { name: 'currency', placeholder: "\u0412\u0430\u043B\u044E\u0442\u0430", options: currencyOptions, onClickOption: setSelectedCurrencyOption, titleModal: "\u0412\u0430\u043B\u044E\u0442\u0430", variant: input_model_1.EInputVariants.RECTANGULAR })),
         React.createElement(RectangleInput_1.WrapperRectangleInput, { labelText: "Описание", isRequired: true },
             React.createElement(Input_1["default"].Text, { name: 'description', placeholder: "\u041D\u0430\u0447\u043D\u0438\u0442\u0435 \u0432\u0432\u043E\u0434\u0438\u0442\u044C", required: true, variant: input_model_1.EInputVariants.RECTANGULAR, inputTypeVariant: text_input_model_1.EInputTextTypeVariants.TEXTAREA })),

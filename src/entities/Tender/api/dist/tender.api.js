@@ -108,6 +108,14 @@ exports.TenderAPI = react_1.createApi({
                 headers: auth_token_lib_1.getHeaderAuthorization(),
                 body: body
             }); }
+        }),
+        createPurchaseTender: build.mutation({
+            query: function (body) { return ({
+                url: "/AddPurchaseRequest",
+                method: 'POST',
+                headers: auth_token_lib_1.getHeaderAuthorization(),
+                body: body
+            }); }
         })
     }); }
 });
