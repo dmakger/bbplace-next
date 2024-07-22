@@ -84,7 +84,6 @@ export function InputText({
     }
 
     const handleOnChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        console.log('qwe change', e.target.value)
         const value = e.target.value
         setInputValueLength?.(value.length)
         checkValue(value)

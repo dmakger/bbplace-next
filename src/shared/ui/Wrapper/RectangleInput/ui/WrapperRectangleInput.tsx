@@ -14,9 +14,8 @@ import { EModalView } from '@/shared/data/modal.data';
 import { BottomInfoModal } from '@/features/Modal/BottomInfo';
 import { WrapperModalBottom } from '../../ModalBottom';
 import { IFile } from '@/entities/File/model/file.model';
-import { FileItem } from '@/entities/File/ui/Item/ui/Base/FileItem';
-import { FileItemAttachment } from '@/entities/File/ui/Item/ui/Attachment/FileItemAttachment';
 import { FileWrapList } from '@/entities/File/ui/Wrap/FileWrapList';
+import { IResponseFile } from '@/entities/File/model/props.file.model';
 
 interface IWrapperRectangleInput {
   className?: string
@@ -36,6 +35,8 @@ interface IWrapperRectangleInput {
 
   fileList?: IFile[]
   setFileList?: Dispatch<SetStateAction<IFile[]>>
+  responseFileList?: IResponseFile[]
+  setResponseFileList?: Dispatch<SetStateAction<IResponseFile[]>>
 }
 
 export const WrapperRectangleInput = ({
@@ -56,10 +57,13 @@ export const WrapperRectangleInput = ({
 
   fileList=[],
   setFileList,
-
+  responseFileList=[],
+  setResponseFileList,
 }: IWrapperRectangleInput) => {
 
   // STATE
+  const [uploadedFileList, setUploadedFileList] = useState<IFile[]>([]);
+
   const [isWarningActive, setIsWarningActive] = useState<boolean>(false)
   const [isDescriptionActive, setIsDescriptionActive] = useState<boolean>(false);
 
@@ -71,7 +75,6 @@ export const WrapperRectangleInput = ({
 
   //Для InputCheckbox
   const [checked, setChecked] = useState<boolean>(false)
-
 
   const [warnings, setWarnings] = useState<Record<string, boolean>>({});
   const [successes, setSuccesses] = useState<Record<string, boolean>>({});
@@ -180,7 +183,9 @@ export const WrapperRectangleInput = ({
 	  </div>
 
 	  {fileList && fileList.length > 0 && (
-		  <FileWrapList fileList={fileList} setFileList={setFileList} className={cl.fileList}/>
+		  <FileWrapList fileList={fileList} setFileList={setFileList} 
+		  				responseFileList={responseFileList} setResponseFileList={setResponseFileList} 
+						className={cl.fileList}/>
 		)}
 
 	  {warning && errorInputSelectMessageArray && (

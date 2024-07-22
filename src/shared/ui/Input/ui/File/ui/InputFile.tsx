@@ -11,12 +11,19 @@ import { FILE_ADD_ICON } from "../../../../Icon/data/file.data.icon";
 import { getInputFilePrompt } from "../lib/file.input.lib";
 import { IFile } from "@/entities/File/model/file.model";
 import { fileListToIFileList } from "@/entities/File/lib/to.file.lib";
+import { FileAPI } from "@/entities/File/api/file.api";
+import { uploadFileList } from "@/entities/File/lib/upload.file.lib";
+import { IResponseFile } from "@/entities/File/model/props.file.model";
+import { getFileItemOfServer } from "@/entities/File/lib/getter.file.lib";
 
 interface InputFileProps extends IWrapperRectangleInputChildren, IInput {
     title?: string
     multiple?: boolean
-    setFiles?: Dispatch<SetStateAction<IFile[]>>
+    setFileList?: Dispatch<SetStateAction<IFile[]>>
+    setResponseFileList?: Dispatch<SetStateAction<IResponseFile[]>>
 }
+
+// TODO: Добавить уведомледния об успешной / не успешной загрузке
 
 /**
  * 
@@ -26,7 +33,8 @@ interface InputFileProps extends IWrapperRectangleInputChildren, IInput {
 export const InputFile:FC<InputFileProps> = ({
     title,
     multiple=true,
-    setFiles,
+    setFileList,
+    setResponseFileList,
     
     variant=EInputVariants.ROUNDED,
     onChange, 
@@ -45,6 +53,10 @@ export const InputFile:FC<InputFileProps> = ({
     // STATE
     const [locTitle, setLocTitle] = useState<string>(getInputFilePrompt(multiple))
 
+    // API
+    const [uploadFile] = FileAPI.useUploadFileMutation()
+    const [getFile] = FileAPI.useGetFileMutation()
+
     // EFFECT
     useEffect(() => {
         if (title) {
@@ -58,15 +70,50 @@ export const InputFile:FC<InputFileProps> = ({
     const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (onChange) onChange(e)
         
-        if (setFiles && e.target.files && e.target.files.length > 0) {
+        if (setFileList && setResponseFileList && e.target.files && e.target.files.length > 0) {
             const fileArray = fileListToIFileList(Array.from(e.target.files))
-            console.log(fileArray[0])
-            if (!multiple)
-                setFiles([fileArray[0]])
-            else
-                setFiles(prevFiles => [...prevFiles, ...fileArray])
+            uploadFileList(multiple ? fileArray : [fileArray[0]], uploadFile).then(
+                uploadedFileList => {
+                    getFileList(uploadedFileList).then(r => {
+                        const {newFileList, newResponseFileList} = r
+                        if (newFileList.length === 0 || newResponseFileList.length === 0) return
+                        if (multiple) {
+                            setFileList([newFileList[0]])
+                            setResponseFileList([newResponseFileList[0]])
+                        } else {
+                            setFileList(prev => [...prev, ...newFileList])
+                            setResponseFileList(prev => [...prev, ...newResponseFileList])
+                        }
+                    })
+                },
+                e => { console.error(e) }
+            )
         }
     }
+
+    // Получение загруженных файлов
+    const getFileList = async (uploadedFileList: (IResponseFile | null)[]) => {
+        const newFileList: IFile[] = []
+        const newResponseFileList: IResponseFile[] = []
+    
+        const filePromises = uploadedFileList.map(async it => {
+            if (it === null) return
+    
+            const result = await getFileItemOfServer(it, getFile, true)
+            if (result !== null) {
+                newFileList.push(result as IFile)
+                newResponseFileList.push(it)
+            }
+        })
+    
+        await Promise.all(filePromises)
+    
+        return {
+            newFileList,
+            newResponseFileList
+        }
+    }
+    
 
     const handleOnClickButton = () => {
         inputRef.current?.click()

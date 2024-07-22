@@ -5,31 +5,38 @@ import { cls } from '@/shared/lib/classes.lib';
 import cl from './_FileWrapList.module.scss'
 import { IFile } from "../../model/file.model";
 import { FileItemAttachment } from "../Item/ui/Attachment/FileItemAttachment";
+import { IResponseFile } from "../../model/props.file.model";
 
 
 interface FileWrapListProps{
     fileList: IFile[]
-    onClickDeleteItem?: (file: IFile) => void
     setFileList?: Dispatch<SetStateAction<IFile[]>>
+    responseFileList: IResponseFile[]
+    setResponseFileList?: Dispatch<SetStateAction<IResponseFile[]>>
+    onClickDeleteItem?: (file: IFile) => void
     className?: string,
 }
 
-export const FileWrapList:FC<FileWrapListProps> = ({fileList, onClickDeleteItem, setFileList, className}) => {
-    console.log('qwe');
-    
+export const FileWrapList:FC<FileWrapListProps> = ({
+    fileList, setFileList, 
+    responseFileList, setResponseFileList, 
+    onClickDeleteItem, className
+}) => {    
     // HANDLE
-    const onClickDelete = useCallback((file: IFile) => {
+    const onClickDelete = useCallback((file: IFile, responseFile: IResponseFile) => {
         if (onClickDeleteItem) 
             onClickDeleteItem(file)
-        if (setFileList)
-            setFileList(prevFileList => prevFileList.filter(it => !isEqual(it, file)))
+        if (setFileList && setResponseFileList) {
+            setFileList(prev => prev.filter(it => !isEqual(it, file)))
+            setResponseFileList(prev => prev.filter(it => !isEqual(it, responseFile)))
+        }
     }, [onClickDeleteItem, setFileList])
 
     return (
         <div className={cls(cl.list, className)}>
             {fileList.map((file, index) => (
                 <FileItemAttachment file={file} 
-                                    onClickDelete={() => onClickDelete(file)}
+                                    onClickDelete={() => onClickDelete(file, responseFileList[index])}
                                     key={`${index} ${file.url} ${file.name}`} />
             ))}
         </div>
