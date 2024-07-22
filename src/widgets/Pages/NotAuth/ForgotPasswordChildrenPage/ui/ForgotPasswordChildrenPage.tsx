@@ -22,7 +22,7 @@ export const ForgotPasswordChildrenPage = () => {
     const [errorMessage, setErrorMessage] = useState<string>('')
 
     //SEARCH_PARAMS
-    const token = false;
+    const token = true;
     // const emailFromUrl = useSearchParams()
     const emailFromUrl = ''
 

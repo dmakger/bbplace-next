@@ -276,7 +276,7 @@ export const WrapperRectangleInput = ({
             loading={isLoadingBellowButton}
             title={bellowButtonText}
             className={cls(cl.bellowButton, isDisabled ? cl.disabled : '')}
-            disabled={isDisabled}
+            disabled={isLoadingBellowButton}
             onClick={onClickBellowButton}
             type={bellowButtonType}
           />
