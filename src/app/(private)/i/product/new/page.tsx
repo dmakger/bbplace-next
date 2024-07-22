@@ -1,7 +1,7 @@
 import { ICreateNewProductsTab } from "@/features/DetailedPageInfo/model/detailedPageInfo.model";
 import { TabPage } from "@/features/TabPage";
 import { ETabPageVariant } from "@/features/TabPage/model/tabPage.model";
-import { LK_PRODUCT_PAGE_CREATE, SWITCH_SELECTOR_PRODUCT_PAGE_MULTIPLE } from "@/shared/ui/SwitchSelector/data/switchSelector.data";
+import { LK_PRODUCT_PAGE_CREATE, SWITCH_SELECTOR_PRODUCT_PAGE_MULTIPLE, SWITCH_SELECTOR_PRODUCT_PAGE_SINGLE } from "@/shared/ui/SwitchSelector/data/switchSelector.data";
 import Wrapper1280 from "@/shared/ui/Wrapper/1280/Wrapper1280";
 import { WrapperLKPT } from "@/shared/ui/Wrapper/LKPT";
 import { ProductSingleCreationPage } from "@/widgets/Pages/LK/ProductSingleCreationPage";
@@ -19,10 +19,12 @@ export default function ProductNewPage() {
     const PRODUCT_NEW_PAGE_OPTIONS_TAB: ICreateNewProductsTab = {
         multiple: {
             optionTab:
-                <TabPage instructionText={instructionText} variant={ETabPageVariant.MULTIPLE_CREATION} />
+                <TabPage instructionText={instructionText} variant={ETabPageVariant.MULTIPLE_CREATION} />,
+                optionValue: String(SWITCH_SELECTOR_PRODUCT_PAGE_MULTIPLE.value)
         },
         single: {
-            optionTab: <ProductSingleCreationPage />
+            optionTab: <ProductSingleCreationPage />,
+            optionValue:  String(SWITCH_SELECTOR_PRODUCT_PAGE_SINGLE.value)
         }
     }
     return (

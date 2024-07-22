@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 // ====={ CORE }=====
 export interface IOptionTab {
     optionTab: ReactNode,
+    optionValue: string,
     optionQuantity?: number | null
 }
 

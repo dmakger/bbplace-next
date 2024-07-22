@@ -14,7 +14,8 @@ export default function PricesNDiscountsPage() {
 
     const PRICES_N_DISCOUNTS_TAB: IPricesNDiscountsTab = {
         pricesNDiscounts: {
-            optionTab: <TabPage instructionText={instructionText} variant={ETabPageVariant.PRICES_N_DISCOUNTS}/>
+            optionTab: <TabPage instructionText={instructionText} variant={ETabPageVariant.PRICES_N_DISCOUNTS}/>,
+            optionValue: String(SWITCH_SELECTOR_PRICES_N_DISCOUNTS.value)
         }
     }
     return (
