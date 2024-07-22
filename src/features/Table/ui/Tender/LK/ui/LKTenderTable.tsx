@@ -54,9 +54,8 @@ export const LKTenderTable: FC<LKTenderTableProps> = ({ tenderType, ...rest }) =
         await deleteTender({tenderId, type}).unwrap().then(
             () => {                
                 setTenders(prevTenders => {
-                    if (prevTenders === undefined) return
-
-                    return prevTenders.filter(it => it.id !== tenderId)
+                    if (prevTenders !== undefined)
+                        return prevTenders.filter(it => it.id !== tenderId)
                 })
             }
         )
