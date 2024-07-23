@@ -46,10 +46,10 @@ export interface IRegistrationRequest {
     role: string
     email: string
     password: string
-    legalName: string
-    brandName: string
+    legalName?: string
+    brandName?: string
     fullName: string
-    phoneNumber: string,
+    phoneNumber?: string,
     emailSubscription: boolean
 }
 
