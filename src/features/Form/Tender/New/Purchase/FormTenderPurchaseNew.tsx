@@ -2,7 +2,7 @@
 import { FC, FormEvent, useEffect, useRef, useState } from "react"
 
 import { cls } from '@/shared/lib/classes.lib';
-import cl from './_FormTenderSaleNew.module.scss'
+import cl from './_FormTenderPurchaseNew.module.scss'
 import Input from "@/shared/ui/Input/Input";
 import { WrapperRectangleInput } from "@/shared/ui/Wrapper/RectangleInput";
 import { EInputVariants } from "@/shared/ui/Input/model/input.model";
@@ -20,14 +20,16 @@ import { ButtonColor, ButtonSize, ButtonType } from "@/shared/ui/Button/model/bu
 import { ELabelPosition } from "@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model";
 import { getFormData } from "@/shared/lib/formData.lib";
 import { TenderAPI } from "@/entities/Tender/api/tender.api";
-import { IPropsTenderSale } from "@/entities/Tender/model/props.tender.model";
+import { IPropsTenderPurchase, IPropsTenderSale } from "@/entities/Tender/model/props.tender.model";
 import { IResponseFile } from "@/entities/File/model/props.file.model";
 
-interface FormTenderSaleNewProps{
+
+
+interface FormTenderPurchaseNewProps{
     className?: string,
 }
 
-export const FormTenderSaleNew:FC<FormTenderSaleNewProps> = ({className}) => {
+export const FormTenderPurchaseNew:FC<FormTenderPurchaseNewProps> = ({className}) => {
     // STATE
     const [categoryOptions, setCategoryOptions] = useState<IOption[]>([])
     const [metricOptions, setMetricOptions] = useState<IOption[]>([])
@@ -35,7 +37,7 @@ export const FormTenderSaleNew:FC<FormTenderSaleNewProps> = ({className}) => {
     const [userShareContact, setUserShareContact] = useState(false)
 
     const [selectedCategoryOption, setSelectedCategoryOption] = useState<IOption | null>(null)
-    const [selectedMinOrderOption, setSelectedMinOrderOption] = useState<IOption | null>(null)
+    const [selectedQuantityUnitsOption, setSelectedQuantityUnitsOption] = useState<IOption | null>(null)
     const [selectedCurrencyOption, setSelectedCurrencyOption] = useState<IOption | null>(null)
     const [uploadedFileList, setUploadedFileList] = useState<IFile[]>([])
     const [uploadedResponseFileList, setUploadedResponseFileList] = useState<IResponseFile[]>([])
@@ -44,7 +46,7 @@ export const FormTenderSaleNew:FC<FormTenderSaleNewProps> = ({className}) => {
     const {data: categoryList} = CategoryAPI.useGetCategoriesByIdQuery(undefined)              
     const {data: metricList} = MetricsAPI.useGetMetricsQuery()             
     const {data: currencyList} = CurrencyAPI.useGetCurrenciesQuery()
-    const [createSaleTender] = TenderAPI.useCreateSaleTenderMutation()
+    const [createPurchaseTender] = TenderAPI.useCreatePurchaseTenderMutation()
     
     // REF
     const formRef = useRef<HTMLFormElement>(null)
@@ -74,20 +76,19 @@ export const FormTenderSaleNew:FC<FormTenderSaleNewProps> = ({className}) => {
         
         const formData = getFormData(formRef.current)
         
-        const apiData: IPropsTenderSale = {
+        const apiData: IPropsTenderPurchase = {
             name: formData.name,
             categoryId: selectedCategoryOption!.id,
-            price: formData.price,
+            quantity: formData.quantity,
+            quantityUnits: `${selectedQuantityUnitsOption!.params!.shortname}`,
+            maximumBudget: formData.maximumBudget,
             currency: `${selectedCurrencyOption!.params!.code}`,
-            minOrder: formData.minOrder,
-            minOrderUnits: `${selectedMinOrderOption!.params!.shortName}`,
-            bulkDiscounts: false,
             description: formData.description,
             shareContacts: true,
             attachments: JSON.stringify(uploadedResponseFileList),
         }
-        createSaleTender(apiData).then(res => {
-
+        createPurchaseTender(apiData).then(res => {
+            
         })
     }
     
@@ -102,15 +103,15 @@ export const FormTenderSaleNew:FC<FormTenderSaleNewProps> = ({className}) => {
                                     options={categoryOptions} onClickOption={setSelectedCategoryOption}
                                     titleModal="Категория" required={true} variant={EInputVariants.RECTANGULAR} /> 
             </WrapperRectangleInput>
-            <WrapperRectangleInput labelText={"Минимальный заказ"} isRequired={true}>
-                <Input.Text name={'minOrder'} placeholder="Введите число"
+            <WrapperRectangleInput labelText={"Количество"} isRequired={true}>
+                <Input.Text name={'quantity'} placeholder="Введите число"
                             required={true} variant={EInputVariants.RECTANGULAR} />
-                <Input.TextAndSelect name={'selectMinOrder'} placeholder="Измерение" 
-                                    options={metricOptions} onClickOption={setSelectedMinOrderOption}
+                <Input.TextAndSelect name={'quantityUnits'} placeholder="Измерение" 
+                                    options={metricOptions} onClickOption={setSelectedQuantityUnitsOption}
                                     titleModal="Измерение" required={true} variant={EInputVariants.RECTANGULAR} /> 
             </WrapperRectangleInput>
-            <WrapperRectangleInput labelText={"Цена"}>
-                <Input.Text name={'price'} placeholder="Введите число"
+            <WrapperRectangleInput labelText={"Максимальнй бюджет"}>
+                <Input.Text name={'maximumBudget'} placeholder="Введите число"
                             variant={EInputVariants.RECTANGULAR} />
                 <Input.TextAndSelect name={'currency'} placeholder="Валюта" 
                                     options={currencyOptions} onClickOption={setSelectedCurrencyOption}

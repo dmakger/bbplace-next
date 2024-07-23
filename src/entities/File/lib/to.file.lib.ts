@@ -23,3 +23,12 @@ export const fileToIFile = (file: File) => {
         file,
     } as IFile
 }
+
+/**
+ * @returns `File` или `null`
+ */
+export const getFileOfIFile = (file: IFile | File) => {
+    if (file instanceof File) 
+        return file
+    return file.file === undefined ? null : file.file
+}
