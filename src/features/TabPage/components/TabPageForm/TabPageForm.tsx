@@ -14,13 +14,13 @@ import { ButtonSize } from "@/shared/ui/Button/model/button.model";
 import { ProductAPI } from "@/entities/Product/api/product.api";
 import { UserAPI } from "@/entities/Auth/api/auth.api";
 import { useActionCreators, useAppSelector } from "@/storage/hooks";
-import { getFileName, getFormatFile, getImageFile } from "@/entities/File/lib/file.lib";
+import { getFileName, getImageFile } from "@/entities/File/lib/file.lib";
 import { CategoryRecursiveSelect } from "@/features/CategoryRecursiveSelect";
 import { ERecursiveSelectVariant } from "@/shared/ui/Input/ui/RecursiveSelect/model/recursiveSelect.model";
 import { OptionsAttachmentItem } from "@/shared/ui/Form/OptionsAttachmentItem";
-import { EOptionsAttachmentSize, EOptionsAttachmentVariants } from "@/shared/ui/Form/OptionsAttachmentItem/model/optionsAttachment.model";
-import { EXCEL_FILE__FORMAT } from "@/entities/File/data/file.data";
+import { EOptionsAttachmentVariants } from "@/shared/ui/Form/OptionsAttachmentItem/model/optionsAttachment.model";
 import { isEqual } from "lodash";
+import { IResponseFile } from "@/entities/File/model/props.file.model";
 
 interface ITabPageForm {
     className?: string,
@@ -34,6 +34,10 @@ export const TabPageForm = ({
 
     //STATE
     const [selectedFiles, setSelectedFiles] = useState<IFile[]>([]);
+    const [selectedResponseFiles, setSelectedResponseFiles] = useState<IResponseFile[]>([]);
+
+    console.log(selectedFiles, selectedResponseFiles);
+
     const [selectedCategoriesId, setSelectedCategoriesId] = useState<number[]>([]);
     const [deletingFileName, setDeletingFileName] = useState<string>('')
 
@@ -111,18 +115,22 @@ export const TabPageForm = ({
                 ? await loadTheSheet(formData).unwrap()
                 : await uploadThePrices(formData).unwrap();
             setSelectedFiles([]);
+            setSelectedResponseFiles([])
         } catch (uploadError) {
             setSelectedFiles([]);
+            setSelectedResponseFiles([])
             console.error('Ошибка загрузки файла:', uploadError);
         }
     };
 
-    const handleDeleteItem = (file: IFile) => {
+    const handleDeleteItem = (file: IFile | IResponseFile) => {
         setDeletingFileName(file.name ?? '')
         setTimeout(() => { // Для плавной анимации добавления и удаления OptionsAttachmentItem
             const updatedSelectedFIles = selectedFiles.filter(item => !isEqual(item, file));
+            const updatedSelectedResponseFiles = selectedResponseFiles.filter(item => 'key' in file && item.key !== file.key);
 
             setSelectedFiles(updatedSelectedFIles)
+            setSelectedResponseFiles(updatedSelectedResponseFiles)
 
             setDeletingFileName('')
         }, 300)
@@ -160,7 +168,8 @@ export const TabPageForm = ({
             >
                     <Input.File
                         variant={EInputVariants.RECTANGULAR}
-                        setFiles={setSelectedFiles}
+                        setFileList={setSelectedFiles}
+                        setResponseFileList={setSelectedResponseFiles}
                         multiple={false}
                         disabled={selectedFiles.length > 0}
                         classNameField={cl.inputFile}
