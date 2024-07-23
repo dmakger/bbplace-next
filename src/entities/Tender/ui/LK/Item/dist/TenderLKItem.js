@@ -12,10 +12,11 @@ exports.TenderLKItem = function (_a) {
     var tender = _a.item, onClickDelete = _a.onClickDelete, className = _a.className;
     return (React.createElement("div", { className: classes_lib_1.cls(_TenderLKItem_module_scss_1["default"].block, className) },
         tender.category && (React.createElement("span", { className: _TenderLKItem_module_scss_1["default"].category }, tender.category.name)),
-        React.createElement("div", { className: _TenderLKItem_module_scss_1["default"].nameWrapper },
-            React.createElement("span", { className: _TenderLKItem_module_scss_1["default"].name }, tender.name)),
         React.createElement(OptionT_1.OptionT, { variant: option_data_1.OptionVariant.TO_BLUE, text: tender.name, className: _TenderLKItem_module_scss_1["default"].option, classNameText: _TenderLKItem_module_scss_1["default"].optionText }),
         React.createElement("div", { className: _TenderLKItem_module_scss_1["default"].bottom },
-            React.createElement("div", { className: _TenderLKItem_module_scss_1["default"].files }),
-            React.createElement(Button_1.Button, { variant: Button_1.ButtonVariant.CONTENT, color: button_model_1.ButtonColor.Negative, size: button_model_1.ButtonSize.Medium, beforeImage: trash_data_icon_1.TRASH_NEGATIVE_TO_WHITE_ICON, onClick: onClickDelete, className: classes_lib_1.cls(_TenderLKItem_module_scss_1["default"]["delete"], className) }))));
+            React.createElement("div", { className: _TenderLKItem_module_scss_1["default"].files },
+                React.createElement("span", { className: _TenderLKItem_module_scss_1["default"].filesTitle }, 'Файлы:'),
+                React.createElement("span", { className: _TenderLKItem_module_scss_1["default"].filesLength }, tender.attachments.length)),
+            React.createElement("div", { className: _TenderLKItem_module_scss_1["default"].deleteWrapper },
+                React.createElement(Button_1.Button, { variant: Button_1.ButtonVariant.CONTENT, color: button_model_1.ButtonColor.Negative, size: button_model_1.ButtonSize.Medium, beforeImage: trash_data_icon_1.TRASH_NEGATIVE_TO_WHITE_ICON, onClick: onClickDelete, className: classes_lib_1.cls(_TenderLKItem_module_scss_1["default"]["delete"], className) })))));
 };

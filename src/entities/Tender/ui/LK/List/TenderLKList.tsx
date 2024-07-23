@@ -6,6 +6,7 @@ import { IListTopLevel } from "@/shared/model/list.model";
 import { ITender } from "@/entities/Tender/model/tender.model";
 import { List } from "@/shared/ui/List/Default/List";
 import { TenderLKItem } from "../Item/TenderLKItem";
+import { ListDirection } from "@/shared/data/list.data";
 
 interface TenderLKListProps extends IListTopLevel<ITender> {
     onClickDelete?: Function
@@ -14,11 +15,13 @@ interface TenderLKListProps extends IListTopLevel<ITender> {
 export const TenderLKList: FC<TenderLKListProps> = ({
     items,
     onClickDelete,
+    className,
     ...rest
 }) => {
     return (
-        <List items={items} 
+        <List items={[...items, ...items, ...items, ...items, ...items]} direction={ListDirection.Wrap}
               component={TenderLKItem} componentProps={{onClickDelete}} 
+              className={cls(cl.list, className)}
               {...rest} />
     )
 }

@@ -50,7 +50,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.LKTenderTableAdaptive = void 0;
 var react_1 = require("react");
-var classes_lib_1 = require("@/shared/lib/classes.lib");
+var _LKTenderTableAdaptive_module_scss_1 = require("./_LKTenderTableAdaptive.module.scss");
 var TenderLKList_1 = require("../LK/List/TenderLKList");
 var LKTenderTable_1 = require("@/features/Table/ui/Tender/LK/ui/LKTenderTable");
 var tender_api_1 = require("@/entities/Tender/api/tender.api");
@@ -62,19 +62,20 @@ var hooks_1 = require("@/storage/hooks");
 var navigation_1 = require("next/navigation");
 var tender_lib_1 = require("@/entities/Tender/lib/tender.lib");
 var query_1 = require("@reduxjs/toolkit/query");
+var HandleSize_1 = require("@/shared/ui/Handle/Size/HandleSize");
 exports.LKTenderTableAdaptive = function (_a) {
     var tenderType = _a.tenderType, className = _a.className;
     // PARAMS
     var params = navigation_1.useParams();
     var tenderTypeSuccess = tenderType ? tenderType : tender_lib_1.toTenderType(params.type);
     // STATE
-    // const [tenders, setTenders] = useState<ITender[] | undefined>(undefined)
-    var _b = react_1.useState([]), tenders = _b[0], setTenders = _b[1];
-    var _c = react_1.useState([]), categoryList = _c[0], setCategoryList = _c[1];
+    var _b = react_1.useState(false), is768 = _b[0], setIs768 = _b[1];
+    var _c = react_1.useState([]), tenders = _c[0], setTenders = _c[1];
+    var _d = react_1.useState([]), categoryList = _d[0], setCategoryList = _d[1];
     // RTK
     var userId = hooks_1.useAppSelector(function (state) { return state.user; }).id;
     // API
-    var _d = tender_api_1.TenderAPI.useGetUserTendersQuery(userId ? { userId: userId, type: tenderTypeSuccess } : query_1.skipToken), tendersAPI = _d.data, isTendersLoading = _d.isLoading;
+    var _e = tender_api_1.TenderAPI.useGetUserTendersQuery(userId ? { userId: userId, type: tenderTypeSuccess } : query_1.skipToken), tendersAPI = _e.data, isTendersLoading = _e.isLoading;
     var currencyList = currency_metrics_api_1.CurrencyAPI.useGetCurrenciesQuery().data;
     var metrics = metrics_metrics_api_1.MetricsAPI.useGetMetricsQuery().data;
     var getCategory = category_metrics_api_1.CategoryAPI.useGetCategoryMutation()[0];
@@ -122,7 +123,7 @@ exports.LKTenderTableAdaptive = function (_a) {
             });
         }
     }, [tendersAPI, metrics, currencyList, categoryList]);
-    return (React.createElement("div", { className: classes_lib_1.cls(className) },
-        React.createElement(TenderLKList_1.TenderLKList, { items: tenders }),
-        React.createElement(LKTenderTable_1.LKTenderTable, { tenderType: tenderType })));
+    return (React.createElement(React.Fragment, null,
+        is768 ? (React.createElement(TenderLKList_1.TenderLKList, { items: tenders, className: _LKTenderTableAdaptive_module_scss_1["default"].list })) : (React.createElement(LKTenderTable_1.LKTenderTable, { tenderType: tenderType })),
+        React.createElement(HandleSize_1.HandleSize, { set: setIs768, width: 768 })));
 };

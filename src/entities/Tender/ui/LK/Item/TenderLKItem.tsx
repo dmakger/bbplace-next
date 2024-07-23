@@ -10,35 +10,35 @@ import { IListItem } from "@/shared/model/list.model";
 import { OptionT } from "@/shared/ui/Option/ui/this/OptionT";
 import { OptionVariant } from "@/shared/data/option.data";
 
-interface TenderLKItemProps<T> extends IListItem<T> {
+interface TenderLKItemProps extends IListItem<ITender> {
     onClickDelete?: Function
 }
 
-export const TenderLKItem = <T extends ITender>({
+export const TenderLKItem: FC<TenderLKItemProps> = ({
     item: tender, 
     onClickDelete, 
     className
-}: TenderLKItemProps<T>) => {
+}) => {
     return (
         <div className={cls(cl.block, className)}>
             {tender.category && (
                 <span className={cl.category}>{tender.category.name}</span>
             )}
-            <div className={cl.nameWrapper}>
-                <span className={cl.name}>{tender.name}</span>
-            </div>
             <OptionT variant={OptionVariant.TO_BLUE} 
                      text={tender.name} 
                      className={cl.option} classNameText={cl.optionText} />
             <div className={cl.bottom}>
                 <div className={cl.files}>
-
+                    <span className={cl.filesTitle}>{'Файлы:'}</span>
+                    <span className={cl.filesLength}>{tender.attachments.length}</span>
                 </div>
-                <Button variant={ButtonVariant.CONTENT} 
-                        color={ButtonColor.Negative} 
-                        size={ButtonSize.Medium} 
-                        beforeImage={TRASH_NEGATIVE_TO_WHITE_ICON} 
-                        onClick={onClickDelete} className={cls(cl.delete, className)} />
+                <div className={cl.deleteWrapper}>
+                    <Button variant={ButtonVariant.CONTENT} 
+                            color={ButtonColor.Negative} 
+                            size={ButtonSize.Medium} 
+                            beforeImage={TRASH_NEGATIVE_TO_WHITE_ICON} 
+                            onClick={onClickDelete} className={cls(cl.delete, className)} />
+                </div>
             </div>
         </div>
     )

@@ -8,30 +8,10 @@
         padding: 9.5px 10px;
     }
 
-    .nameWrapper {
-        border: 2px solid var(--background-1);
-        border-radius: 10px;
-        background-color: var(--background-2);
-        max-height: 70x;
-        height: 100%;
-        padding: 9px 15px;
-
-        .name {
-            display: flex;
-            align-items: center;
-            height: 52px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-    }
-
     .option {
         border: 2px solid var(--background-1);
         border-radius: 10px;
         background-color: var(--background-2);
-        // max-height: 70x;
-        // height: 100%;
-        // padding: 9px 15px;
 
         &:hover {
             background-color: var(--secondary-hovered);
@@ -43,6 +23,38 @@
             height: 52px;
             overflow: hidden;
             text-overflow: ellipsis;
+        }
+    }
+
+    .bottom {
+        display: flex;
+        align-items: center;
+
+        .files {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 100%;
+            padding: 10px;
+
+            .filesTitle {
+                color: var(--font-caption);
+                font-weight: var(--font-weight-reg);
+                font-size: var(--font-size-s);
+            }
+            .filesLength {
+                color: var(--font);
+                font-weight: var(--font-weight-med);
+                font-size: var(--font-size-s);
+            }
+        }
+
+        .deleteWrapper {
+            padding: 5px;
+            
+            .delete {
+                padding: 10px;
+            }
         }
     }
 }

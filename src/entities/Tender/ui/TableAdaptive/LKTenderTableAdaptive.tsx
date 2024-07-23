@@ -20,6 +20,7 @@ import { useAppSelector } from "@/storage/hooks";
 import { useParams } from "next/navigation";
 import { toTenderType } from "@/entities/Tender/lib/tender.lib";
 import { skipToken } from "@reduxjs/toolkit/query";
+import { HandleSize } from "@/shared/ui/Handle/Size/HandleSize";
 
 
 interface LKTenderTableAdaptiveProps{
@@ -34,7 +35,7 @@ export const LKTenderTableAdaptive:FC<LKTenderTableAdaptiveProps> = ({tenderType
     const tenderTypeSuccess = tenderType ? tenderType : toTenderType(params.type as string) as ETenderType
 
     // STATE
-    // const [tenders, setTenders] = useState<ITender[] | undefined>(undefined)
+    const [is768, setIs768] = useState(false)
     const [tenders, setTenders] = useState<ITender[]>([])
     const [categoryList, setCategoryList] = useState<ICategory[]>([])
     
@@ -82,9 +83,13 @@ export const LKTenderTableAdaptive:FC<LKTenderTableAdaptiveProps> = ({tenderType
     }, [tendersAPI, metrics, currencyList, categoryList])
     
     return (
-        <div className={cls(className)}>
-            <TenderLKList items={tenders} />
-            <LKTenderTable tenderType={tenderType} />
-        </div>
+        <>
+            {is768 ? (
+                <TenderLKList items={tenders} className={cl.list} />
+            ) : (
+                <LKTenderTable tenderType={tenderType} />
+            )}
+            <HandleSize set={setIs768} width={768} />
+        </>
     )
 }
