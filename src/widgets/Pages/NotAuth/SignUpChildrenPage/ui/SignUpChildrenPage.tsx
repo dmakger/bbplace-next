@@ -28,8 +28,9 @@ export const SignUpChildrenPage = () => {
     //STATE
     const [error, setError] = useState<boolean>(false)
     const [errorEmail, setErrorEmail] = useState<string>('')
-    const [errorPassword, setErrorPassword] = useState<string>('')
     const [errorCountry, setErrorCountry] = useState<string>('')
+    const [errorPassword, setErrorPassword] = useState<string>('')
+    const [errorFullName, setErrorFullName] = useState<string>('')
     const [errorOffert, setErrorOffert] = useState<string>('')
 
     const [countriesAsOption, setCountriesAsOption] = useState<IOption[]>([])
@@ -44,32 +45,33 @@ export const SignUpChildrenPage = () => {
     const router = useRouter()
 
     //API
-    const [userRegistration, {isLoading}] = UserAPI.useUserRegistrationMutation();
-    const {data: countries} = CountryAPI.useGetCountriesQuery()   
-    
+    const [userRegistration, { isLoading }] = UserAPI.useUserRegistrationMutation();
+    const { data: countries } = CountryAPI.useGetCountriesQuery()
+
     //EFFECT
     useEffect(() => {
-        if(countries)
+        if (countries)
             setCountriesAsOption(getCountriesAsOption(countries).filter(it => it.name !== 'Все страны'))
     }, [countries])
 
     // FUNCTIONS
-    const signUp = async(e: FormEvent<HTMLFormElement>) => {
+    const signUp = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
         setError(true);
-        setErrorPassword('');
         setErrorEmail('');
         setErrorCountry('');
-        setErrorOffert('')
+        setErrorPassword('');
+        setErrorFullName('');
+        setErrorOffert('');
 
         if (!formRef.current) return;
 
-        const { email: emailValue, password, confirmPassword, role, emailSubscription, country, offert } = getFormData(formRef?.current);
+        const { email: emailValue, country, password, confirmPassword, fullName, role, emailSubscription, offert } = getFormData(formRef?.current);
 
-        const selectedCountryName: string = countriesAsOption.find(it => it.id == country)?.name ?? '';        
-        
-        let hasError = false;        
+        const selectedCountryName: string = countriesAsOption.find(it => it.id == country)?.name ?? '';
+
+        let hasError = false;
 
         //EMAIL
         if (!emailValue) {
@@ -77,6 +79,12 @@ export const SignUpChildrenPage = () => {
             hasError = true;
         } else if (emailValue && !isEmailValid(emailValue)) {
             setErrorEmail(EMAIL_VALID_RULES);
+            hasError = true;
+        }
+
+        //COUNTRY
+        if (!country) {
+            setErrorCountry(SELECT_THE_COUNTRIES);
             hasError = true;
         }
 
@@ -92,18 +100,17 @@ export const SignUpChildrenPage = () => {
             hasError = true;
         }
 
-        //COUNTRY
-        if (!country) {
-            setErrorCountry(SELECT_THE_COUNTRIES);
+        //FULL_NAME
+        if (!fullName) {
+            setErrorFullName(FILL_THE_FIELD)
             hasError = true;
         }
 
         //OFFERT
-        if(!offert){            
+        if (!offert) {
             setErrorOffert(' ')
             hasError = true;
         }
-        
 
         if (hasError) return;
 
@@ -112,14 +119,14 @@ export const SignUpChildrenPage = () => {
             password: password,
             role: role,
             country: selectedCountryName,
-            legalName: emailValue,
-            brandName: emailValue,
-            fullName: emailValue,
-            phoneNumber: emailValue,
+            legalName: 'd',
+            brandName: 'd',
+            fullName: fullName,
+            phoneNumber: 'd',
             emailSubscription: emailSubscription === 'on' ? true : false,
         };
-        
-        
+
+
         try {
             const regData = await userRegistration(requestData).unwrap();
 
@@ -132,7 +139,7 @@ export const SignUpChildrenPage = () => {
             setError(e);
         }
     }
-    
+
     return (
         <WrapperForLogInNSupportPages pageTitle="Регистрация профиля" onSubmitFunc={signUp} formRef={formRef} >
             <WrapperRectangleInput
@@ -140,7 +147,7 @@ export const SignUpChildrenPage = () => {
                 isRequired
                 errorInputMessage={errorEmail}
             >
-                <Input.Text type="email" variant={EInputVariants.RECTANGULAR} placeholder="Введите email" name="email" error={!!errorEmail} warning={!!errorEmail}/>
+                <Input.Text type="email" variant={EInputVariants.RECTANGULAR} placeholder="Введите email" name="email" error={!!errorEmail} warning={!!errorEmail} />
             </WrapperRectangleInput>
             <WrapperRectangleInput
                 labelText="Страна"
@@ -149,7 +156,7 @@ export const SignUpChildrenPage = () => {
                 descriptionTooltipText={SELECT_THE_COUNTRIES}
                 errorInputMessage={errorCountry}
             >
-                <Input.TextAndSelect placeholder="Выберите страну" options={countriesAsOption} variant={EInputVariants.RECTANGULAR} name="country" required warning={error && !!errorCountry} error={error && !!errorCountry} arrowSizes={{width: 16, height: 14}}/>
+                <Input.TextAndSelect placeholder="Выберите страну" options={countriesAsOption} variant={EInputVariants.RECTANGULAR} name="country" required warning={error && !!errorCountry} error={error && !!errorCountry} arrowSizes={{ width: 16, height: 14 }} />
             </WrapperRectangleInput>
             <WrapperRectangleInput
                 labelText="Пароль"
@@ -163,19 +170,26 @@ export const SignUpChildrenPage = () => {
                 isRequired
                 errorInputMessage={errorPassword}
             >
-                <Input.Text type="password" variant={EInputVariants.RECTANGULAR} placeholder="Введите пароль еще раз" name="confirmPassword" required warning={error && !!errorPassword} error={error && !!errorPassword}/>
+                <Input.Text type="password" variant={EInputVariants.RECTANGULAR} placeholder="Введите пароль еще раз" name="confirmPassword" required warning={error && !!errorPassword} error={error && !!errorPassword} />
+            </WrapperRectangleInput>
+
+            <WrapperRectangleInput
+                labelText="ФИО"
+                isRequired
+            >
+                <Input.Text variant={EInputVariants.RECTANGULAR} placeholder="Введите ваше ФИО" name="fullName" error={!!errorFullName} warning={!!errorFullName} />
             </WrapperRectangleInput>
 
             <WrapperRectangleInput labelText="Роль" descriptionTooltipText="Выберите роль" isRequired classNameInputsContainer={cl.radioInputsContainer} classNameDescriptionWindow={cl.descriptionWindow}>
-                    <Input.Radio option={SUPPLIER_ROLE_ITEM_DATA} variant={EInputVariants.RECTANGULAR} name='role' required variantRadio={ERadioVariant.SINGLE} warning={!!error} error={!!error}/>
-                    <Input.Radio option={SELLER_ROLE_ITEM_DATA} variant={EInputVariants.RECTANGULAR} name='role' variantRadio={ERadioVariant.SINGLE} warning={!!error} error={!!error}/>
-                    <Input.Radio option={SELLER_N_SUPPLIER_ROLE_ITEM_DATA} variant={EInputVariants.RECTANGULAR} name='role' variantRadio={ERadioVariant.SINGLE} warning={!!error} error={!!error}/>
+                <Input.Radio option={SUPPLIER_ROLE_ITEM_DATA} variant={EInputVariants.RECTANGULAR} name='role' required variantRadio={ERadioVariant.SINGLE} warning={!!error} error={!!error} />
+                <Input.Radio option={SELLER_ROLE_ITEM_DATA} variant={EInputVariants.RECTANGULAR} name='role' variantRadio={ERadioVariant.SINGLE} warning={!!error} error={!!error} />
+                <Input.Radio option={SELLER_N_SUPPLIER_ROLE_ITEM_DATA} variant={EInputVariants.RECTANGULAR} name='role' variantRadio={ERadioVariant.SINGLE} warning={!!error} error={!!error} />
             </WrapperRectangleInput>
 
             <WrapperRectangleInput
                 labelText="Хочу получать новости от платформы и её партнёров"
                 labelPosition={ELabelPosition.RIGHT}
-                descriptionTooltipText="НОВОСТИ" 
+                descriptionTooltipText="НОВОСТИ"
                 classNameLabel={cl.labelNews}
             >
                 <Input.Checkbox variant={EInputVariants.RECTANGULAR} name="emailSubscription" warning={!!error} />
@@ -191,7 +205,7 @@ export const SignUpChildrenPage = () => {
                 linkText='Оферта'
                 linkHref=''
             >
-                <Input.Checkbox variant={EInputVariants.RECTANGULAR} name="offert" error={!!errorOffert && error} required/>
+                <Input.Checkbox variant={EInputVariants.RECTANGULAR} name="offert" error={!!errorOffert && error} required />
             </WrapperRectangleInput>
         </WrapperForLogInNSupportPages>
     )
