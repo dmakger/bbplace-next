@@ -119,10 +119,7 @@ export const SignUpChildrenPage = () => {
             password: password,
             role: role,
             country: selectedCountryName,
-            legalName: 'd',
-            brandName: 'd',
             fullName: fullName,
-            phoneNumber: 'd',
             emailSubscription: emailSubscription === 'on' ? true : false,
         };
 

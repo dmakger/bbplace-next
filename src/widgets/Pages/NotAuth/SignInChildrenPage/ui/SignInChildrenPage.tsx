@@ -4,7 +4,7 @@ import { WrapperForLogInNSupportPages } from "@/shared/ui/Wrapper/ForLogInNSuppo
 import { WrapperRectangleInput } from "@/shared/ui/Wrapper/RectangleInput"
 import Input from "@/shared/ui/Input/Input"
 import { EInputVariants } from "@/shared/ui/Input/model/input.model"
-import { FormEvent, useEffect, useRef, useState } from "react"
+import { FormEvent, useRef, useState } from "react"
 import { useRouter } from "next/navigation"
 import { useActionCreators, useAppSelector } from "@/storage/hooks"
 import { UserAPI } from "@/entities/Auth/api/auth.api"
@@ -22,10 +22,10 @@ export const SignInChildrenPage = () => {
     const [errorEmail, setErrorEmail] = useState<string>('')
     const [errorPassword, setErrorPassword] = useState<string>('')
 
-    // REF
+    //REF
     const formRef = useRef<HTMLFormElement>(null)
 
-    // ROUTER
+    //ROUTER
     const router = useRouter()
 
     //API
@@ -34,7 +34,6 @@ export const SignInChildrenPage = () => {
     //RTK
     const { email } = useAppSelector(state => state.user)
     const actionCreators = useActionCreators();
-
 
     //FUNCTIONS
     const LogIn = async (e: FormEvent<HTMLFormElement>) => {
