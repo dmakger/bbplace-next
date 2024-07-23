@@ -1,0 +1,48 @@
+.block {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background-1);
+    border-radius: 10px;
+    
+    .category {
+        padding: 9.5px 10px;
+    }
+
+    .nameWrapper {
+        border: 2px solid var(--background-1);
+        border-radius: 10px;
+        background-color: var(--background-2);
+        max-height: 70x;
+        height: 100%;
+        padding: 9px 15px;
+
+        .name {
+            display: flex;
+            align-items: center;
+            height: 52px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
+    .option {
+        border: 2px solid var(--background-1);
+        border-radius: 10px;
+        background-color: var(--background-2);
+        // max-height: 70x;
+        // height: 100%;
+        // padding: 9px 15px;
+
+        &:hover {
+            background-color: var(--secondary-hovered);
+        }
+
+        .optionText {
+            display: flex;
+            align-items: center;
+            height: 52px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+}

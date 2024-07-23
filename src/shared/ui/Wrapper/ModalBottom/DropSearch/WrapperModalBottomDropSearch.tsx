@@ -2,20 +2,20 @@ import { ChangeEvent, FC } from "react"
 
 import { IWrapperModalBottom, WrapperModalBottom } from "../ui/WrapperModalBottom";
 import { IOption } from "@/shared/model/option.model";
-import { IListProps, List } from "@/shared/ui/List/ui/List";
 
 import cl from './_WrapperModalBottomDropSearch.module.scss'
 import Input from "@/shared/ui/Input/Input";
 import { SEARCH__ICON } from "@/shared/ui/Icon/data/search.data.icon";
 import { EInputTextTypeVariants } from "@/shared/ui/Input/Text/model/text.input.model";
 import { EInputVariants } from "@/shared/ui/Input/model/input.model";
+import { IListOptionProps, ListOption } from "@/shared/ui/List/Option/ui/List/ListOption";
 
 interface WrapperModalBottomDropSearchProps extends IWrapperModalBottom {
     searchQuery: string
     handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void
     
     options: IOption[]
-    onClickOption?: IListProps['onClickOption']
+    onClickOption?: IListOptionProps['onClickItem']
 }
 
 export const WrapperModalBottomDropSearch:FC<WrapperModalBottomDropSearchProps> = ({title, searchQuery, handleInputChange, options, onClickOption, ...rest}) => {
@@ -33,7 +33,7 @@ export const WrapperModalBottomDropSearch:FC<WrapperModalBottomDropSearchProps> 
                 </div>
             }
             bottomChildren={
-                <List options={options} onClickOption={onClickOption} />
+                <ListOption items={options} onClickItem={onClickOption} />
             } 
             {...rest} />
     )

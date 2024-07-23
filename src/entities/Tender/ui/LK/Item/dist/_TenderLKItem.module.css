@@ -1,0 +1,39 @@
+.block {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-1);
+  border-radius: 10px;
+}
+.block .category {
+  padding: 9.5px 10px;
+}
+.block .nameWrapper {
+  border: 2px solid var(--background-1);
+  border-radius: 10px;
+  background-color: var(--background-2);
+  max-height: 70x;
+  height: 100%;
+  padding: 9px 15px;
+}
+.block .nameWrapper .name {
+  display: flex;
+  align-items: center;
+  height: 52px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.block .option {
+  border: 2px solid var(--background-1);
+  border-radius: 10px;
+  background-color: var(--background-2);
+}
+.block .option:hover {
+  background-color: var(--secondary-hovered);
+}
+.block .option .optionText {
+  display: flex;
+  align-items: center;
+  height: 52px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
