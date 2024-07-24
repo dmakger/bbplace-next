@@ -68,7 +68,7 @@ export const SwitchSelector = ({
             element.scrollIntoView({ behavior: "smooth", block: "center" });
         }
         if (variant === ESwitchSelectorVariants.TABS) {
-            router.push(`?type=${option.value}`)
+          options.length > 1 && router.push(`?type=${option.value}`)
         }
     }
 

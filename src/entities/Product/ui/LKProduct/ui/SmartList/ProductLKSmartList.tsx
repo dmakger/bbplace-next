@@ -11,7 +11,7 @@ import { MetricsAPI } from "@/entities/Metrics/api/metrics.metrics.api";
 import { UserAPI } from "@/entities/Auth/api/auth.api";
 import { useActionCreators, useAppSelector } from "@/storage/hooks";
 import { productApiListToProductList } from "@/entities/Product/lib/product.lib";
-import { SuspenseL } from "@/shared/ui/Wrapper/SuspenseL/SuspenseL";
+import SuspenseL from "@/shared/ui/Wrapper/SuspenseL/SuspenseL";
 import { LKSubheader } from "@/features/LKSubheader";
 import { ProductLKList } from "../list/ProductLKList";
 import { Modal } from "@/shared/ui/Modal/Modal";

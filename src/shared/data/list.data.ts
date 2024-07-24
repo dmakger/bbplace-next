@@ -6,3 +6,5 @@ export enum ListDirection {
     Column = 'column',
     Wrap = 'wrap',
 }
+
+export const DEFAULT__LIST_DIRECTION = ListDirection.Column

@@ -8,17 +8,17 @@ import { Axis } from "@/shared/model/button.model";
 import { ButtonVariant } from "../../../model/button.model";
 import { IImageSizes } from "@/shared/model/image.model";
 
-interface ButtonArrowWLineProps {
+interface ButtonArrowWLineProps extends IButton {
     axis?: Axis
     sizes?: IImageSizes,
     onClick?: IButton['onClick']
     className?: string,
 }
 
-export const ButtonArrowWLine:FC<ButtonArrowWLineProps> = ({axis, onClick, sizes, className}) => {
+export const ButtonArrowWLine:FC<ButtonArrowWLineProps> = ({axis, onClick, sizes, className, ...rest}) => {
     return (
         <Button afterImage={ARROW_WLINE_SECONDARY_ICON} afterProps={{axis, width: sizes?.width, height: sizes?.height}} 
                 variant={ButtonVariant.DEFAULT} onClick={onClick}
-                className={cls(cl.button, className)}/>
+                className={cls(cl.button, className)} {...rest}/>
     )
 }

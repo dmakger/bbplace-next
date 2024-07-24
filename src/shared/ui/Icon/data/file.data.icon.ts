@@ -70,3 +70,7 @@ export const FILE_ADD_ICON: IIcon = {
     disabled: FileAddDisabled,
     loading: FileUploadGray,
 }
+
+export const FILE_ADD_ICON_DISABLED: IIcon = {
+    default: FileAddDisabled,
+}

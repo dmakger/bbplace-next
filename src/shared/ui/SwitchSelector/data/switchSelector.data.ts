@@ -86,6 +86,14 @@ export const SWITCH_SELECTOR_PRODUCT_PAGE_MULTIPLE: IOption = {
     value: 'multiple'
 }
 
+//LK_PRICES_N_DISCOUNTS
+
+export const SWITCH_SELECTOR_PRICES_N_DISCOUNTS: IOption = {
+    id: 12,
+    name: 'Цены и скидки',
+    value: 'pricesNDiscounts'
+}
+
 export const LK_PRODUCT_PAGE_CREATE: IOption[] = [
     SWITCH_SELECTOR_PRODUCT_PAGE_MULTIPLE,
     SWITCH_SELECTOR_PRODUCT_PAGE_SINGLE

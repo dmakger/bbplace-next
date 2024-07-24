@@ -117,7 +117,7 @@ export const RecursiveSelectInput = ({
             {selectedoptions.length > 0 && <div className={cl.optionsContainer}>
                 {selectedoptions.map(option => (
                     <OptionsAttachmentItem
-                        size={EOptionsAttachmentSize.MEDIUM}
+                        size={EOptionsAttachmentSize.BIG}
                         className={cls(cl.optionsAttachmentShow, deletingOption === option.id ? cl.optionsAttachmentHide : '')}
                         key={option.id}
                         title={option.name}

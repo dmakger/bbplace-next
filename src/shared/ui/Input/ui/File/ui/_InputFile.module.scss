@@ -65,3 +65,25 @@
         font-size: var(--font-size-s);   
     }
 }
+
+//DISABLED
+.disabled{
+    border: 1px solid var(--disabled) !important;
+    background-color: var(--tertiary-surface-low);
+
+    .text{
+        color: var(--disabled);
+    }
+
+    .textHovered {
+        color: var(--disabled);
+    }
+
+    &:hover{
+        border-color: var(--disabled);
+
+        &::placeholder{
+            color: var(--disabled);
+        }
+    }
+}

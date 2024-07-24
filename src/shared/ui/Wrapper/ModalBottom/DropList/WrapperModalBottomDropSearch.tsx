@@ -2,18 +2,18 @@ import { FC } from "react"
 
 import { IWrapperModalBottom, WrapperModalBottom } from "../ui/WrapperModalBottom";
 import { IOption } from "@/shared/model/option.model";
-import { IListProps, List } from "@/shared/ui/List/ui/List";
+import { IListOptionProps, ListOption } from "@/shared/ui/List/Option/ui/List/ListOption";
 
 interface WrapperModalBottomDropListProps extends IWrapperModalBottom {
     options: IOption[]
-    onClickOption?: IListProps['onClickOption']
+    onClickOption?: IListOptionProps['onClickItem']
 }
 
 export const WrapperModalBottomDropList:FC<WrapperModalBottomDropListProps> = ({options, onClickOption, ...rest}) => {
     return (
         <WrapperModalBottom 
             bottomChildren={
-                <List options={options} onClickOption={onClickOption} />
+                <ListOption items={options} onClickOption={onClickOption} />
             } 
             {...rest} />
     )

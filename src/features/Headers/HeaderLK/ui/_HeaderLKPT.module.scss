@@ -5,6 +5,7 @@
     position: sticky;
     top: 0;
     left: 0;
+    z-index: 10;
     background-color: var(--background-1);
     padding-top: 10px;
 
@@ -103,5 +104,16 @@
             outline: 1px solid var(--background-2);
             padding: 10px 20px;
         }
+    }
+}
+
+//NO_TITLE
+.noTitle{
+    gap: 10px !important;
+}
+
+.addButtonLink {
+    @media (max-width: 1024px) {
+        width: 100%;
     }
 }

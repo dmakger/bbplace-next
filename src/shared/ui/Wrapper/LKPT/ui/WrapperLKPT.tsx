@@ -1,34 +1,48 @@
 'use client'
 
 import cl from './_WrapperLKPT.module.scss'
-import { OptionsTabType } from "@/features/DetailedPageInfo/model/detailedPageInfo.model"
+import { IOptionTab, OptionsTabType } from "@/features/DetailedPageInfo/model/detailedPageInfo.model"
 import { HeaderLKPT } from "@/features/Headers/HeaderLK"
 import { LKPTPage } from '@/features/LKPTPage'
 import { cls } from "@/shared/lib/classes.lib"
 import { IOption } from '@/shared/model/option.model'
+import { IButton } from '@/shared/ui/Button/ui/Button'
 import { SWITCH_SELECTOR_PRODUCT_PAGE_SINGLE } from '@/shared/ui/SwitchSelector/data/switchSelector.data'
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 interface IWrapperLKPT {
-    className?: string
     startPage: IOption,
     pageTitle: string,
     optionsTab: OptionsTabType,
     options: IOption[],
-    isButtonAdd?: boolean
+    buttonBackProps?: IButton
+    isButtonAdd?: boolean,
+    buttonAddProps?: IButton
+    className?: string
+    classNamePage?: string
 }
 
 export const WrapperLKPT = ({
-    className,
     startPage = SWITCH_SELECTOR_PRODUCT_PAGE_SINGLE,
     pageTitle = 'Новый товар',
-    optionsTab,
-    options,
-    isButtonAdd = true
+    optionsTab, options,
+    buttonBackProps,
+    isButtonAdd, buttonAddProps,
+    className, classNamePage,
 }: IWrapperLKPT) => {
 
     //STATE
     const [selectedPage, setSelectedPage] = useState<IOption>(startPage)
+    const [optionsTabArray, setOptionsTabArray] = useState<IOptionTab[]>([])
+
+    //EFFECT
+    useEffect(() => {
+        const convertToArray = (optionsTab: OptionsTabType): IOptionTab[] => {
+            return Object.values(optionsTab).filter((option): option is IOptionTab => option !== undefined);
+        };
+        setOptionsTabArray(convertToArray(optionsTab))
+    }, [optionsTab])
+
 
     return (
         <div className={cls(cl.WrapperLKPT, className)}>
@@ -37,10 +51,13 @@ export const WrapperLKPT = ({
                 optionsTab={optionsTab}
                 selectedoption={selectedPage}
                 setselectedoption={setSelectedPage}
-                isButtonAdd={isButtonAdd}
+                selectedOption={selectedPage}
+                setSelectedOption={setSelectedPage}
+                buttonBackProps={buttonBackProps}
+                isButtonAdd={isButtonAdd} buttonAddProps={buttonAddProps}
             />
-            <LKPTPage optionsTab={optionsTab}
-            selectedoption={selectedPage}/>
+            <LKPTPage optionsTab={optionsTabArray} selectedOption={selectedPage} 
+                        className={classNamePage}/>
         </div>
     )
 }

@@ -9,7 +9,7 @@ import { ListViewButton } from "@/shared/ui/Button/data/ListView/ListViewButton"
 import { MAIN_PAGES } from "@/config/pages-url.config";
 import { usePathname, useSearchParams } from "next/navigation";
 import { PRODUCT_PARAMS } from "@/config/params/product.params.config";
-import { SuspenseL } from "@/shared/ui/Wrapper/SuspenseL/SuspenseL";
+import SuspenseL from "@/shared/ui/Wrapper/SuspenseL/SuspenseL";
 
 
 interface ViewButtonsButtonProps{
