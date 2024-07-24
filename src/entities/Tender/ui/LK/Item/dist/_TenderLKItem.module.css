@@ -1,0 +1,51 @@
+.block {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-1);
+  border-radius: 10px;
+}
+.block .category {
+  padding: 9.5px 10px;
+}
+.block .option {
+  border: 2px solid var(--background-1);
+  border-radius: 10px;
+  background-color: var(--background-2);
+}
+.block .option:hover {
+  background-color: var(--secondary-hovered);
+}
+.block .option .optionText {
+  display: flex;
+  align-items: center;
+  height: 52px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.block .bottom {
+  display: flex;
+  align-items: center;
+}
+.block .bottom .files {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px;
+}
+.block .bottom .files .filesTitle {
+  color: var(--font-caption);
+  font-weight: var(--font-weight-reg);
+  font-size: var(--font-size-s);
+}
+.block .bottom .files .filesLength {
+  color: var(--font);
+  font-weight: var(--font-weight-med);
+  font-size: var(--font-size-s);
+}
+.block .bottom .deleteWrapper {
+  padding: 5px;
+}
+.block .bottom .deleteWrapper .delete {
+  padding: 10px;
+}

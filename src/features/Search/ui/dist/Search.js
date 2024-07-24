@@ -12,7 +12,7 @@ var hooks_1 = require("@/storage/hooks");
 var formData_lib_1 = require("@/shared/lib/formData.lib");
 var SuspenseL_1 = require("@/shared/ui/Wrapper/SuspenseL/SuspenseL");
 exports.Search = function () {
-    return (React.createElement(SuspenseL_1.SuspenseL, null,
+    return (React.createElement(SuspenseL_1["default"], null,
         React.createElement(exports.SearchChild, null)));
 };
 exports.SearchChild = function () {

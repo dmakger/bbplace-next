@@ -1,9 +1,7 @@
 'use client'
 
-import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 
-import { toTenderType } from "@/entities/Tender/lib/tender.lib";
 import { ETenderType } from "@/entities/Tender/model/tender.model";
 import { HeaderLKPT } from "@/features/Headers/HeaderLK";
 import { IOption } from "@/shared/model/option.model";
@@ -12,23 +10,15 @@ import Wrapper1280 from '@/shared/ui/Wrapper/1280/Wrapper1280';
 import { LKPTPage } from "@/features/LKPTPage";
 import { IOptionTabTender } from "@/features/DetailedPageInfo/model/detailedPageInfo.model";
 import { PageTenderNew } from "@/widgets/Pages/LK/Tender/New/PageTenderNew";
+import SuspenseL from "@/shared/ui/Wrapper/SuspenseL/SuspenseL";
+import { DASHBOARD_PAGES } from "@/config/pages-url.config";
 
-// export default function LKTenderNewPage() {
-//     return (
-//         <SuspenseL>
-//             <LKTenderNewChild />
-//         </SuspenseL>
-//     );
-// };
 
-// export const LKTenderNewChild: FC = () => {
 export default function LKTenderNewPage() {
-    // ROUTER
-    const searchParams = useSearchParams();
-
     // STATE
+    const [tenderType, setTenderType] = useState<string | undefined>()
     const [selectedOption, setSelectedOption] = useState<IOption>(
-        toTenderType(searchParams.get('type') as string) === ETenderType.PURCHASE 
+        tenderType === ETenderType.PURCHASE 
         ? SWITCH_SELECTOR_PURCHASE_TENDERS_OPTION 
         : SWITCH_SELECTOR_SALE_TENDERS_OPTION
     )
@@ -39,11 +29,14 @@ export default function LKTenderNewPage() {
     }
     return (
         <Wrapper1280>
-            <HeaderLKPT title={'Новый тендер'} 
-                        selectedOption={selectedOption} setSelectedOption={setSelectedOption} 
-                        options={TENDER_TYPE_OPTIONS} optionsTab={{}}
-                        isButtonAdd={false} />
-            <LKPTPage optionsTab={OPTIONS_TAB} selectedOption={selectedOption} />
+            <SuspenseL.Tender searchKey={'type'} set={setTenderType}>
+                <HeaderLKPT title={'Новый тендер'} 
+                            buttonBackProps={{href: DASHBOARD_PAGES.TENDERS.path}}
+                            selectedOption={selectedOption} setSelectedOption={setSelectedOption} 
+                            options={TENDER_TYPE_OPTIONS} optionsTab={{}}
+                            isButtonAdd={false} />
+                <LKPTPage optionsTab={OPTIONS_TAB} selectedOption={selectedOption} />
+            </SuspenseL.Tender>
         </Wrapper1280>
     );
 }

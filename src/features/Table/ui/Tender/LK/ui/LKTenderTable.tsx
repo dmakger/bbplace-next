@@ -19,13 +19,16 @@ import { HandleSize } from "@/shared/ui/Handle/Size/HandleSize";
 import { useParams } from "next/navigation";
 import { toTenderType } from "@/entities/Tender/lib/tender.lib";
 import { skipToken } from "@reduxjs/toolkit/query";
+import { isEqual } from "lodash";
 
 interface LKTenderTableProps {
-    tenderType?: ETenderType
+    tenderType?: ETenderType,
+    defaultTenders?: ITender[]
+    onClickDeleteTender?: (tenderId: ITender['id'], type?: ETenderType) => void
     className?: string,
 }
 
-export const LKTenderTable: FC<LKTenderTableProps> = ({ tenderType, ...rest }) => {
+export const LKTenderTable: FC<LKTenderTableProps> = ({ tenderType, defaultTenders, onClickDeleteTender, ...rest }) => {
     //PARAMS
     const params = useParams()
     const tenderTypeSuccess = tenderType ? tenderType : toTenderType(params.type as string) as ETenderType
@@ -41,7 +44,7 @@ export const LKTenderTable: FC<LKTenderTableProps> = ({ tenderType, ...rest }) =
     const { id: userId } = useAppSelector(state => state.user)
 
     // API
-    const { data: tendersAPI, isLoading: isTendersLoading } = TenderAPI.useGetUserTendersQuery(userId ? { userId, type: tenderTypeSuccess } : skipToken);
+    const { data: tendersAPI } = TenderAPI.useGetUserTendersQuery(userId && !defaultTenders ? { userId, type: tenderTypeSuccess } : skipToken);
     const { data: currencyList } = CurrencyAPI.useGetCurrenciesQuery()
     const { data: metrics } = MetricsAPI.useGetMetricsQuery()
     const [getCategory] = CategoryAPI.useGetCategoryMutation();
@@ -49,20 +52,30 @@ export const LKTenderTable: FC<LKTenderTableProps> = ({ tenderType, ...rest }) =
 
     // HANDLE
     const onClickDelete = async (tenderId: ITender['id'], type?: ETenderType) => {
+        if (onClickDeleteTender) {
+            onClickDeleteTender(tenderId, type)
+            return
+        }
         if (type === undefined || tenders === undefined) return
         // deleteTender()
         await deleteTender({tenderId, type}).unwrap().then(
             () => {                
                 setTenders(prevTenders => {
-                    if (prevTenders === undefined) return
-
-                    return prevTenders.filter(it => it.id !== tenderId)
+                    if (prevTenders !== undefined)
+                        return prevTenders.filter(it => it.id !== tenderId)
                 })
             }
         )
     }
 
     // ======={ EFFECT }=======
+
+    // DET DEFAULT TENDERS
+    useEffect(() => {
+        if (!isEqual(defaultTenders, tenders)) {
+            setTenders(defaultTenders)
+        }
+    }, [defaultTenders])
     
     // SET CATEGORIES
     useEffect(() => {

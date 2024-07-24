@@ -64,6 +64,7 @@ var DASHBOARD = /** @class */ (function (_super) {
         _this.CHATS = _this.createPath('/chat', true);
         _this.PRODUCTS = _this.createPath('/product', true);
         _this.TENDERS = _this.createPath('/tender', true);
+        _this.NEW_TENDER = _this.createPath('/tender/new', true);
         _this.CURRENT_CHAT = _this.createDynamicPath(function (id) { return "/chat/" + id; }, true);
         _this.EDIT_PRODUCT = _this.createDynamicPath(function (id) { return "/product/edit/" + id; }, true);
         return _this;

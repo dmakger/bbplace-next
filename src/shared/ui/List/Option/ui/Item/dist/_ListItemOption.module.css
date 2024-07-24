@@ -1,0 +1,6 @@
+.option {
+  padding: 15px;
+  border-bottom: 1px solid var(--background-1);
+  font-size: var(--font-size-s);
+  cursor: pointer;
+}
