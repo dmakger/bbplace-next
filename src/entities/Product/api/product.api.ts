@@ -92,21 +92,41 @@ export const ProductAPI = createApi({
         }),
 
         //EXCEL
-        getImportExcelTemplate: build.mutation<void, number[]>({
+        getImportExcelTemplate: build.mutation<Blob, number[]>({
             query: (selectedCategoriesId: number[]) => ({
                 url: `/GetImportExcelTemplate`,
                 method: 'POST',
-                headers: getHeaderAuthorization(),
-                body: JSON.stringify(selectedCategoriesId)
+                headers: {
+                    ...getHeaderAuthorization(),
+                    'Content-Type': 'application/json', 
+                  },               
+                body: JSON.stringify(selectedCategoriesId),
+                responseHandler: (response) => response.blob(),
             })
         }),
-        importProductsFromExcel: build.query<File, void>({
+        importProductsFromExcel: build.mutation<void, FormData>({
             query: (formData) => ({
                 url: `/ImportItemsFromExcel`,
                 method: 'POST',
                 headers: getHeaderAuthorization(),
                 body: formData
             })
+        }),
+        updatePricesFromExcel: build.mutation<void, FormData>({
+            query: (formData) => ({
+                url: `/UpdatePrices`,
+                method: 'POST',
+                headers: getHeaderAuthorization(),
+                body: formData
+            })
+        }),
+        getPricesExcel: build.query<Blob, void>({
+            query: () => ({
+                url: `/GetExcel`,
+                method: 'GET',
+                headers: getHeaderAuthorization(),
+                responseHandler: (response) => response.blob(),
+        })
         }),
         //GROUP
         createGroup: build.mutation<number, void>({

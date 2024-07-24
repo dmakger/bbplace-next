@@ -24,6 +24,8 @@ interface ICategoryRecursiveSelect {
 
 
     buttonWrapperText?: string,
+    isCanDisabledBellowButton?: boolean,
+
     isDescriptionTooltip?: boolean,
     isRequired?: boolean,
     descriptionTooltipText?: string,
@@ -34,7 +36,7 @@ interface ICategoryRecursiveSelect {
 }
 
 
-export const  CategoryRecursiveSelect = ({
+export const CategoryRecursiveSelect = ({
     className,
     labelText = '',
     variant = ERecursiveSelectVariant.SINGLE,
@@ -52,6 +54,8 @@ export const  CategoryRecursiveSelect = ({
     ],
 
     buttonWrapperText = '',
+    isCanDisabledBellowButton,
+
     isDescriptionTooltip = false,
     isRequired = false,
     descriptionTooltipText = '',
@@ -97,7 +101,7 @@ export const  CategoryRecursiveSelect = ({
         <WrapperRectangleInput
             labelText={labelText}
             classNameLabel={classNameLabel}
-            buttonText={buttonWrapperText}
+            bellowButtonText={buttonWrapperText}
             className={className}
             isDescriptionTooltip={isDescriptionTooltip}
             isRequired={isRequired}
@@ -107,6 +111,7 @@ export const  CategoryRecursiveSelect = ({
             classNameWarningWindow={classNameWarningWindow}
             onClickBellowButton={onClickBellowButton}
             errorInputMessage={errorInputMessage}
+            isCanDisabledBellowButton={!selectedOptions.length}
         >
             <Input.RecursiveSelect
                 variantRecursive={variant}

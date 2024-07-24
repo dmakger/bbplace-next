@@ -104,6 +104,7 @@
 
     .inputsContainer {
         display: flex;
+        flex-direction: column;
         gap: 5px;
         background-color: var(--tertiary-surface-low);
         padding: 5px;

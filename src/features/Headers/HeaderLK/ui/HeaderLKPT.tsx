@@ -46,7 +46,7 @@ export const HeaderLKPT = ({
 
     return (
         <div className={cls(cl.HeaderLKPT, className)}>
-            <div className={cl.leftContainer}>
+            <div className={cls(cl.leftContainer, !title ? cl.noTitle : '')}>
                 <div className={cl.backNTitle}>
                     <ButtonArrowWLine
                         className={cl.backButton}
@@ -55,7 +55,7 @@ export const HeaderLKPT = ({
                         sizes={{width: 17, height: 17}}
                         {...buttonBackProps}
                     />
-                    <span className={cl.headerTitle}>{title}</span>
+                    {title && <span className={cl.headerTitle}>{title}</span>}
                 </div>
 
                 <SwitchSelector className={cl.switchSelector}

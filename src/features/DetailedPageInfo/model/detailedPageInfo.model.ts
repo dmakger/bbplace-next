@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 // ====={ CORE }=====
 export interface IOptionTab {
     optionTab: ReactNode,
+    optionValue?: string,
     optionQuantity?: number | null
 }
 
@@ -30,6 +31,10 @@ export interface ICreateNewProductsTab extends IOptionTabParent {
     multiple: IOptionTab,
 }
 
+export interface IPricesNDiscountsTab extends IOptionTabParent{
+    pricesNDiscounts: IOptionTab,
+}
+
 // ====={ TENDER }=====
 export interface IOptionTabTender extends IOptionTabParent {
     sale: IOptionTab
@@ -37,6 +42,6 @@ export interface IOptionTabTender extends IOptionTabParent {
 }
 
 export type OptionsTabType = (
-    IUserProductsTab | IDetailedProductOptionsTab | ICreateNewProductsTab
+    IUserProductsTab | IDetailedProductOptionsTab | ICreateNewProductsTab | IPricesNDiscountsTab
     | IOptionTabTender
 );
