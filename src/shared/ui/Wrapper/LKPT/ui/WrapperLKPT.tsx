@@ -6,25 +6,29 @@ import { HeaderLKPT } from "@/features/Headers/HeaderLK"
 import { LKPTPage } from '@/features/LKPTPage'
 import { cls } from "@/shared/lib/classes.lib"
 import { IOption } from '@/shared/model/option.model'
+import { IButton } from '@/shared/ui/Button/ui/Button'
 import { SWITCH_SELECTOR_PRODUCT_PAGE_SINGLE } from '@/shared/ui/SwitchSelector/data/switchSelector.data'
 import { useEffect, useState } from "react"
 
 interface IWrapperLKPT {
-    className?: string
     startPage: IOption,
     pageTitle: string,
     optionsTab: OptionsTabType,
     options: IOption[],
-    isButtonAdd?: boolean
+    buttonBackProps?: IButton
+    isButtonAdd?: boolean,
+    buttonAddProps?: IButton
+    className?: string
+    classNamePage?: string
 }
 
 export const WrapperLKPT = ({
-    className,
     startPage = SWITCH_SELECTOR_PRODUCT_PAGE_SINGLE,
     pageTitle = 'Новый товар',
-    optionsTab,
-    options,
-    isButtonAdd = true
+    optionsTab, options,
+    buttonBackProps,
+    isButtonAdd, buttonAddProps,
+    className, classNamePage,
 }: IWrapperLKPT) => {
 
     //STATE
@@ -47,10 +51,11 @@ export const WrapperLKPT = ({
                 optionsTab={optionsTab}
                 selectedOption={selectedPage}
                 setSelectedOption={setSelectedPage}
-                isButtonAdd={isButtonAdd}
+                buttonBackProps={buttonBackProps}
+                isButtonAdd={isButtonAdd} buttonAddProps={buttonAddProps}
             />
-            <LKPTPage optionsTab={optionsTabArray}
-                selectedOption={selectedPage} />
+            <LKPTPage optionsTab={optionsTabArray} selectedOption={selectedPage} 
+                        className={classNamePage}/>
         </div>
     )
 }

@@ -14,11 +14,6 @@ import { DASHBOARD_PAGES } from "@/config/pages-url.config";
 export default function LKTenderNewPage() {
     // STATE
     const [tenderType, setTenderType] = useState<string | undefined>()
-    const [selectedOption, setSelectedOption] = useState<IOption>(
-        tenderType === ETenderType.PURCHASE 
-        ? SWITCH_SELECTOR_PURCHASE_TENDERS_OPTION 
-        : SWITCH_SELECTOR_SALE_TENDERS_OPTION
-    )
 
     const OPTIONS_TAB: IOptionTabTender = {
         sale: { 
@@ -32,16 +27,11 @@ export default function LKTenderNewPage() {
     }
     return (
         <Wrapper1280>
-            {/*<WrapperLKPT pageTitle="Новый тендер" isButtonAdd={false}
-                         options={TENDER_TYPE_OPTIONS} optionsTab={OPTIONS_TAB}
-                         startPage={SWITCH_SELECTOR_PURCHASE_TENDERS_OPTION}/>*/}
             <SuspenseL.Tender searchKey={'type'} set={setTenderType}>
-                <HeaderLKPT title={'Новый тендер'} 
-                            buttonBackProps={{href: DASHBOARD_PAGES.TENDERS.path}}
-                            selectedOption={selectedOption} setSelectedOption={setSelectedOption} 
-                            options={TENDER_TYPE_OPTIONS} optionsTab={{}}
-                            isButtonAdd={false} />
-                <LKPTPage optionsTab={OPTIONS_TAB} selectedOption={selectedOption} />
+                <WrapperLKPT pageTitle="Новый тендер" isButtonAdd={false}
+                             buttonBackProps={{href: DASHBOARD_PAGES.TENDERS.path}}
+                             options={TENDER_TYPE_OPTIONS} optionsTab={OPTIONS_TAB}
+                             startPage={tenderType === ETenderType.PURCHASE ? SWITCH_SELECTOR_PURCHASE_TENDERS_OPTION : SWITCH_SELECTOR_SALE_TENDERS_OPTION}/>
             </SuspenseL.Tender>
         </Wrapper1280>
     );
