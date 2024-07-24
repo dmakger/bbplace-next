@@ -3,13 +3,13 @@ import { FC } from "react"
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_TenderLKList.module.scss'
 import { IListTopLevel } from "@/shared/model/list.model";
-import { ITender } from "@/entities/Tender/model/tender.model";
+import { ETenderType, ITender } from "@/entities/Tender/model/tender.model";
 import { List } from "@/shared/ui/List/Default/List";
 import { TenderLKItem } from "../Item/TenderLKItem";
 import { ListDirection } from "@/shared/data/list.data";
 
 interface TenderLKListProps extends IListTopLevel<ITender> {
-    onClickDelete?: Function
+    onClickDelete?: (tenderId: ITender['id'], type?: ETenderType) => void
 }
 
 export const TenderLKList: FC<TenderLKListProps> = ({
@@ -19,7 +19,7 @@ export const TenderLKList: FC<TenderLKListProps> = ({
     ...rest
 }) => {
     return (
-        <List items={[...items, ...items, ...items, ...items, ...items]} direction={ListDirection.Wrap}
+        <List items={items} direction={ListDirection.Wrap}
               component={TenderLKItem} componentProps={{onClickDelete}} 
               className={cls(cl.list, className)}
               {...rest} />

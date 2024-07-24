@@ -75,8 +75,9 @@ var HandleSize_1 = require("@/shared/ui/Handle/Size/HandleSize");
 var navigation_1 = require("next/navigation");
 var tender_lib_1 = require("@/entities/Tender/lib/tender.lib");
 var query_1 = require("@reduxjs/toolkit/query");
+var lodash_1 = require("lodash");
 exports.LKTenderTable = function (_a) {
-    var tenderType = _a.tenderType, rest = __rest(_a, ["tenderType"]);
+    var tenderType = _a.tenderType, defaultTenders = _a.defaultTenders, onClickDeleteTender = _a.onClickDeleteTender, rest = __rest(_a, ["tenderType", "defaultTenders", "onClickDeleteTender"]);
     //PARAMS
     var params = navigation_1.useParams();
     var tenderTypeSuccess = tenderType ? tenderType : tender_lib_1.toTenderType(params.type);
@@ -89,7 +90,7 @@ exports.LKTenderTable = function (_a) {
     // RTK
     var userId = hooks_1.useAppSelector(function (state) { return state.user; }).id;
     // API
-    var _g = tender_api_1.TenderAPI.useGetUserTendersQuery(userId ? { userId: userId, type: tenderTypeSuccess } : query_1.skipToken), tendersAPI = _g.data, isTendersLoading = _g.isLoading;
+    var tendersAPI = tender_api_1.TenderAPI.useGetUserTendersQuery(userId && !defaultTenders ? { userId: userId, type: tenderTypeSuccess } : query_1.skipToken).data;
     var currencyList = currency_metrics_api_1.CurrencyAPI.useGetCurrenciesQuery().data;
     var metrics = metrics_metrics_api_1.MetricsAPI.useGetMetricsQuery().data;
     var getCategory = category_metrics_api_1.CategoryAPI.useGetCategoryMutation()[0];
@@ -99,6 +100,10 @@ exports.LKTenderTable = function (_a) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    if (onClickDeleteTender) {
+                        onClickDeleteTender(tenderId, type);
+                        return [2 /*return*/];
+                    }
                     if (type === undefined || tenders === undefined)
                         return [2 /*return*/];
                     // deleteTender()
@@ -116,6 +121,12 @@ exports.LKTenderTable = function (_a) {
         });
     }); };
     // ======={ EFFECT }=======
+    // DET DEFAULT TENDERS
+    react_1.useEffect(function () {
+        if (!lodash_1.isEqual(defaultTenders, tenders)) {
+            setTenders(defaultTenders);
+        }
+    }, [defaultTenders]);
     // SET CATEGORIES
     react_1.useEffect(function () {
         if (!tendersAPI)

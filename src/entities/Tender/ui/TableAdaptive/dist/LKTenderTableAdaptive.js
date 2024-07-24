@@ -79,6 +79,7 @@ exports.LKTenderTableAdaptive = function (_a) {
     var currencyList = currency_metrics_api_1.CurrencyAPI.useGetCurrenciesQuery().data;
     var metrics = metrics_metrics_api_1.MetricsAPI.useGetMetricsQuery().data;
     var getCategory = category_metrics_api_1.CategoryAPI.useGetCategoryMutation()[0];
+    var deleteTender = tender_api_1.TenderAPI.useDeleteTenderMutation()[0];
     // ======={ EFFECT }=======
     // SET CATEGORIES
     react_1.useEffect(function () {
@@ -123,7 +124,25 @@ exports.LKTenderTableAdaptive = function (_a) {
             });
         }
     }, [tendersAPI, metrics, currencyList, categoryList]);
+    // ======={ HANDLE }=======
+    var onClickDelete = function (tenderId, type) { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    if (type === undefined || tenders === undefined)
+                        return [2 /*return*/];
+                    // deleteTender()
+                    return [4 /*yield*/, deleteTender({ tenderId: tenderId, type: type }).unwrap().then(function () {
+                            setTenders(function (prevTenders) { return prevTenders.filter(function (it) { return it.id !== tenderId; }); });
+                        })];
+                case 1:
+                    // deleteTender()
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); };
     return (React.createElement(React.Fragment, null,
-        is768 ? (React.createElement(TenderLKList_1.TenderLKList, { items: tenders, className: _LKTenderTableAdaptive_module_scss_1["default"].list })) : (React.createElement(LKTenderTable_1.LKTenderTable, { tenderType: tenderType })),
+        is768 ? (React.createElement(TenderLKList_1.TenderLKList, { items: tenders, onClickDelete: onClickDelete, className: _LKTenderTableAdaptive_module_scss_1["default"].list })) : (React.createElement(LKTenderTable_1.LKTenderTable, { tenderType: tenderType, defaultTenders: tenders, onClickDeleteTender: onClickDelete })),
         React.createElement(HandleSize_1.HandleSize, { set: setIs768, width: 768 })));
 };

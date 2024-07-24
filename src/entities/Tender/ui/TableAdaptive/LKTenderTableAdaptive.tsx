@@ -47,6 +47,7 @@ export const LKTenderTableAdaptive:FC<LKTenderTableAdaptiveProps> = ({tenderType
     const { data: currencyList } = CurrencyAPI.useGetCurrenciesQuery()
     const { data: metrics } = MetricsAPI.useGetMetricsQuery()
     const [getCategory] = CategoryAPI.useGetCategoryMutation();
+    const [deleteTender] = TenderAPI.useDeleteTenderMutation()
 
     // ======={ EFFECT }=======
     
@@ -81,13 +82,25 @@ export const LKTenderTableAdaptive:FC<LKTenderTableAdaptiveProps> = ({tenderType
             })
         }
     }, [tendersAPI, metrics, currencyList, categoryList])
+
+
+    // ======={ HANDLE }=======
+    const onClickDelete = async (tenderId: ITender['id'], type?: ETenderType) => {
+        if (type === undefined || tenders === undefined) return
+        // deleteTender()
+        await deleteTender({tenderId, type}).unwrap().then(
+            () => {                
+                setTenders(prevTenders => prevTenders.filter(it => it.id !== tenderId))
+            }
+        )
+    }
     
     return (
         <>
             {is768 ? (
-                <TenderLKList items={tenders} className={cl.list} />
+                <TenderLKList items={tenders} onClickDelete={onClickDelete} className={cl.list} />
             ) : (
-                <LKTenderTable tenderType={tenderType} />
+                <LKTenderTable tenderType={tenderType} defaultTenders={tenders} onClickDeleteTender={onClickDelete}/>
             )}
             <HandleSize set={setIs768} width={768} />
         </>

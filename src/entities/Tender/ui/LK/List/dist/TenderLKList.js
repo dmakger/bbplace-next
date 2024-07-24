@@ -21,13 +21,6 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
-};
 exports.__esModule = true;
 exports.TenderLKList = void 0;
 var classes_lib_1 = require("@/shared/lib/classes.lib");
@@ -37,5 +30,5 @@ var TenderLKItem_1 = require("../Item/TenderLKItem");
 var list_data_1 = require("@/shared/data/list.data");
 exports.TenderLKList = function (_a) {
     var items = _a.items, onClickDelete = _a.onClickDelete, className = _a.className, rest = __rest(_a, ["items", "onClickDelete", "className"]);
-    return (React.createElement(List_1.List, __assign({ items: __spreadArrays(items, items, items, items, items), direction: list_data_1.ListDirection.Wrap, component: TenderLKItem_1.TenderLKItem, componentProps: { onClickDelete: onClickDelete }, className: classes_lib_1.cls(_TenderLKList_module_scss_1["default"].list, className) }, rest)));
+    return (React.createElement(List_1.List, __assign({ items: items, direction: list_data_1.ListDirection.Wrap, component: TenderLKItem_1.TenderLKItem, componentProps: { onClickDelete: onClickDelete }, className: classes_lib_1.cls(_TenderLKList_module_scss_1["default"].list, className) }, rest)));
 };
