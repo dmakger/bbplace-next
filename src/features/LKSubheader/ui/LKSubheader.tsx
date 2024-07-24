@@ -14,14 +14,14 @@ interface ILKSubheader {
     className?: string,
     checkedItemsNumber: number,
     checkedProductsId: number[]
-    setCheckedProductsId: Function
+    setсheckedProductsId: Function
 }
 
 export const LKSubheader = ({
     className,
     checkedItemsNumber,
     checkedProductsId,
-    setCheckedProductsId
+    setсheckedProductsId
 }: ILKSubheader) => {
 
     //STATE
@@ -44,10 +44,10 @@ export const LKSubheader = ({
         e.stopPropagation()
         // isDraftPage && deleteGroupDrafts(checkedProductsId)
         // isActivePage && deleteGroupItems(checkedProductsId)
-        setCheckedProductsId([])
+        setсheckedProductsId([])
     }
 
-    const handleCancel = () => setCheckedProductsId([]);
+    const handleCancel = () => setсheckedProductsId([]);
 
     return (
         <>

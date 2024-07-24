@@ -22,7 +22,6 @@ import { Modal } from '@/shared/ui/Modal/Modal'
 import { WrapperModalBottomDropList } from '@/shared/ui/Wrapper/ModalBottom/DropList/WrapperModalBottomDropSearch'
 import { WrapperModalBottomDropSearch } from '@/shared/ui/Wrapper/ModalBottom/DropSearch/WrapperModalBottomDropSearch'
 import { EInputTextTypeVariants } from '../../../Text/model/text.input.model'
-import { SEARCH__ICON } from '@/shared/ui/Icon/data/search.data.icon'
 
 interface ITextAndSelectInput extends IWrapperRectangleInputChildren, IInput {
     variantRecursive?: ERecursiveSelectVariant,
@@ -38,6 +37,9 @@ interface ITextAndSelectInput extends IWrapperRectangleInputChildren, IInput {
 }
 
 export function TextAndSelectInput({
+    required,
+    setselectedoption,
+    error,
     name, placeholder,
     variant = EInputVariants.ROUNDED, variantRecursive = ERecursiveSelectVariant.SINGLE,
     options=[], defaultOption,
@@ -73,13 +75,26 @@ export function TextAndSelectInput({
     }, [defaultOption])
 
     useEffect(() => {
-        activeOption === undefined && setIsSuccess(false)
+        if(activeOption === undefined){
+            setIsSuccess(false)
+        } 
+        activeOption !== undefined && setselectedoption && setselectedoption(activeOption)
     }, [activeOption]);
 
 
     useEffect(() => {
         setWarning && setWarning(isWarning)
     }, [isWarning])
+
+    useEffect(() => {
+        if (error) {
+            setWarning && setWarning(true)
+            setSuccess && setSuccess(false)
+            setIsSuccess(false)
+            setIsWarning(true)
+        }
+
+    },[error])
 
 
     useEffect(() => {
@@ -168,7 +183,9 @@ export function TextAndSelectInput({
                                         onClick={e => e.stopPropagation()}
                                         onChange={handleInputChange}
                                         autoFocus
-                                        className={cl.input} /> 
+                                        className={cl.input}
+                                        required={required}
+                                        /> 
                                 ) : (
                                     <div className={cl.inputContainer}>
                                         <Image src={SEARCH_ICON} alt={"Поиск"} width={19} height={19} className={cl.imageSearch} />
@@ -182,7 +199,7 @@ export function TextAndSelectInput({
                                 )
                             ) : (
                                 <p className={cls(
-                                    cl.selectedOption,
+                                    cl.selectedoption,
                                     !activeOption && placeholder ? cl.placeholder : '',
                                     disabled ? cl.disabledPlaceholder : ''
                                     )}>
@@ -212,7 +229,7 @@ export function TextAndSelectInput({
                             <>
                                 {variant === EInputVariants.ROUNDED && 
                                     <p className={cl.noResult}>
-                                        К сожалению, такой страны нет (X_X)
+                                        К сожалению, такого варианта нет (X_X)
                                     </p>
                                 }
                                 {showOptions && variant === EInputVariants.RECTANGULAR && 

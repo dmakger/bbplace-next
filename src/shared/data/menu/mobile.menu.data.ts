@@ -1,37 +1,79 @@
-import { IMenuItem } from "@/shared/model/menu.model";
 import { DASHBOARD_PAGES, MAIN_PAGES } from "@/config/pages-url.config";
 
-import LogoSVG from '@/shared/assets/img/logo.svg'
-import CatalogSVG from '@/shared/assets/img/catalog.svg'
-import LkSVG from '@/shared/assets/img/lk.svg'
+import { IIconVariants } from "@/shared/model/icon.model";
+import { ARROW_WLINE_TERTIARY_MOBILE_ICON } from "@/shared/ui/Icon/data/arrow.data.icon";
+import { SUPPORT_MENU_ICON } from "@/shared/ui/Icon/data/support.data.icon";
+import { LOGO_ICON } from "@/shared/ui/Icon/data/logo.data.icon";
+import { LK_ICON } from "@/shared/ui/Icon/data/lk.data.icon";
+import { CATALOG_ICON } from "@/shared/ui/Icon/data/catalog.data.icon";
+import { CHAT_ICON } from "@/shared/ui/Icon/data/chat.data.icon";
+import { FAVOURITE_ICON_MENU } from "@/shared/ui/Icon/data/favourite.data.icon";
 
 
 // ===={ MOBILE MENU DATA }====
 
-export const MAIN_ITEM_MENU_DATA: IMenuItem = {
+export const MAIN_ITEM_MOBILE_MENU_DATA: IIconVariants = {
+    id: 1,
     link: MAIN_PAGES.HOME.path,
     title: "Главная",
-    image: LogoSVG,
-}
-
-export const CATALOG_ITEM_MENU_DATA: IMenuItem = {
+    image: LOGO_ICON,
+  }
+  
+  export const CATALOG_ITEM_MOBILE_MENU_DATA: IIconVariants = {
+    id: 2,
     link: MAIN_PAGES.CATALOG.path,
     title: "Каталог",
-    image: CatalogSVG,
-}
-
-export const DASHBOARD_ITEM_MENU_DATA: IMenuItem = {
+    image: CATALOG_ICON
+  }
+  
+  export const DASHBOARD_ITEM_MOBILE_MENU_DATA: IIconVariants = {
+    id: 3,
+    link: DASHBOARD_PAGES.CHATS.path,
+    title: "Чат",
+    image: CHAT_ICON
+  }
+  
+  export const FAVORITE_ITEM_MOBILE_MENU_DATA: IIconVariants = {
+    id: 4,
+    link: DASHBOARD_PAGES.FAVORITE.path,
+    title: "Избранное",
+    image: FAVOURITE_ICON_MENU
+  }
+  
+  export const LK_ITEM_MOBILE_MENU_DATA: IIconVariants = {
+    id: 5,
     link: DASHBOARD_PAGES.HOME.path,
     title: "ЛК",
-    image: LkSVG,
+    image: LK_ICON
+  }
+
+export const BACK_ITEM_MENU_DATA: IIconVariants = {
+    id: 6,
+    title: 'Назад',
+    image: ARROW_WLINE_TERTIARY_MOBILE_ICON
+}
+
+export const SUPPORT_ITEM_MENU_DATA: IIconVariants = {
+    id: 7,
+    link: MAIN_PAGES.SUPPORT.path,
+    title: 'Поддержка',
+    image: SUPPORT_MENU_ICON 
 }
 
 
 // // DATA WITHOUT TITLE
-export const MOBILE_MENU_DATA: IMenuItem[] = [
-    MAIN_ITEM_MENU_DATA,
-    CATALOG_ITEM_MENU_DATA,
+export const MOBILE_MENU_DATA: IIconVariants[] = [
+    MAIN_ITEM_MOBILE_MENU_DATA,
+    CATALOG_ITEM_MOBILE_MENU_DATA,
     // FAVORITES_WT_ITEM_MENU_DATA,
     // CHATS_WT_ITEM_MENU_DATA,
-    DASHBOARD_ITEM_MENU_DATA,
+    DASHBOARD_ITEM_MOBILE_MENU_DATA,
+]
+
+
+//NOT_AUTH_DATA
+export const NOT_AUTH_MOBILE_DATA: IIconVariants[] = [
+    BACK_ITEM_MENU_DATA,
+    MAIN_ITEM_MOBILE_MENU_DATA,
+    SUPPORT_ITEM_MENU_DATA
 ]

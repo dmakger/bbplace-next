@@ -1,0 +1,1 @@
+export {ForgotPasswordChildrenPage} from './ui/ForgotPasswordChildrenPage'

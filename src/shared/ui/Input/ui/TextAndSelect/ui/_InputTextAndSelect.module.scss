@@ -1,8 +1,20 @@
+.block,
+.mainInput,
+.input,
+.placeholder,
+.selectedoption,
+.arrowContainer,
+.rectangular,
+.activeArrow,
+.error,
+.success {
+    transition: 0.3s;
+}
+
 .block {
     position: relative;
     cursor: pointer;
     width: 100%;
-    transition: 0.3s;
 }
 
 .mainInput {
@@ -10,39 +22,10 @@
     justify-content: space-between;
     align-items: center;
     gap: 15px;
-    transition: all .3s;
 
     &:hover {
         .placeholder {
             color: var(--font);
-        }
-    }
-}
-
-.selectedOption {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    font-size: var(--font-size-s);
-    transition: all .3s;
-}
-
-.rounded {
-    background-color: var(--gray-3);
-    padding: 10px 10px 10px 15px;
-    font-size: var(--font-size-s);
-    border-radius: 40px;
-    border: 1px var(--gray-5) solid;
-
-
-    &:hover {
-        background-color: var(--gray-4);
-        border-color: var(--hover);
-    }
-
-    .selectedOption {
-        &:hover {
-            background-color: var(--gray-4);
         }
     }
 }
@@ -57,7 +40,40 @@
 
 .placeholder {
     color: var(--font-caption-sub) !important;
-    transition: 0.3s;
+}
+
+.selectedoption {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: var(--font-size-s);
+}
+
+.rounded {
+    background-color: var(--gray-3);
+    padding: 10px 10px 10px 15px;
+    font-size: var(--font-size-s);
+    border-radius: 40px;
+    border: 1px var(--gray-5) solid;
+
+    &:hover {
+        background-color: var(--gray-4);
+        border-color: var(--hover);
+
+        .arrowContainer {
+            background-color: var(--gray-4);
+        }
+    }
+
+    .selectedoption {
+        &:hover {
+            background-color: var(--gray-4);
+        }
+    }
+
+    .activeArrow{
+            background-color: var(--gray-3);
+    }
 }
 
 .rectangular {
@@ -72,7 +88,7 @@
         padding: 20px;
     }
 
-    .selectedOption {
+    .selectedoption {
         color: var(--font);
     }
 
@@ -82,6 +98,7 @@
 
         .arrowContainer {
             background-color: var(--tertiary-surface-low);
+            border-radius: 5px;
         }
 
         .placeholder {
@@ -103,8 +120,7 @@
         align-items: center;
         min-width: 60px;
         min-height: 60px;
-        border-radius: 0 0px 0 0;
-        transition: .3s;
+        border-radius: 5px 5px 0 5px;
 
         & img {
             width: 16px;
@@ -113,7 +129,7 @@
 
     }
 
-    .selectedOption {
+    .selectedoption {
         font-size: var(--font-size-reg);
     }
 
@@ -139,7 +155,7 @@
             min-height: 50px;
         }
 
-        .selectedOption {
+        .selectedoption {
             font-size: var(--font-size-s);
         }
 
@@ -162,14 +178,12 @@
     @media (max-width: 768px) {
         font-size: var(--font-size-s);
 
-
         .arrowContainer {
             min-width: 50px;
             min-height: 50px;
         }
 
-
-        .selectedOption {
+        .selectedoption {
             font-size: var(--font-size-s);
         }
 
@@ -201,18 +215,13 @@
         color: var(--disabled) !important;
     }
 
-   
 
     .imageSearch {
         display: none;
     }
 
 
-    .inputContainer {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        width: 100%;
+    .inputContainer {   
         padding-left: 15px;
 
         .input {
@@ -236,13 +245,11 @@
     color: var(--font);
     border-top: 1px solid var(--negative-border) !important;
     border-color: var(--negative-border) !important;
-    transition-duration: 0.3s;
 }
 
 .success {
     color: var(--font);
     border-color: var(--positive-border) !important;
-    transition-duration: 0.3s;
 }
 
 .rectangularListOpen {
@@ -266,7 +273,7 @@
 }
 
 .show {
-    z-index: 1;
+    z-index: 2;
     opacity: 1;
 }
 

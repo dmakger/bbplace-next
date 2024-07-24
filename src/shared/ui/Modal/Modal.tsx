@@ -24,8 +24,7 @@ export const Modal:FC<ModalProps> = ({_isOpen=false, onClickOverlay=()=>{}, view
 
     // EFFECT
     useEffect(() => {
-        if (isOpen === _isOpen)
-            return
+        if (isOpen === _isOpen) return
         setIsOpen(_isOpen)
     }, [_isOpen])
 

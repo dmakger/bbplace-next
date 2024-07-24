@@ -7,16 +7,13 @@ import { cls } from '@/shared/lib/classes.lib'
 import { WrapperTitleInput } from '@/shared/ui/Wrapper/Title/Input/WrapperTitleInput'
 import { Button, ButtonVariant } from '@/shared/ui/Button'
 import { ARROW_TERTIARY_WO_ICON } from '@/shared/ui/Icon/data/arrow.data.icon'
-import { ARROW_WO_ICON } from '@/shared/ui/Icon/data/arrow.data.icon'
 import { IImageSizes } from '@/shared/model/image.model'
 import { IWrapperRectangleInputChildren } from '@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model'
 import Input from '../../../Input'
 import WrapperClickOutside from '@/shared/ui/Wrapper/ClickOutside/WrapperClickOutside'
-import { EInputSizes, EInputVariants, IInput } from '../../../model/input.model'
+import { EInputVariants, IInput } from '../../../model/input.model'
 import { Modal } from '@/shared/ui/Modal/Modal'
 import { EModalView } from '@/shared/data/modal.data'
-import { WrapperModalBottom } from '@/shared/ui/Wrapper/ModalBottom'
-import { BottomInfoModal } from '@/features/Modal/BottomInfo'
 import { HandleSize } from '@/shared/ui/Handle/Size/HandleSize'
 import { WrapperModalBottomDropList } from '@/shared/ui/Wrapper/ModalBottom/DropList/WrapperModalBottomDropSearch'
 // import { Button } from '@/shared/ui/Button/ui/Button'
@@ -39,7 +36,7 @@ export function InputSelect({
     variant = EInputVariants.ROUNDED,
     defaultOption, options,
     onClickOption,
-    arrowSizes = { width: 10, height: 10 },
+    arrowSizes = { width: 10, height: 15 },
     title, titleModal,
     
     className, classNameTitle, classNameOptions, classNameButton,
@@ -48,7 +45,7 @@ export function InputSelect({
 
     // STATE
     const [showOptions, setShowOptions] = useState(false)
-    const [activeOption, setActiveOption] = useState<IOption | undefined>()
+    const [activeOption, setActiveOption] = useState<IOption | undefined>(defaultOption)
     // const [isWarning, setIsWarning] = useState<boolean>(false);
     // const [isSuccess, setIsSuccess] = useState<boolean>(false);
     const [is768, setIs768] = useState<boolean>(false);
@@ -110,7 +107,7 @@ export function InputSelect({
                             {!activeOption && placeholder ? placeholder : activeOption?.name}
                         </span>
                         <Button variant={ButtonVariant.DEFAULT} 
-                                className={cls(cl.arrowContainer, showOptions ? cl.activeArrow : '', showOptions ? cl.arrowOpen : '')} 
+                                className={cls(cl.arrowContainer, showOptions ? cl.activeArrow : '')} 
                                 beforeImage={ARROW_TERTIARY_WO_ICON} beforeProps={{ width: arrowSizes.width, height: arrowSizes.height }} />
                     </div>
                     {/* <Button variant={ButtonVariant.DEFAULT} 

@@ -20,7 +20,7 @@ export const DetailedPageInfo = ({
     optionsTab
 }: IDetailedPageInfo) => {
 
-    const [selectedOption, setSelectedOption] = useState<IOption>(defaultOption)
+    const [selectedoption, setselectedoption] = useState<IOption>(defaultOption)
 
     const productPageOptionsArray = convertObjectToArray(optionsTab);
 
@@ -29,8 +29,8 @@ export const DetailedPageInfo = ({
             <SwitchSelector
                 className={cl.switchSelectorButton}
                 options={options}
-                selectedOption={selectedOption}
-                setSelectedOption={setSelectedOption}
+                selectedoption={selectedoption}
+                setselectedoption={setselectedoption}
                 optionsTab={optionsTab}
             />
             <div className={cl.optionsTabContainer}>

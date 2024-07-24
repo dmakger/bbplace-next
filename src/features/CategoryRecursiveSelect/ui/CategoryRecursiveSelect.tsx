@@ -66,9 +66,9 @@ export const CategoryRecursiveSelect = ({
 }: ICategoryRecursiveSelect) => {
 
     //STATE
-    const [selectedOptions, setSelectedOptions] = useState<IOption[]>([])
+    const [selectedoptions, setselectedoptions] = useState<IOption[]>([])
     const [updatedCategories, setUpdatedCategories] = useState<IOption[]>([])
-    const [selectedOptionsCommonArray, setSelectedOptionsCommonArray] = useState<IOption[]>([])
+    const [selectedoptionsCommonArray, setselectedoptionsCommonArray] = useState<IOption[]>([])
 
     //API
     const { data: categories } = CategoryAPI.useGetCategoriesWithSubcategoriesQuery()
@@ -82,8 +82,8 @@ export const CategoryRecursiveSelect = ({
     }, [categories])
 
     useEffect(() => {
-        setSelectedCategoriesId && setSelectedCategoriesId(selectedOptions.map(it => it.id))
-    }, [selectedOptionsCommonArray])
+        setSelectedCategoriesId && setSelectedCategoriesId(selectedoptions.map(it => it.id))
+    }, [selectedoptionsCommonArray])
 
 
 
@@ -91,7 +91,7 @@ export const CategoryRecursiveSelect = ({
     const inputsArray: IResursiveSelectInputsArray[] = createInputArray(
         inputsLevel,
         updatedCategories,
-        selectedOptionsCommonArray,
+        selectedoptionsCommonArray,
         classNamesInputArray ?? [],
         placeholdersInputsArray ?? []
     );
@@ -111,15 +111,16 @@ export const CategoryRecursiveSelect = ({
             classNameWarningWindow={classNameWarningWindow}
             onClickBellowButton={onClickBellowButton}
             errorInputMessage={errorInputMessage}
-            isCanDisabledBellowButton={!selectedOptions.length}
+            isCanDisabledBellowButton
+            // isCanDisabledBellowButton={!selectedOptions.length}
         >
             <Input.RecursiveSelect
                 variantRecursive={variant}
                 inputLevels={inputsArray.length}
-                selectedOptions={selectedOptions}
-                setSelectedOptions={setSelectedOptions}
-                selectedOptionsCommonArray={selectedOptionsCommonArray}
-                setSelectedOptionsCommonArray={setSelectedOptionsCommonArray}
+                selectedoptions={selectedoptions}
+                setselectedoptions={setselectedoptions}
+                selectedoptionsCommonArray={selectedoptionsCommonArray}
+                setselectedoptionsCommonArray={setselectedoptionsCommonArray}
                 inputsProps={inputsArray}
                 arrowSizes={{width: 16, height: 15}}
 

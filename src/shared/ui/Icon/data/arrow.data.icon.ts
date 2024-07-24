@@ -13,6 +13,15 @@ import ArrowWOTertiaryDisabledIcon from '@/shared/assets/img/Arrow/ArrowWOLineTe
 import ArrowWLineSecondaryIcon from '@/shared/assets/img/Arrow/ArrowWLineSecondary.svg'
 import ArrowWLineSecondaryHoveredIcon from '@/shared/assets/img/Arrow/ArrowWLineSecondaryHovered.svg'
 
+import ArrowWLineTertiaryIcon from '@/shared/assets/img/Arrow/ArrowWLineTertiary.svg'
+import ArrowWLineTertiaryHoveredIcon from '@/shared/assets/img/Arrow/ArrowWLineTertiaryHovered.svg'
+import ArrowWLineTertiaryPressedIcon from '@/shared/assets/img/Arrow/ArrowWLineTertiaryPressed.svg'
+import ArrowWLineTertiaryActiveIcon from '@/shared/assets/img/Arrow/ArrowWLineTertiaryActive.svg'
+
+import ArrowInCircleIcon from '@/shared/assets/img/Arrow/ArrowInCircleIcon.svg'
+import ArrowInCirclePressed from '@/shared/assets/img/Arrow/ArrowInCirclePressed.svg'
+
+
 
 export const ARROW_ICON: IIcon = {
     default: ArrowDefaultIcon,
@@ -38,8 +47,31 @@ export const ARROW_TERTIARY_WO_ICON: IIcon = {
 }
 
 // ======{ WITH LINE }======
+
+export const ARROW_WLINE_TERTIARY_DEFAULT_ICON: IIcon = {
+    default: ArrowWLineTertiaryIcon
+}
+
 export const ARROW_WLINE_SECONDARY_ICON: IIcon = {
     default: ArrowWLineSecondaryIcon,
     defaultHovered: ArrowWLineSecondaryHoveredIcon,
     defaultPressed: ArrowWLineSecondaryHoveredIcon,
+}
+
+export const ARROW_WLINE_TERTIARY_ICON: IIcon = {
+    default: ARROW_WLINE_TERTIARY_DEFAULT_ICON.default,
+    active: ArrowWLineTertiaryActiveIcon,
+    defaultHovered: ArrowWLineTertiaryHoveredIcon,
+    defaultPressed: ArrowWLineTertiaryPressedIcon
+}
+
+export const ARROW_WLINE_TERTIARY_MOBILE_ICON: IIcon = {
+    default: ARROW_WLINE_TERTIARY_DEFAULT_ICON.default
+}
+
+// ======{ INSIDE CIRCLE }======
+
+export const ARROW_IN_CIRCLE:IIcon = {
+    default: ArrowInCircleIcon,
+    defaultPressed: ArrowInCirclePressed
 }

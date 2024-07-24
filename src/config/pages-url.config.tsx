@@ -4,7 +4,8 @@ import { ETenderType, IBaseTender, ITender } from "@/entities/Tender/model/tende
 
 interface IRoot {
     path: string
-    onlyAuth: boolean
+    onlyAuth: boolean,
+    onlyHasEmail: boolean,
 
     toString: () => string
 }
@@ -17,18 +18,19 @@ class Route {
         this.root = root
     }
 
-    createPath(subPath: string, onlyAuth: boolean=false): IRoot {
+    createPath(subPath: string, onlyAuth: boolean = false, onlyHasEmail: boolean = false): IRoot {
         const path = `${this.root}${subPath}`
         return {
             path,
             onlyAuth,
+            onlyHasEmail,
             toString: () => path,
         }
     }
 
-    createDynamicPath<T>(subPath: (params: T) => string, onlyAuth: boolean = false): (params: T) => IRoot {
+    createDynamicPath<T>(subPath: (params: T) => string, onlyAuth: boolean = false, onlyHasEmail: boolean = false): (params: T) => IRoot {
         return (params: T) => (
-            this.createPath(subPath(params), onlyAuth)
+            this.createPath(subPath(params), onlyAuth, onlyHasEmail)
         );
     }
 }
@@ -44,10 +46,15 @@ class MAIN extends Route {
 
     SUPPORT = this.createPath('/support');
 
+    CHECK_EMAIL = this.createPath('/checkEmail')
+    LOGIN = this.createPath('/signIn', false, true)
+    REGISTRATION = this.createPath('/signUp')
+    FORGOT_PASSWORD = this.createPath('/forgotPassword', false, true)
+
     CURRENT_SUPPLIER = this.createDynamicPath((id: ISupplier['id']) => `/supplier/${id}`, true);
     CURRENT_PRODUCT = this.createDynamicPath((id: IProduct['id']) => `/product/${id}`, true);
     CURRENT_TENDER = this.createDynamicPath<{ id: ITender['id'], type?: IBaseTender['type'] }>(
-        (params) => `/tender/${params.id}/${params.type || ETenderType.PURCHASE}`, 
+        (params) => `/tender/${params.id}/${params.type || ETenderType.PURCHASE}`,
         true
     );
 

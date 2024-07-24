@@ -1,27 +1,30 @@
 'use client'
 
 import { cls } from '@/shared/lib/classes.lib'
-import cl from './_InputText.module.scss'
+import cl from './_InputText.module.scss';
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
-import { WrapperTitleInput } from '@/shared/ui/Wrapper/Title/Input/WrapperTitleInput'
-import { EInputTextVariant } from '../data/text.input.data'
-import { IWrapperRectangleInputChildren } from '@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model'
-import { EInputSizes, EInputVariants, IInput } from '../../../model/input.model'
-import { EInputTextTypeVariants } from '../../../Text/model/text.input.model'
-import { IIcon } from '@/shared/ui/Icon/model/icon.model'
-import { ImageSmart } from '@/shared/ui/Image/Smart/ImageSmart'
-import { IIconProps } from '@/shared/model/button.model'
+import { WrapperTitleInput } from '@/shared/ui/Wrapper/Title/Input/WrapperTitleInput';
+import { EInputTextVariant } from '../data/text.input.data';
+import { IWrapperRectangleInputChildren } from '@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model';
+import { EInputVariants, IInput } from '../../../model/input.model';
+import { EInputTextTypeVariants } from '../../../Text/model/text.input.model';
+import { IIcon } from '@/shared/ui/Icon/model/icon.model';
+import { ImageSmart } from '@/shared/ui/Image/Smart/ImageSmart';
+import { IIconProps } from '@/shared/model/button.model';
 import { ButtonImageSize } from '@/shared/ui/Button/data/button.data'
+import { EMAIL_VALID_RULES, isEmailValid } from '@/entities/Auth/data/email.data'
+import { PASSWORD_VALID_RULES, isPasswordValid } from '@/entities/Auth/data/password.data'
 
-interface InputTextProps extends IWrapperRectangleInputChildren, IInput{
+interface InputTextProps extends IWrapperRectangleInputChildren, IInput {
     title?: string
     variantInputText?: EInputTextVariant
     defaultValue?: string,
     type?: string,
     inputTypeVariant?: EInputTextTypeVariants
-    
+
     beforeImage?: IIcon
-    beforeProps?: IIconProps
+    beforeProps?: IIconProps,
+    disabled?: boolean,
 
     classNameInputText?: string
     classNameTextArea?: string
@@ -37,17 +40,22 @@ export function InputText({
     title,
     name, placeholder,
     required = false,
-    className, 
+    className,
     classNameInputText,
     classNameTextArea,
     type = 'text',
     beforeImage, beforeProps,
-    onChange = () => { }, onChangeEvent=()=>{},
+    onChange = () => { }, onChangeEvent = () => { },
     defaultValue = '',
     success, setSuccess, warning, setWarning,
     setInputValueLength,
     size,
-    onMouseEnter=()=>{}, onMouseLeave=()=>{},
+    error = false,
+    setError,
+    disabled,
+    setErrorMessageArray,
+    // Состояния для отображения статусов
+    onMouseEnter = () => { }, onMouseLeave = () => { },
     ...rest }: InputTextProps) {
 
     //STATE
@@ -56,27 +64,56 @@ export function InputText({
     const [isHovered, setIsHovered] = useState<boolean>(false)
     const [isPressed, setIsPressed] = useState<boolean>(false)
 
-    //REF
-    const inputRef = useRef<HTMLInputElement>(null)
-    const textAreaRef = useRef<HTMLTextAreaElement>(null)
+    // Ref для элементов ввода
+    const inputRef = useRef<HTMLInputElement>(null);
+    const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
-    //EFFECT
+    // Эффект для обработки ошибок
     useEffect(() => {
-        if (inputRef.current) inputRef.current.value = defaultValue;
-        if (textAreaRef.current) textAreaRef.current.value = defaultValue;
-    }, [defaultValue])
+        if (error) {
+            // Ошибка обнаружена
+            if (textAreaRef.current) textAreaRef.current.value = '';
+            if (inputRef.current) inputRef.current.value = '';
 
-    //FUNCTIONS
-    const checkValue = (value: string) => {
-        const isErr = value.trim() === ''
-
-        if (setWarning && setSuccess) {
-            setWarning(isErr)
-            setIsWarning(isErr)
-            setSuccess(!isErr)
-            setIsSuccess(!isErr)
+            // Обновление состояний ошибок и успеха
+            setWarning?.(true);
+            setIsWarning(true);
+            setSuccess?.(false);
+            setIsSuccess(false);
         }
-    }
+    }, [error]);
+
+    // Функция для проверки значения ввода
+    const checkValue = (value: string) => {
+        let isErr = value.trim() === '';
+
+        if (isErr) {
+            setWarning?.(true);
+            setIsWarning(true);
+            setSuccess?.(false);
+            setIsSuccess(false);
+            setErrorMessageArray?.(['Пожалуйста, заполните это поле']);
+            return;
+        }
+
+        //EMAIL
+        if (type === 'email') {
+            isErr = !isEmailValid(value);
+            if (isErr) setErrorMessageArray?.([EMAIL_VALID_RULES]);
+        }
+
+        //PASSWORD
+        if (type === 'password') {
+            isErr = !isPasswordValid(value);
+            if (isErr) setErrorMessageArray?.([PASSWORD_VALID_RULES]);
+        }
+        setWarning?.(isErr);
+        setIsWarning(isErr);
+        setSuccess?.(!isErr);
+        setIsSuccess(!isErr);
+        setError?.(false)
+
+    };
 
     // HANDLE
     const handleOnClickWrapperInput = () => {
@@ -100,7 +137,7 @@ export function InputText({
         setIsPressed(false)
         onMouseLeave()
     }
-    
+
     const handleOnMouseDown = () => {
         setIsPressed(true)
         setIsHovered(true)
@@ -109,13 +146,13 @@ export function InputText({
         setIsPressed(false)
         setIsHovered(true)
     }
-    
+
 
     return (
         <WrapperTitleInput title={title}>
             {inputTypeVariant === EInputTextTypeVariants.TEXT ? (
-                <div onClick={handleOnClickWrapperInput} 
-                    onMouseEnter={handleOnMouseEnter} onMouseLeave={handleOnMouseLeave} 
+                <div onClick={handleOnClickWrapperInput}
+                    onMouseEnter={handleOnMouseEnter} onMouseLeave={handleOnMouseLeave}
                     onMouseDown={handleOnMouseDown} onMouseUp={handleOnMouseUp}
                     className={cls(
                         cl.wrapperInput,
@@ -124,14 +161,15 @@ export function InputText({
                         cl.input,
                         isSuccess ? cl.success : '',
                         isWarning ? cl.error : '',
-                        className,
+                        disabled ? cl.disabled : '',
+                        className
                     )}>
                     {beforeImage &&
-                        <ImageSmart {...beforeProps} icon={beforeImage} 
-                                    width={beforeProps && beforeProps.width ? beforeProps.width: ButtonImageSize.DefaultSize} 
-                                    height={beforeProps && beforeProps.height ? beforeProps.height: ButtonImageSize.DefaultSize} 
-                                    isHovered={isHovered} isSuccess={isSuccess} isPressed={isPressed} 
-                                    className={cls(beforeProps?.className, cl.imageInput)} />
+                        <ImageSmart {...beforeProps} icon={beforeImage}
+                            width={beforeProps && beforeProps.width ? beforeProps.width : ButtonImageSize.DefaultSize}
+                            height={beforeProps && beforeProps.height ? beforeProps.height : ButtonImageSize.DefaultSize}
+                            isHovered={isHovered} isSuccess={isSuccess} isPressed={isPressed}
+                            className={cls(beforeProps?.className, cl.imageInput)} />
 
                     }
                     <input className={cls(cl.input, classNameInputText)}
@@ -142,29 +180,31 @@ export function InputText({
                         placeholder={placeholder}
                         defaultValue={defaultValue}
                         onChange={handleOnChange}
+                        onBlur={(e) => checkValue(e.target.value)}
+                        disabled={disabled}
                         // onClick={e => e.stopPropagation()}
                         {...rest}
-                        />
+                    />
                 </div>
             ) : (
-                <textarea className={cls(
+                <textarea
+                    className={cls(
                         cl[variant],
                         cl.textarea,
                         isSuccess ? cl.success : '',
                         isWarning ? cl.error : '',
-                        classNameTextArea)}
+                        classNameTextArea
+                    )}
                     name={name}
                     ref={textAreaRef}
                     defaultValue={defaultValue}
                     required={required}
                     placeholder={placeholder}
                     onChange={handleOnChange}
-                    // size={size}
-
+                    onBlur={(e) => checkValue(e.target.value)}
                     {...rest}
                 />
             )}
-
         </WrapperTitleInput>
-    )
+    );
 }

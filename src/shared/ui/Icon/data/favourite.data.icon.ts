@@ -30,3 +30,8 @@ export const FAVOURITE_NEW_ICON: IIcon = {
     activeHovered: FavouritePrimaryHovered,
     activePressed: FavouritePrimaryPressed,
 }
+
+export const FAVOURITE_ICON_MENU = {
+    default: FavouriteGrayOutline,
+    active: FavouriteBlackOutline
+}

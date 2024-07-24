@@ -24,6 +24,10 @@
             text-align: center;
             font-size: var(--font-size-reg);
             font-weight: var(--font-weight-med);
+
+            @media (max-width: 768px) {
+                font-size: var(--font-size-s);
+            }
         }
     }
 
@@ -37,12 +41,17 @@
         padding: 20px;
         border-radius: 20px 20px 0 0;
         overflow-y: auto;
+        
+        @media (max-width: 768px) {
+            font-size: var(--font-size-s);
+        }
     }
 
     .xmarkButton {
         position: absolute;
-        top: -40px;
-        left: 45%;
+        top: -45px;
+        left: 50%;
+        transform: translate(0%,0%);
 
         &:active {
             transform: scale(0.9);

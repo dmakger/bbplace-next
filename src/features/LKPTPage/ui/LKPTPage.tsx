@@ -12,20 +12,16 @@ interface ILKPTPage {
 export const LKPTPage = ({
     className,
     optionsTab,
-    selectedOption,
+    selectedoption,
 }: ILKPTPage) => {
 
     return (
         <div className={cls(cl.LKPTPage, className)}>
             {optionsTab.map((option, index) => (
-                    <div
-                        key={index}
-                        className={option.optionValue === selectedOption.value ? cl.visible : cl.hidden}
-                    >
-                        {option.optionTab}
-                    </div>
-                )
-            )}
+                <div key={index} className={option.optionValue === selectedOption.value ? cl.visible : cl.hidden}>
+                    {option.optionTab}
+                </div>
+            ))}
         </div>
     );
 };

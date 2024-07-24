@@ -7,6 +7,8 @@ export interface IInput{
     onChange?: Function,
     onChangeEvent?: Function,
     required?: boolean,
+    error?: boolean,
+    setError?: Function
     autoFocus?: boolean
 }
 
