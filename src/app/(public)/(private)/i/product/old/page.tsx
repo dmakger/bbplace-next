@@ -17,7 +17,7 @@ import { MetricsAPI } from '@/entities/Metrics/api/metrics.metrics.api'
 import { UserAPI } from '@/entities/Auth/api/auth.api'
 import { LKSubheader } from '@/features/LKSubheader'
 import { cls } from '@/shared/lib/classes.lib'
-import { SuspenseL } from '@/shared/ui/Wrapper/SuspenseL/SuspenseL'
+import SuspenseL from '@/shared/ui/Wrapper/SuspenseL/SuspenseL'
 import { BottomInfoModal } from '@/features/Modal/BottomInfo'
 import { EBottomInfoVariant } from '@/features/Modal/BottomInfo/model/bottomInfoModal.model'
 

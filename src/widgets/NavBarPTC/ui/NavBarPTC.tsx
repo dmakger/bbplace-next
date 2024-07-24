@@ -37,11 +37,11 @@ export const NavBarPTCChild: FC<INavBarPTC> = ({ }) => {
 
     //STATE
     const [filterView, setFilterView] = useState<ECatalogVariants>(getPTCViewByPathname(pathname));
-    const [selectedoption, setselectedoption] = useState<IIconVariants>(getPTCVariantByPathname(pathname));
+    const [selectedOption, setSelectedOption] = useState<IIconVariants>(getPTCVariantByPathname(pathname));
 
     //EFFECT
     useEffect(() => {
-        setselectedoption(getPTCVariantByPathname(pathname))
+        setSelectedOption(getPTCVariantByPathname(pathname))
     }, [pathname])
     
 
@@ -49,7 +49,7 @@ export const NavBarPTCChild: FC<INavBarPTC> = ({ }) => {
     const handleOnClickMenuItem = (el: IIconVariants) => {
         if (el.link === undefined)
             return
-        setselectedoption(el)
+        setSelectedOption(el)
         setFilterView(getPTCViewByPathname(el.link))
         const categoryValue = searchParams.get(CORE_PARAMS.CATEGORY)
         let param = ""
@@ -64,10 +64,10 @@ export const NavBarPTCChild: FC<INavBarPTC> = ({ }) => {
                 <div className={cl.navBarPTCItemContainer}>
                     {MENU_WEB_DATA.map(el => (
                         <button onClick={() => handleOnClickMenuItem(el)} className={cl.navBarItem} key={el.link}>
-                            <p className={cls(cl.switchItem, selectedoption?.link === el.link ? cl.selected : '')}>
+                            <p className={cls(cl.switchItem, selectedOption?.link === el.link ? cl.selected : '')}>
                                 {el.title}
                             </p>
-                            <span className={cls(cl.switchItemBorderBottom, selectedoption?.link === el.link ? cl.selectedSpan : '')} />
+                            <span className={cls(cl.switchItemBorderBottom, selectedOption?.link === el.link ? cl.selectedSpan : '')} />
                         </button>
                     ))}
                 </div>
@@ -79,8 +79,8 @@ export const NavBarPTCChild: FC<INavBarPTC> = ({ }) => {
                 <p className={cl.resultNumber}>
                     {ptcState.amount} {getPTCTextByNumber(ptcState.amount, ptcState.view)}
                 </p>
-                {selectedoption &&
-                    <ViewsNavBarPTC ptcLink={selectedoption.link} />
+                {selectedOption &&
+                    <ViewsNavBarPTC ptcLink={selectedOption.link} />
                 }
                 <SortModal variant={filterView} hasOutline={true} 
                            classNameModal={cl.sortModal} classNameButton={cl.sortButton} />

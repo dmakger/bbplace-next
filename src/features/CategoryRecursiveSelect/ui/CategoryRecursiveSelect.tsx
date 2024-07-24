@@ -66,9 +66,9 @@ export const CategoryRecursiveSelect = ({
 }: ICategoryRecursiveSelect) => {
 
     //STATE
-    const [selectedoptions, setselectedoptions] = useState<IOption[]>([])
+    const [selectedOptions, setSelectedOptions] = useState<IOption[]>([])
     const [updatedCategories, setUpdatedCategories] = useState<IOption[]>([])
-    const [selectedoptionsCommonArray, setselectedoptionsCommonArray] = useState<IOption[]>([])
+    const [selectedOptionsCommonArray, setSelectedOptionsCommonArray] = useState<IOption[]>([])
 
     //API
     const { data: categories } = CategoryAPI.useGetCategoriesWithSubcategoriesQuery()
@@ -82,8 +82,8 @@ export const CategoryRecursiveSelect = ({
     }, [categories])
 
     useEffect(() => {
-        setSelectedCategoriesId && setSelectedCategoriesId(selectedoptions.map(it => it.id))
-    }, [selectedoptionsCommonArray])
+        setSelectedCategoriesId && setSelectedCategoriesId(selectedOptions.map(it => it.id))
+    }, [selectedOptionsCommonArray])
 
 
 
@@ -91,7 +91,7 @@ export const CategoryRecursiveSelect = ({
     const inputsArray: IResursiveSelectInputsArray[] = createInputArray(
         inputsLevel,
         updatedCategories,
-        selectedoptionsCommonArray,
+        selectedOptionsCommonArray,
         classNamesInputArray ?? [],
         placeholdersInputsArray ?? []
     );
@@ -117,10 +117,10 @@ export const CategoryRecursiveSelect = ({
             <Input.RecursiveSelect
                 variantRecursive={variant}
                 inputLevels={inputsArray.length}
-                selectedoptions={selectedoptions}
-                setselectedoptions={setselectedoptions}
-                selectedoptionsCommonArray={selectedoptionsCommonArray}
-                setselectedoptionsCommonArray={setselectedoptionsCommonArray}
+                selectedOptions={selectedOptions}
+                setSelectedOptions={setSelectedOptions}
+                selectedOptionsCommonArray={selectedOptionsCommonArray}
+                setSelectedOptionsCommonArray={setSelectedOptionsCommonArray}
                 inputsProps={inputsArray}
                 arrowSizes={{width: 16, height: 15}}
 

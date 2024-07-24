@@ -38,7 +38,7 @@ interface ITextAndSelectInput extends IWrapperRectangleInputChildren, IInput {
 
 export function TextAndSelectInput({
     required,
-    setselectedoption,
+    setSelectedOption,
     error,
     name, placeholder,
     variant = EInputVariants.ROUNDED, variantRecursive = ERecursiveSelectVariant.SINGLE,
@@ -78,7 +78,7 @@ export function TextAndSelectInput({
         if(activeOption === undefined){
             setIsSuccess(false)
         } 
-        activeOption !== undefined && setselectedoption && setselectedoption(activeOption)
+        activeOption !== undefined && setSelectedOption && setSelectedOption(activeOption)
     }, [activeOption]);
 
 
@@ -199,7 +199,7 @@ export function TextAndSelectInput({
                                 )
                             ) : (
                                 <p className={cls(
-                                    cl.selectedoption,
+                                    cl.selectedOption,
                                     !activeOption && placeholder ? cl.placeholder : '',
                                     disabled ? cl.disabledPlaceholder : ''
                                     )}>

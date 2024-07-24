@@ -6,9 +6,8 @@ import { cls } from '@/shared/lib/classes.lib';
 import cl from './_WrapperPagination.module.scss'
 import { Pagination } from "@/widgets/Pagination/ui/Pagination";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { PRODUCT_PARAMS } from "@/config/params/product.params.config";
 import { HandleSize } from "@/shared/ui/Handle/Size/HandleSize";
-import { SuspenseL } from "../../SuspenseL/SuspenseL";
+import SuspenseL from '@/shared/ui/Wrapper/SuspenseL/SuspenseL'
 
 interface WrapperPaginationProps{
     amount: number

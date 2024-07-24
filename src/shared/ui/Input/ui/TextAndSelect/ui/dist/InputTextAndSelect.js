@@ -20,7 +20,7 @@ var modal_data_1 = require("@/shared/data/modal.data");
 var Modal_1 = require("@/shared/ui/Modal/Modal");
 var WrapperModalBottomDropSearch_1 = require("@/shared/ui/Wrapper/ModalBottom/DropSearch/WrapperModalBottomDropSearch");
 function TextAndSelectInput(_a) {
-    var name = _a.name, placeholder = _a.placeholder, _b = _a.variant, variant = _b === void 0 ? input_model_1.EInputVariants.ROUNDED : _b, _c = _a.variantRecursive, variantRecursive = _c === void 0 ? recursiveSelect_model_1.ERecursiveSelectVariant.SINGLE : _c, _d = _a.options, options = _d === void 0 ? [] : _d, defaultOption = _a.defaultOption, onClickOption = _a.onClickOption, setIsListOpen = _a.setIsListOpen, _e = _a.arrowSizes, arrowSizes = _e === void 0 ? { width: 10, height: 10 } : _e, title = _a.title, titleModal = _a.titleModal, className = _a.className, classNameOptions = _a.classNameOptions, classNameMainInput = _a.classNameMainInput, disabled = _a.disabled, success = _a.success, setWarning = _a.setWarning, setSuccess = _a.setSuccess;
+    var required = _a.required, setSelectedOption = _a.setSelectedOption, error = _a.error, name = _a.name, placeholder = _a.placeholder, _b = _a.variant, variant = _b === void 0 ? input_model_1.EInputVariants.ROUNDED : _b, _c = _a.variantRecursive, variantRecursive = _c === void 0 ? recursiveSelect_model_1.ERecursiveSelectVariant.SINGLE : _c, _d = _a.options, options = _d === void 0 ? [] : _d, defaultOption = _a.defaultOption, onClickOption = _a.onClickOption, setIsListOpen = _a.setIsListOpen, _e = _a.arrowSizes, arrowSizes = _e === void 0 ? { width: 10, height: 10 } : _e, title = _a.title, titleModal = _a.titleModal, className = _a.className, classNameOptions = _a.classNameOptions, classNameMainInput = _a.classNameMainInput, disabled = _a.disabled, success = _a.success, setWarning = _a.setWarning, setSuccess = _a.setSuccess;
     //STATE
     var _f = react_1.useState(''), searchQuery = _f[0], setSearchQuery = _f[1];
     var _g = react_1.useState(false), showOptions = _g[0], setShowOptions = _g[1];
@@ -42,11 +42,22 @@ function TextAndSelectInput(_a) {
         setActiveOption(defaultOption);
     }, [defaultOption]);
     react_1.useEffect(function () {
-        activeOption === undefined && setIsSuccess(false);
+        if (activeOption === undefined) {
+            setIsSuccess(false);
+        }
+        activeOption !== undefined && setSelectedOption && setSelectedOption(activeOption);
     }, [activeOption]);
     react_1.useEffect(function () {
         setWarning && setWarning(isWarning);
     }, [isWarning]);
+    react_1.useEffect(function () {
+        if (error) {
+            setWarning && setWarning(true);
+            setSuccess && setSuccess(false);
+            setIsSuccess(false);
+            setIsWarning(true);
+        }
+    }, [error]);
     react_1.useEffect(function () {
         setSearchQuery('');
         setIsListOpen && setIsListOpen(showOptions);
@@ -105,13 +116,13 @@ function TextAndSelectInput(_a) {
             React.createElement(WrapperTitleInput_1.WrapperTitleInput, { title: title },
                 React.createElement("div", { onClick: !disabled ? toggleShowOptions : function () { }, className: _InputTextAndSelect_module_scss_1["default"].visible },
                     React.createElement("div", { className: classes_lib_1.cls(_InputTextAndSelect_module_scss_1["default"].mainInput, _InputTextAndSelect_module_scss_1["default"][variant], showOptions && variant === input_model_1.EInputVariants.RECTANGULAR ? _InputTextAndSelect_module_scss_1["default"].rectangularListOpen : '', isWarning ? _InputTextAndSelect_module_scss_1["default"].error : isSuccess ? _InputTextAndSelect_module_scss_1["default"].success : '', disabled ? _InputTextAndSelect_module_scss_1["default"].disabled : '', classNameMainInput) },
-                        showOptions ? (variant === input_model_1.EInputVariants.ROUNDED ? (React.createElement("input", { type: "text", value: searchQuery, onClick: function (e) { return e.stopPropagation(); }, onChange: handleInputChange, autoFocus: true, className: _InputTextAndSelect_module_scss_1["default"].input })) : (React.createElement("div", { className: _InputTextAndSelect_module_scss_1["default"].inputContainer },
+                        showOptions ? (variant === input_model_1.EInputVariants.ROUNDED ? (React.createElement("input", { type: "text", value: searchQuery, onClick: function (e) { return e.stopPropagation(); }, onChange: handleInputChange, autoFocus: true, className: _InputTextAndSelect_module_scss_1["default"].input, required: required })) : (React.createElement("div", { className: _InputTextAndSelect_module_scss_1["default"].inputContainer },
                             React.createElement(image_1["default"], { src: searchGray_svg_1["default"], alt: "Поиск", width: 19, height: 19, className: _InputTextAndSelect_module_scss_1["default"].imageSearch }),
                             React.createElement("input", { type: "text", value: searchQuery, onClick: function (e) { return e.stopPropagation(); }, onChange: handleInputChange, autoFocus: true, className: _InputTextAndSelect_module_scss_1["default"].input })))) : (React.createElement("p", { className: classes_lib_1.cls(_InputTextAndSelect_module_scss_1["default"].selectedOption, !activeOption && placeholder ? _InputTextAndSelect_module_scss_1["default"].placeholder : '', disabled ? _InputTextAndSelect_module_scss_1["default"].disabledPlaceholder : '') }, !activeOption && placeholder ? placeholder : activeOption === null || activeOption === void 0 ? void 0 : activeOption.name)),
                         React.createElement(Button_1.Button, { variant: Button_1.ButtonVariant.DEFAULT, beforeImage: arrow_data_icon_1.ARROW_TERTIARY_WO_ICON, beforeProps: { width: arrowSizes.width, height: arrowSizes.height }, disabled: disabled, className: classes_lib_1.cls(_InputTextAndSelect_module_scss_1["default"].arrowContainer, showOptions ? _InputTextAndSelect_module_scss_1["default"].activeArrow : '') })))),
             !is768 ? (React.createElement(React.Fragment, null, filteredOptions.length ? (React.createElement(Input_1["default"].List.Radio, { variant: variant, options: filteredOptions, defaultOption: activeOption, name: name, onClickOption: handleOnItem, className: classes_lib_1.cls(_InputTextAndSelect_module_scss_1["default"].options, classNameOptions, showOptions ? _InputTextAndSelect_module_scss_1["default"].show : '') })) : (React.createElement(React.Fragment, null,
                 variant === input_model_1.EInputVariants.ROUNDED &&
-                    React.createElement("p", { className: _InputTextAndSelect_module_scss_1["default"].noResult }, "\u041A \u0441\u043E\u0436\u0430\u043B\u0435\u043D\u0438\u044E, \u0442\u0430\u043A\u043E\u0439 \u0441\u0442\u0440\u0430\u043D\u044B \u043D\u0435\u0442 (X_X)"),
+                    React.createElement("p", { className: _InputTextAndSelect_module_scss_1["default"].noResult }, "\u041A \u0441\u043E\u0436\u0430\u043B\u0435\u043D\u0438\u044E, \u0442\u0430\u043A\u043E\u0433\u043E \u0432\u0430\u0440\u0438\u0430\u043D\u0442\u0430 \u043D\u0435\u0442 (X_X)"),
                 showOptions && variant === input_model_1.EInputVariants.RECTANGULAR &&
                     React.createElement("div", { className: _InputTextAndSelect_module_scss_1["default"].noResultRect },
                         React.createElement("span", null, "\u041D\u0438\u0447\u0435\u0433\u043E \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D\u043E"),

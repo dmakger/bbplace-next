@@ -95,13 +95,13 @@ export const WrapperRectangleInput = ({
 	const [inputValueLength, setInputValueLength] = useState<number>(0)
 
   //Для RecursiveSelectInput
-  const [selectedoptionsArray, setselectedoptionsarray] = useState<IOption[]>([])
+  const [selectedOptionsArray, setSelectedOptionsArray] = useState<IOption[]>([])
 
   //Для InputRadio
-  const [selectedoption, setselectedoption] = useState<IOption>()
+  const [selectedOption, setSelectedOption] = useState<IOption>()
 
   //Для InputCheckbox
-  const [checked, setсhecked] = useState<boolean>(false)
+  const [checked, setChecked] = useState<boolean>(false)
 
 	const [warnings, setWarnings] = useState<Record<string, boolean>>({});
 	const [successes, setSuccesses] = useState<Record<string, boolean>>({});
@@ -143,11 +143,11 @@ export const WrapperRectangleInput = ({
         setSuccess: (value: boolean) => setSuccesses(prev => ({ ...prev, [id]: value })),
         setWarning: (value: boolean) => setWarnings(prev => ({ ...prev, [id]: value })),
         setInputValueLength,
-        setselectedoptionsarray,
-        selectedoption,
-        setselectedoption,
+        setSelectedOptionsArray,
+        selectedOption,
+        setSelectedOption,
         checked,
-        setсhecked,
+        setChecked,
         setErrorMessageArray
       });
     }
@@ -171,7 +171,7 @@ export const WrapperRectangleInput = ({
   };
 
   const handleLabelClick = () => {
-    setсhecked(prevChecked => {
+    setChecked(prevChecked => {
       const newChecked = !prevChecked;
       if (isRequired && !newChecked) {
         setWarning(true);
@@ -187,7 +187,7 @@ export const WrapperRectangleInput = ({
   }
 
 
-  const isDisabled = !selectedoptionsArray.length && isCanDisabledBellowButton;
+  const isDisabled = !selectedOptionsArray.length && isCanDisabledBellowButton;
 
   return (
     <>
@@ -207,11 +207,11 @@ export const WrapperRectangleInput = ({
                 afterImage={ARROW_IN_CIRCLE}
                 afterProps={{ width: 14, height: 14 }} />}
 
-	  {fileList && fileList.length > 0 && (
-		  <FileWrapList fileList={fileList} setFileList={setFileList} 
-		  				responseFileList={responseFileList} setResponseFileList={setResponseFileList} 
-						className={cl.fileList}/>
-		)}
+              {fileList && fileList.length > 0 && (
+                <FileWrapList fileList={fileList} setFileList={setFileList} 
+                        responseFileList={responseFileList} setResponseFileList={setResponseFileList} 
+                      className={cl.fileList}/>
+              )}
 
               <div className={cl.tooltipsContainer}>
                 {isDescriptionTooltip && descriptionTooltipText && (

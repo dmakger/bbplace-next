@@ -36,8 +36,8 @@ export function InputRadio({
     className,
     warning,
     success,
-    selectedoption,
-    setselectedoption,
+    selectedOption,
+    setSelectedOption,
     setWarning,
     setSuccess,
     error
@@ -48,18 +48,18 @@ export function InputRadio({
 
     // EFFECT
     useEffect(() => {
-        if (selectedoption?.id !== option.id) {
+        if (selectedOption?.id !== option.id) {
             setIsOwnChecked(false); 
         } 
-        if(selectedoption){
+        if(selectedOption){
             setWarning && setWarning(false)
             setSuccess && setSuccess(true)
         } 
         
-    }, [selectedoption]);
+    }, [selectedOption]);
 
     useEffect(() => {
-        if (error && !selectedoption) {
+        if (error && !selectedOption) {
             setWarning && setWarning(true)
             setSuccess && setSuccess(false)
         }
@@ -70,9 +70,9 @@ export function InputRadio({
     const handleRadioClick = (opt: IOption) => {
         setWarning && setWarning(false)
             setSuccess && setSuccess(true) 
-        if (selectedoption?.id !== opt.id) {
+        if (selectedOption?.id !== opt.id) {
             setIsOwnChecked(true);
-            setselectedoption && setselectedoption(opt);
+            setSelectedOption && setSelectedOption(opt);
             
         }
     };

@@ -2,7 +2,7 @@
 .mainInput,
 .input,
 .placeholder,
-.selectedoption,
+.selectedOption,
 .arrowContainer,
 .rectangular,
 .activeArrow,
@@ -42,7 +42,7 @@
     color: var(--font-caption-sub) !important;
 }
 
-.selectedoption {
+.selectedOption {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -65,7 +65,7 @@
         }
     }
 
-    .selectedoption {
+    .selectedOption {
         &:hover {
             background-color: var(--gray-4);
         }
@@ -88,7 +88,7 @@
         padding: 20px;
     }
 
-    .selectedoption {
+    .selectedOption {
         color: var(--font);
     }
 
@@ -129,7 +129,7 @@
 
     }
 
-    .selectedoption {
+    .selectedOption {
         font-size: var(--font-size-reg);
     }
 
@@ -155,7 +155,7 @@
             min-height: 50px;
         }
 
-        .selectedoption {
+        .selectedOption {
             font-size: var(--font-size-s);
         }
 
@@ -183,7 +183,7 @@
             min-height: 50px;
         }
 
-        .selectedoption {
+        .selectedOption {
             font-size: var(--font-size-s);
         }
 

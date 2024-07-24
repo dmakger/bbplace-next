@@ -31,7 +31,7 @@ export const InputCheckbox = ({
   setWarning,
   onClick,
   checked,
-  setсhecked,
+  setChecked,
   isChecked,
   setIsChecked,
   error,
@@ -64,8 +64,8 @@ export const InputCheckbox = ({
       }
       // Вызов onClick callback
       onClick && onClick(isOwnChecked);
-      // Обновление checked, если установлен setсhecked
-      setсhecked && setсhecked(isOwnChecked);
+      // Обновление checked, если установлен setChecked
+      setChecked && setChecked(isOwnChecked);
     } else {
       setIsInitialRender(false); // Устанавливаем false после первичной отрисовки
     }

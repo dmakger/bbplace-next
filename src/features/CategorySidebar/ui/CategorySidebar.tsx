@@ -42,18 +42,18 @@ export const CategorySidebar = ({
     }, [isShowCategories])
 
     const handleHoverCategory = (index: number, it: ICategoriesWithSubcategories) => {
-        let newselectedoptions = [...selectedCategoriesArray]
+        let newSelectedOptions = [...selectedCategoriesArray]
         
             if (it.depth === 0) {
-                newselectedoptions = [it];            
-            } else if (it.depth >= newselectedoptions.length) {
-                newselectedoptions.push(it);
+                newSelectedOptions = [it];            
+            } else if (it.depth >= newSelectedOptions.length) {
+                newSelectedOptions.push(it);
             } else {
-                newselectedoptions = newselectedoptions.slice(0, it.depth);
-                newselectedoptions[it.depth] = it;
+                newSelectedOptions = newSelectedOptions.slice(0, it.depth);
+                newSelectedOptions[it.depth] = it;
             }
 
-        setSelectedCategoriesArray(newselectedoptions)
+        setSelectedCategoriesArray(newSelectedOptions)
     }
 
     return (

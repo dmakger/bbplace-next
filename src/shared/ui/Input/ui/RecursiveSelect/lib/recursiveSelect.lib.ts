@@ -4,7 +4,7 @@ import { IResursiveSelectInputsArray } from "../model/recursiveSelect.model";
 export const createInputArray = (
     inputLevels: number, 
     updatedCategories: IOption[], 
-    selectedoptionsCommonArray: IOption[],
+    selectedOptionsCommonArray: IOption[],
     classNames: string[],
     placeholders: string[]
 ): IResursiveSelectInputsArray[] => {
@@ -12,8 +12,8 @@ export const createInputArray = (
     
     for (let i = 0; i < inputLevels; i++) {
         inputsArray.push({
-            currentOptions: i === 0 ? updatedCategories : selectedoptionsCommonArray[i - 1]?.options ?? [],
-            defaultOption: selectedoptionsCommonArray[i],
+            currentOptions: i === 0 ? updatedCategories : selectedOptionsCommonArray[i - 1]?.options ?? [],
+            defaultOption: selectedOptionsCommonArray[i],
             className: classNames[i] || '',
             placeholder: placeholders[i] || ''
         });

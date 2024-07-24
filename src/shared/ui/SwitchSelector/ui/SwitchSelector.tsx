@@ -13,8 +13,8 @@ interface ISwitchSelector {
     variant?: ESwitchSelectorVariants,
     className?: string,
     options: IOption[],
-    selectedoption: IOption,
-    setselectedoption: Function
+    selectedOption: IOption,
+    setSelectedOption: Function
     optionsTab?: OptionsTabType
 }
 
@@ -22,8 +22,8 @@ export const SwitchSelector = ({
     variant = ESwitchSelectorVariants.DEFAULT,
     className,
     options = [],
-    selectedoption,
-    setselectedoption,
+    selectedOption,
+    setSelectedOption,
     optionsTab
 }: ISwitchSelector) => {
     //STATE
@@ -32,20 +32,20 @@ export const SwitchSelector = ({
 
     //REF
     const switchSelectorRef = useRef<HTMLDivElement>(null)
-    const selectedoptionRef = useRef<HTMLButtonElement>(null)
+    const selectedOptionRef = useRef<HTMLButtonElement>(null)
 
     //ROUTER
     const router = useRouter();
 
     //EFFECT
     useEffect(() => {
-        if (selectedoptionRef.current && variant === ESwitchSelectorVariants.DEFAULT) {
+        if (selectedOptionRef.current && variant === ESwitchSelectorVariants.DEFAULT) {
             setLineStyle({
-                width: selectedoptionRef.current.offsetWidth,
-                left: selectedoptionRef.current.offsetLeft
+                width: selectedOptionRef.current.offsetWidth,
+                left: selectedOptionRef.current.offsetLeft
             })
         }
-    }, [options, selectedoption])
+    }, [options, selectedOption])
 
     useEffect(() => {
         const handleScroll = () => {
@@ -62,7 +62,7 @@ export const SwitchSelector = ({
 
     //FUNCTIONS
     const selectOption = (option: IOption) => {
-        setselectedoption(option);
+        setSelectedOption(option);
         const element = document.getElementById('value' in option ? String(option.value) : '');
         if (element) {
             element.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -74,7 +74,7 @@ export const SwitchSelector = ({
 
     const isChecked = useCallback((selectOption: IOption, mapItem: IOption) => {
         return selectOption.id === mapItem.id;
-    }, [selectedoption]);
+    }, [selectedOption]);
 
 
     const scrollToTop = () => {
@@ -94,15 +94,15 @@ export const SwitchSelector = ({
                             <button className={cls(
                                 cl.option,
                                 options.length > 1 ? cl.optionHover : '',
-                                isChecked(selectedoption, it) ? cl.choosen : '')}
-                                ref={isChecked(selectedoption, it) ? selectedoptionRef : null}
+                                isChecked(selectedOption, it) ? cl.choosen : '')}
+                                ref={isChecked(selectedOption, it) ? selectedOptionRef : null}
                                 key={it.id}
                                 onClick={() => selectOption(it)}>
                                 <input
                                     type="radio"
                                     id={String(it.id)}
                                     name={it.name}
-                                    checked={isChecked(selectedoption, it)}
+                                    checked={isChecked(selectedOption, it)}
                                     onChange={() => { }} />
                                 <label
                                     htmlFor={String(it.id)}>

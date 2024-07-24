@@ -15,8 +15,6 @@ import { IButton } from "@/shared/ui/Button/ui/Button"
 
 interface IHeaderPT {
     title: string,
-    selectedoption: IOption,
-    setselectedoption: Function
     buttonBackProps?: IButton
     isButtonAdd?: boolean,
     buttonAddProps?: IButton
@@ -31,10 +29,6 @@ interface IHeaderPT {
  */
 export const HeaderLKPT = ({
     title,
-    selectedoption,
-    setselectedoption,
-    options,
-    optionsTab
     buttonBackProps,
     isButtonAdd = true, buttonAddProps,
     selectedOption, setSelectedOption,
@@ -66,8 +60,8 @@ export const HeaderLKPT = ({
 
                 <SwitchSelector className={cl.switchSelector}
                     options={options} 
-                    setselectedoption={setselectedoption}
-                    selectedoption={selectedoption}
+                    setSelectedOption={setSelectedOption}
+                    selectedOption={selectedOption}
                     optionsTab={optionsTab}
                     variant={ESwitchSelectorVariants.TABS} />
             </div>

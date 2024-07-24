@@ -12,7 +12,7 @@ interface ILKPTPage {
 export const LKPTPage = ({
     className,
     optionsTab,
-    selectedoption,
+    selectedOption,
 }: ILKPTPage) => {
 
     return (

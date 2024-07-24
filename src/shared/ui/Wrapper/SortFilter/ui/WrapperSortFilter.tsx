@@ -3,7 +3,7 @@ import { FC, ReactNode } from "react"
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_WrapperSortFilter.module.scss'
 import { ECatalogVariants, SortFilterSidebar } from "@/widgets/SortFilterSidebar";
-import { SuspenseL } from "../../SuspenseL/SuspenseL";
+import SuspenseL from '@/shared/ui/Wrapper/SuspenseL/SuspenseL'
 
 interface WrapperSortFilterProps{
     variant?: ECatalogVariants

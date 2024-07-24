@@ -1,0 +1,281 @@
+.block,
+.mainInput,
+.input,
+.placeholder,
+.selectedOption,
+.arrowContainer,
+.rectangular,
+.activeArrow,
+.error,
+.success {
+  transition: 0.3s;
+}
+
+.block {
+  position: relative;
+  cursor: pointer;
+  width: 100%;
+}
+
+.mainInput {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+.mainInput:hover .placeholder {
+  color: var(--font);
+}
+
+.input {
+  width: 100%;
+  border: none;
+  transition: all 0.3s;
+  outline: none;
+  background-color: var(--empty);
+}
+
+.placeholder {
+  color: var(--font-caption-sub) !important;
+}
+
+.selectedOption {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: var(--font-size-s);
+}
+
+.rounded {
+  background-color: var(--gray-3);
+  padding: 10px 10px 10px 15px;
+  font-size: var(--font-size-s);
+  border-radius: 40px;
+  border: 1px var(--gray-5) solid;
+}
+.rounded:hover {
+  background-color: var(--gray-4);
+  border-color: var(--hover);
+}
+.rounded:hover .arrowContainer {
+  background-color: var(--gray-4);
+}
+.rounded .selectedOption:hover {
+  background-color: var(--gray-4);
+}
+.rounded .activeArrow {
+  background-color: var(--gray-3);
+}
+
+.rectangular {
+  background-color: var(--background-2);
+  border: 1px solid var(--tertiary-border);
+  border-radius: 5px;
+  color: var(--font-caption-sub);
+  font-weight: var(--font-weight-med);
+  font-size: var(--font-size-reg);
+}
+.rectangular input, .rectangular p {
+  padding: 20px;
+}
+.rectangular .selectedOption {
+  color: var(--font);
+}
+.rectangular:hover {
+  border-color: var(--tertiary-hovered);
+  transition: 0.3s;
+}
+.rectangular:hover .arrowContainer {
+  background-color: var(--tertiary-surface-low);
+  border-radius: 5px;
+}
+.rectangular:hover .placeholder {
+  color: var(--font-caption) !important;
+  transition: 0.3s;
+}
+.rectangular:active .arrowContainer {
+  background-color: var(--tertiary-surface);
+  transition: 0.3s;
+}
+.rectangular .arrowContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 60px;
+  min-height: 60px;
+  border-radius: 5px 5px 0 5px;
+}
+.rectangular .arrowContainer img {
+  width: 16px;
+  height: 100%;
+}
+.rectangular .selectedOption {
+  font-size: var(--font-size-reg);
+}
+.rectangular .inputContainer {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+  padding-left: 20px;
+}
+.rectangular .inputContainer .input {
+  padding-left: 0px;
+  font-size: var(--font-size-reg);
+  color: var(--font-caption);
+}
+@media (max-width: 768px) {
+  .rectangular {
+    font-size: var(--font-size-s);
+  }
+  .rectangular .arrowContainer {
+    min-width: 50px;
+    min-height: 50px;
+  }
+  .rectangular .selectedOption {
+    font-size: var(--font-size-s);
+  }
+  .rectangular input, .rectangular p {
+    padding: 15px 17px;
+  }
+}
+
+.disabled {
+  background-color: var(--tertiary-surface-low);
+  border: 1px solid var(--disabled);
+  border-radius: 5px;
+  color: var(--font-caption-sub);
+  font-weight: var(--font-weight-med);
+}
+@media (max-width: 768px) {
+  .disabled {
+    font-size: var(--font-size-s);
+  }
+  .disabled .arrowContainer {
+    min-width: 50px;
+    min-height: 50px;
+  }
+  .disabled .selectedOption {
+    font-size: var(--font-size-s);
+  }
+  .disabled input,
+.disabled p {
+    padding: 13px 15px;
+  }
+}
+.disabled .arrowContainer {
+  background-color: var(--tertiary-surface-low);
+}
+.disabled:hover {
+  border-color: var(--disabled);
+}
+.disabled:hover .placeholder {
+  color: var(--disabled) !important;
+}
+.disabled:hover .arrowContainer {
+  background-color: var(--tertiary-surface-low);
+}
+.disabled .disabledPlaceholder {
+  color: var(--disabled) !important;
+}
+.disabled .imageSearch {
+  display: none;
+}
+.disabled .inputContainer {
+  padding-left: 15px;
+}
+.disabled .inputContainer .input {
+  font-size: var(--font-size-s);
+}
+
+.activeArrow {
+  background-color: var(--tertiary-surface);
+}
+.activeArrow img {
+  rotate: 180deg;
+  transition: rotate 0.3s;
+}
+
+.error {
+  color: var(--font);
+  border-top: 1px solid var(--negative-border) !important;
+  border-color: var(--negative-border) !important;
+}
+
+.success {
+  color: var(--font);
+  border-color: var(--positive-border) !important;
+}
+
+.rectangularListOpen {
+  border-color: var(--tertiary-hovered);
+  border-radius: 5px 5px 0 0;
+}
+
+.options {
+  position: absolute;
+  z-index: -1;
+  top: auto;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  transition: all 0.2s;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.show {
+  z-index: 2;
+  opacity: 1;
+}
+
+.showOptionsRectangular {
+  z-index: 2;
+  opacity: 1;
+  box-shadow: 0 0 0 5px var(--tertiary-surface);
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.noResult {
+  padding: 10px 10px 10px 15px;
+  border-radius: 15px;
+  background-color: var(--gray-3);
+  font-size: var(--font-size-s);
+  text-align: center;
+}
+
+.noResultRect {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  background-color: var(--background-2);
+  padding: 20px;
+}
+.noResultRect .xmarkButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+.noResultRect .xmarkButton:hover {
+  background-color: var(--negative);
+  transition: 0.3s;
+}
+.noResultRect .xmarkButton:active {
+  background-color: var(--negative-pressed);
+  transition: 0.3s;
+}
+.noResultRect span {
+  font-size: var(--font-size-reg);
+  font-weight: var(--font-weight-med);
+}
+
+.modalBottomChild {
+  padding: 0 !important;
+}

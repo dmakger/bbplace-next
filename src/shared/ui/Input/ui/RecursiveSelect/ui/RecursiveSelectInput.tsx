@@ -18,10 +18,10 @@ interface IRecursiveSelectInput extends IWrapperRectangleInputChildren {
     arrowSizes?: IImageSizes,
     inputLevels: number,
     inputsProps: IResursiveSelectInputsArray[],
-    selectedoptionsCommonArray: IOption[],
-    setselectedoptionsCommonArray: Function,
-    selectedoptions: IOption[],
-    setselectedoptions: Function
+    selectedOptionsCommonArray: IOption[],
+    setSelectedOptionsCommonArray: Function,
+    selectedOptions: IOption[],
+    setSelectedOptions: Function
 }
 
 export const RecursiveSelectInput = ({
@@ -32,14 +32,14 @@ export const RecursiveSelectInput = ({
         width: 10,
         height: 10
     },
-    selectedoptionsCommonArray,
-    setselectedoptionsCommonArray,
-    selectedoptions,
-    setselectedoptions,
+    selectedOptionsCommonArray,
+    setSelectedOptionsCommonArray,
+    selectedOptions,
+    setSelectedOptions,
     inputsProps,
     setWarning,
     success,
-    setselectedoptionsarray,
+    setSelectedOptionsArray,
     setSuccess
 
 }: IRecursiveSelectInput) => {
@@ -48,36 +48,36 @@ export const RecursiveSelectInput = ({
     const [deletingOption, setDeletingOption] = useState<number>()
 
     //FUNCTION
-    const addselectedoption = (option: IOption, level: number) => {
-        const newselectedoptionsCategory = [...selectedoptionsCommonArray]
+    const addSelectedOption = (option: IOption, level: number) => {
+        const newSelectedOptionsCategory = [...selectedOptionsCommonArray]
 
-        newselectedoptionsCategory[level] = option
+        newSelectedOptionsCategory[level] = option
 
-        newselectedoptionsCategory.length = level + 1
+        newSelectedOptionsCategory.length = level + 1
 
-        setselectedoptionsCommonArray(newselectedoptionsCategory)
+        setSelectedOptionsCommonArray(newSelectedOptionsCategory)
 
 
-        if (!option.options?.length && !selectedoptions.find(it => it.id === option.id)) {
-            if (variantRecursive == ERecursiveSelectVariant.SINGLE) return setselectedoptions([option]);
+        if (!option.options?.length && !selectedOptions.find(it => it.id === option.id)) {
+            if (variantRecursive == ERecursiveSelectVariant.SINGLE) return setSelectedOptions([option]);
 
-            setselectedoptions([...selectedoptions, option])
-            setselectedoptionsarray && setselectedoptionsarray([...selectedoptions, option]) //Для связи с WrapperRectangleInput
-            setselectedoptionsCommonArray([])
+            setSelectedOptions([...selectedOptions, option])
+            setSelectedOptionsArray && setSelectedOptionsArray([...selectedOptions, option]) //Для связи с WrapperRectangleInput
+            setSelectedOptionsCommonArray([])
         }
     }
 
     const handleDeleteItem = (option: IOption) => {
         setDeletingOption(option.id)
         setTimeout(() => { // Для плавной анимации добавления и удаления OptionsAttachmentItem
-            const updatedselectedoptions = selectedoptions.filter(item => item.id !== option.id);
+            const updatedSelectedOptions = selectedOptions.filter(item => item.id !== option.id);
 
-            setselectedoptions(updatedselectedoptions)
+            setSelectedOptions(updatedSelectedOptions)
             if(variantRecursive === ERecursiveSelectVariant.SINGLE){
-                setselectedoptionsCommonArray([])
+                setSelectedOptionsCommonArray([])
                 setSuccess && setSuccess(false)
             }
-            setselectedoptionsarray && setselectedoptionsarray(updatedselectedoptions) //Для связи с WrapperRectangleInput
+            setSelectedOptionsArray && setSelectedOptionsArray(updatedSelectedOptions) //Для связи с WrapperRectangleInput
             setDeletingOption(0)
         }, 300)
     }
@@ -94,7 +94,7 @@ export const RecursiveSelectInput = ({
             arrowSizes={arrowSizes}
             classNameMainInput={className}
             disabled={!options.length}
-            onClickOption={(option: IOption) => addselectedoption(option, level)}
+            onClickOption={(option: IOption) => addSelectedOption(option, level)}
             key={level}
             success={success}
             setSuccess={setSuccess}
@@ -104,18 +104,18 @@ export const RecursiveSelectInput = ({
 
     return (
         <div className={cls(cl.RecursiveSelect, cl[variant], className)}>
-            {(variantRecursive === ERecursiveSelectVariant.SINGLE ? !selectedoptions.length : true) && inputsProps.map((inputProps, index) => (
+            {(variantRecursive === ERecursiveSelectVariant.SINGLE ? !selectedOptions.length : true) && inputsProps.map((inputProps, index) => (
                 renderSelect(
                     inputProps.currentOptions,
                     inputProps.placeholder,
-                    selectedoptionsCommonArray[index],
+                    selectedOptionsCommonArray[index],
                     index,
                     inputProps.className
                 )
             ))}
 
-            {selectedoptions.length > 0 && <div className={cl.optionsContainer}>
-                {selectedoptions.map(option => (
+            {selectedOptions.length > 0 && <div className={cl.optionsContainer}>
+                {selectedOptions.map(option => (
                     <OptionsAttachmentItem
                         size={EOptionsAttachmentSize.BIG}
                         className={cls(cl.optionsAttachmentShow, deletingOption === option.id ? cl.optionsAttachmentHide : '')}

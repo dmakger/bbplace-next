@@ -35,19 +35,13 @@ exports.HeaderLKPT = function (_a) {
         router.push(pages_url_config_1.DASHBOARD_PAGES.HOME.path);
     };
     return (React.createElement("div", { className: classes_lib_1.cls(_HeaderLKPT_module_scss_1["default"].HeaderLKPT, className) },
-        React.createElement("div", { className: _HeaderLKPT_module_scss_1["default"].leftContainer },
+        React.createElement("div", { className: classes_lib_1.cls(_HeaderLKPT_module_scss_1["default"].leftContainer, !title ? _HeaderLKPT_module_scss_1["default"].noTitle : '') },
             React.createElement("div", { className: _HeaderLKPT_module_scss_1["default"].backNTitle },
                 React.createElement(ButtonArrowWLine_1.ButtonArrowWLine, __assign({ className: _HeaderLKPT_module_scss_1["default"].backButton, axis: button_model_1.Axis.Bottom, 
                     // onClick={backNavigation}
                     sizes: { width: 17, height: 17 } }, buttonBackProps)),
-                React.createElement("span", { className: _HeaderLKPT_module_scss_1["default"].headerTitle }, title)),
-            React.createElement(SwitchSelector_1.SwitchSelector, { className: _HeaderLKPT_module_scss_1["default"].switchSelector, options: options, 
-                // options={[
-                //     SWITCH_SELECTOR_CREATED_PRODUCTS_OPTION, 
-                //     SWITCH_SELECTOR_WO_PRICE_PRODUCTS_OPTION, 
-                //     SWITCH_SELECTOR_DRAFT_PRODUCTS_OPTION
-                // ]} 
-                setSelectedOption: setSelectedOption, selectedOption: selectedOption, optionsTab: optionsTab, variant: switchSelector_model_1.ESwitchSelectorVariants.TABS })),
+                title && React.createElement("span", { className: _HeaderLKPT_module_scss_1["default"].headerTitle }, title)),
+            React.createElement(SwitchSelector_1.SwitchSelector, { className: _HeaderLKPT_module_scss_1["default"].switchSelector, options: options, setSelectedOption: setSelectedOption, selectedOption: selectedOption, optionsTab: optionsTab, variant: switchSelector_model_1.ESwitchSelectorVariants.TABS })),
         isButtonAdd &&
             React.createElement("div", { className: _HeaderLKPT_module_scss_1["default"].addButtonContainer },
                 React.createElement(Button_1.Button, __assign({ variant: Button_1.ButtonVariant.FILL, color: button_model_2.ButtonColor.Primary, title: "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C", className: _HeaderLKPT_module_scss_1["default"].addButton, classNameLink: _HeaderLKPT_module_scss_1["default"].addButtonLink }, buttonAddProps)))));
