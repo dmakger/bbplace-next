@@ -23,7 +23,7 @@ function LKTenderPage() {
     };
     return (React.createElement(Wrapper1280_1["default"], null,
         React.createElement(SuspenseL_1["default"].Tender, { searchKey: 'type', set: setTenderType },
-            React.createElement(HeaderLK_1.HeaderLKPT, { title: 'Новый тендер', buttonBackProps: { href: pages_url_config_1.DASHBOARD_PAGES.HOME.path }, selectedOption: selectedOption, setSelectedOption: setSelectedOption, options: switchSelector_data_1.TENDER_TYPE_OPTIONS, optionsTab: {}, isButtonAdd: true, buttonAddProps: { href: pages_url_config_1.DASHBOARD_PAGES.NEW_TENDER.path } }),
+            React.createElement(HeaderLK_1.HeaderLKPT, { title: 'Мои тендеры', buttonBackProps: { href: pages_url_config_1.DASHBOARD_PAGES.HOME.path }, selectedOption: selectedOption, setSelectedOption: setSelectedOption, options: switchSelector_data_1.TENDER_TYPE_OPTIONS, optionsTab: {}, isButtonAdd: true, buttonAddProps: { href: pages_url_config_1.DASHBOARD_PAGES.NEW_TENDER.path } }),
             React.createElement(LKPTPage_1.LKPTPage, { optionsTab: OPTIONS_TAB, selectedOption: selectedOption, className: _LKTenderPage_module_scss_1["default"].block }))));
 }
 exports["default"] = LKTenderPage;
