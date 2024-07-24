@@ -50,5 +50,5 @@ exports.HeaderLKPT = function (_a) {
                 setSelectedOption: setSelectedOption, selectedOption: selectedOption, optionsTab: optionsTab, variant: switchSelector_model_1.ESwitchSelectorVariants.TABS })),
         isButtonAdd &&
             React.createElement("div", { className: _HeaderLKPT_module_scss_1["default"].addButtonContainer },
-                React.createElement(Button_1.Button, __assign({ variant: Button_1.ButtonVariant.FILL }, buttonAddProps, { color: button_model_2.ButtonColor.Primary, title: "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C", className: _HeaderLKPT_module_scss_1["default"].addButton }, buttonAddProps)))));
+                React.createElement(Button_1.Button, __assign({ variant: Button_1.ButtonVariant.FILL, color: button_model_2.ButtonColor.Primary, title: "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C", className: _HeaderLKPT_module_scss_1["default"].addButton, classNameLink: _HeaderLKPT_module_scss_1["default"].addButtonLink }, buttonAddProps)))));
 };

@@ -104,4 +104,10 @@
             padding: 10px 20px;
         }
     }
+
+    .addButtonLink {
+        @media (max-width: 1024px) {
+            width: 100%;
+        }
+    }
 }

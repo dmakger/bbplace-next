@@ -72,10 +72,11 @@ export const HeaderLKPT = ({
             </div>
             {isButtonAdd &&
                 <div className={cl.addButtonContainer}>
-                    <Button variant={ButtonVariant.FILL} {...buttonAddProps}
+                    <Button variant={ButtonVariant.FILL}
                         color={ButtonColor.Primary}
                         title="Добавить"
                         className={cl.addButton}
+                        classNameLink={cl.addButtonLink}
                         {...buttonAddProps}
                     />
                 </div>
