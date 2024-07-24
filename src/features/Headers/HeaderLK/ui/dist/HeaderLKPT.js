@@ -16,10 +16,8 @@ exports.HeaderLKPT = void 0;
 var classes_lib_1 = require("@/shared/lib/classes.lib");
 var _HeaderLKPT_module_scss_1 = require("./_HeaderLKPT.module.scss");
 var Button_1 = require("@/shared/ui/Button");
-// import { ButtonArrowWLine } from "@/shared/ui/Button/Arrow/WLine/ButtonArrowWLine"
 var button_model_1 = require("@/shared/model/button.model");
 var SwitchSelector_1 = require("@/shared/ui/SwitchSelector");
-// import { ButtonColor } from "@/shared/ui/Button/model/model"
 var navigation_1 = require("next/navigation");
 var pages_url_config_1 = require("@/config/pages-url.config");
 var switchSelector_model_1 = require("@/shared/ui/SwitchSelector/model/switchSelector.model");

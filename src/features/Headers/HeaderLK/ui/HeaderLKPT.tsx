@@ -2,18 +2,15 @@
 import { cls } from "@/shared/lib/classes.lib"
 import cl from './_HeaderLKPT.module.scss'
 import { Button, ButtonVariant } from "@/shared/ui/Button"
-// import { ButtonArrowWLine } from "@/shared/ui/Button/Arrow/WLine/ButtonArrowWLine"
 import { Axis } from "@/shared/model/button.model"
 import { SwitchSelector } from "@/shared/ui/SwitchSelector"
 import { IOption } from "@/shared/model/option.model"
 import { OptionsTabType } from "@/features/DetailedPageInfo/model/detailedPageInfo.model"
-// import { ButtonColor } from "@/shared/ui/Button/model/model"
 import { useRouter } from "next/navigation"
 import { DASHBOARD_PAGES } from "@/config/pages-url.config"
 import { ESwitchSelectorVariants } from "@/shared/ui/SwitchSelector/model/switchSelector.model"
 import { ButtonArrowWLine } from "@/shared/ui/Button/data/Arrow/WLine/ButtonArrowWLine"
 import { ButtonColor } from "@/shared/ui/Button/model/button.model"
-import { TAnyParams } from "@/shared/model/params.model"
 import { IButton } from "@/shared/ui/Button/ui/Button"
 
 interface IHeaderPT {
