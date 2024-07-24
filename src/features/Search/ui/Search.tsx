@@ -8,7 +8,7 @@ import { PTCSelect } from "@/features/Select";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAppSelector } from "@/storage/hooks";
 import { getFormData } from "@/shared/lib/formData.lib";
-import { SuspenseL } from "@/shared/ui/Wrapper/SuspenseL/SuspenseL";
+import SuspenseL from "@/shared/ui/Wrapper/SuspenseL/SuspenseL";
 
 
 export const Search = () => {

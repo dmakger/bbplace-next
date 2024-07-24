@@ -16,9 +16,6 @@ export default function LKProductPage() {
 
 
     const MY_PRODUCTS_OPTIONS_TAB: IUserProductsTab = {
-        // active: { optionTab: <>Lorem</>, optionQuantity: 22 },
-        // drafts: { optionTab: <>dddddd</>, optionQuantity: 3 },
-        // woPrice: { optionTab: <>ddddwwww</>, optionQuantity: 0 },
         // active: { optionTab: <LKProductTableAdaptive typeProduct={ProductsTypeLK.Active}/>, optionQuantity: 22 },
         // drafts: { optionTab: <LKProductTableAdaptive typeProduct={ProductsTypeLK.Draft}/>, optionQuantity: 3 },
         // woPrice: { optionTab: <LKProductTableAdaptive typeProduct={ProductsTypeLK.WithoutPrice}/>, optionQuantity: 0 },
@@ -36,11 +33,6 @@ export default function LKProductPage() {
         },
     }
 
-    // const productsUserLK: IUserProductsTab = {
-    //     active: undefined,
-    //     drafts: undefined
-    // }
-
     return (
         <Wrapper1280>
             <WrapperAuth>
@@ -52,12 +44,15 @@ export default function LKProductPage() {
                             ]}
                             setSelectedOption={setSelectedOption} optionsTab={MY_PRODUCTS_OPTIONS_TAB} />
                 <LKPTPage optionsTab={[]} selectedOption={selectedOption} /> */}
-                <WrapperLKPT pageTitle="Мои товары" options={PRODUCT_PAGE_OPTIONS_ARRAY} optionsTab={MY_PRODUCTS_OPTIONS_TAB}
-                startPage={SWITCH_SELECTOR_CREATED_PRODUCTS_OPTION} isButtonAdd={false}/>
+                <WrapperLKPT pageTitle="Мои товары" 
+                             options={PRODUCT_PAGE_OPTIONS_ARRAY} optionsTab={MY_PRODUCTS_OPTIONS_TAB}
+                             startPage={SWITCH_SELECTOR_CREATED_PRODUCTS_OPTION} 
+                             isButtonAdd={false}/>
                 {/* <HeaderLKPT title={""} selectedOption={undefined} setSelectedOption={undefined} optionsTab={undefined} /> */}
                 {/* <SwitchSelector options={[]} selectedOption={undefined} setSelectedOption={undefined}> */}
                     {/* <LKProductTableAdaptive /> */}
                 {/* </SwitchSelector> */}
+                {/*<LKPTPage optionsTab={MY_PRODUCTS_OPTIONS_TAB} selectedOption={selectedOption} />*/}
             </WrapperAuth>
         </Wrapper1280>
     )

@@ -105,9 +105,14 @@
             padding: 10px 20px;
         }
     }
-}
 
 //NO_TITLE
 .noTitle{
     gap: 10px !important;
+}
+
+.addButtonLink {
+    @media (max-width: 1024px) {
+        width: 100%;
+    }
 }

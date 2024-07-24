@@ -18,7 +18,7 @@ import { CurrencyAPI } from "@/entities/Metrics/api/currency.metrics.api";
 import { MetricsAPI } from "@/entities/Metrics/api/metrics.metrics.api";
 import { useSearchParams } from "next/navigation";
 import { paramsToBack } from "@/config/params/backend.params.config";
-import { SuspenseL } from "@/shared/ui/Wrapper/SuspenseL/SuspenseL";
+import SuspenseL from "@/shared/ui/Wrapper/SuspenseL/SuspenseL";
 import { getViewProductByParam } from "@/entities/Product/lib/params.product.lib";
 import { isEqual } from "lodash";
 
