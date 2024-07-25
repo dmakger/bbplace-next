@@ -83,11 +83,11 @@ export const InputFile:FC<InputFileProps> = ({
                         const {newFileList, newResponseFileList} = r
                         if (newFileList.length === 0 || newResponseFileList.length === 0) return
                         if (multiple) {
-                            setFileList([newFileList[0]])
-                            setResponseFileList([newResponseFileList[0]])
-                        } else {
                             setFileList(prev => [...prev, ...newFileList])
                             setResponseFileList(prev => [...prev, ...newResponseFileList])
+                        } else {
+                            setFileList([newFileList[0]])
+                            setResponseFileList([newResponseFileList[0]])
                         }
                     })
                 },

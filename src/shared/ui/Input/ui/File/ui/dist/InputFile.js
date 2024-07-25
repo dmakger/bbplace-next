@@ -85,7 +85,7 @@ var getter_file_lib_1 = require("@/entities/File/lib/getter.file.lib");
  * @returns
  */
 exports.InputFile = function (_a) {
-    var title = _a.title, _b = _a.multiple, multiple = _b === void 0 ? true : _b, setFileList = _a.setFileList, setResponseFileList = _a.setResponseFileList, _c = _a.variant, variant = _c === void 0 ? input_model_1.EInputVariants.ROUNDED : _c, onChange = _a.onChange, success = _a.success, setSuccess = _a.setSuccess, warning = _a.warning, setWarning = _a.setWarning, setInputValueLength = _a.setInputValueLength, size = _a.size, rest = __rest(_a, ["title", "multiple", "setFileList", "setResponseFileList", "variant", "onChange", "success", "setSuccess", "warning", "setWarning", "setInputValueLength", "size"]);
+    var classNameField = _a.classNameField, title = _a.title, _b = _a.multiple, multiple = _b === void 0 ? true : _b, setFileList = _a.setFileList, setResponseFileList = _a.setResponseFileList, _c = _a.variant, variant = _c === void 0 ? input_model_1.EInputVariants.ROUNDED : _c, onChange = _a.onChange, success = _a.success, setSuccess = _a.setSuccess, warning = _a.warning, setWarning = _a.setWarning, setInputValueLength = _a.setInputValueLength, size = _a.size, disabled = _a.disabled, rest = __rest(_a, ["classNameField", "title", "multiple", "setFileList", "setResponseFileList", "variant", "onChange", "success", "setSuccess", "warning", "setWarning", "setInputValueLength", "size", "disabled"]);
     // REF
     var inputRef = react_1.useRef(null);
     // STATE
@@ -114,12 +114,12 @@ exports.InputFile = function (_a) {
                     if (newFileList.length === 0 || newResponseFileList.length === 0)
                         return;
                     if (multiple) {
-                        setFileList([newFileList[0]]);
-                        setResponseFileList([newResponseFileList[0]]);
-                    }
-                    else {
                         setFileList(function (prev) { return __spreadArrays(prev, newFileList); });
                         setResponseFileList(function (prev) { return __spreadArrays(prev, newResponseFileList); });
+                    }
+                    else {
+                        setFileList([newFileList[0]]);
+                        setResponseFileList([newResponseFileList[0]]);
                     }
                 });
             }, function (e) { console.error(e); });
@@ -165,6 +165,6 @@ exports.InputFile = function (_a) {
         var _a;
         (_a = inputRef.current) === null || _a === void 0 ? void 0 : _a.click();
     };
-    return (React.createElement(Button_1.Button, { variant: Button_1.ButtonVariant.DEFAULT, beforeImage: file_data_icon_1.FILE_ADD_ICON, title: locTitle, onClick: handleOnClickButton, className: classes_lib_1.cls(_InputFile_module_scss_1["default"].block, _InputFile_module_scss_1["default"][variant]), classNameText: _InputFile_module_scss_1["default"].text, classNameTextHovered: _InputFile_module_scss_1["default"].textHovered, classNameTextDisabled: _InputFile_module_scss_1["default"].textDisabled },
-        React.createElement("input", __assign({ type: "file", multiple: multiple, ref: inputRef, onChange: function (e) { return handleOnChange(e); }, className: _InputFile_module_scss_1["default"].input }, rest))));
+    return (React.createElement(Button_1.Button, { variant: Button_1.ButtonVariant.DEFAULT, beforeImage: !disabled ? file_data_icon_1.FILE_ADD_ICON : file_data_icon_1.FILE_ADD_ICON_DISABLED, title: locTitle, onClick: handleOnClickButton, className: classes_lib_1.cls(_InputFile_module_scss_1["default"].block, _InputFile_module_scss_1["default"][variant], disabled ? _InputFile_module_scss_1["default"].disabled : '', classNameField), classNameText: _InputFile_module_scss_1["default"].text, classNameTextHovered: _InputFile_module_scss_1["default"].textHovered, classNameTextDisabled: _InputFile_module_scss_1["default"].textDisabled },
+        React.createElement("input", __assign({ type: "file", multiple: multiple, ref: inputRef, onChange: function (e) { return handleOnChange(e); }, className: _InputFile_module_scss_1["default"].input, disabled: disabled }, rest))));
 };
