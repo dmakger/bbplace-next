@@ -8,11 +8,9 @@
 	padding: 20px;
 }
 
-.input {
+.input,.textarea{
 	width: 100%;
-	background-color: var(--background-2);
 	outline: none;
-	border: none;
 	font-size: var(--font-size-reg);
 	transition: .3s;
 
@@ -29,21 +27,16 @@
 	}
 }
 
-.textarea {
-	// .input, .textarea {
-	width: 100%;
+.input {
 	background-color: var(--background-2);
-	outline: none;
-	border: 1px solid var(--gray-5);
-	padding: 20px;
-	font-size: var(--font-size-reg);
-	transition: .3s;
+	border: none;
 }
-
 
 .textarea {
 	min-height: 180px;
 	resize: none;
+	border: 1px solid var(--gray-5);
+	padding: 20px;
 
 	@media (max-width: 768px) {
 		min-height: 150px;
@@ -81,20 +74,26 @@
 .rectangular {
 	border: 1px solid var(--tertiary-border);
 	border-radius: 5px;
-	font-weight: var(--font-weight-med);
 
-	&::placeholder {
-		transition: .3s;
+	& input{
+		font-weight: var(--font-weight-med);
+
+		&::placeholder {
+			transition: .3s;
+		}
 	}
-
+	
 	&:hover {
 		border-color: var(--tertiary-hovered);
 		transition-duration: 0.3s;
 
-		&::placeholder {
-			color: var(--font);
-			transition: .3s;
+		& input{
+			&::placeholder {
+				color: var(--font) !important;
+				transition: .3s;
+			}
 		}
+		
 	}
 
 	&:focus,
@@ -134,15 +133,6 @@
 		background-color: var(--tertiary-surface-low) !important;
 	}
 }
-
-
-
-
-
-
-
-
-
 
 //STATES
 .error {

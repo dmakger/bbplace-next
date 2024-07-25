@@ -7,7 +7,7 @@ import { SUPPORT_MENU_ICON } from '../../../shared/ui/Icon/data/support.data.ico
 import { LOGO_ICON } from '../../../shared/ui/Icon/data/logo.data.icon';
 import { CATALOG_ICON } from "../../../shared/ui/Icon/data/catalog.data.icon";
 import { CHAT_ICON } from '../../../shared/ui/Icon/data/chat.data.icon';
-import { LK_ICON } from '../../../shared/ui/Icon/data/lk.data.icon';
+import { LK_MENU_ICON } from '../../../shared/ui/Icon/data/lk.data.icon';
 import { FAVOURITE_ICON_MENU } from '../../../shared/ui/Icon/data/favourite.data.icon';
 
 export const MAIN_ITEM_MOBILE_MENU_DATA: IIconVariants = {
@@ -42,7 +42,7 @@ export const LK_ITEM_MOBILE_MENU_DATA: IIconVariants = {
   id: 5,
   link: DASHBOARD_PAGES.HOME.path,
   title: "ЛК",
-  image: LK_ICON
+  image: LK_MENU_ICON
 }
 
 export const BACK_ITEM_MENU_DATA: IIconVariants = {
@@ -67,9 +67,16 @@ export const MOBILE_MENU_DATA: IIconVariants[] = [
   LK_ITEM_MOBILE_MENU_DATA,
 ]
 
-// //NOT_AUTH_DATA
+//NOT_AUTH_DATA
 export const NOT_AUTH_MOBILE_DATA: IMenuItem[] = [
   BACK_ITEM_MENU_DATA,
   MAIN_ITEM_MOBILE_MENU_DATA,
   SUPPORT_ITEM_MENU_DATA
+]
+
+//SUPPORT_PAGE_DATA
+export const SUPPORT_PAGE_MOBILE_DATA: IIconVariants[] = [
+  BACK_ITEM_MENU_DATA,
+  MAIN_ITEM_MOBILE_MENU_DATA,
+  LK_ITEM_MOBILE_MENU_DATA
 ]

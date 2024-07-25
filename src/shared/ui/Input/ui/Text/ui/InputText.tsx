@@ -14,6 +14,7 @@ import { IIconProps } from '@/shared/model/button.model';
 import { ButtonImageSize } from '@/shared/ui/Button/data/button.data'
 import { EMAIL_VALID_RULES, isEmailValid } from '@/entities/Auth/data/email.data'
 import { PASSWORD_VALID_RULES, isPasswordValid } from '@/entities/Auth/data/password.data'
+import { FILL_THE_FIELD } from '@/entities/Auth/data/errorMessages.data';
 
 interface InputTextProps extends IWrapperRectangleInputChildren, IInput {
     title?: string
@@ -85,6 +86,9 @@ export function InputText({
 
     // Функция для проверки значения ввода
     const checkValue = (value: string) => {
+
+        if(!required) return;
+        
         let isErr = value.trim() === '';
 
         if (isErr) {
@@ -92,7 +96,7 @@ export function InputText({
             setIsWarning(true);
             setSuccess?.(false);
             setIsSuccess(false);
-            setErrorMessageArray?.(['Пожалуйста, заполните это поле']);
+            setErrorMessageArray?.([FILL_THE_FIELD]);
             return;
         }
 

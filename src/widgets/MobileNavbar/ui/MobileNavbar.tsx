@@ -1,8 +1,9 @@
 'use client'
-import React from 'react';
+
+import React, { useEffect, useState } from 'react';
 import cl from './_MobileNavbar.module.scss'
 import { Button, ButtonVariant } from '@/shared/ui/Button';
-import { MOBILE_MENU_DATA } from '@/shared/data/menu/mobile.menu.data';
+import { MOBILE_MENU_DATA, SUPPORT_PAGE_MOBILE_DATA } from '@/shared/data/menu/mobile.menu.data';
 import { cls } from '@/shared/lib/classes.lib';
 import { usePathname, useRouter } from 'next/navigation';
 import { IIconVariants } from '@/shared/model/icon.model';
@@ -17,16 +18,27 @@ export const MobileNavbar = ({
 	menuData = MOBILE_MENU_DATA
 }: IMobileNavbar) => {
 
+	//STATE
+	const [mobileMenuData, setMobileMenuData] = useState<IIconVariants[]>(menuData)
+
 	//ROUTER
 	const pathname = usePathname();
 	const router = useRouter();
 
+	//EFFECT
+	useEffect(() => {
+		if(pathname.includes('support')){			
+			setMobileMenuData(SUPPORT_PAGE_MOBILE_DATA)
+		}
+	}, [menuData, pathname])
+
+	//FUNCTION
 	const goBack = () => router.back();
 
 	return (
 		<nav className={cl.MobileNavbar}>
 			<div className={cl.navBarParent}>
-				{menuData.map(el => (
+				{mobileMenuData.map(el => (
 					<Button
 						variant={ButtonVariant.CLEAR}
 						href={el.link ?? ''}

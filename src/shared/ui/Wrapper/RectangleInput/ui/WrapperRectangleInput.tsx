@@ -108,7 +108,6 @@ export const WrapperRectangleInput = ({
 	const [warning, setWarning] = useState<boolean>(false);
 	const [success, setSuccess] = useState<boolean>(false);
 
-// <<<<<<< HEAD
   //EFFECT
   useEffect(() => {
     const allSuccess = Object.values(successes).every(v => v === true);
