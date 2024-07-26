@@ -4,7 +4,7 @@ export interface ISupportRequestMessage {
     Contact: string
     Theme: string
     Message: string
-    Files: []
+    Files?: []
 }
 
 export type ISupportRequest = FormData

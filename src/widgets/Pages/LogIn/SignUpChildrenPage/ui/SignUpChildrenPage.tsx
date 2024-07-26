@@ -14,7 +14,7 @@ import { FormEvent, useEffect, useRef, useState } from "react"
 import { CountryAPI } from '@/entities/Metrics/api/country.metrics.api'
 import { ERadioVariant } from '@/shared/ui/Input/ui/Radio/model/radio.model'
 import { PASSWORD_MATCHING_ERROR, PASSWORD_VALID_RULES, isPasswordValid } from '@/entities/Auth/data/password.data'
-import { EMAIL_VALID_RULES, isEmailValid } from '@/entities/Auth/data/email.data'
+import { EMAIL_VALID_RULES, isEmailValid } from '@/entities/Auth/data/telNEmail.data'
 import { FILL_THE_FIELD, SELECT_THE_COUNTRIES } from '@/entities/Auth/data/errorMessages.data'
 import { IOption } from '@/shared/model/option.model'
 import { getCountriesAsOption } from '@/features/Filter/lib/filter.lib'

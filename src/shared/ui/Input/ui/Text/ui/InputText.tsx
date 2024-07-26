@@ -1,8 +1,8 @@
 'use client'
 
-import { cls } from '@/shared/lib/classes.lib'
+import { cls } from '@/shared/lib/classes.lib';
 import cl from './_InputText.module.scss';
-import { ChangeEvent, useEffect, useRef, useState } from 'react'
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { WrapperTitleInput } from '@/shared/ui/Wrapper/Title/Input/WrapperTitleInput';
 import { EInputTextVariant } from '../data/text.input.data';
 import { IWrapperRectangleInputChildren } from '@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model';
@@ -11,9 +11,9 @@ import { EInputTextTypeVariants } from '../../../Text/model/text.input.model';
 import { IIcon } from '@/shared/ui/Icon/model/icon.model';
 import { ImageSmart } from '@/shared/ui/Image/Smart/ImageSmart';
 import { IIconProps } from '@/shared/model/button.model';
-import { ButtonImageSize } from '@/shared/ui/Button/data/button.data'
-import { EMAIL_VALID_RULES, isEmailValid } from '@/entities/Auth/data/email.data'
-import { PASSWORD_VALID_RULES, isPasswordValid } from '@/entities/Auth/data/password.data'
+import { ButtonImageSize } from '@/shared/ui/Button/data/button.data';
+import { EMAIL_VALID_RULES, TEL_N_EMAIL_VALID_RULES, isEmailValid, isTelEmailValid } from '@/entities/Auth/data/telNEmail.data';
+import { PASSWORD_VALID_RULES, isPasswordValid } from '@/entities/Auth/data/password.data';
 import { FILL_THE_FIELD } from '@/entities/Auth/data/errorMessages.data';
 
 interface InputTextProps extends IWrapperRectangleInputChildren, IInput {
@@ -104,6 +104,12 @@ export function InputText({
         if (type === 'email') {
             isErr = !isEmailValid(value);
             if (isErr) setErrorMessageArray?.([EMAIL_VALID_RULES]);
+        }
+
+        //TEL_N_EMAIL
+        if(type === 'tel email'){
+            isErr = !isTelEmailValid(value);            
+            if (isErr) setErrorMessageArray?.([TEL_N_EMAIL_VALID_RULES]);
         }
 
         //PASSWORD

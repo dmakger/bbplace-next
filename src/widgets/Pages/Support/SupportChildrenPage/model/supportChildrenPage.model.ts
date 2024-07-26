@@ -1,5 +1,3 @@
-export interface ISupportChildrenPageInitialErrors{
-    fullName: string,
-    contacts: string,
-    message: string
-}
+import { ISupportRequestMessage } from "@/entities/Support/model/support.model";
+
+export interface ISupportChildrenPageInitialErrors extends ISupportRequestMessage{}
