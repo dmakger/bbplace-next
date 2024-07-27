@@ -22,7 +22,8 @@ interface InputTextProps extends IWrapperRectangleInputChildren, IInput {
     defaultValue?: string,
     type?: string,
     inputTypeVariant?: EInputTextTypeVariants
-
+    value?: string
+    setValue?: Function
     beforeImage?: IIcon
     beforeProps?: IIconProps,
     disabled?: boolean,
@@ -39,6 +40,8 @@ export function InputText({
     inputTypeVariant = EInputTextTypeVariants.TEXT,
     variantInputText = EInputTextVariant.DEFAULT,
     title,
+    value,
+    setValue,
     name, placeholder,
     required = false,
     className,
@@ -69,7 +72,7 @@ export function InputText({
     const inputRef = useRef<HTMLInputElement>(null);
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
-    // Эффект для обработки ошибок
+    //EFFECT
     useEffect(() => {
         if (error) {
             // Ошибка обнаружена
@@ -83,6 +86,14 @@ export function InputText({
             setIsSuccess(false);
         }
     }, [error]);
+
+
+    useEffect(() => {
+        if(value?.trim() === ''){
+            setIsSuccess(false)
+            setSuccess?.(false);
+        }  
+    }, [value])
 
     // Функция для проверки значения ввода
     const checkValue = (value: string) => {
@@ -133,6 +144,7 @@ export function InputText({
     const handleOnChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const value = e.target.value
         setInputValueLength?.(value.length)
+        setValue?.(value)
         checkValue(value)
         onChange(value)
         onChangeEvent(e)
@@ -186,6 +198,7 @@ export function InputText({
                         name={name}
                         ref={inputRef}
                         type={type}
+                        value={value}
                         required={required}
                         placeholder={placeholder}
                         defaultValue={defaultValue}
@@ -206,6 +219,7 @@ export function InputText({
                         classNameTextArea
                     )}
                     name={name}
+                    value={value}
                     ref={textAreaRef}
                     defaultValue={defaultValue}
                     required={required}

@@ -21,7 +21,12 @@ import { getImageFile } from '@/entities/File/lib/file.lib'
 import { cls } from '@/shared/lib/classes.lib'
 import { ISupportChildrenPageInitialErrors } from '../model/supportChildrenPage.model'
 import { INITIAL_ERRORS } from '../data/supportChildrenPage.data'
+import { isTelEmailValid } from '@/entities/Auth/data/telNEmail.data'
+
 export const SupportChildrenPage = () => {
+
+    //RTK
+    const { fullName, email, legalName } = useAppSelector(state => state.user)
 
     //STATE
     const [errors, setErrors] = useState<ISupportChildrenPageInitialErrors>(INITIAL_ERRORS);
@@ -30,11 +35,16 @@ export const SupportChildrenPage = () => {
     const [selectedResponseFiles, setSelectedResponseFiles] = useState<IResponseFile[]>([]);
     const [deletingFileName, setDeletingFileName] = useState<string>('')
 
+    const [formValues, setFormValues] = useState({
+        Name: fullName ?? '',
+        CompanyName: legalName ?? '',
+        Contact: email ?? '',
+        Theme: '',
+        Message: ''
+    });
+
     //API
     const [sendSupportMessage] = SupportAPI.useSendSupportMessageMutation()
-
-    //RTK
-    const { fullName, email, legalName } = useAppSelector(state => state.user)
 
     //REF
     const formRef = useRef<HTMLFormElement>(null)
@@ -64,6 +74,8 @@ export const SupportChildrenPage = () => {
         if (!Contact) {
             newErrors.Contact = FILL_THE_FIELD;
             hasError = true;
+        } else if(!isTelEmailValid(Contact)){
+            hasError = true;
         }
 
         //THEME
@@ -77,21 +89,37 @@ export const SupportChildrenPage = () => {
             newErrors.Message = FILL_THE_FIELD;
             hasError = true;
         }
-
-        if (hasError) return setErrors(newErrors);
+        
+        if (hasError) return;
 
         const formData = new FormData(formRef.current)
 
-        const requestData: Record<string, any> = {};
-        formData.forEach((value, key) => {
-            requestData[key] = value;
-        })
+        Object.keys(formValues).forEach(key => {
+            formData.append(key, formValues[key]);
+        });
 
-        console.log(requestData);
+        selectedFiles.forEach((file, index) => {
+            if (file.file) {
+                formData.append(`Files`, file.file, file.name);
+            }
+        });
+
+        console.log(formData);
+        
+                
 
         try {
-            // await sendSupportMessage(formData).unwrap()
-            // formRef.current.reset();
+            await sendSupportMessage(formData).unwrap()
+            // setFormValues({
+            //     Name: '',
+            //     CompanyName: '',
+            //     Contact: '',
+            //     Theme: '',
+            //     Message: ''
+            // });            
+            // setSelectedFiles([]);
+            // setSelectedResponseFiles([]);
+            setErrors(INITIAL_ERRORS);
 
         }
         catch (e: any) {
@@ -116,28 +144,28 @@ export const SupportChildrenPage = () => {
     return (
         <WrapperForLogInNSupportPages pageTitle="Поддержка" formRef={formRef} onSubmitFunc={sendMessage}>
 
-        <WrapperRectangleInput labelText="Имя" isRequired errorInputMessage={errors.Name}>
-            <Input.Text variant={EInputVariants.RECTANGULAR} name="Name" required defaultValue={fullName ?? ''} placeholder="Введите ФИО"  error={!!errors.Name} warning={!!errors.Name} />
+        <WrapperRectangleInput labelText="Имя" isRequired errorInputMessage={errors.Name} >
+            <Input.Text variant={EInputVariants.RECTANGULAR} name="Name" required value={formValues.Name} setValue={setFormValues} placeholder="Введите ФИО"  error={!!errors.Name} warning={!!errors.Name}/>
         </WrapperRectangleInput>
 
-        <WrapperRectangleInput labelText="Компания" isRequired warningTooltipText={errors.CompanyName}>
-            <Input.Text variant={EInputVariants.RECTANGULAR} name="CompanyName" required defaultValue={legalName ?? ''} placeholder="Введите юридическое название"  warning={!!errors.CompanyName} error={!!errors.CompanyName}/>
+        <WrapperRectangleInput labelText="Компания" isRequired errorInputMessage={errors.CompanyName}>
+            <Input.Text variant={EInputVariants.RECTANGULAR} name="CompanyName" value={formValues.CompanyName} required defaultValue={legalName ?? ''} placeholder="Введите юридическое название" warning={!!errors.CompanyName} error={!!errors.CompanyName}/>
         </WrapperRectangleInput>
 
-        <WrapperRectangleInput labelText="Контакты" isRequired errorInputMessage={errors.Contact} isDescriptionTooltip descriptionTooltipText='Введите свои контакты'>
-            <Input.Text variant={EInputVariants.RECTANGULAR} name="Contact" type='tel email' required defaultValue={email ?? ''} placeholder="Введите email или номер телефона" warning={!!errors.Contact} error={!!errors.Contact} />
+        <WrapperRectangleInput labelText="Контакты" isRequired errorInputMessage={errors.Contact} isDescriptionTooltip descriptionTooltipText='Укажите ваш телефон или email для обратной связи.'>
+            <Input.Text variant={EInputVariants.RECTANGULAR} name="Contact" value={formValues.Contact} type='tel email' required defaultValue={email ?? ''} placeholder="Введите email или номер телефона" warning={!!errors.Contact} error={!!errors.Contact} />
         </WrapperRectangleInput>
 
-        <WrapperRectangleInput labelText="Тема" isRequired warningTooltipText={errors.Theme}>
-            <Input.Text variant={EInputVariants.RECTANGULAR} name="Theme" required placeholder="Введите тему обращения" warning={!!errors.Theme} error={!!errors.Theme}/>
+        <WrapperRectangleInput labelText="Тема" isRequired errorInputMessage={errors.Theme}>
+            <Input.Text variant={EInputVariants.RECTANGULAR} name="Theme" value={formValues.Theme} required placeholder="Введите тему обращения" warning={!!errors.Theme} error={!!errors.Theme}/>
         </WrapperRectangleInput>
 
         <WrapperRectangleInput labelText="Сообщение" isRequired errorInputMessage={errors.Message}>
-            <Input.Text variant={EInputVariants.RECTANGULAR} name="Message" required inputTypeVariant={EInputTextTypeVariants.TEXTAREA} placeholder="Начните вводить"  warning={!!errors.Message} error={!!errors.Message} />
+            <Input.Text variant={EInputVariants.RECTANGULAR} name="Message" value={formValues.Message} required inputTypeVariant={EInputTextTypeVariants.TEXTAREA} placeholder="Начните вводить"  warning={!!errors.Message} error={!!errors.Message} />
         </WrapperRectangleInput>
 
-        <WrapperRectangleInput labelText="Файлы" bellowButtonText="Отправить" bellowButtonType={ButtonType.Submit} isDescriptionTooltip descriptionTooltipText='Сюда вы можете загрузить файлы'>
-            <Input.File variant={EInputVariants.RECTANGULAR} setFileList={setSelectedFiles} setResponseFileList={setSelectedResponseFiles} classNameField={cl.inputFile} />
+        <WrapperRectangleInput labelText="Файлы" bellowButtonText="Отправить" bellowButtonType={ButtonType.Submit} isDescriptionTooltip descriptionTooltipText='При необходимости прикрепите файлы, связанные с вашим запросом.'>
+            <Input.File variant={EInputVariants.RECTANGULAR} name='Files' setFileList={setSelectedFiles} setResponseFileList={setSelectedResponseFiles} classNameField={cl.inputFile} />
             {selectedFiles.length > 0 && (
                 <div className={cl.optionsContainer}>
                     {selectedFiles.map(file => (
