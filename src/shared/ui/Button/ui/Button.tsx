@@ -10,6 +10,8 @@ import { cls } from '@/shared/lib/classes.lib'
 import { ButtonColor, ButtonSize, ButtonType } from '../model/button.model'
 import { ButtonImageSize } from '../data/button.data'
 import { getImageSizeBySize } from '../lib/button.lib'
+import { Notification } from '../../Notification/ui/Notification'
+import { ENotificationVariants } from '../../Notification/model/notification.model'
 
 export interface IButton {
     variant?: ButtonVariant
@@ -17,7 +19,9 @@ export interface IButton {
     type?: ButtonType
     size?: ButtonSize
 
-    ref?: RefObject<HTMLButtonElement>
+    ref?: RefObject<HTMLButtonElement>,
+
+    notificationVariant?: ENotificationVariants,
 
     title?: string,
     href?: string
@@ -50,6 +54,7 @@ export interface IButton {
 export const Button = ({
     variant = ButtonVariant.BORDERED_RED_WIDE, color=ButtonColor.Primary, type = ButtonType.Button, size=ButtonSize.DefaultSize,
     ref,
+    notificationVariant=ENotificationVariants.NONE,
     title, href,
     beforeImage, beforeProps, afterImage, afterProps, 
     active=false, success=false, disabled=false, hovered, loading=false, noTranslation=false,
@@ -123,6 +128,7 @@ export const Button = ({
                             isActive={active && !success} isHovered={isHovered} isSuccess={success} isPressed={isPressed} isDisabled={disabled}/>
             }
             {children}
+            <Notification variant={notificationVariant}/>
         </button>
     )
 

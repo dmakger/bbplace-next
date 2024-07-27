@@ -3,3 +3,30 @@
     height: 45px;
     border-radius: 100px;
 }
+
+
+.button {
+    position: relative;
+
+    .arrowContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 20px;
+        height: 10px;
+        position: absolute;
+        bottom: -3px;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: var(--tertiary-surface-low);
+        border-radius: 10px 10px 0 0;
+        transition: .3s;
+
+        & img{
+            transition: .3s;
+        }
+
+    }
+    
+
+}

@@ -23,6 +23,9 @@ export enum ButtonVariant{
     BORDER = "border new",
     CONTENT = "content new",
 
+    
+    LINK = 'link',
+
     DEFAULT = 'default',
     CLEAR = 'clear',
     BORDERED_RED_WIDE = 'bordered-red-wide',
