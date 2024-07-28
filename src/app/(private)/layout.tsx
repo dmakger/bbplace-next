@@ -9,6 +9,7 @@ import { useActionCreators } from '@/storage/hooks';
 import { getAccessToken, isAuth, removeFromStorage } from '@/entities/Auth/lib/auth-token.lib';
 import { jwtDecode } from 'jwt-decode';
 import { HeaderLK } from '@/widgets/HeaderLK';
+import { LK_MOBILE_DATA } from '@/shared/data/menu/mobile.menu.data';
 
 export default function PrivateLayout({ children }: PropsWithChildren<unknown>) {
     // API 
@@ -44,7 +45,7 @@ export default function PrivateLayout({ children }: PropsWithChildren<unknown>) 
             <div className={cl.content}>
                 {children}
             </div>
-            <MobileNavbar/>
+            <MobileNavbar menuData={LK_MOBILE_DATA}/>
         </WrapperGap>
     )
 }

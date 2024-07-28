@@ -6,7 +6,7 @@ import { SUPPORT_MENU_ICON } from "@/shared/ui/Icon/data/support.data.icon";
 import { LOGO_ICON } from "@/shared/ui/Icon/data/logo.data.icon";
 import { LK_ICON } from "@/shared/ui/Icon/data/lk.data.icon";
 import { CATALOG_ICON } from "@/shared/ui/Icon/data/catalog.data.icon";
-import { CHAT_ICON } from "@/shared/ui/Icon/data/chat.data.icon";
+import { CHAT_ICON, CHAT_LK_ICON } from "@/shared/ui/Icon/data/chat.data.icon";
 import { FAVOURITE_ICON_MENU } from "@/shared/ui/Icon/data/favourite.data.icon";
 import { OFFICE_ICON } from "@/shared/ui/Icon/data/office.data.icon";
 import { MENU_ICON } from "@/shared/ui/Icon/data/menu.data.icon";
@@ -71,9 +71,15 @@ export const OFFICE_ITEM_MENU_DATA: IIconVariants = {
 
 export const MENU_ITEM_MENU_DATA: IIconVariants = {
   id: 9,
-  link: MAIN_PAGES.SUPPORT.path,
   title: 'Меню',
   image: MENU_ICON
+}
+
+export const CHAT_LK_ITEM_MENU_DATA: IIconVariants = {
+  id: 10,
+  link: MAIN_PAGES.SUPPORT.path,
+  title: 'Чат',
+  image: CHAT_LK_ICON
 }
 
 

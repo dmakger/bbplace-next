@@ -1,8 +1,11 @@
 .UserProfileBadge{
     display: flex;
+    justify-content: space-between;
     align-items: center;
     background-color: var(--tertiary-surface-low);
+    position: relative;
     transition: .3s;
+    width: 100%;
 
     .infoContainer{
         display: flex;
@@ -15,6 +18,7 @@
             color: var(--font-caption);
         }
         .userName{
+            width: 100px;
             overflow: hidden;
             display: -webkit-box;
             -webkit-line-clamp: 1;
@@ -27,7 +31,6 @@
 
     &:hover, &.activeBadge{
         background-color: var(--tertiary-surface);
-        border-radius: 25px 25px 0 0;
         transition: .3s;
 
         .arrowContainer{
@@ -44,7 +47,6 @@
 }
 
 //VARIANTS
-
 .desktop{
     gap: 2px;
     padding: 0px 2px 0 0;
@@ -53,16 +55,24 @@
         width: 95px;
         padding-left: 15px;
     }
+
+    &:hover, &.activeBadge{
+        border-radius: 25px 25px 0 0;
+    }
 }
 
 .mobile{
     justify-content: space-between;
     width: 250px;
     padding: 5px 15px;
-    border-radius: 0px;
+    border-radius: 20px;
 
     .infoContainer{
         width: 170px;
+    }
+
+    &:hover, &.activeBadge{
+        border-radius: 20px 0 0 0;
     }
 }
 

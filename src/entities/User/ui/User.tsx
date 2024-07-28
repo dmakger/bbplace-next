@@ -6,12 +6,13 @@ import cl from './_User.module.scss'
 import { MouseEventHandler } from 'react'
 import { EUserVariants } from '../model/user.model'
 import { ARROW_TERTIARY_WO_ICON } from '@/shared/ui/Icon/data/arrow.data.icon'
-import { Notification } from '@/shared/ui/Notification/ui/Notification'
+import { ENotificationVariants } from '@/shared/ui/Notification/model/notification.model'
+import { Notification } from '@/shared/ui/Notification'
 
 interface UserProps {
     image?: string
     variant?: EUserVariants,
-    isNotification?: boolean,
+    notificationVariant?: ENotificationVariants,
     className?: string,
     classNameArrowContainer?: string
     onClick?: MouseEventHandler
@@ -20,7 +21,7 @@ interface UserProps {
 export const User = ({
     image,
     variant = EUserVariants.DEFAULT,
-    isNotification = false,
+    notificationVariant = ENotificationVariants.NONE,
     className,
     classNameArrowContainer,
     onClick
@@ -41,8 +42,8 @@ export const User = ({
                     <div className={cls(cl.arrowContainer, classNameArrowContainer)}>
                         <Image src={ARROW_TERTIARY_WO_ICON.default} alt='' className={cl.arrow} width={8} height={5} />
                     </div>
-                    {isNotification && <Notification/>
-}
+                    <Notification variant={notificationVariant} />
+
                 </button>}
         </>
 

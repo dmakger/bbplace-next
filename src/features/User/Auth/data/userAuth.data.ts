@@ -21,7 +21,7 @@ export const LOGOUT_LK_MENU_DATA: IMenuItem = {
     title: "Выйти из аккаунта",
 }
 
-export const LK_MODAL_MENU_DATA: IMenuItem[] = [
+export const LK_OLD_MODAL_MENU_DATA: IMenuItem[] = [
     FAVORITES_LK_MENU_DATA,
     CHATS_LK_MENU_DATA,
     SUPPORT_LK_MENU_DATA,

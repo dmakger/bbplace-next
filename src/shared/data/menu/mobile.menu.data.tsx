@@ -2,13 +2,17 @@ import { DASHBOARD_PAGES, MAIN_PAGES } from "@/config/pages-url.config";
 import { IIconVariants } from "@/shared/model/icon.model";
 import { IMenuItem } from '../../../shared/model/menu.model';
 
-import { ARROW_WLINE_TERTIARY_MOBILE_ICON } from '../../../shared/ui/Icon/data/arrow.data.icon';
-import { SUPPORT_MENU_ICON } from '../../../shared/ui/Icon/data/support.data.icon';
-import { LOGO_ICON } from '../../../shared/ui/Icon/data/logo.data.icon';
-import { CATALOG_ICON } from "../../../shared/ui/Icon/data/catalog.data.icon";
-import { CHAT_ICON } from '../../../shared/ui/Icon/data/chat.data.icon';
-import { LK_ICON } from '../../../shared/ui/Icon/data/lk.data.icon';
-import { FAVOURITE_ICON_MENU } from '../../../shared/ui/Icon/data/favourite.data.icon';
+import { ARROW_WLINE_TERTIARY_MOBILE_ICON } from '@/shared/ui/Icon/data/arrow.data.icon';
+import { SUPPORT_MENU_ICON } from '@/shared/ui/Icon/data/support.data.icon';
+import { LOGO_ICON } from '@/shared/ui/Icon/data/logo.data.icon';
+import { CATALOG_ICON } from "@/shared/ui/Icon/data/catalog.data.icon";
+import { CHAT_ICON } from '@/shared/ui/Icon/data/chat.data.icon';
+import { LK_ICON } from '@/shared/ui/Icon/data/lk.data.icon';
+import { FAVOURITE_ICON_MENU } from '@/shared/ui/Icon/data/favourite.data.icon';
+import { OFFICE_ICON } from "@/shared/ui/Icon/data/office.data.icon";
+import { MENU_ICON } from "@/shared/ui/Icon/data/menu.data.icon";
+import { CHAT_LK_ICON } from "@/shared/ui/Icon/data/chat.data.icon";
+
 
 export const MAIN_ITEM_MOBILE_MENU_DATA: IIconVariants = {
   id: 1,
@@ -58,18 +62,47 @@ export const SUPPORT_ITEM_MENU_DATA: IIconVariants = {
   image: SUPPORT_MENU_ICON 
 }
 
+export const OFFICE_ITEM_MENU_DATA: IIconVariants = {
+  id: 8,
+  link: MAIN_PAGES.SUPPORT.path,
+  title: 'Кабинет',
+  image: OFFICE_ICON
+}
+
+export const MENU_ITEM_MENU_DATA: IIconVariants = {
+  id: 9,
+  title: 'Меню',
+  image: MENU_ICON
+}
+
+export const CHAT_LK_ITEM_MENU_DATA: IIconVariants = {
+  id: 10,
+  link: MAIN_PAGES.SUPPORT.path,
+  title: 'Чат',
+  image: CHAT_LK_ICON
+}
 
 export const MOBILE_MENU_DATA: IIconVariants[] = [
   MAIN_ITEM_MOBILE_MENU_DATA,
   CATALOG_ITEM_MOBILE_MENU_DATA,
-  DASHBOARD_ITEM_MOBILE_MENU_DATA,
+  CHAT_LK_ITEM_MENU_DATA,
   FAVORITE_ITEM_MOBILE_MENU_DATA,
   LK_ITEM_MOBILE_MENU_DATA,
 ]
 
-// //NOT_AUTH_DATA
+//NOT_AUTH_DATA
 export const NOT_AUTH_MOBILE_DATA: IMenuItem[] = [
   BACK_ITEM_MENU_DATA,
   MAIN_ITEM_MOBILE_MENU_DATA,
   SUPPORT_ITEM_MENU_DATA
+]
+
+
+//LK_DATA
+export const LK_MOBILE_DATA: IIconVariants[] = [
+  MAIN_ITEM_MOBILE_MENU_DATA,
+  OFFICE_ITEM_MENU_DATA,
+  CHAT_LK_ITEM_MENU_DATA,
+  FAVORITE_ITEM_MOBILE_MENU_DATA,
+  MENU_ITEM_MENU_DATA
 ]

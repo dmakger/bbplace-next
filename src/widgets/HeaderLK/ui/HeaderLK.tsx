@@ -12,17 +12,15 @@ interface IHeaderLK {
 
 export const HeaderLK = ({ className }: IHeaderLK) => {
 
-    
     return (
         <header className={cls(cl.HeaderLK, className)}>
             <Wrapper1280 classNameContent={cl.content}>
-                
-                <HeaderMenuLeft className={cl.leftMenu}/>
-                <HeaderMenuMiddle className={cl.middleMenu}/>
-                <HeaderMenuRight  className={cl.rightMenu}/>
-           
-            </Wrapper1280>
 
+                <HeaderMenuLeft className={cl.leftMenu} />
+                <HeaderMenuMiddle className={cl.middleMenu} />
+                <HeaderMenuRight className={cl.rightMenu} />
+
+            </Wrapper1280>
         </header>
     )
 }

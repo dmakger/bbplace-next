@@ -10,8 +10,8 @@ import { cls } from '@/shared/lib/classes.lib'
 import { ButtonColor, ButtonSize, ButtonType } from '../model/button.model'
 import { ButtonImageSize } from '../data/button.data'
 import { getImageSizeBySize } from '../lib/button.lib'
-import { Notification } from '../../Notification/ui/Notification'
 import { ENotificationVariants } from '../../Notification/model/notification.model'
+import { Notification } from '../../Notification'
 
 export interface IButton {
     variant?: ButtonVariant

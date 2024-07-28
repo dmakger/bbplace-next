@@ -1,0 +1,60 @@
+.Dropdown {
+    position: relative;
+    z-index: 10 !important;
+
+    .labelButton {
+        display: flex;
+        gap: 5px;
+        position: relative;
+        background-color: var(--tertiary-surface-low);
+        padding: 10px 15px;
+        border-radius: 20px;
+        border: none;
+        color: var(--font);
+        font-size: var(--font-size-reg);
+
+        &:hover {
+            background-color: var(--tertiary-surface) !important;
+            border-radius: 20px 20px 0 0;
+
+        }
+    }
+
+    .active {
+        background-color: var(--tertiary-surface);
+        border-radius: 20px 20px 0 0;
+
+        & img {
+            transform: rotate(180deg);
+        }
+    }
+
+
+
+}
+
+.border {
+    border-bottom: 5px solid var(--tertiary-surface);
+}
+
+
+.lastEl {
+    border-radius: 0 0 14px 14px;
+}
+
+
+
+.left {
+    .firstEl {
+        border-radius: 0 14px 0px 0px;
+    }
+}
+
+.right {
+    right: 0;
+    border-radius: 0px 0px 20px 20px;
+
+    .firstEl {
+        border-radius: 14px 0px 0px 0px;
+    }
+}

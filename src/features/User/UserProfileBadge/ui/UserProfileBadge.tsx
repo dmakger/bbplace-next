@@ -1,41 +1,48 @@
+'use client'
+
 import { cls } from "@/shared/lib/classes.lib"
 import cl from './_UserProfileBadge.module.scss'
 import { User } from "@/entities/User"
 import { EUserVariants } from "@/entities/User/model/user.model"
-import { useState } from "react"
 import { EUserProfileBadgeVariants } from "../model/userProfileBadge.model"
+import { useAppSelector } from "@/storage/hooks"
+import { getRoleName } from "@/shared/lib/roles.lib"
 
 interface IUserProfileBadge {
     className?: string,
-    variant?: EUserProfileBadgeVariants
+    variant?: EUserProfileBadgeVariants,
+    showProfileMenu?: boolean,
+    setShowProfileMenu?: Function
 
 }
 
 export const UserProfileBadge = ({
     className,
-    variant = EUserProfileBadgeVariants.DESKTOP
+    variant = EUserProfileBadgeVariants.DESKTOP,
+    showProfileMenu,
+    setShowProfileMenu
 }: IUserProfileBadge) => {
 
-    //STATE
-    const [showProfileModal, setShowProfileModal] = useState<boolean>(false)
 
-    //FUNCTION
-    const showProfile = () => setShowProfileModal(prevState => !prevState)
+    //RTK
+    const { role, fullName } = useAppSelector(state => state.user)
 
+    //VARIABLE
+    const userRole = getRoleName(role);
 
     return (
         <button className={cls(
             cl.UserProfileBadge,
             cl[variant],
-            showProfileModal ? cl.activeBadge : '',
+            showProfileMenu ? cl.activeBadge : '',
             className)}
-            onClick={showProfile}>
+            onClick={() => setShowProfileMenu && setShowProfileMenu((prevState: boolean) => !prevState)}>
 
             <div className={cl.infoContainer}>
-                <span className={cl.role}>Продавец</span>
-                <h4 className={cl.userName}>Соленые кабачки</h4>
+                <span className={cl.role}>{userRole}</span>
+                <h4 className={cl.userName}>{fullName}</h4>
             </div>
-            <User variant={EUserVariants.AUTH} classNameArrowContainer={cls(cl.arrowContainer, showProfileModal ? cl.activeArrow : '')} />
+            <User variant={EUserVariants.AUTH} classNameArrowContainer={cls(cl.arrowContainer, showProfileMenu ? cl.activeArrow : '')} />
         </button>
     )
 }
