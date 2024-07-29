@@ -18,7 +18,6 @@ export const MenuButton = ({
     title,
     link,
     notificationCounter = false
-
 }: IMenuButton) => {
 
     //ROUTER
@@ -31,15 +30,14 @@ export const MenuButton = ({
     //ROUTER
     const router = useRouter()
 
-
     //FUNCTIONS
     const logOut = () => {
         actionCreators.setNotAuth();
         router.replace(MAIN_PAGES.LOGIN.path)
     }
 
-    const editProfile = () => router.push(DASHBOARD_PAGES.PROFILE_EDIT.path)
-
+    const editProfile = () => router.push(DASHBOARD_PAGES.PROFILE_EDIT.path);
+    
     return (
         <>
             {variant !== EMenuButtonVariant.PROFILE_BUTTONS ?
@@ -54,7 +52,6 @@ export const MenuButton = ({
                         href={link}
                         variant={ButtonVariant.CLEAR}
                         color={variant === EMenuButtonVariant.LINK ? ButtonColor.Secondary : ButtonColor.Tertiary}
-                        className={cl.listButton}
                     />
                     {notificationCounter && <span className={cl.notificationCounter}>N</span>}
                     {variant === EMenuButtonVariant.LOCALIZATION && <Image src={GlobeIcon} alt='Globe' width={20} height={20} />}

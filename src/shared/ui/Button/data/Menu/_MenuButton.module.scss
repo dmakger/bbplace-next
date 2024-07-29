@@ -4,7 +4,6 @@
     align-items: center;
     width: 100%;
     z-index: 1;
-    border-radius: 0px;
     border: none;
     border-bottom: 1px solid var(--tertiary-surface);
 
@@ -37,12 +36,18 @@
 
     &:hover {
         background-color: var(--secondary-surface-sub);
-        color: var(--secondary-hovered);
+        & button{
+            background-color: var(--secondary-surface-sub);
+            color: var(--secondary-hovered); 
+        }
     }
 
     &:active {
         background-color: var(--secondary-surface);
-        color: var(--secondary-pressed);
+        & button{
+            background-color: var(--secondary-surface);
+            color: var(--secondary-pressed);
+        }
     }
 }
 

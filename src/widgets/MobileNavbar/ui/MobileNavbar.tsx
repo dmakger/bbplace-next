@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import cl from './_MobileNavbar.module.scss'
-import { Button, ButtonVariant } from '@/shared/ui/Button';
 import { MOBILE_MENU_DATA } from '@/shared/data/menu/mobile.menu.data';
 import { cls } from '@/shared/lib/classes.lib';
 import { usePathname, useRouter } from 'next/navigation';
@@ -11,6 +10,7 @@ import { IIcon } from '@/shared/ui/Icon/model/icon.model';
 import { Modal } from '@/shared/ui/Modal/Modal';
 import { EModalView } from '@/shared/data/modal.data';
 import { MobileNavbarMenu } from '@/widgets/Menu/MobileNavbar';
+import { MenuItem } from '@/shared/ui/Button/data/MenuItem/MenuItem';
 
 interface IMobileNavbar {
 	menuData?: IIconVariants[]
@@ -22,7 +22,7 @@ export const MobileNavbar = ({
 }: IMobileNavbar) => {
 
 	//STATE
-	const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false)
+	const [showSidebarMenu, setShowSidebarMenu] = useState<boolean>(false)
 
 	//ROUTER
 	const pathname = usePathname();
@@ -31,27 +31,27 @@ export const MobileNavbar = ({
 	//FUNCTIONS
 	const goBack = () => router.back();
 
-	const showSideMenu = () => setShowMobileMenu(prevState => !prevState)
 
 	return (
-		<nav className={cl.MobileNavbar}>
-			<div className={cl.navBarParent}>
-				{menuData?.map(el => (
-					<Button
-						variant={ButtonVariant.CLEAR}
-						href={el.link ?? ''}
-						key={el.id}
-						active={pathname === el.link}
-						className={cls(cl.mobileNavbarButton, pathname === el.link ?? '' ? cl.active : '')}
-						title={el.title}
-						beforeImage={el.image as IIcon}
-						beforeProps={{ width: 18, height: 18 }}
-						onClick={el.title === 'Меню' ? showSideMenu : el.title === 'Назад' ? goBack : () => { }} />
-				))}
-			</div>
-			<Modal view={EModalView.RIGHT} _isOpen={showMobileMenu} buttonNode onClickOverlay={showSideMenu} classNameSidebar={cl.modalSidebar}>
-				<MobileNavbarMenu />
-			</Modal>
-		</nav>
+		<>
+			<nav className={cl.MobileNavbar}>
+				<div className={cl.navBarParent}>
+					{menuData?.map(el => (
+						<MenuItem
+							href={el.link ?? ''}
+							key={el.id}
+							active={pathname === el.link}
+							className={cls(cl.mobileNavbarButton, pathname === el.link ?? '' ? cl.active : '')}
+							title={el.title}
+							beforeImage={el.image as IIcon}
+							onClick={el.title === 'Меню' ? () => setShowSidebarMenu(true) : el.title === 'Назад' ? goBack : () => { }} />
+					))}
+				</div>
+			</nav>
+			<Modal view={EModalView.RIGHT} _isOpen={showSidebarMenu} buttonNode onClickOverlay={() => setShowSidebarMenu(false)}
+				classNameSidebar={cl.modalSidebar} >
+				<MobileNavbarMenu setShowSidebarMenu={setShowSidebarMenu} />
+			</Modal></>
+
 	)
 }

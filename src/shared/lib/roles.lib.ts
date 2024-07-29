@@ -1,9 +1,8 @@
-export const getRoleName = (role: string | string[]): string | undefined => {
-    const roles = Array.isArray(role) ? role : [role];
+export const getRoleName = (role: string | string[]) => {
 
-    if (roles.includes('Buyer')) {
-        return 'Покупатель';
-    } else if (roles.includes('Seller')) {
+    if (Array.isArray(role) && role.includes('Seller')) {
+        return 'Продавец';
+    } else if (role === 'Seller') {
         return 'Продавец';
     }
 }
