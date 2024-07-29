@@ -30,8 +30,7 @@ export default function InputListRadio({ variant = EInputVariants.ROUNDED, optio
     return (
         <div className={cls(cl[variant], className)}>
             <div className={cls(variant === EInputVariants.RECTANGULAR ? cl.optionsContainer : '')}>
-            {options.map((it, index) => (
-                
+                {options.map(it => (
                     <Input.Radio
                         variant={variant}
                         option={it}
@@ -40,7 +39,7 @@ export default function InputListRadio({ variant = EInputVariants.ROUNDED, optio
                         onClick={() => handleOnItem(it)}
                         key={it.id}
                         />
-            ))}
+                ))}
             </div>
         </div>
     )

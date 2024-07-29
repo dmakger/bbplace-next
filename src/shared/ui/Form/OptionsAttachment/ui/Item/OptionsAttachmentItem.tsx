@@ -2,7 +2,7 @@
 
 import { cls } from "@/shared/lib/classes.lib"
 import cl from './_OptionsAttachmentItem.module.scss'
-import { EOptionsAttachmentSize, EOptionsAttachmentVariants } from "../model/optionsAttachment.model"
+import { EOptionsAttachmentSize, EOptionsAttachmentVariants } from "../../data/optionsAttachment.data"
 import { ButtonDelete } from "@/shared/ui/Button/data/Delete/ButtonDelete"
 import { ImageSmart } from "@/shared/ui/Image/Smart/ImageSmart"
 import { IWarningIcon } from "@/shared/ui/Icon/model/icon.model"

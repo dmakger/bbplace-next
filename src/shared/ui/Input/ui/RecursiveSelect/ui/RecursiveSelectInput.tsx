@@ -6,10 +6,10 @@ import { EInputVariants } from "../../../model/input.model"
 import { IImageSizes } from "@/shared/model/image.model"
 import Input from "../../../Input"
 import { useState } from "react"
-import { OptionsAttachmentItem } from "@/shared/ui/Form/OptionsAttachmentItem"
-import { EOptionsAttachmentSize } from "@/shared/ui/Form/OptionsAttachmentItem/model/optionsAttachment.model"
 import { IWrapperRectangleInputChildren } from "@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model"
 import { ERecursiveSelectVariant, IResursiveSelectInputsArray } from "../model/recursiveSelect.model"
+import { OptionsAttachmentItem } from "@/shared/ui/Form/OptionsAttachment/ui/Item/OptionsAttachmentItem"
+import { EOptionsAttachmentSize } from "@/shared/ui/Form/OptionsAttachment/data/optionsAttachment.data"
 
 interface IRecursiveSelectInput extends IWrapperRectangleInputChildren {
     className?: string,

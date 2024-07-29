@@ -1,13 +1,19 @@
+"use client"
+
 import { ICreateNewProductsTab } from "@/features/DetailedPageInfo/model/detailedPageInfo.model";
 import { TabPage } from "@/features/TabPage";
 import { ETabPageVariant } from "@/features/TabPage/model/tabPage.model";
 import { LK_PRODUCT_PAGE_CREATE, SWITCH_SELECTOR_PRODUCT_PAGE_MULTIPLE, SWITCH_SELECTOR_PRODUCT_PAGE_SINGLE } from "@/shared/ui/SwitchSelector/data/switchSelector.data";
 import Wrapper1280 from "@/shared/ui/Wrapper/1280/Wrapper1280";
 import { WrapperLKPT } from "@/shared/ui/Wrapper/LKPT";
+import SuspenseL from "@/shared/ui/Wrapper/SuspenseL/SuspenseL";
 import { ProductSingleCreationPage } from "@/widgets/Pages/LK/ProductSingleCreationPage";
+import { SetStateAction, useState } from "react";
 
 
 export default function ProductNewPage() {
+    // STATE
+    const [productType, setProductType] = useState<string | null>(null)
 
     const instructionText: string[] = [
         '1. Сгенерируйте и скачайте шаблон.',
@@ -28,11 +34,20 @@ export default function ProductNewPage() {
     }
     return (
         <Wrapper1280>
-            <WrapperLKPT options={LK_PRODUCT_PAGE_CREATE}
-                pageTitle="Новый товар"
-                startPage={SWITCH_SELECTOR_PRODUCT_PAGE_MULTIPLE}
-                optionsTab={PRODUCT_NEW_PAGE_OPTIONS_TAB}
-                isButtonAdd={false} />
+            <SuspenseL.Any data={[{
+                searchKey: "type",
+                set: setProductType,
+                defaultValue: SWITCH_SELECTOR_PRODUCT_PAGE_MULTIPLE.value,
+            }]}>
+                <WrapperLKPT options={LK_PRODUCT_PAGE_CREATE}
+                    pageTitle="Новый товар"
+                    startPage={productType === SWITCH_SELECTOR_PRODUCT_PAGE_MULTIPLE.value 
+                        ? SWITCH_SELECTOR_PRODUCT_PAGE_MULTIPLE 
+                        : SWITCH_SELECTOR_PRODUCT_PAGE_SINGLE
+                    }
+                    optionsTab={PRODUCT_NEW_PAGE_OPTIONS_TAB}
+                    isButtonAdd={false} />
+            </SuspenseL.Any>
         </Wrapper1280>
     )
 }

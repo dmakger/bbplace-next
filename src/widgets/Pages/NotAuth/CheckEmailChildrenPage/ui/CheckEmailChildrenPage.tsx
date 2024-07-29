@@ -6,7 +6,7 @@ import Input from "@/shared/ui/Input/Input"
 import { EInputVariants } from "@/shared/ui/Input/model/input.model"
 import { UserAPI } from "@/entities/Auth/api/auth.api"
 import { FormEvent, useRef, useState } from "react"
-import { getFormData } from "@/shared/lib/formData.lib"
+import { getFormDataFromForm } from "@/shared/lib/formData.lib"
 import { useRouter } from "next/navigation"
 import { MAIN_PAGES } from "@/config/pages-url.config"
 import { useActionCreators } from "@/storage/hooks"
@@ -37,7 +37,7 @@ export const CheckEmailChildrenPage = () => {
 
         setErrorMessage('')
         if (!formRef.current) return;
-        const { email } = getFormData(formRef.current)
+        const { email } = getFormDataFromForm(formRef.current)
 
         if (!email) return setErrorMessage(FILL_THE_FIELD)
         if (email && !isEmailValid(email)) return setErrorMessage(EMAIL_VALID_RULES)

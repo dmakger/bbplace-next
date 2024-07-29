@@ -6,7 +6,7 @@ import Input from "@/shared/ui/Input/Input"
 import { EInputVariants } from "@/shared/ui/Input/model/input.model"
 import { UserAPI } from "@/entities/Auth/api/auth.api"
 import { FormEvent, useRef, useState } from "react"
-import { getFormData } from "@/shared/lib/formData.lib"
+import { getFormDataFromForm } from "@/shared/lib/formData.lib"
 import { useRouter, useSearchParams } from "next/navigation"
 import { MAIN_PAGES } from "@/config/pages-url.config"
 import { useAppSelector } from "@/storage/hooks"
@@ -50,7 +50,7 @@ export const ForgotPasswordChildrenPage = () => {
         if (!formRef.current) return;
 
         try {
-            const { email: emailValue } = getFormData(formRef?.current)            
+            const { email: emailValue } = getFormDataFromForm(formRef?.current)            
 
             if (!emailValue) setErrorMessage(FILL_THE_FIELD)
             await sendResetPasswordLink({ email: emailValue })
@@ -65,7 +65,7 @@ export const ForgotPasswordChildrenPage = () => {
  
 
         if(!formRef.current) return;
-        const {email, password, confirmPassword} = getFormData(formRef.current)
+        const {email, password, confirmPassword} = getFormDataFromForm(formRef.current)
 
         //PASSWORD        
         if (!password || !confirmPassword) {

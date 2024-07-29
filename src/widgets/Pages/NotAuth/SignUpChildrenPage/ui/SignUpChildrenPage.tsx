@@ -3,7 +3,7 @@
 import { UserAPI } from '@/entities/Auth/api/auth.api'
 import cl from './_SignUpChildrenPage.module.scss'
 import { SELLER_N_SUPPLIER_ROLE_ITEM_DATA, SELLER_ROLE_ITEM_DATA, SUPPLIER_ROLE_ITEM_DATA } from "@/shared/data/roles.data"
-import { getFormData } from '@/shared/lib/formData.lib'
+import { getFormDataFromForm } from '@/shared/lib/formData.lib'
 import Input from "@/shared/ui/Input/Input"
 import { EInputVariants } from "@/shared/ui/Input/model/input.model"
 import { WrapperForLogInNSupportPages } from "@/shared/ui/Wrapper/ForLogInNSupportPages"
@@ -67,7 +67,7 @@ export const SignUpChildrenPage = () => {
 
         if (!formRef.current) return;
 
-        const { email: emailValue, country, password, confirmPassword, fullName, role, emailSubscription, offert } = getFormData(formRef?.current);
+        const { email: emailValue, country, password, confirmPassword, fullName, role, emailSubscription, offert } = getFormDataFromForm(formRef?.current);
 
         const selectedCountryName: string = countriesAsOption.find(it => it.id == country)?.name ?? '';
 
