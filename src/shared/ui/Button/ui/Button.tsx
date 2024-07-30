@@ -26,9 +26,10 @@ export interface IButton {
     title?: string,
     href?: string
 
-    beforeImage?: IIcon
+    beforeImage?: IIcon,
     beforeProps?: IIconProps
-    afterImage?: IIcon
+    afterImage?: IIcon,
+    afterText?: string,
     afterProps?: IIconProps
     
     active?: boolean
@@ -45,7 +46,8 @@ export interface IButton {
     children?: ReactNode
     className?: string
     classNameLink?: string
-    classNameText?: string
+    classNameText?: string,
+    classNameAfterText?: string,
     classNameTextHovered?: string
     classNameTextPressed?: string
     classNameTextDisabled?: string
@@ -56,11 +58,11 @@ export const Button = ({
     ref,
     notificationVariant=ENotificationVariants.NONE,
     title, href,
-    beforeImage, beforeProps, afterImage, afterProps, 
+    beforeImage, beforeProps, afterImage, afterText, afterProps, 
     active=false, success=false, disabled=false, hovered, loading=false, noTranslation=false,
     onClick=()=>{}, onMouseEnter=()=>{}, onMouseLeave=()=>{},
     children, className, classNameLink, 
-    classNameText, classNameTextHovered, classNameTextPressed, classNameTextDisabled,
+    classNameText, classNameAfterText, classNameTextHovered, classNameTextPressed, classNameTextDisabled,
 }: IButton) => {
 
     // STYLES
@@ -129,6 +131,8 @@ export const Button = ({
                             isActive={active && !success} isHovered={isHovered} isSuccess={success} isPressed={isPressed} isDisabled={disabled}
                             className={cls(cl.image, afterProps?.className)} />
             }
+            {afterText &&
+                <span className={classNameAfterText}>{afterText}</span>}
             {children}
             <Notification variant={notificationVariant}/>
         </button>
@@ -138,7 +142,7 @@ export const Button = ({
     if (!href)
         return html
     return (
-        <Link href={href} className={classNameLink}>{html}</Link>
+        <Link href={disabled ? '' : href} className={classNameLink}>{html}</Link>
     )
 }
 

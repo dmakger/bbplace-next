@@ -9,6 +9,7 @@ interface IMenuItem {
     className?: string,
     href?: string,
     active?: boolean,
+    disabled?: boolean,
     title?: string,
     beforeImage?: IIcon,
     beforeProps?: IIconProps,
@@ -20,6 +21,7 @@ export const MenuItem = ({
     title,
     href,
     active,
+    disabled,
     beforeImage,
     beforeProps = { width: 18, height: 18 },
     onClick
@@ -30,6 +32,7 @@ export const MenuItem = ({
             color={ButtonColor.Tertiary}
             href={href}
             active={active}
+            disabled={disabled}
             className={cls(cl.MenuItem, active ? cl.active : '', className)}
             title={title}
             beforeImage={beforeImage}

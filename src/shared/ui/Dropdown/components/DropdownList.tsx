@@ -3,7 +3,7 @@ import cl from './_DropdownList.module.scss'
 import { IMenuItem } from "@/shared/model/menu.model"
 import { EWrapperDropdownListPosition } from "../../Wrapper/DropdownList/model/wrapperDropdownList.model"
 import { MenuButton } from "../../Button/data/Menu/MenuButton"
-import { IMenuButton } from "../../Button/model/button.model"
+import { EMenuButtonVariant, IMenuButton } from "../../Button/model/button.model"
 
 interface IDropdownList {
     className?: string,
@@ -22,15 +22,15 @@ export const DropdownList = ({
     dropDownListPosition = EWrapperDropdownListPosition.LEFT
 }: IDropdownList) => {
 
-    const isMenuButton = (item: IMenuItem | IMenuButton): item is IMenuButton => {
-        return (item as IMenuButton).variant !== undefined;
+    const isMenuNoLinkButton = (item: IMenuItem | IMenuButton): item is IMenuButton => {
+        return (item as IMenuButton).variant !== EMenuButtonVariant.LINK;
     }
     
     return (
         <ul className={cls(cl.DropdownList, cl[dropDownListPosition], className)}>
             {listData?.map((it, index) => {
                 const isLastEl = index === listData.length - 1;
-                const noBorderBottomClass = listData[index + 1] && isMenuButton(listData[index + 1]) || isLastEl;
+                const noBorderBottomClass = listData[index + 1] && isMenuNoLinkButton(listData[index + 1]) || isLastEl;
                 return (
                     <li key={index}>
                         <MenuButton
@@ -40,7 +40,7 @@ export const DropdownList = ({
                                 isLastList && isLastEl ? cl.lastEl : '',
                                 noBorderBottomClass ? cl.noBorderBottom : '',
                                 classNameButton)}
-                            variant={isMenuButton(it) ? it.variant : undefined}
+                            variant={isMenuNoLinkButton(it) ? it.variant : undefined}
                         />
                     </li>
                 )

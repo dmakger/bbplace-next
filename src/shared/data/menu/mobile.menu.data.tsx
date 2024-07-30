@@ -77,7 +77,7 @@ export const MENU_ITEM_MENU_DATA: IIconVariants = {
 
 export const CHAT_LK_ITEM_MENU_DATA: IIconVariants = {
   id: 10,
-  link: MAIN_PAGES.SUPPORT.path,
+  link: DASHBOARD_PAGES.CHATS.path,
   title: 'Чат',
   image: CHAT_LK_ICON
 }

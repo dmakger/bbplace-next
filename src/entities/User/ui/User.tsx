@@ -35,7 +35,7 @@ export const User = ({
                     onClick={onClick}
                     priority /> :
 
-                <button onClick={onClick} className={cl.button}>
+                <div onClick={onClick} className={cl.userImageContainer}>
                     <Image src={image ? image : defaultImageJPG}
                         className={cls(cl.image, className)}
                         alt={'Avatar'} />
@@ -44,7 +44,7 @@ export const User = ({
                     </div>
                     <Notification variant={notificationVariant} />
 
-                </button>}
+                </div>}
         </>
 
     )

@@ -49,10 +49,18 @@ export const Dropdown = ({
 
     return (
         <div className={cls(cl.Dropdown, cl[dropDownListPosition], className)}>
-            {labelTitle && !buttonChildren
-                ? <Button title={labelTitle} className={cls(cl.labelButton, showList ? cl.active : '')} variant={ButtonVariant.CLEAR} afterImage={ARROW_TERTIARY_WO_FULL_ICON} afterProps={{ width: 16, height: 9 }} onClick={showDropdownList} />
-
-                : buttonChildren}
+            {labelTitle && !buttonChildren ? (
+                <Button
+                    title={labelTitle}
+                    className={cls(cl.labelButton, showList ? cl.active : '')}
+                    variant={ButtonVariant.CLEAR}
+                    afterImage={ARROW_TERTIARY_WO_FULL_ICON}
+                    afterProps={{ width: 16, height: 9 }}
+                    onClick={showDropdownList}
+                />
+            ) : (
+                buttonChildren
+            )}
 
             <WrapperDropdownList
                 isVisible={showList}
@@ -60,9 +68,11 @@ export const Dropdown = ({
                 variant={dropDownListVariant}
                 className={classNameWrapperDropdownList}
                 classNameVisible={classNameWrapperDropdownListVisible}>
+
                 {Array.isArray(dropDownListData[0])
                     ? (dropDownListData as IMenuItem[][] as IMenuButton[][]).map((list, index, array) => (
                         <div key={index}>
+                            
                             <DropdownList listData={list} dropDownListPosition={dropDownListPosition} classNameButton={cls(index === 0 && dropDownListVariant !== EWrapperDropdownListVariant.MOBILE ? cl.firstEl : '')}
                                 isLastList={index === array.length - 1 && dropDownListVariant !== EWrapperDropdownListVariant.MOBILE}
                             />

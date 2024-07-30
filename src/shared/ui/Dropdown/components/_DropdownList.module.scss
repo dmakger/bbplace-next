@@ -12,13 +12,11 @@
 }
 
 .right {
-
-
     .firstEl {
         border-radius: 14px 0px 0px 0px;
     }
 }
 
 .noBorderBottom{
-    border-bottom: none;
+    border-bottom: none !important;
 }

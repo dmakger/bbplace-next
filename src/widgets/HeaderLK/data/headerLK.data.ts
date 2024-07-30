@@ -46,7 +46,7 @@ export const LANG_EN_LK_ITEM_MENU_DATA: IMenuButton = {
 }
 
 export const LANG_RUS_LK_ITEM_MENU_DATA: IMenuButton = {
-    title: 'In Russian',
+    title: 'Русский язык',
     variant: EMenuButtonVariant.LOCALIZATION
 }
 

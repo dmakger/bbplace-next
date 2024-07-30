@@ -1,19 +1,24 @@
 .MenuButton {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: space-between !important;
     width: 100%;
     z-index: 1;
-    border: none;
-    border-bottom: 1px solid var(--tertiary-surface);
+    padding: 15px 10px !important;
+    border: none !important;
+    border-radius: 0px !important;
+    border-bottom: 1px solid var(--tertiary-surface) !important;
 
     .notificationCounter {
         font-size: var(--font-size-reg);
         color: var(--primary);
 
-        @media (max-width) {
+        @media (max-width: 768px) {
             font-size: var(--font-size-s);
         }
+    }
+
+    @media (max-width: 768px) {
+        padding: 12px 15px !important;
     }
 }
 
@@ -26,46 +31,22 @@
     min-width: 200px;
     padding-right: 15px;
 
-    & button {
-        display: flex;
-        justify-content: flex-start;
-        padding: 15px 10px;
-        border: none;
-    }
-
-
     &:hover {
         background-color: var(--secondary-surface-sub);
-        & button{
-            background-color: var(--secondary-surface-sub);
-            color: var(--secondary-hovered); 
-        }
+        color: var(--secondary-hovered);
     }
 
     &:active {
-        background-color: var(--secondary-surface);
-        & button{
-            background-color: var(--secondary-surface);
-            color: var(--secondary-pressed);
-        }
+        background-color: var(--secondary-surface) !important;
+        color: var(--secondary-pressed);
     }
 }
 
 .activeLink {
     background-color: var(--background-2) !important;
-
-    & button {
-        color: var(--font) !important;
-
-    }
-
+    color: var(--font) !important;
     &:hover {
         background-color: var(--background-2) !important;
-
-        & button {
-            background-color: var(--background-2) !important;
-
-        }
     }
 
     &:active {
@@ -74,44 +55,29 @@
 }
 
 .localization {
-    background-color: var(--tertiary-surface-low);
+    background-color: var(--tertiary-surface-low) !important;
     padding: 15px 15px 15px 10px;
 
-    & button {
-        display: flex;
-        justify-content: flex-start;
-        border: none;
-        padding: 0px;
-
-        & span {
-            text-align: left;
-            color: var(--font);
-        }
+    & span {
+        text-align: left;
+        color: var(--font);
     }
 
     &:hover {
         background-color: var(--tertiary-surface) !important;
-
-        & button {
-            background-color: var(--tertiary-surface) !important;
-
-        }
     }
+
 }
 
-.activeLang {
-    background-color: var(--tertiary-surface-low);
-
-    &:hover {
-        background-color: var(--tertiary-surface);
-    }
-}
+// .activeLang {
+//     background-color: var(--tertiary-surface-low);
+// }
 
 
-.profile-buttons {
+.profileButtons {
     display: flex;
     gap: 10px;
-    padding: 10px;
+    padding: 10px 15px;
 
     .buttonEdit {
         width: 142px;
