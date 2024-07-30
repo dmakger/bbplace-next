@@ -8,7 +8,8 @@ import { ButtonColor, ButtonSize } from "@/shared/ui/Button/model/button.model";
 import { TRASH_NEGATIVE_TO_WHITE_ICON } from "@/shared/ui/Icon/data/trash.data.icon";
 import { IListItem } from "@/shared/model/list.model";
 import { OptionT } from "@/shared/ui/Option/ui/this/OptionT";
-import { OptionVariant } from "@/shared/data/option.data";
+import { OptionVariant } from "@/shared/data/option/option.data";
+
 
 interface TenderLKItemProps extends IListItem<ITender> {
     onClickDelete?: (tenderId: ITender['id'], type?: ETenderType) => void

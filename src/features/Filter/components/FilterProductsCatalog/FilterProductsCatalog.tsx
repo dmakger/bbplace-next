@@ -7,6 +7,7 @@ import Input from '@/shared/ui/Input/Input'
 import { ISortFilter } from '@/widgets/SortFilterSidebar/model/sortFilterSidebar.model'
 import { CORE_PARAMS } from '@/config/params/core.params.config'
 import { EInputTextVariant } from '@/shared/ui/Input/Text/model/text.input.model'
+import { EInputTextType } from '@/shared/ui/Input/ui/Text/data/text.input.data'
 // import { EInputTextVariant } from '@/shared/ui/Input/ui/Text/data/text.input.data'
 
 interface IFilterProductsCatalog {
@@ -63,7 +64,7 @@ export const FilterProductsCatalog = ({
                           onClickOption={handleOnClickStatus}/>
             <Input.Text title={'Минимальный заказ от'}
                         name="minOrder"
-                        type='number'
+                        type={EInputTextType.Number}
                         placeholder='Введите число'
                         variantInputText={EInputTextVariant.W_HOVERED}
                         defaultValue={filter[CORE_PARAMS.MIN_ORDER_QUANTITY] as string}

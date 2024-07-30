@@ -34,11 +34,7 @@ export default function ProductNewPage() {
     }
     return (
         <Wrapper1280>
-            <SuspenseL.Any data={[{
-                searchKey: "type",
-                set: setProductType,
-                defaultValue: SWITCH_SELECTOR_PRODUCT_PAGE_MULTIPLE.value,
-            }]}>
+            <SuspenseL >
                 <WrapperLKPT options={LK_PRODUCT_PAGE_CREATE}
                     pageTitle="Новый товар"
                     startPage={productType === SWITCH_SELECTOR_PRODUCT_PAGE_MULTIPLE.value 
@@ -47,7 +43,7 @@ export default function ProductNewPage() {
                     }
                     optionsTab={PRODUCT_NEW_PAGE_OPTIONS_TAB}
                     isButtonAdd={false} />
-            </SuspenseL.Any>
+            </SuspenseL>
         </Wrapper1280>
     )
 }

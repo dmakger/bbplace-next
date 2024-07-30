@@ -2,7 +2,7 @@ import { FC } from "react"
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_OptionT.module.scss'
-import { OptionVariant } from "@/shared/data/option.data";
+import { OptionVariant } from "@/shared/data/option/option.data";
 import { ImageAPI } from "@/shared/ui/Image/API/ImageAPI";
 
 export interface OptionTProps{

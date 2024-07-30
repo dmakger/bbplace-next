@@ -13,6 +13,7 @@ import { useActionCreators } from "@/storage/hooks"
 import { EMAIL_VALID_RULES, isEmailValid } from "@/entities/Auth/data/email.data"
 import { FILL_THE_FIELD } from "@/entities/Auth/data/errorMessages.data"
 import { ButtonType } from "@/shared/ui/Button/model/button.model"
+import { EInputTextType } from "@/shared/ui/Input/ui/Text/data/text.input.data"
 
 export const CheckEmailChildrenPage = () => {
 
@@ -80,7 +81,7 @@ export const CheckEmailChildrenPage = () => {
                 onClickBellowButton={CheckEmail}
                 isLoadingBellowButton={isLoading}
             >
-                <Input.Text type="email" variant={EInputVariants.RECTANGULAR} placeholder="Введите email" name="email" error={!!errorMessage} setError={setErrorMessage} />
+                <Input.Text type={EInputTextType.Email} variant={EInputVariants.RECTANGULAR} placeholder="Введите email" name="email" error={!!errorMessage} setError={setErrorMessage} />
             </WrapperRectangleInput>
         </WrapperForLogInNSupportPages>
     )

@@ -13,6 +13,7 @@ import { MAIN_PAGES } from "@/config/pages-url.config"
 import { EMAIL_VALID_RULES, isEmailValid } from "@/entities/Auth/data/email.data"
 import { FILL_THE_FIELD, LOGIN_ERROR } from "@/entities/Auth/data/errorMessages.data"
 import { ButtonType } from "@/shared/ui/Button/model/button.model"
+import { EInputTextType } from "@/shared/ui/Input/ui/Text/data/text.input.data"
 
 
 export const SignInChildrenPage = () => {
@@ -79,7 +80,7 @@ export const SignInChildrenPage = () => {
                 errorInputMessage={errorEmail}
 
             >
-                <Input.Text type="email" variant={EInputVariants.RECTANGULAR} placeholder="Введите email" name="email" defaultValue={email} success={!!email} error={error && !!errorEmail} warning={error && !!errorEmail} />
+                <Input.Text type={EInputTextType.Email} variant={EInputVariants.RECTANGULAR} placeholder="Введите email" name="email" defaultValue={email} success={!!email} error={error && !!errorEmail} warning={error && !!errorEmail} />
             </WrapperRectangleInput>
             <WrapperRectangleInput
                 labelText="Пароль"
@@ -90,7 +91,7 @@ export const SignInChildrenPage = () => {
                 isLoadingBellowButton={isLoading}
                 onClickBellowButton={LogIn}
             >
-                <Input.Text type="password" variant={EInputVariants.RECTANGULAR} placeholder="Введите пароль" name="password" error={error && !!errorPassword} warning={error && !!errorPassword} />
+                <Input.Text type={EInputTextType.Password} variant={EInputVariants.RECTANGULAR} placeholder="Введите пароль" name="password" error={error && !!errorPassword} warning={error && !!errorPassword} />
             </WrapperRectangleInput>
         </WrapperForLogInNSupportPages>
     )
