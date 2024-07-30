@@ -58,6 +58,8 @@ class MAIN extends Route {
         true
     );
 
+    CURRENT_DOCUMENT = this.createDynamicPath((documentName: string) => `/documents/${documentName}`)
+
 }
 
 export const MAIN_PAGES = new MAIN('')

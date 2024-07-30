@@ -22,6 +22,7 @@ import { ButtonType } from '@/shared/ui/Button/model/button.model'
 import { MAIN_PAGES } from '@/config/pages-url.config'
 import { useActionCreators } from '@/storage/hooks'
 import { EInputTextType } from '@/shared/ui/Input/ui/Text/data/text.input.data'
+import { OFFERT_DOCUMENT } from '@/shared/data/documents.data'
 
 
 export const SignUpChildrenPage = () => {
@@ -201,7 +202,7 @@ export const SignUpChildrenPage = () => {
                 isLoadingBellowButton={isLoading}
                 bellowButtonText="Зарегистрировать"
                 linkText='Оферта'
-                linkHref=''
+                linkHref={MAIN_PAGES.CURRENT_DOCUMENT(OFFERT_DOCUMENT).path}
             >
                 <Input.Checkbox variant={EInputVariants.RECTANGULAR} name="offert" error={!!errorOffert && error} required />
             </WrapperRectangleInput>

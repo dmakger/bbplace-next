@@ -20,7 +20,8 @@ export interface IButton {
     ref?: RefObject<HTMLButtonElement>
 
     title?: string,
-    href?: string
+    href?: string,
+    linkTarget?: string,
 
     beforeImage?: IIcon
     beforeProps?: IIconProps
@@ -50,7 +51,7 @@ export interface IButton {
 export const Button = ({
     variant = ButtonVariant.BORDERED_RED_WIDE, color=ButtonColor.Primary, type = ButtonType.Button, size=ButtonSize.DefaultSize,
     ref,
-    title, href,
+    title, href, linkTarget,
     beforeImage, beforeProps, afterImage, afterProps, 
     active=false, success=false, disabled=false, hovered, loading=false, noTranslation=false,
     onClick=()=>{}, onMouseEnter=()=>{}, onMouseLeave=()=>{},
@@ -132,7 +133,7 @@ export const Button = ({
     if (!href)
         return html
     return (
-        <Link href={href} className={classNameLink}>{html}</Link>
+        <Link href={href} className={classNameLink} target={linkTarget}>{html}</Link>
     )
 }
 
