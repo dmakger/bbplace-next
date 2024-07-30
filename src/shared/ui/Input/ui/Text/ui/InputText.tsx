@@ -4,7 +4,7 @@ import { cls } from '@/shared/lib/classes.lib'
 import cl from './_InputText.module.scss';
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { WrapperTitleInput } from '@/shared/ui/Wrapper/Title/Input/WrapperTitleInput';
-import { EInputTextVariant } from '../data/text.input.data';
+import { EInputTextType, EInputTextVariant } from '../data/text.input.data';
 import { IWrapperRectangleInputChildren } from '@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model';
 import { EInputVariants, IInput } from '../../../model/input.model';
 import { EInputTextTypeVariants } from '../../../Text/model/text.input.model';
@@ -19,7 +19,7 @@ interface InputTextProps extends IWrapperRectangleInputChildren, IInput {
     title?: string
     variantInputText?: EInputTextVariant
     defaultValue?: string,
-    type?: string,
+    type?: EInputTextType,
     inputTypeVariant?: EInputTextTypeVariants
 
     beforeImage?: IIcon
@@ -43,7 +43,7 @@ export function InputText({
     className,
     classNameInputText,
     classNameTextArea,
-    type = 'text',
+    type = EInputTextType.Text,
     beforeImage, beforeProps,
     onChange = () => { }, onChangeEvent = () => { },
     defaultValue = '',
@@ -97,13 +97,13 @@ export function InputText({
         }
 
         //EMAIL
-        if (type === 'email') {
+        if (type === EInputTextType.Email) {
             isErr = !isEmailValid(value);
             if (isErr) setErrorMessageArray?.([EMAIL_VALID_RULES]);
         }
 
         //PASSWORD
-        if (type === 'password') {
+        if (type === EInputTextType.Password) {
             isErr = !isPasswordValid(value);
             if (isErr) setErrorMessageArray?.([PASSWORD_VALID_RULES]);
         }

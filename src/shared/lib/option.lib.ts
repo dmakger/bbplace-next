@@ -33,3 +33,8 @@ export const getOptionsFromCategoriesWithSubcategories = (categories:ICategories
 
     return optionsArray;
 }
+
+
+export const createOption = () => {
+    
+}

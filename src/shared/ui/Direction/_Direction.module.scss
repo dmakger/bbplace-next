@@ -1,0 +1,16 @@
+.list {
+    display: flex;
+    gap: 5px;
+}
+
+
+// ===={ DIRECTION }====
+.column {
+    flex-direction: column;
+}
+.row {
+    flex-direction: row;
+}
+.wrap {
+    flex-wrap: wrap;
+}

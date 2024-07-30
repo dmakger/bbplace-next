@@ -7,6 +7,7 @@ import { MainInfoProductForm } from "../../../../../features/Form/Product/ui/Mai
 import { IPropsMainInfoProductForm } from "@/features/Form/Product/model/mainInfo.product.form.model"
 import { AdditionalInfoProductForm } from "@/features/Form/Product/ui/Additional/AdditionalInfoProductForm"
 import { IPropsAdditionalInfoProductForm } from "@/features/Form/Product/model/additionalInfo.product.form.model"
+import { VariationInfoProductForm } from "@/features/Form/Product/ui/Variation/VariationInfoProductForm"
 
 interface IProductSingleCreationPage {
     className?: string,
@@ -31,11 +32,14 @@ export const ProductSingleCreationPage = ({ className }: IProductSingleCreationP
         }
     }
 
+    console.log('qwe additionalInfoData', additionalInfoData)
+
     return (
         <div className={cls(cl.ProductSingleCreationPage, className)}>
             <div className={cl.mid}>
-                <MainInfoProductForm setData={setMainInfoData} triggerSubmit={(submitFn) => { formSubmitRef.current = submitFn }} />
+                {/* <MainInfoProductForm setData={setMainInfoData} triggerSubmit={(submitFn) => { formSubmitRef.current = submitFn }} /> */}
                 <AdditionalInfoProductForm setData={setAdditionalInfoData} triggerSubmit={(submitFn) => { additionalFormSubmitRef.current = submitFn }} />
+                <VariationInfoProductForm setData={setAdditionalInfoData} triggerSubmit={(submitFn) => { additionalFormSubmitRef.current = submitFn }} />
 
                 <Button variant={ButtonVariant.FILL} size={ButtonSize.Big} 
                         title="Добавить товар"

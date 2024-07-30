@@ -17,10 +17,10 @@ import { useActionCreators, useAppSelector } from "@/storage/hooks";
 import { getFileName, getImageFile } from "@/entities/File/lib/file.lib";
 import { CategoryRecursiveSelect } from "@/features/CategoryRecursiveSelect";
 import { ERecursiveSelectVariant } from "@/shared/ui/Input/ui/RecursiveSelect/model/recursiveSelect.model";
-import { OptionsAttachmentItem } from "@/shared/ui/Form/OptionsAttachmentItem";
-import { EOptionsAttachmentVariants } from "@/shared/ui/Form/OptionsAttachmentItem/model/optionsAttachment.model";
 import { isEqual } from "lodash";
 import { IResponseFile } from "@/entities/File/model/props.file.model";
+import { OptionsAttachmentItem } from "@/shared/ui/Form/OptionsAttachment/ui/Item/OptionsAttachmentItem";
+import { EOptionsAttachmentVariants } from "@/shared/ui/Form/OptionsAttachment/data/optionsAttachment.data";
 
 interface ITabPageForm {
     className?: string,
@@ -35,8 +35,6 @@ export const TabPageForm = ({
     //STATE
     const [selectedFiles, setSelectedFiles] = useState<IFile[]>([]);
     const [selectedResponseFiles, setSelectedResponseFiles] = useState<IResponseFile[]>([]);
-
-    console.log(selectedFiles, selectedResponseFiles);
 
     const [selectedCategoriesId, setSelectedCategoriesId] = useState<number[]>([]);
     const [deletingFileName, setDeletingFileName] = useState<string>('')

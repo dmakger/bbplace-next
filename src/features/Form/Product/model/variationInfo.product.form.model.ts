@@ -4,7 +4,7 @@ import { IOption } from "@/shared/model/option.model";
  * ##### ФОРМА ТОВАРА  
  * Данные из группы `Основная информация`
  */
-export interface IPropsAdditionalInfoProductForm {
+export interface IPropsVariationInfoProductForm {
     packageType: string
     delivery: string[]
     paymentConditions: string

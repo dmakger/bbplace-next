@@ -13,7 +13,7 @@ import { CategoryRecursiveSelect } from "@/features/CategoryRecursiveSelect";
 import { IOption } from "@/shared/model/option.model";
 import { STATUS__PRODUCT_FORM__DATA } from "@/features/Form/Product/data/status.product.form.data";
 import { ERadioVariant } from '@/shared/ui/Input/ui/Radio/model/radio.model'
-import { NO_FORM__DATA, YES_FORM__DATA } from "@/shared/data/form/base.form.data";
+import { NO_FORM__DATA, YES_FORM__DATA } from "@/shared/data/option/base.option.data";
 import { CountryAPI } from "@/entities/Metrics/api/country.metrics.api";
 import { countryListToOptionList } from "@/entities/Metrics/lib/option.country.metrics.lib";
 import { EInputTextTypeVariants } from "@/shared/ui/Input/Text/model/text.input.model";

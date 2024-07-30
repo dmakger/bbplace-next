@@ -7,14 +7,15 @@ import { ButtonSize } from "@/shared/ui/Button/model/button.model";
 import { IOption } from "@/shared/model/option.model";
 import { OptionsAttachmentList } from "@/shared/ui/Form/OptionsAttachment/ui/List/OptionsAttachmentList";
 
-interface InputAdditionProps {
+export interface IInputAdditionProps {
     options: IOption[]
     setOptions: Dispatch<SetStateAction<IOption[]>>
+    process: (tempDataStorage: Record<string, any>) => IOption | undefined
     children?: ReactNode
     className?: string,
 }
 
-export const InputAddition:FC<InputAdditionProps> = ({options=[], setOptions, children, className}) => {
+export const InputAddition:FC<IInputAdditionProps> = ({options=[], setOptions, process, children, className}) => {
     // REF
     const wrapperRef = useRef<HTMLDivElement | null>(null)
 
@@ -33,7 +34,9 @@ export const InputAddition:FC<InputAdditionProps> = ({options=[], setOptions, ch
             tempDataStorage[key] = value;
         });
 
-        console.log('qwe tempDataStorage', tempDataStorage); // Logging to check collected data
+        const newOption = process(tempDataStorage)
+        if (newOption)
+            setOptions(prevOptions => [...prevOptions, newOption])
     };
 
     return (

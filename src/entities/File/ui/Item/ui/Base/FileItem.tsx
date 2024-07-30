@@ -16,7 +16,6 @@ interface FileItemProps{
 }
 
 export const FileItem:FC<FileItemProps> = ({file, isRow=true, className}) => {
-    console.log('file qwe', file)
     // STATE
     const [isHovered, setIsHovered] = useState(false)
 
