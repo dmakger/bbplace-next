@@ -38,11 +38,19 @@ export const FAVOURITES_LK_MENU_DATA: IMenuItem = {
     title: 'Избранное',
 }
 
-export const LANG_LK_ITEM_MENU_DATA: IMenuButton = {
+
+//LANG
+export const LANG_EN_LK_ITEM_MENU_DATA: IMenuButton = {
     title: 'In English',
     variant: EMenuButtonVariant.LOCALIZATION
 }
 
+export const LANG_RUS_LK_ITEM_MENU_DATA: IMenuButton = {
+    title: 'In Russian',
+    variant: EMenuButtonVariant.LOCALIZATION
+}
+
+//PROFILE_BUTTONS
 export const PROFILE_BUTTONS_LK_ITEM_MENU_DATA: IMenuButton = {
     variant: EMenuButtonVariant.PROFILE_BUTTONS
 }
@@ -51,7 +59,7 @@ export const PROFILE_BUTTONS_LK_ITEM_MENU_DATA: IMenuButton = {
 export const LK_MENU_DATA: IMenuItem[] | IMenuButton[] = [
     NOTIFICATION_ITEM_LK_MENU_DATA,
     SUPPORT_LK_ITEM_MENU_DATA,
-    LANG_LK_ITEM_MENU_DATA,
+    LANG_EN_LK_ITEM_MENU_DATA,
     PROFILE_BUTTONS_LK_ITEM_MENU_DATA
 ]
 
@@ -91,20 +99,4 @@ export const PRODUCT_DROPDOWN_MENU_DATA: IMenuItem[] = [
     MY_PRODUCTS_ITEM_MENU_DATA,
     NEW_PRODUCT_ITEM_MENU_DATA,
     PRICES_N_DISCOUNTS_ITEM_MENU_DATA
-]
-
-
-export const ALL_MOBILE_MENU_ITEMS_DATA: IMenuItem[] = [
-    HOME_LK_ITEM_MENU_DATA,
-    NOTIFICATION_ITEM_LK_MENU_DATA,
-    // SUPPORT_LK_ITEM_MENU_DATA,
-    // BUYER_HOME_LK_MENU_DATA,
-    // SELLER_HOME_LK_MENU_DATA,
-    // REVIEWS_LK_MENU_DATA,
-    FAVOURITES_LK_MENU_DATA,
-    // MY_TENDERS_ITEM_MENU_DATA,
-    // NEW_TENDER_ITEM_MENU_DATA,
-    // MY_PRODUCTS_ITEM_MENU_DATA,
-    // NEW_PRODUCT_ITEM_MENU_DATA,
-    // PRICES_N_DISCOUNTS_ITEM_MENU_DATA
 ]

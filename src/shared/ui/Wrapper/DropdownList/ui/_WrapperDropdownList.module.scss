@@ -1,32 +1,34 @@
-.WrapperDropdownList{
+.WrapperDropdownList {
     background-color: var(--background-2);
     opacity: 0;
+    visibility: hidden;
     transition: .3s;
     overflow-y: auto;
 }
 
-.desktop{
+.desktop {
     position: absolute;
     border: 5px solid var(--tertiary-surface);
     border-radius: 0 20px 20px 20px;
 }
 
-.mobile{
+.mobile {
     width: 100%;
 }
 
 .visible {
     opacity: 1;
+    visibility: visible;
     z-index: 20;
     transition: .3s;
 }
 
 
-.right{
+.right {
     right: 0;
     border-radius: 20px 0px 20px 20px;
 }
 
-.rightMobile{
+.rightMobile {
     right: 0;
 }

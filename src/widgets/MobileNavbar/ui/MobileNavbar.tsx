@@ -1,8 +1,8 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import cl from './_MobileNavbar.module.scss'
-import { MOBILE_MENU_DATA } from '@/shared/data/menu/mobile.menu.data';
+import { FAVORITE_ITEM_MOBILE_MENU_DATA, MOBILE_MENU_DATA } from '@/shared/data/menu/mobile.menu.data';
 import { cls } from '@/shared/lib/classes.lib';
 import { usePathname, useRouter } from 'next/navigation';
 import { IIconVariants } from '@/shared/model/icon.model';
@@ -27,6 +27,13 @@ export const MobileNavbar = ({
 	//ROUTER
 	const pathname = usePathname();
 	const router = useRouter();
+
+	//EFFECT
+	useEffect(() => {
+		if(pathname === FAVORITE_ITEM_MOBILE_MENU_DATA.link){
+			menuData.filter(it => it.link !== FAVORITE_ITEM_MOBILE_MENU_DATA.link)
+		}
+	}, [pathname, menuData])
 
 	//FUNCTIONS
 	const goBack = () => router.back();
