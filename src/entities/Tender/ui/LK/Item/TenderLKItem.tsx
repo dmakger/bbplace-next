@@ -24,7 +24,6 @@ export const TenderLKItem: FC<TenderLKItemProps> = ({
         if (onClickDelete)
             onClickDelete(tender.id, tender.type)
     }
-    console.log('qwe tender', tender.type, tender)
 
     return (
         <div className={cls(cl.block, className)}>

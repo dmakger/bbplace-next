@@ -18,7 +18,7 @@ import { IFile } from "@/entities/File/model/file.model";
 import { Button, ButtonVariant } from "@/shared/ui/Button";
 import { ButtonColor, ButtonSize, ButtonType } from "@/shared/ui/Button/model/button.model";
 import { ELabelPosition } from "@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model";
-import { getFormData } from "@/shared/lib/formData.lib";
+import { getFormDataFromForm } from "@/shared/lib/formData.lib";
 import { TenderAPI } from "@/entities/Tender/api/tender.api";
 import { IPropsTenderSale } from "@/entities/Tender/model/props.tender.model";
 import { IResponseFile } from "@/entities/File/model/props.file.model";
@@ -72,7 +72,7 @@ export const FormTenderSaleNew:FC<FormTenderSaleNewProps> = ({className}) => {
         e.preventDefault()
         if (!formRef.current) return
         
-        const formData = getFormData(formRef.current)
+        const formData = getFormDataFromForm(formRef.current)
         
         const apiData: IPropsTenderSale = {
             name: formData.name,

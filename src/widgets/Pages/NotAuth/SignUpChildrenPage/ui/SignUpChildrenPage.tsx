@@ -3,7 +3,7 @@
 import { UserAPI } from '@/entities/Auth/api/auth.api'
 import cl from './_SignUpChildrenPage.module.scss'
 import { SELLER_N_SUPPLIER_ROLE_ITEM_DATA, SELLER_ROLE_ITEM_DATA, SUPPLIER_ROLE_ITEM_DATA } from "@/shared/data/roles.data"
-import { getFormData } from '@/shared/lib/formData.lib'
+import { getFormDataFromForm } from '@/shared/lib/formData.lib'
 import Input from "@/shared/ui/Input/Input"
 import { EInputVariants } from "@/shared/ui/Input/model/input.model"
 import { WrapperForLogInNSupportPages } from "@/shared/ui/Wrapper/ForLogInNSupportPages"
@@ -21,6 +21,7 @@ import { getCountriesAsOption } from '@/features/Filter/lib/filter.lib'
 import { ButtonType } from '@/shared/ui/Button/model/button.model'
 import { MAIN_PAGES } from '@/config/pages-url.config'
 import { useActionCreators } from '@/storage/hooks'
+import { EInputTextType } from '@/shared/ui/Input/ui/Text/data/text.input.data'
 
 
 export const SignUpChildrenPage = () => {
@@ -67,7 +68,7 @@ export const SignUpChildrenPage = () => {
 
         if (!formRef.current) return;
 
-        const { email: emailValue, country, password, confirmPassword, fullName, role, emailSubscription, offert } = getFormData(formRef?.current);
+        const { email: emailValue, country, password, confirmPassword, fullName, role, emailSubscription, offert } = getFormDataFromForm(formRef?.current);
 
         const selectedCountryName: string = countriesAsOption.find(it => it.id == country)?.name ?? '';
 
@@ -144,7 +145,7 @@ export const SignUpChildrenPage = () => {
                 isRequired
                 errorInputMessage={errorEmail}
             >
-                <Input.Text type="email" variant={EInputVariants.RECTANGULAR} placeholder="Введите email" name="email" error={!!errorEmail} warning={!!errorEmail} />
+                <Input.Text type={EInputTextType.Email} variant={EInputVariants.RECTANGULAR} placeholder="Введите email" name="email" error={!!errorEmail} warning={!!errorEmail} />
             </WrapperRectangleInput>
             <WrapperRectangleInput
                 labelText="Страна"
@@ -160,14 +161,14 @@ export const SignUpChildrenPage = () => {
                 isRequired
                 errorInputMessage={errorPassword}
             >
-                <Input.Text type="password" variant={EInputVariants.RECTANGULAR} placeholder="Введите пароль" name="password" required error={error && !!errorPassword} warning={error && !!errorPassword} />
+                <Input.Text type={EInputTextType.Password} variant={EInputVariants.RECTANGULAR} placeholder="Введите пароль" name="password" required error={error && !!errorPassword} warning={error && !!errorPassword} />
             </WrapperRectangleInput>
             <WrapperRectangleInput
                 labelText="Подтверждение пароля"
                 isRequired
                 errorInputMessage={errorPassword}
             >
-                <Input.Text type="password" variant={EInputVariants.RECTANGULAR} placeholder="Введите пароль еще раз" name="confirmPassword" required warning={error && !!errorPassword} error={error && !!errorPassword} />
+                <Input.Text type={EInputTextType.Password} variant={EInputVariants.RECTANGULAR} placeholder="Введите пароль еще раз" name="confirmPassword" required warning={error && !!errorPassword} error={error && !!errorPassword} />
             </WrapperRectangleInput>
 
             <WrapperRectangleInput

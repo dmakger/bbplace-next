@@ -7,7 +7,7 @@ import ButtonSearch from "@/shared/ui/Button/data/Search/ButtonSearch";
 import { PTCSelect } from "@/features/Select";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAppSelector } from "@/storage/hooks";
-import { getFormData } from "@/shared/lib/formData.lib";
+import { getFormDataFromForm } from "@/shared/lib/formData.lib";
 import SuspenseL from "@/shared/ui/Wrapper/SuspenseL/SuspenseL";
 
 
@@ -36,7 +36,7 @@ export const SearchChild = () => {
     const handleOnSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         if (!formRef.current) return
-        const data = getFormData(formRef.current)
+        const data = getFormDataFromForm(formRef.current)
         if (data.search !== '') {
             const searchString = new URLSearchParams;
             searchParams.forEach((value, key) =>

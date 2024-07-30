@@ -46,8 +46,6 @@ export const Slider = <T extends (object | string)>({
         const handleResize = () => {
             
             if (slidesRef.current) {
-                console.log('slides ', slidesRef.current.offsetWidth);
-
                 setSlidesWidth(slidesRef.current.offsetWidth);
             }
         };

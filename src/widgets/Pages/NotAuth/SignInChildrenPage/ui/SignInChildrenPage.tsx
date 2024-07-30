@@ -8,7 +8,7 @@ import { FormEvent, useRef, useState } from "react"
 import { useRouter } from "next/navigation"
 import { useActionCreators, useAppSelector } from "@/storage/hooks"
 import { UserAPI } from "@/entities/Auth/api/auth.api"
-import { getFormData } from "@/shared/lib/formData.lib"
+import { getFormDataFromForm } from "@/shared/lib/formData.lib"
 import { MAIN_PAGES } from "@/config/pages-url.config"
 import { EMAIL_VALID_RULES, isEmailValid } from "@/entities/Auth/data/email.data"
 import { FILL_THE_FIELD, LOGIN_ERROR } from "@/entities/Auth/data/errorMessages.data"
@@ -41,7 +41,7 @@ export const SignInChildrenPage = () => {
 
         setError(false)
         if (!formRef.current) return;
-        const { email: emailValue, password } = getFormData(formRef?.current)
+        const { email: emailValue, password } = getFormDataFromForm(formRef?.current)
 
         //EMAIL
         if (!emailValue) {

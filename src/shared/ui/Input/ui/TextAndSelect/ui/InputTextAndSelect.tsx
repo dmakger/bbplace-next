@@ -151,7 +151,6 @@ export function TextAndSelectInput({
     }
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log('qwe handleInputChange', e.target.value)
         checkChangeValue(e)
         setSearchQuery(e.target.value.toLowerCase().replaceAll('  ', ' ').trim());
         if (e.target.value === '') setIsWarning(true)
