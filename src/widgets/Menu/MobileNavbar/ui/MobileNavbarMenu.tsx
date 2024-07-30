@@ -4,7 +4,7 @@ import { cls } from "@/shared/lib/classes.lib"
 import cl from './_MobileNavbarMenu.module.scss'
 import { UserProfileBadge } from "@/features/User/UserProfileBadge"
 import { Dropdown } from "@/shared/ui/Dropdown"
-import { ALL_MOBILE_MENU_ITEMS_DATA, BUYER_HOME_LK_MENU_DATA, LANG_LK_ITEM_MENU_DATA, PRODUCT_DROPDOWN_MENU_DATA, PROFILE_BUTTONS_LK_ITEM_MENU_DATA, REVIEWS_LK_MENU_DATA, SELLER_HOME_LK_MENU_DATA, SUPPORT_LK_ITEM_MENU_DATA, TENDER_DROPDOWN_MENU_DATA } from "@/widgets/HeaderLK/data/headerLK.data"
+import { BUYER_HOME_LK_MENU_DATA, LANG_EN_LK_ITEM_MENU_DATA, PRODUCT_DROPDOWN_MENU_DATA, PROFILE_BUTTONS_LK_ITEM_MENU_DATA, REVIEWS_LK_MENU_DATA, SELLER_HOME_LK_MENU_DATA, SUPPORT_LK_ITEM_MENU_DATA, TENDER_DROPDOWN_MENU_DATA } from "@/widgets/HeaderLK/data/headerLK.data"
 import { EUserProfileBadgeVariants } from "@/features/User/UserProfileBadge/model/userProfileBadge.model"
 import { EWrapperDropdownListPosition, EWrapperDropdownListVariant } from "@/shared/ui/Wrapper/DropdownList/model/wrapperDropdownList.model"
 import { IMenuItem } from "@/shared/model/menu.model"
@@ -15,6 +15,7 @@ import { MARK_MENU_ITEM_ICON } from "@/shared/ui/Icon/data/xmark.data.icon"
 import { WrapperColumnNoGap } from "@/shared/ui/Wrapper/ColumnNoGap"
 import { useState } from "react"
 import { usePathname } from "next/navigation"
+import { FAVORITES_LK_MENU_DATA } from "@/features/User/Auth/data/userAuth.data"
 
 interface IMobileNavbarMenu {
     className?: string,
@@ -38,17 +39,14 @@ export const MobileNavbarMenu = ({
     //PATHNAME
     const pathname = usePathname()
 
-
-    const MOBILE_420_NEW_ITEM: IMenuItem = ALL_MOBILE_MENU_ITEMS_DATA.find(it => it.link === pathname)!    
-
     //DROPDOWN_LIST_DATA
     const dropDownListData: IMenuItem[][] | IMenuButton[][] = [
         [
             role !== 'Buyer' ? BUYER_HOME_LK_MENU_DATA : SELLER_HOME_LK_MENU_DATA,
-            LANG_LK_ITEM_MENU_DATA,
+            LANG_EN_LK_ITEM_MENU_DATA,
             SUPPORT_LK_ITEM_MENU_DATA,
         ],
-        MOBILE_420_NEW_ITEM ? [MOBILE_420_NEW_ITEM] : [],
+        pathname ===  FAVORITES_LK_MENU_DATA.link ? [FAVORITES_LK_MENU_DATA] : [],
         role !== 'Buyer' ? PRODUCT_DROPDOWN_MENU_DATA : [],
         TENDER_DROPDOWN_MENU_DATA,
         [REVIEWS_LK_MENU_DATA]
@@ -72,7 +70,7 @@ export const MobileNavbarMenu = ({
                     dropDownListPosition={EWrapperDropdownListPosition.RIGHT} />
             </WrapperColumnNoGap>
 
-            <MenuItem title="Закрыть" onClick={closeSidebar} className={cl.closeButton} beforeImage={MARK_MENU_ITEM_ICON} />
+            <MenuItem title="Закрыть" onClick={closeSidebar} className={cl.closeButton} beforeImage={MARK_MENU_ITEM_ICON}/>
         </div>
     )
 }
