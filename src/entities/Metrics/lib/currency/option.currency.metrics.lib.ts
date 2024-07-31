@@ -1,6 +1,5 @@
-import { IOption } from "@/shared/model/option.model";
-import { IMetrics } from "../model/metric.metrics.model";
-import { ICurrency } from "../model/currency.metrics.model";
+import { IOption, OptionType } from "@/shared/model/option.model";
+import { ICurrency } from "../../model/currency.metrics.model";
 
 
 /**
@@ -18,5 +17,5 @@ export const currencyListToOptionList = (currencies: ICurrency[]) => {
  */
 export const currencyToOption = (currency: ICurrency) => {
     const {id, name, ...params} = currency
-    return {id, name, params} as IOption
+    return {id, name, params, type: OptionType.Currency} as IOption
 }

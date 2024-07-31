@@ -4,10 +4,3 @@ export const CURRENCY: Record<string, string>  = {
     USD: '$',
     EUR: '€',
 }
-
-export const NAME_CURRENCY: Record<string, string>  = {
-    'Российский Рубль': '₽',
-    'Казахстанский Тенге': '₸',
-    'Доллар США': '$',
-    'Евро': '€',
-}

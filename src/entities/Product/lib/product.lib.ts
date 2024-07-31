@@ -3,7 +3,7 @@ import { ICharacteristic } from "../model/characteristic.product.model";
 import { IMediaProduct } from "../model/media.product.model";
 import { IProduct, IProductAPI } from "../model/product.model";
 import { IMetrics } from "@/entities/Metrics/model/metric.metrics.model";
-import { currencyToObject } from "@/entities/Metrics/lib/currency.metrics.lib";
+import { currencyToObject } from "@/entities/Metrics/lib/currency/currency.metrics.lib";
 import { metricsToObject } from "@/entities/Metrics/lib/metrics/base.metrics.metrics.lib";
 import { IProcessProductProps } from "../model/props.product.model";
 

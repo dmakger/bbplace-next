@@ -1,15 +1,16 @@
 import { IMediaProduct } from "@/entities/Product/model/media.product.model";
-import { CURRENCY, NAME_CURRENCY } from "../data/currency.metrics.data";
-import { ICurrency } from "../model/currency.metrics.model";
+import { CURRENCY } from "../../data/currency.metrics.data";
+import { ICurrency } from "../../model/currency.metrics.model";
 
-export const getCurrency = (x: string | undefined): string | undefined => {
-    if (!x)
-        return x
-    if (CURRENCY.hasOwnProperty(x))
-        return CURRENCY[x];
-    if (NAME_CURRENCY.hasOwnProperty(x))
-        return NAME_CURRENCY[x]
-    return x
+/**
+ * Возвращает символ валюты по его коду. Если указан не существующий код вернёт `defaultValue` или `undefined`  
+ * 1. `RUB` => `₽`
+ * 2. `RUB1` => `undefined` или `defaultValue`
+ */
+export const getSymbolByCodeCurrency = (code: ICurrency['code'], defaultValue?: any) => {
+    if (CURRENCY.hasOwnProperty(code))
+        return CURRENCY[code];
+    return defaultValue
 }
 
 

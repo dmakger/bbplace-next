@@ -7,7 +7,7 @@ import { ERecursiveSelectVariant, IResursiveSelectInputsArray } from '@/shared/u
 import { IOption } from '@/shared/model/option.model'
 import { useEffect, useState } from 'react'
 import { CategoryAPI } from '@/entities/Metrics/api/category.metrics.api'
-import { getOptionsFromCategoriesWithSubcategories } from '@/shared/lib/option.lib'
+import { getOptionsFromCategoriesWithSubcategories } from '@/shared/lib/option/option.lib'
 import { createInputArray } from '@/shared/ui/Input/ui/RecursiveSelect'
 
 interface ICategoryRecursiveSelect {

@@ -2,7 +2,7 @@ import { IMetrics } from "@/entities/Metrics/model/metric.metrics.model";
 import { ETenderType, IProcessTender, IPurchaseTender, ISaleTender, ITender, ITenderAPI } from "../model/tender.model";
 import { ICurrency } from "@/entities/Metrics/model/currency.metrics.model";
 import { metricsTenderToObject } from "@/entities/Metrics/lib/metrics/base.metrics.metrics.lib";
-import { currencyTenderToObject } from "@/entities/Metrics/lib/currency.metrics.lib";
+import { currencyTenderToObject } from "@/entities/Metrics/lib/currency/currency.metrics.lib";
 import { getTenderType } from "./tender.lib";
 import { IWholesale } from "@/entities/Metrics/model/wholesale.metrics.model";
 
