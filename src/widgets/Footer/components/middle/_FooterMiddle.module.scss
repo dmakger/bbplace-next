@@ -1,0 +1,21 @@
+.FooterMiddle{
+    display: flex;
+    justify-content: space-between;
+
+    .leftContainer{
+        display: flex;
+        gap: 10px;
+
+        .roundedButton{
+            width: 40px;
+            height: 40px;
+            padding: 10px;
+        }
+        
+    }
+
+    .rightContainer{
+        display: flex;
+
+    }
+}

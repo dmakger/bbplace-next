@@ -37,3 +37,18 @@ export enum ButtonVariant{
     BACKGROUND_GRAY = 'background-gray',
     BORDERED_BLUE = 'bordered-blue'
 }
+
+
+export enum EMenuButtonVariant{
+    LINK = 'link',
+    LOCALIZATION = 'localization',
+    PROFILE_BUTTONS = 'profile-buttons'
+}
+
+export interface IMenuButton {
+    title?: string
+    className?: string
+    variant?: EMenuButtonVariant
+    link?: string,
+    notificationCounter?: string,
+}

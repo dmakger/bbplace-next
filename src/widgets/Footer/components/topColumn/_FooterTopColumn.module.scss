@@ -1,0 +1,21 @@
+.FooterTopColumn{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    padding: 40px 0px 30px 0px;
+    .title{
+        padding: 0px 40px;
+        font-size: var(--font-size-reg);
+        font-weight: var(--font-weight-med);
+    }
+
+    .linksContainer{
+
+        .menuLink{
+            padding: 10px 40px !important;
+            border-bottom: none !important;
+            font-size: var(--font-size-reg);
+        }
+    }
+}

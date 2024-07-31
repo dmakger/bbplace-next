@@ -73,8 +73,11 @@ class DASHBOARD extends Route {
 
     PRODUCTS = this.createPath('/product', true);
     TENDERS = this.createPath('/tender', true);
+    PRICES_N_DISCOUNTS = this.createPath('/pricesNDiscounts', true);
+    REVIEWS = this.createPath('/reviews', true);
     
     NEW_TENDER = this.createPath('/tender/new', true);
+    NEW_PRODUCT = this.createPath('/product/new', true);
 
     CURRENT_CHAT = this.createDynamicPath((id: ISupplier['id']) => `/chat/${id}`, true);
     EDIT_PRODUCT = this.createDynamicPath((id: IProduct['id']) => `/product/edit/${id}`, true);
