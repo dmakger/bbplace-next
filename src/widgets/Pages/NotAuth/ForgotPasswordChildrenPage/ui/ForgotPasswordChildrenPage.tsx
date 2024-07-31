@@ -14,6 +14,7 @@ import { EMAIL_VALID_RULES } from "@/entities/Auth/data/email.data"
 import { PASSWORD_MATCHING_ERROR, PASSWORD_VALID_RULES, isPasswordValid } from "@/entities/Auth/data/password.data"
 import { FILL_THE_FIELD } from "@/entities/Auth/data/errorMessages.data"
 import { ButtonType } from "@/shared/ui/Button/model/button.model"
+import { EInputTextType } from "@/shared/ui/Input/ui/Text/data/text.input.data"
 
 
 export const ForgotPasswordChildrenPage = () => {
@@ -94,7 +95,7 @@ export const ForgotPasswordChildrenPage = () => {
                 isLoadingBellowButton={isLoadingSendResetLink}
                 onClickBellowButton={sendResetPasswordRequest}
             >
-                <Input.Text type="email" variant={EInputVariants.RECTANGULAR} placeholder="Введите email" name="email" defaultValue={!token ? userEmail : emailFromUrl} warning={isError} error={isError} disabled={!!token} />
+                <Input.Text type={EInputTextType.Email} variant={EInputVariants.RECTANGULAR} placeholder="Введите email" name="email" defaultValue={!token ? userEmail : emailFromUrl} warning={isError} error={isError} disabled={!!token} />
             </WrapperRectangleInput>
 
             {token && <>
@@ -103,7 +104,7 @@ export const ForgotPasswordChildrenPage = () => {
                         isRequired
                         errorInputMessage={errorMessage}
                     >
-                        <Input.Text type="password" variant={EInputVariants.RECTANGULAR} placeholder="Введите пароль" name="password" required />
+                        <Input.Text type={EInputTextType.Password} variant={EInputVariants.RECTANGULAR} placeholder="Введите пароль" name="password" required />
                     </WrapperRectangleInput>
                     <WrapperRectangleInput
                         labelText="Подтверждение пароля"
@@ -114,7 +115,7 @@ export const ForgotPasswordChildrenPage = () => {
                         isLoadingBellowButton={isLoadingResetPassword}
                         onClickBellowButton={resetPasswordFunc}
                     >
-                        <Input.Text type="password" variant={EInputVariants.RECTANGULAR} placeholder="Введите пароль еще раз" name="confirmPassword" required />
+                        <Input.Text type={EInputTextType.Password} variant={EInputVariants.RECTANGULAR} placeholder="Введите пароль еще раз" name="confirmPassword" required />
                     </WrapperRectangleInput>
                 </>}
         </WrapperForLogInNSupportPages>

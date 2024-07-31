@@ -8,8 +8,7 @@ import Wrapper1280 from "@/shared/ui/Wrapper/1280/Wrapper1280";
 import { WrapperLKPT } from "@/shared/ui/Wrapper/LKPT";
 import SuspenseL from "@/shared/ui/Wrapper/SuspenseL/SuspenseL";
 import { ProductSingleCreationPage } from "@/widgets/Pages/LK/ProductSingleCreationPage";
-import { SetStateAction, useState } from "react";
-
+import { SetStateAction, useState, Suspense } from "react";
 
 export default function ProductNewPage() {
     // STATE
@@ -34,20 +33,22 @@ export default function ProductNewPage() {
     }
     return (
         <Wrapper1280>
-            <SuspenseL.Any data={[{
-                searchKey: "type",
-                set: setProductType,
-                defaultValue: SWITCH_SELECTOR_PRODUCT_PAGE_MULTIPLE.value,
-            }]}>
-                <WrapperLKPT options={LK_PRODUCT_PAGE_CREATE}
-                    pageTitle="Новый товар"
-                    startPage={productType === SWITCH_SELECTOR_PRODUCT_PAGE_MULTIPLE.value 
-                        ? SWITCH_SELECTOR_PRODUCT_PAGE_MULTIPLE 
-                        : SWITCH_SELECTOR_PRODUCT_PAGE_SINGLE
-                    }
-                    optionsTab={PRODUCT_NEW_PAGE_OPTIONS_TAB}
-                    isButtonAdd={false} />
-            </SuspenseL.Any>
+            <Suspense fallback={<div>Loading...</div>}>
+                <SuspenseL.Any data={[{
+                    searchKey: "type",
+                    set: setProductType,
+                    defaultValue: SWITCH_SELECTOR_PRODUCT_PAGE_MULTIPLE.value,
+                }]}>
+                    <WrapperLKPT options={LK_PRODUCT_PAGE_CREATE}
+                        pageTitle="Новый товар"
+                        startPage={productType === SWITCH_SELECTOR_PRODUCT_PAGE_MULTIPLE.value 
+                            ? SWITCH_SELECTOR_PRODUCT_PAGE_MULTIPLE 
+                            : SWITCH_SELECTOR_PRODUCT_PAGE_SINGLE
+                        }
+                        optionsTab={PRODUCT_NEW_PAGE_OPTIONS_TAB}
+                        isButtonAdd={false} />
+                </SuspenseL.Any>
+            </Suspense>
         </Wrapper1280>
     )
 }

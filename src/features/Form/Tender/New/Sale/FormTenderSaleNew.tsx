@@ -12,7 +12,6 @@ import { categoryListToOptionList } from "@/entities/Metrics/lib/option.category
 import { MetricsAPI } from "@/entities/Metrics/api/metrics.metrics.api";
 import { metricListToOptionList } from "@/entities/Metrics/lib/option.metric.metrics.lib";
 import { CurrencyAPI } from "@/entities/Metrics/api/currency.metrics.api";
-import { currencyListToOptionList } from "@/entities/Metrics/lib/option.currency.metrics.lib";
 import { EInputTextTypeVariants } from "@/shared/ui/Input/Text/model/text.input.model";
 import { IFile } from "@/entities/File/model/file.model";
 import { Button, ButtonVariant } from "@/shared/ui/Button";
@@ -22,6 +21,7 @@ import { getFormDataFromForm } from "@/shared/lib/formData.lib";
 import { TenderAPI } from "@/entities/Tender/api/tender.api";
 import { IPropsTenderSale } from "@/entities/Tender/model/props.tender.model";
 import { IResponseFile } from "@/entities/File/model/props.file.model";
+import { currencyListToOptionList } from "@/entities/Metrics/lib/currency/option.currency.metrics.lib";
 
 interface FormTenderSaleNewProps{
     className?: string,

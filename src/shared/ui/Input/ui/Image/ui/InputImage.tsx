@@ -67,28 +67,29 @@ export const InputImage:FC<InputImageProps> = ({
     // HANDLE
     const handleOnChange = async (e: ChangeEvent<HTMLInputElement>) => {
         if (onChange) {
-            onChange(e)
+            onChange(e);
         }
-        if (!e.target.files || !setImageList) return
+        if (!e.target.files || !setImageList) return;
 
-        const files = Array.from(e.target.files).slice(0, 20)
-        const newAttachments = await Promise.all( 
-            files.map(async file => {
-                const formData = new FormData()
-                formData.set('file', file)
+        const files = Array.from(e.target.files).slice(0, 20);
+        const newAttachments = await Promise.all(
+            files.map(async (file) => {
+                const formData = new FormData();
+                formData.set('file', file);
                 try {
-                    const response = await uploadFile(formData).unwrap()
-                    return response.key as string
+                    const response = await uploadFile(formData).unwrap();
+                    return response.key as string;
                 } catch (error) {
-                    console.error('Ошибка загрузки:', error)
+                    console.error('Ошибка загрузки:', error);
+                    return undefined;
                 }
             })
-        )
-        const newSuccessAttachments = newAttachments.filter(it => it !== undefined)
-        setImageList(prevImageList => [...prevImageList, ...newSuccessAttachments])
-        setActiveImage(newSuccessAttachments[newSuccessAttachments.length - 1])
-    }
-
+        );
+        const newSuccessAttachments = newAttachments.filter((it): it is string => it !== undefined);
+        setImageList((prevImageList) => [...prevImageList, ...newSuccessAttachments]);
+        setActiveImage(newSuccessAttachments[newSuccessAttachments.length - 1]);
+    };
+    
     return (
         <div className={cl.wrapper}>
             <Button variant={ButtonVariant.DEFAULT}
