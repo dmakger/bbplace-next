@@ -17,12 +17,12 @@ export const FooterTopColumn = ({
 }: IFooterTopColumn) => {
   return (
     <div className={cls(cl.FooterTopColumn, className)}>
-        <h4 className={cl.title}>{title}</h4>
-        <div className={cl.linksContainer}>
+        <h5 className={cl.title}>{title}</h5>
+        <nav className={cl.linksContainer}>
             {columnLinkData.map(it => (
                 <MenuButton title={it.title} variant={EMenuButtonVariant.LINK} link={it.link} className={cl.menuLink}/>
             ))}
-        </div>
+        </nav>
     </div>
   )
 }

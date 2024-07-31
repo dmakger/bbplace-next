@@ -1,4 +1,8 @@
 .FooterTop{
     display: flex;
     width: 100%;
+
+    .noBorderRight{
+        border-right: none;
+    }
 }

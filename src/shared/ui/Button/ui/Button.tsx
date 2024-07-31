@@ -32,6 +32,7 @@ export interface IButton {
     success?: boolean,
     disabled?: boolean
     hovered?: boolean
+    pressed?: boolean,
     loading?: boolean
     noTranslation?: boolean
 
@@ -53,7 +54,7 @@ export const Button = ({
     ref,
     title, href, linkTarget,
     beforeImage, beforeProps, afterImage, afterProps, 
-    active=false, success=false, disabled=false, hovered, loading=false, noTranslation=false,
+    active=false, success=false, disabled=false, hovered, pressed, loading=false, noTranslation=false,
     onClick=()=>{}, onMouseEnter=()=>{}, onMouseLeave=()=>{},
     children, className, classNameLink, 
     classNameText, classNameTextHovered, classNameTextPressed, classNameTextDisabled,
@@ -96,6 +97,11 @@ export const Button = ({
         if (hovered !== undefined)
             setIsHovered(hovered)
     }, [hovered])
+
+    useEffect(() => {
+        if (pressed !== undefined)
+            setIsPressed(pressed)
+    }, [pressed])
 
     const html =  (
         <button type={type} ref={ref} disabled={disabled || loading} 

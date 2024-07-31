@@ -1,0 +1,44 @@
+.newLogo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    button {
+        height: 50px;
+        border: none;
+    }
+
+    &:hover button {
+        background-color: var(--tertiary-surface-low) !important;
+    }
+
+    &:active button {
+        background-color: var(--tertiary-surface) !important;
+    }
+
+    .logoButton {
+        max-width: 122px;
+        padding: 10px 15px 10px 10px;
+        border-radius: 0 25px 25px 0;
+
+        span {
+            text-align: left;
+            font-size: var(--font-size-sreg);
+            font-weight: var(--font-weight-sb);
+            color: var(--font);
+        }
+    }
+
+    .bbIcon {
+        padding: 0;
+        border-radius: 150px 0 0 100px;
+    }
+}
+
+.active,
+.disabled {
+    &:hover button,
+    &:active button {
+        background-color: transparent !important;
+    }
+}
