@@ -201,6 +201,7 @@ export const WrapperRectangleInput = ({
             <div className={cl.tooltipsNLinkContainer}>
 
               {linkText && <Button title={linkText}
+                linkTarget='_blank'
                 href={linkHref}
                 variant={ButtonVariant.DEFAULT}
                 className={cl.buttonLink}
