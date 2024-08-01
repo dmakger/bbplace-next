@@ -14,7 +14,7 @@ interface ImageSmartProps extends IIconProps, Omit<IIconProps, 'icon'> {
 export const ImageSmart: FC<ImageSmartProps> = ({ 
     icon, axis = Axis.Default, 
     width, height,
-    isActive = false, isSuccess = false, isHovered = false, isPressed = false, isDisabled = false, 
+    isActive = false, isSuccess = false, isHovered = false, isPressed = false, isDisabled = false, isLoading = false,
     className, classNameImage 
 }) => {
     const style = {
@@ -72,7 +72,15 @@ export const ImageSmart: FC<ImageSmartProps> = ({
             {icon.disabled && 
                 <div style={style} >
                     <Image src={icon.disabled} alt={'disabled'} style={style} className={cls(isDisabled ? cl.static : '', cl.image, cl[axis], classNameImage)} />
-                </div>}
+                </div>
+            }
+
+            {/* disabled */}
+            {icon.loading && 
+                <div style={style} >
+                    <Image src={icon.loading} alt={'loading'} style={style} className={cls(isLoading ? cl.static : '', cl.image, cl[axis], classNameImage)} />
+                </div>
+            }
         </div>
     )
 }

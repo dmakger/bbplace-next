@@ -50,6 +50,7 @@ export const InputImage:FC<InputImageProps> = ({
     // STATE
     const [locTitle, setLocTitle] = useState<string>(getInputImagePrompt(multiple))
     const [activeImage, setActiveImage] = useState<string>()
+    const [isUploadingImage, setIsUploadingImage] = useState(false)
     
     // API
     const [uploadFile] = FileAPI.useUploadFileMutation()
@@ -71,23 +72,28 @@ export const InputImage:FC<InputImageProps> = ({
         }
         if (!e.target.files || !setImageList) return;
 
-        const files = Array.from(e.target.files).slice(0, 20);
-        const newAttachments = await Promise.all(
-            files.map(async (file) => {
-                const formData = new FormData();
-                formData.set('file', file);
-                try {
-                    const response = await uploadFile(formData).unwrap();
-                    return response.key as string;
-                } catch (error) {
-                    console.error('Ошибка загрузки:', error);
-                    return undefined;
-                }
-            })
-        );
-        const newSuccessAttachments = newAttachments.filter((it): it is string => it !== undefined);
-        setImageList((prevImageList) => [...prevImageList, ...newSuccessAttachments]);
-        setActiveImage(newSuccessAttachments[newSuccessAttachments.length - 1]);
+        setIsUploadingImage(true)
+        try {
+            const files = Array.from(e.target.files).slice(0, 20);
+            const newAttachments = await Promise.all(
+                files.map(async (file) => {
+                    const formData = new FormData();
+                    formData.set('file', file);
+                    try {
+                        const response = await uploadFile(formData).unwrap();
+                        return response.key as string;
+                    } catch (error) {
+                        console.error('Ошибка загрузки:', error);
+                        return undefined;
+                    }
+                })
+            );
+            const newSuccessAttachments = newAttachments.filter((it): it is string => it !== undefined);
+            setImageList((prevImageList) => [...prevImageList, ...newSuccessAttachments]);
+            setActiveImage(newSuccessAttachments[newSuccessAttachments.length - 1]);
+        } finally {
+            setIsUploadingImage(false);
+        }
     };
     
     return (
@@ -97,6 +103,7 @@ export const InputImage:FC<InputImageProps> = ({
                     title={locTitle} 
                     onClick={handleOnClickButton}
                     disabled={disabled}
+                    loading={isUploadingImage}
                     className={cls(cl.block, cl[variant], disabled ? cl.disabled : '', className)}
                     classNameText={cl.text}
                     classNameTextHovered={cl.textHovered}

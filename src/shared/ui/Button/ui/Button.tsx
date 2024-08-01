@@ -105,7 +105,7 @@ export const Button = ({
                 <ImageSmart {...beforeProps} icon={beforeImage} 
                             width={beforeProps && beforeProps.width ? beforeProps.width: sizeImage} 
                             height={beforeProps && beforeProps.height ? beforeProps.height: sizeImage} 
-                            isActive={active} isHovered={isHovered} isSuccess={success} isPressed={isPressed} isDisabled={disabled}
+                            isActive={active} isHovered={isHovered} isSuccess={success} isPressed={isPressed} isDisabled={disabled} isLoading={loading}
                             className={cls(cl.image, afterProps?.className)} />
 
             }
@@ -121,7 +121,7 @@ export const Button = ({
                 <ImageSmart {...afterProps} icon={afterImage}
                             width={afterProps && afterProps.width ? afterProps.width: sizeImage} 
                             height={afterProps && afterProps.height ? afterProps.height: sizeImage} 
-                            isActive={active && !success} isHovered={isHovered} isSuccess={success} isPressed={isPressed} isDisabled={disabled}
+                            isActive={active && !success} isHovered={isHovered} isSuccess={success} isPressed={isPressed} isDisabled={disabled} isLoading={loading}
                             className={cls(cl.image, afterProps?.className)} />
             }
             {children}
