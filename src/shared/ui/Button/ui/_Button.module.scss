@@ -72,6 +72,11 @@
         pointer-events: none;
         user-select: none;
     }
+
+    &.loading {
+        pointer-events: none;
+        user-select: none;
+    }
 }
 
 .old {
@@ -94,6 +99,10 @@
     &:active {
         background-color: var(--button-color-pressed) !important;
         color: var(--button-color-on);
+    }
+
+    &:has(.image:only-child) {
+        padding: 10px;
     }
 }
 

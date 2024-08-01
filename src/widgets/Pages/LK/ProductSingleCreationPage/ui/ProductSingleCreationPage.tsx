@@ -43,8 +43,8 @@ export const ProductSingleCreationPage = ({ className }: IProductSingleCreationP
     return (
         <div className={cls(cl.ProductSingleCreationPage, className)}>
             <div className={cl.mid}>
-                <MainInfoProductForm setData={setMainInfoData} triggerSubmit={(submitFn) => { formSubmitRef.current = submitFn }} />
-                <AdditionalInfoProductForm setData={setAdditionalInfoData} triggerSubmit={(submitFn) => { additionalFormSubmitRef.current = submitFn }} />
+                {/* <MainInfoProductForm setData={setMainInfoData} triggerSubmit={(submitFn) => { formSubmitRef.current = submitFn }} />
+                <AdditionalInfoProductForm setData={setAdditionalInfoData} triggerSubmit={(submitFn) => { additionalFormSubmitRef.current = submitFn }} /> */}
                 <VariationInfoProductForm setData={setVariationInfoData} triggerSubmit={(submitFn) => { variationFormSubmitRef.current = submitFn }} />
 
                 <Button variant={ButtonVariant.FILL} size={ButtonSize.Big} 

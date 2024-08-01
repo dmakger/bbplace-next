@@ -48,27 +48,28 @@
     border: 1px solid var(--gray-5);
     padding: 20px 40px;
     transition: .3s;
-
-    .input {
-        visibility: hidden;
-        width: 0.1px;
-        height: 0.1px;
-        position: absolute;
-        opacity: 0;
-        overflow: hidden;
-    }
 }   
+.input {
+    visibility: hidden;
+    width: 0.1px;
+    height: 0.1px;
+    position: absolute;
+    opacity: 0;
+    overflow: hidden;
+}
 
 .text {
     color: var(--font-caption-low);
     transition: .3s;
 }
-.textHovered {
+.textHovered, 
+.textLoading {
     color: var(--font-caption);
 }
 .textDisabled {
     color: var(--disabled);
 }
+
 
 .rounded {
     border: 1px solid var(--gray-5);

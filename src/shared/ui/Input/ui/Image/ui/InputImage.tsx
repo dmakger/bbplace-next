@@ -10,10 +10,11 @@ import { IMAGE_ADD_ICON } from "@/shared/ui/Icon/data/imageAdd.data.icon";
 import { FileAPI } from "@/entities/File/api/file.api";
 import { ImageAPI } from "@/shared/ui/Image/API/ImageAPI";
 import { getImage } from "@/shared/lib/image.lib";
-import { ScrollSlider } from "@/features/ScrollSlider";
-import { ImageSlide } from "@/widgets/Slider/Image/Default/Item/ImageSlide";
-import { CatalogImage } from "@/widgets/CatalogImage/CatalogImage";
-import { ImageMaximizeSlider } from "@/widgets/Slider/Image/Maximize/List/ImageMaximizeSlider";
+import { ImageInputPrompt } from "../data/image.input.data";
+import { TRASH_NEGATIVE_TO_WHITE_ICON } from "@/shared/ui/Icon/data/trash.data.icon";
+import { ButtonColor, ButtonSize } from "@/shared/ui/Button/model/button.model";
+import { ImageProduction } from "@/shared/ui/Image/Production/data/ImageProduction";
+
 
 interface InputImageProps extends IWrapperRectangleInputChildren, IInput {
     title?: string
@@ -49,7 +50,7 @@ export const InputImage:FC<InputImageProps> = ({
 
     // STATE
     const [locTitle, setLocTitle] = useState<string>(getInputImagePrompt(multiple))
-    const [activeImage, setActiveImage] = useState<string>()
+    const [activeIndexImage, setActiveIndexImage] = useState<number>()
     const [isUploadingImage, setIsUploadingImage] = useState(false)
     
     // API
@@ -71,9 +72,8 @@ export const InputImage:FC<InputImageProps> = ({
             onChange(e);
         }
         if (!e.target.files || !setImageList) return;
-
-        setIsUploadingImage(true)
         try {
+            setIsUploadingImage(true)
             const files = Array.from(e.target.files).slice(0, 20);
             const newAttachments = await Promise.all(
                 files.map(async (file) => {
@@ -90,7 +90,7 @@ export const InputImage:FC<InputImageProps> = ({
             );
             const newSuccessAttachments = newAttachments.filter((it): it is string => it !== undefined);
             setImageList((prevImageList) => [...prevImageList, ...newSuccessAttachments]);
-            setActiveImage(newSuccessAttachments[newSuccessAttachments.length - 1]);
+            setActiveIndexImage(newSuccessAttachments.length - 1);
         } finally {
             setIsUploadingImage(false);
         }
@@ -98,9 +98,26 @@ export const InputImage:FC<InputImageProps> = ({
     
     return (
         <div className={cl.wrapper}>
-            <Button variant={ButtonVariant.DEFAULT}
+            <input type="file" 
+                    multiple={multiple}
+                    ref={inputRef}
+                    onChange={e => handleOnChange(e)}
+                    className={cl.input}
+                    disabled={disabled} {...rest}/>
+            
+            {/* active image */}
+            {activeIndexImage !== undefined ? (
+                <div className={cl.wrapperActiveImage}>
+                    <div className={cl.leftPanel}>
+                        <Button variant={ButtonVariant.CONTENT} color={ButtonColor.Negative} size={ButtonSize.Medium}
+                                beforeImage={TRASH_NEGATIVE_TO_WHITE_ICON} />
+                    </div>
+                    <ImageProduction src={getImage(imageList[activeIndexImage])} className={cl.activeImage}  />
+                </div>
+            ) : (
+                <Button variant={ButtonVariant.DEFAULT}
                     beforeImage={IMAGE_ADD_ICON} beforeProps={{width: 20, height: 20}}
-                    title={locTitle} 
+                    title={locTitle} titleLoading={ImageInputPrompt.Loading}
                     onClick={handleOnClickButton}
                     disabled={disabled}
                     loading={isUploadingImage}
@@ -108,14 +125,10 @@ export const InputImage:FC<InputImageProps> = ({
                     classNameText={cl.text}
                     classNameTextHovered={cl.textHovered}
                     classNameTextDisabled={cl.textDisabled}
-            >
-                <input type="file" 
-                        multiple={multiple}
-                        ref={inputRef}
-                        onChange={e => handleOnChange(e)}
-                        className={cl.input}
-                        disabled={disabled} {...rest}/>
-            </Button>
+                    classNameTextLoading={cl.textLoading} />
+            )}
+
+            {/* image list */}
             {imageList.length > 0 && (
                 <div className={cl.bottom}>
                     <div className={cl.imageList}>

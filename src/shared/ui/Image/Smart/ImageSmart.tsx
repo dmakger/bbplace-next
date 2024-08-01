@@ -75,9 +75,9 @@ export const ImageSmart: FC<ImageSmartProps> = ({
                 </div>
             }
 
-            {/* disabled */}
+            {/* loading */}
             {icon.loading && 
-                <div style={style} >
+                <div style={style}>
                     <Image src={icon.loading} alt={'loading'} style={style} className={cls(isLoading ? cl.static : '', cl.image, cl[axis], classNameImage)} />
                 </div>
             }
