@@ -9,33 +9,37 @@ import { TELEGRAM_ICON } from '@/shared/ui/Icon/data/telegram.data'
 import { VK_ICON } from '@/shared/ui/Icon/data/vk.data'
 import { WHATS_APP_ICON } from '@/shared/ui/Icon/data/whatsApp.data'
 import { cls } from '@/shared/lib/classes.lib'
+import { INSTAGRAM_LINK, LINKED_IN_LINK, TELEGRAM_LINK, VK_LINK, WHATS_APP_LINK } from '@/shared/data/sideLinks.data'
+import { handleCopyLink } from '@/shared/lib/copyLink.lib'
 
 
 export const FooterMiddle = () => {
+
     
-    const buttons = [
-        { title: 'Поддержка', beforeImage: SUPPORT_SECONDARY_ICON },
-        { title: 'О компании' },
-        { className: cl.roundedButton, beforeImage: AT_SIGN_ICON, beforeProps: { width: 18, height: 18 } }
+    const leftButtons = [
+        { title: 'Поддержка', beforeImage: SUPPORT_SECONDARY_ICON, beforeProps: { width: 18, height: 18 }, className: cl.button },
+        { title: 'О компании', className: cl.button },
+        { className: cls(cl.button, cl.roundedButton), beforeImage: AT_SIGN_ICON, beforeProps: { width: 18, height: 18 }, onClick: () => handleCopyLink() }
     ];
 
     const socialButtons = [
-        { className: cls(cl.button, cl.instagram), beforeImage: INSTAGRAM_ICON },
-        { className: cls(cl.button, cl.linkedIn), beforeImage: LINKED_IN_ICON },
-        { className: cls(cl.button, cl.telegram), beforeImage: TELEGRAM_ICON },
-        { className: cls(cl.button, cl.vk), beforeImage: VK_ICON },
-        { className: cls(cl.button, cl.whatsApp), beforeImage: WHATS_APP_ICON }
+        { className: cls(cl.button, cl.socialButton, cl.instagram), beforeImage: INSTAGRAM_ICON, link: INSTAGRAM_LINK },
+        { className: cls(cl.button, cl.socialButton, cl.linkedIn), beforeImage: LINKED_IN_ICON, link: LINKED_IN_LINK  },
+        { className: cls(cl.button, cl.socialButton, cl.telegram), beforeImage: TELEGRAM_ICON, link: TELEGRAM_LINK  },
+        { className: cls(cl.button, cl.socialButton, cl.vk), beforeImage: VK_ICON, link: VK_LINK  },
+        { className: cls(cl.button, cl.socialButton, cl.whatsApp), beforeImage: WHATS_APP_ICON, link: WHATS_APP_LINK  }
     ];
 
     return (
         <div className={cl.FooterMiddle}>
             <div className={cl.leftContainer}>
-                {buttons.map((btn, index) => (
+                {leftButtons.map((btn, index) => (
                     <Button
                         key={index}
                         variant={ButtonVariant.TONAL}
                         size={ButtonSize.Medium}
                         color={ButtonColor.Secondary}
+                        onClick={btn.onClick}
                         {...btn}
                     />
                 ))}
@@ -44,6 +48,8 @@ export const FooterMiddle = () => {
                 {socialButtons.map((btn, index) => (
                     <Button
                         key={index}
+                        href={btn.link}
+                        linkTarget='blank'
                         variant={ButtonVariant.DEFAULT}
                         beforeProps={{ width: 20, height: 20 }}
                         {...btn}

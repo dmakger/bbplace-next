@@ -2,6 +2,12 @@
     display: flex;
     width: 100%;
 
+    @media (max-width: 768px) {
+        gap: 10px;
+        padding: 20px;
+        border-right: 1px solid var(--block-border);
+    }
+
     .noBorderRight{
         border-right: none;
     }

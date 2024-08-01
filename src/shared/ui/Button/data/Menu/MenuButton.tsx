@@ -33,6 +33,9 @@ export const MenuButton = ({
 
     const editProfile = () => router.push(DASHBOARD_PAGES.PROFILE_EDIT.path);
 
+    const isActive = pathname === link;
+        
+
     const renderButton = () => (
         <Button
             title={title}
@@ -41,15 +44,17 @@ export const MenuButton = ({
                 className,
                 cl.MenuButton,
                 cl[variant],
-                (variant === EMenuButtonVariant.LINK && pathname === link) ? cl.activeLink
+                (variant === EMenuButtonVariant.LINK && isActive) ? cl.activeLink
                     // : (variant === EMenuButtonVariant.LOCALIZATION && true) ? cl.activeLang 
                     : ''
             )}
+            linkTarget={link?.includes('html') ? 'target' : ''}
             variant={ButtonVariant.CLEAR}
             // afterImage={variant === EMenuButtonVariant.LOCALIZATION ? GLOBE_ICON : undefined}
             afterProps={{ width: 20, height: 20 }}
             // afterText={notificationCounter ?? ''}
             // classNameAfterText={cl.notificationCounter}
+            disabled={isActive}
             color={variant === EMenuButtonVariant.LINK ? ButtonColor.Secondary : ButtonColor.Tertiary}
         />
     );

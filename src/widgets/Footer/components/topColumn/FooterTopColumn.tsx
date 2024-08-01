@@ -2,9 +2,9 @@ import { cls } from '@/shared/lib/classes.lib'
 import cl from './_FooterTopColumn.module.scss'
 import { MenuButton } from '@/shared/ui/Button/data/Menu/MenuButton'
 import { IMenuItem } from '@/shared/model/menu.model'
-import { EMenuButtonVariant } from '@/shared/ui/Button/model/button.model'
+import { Subblock } from '@/shared/ui/Subblock'
 
-interface IFooterTopColumn{
+interface IFooterTopColumn {
     className?: string,
     title: string,
     columnLinkData: IMenuItem[]
@@ -15,14 +15,32 @@ export const FooterTopColumn = ({
     title,
     columnLinkData
 }: IFooterTopColumn) => {
-  return (
-    <div className={cls(cl.FooterTopColumn, className)}>
-        <h5 className={cl.title}>{title}</h5>
+    
+    const renderMenuButtons = () => (
         <nav className={cl.linksContainer}>
-            {columnLinkData.map(it => (
-                <MenuButton title={it.title} variant={EMenuButtonVariant.LINK} link={it.link} className={cl.menuLink}/>
+            {columnLinkData.map((it, index) => (
+                <MenuButton key={index} title={it.title} link={it.link} className={cl.menuLink} />
             ))}
         </nav>
-    </div>
-  )
+    );
+
+    return (
+        <div className={cls(cl.FooterTopColumn, className)}>
+            <div className={cl.desktop}>
+                <h5 className={cl.title}>{title}</h5>
+                {renderMenuButtons()}
+            </div>
+            <div className={cl.mobile}>
+                <Subblock
+                    mobileButtonTitle={title}
+                    wModal
+                    modalTitle={title}
+                    classNameBottomChild={cl.bottomChild}
+                    classNameMobileButtonTitle={cl.mobileButtonTitle}
+                    classNameModalTitle={cl.modalTitle}
+                    bottomModalChildren={renderMenuButtons()}
+                />
+            </div>
+        </div>
+    );
 }

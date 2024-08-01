@@ -1,0 +1,5 @@
+export const INSTAGRAM_LINK: string = 'https://www.instagram.com/bbplace.market/'
+export const VK_LINK: string = 'https://vk.com/bbplace.market'
+export const TELEGRAM_LINK: string = 'https://t.me/BBPlacemarket'
+export const LINKED_IN_LINK: string = 'https://www.linkedin.com/company/bbplace/'
+export const WHATS_APP_LINK: string = 'https://api.whatsapp.com/send?%20phone=971524898248'

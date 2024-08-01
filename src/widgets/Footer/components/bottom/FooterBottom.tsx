@@ -5,11 +5,11 @@ import { ELogoVariants } from '@/shared/ui/Logo/model/logo.model'
 export const FooterBottom = () => {
   return (
     <div className={cl.FooterBottom}>
-      <p className={cl.copyright}>
-        © 2024 ООО «БиБиПлейс» <tr />
-        — интернет-сервис для оптового бизнеса
-      </p>
-      <Logo variant={ELogoVariants.CREDITS_LINK} title='the business market'/>
+      <small className={cl.copyright}>
+        <span className={cl.copyrightName}> &copy; 2024 ООО «БиБиПлейс» </span>
+        <span className={cl.copyrightDesc}>— интернет-сервис для оптового бизнеса</span>
+      </small>
+      <Logo variant={ELogoVariants.CREDITS_LINK} title='the business market' className={cl.logo}/>
       <p className={cl.rightDesc}>
         Надежный мост к новым партнерствам
         и возможностям в онлайн коммерции
