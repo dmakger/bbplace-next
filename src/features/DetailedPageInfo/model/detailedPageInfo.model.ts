@@ -41,7 +41,16 @@ export interface IOptionTabTender extends IOptionTabParent {
     purchase: IOptionTab
 }
 
+// ====={ FAVOURITES }=====
+export interface IOptionTabFavourites extends IOptionTabParent {
+    products: IOptionTab
+    tenderPurchase: IOptionTab,
+    tenderSale: IOptionTab,
+    suppliers: IOptionTab
+}
+
+
 export type OptionsTabType = (
     IUserProductsTab | IDetailedProductOptionsTab | ICreateNewProductsTab | IPricesNDiscountsTab
-    | IOptionTabTender
+    | IOptionTabTender | IOptionTabFavourites
 );

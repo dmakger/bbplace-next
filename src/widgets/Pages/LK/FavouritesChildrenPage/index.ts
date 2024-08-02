@@ -1,0 +1,1 @@
+export { FavouritesChildrenPage } from './ui/FavouritesChildrenPage'

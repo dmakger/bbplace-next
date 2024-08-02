@@ -37,7 +37,7 @@ export const DASHBOARD_ITEM_MOBILE_MENU_DATA: IIconVariants = {
 
 export const FAVORITE_ITEM_MOBILE_MENU_DATA: IIconVariants = {
   id: 4,
-  link: DASHBOARD_PAGES.FAVORITE.path,
+  link: DASHBOARD_PAGES.FAVOURITES.path,
   title: "Избранное",
   image: FAVOURITE_ICON_MENU
 }

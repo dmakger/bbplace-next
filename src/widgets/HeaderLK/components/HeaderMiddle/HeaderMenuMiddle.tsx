@@ -20,7 +20,7 @@ export const HeaderMenuMiddle = ({ className }: IHeaderMenuMiddle) => {
         <div className={cls(cl.HeaderMenuMiddle, className)}>
             {role !== 'Buyer' && <Dropdown labelTitle="Товары" dropDownListData={PRODUCT_DROPDOWN_MENU_DATA}/>}
             <Dropdown labelTitle="Тендеры" dropDownListData={TENDER_DROPDOWN_MENU_DATA}/>
-            <ButtonLink title="Отзывы" />
+            {/* <ButtonLink title="Отзывы" /> */}
         </div>
     )
 }

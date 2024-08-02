@@ -2,7 +2,7 @@ import { DASHBOARD_PAGES, MAIN_PAGES } from "@/config/pages-url.config";
 import { IMenuItem } from "@/shared/model/menu.model";
 
 export const FAVORITES_LK_MENU_DATA: IMenuItem = {
-    link: DASHBOARD_PAGES.FAVORITE.path,
+    link: DASHBOARD_PAGES.FAVOURITES.path,
     title: "Избранное",
 }
 
