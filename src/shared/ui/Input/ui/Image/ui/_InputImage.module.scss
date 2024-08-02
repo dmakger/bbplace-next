@@ -1,0 +1,127 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .bottom {
+        display: flex;
+        gap: 10px;
+        padding: 5px;
+
+        .imageList {
+            width: 100%;
+            display: flex;
+            gap: 10px;
+            overflow: auto;
+            padding: 5px;
+            
+            .wrapperImage {
+                .image {
+                    width: 70px;
+                    height: 70px;
+                    border-radius: 15px;
+                }
+            }
+        }
+
+        .uploadImage {
+            padding: 30px;
+            background-color: var(--input-surface);
+            border: 1px solid var(--tertiary-border);
+            border-radius: 5px;
+            height: fit-content;
+            width: fit-content;
+        }
+    }
+}
+
+.block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+
+    width: 100%;
+    height: 180px;
+    background-color: var(--background-2);
+    border: 1px solid var(--gray-5);
+    padding: 20px 40px;
+    transition: .3s;
+
+    .input {
+        visibility: hidden;
+        width: 0.1px;
+        height: 0.1px;
+        position: absolute;
+        opacity: 0;
+        overflow: hidden;
+    }
+}   
+
+.text {
+    color: var(--font-caption-low);
+    transition: .3s;
+}
+.textHovered {
+    color: var(--font-caption);
+}
+.textDisabled {
+    color: var(--disabled);
+}
+
+.rounded {
+    border: 1px solid var(--gray-5);
+    padding-left: 3px;
+}
+
+.rectangular {
+    border: 1px solid var(--tertiary-border);
+    border-radius: 5px;
+    font-weight: var(--font-weight-med);
+
+    &::placeholder{
+        transition: .3s;
+    }
+
+    &:hover{
+        border-color: var(--tertiary-hovered);
+        transition-duration: 0.3s;
+
+        &::placeholder{
+            color: var(--font);
+            transition: .3s;
+        }
+    }
+    &:focus, :active{
+        border-color:var(--tertiary-pressed);
+        transition-duration: 0.3s;
+    }
+
+    @media (max-width: 768px){
+        padding: 17px 15px;
+        font-size: var(--font-size-s);   
+    }
+}
+
+//DISABLED
+.disabled{
+    border: 1px solid var(--disabled) !important;
+    background-color: var(--tertiary-surface-low);
+
+    .text{
+        color: var(--disabled);
+    }
+
+    .textHovered {
+        color: var(--disabled);
+    }
+
+    &:hover{
+        border-color: var(--disabled);
+
+        &::placeholder{
+            color: var(--disabled);
+        }
+    }
+}

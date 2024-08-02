@@ -8,8 +8,7 @@ import Wrapper1280 from "@/shared/ui/Wrapper/1280/Wrapper1280";
 import { WrapperLKPT } from "@/shared/ui/Wrapper/LKPT";
 import SuspenseL from "@/shared/ui/Wrapper/SuspenseL/SuspenseL";
 import { ProductSingleCreationPage } from "@/widgets/Pages/LK/ProductSingleCreationPage";
-import { SetStateAction, useState } from "react";
-
+import { SetStateAction, useState, Suspense } from "react";
 
 export default function ProductNewPage() {
     // STATE

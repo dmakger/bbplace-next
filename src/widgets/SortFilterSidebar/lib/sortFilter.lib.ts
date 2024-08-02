@@ -1,7 +1,7 @@
 import {isEqual} from "lodash";
 import { ALL_SORT_FILTER__DATA, DEFAULT_SORT_FILTER__DATA, KEYS_API_SORT_FILTER__DATA } from "../data/sortFilter.data";
 import { ISortFilter } from "../model/sortFilterSidebar.model";
-import { getOptionByKeyAndValue, getValueOption } from "@/shared/lib/option.lib";
+import { getOptionByKeyAndValue, getValueOption } from "@/shared/lib/option/option.lib";
 import { IOption } from "@/shared/model/option.model";
 import { CORE_PARAMS } from "@/config/params/core.params.config";
 import { ReadonlyURLSearchParams } from "next/navigation";

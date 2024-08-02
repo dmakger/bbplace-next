@@ -16,4 +16,5 @@ export interface IOption {
 export enum OptionType {
     Any,
     File,
+    Currency
 }

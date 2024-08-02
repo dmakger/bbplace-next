@@ -1,5 +1,5 @@
 import { ICategoriesWithSubcategories } from "@/entities/Metrics/model/category.metrics.model";
-import { IOption } from "../model/option.model";
+import { IOption } from "../../model/option.model";
 
 export const getValueOption = (option: IOption) => {
     if (option.value !== undefined)
@@ -32,9 +32,4 @@ export const getOptionsFromCategoriesWithSubcategories = (categories:ICategories
     })
 
     return optionsArray;
-}
-
-
-export const createOption = () => {
-    
 }
