@@ -1,7 +1,4 @@
 .FooterTopColumn {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
     width: 100%;
     padding: 40px 0 30px;
     border-right: 1px solid var(--block-border);
@@ -12,6 +9,10 @@
     }
 
     .desktop {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
         .title {
             font-weight: var(--font-weight-med);
             padding: 0 40px;

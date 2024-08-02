@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    flex-grow: 0;
     width: 100%;
     background-color: var(--background-2);
     border-radius: 20px 20px 0 0;
@@ -15,17 +14,4 @@
             display: none;
         }
     }
-
-    .top {
-        @media (max-width: 768px) {
-            width: 508px;
-        }
-    }
-
-    .middle {
-        @media (max-width: 768px) {
-            width: 645px;
-        }
-    }
-
 }

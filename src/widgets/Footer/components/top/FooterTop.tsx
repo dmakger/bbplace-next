@@ -10,11 +10,23 @@ interface IFooterTop {
 export const FooterTop = ({
   className
 }: IFooterTop) => {
+  
+  const footerColumns = [
+    { title: 'Покупателям', data: BUYERS_LINK_ITEMS_ARRAY },
+    { title: 'Продавцам', data: SELLERS_LINK_ITEM_ARRAY },
+    { title: 'Документы', data: DOCUMENTS_LINK_ITEMS_ARRAY, className: cl.noBorderRight },
+  ];
+
   return (
-    <div className={cls(cl.FooterTop, className)}>
-      <FooterTopColumn title='Покупателям' columnLinkData={BUYERS_LINK_ITEMS_ARRAY} />
-      <FooterTopColumn title='Продавцам' columnLinkData={SELLERS_LINK_ITEM_ARRAY} />
-      <FooterTopColumn title='Документы' columnLinkData={DOCUMENTS_LINK_ITEMS_ARRAY} className={cl.noBorderRight} />
+    <div className={cls(cl.FooterTop, className || '')}>
+      {footerColumns.map(({ title, data, className }, index) => (
+        <FooterTopColumn
+          key={index}
+          title={title}
+          columnLinkData={data}
+          className={className}
+        />
+      ))}
     </div>
   )
 }
