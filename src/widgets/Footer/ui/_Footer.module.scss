@@ -5,6 +5,17 @@
     flex-grow: 0;
     width: 100%;
     background-color: var(--background-2);
-    padding: 0px 20px;
     border-radius: 20px 20px 0 0;
+
+    @media (max-width: 768px) {
+        flex-direction: row;
+        gap: 50px;
+        overflow-x: scroll;
+        
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+        
 }

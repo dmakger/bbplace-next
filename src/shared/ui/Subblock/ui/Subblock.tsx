@@ -16,6 +16,9 @@ import { EModalView } from '@/shared/data/modal.data'
 interface ISubblock {
     className?: string,
     classNameBottomContainer?: string,
+    classNameMobileButtonTitle?: string,
+    classNameModalTitle?: string,
+    classNameBottomChild?: string,
     variant?: ESubblockVariants,
     title?: string,
 
@@ -33,6 +36,9 @@ interface ISubblock {
 export const Subblock = ({
     className,
     classNameBottomContainer,
+    classNameMobileButtonTitle,
+    classNameModalTitle,
+    classNameBottomChild,
     variant = ESubblockVariants.DEFAULT,
     title,
     textChildren,
@@ -100,7 +106,7 @@ export const Subblock = ({
                     afterProps={{ width: 13, height: 7, classNameImage: isModalOpen ? cl.active : '' }}
                     color={ButtonColor.Secondary}
                     title={mobileButtonTitle}
-                    className={cls(cl.mobileSubblock)}
+                    className={cls(cl.mobileSubblock, classNameMobileButtonTitle)}
                     onClick={() => setIsModalOpen(!isModalOpen)}
                 />
                 <Modal _isOpen={isModalOpen}
@@ -110,6 +116,8 @@ export const Subblock = ({
                     <WrapperModalBottom
                         title={modalTitle}
                         topChildren={topModalChildren}
+                        classNameTitle={classNameModalTitle}
+                        classNameBottomChild={classNameBottomChild}
                         bottomChildren={bottomModalChildren ?? textChildren}
                         setIsOpen={closeTheModal} />
                 </Modal>

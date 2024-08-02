@@ -1,0 +1,61 @@
+.FooterBottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 40px;
+
+    @media (max-width: 1280px) {
+        padding: 20px;
+    }
+
+    @media (max-width: 1024px) {
+        padding: 31px;
+
+        .rightDesc {
+            display: none;
+        }
+    }
+
+    @media (max-width:768px) {
+        width: 245px;
+    }
+
+    .copyright {
+        text-align: left;
+
+        .copyrightDesc {
+            @media (max-width: 768px) {
+                display: none;
+            }
+        }
+
+        .copyrightName {
+           white-space: nowrap;
+
+            @media (max-width: 768px) {
+                font-size: var(--font-size-s);
+            }
+        }
+    }
+
+    .logo {
+        @media (max-width: 768px) {
+            display: none;
+        }
+    }
+
+    .rightDesc {
+        text-align: right;
+    }
+
+    & p,
+    small {
+        max-width: 386px;
+        font-size: var(--font-size-reg);
+        color: var(--font-caption);
+    }
+
+    
+
+}

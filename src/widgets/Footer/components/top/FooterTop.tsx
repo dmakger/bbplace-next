@@ -8,7 +8,7 @@ export const FooterTop = () => {
     <div className={cl.FooterTop}>
        <FooterTopColumn title='Покупателям' columnLinkData={BUYERS_LINK_ITEMS_ARRAY}/> 
        <FooterTopColumn title='Продавцам' columnLinkData={SELLERS_LINK_ITEM_ARRAY}/> 
-       <FooterTopColumn title='Документы' columnLinkData={DOCUMENTS_LINK_ITEMS_ARRAY}/> 
+       <FooterTopColumn title='Документы' columnLinkData={DOCUMENTS_LINK_ITEMS_ARRAY} className={cl.noBorderRight}/> 
 
     </div>
   )

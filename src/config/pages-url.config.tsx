@@ -41,7 +41,10 @@ class MAIN extends Route {
     HOME = this.createPath('/');
     CATALOG = this.createPath('/catalog');
     PRODUCTS = this.createPath('/product');
+    
     TENDERS = this.createPath('/tender');
+    BUYERS_TENDERS = this.createPath('/tender?application=Покупка&nptk=1', true);
+
     SUPPLIERS = this.createPath('/supplier');
 
     SUPPORT = this.createPath('/support');
@@ -73,6 +76,7 @@ class DASHBOARD extends Route {
 
     PRODUCTS = this.createPath('/product', true);
     TENDERS = this.createPath('/tender', true);
+
     PRICES_N_DISCOUNTS = this.createPath('/pricesNDiscounts', true);
     REVIEWS = this.createPath('/reviews', true);
     
