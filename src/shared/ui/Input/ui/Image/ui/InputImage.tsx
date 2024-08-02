@@ -13,7 +13,9 @@ import { getImage } from "@/shared/lib/image.lib";
 import { ImageInputPrompt } from "../data/image.input.data";
 import { TRASH_NEGATIVE_TO_WHITE_ICON } from "@/shared/ui/Icon/data/trash.data.icon";
 import { ButtonColor, ButtonSize } from "@/shared/ui/Button/model/button.model";
-import { ImageProduction } from "@/shared/ui/Image/Production/data/ImageProduction";
+import { ImageProduction } from "@/shared/ui/Image/Production/ui/ImageProduction";
+import { ImageProductionColor, ImageProductionVariant } from "@/shared/ui/Image/Production/data/production.image.data";
+import { getIndexBeforeDelete } from "@/shared/lib/list.lib";
 
 
 interface InputImageProps extends IWrapperRectangleInputChildren, IInput {
@@ -71,7 +73,7 @@ export const InputImage:FC<InputImageProps> = ({
         if (onChange) {
             onChange(e);
         }
-        if (!e.target.files || !setImageList) return;
+        if (!e.target.files || e.target.files.length === 0 || !setImageList) return;
         try {
             setIsUploadingImage(true)
             const files = Array.from(e.target.files).slice(0, 20);
@@ -95,6 +97,22 @@ export const InputImage:FC<InputImageProps> = ({
             setIsUploadingImage(false);
         }
     };
+
+    const handleOnDeleteByIndex = () => {
+        if (activeIndexImage === undefined || activeIndexImage > imageList.length || !setImageList) return
+        const newIndex = getIndexBeforeDelete(imageList.length, activeIndexImage)
+        try {
+            setImageList(prevImageList => prevImageList.filter((_, index) => index !== activeIndexImage))
+        }
+        finally {
+            setActiveIndexImage(newIndex)
+        }
+    }
+
+    const handleOnImage = (index: number) => {
+        if (index < imageList.length)
+            setActiveIndexImage(index)
+    }
     
     return (
         <div className={cl.wrapper}>
@@ -106,13 +124,19 @@ export const InputImage:FC<InputImageProps> = ({
                     disabled={disabled} {...rest}/>
             
             {/* active image */}
-            {activeIndexImage !== undefined ? (
+            {activeIndexImage !== undefined && activeIndexImage <= imageList.length ? (
                 <div className={cl.wrapperActiveImage}>
                     <div className={cl.leftPanel}>
                         <Button variant={ButtonVariant.CONTENT} color={ButtonColor.Negative} size={ButtonSize.Medium}
+                                beforeImage={TRASH_NEGATIVE_TO_WHITE_ICON} 
+                                onClick={handleOnDeleteByIndex}/>
+                        <Button variant={ButtonVariant.CONTENT} color={ButtonColor.Negative} size={ButtonSize.Medium}
                                 beforeImage={TRASH_NEGATIVE_TO_WHITE_ICON} />
                     </div>
-                    <ImageProduction src={getImage(imageList[activeIndexImage])} className={cl.activeImage}  />
+                    <ImageProduction src={getImage(imageList[activeIndexImage])} 
+                                     variant={ImageProductionVariant.Color} 
+                                     color={ImageProductionColor.White} 
+                                     classNameImage={cl.activeImage}  />
                 </div>
             ) : (
                 <Button variant={ButtonVariant.DEFAULT}
@@ -132,14 +156,17 @@ export const InputImage:FC<InputImageProps> = ({
             {imageList.length > 0 && (
                 <div className={cl.bottom}>
                     <div className={cl.imageList}>
-                        {imageList.map(image => (
-                            <div className={cl.wrapperImage}>
-                                <ImageAPI src={getImage(image)} className={cl.image} />
-                            </div>
+                        {imageList.map((image, index) => (
+                            <ImageProduction src={getImage(image)} 
+                                             variant={ImageProductionVariant.ToGray} 
+                                             onClick={() => handleOnImage(index)}
+                                             isActive={index === activeIndexImage} />
                         ))}
                     </div>
                     <Button onClick={handleOnClickButton} variant={ButtonVariant.DEFAULT} 
-                            beforeImage={IMAGE_ADD_ICON} beforeProps={{width: 20, height: 20}} className={cl.uploadImage} />
+                            beforeImage={IMAGE_ADD_ICON} beforeProps={{width: 20, height: 20}} 
+                            loading={isUploadingImage}
+                            className={cl.uploadImage} />
                 </div>
             )}
         </div>

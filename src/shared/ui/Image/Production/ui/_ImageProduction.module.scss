@@ -1,0 +1,107 @@
+.wrapper {
+    position: relative;
+    border-radius: 15px;
+    border: 2px solid var(--empty);
+    display: flex;
+    transition: .2s;
+
+    .foreground {
+        border-radius: inherit;
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        transition: inherit;
+    }
+
+    .image {
+        border-radius: inherit;
+        transition: inherit;
+    }
+}
+
+// >>> ========={ COLOR }========= >>>
+
+// EMPTY
+.empty {
+    background-color: var(--empty);
+}
+
+// WHITE
+.white {
+    background-color: var(--background-2);
+}
+
+// <<< ========={ COLOR }========= <<<
+
+
+
+// >>> ========={ VARIANT }========= >>>
+
+// GRAY_TO_IMAGE
+.grayToImage {
+    &:hover {
+        .image {
+            opacity: 1;
+        }
+    }
+    &.active {
+        border: 2px solid var(--red-1);
+    
+        .image {
+            opacity: 1;
+        }
+    }
+
+    .image {
+        opacity: 0.5;
+        border-radius: 12px;
+    }
+}
+
+// COLOR
+.color {
+    width: 100%;
+    justify-content: center;
+
+    .image {
+        border-radius: 0;
+    }
+}
+
+// TO_GRAY
+.toGray {
+    &:hover {
+        .foreground {
+            opacity: 0.5;
+            z-index: 1;
+            background-color: var(--secondary-hovered);
+        }
+    }
+    &:active {
+        .foreground {
+            opacity: 0.5;
+            z-index: 1;
+            background-color: var(--secondary-pressed);
+        }
+    }
+    &.active {
+        .foreground {
+            opacity: 0.5;
+            z-index: 1;
+            background-color: var(--input-surface);
+        }
+    }
+    .image {
+        width: 70px;
+        height: 70px;
+
+        @media (max-width: 768px) {
+            width: 50px;
+            height: 50px;
+        }
+    }
+}
+
+// <<< ========={ VARIANT }========= <<<

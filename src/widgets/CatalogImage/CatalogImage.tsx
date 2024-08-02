@@ -4,7 +4,7 @@ import { cls } from '@/shared/lib/classes.lib';
 import cl from './_CatalogImage.module.scss'
 import { ImageMaximizeSlider } from "../Slider/Image/Maximize/List/ImageMaximizeSlider";
 import { Button, ButtonVariant } from "@/shared/ui/Button";
-import { ImageProduction } from "@/shared/ui/Image/Production/data/ImageProduction";
+import { ImageProduction } from "@/shared/ui/Image/Production/ui/ImageProduction";
 
 interface CatalogImageProps{
     imageList?: string[]

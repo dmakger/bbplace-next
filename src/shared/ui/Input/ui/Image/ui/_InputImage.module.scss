@@ -3,6 +3,29 @@
     flex-direction: column;
     width: 100%;
 
+    .wrapperActiveImage {
+        position: relative;
+        display: flex;
+        justify-content: center;
+
+        .leftPanel {
+            position: absolute;
+            z-index: 1;
+            left: 0;
+            height: 100%;
+            
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 10px;
+        }
+
+        .activeImage {
+            width: auto;
+            height: 240px;
+        }
+    }
+
     .bottom {
         display: flex;
         gap: 10px;
