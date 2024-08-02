@@ -7,9 +7,9 @@ import cl from './_Footer.module.scss'
 export const Footer = () => {
   return (
     <footer className={cl.Footer}>
-        <FooterTop/>
-        <FooterMiddle/>
-        <FooterBottom/>
+        <FooterTop className={cl.top} />
+        <FooterMiddle className={cl.middle}/>
+        <FooterBottom className={cl.bottom}/>
     </footer>
   )
 }

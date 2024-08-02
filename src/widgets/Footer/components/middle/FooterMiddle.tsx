@@ -13,9 +13,16 @@ import { INSTAGRAM_LINK, LINKED_IN_LINK, TELEGRAM_LINK, VK_LINK, WHATS_APP_LINK 
 import { handleCopyLink } from '@/shared/lib/copyLink.lib'
 
 
-export const FooterMiddle = () => {
+interface IFooterMiddle {
+    className?: string
+}
 
-    
+
+export const FooterMiddle = ({
+    className
+}: IFooterMiddle) => {
+
+
     const leftButtons = [
         { title: 'Поддержка', beforeImage: SUPPORT_SECONDARY_ICON, beforeProps: { width: 18, height: 18 }, className: cl.button },
         { title: 'О компании', className: cl.button },
@@ -24,14 +31,14 @@ export const FooterMiddle = () => {
 
     const socialButtons = [
         { className: cls(cl.button, cl.socialButton, cl.instagram), beforeImage: INSTAGRAM_ICON, link: INSTAGRAM_LINK },
-        { className: cls(cl.button, cl.socialButton, cl.linkedIn), beforeImage: LINKED_IN_ICON, link: LINKED_IN_LINK  },
-        { className: cls(cl.button, cl.socialButton, cl.telegram), beforeImage: TELEGRAM_ICON, link: TELEGRAM_LINK  },
-        { className: cls(cl.button, cl.socialButton, cl.vk), beforeImage: VK_ICON, link: VK_LINK  },
-        { className: cls(cl.button, cl.socialButton, cl.whatsApp), beforeImage: WHATS_APP_ICON, link: WHATS_APP_LINK  }
+        { className: cls(cl.button, cl.socialButton, cl.linkedIn), beforeImage: LINKED_IN_ICON, link: LINKED_IN_LINK },
+        { className: cls(cl.button, cl.socialButton, cl.telegram), beforeImage: TELEGRAM_ICON, link: TELEGRAM_LINK },
+        { className: cls(cl.button, cl.socialButton, cl.vk), beforeImage: VK_ICON, link: VK_LINK },
+        { className: cls(cl.button, cl.socialButton, cl.whatsApp), beforeImage: WHATS_APP_ICON, link: WHATS_APP_LINK }
     ];
 
     return (
-        <div className={cl.FooterMiddle}>
+        <div className={cls(cl.FooterMiddle, className)}>
             <div className={cl.leftContainer}>
                 {leftButtons.map((btn, index) => (
                     <Button

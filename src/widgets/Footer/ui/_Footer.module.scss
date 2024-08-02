@@ -1,4 +1,4 @@
-.Footer{
+.Footer {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -9,13 +9,23 @@
 
     @media (max-width: 768px) {
         flex-direction: row;
-        gap: 50px;
         overflow-x: scroll;
-        
+
         &::-webkit-scrollbar {
             display: none;
         }
     }
 
-        
+    .top {
+        @media (max-width: 768px) {
+            width: 508px;
+        }
+    }
+
+    .middle {
+        @media (max-width: 768px) {
+            width: 645px;
+        }
+    }
+
 }

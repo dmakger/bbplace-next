@@ -17,10 +17,6 @@
         }
     }
 
-    @media (max-width:768px) {
-        width: 245px;
-    }
-
     .copyright {
         text-align: left;
 
@@ -31,7 +27,7 @@
         }
 
         .copyrightName {
-           white-space: nowrap;
+            white-space: nowrap;
 
             @media (max-width: 768px) {
                 font-size: var(--font-size-s);
@@ -55,7 +51,5 @@
         font-size: var(--font-size-reg);
         color: var(--font-caption);
     }
-
-    
 
 }
