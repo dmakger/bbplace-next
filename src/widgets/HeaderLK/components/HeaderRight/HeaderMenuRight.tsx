@@ -24,9 +24,9 @@ export const HeaderMenuRight = ({ className }: IHeaderMenuRight) => {
     const [showProfileMenu, setShowProfileMenu] = useState<boolean>(false)
 
     //RTK
-    const {role} = useAppSelector(state => state.user)
+    const { role } = useAppSelector(state => state.user)
 
-    const dropDownListData:IMenuItem[][] | IMenuButton[][] = [
+    const dropDownListData: IMenuItem[][] | IMenuButton[][] = [
         role !== 'Buyer' ? [SELLER_HOME_LK_MENU_DATA] : [BUYER_HOME_LK_MENU_DATA],
         LK_MENU_DATA,
     ]
@@ -34,10 +34,25 @@ export const HeaderMenuRight = ({ className }: IHeaderMenuRight) => {
 
     return (
         <div className={cls(cl.HeaderMenuRight, className)}>
-            <Button className={cl.button} variant={ButtonVariant.DEFAULT} beforeImage={CHAT_HEADER_ICON} beforeProps={{ width: 20, height: 20 }} />
-            <Button className={cl.button} variant={ButtonVariant.DEFAULT} beforeImage={FAVOURITE_TERTIARY_ICON} beforeProps={{ width: 20, height: 20 }} />
+            <Button
+                className={cl.button}
+                variant={ButtonVariant.DEFAULT}
+                beforeImage={CHAT_HEADER_ICON}
+                beforeProps={{ width: 20, height: 20 }}
+            />
+            <Button
+                className={cl.button}
+                variant={ButtonVariant.DEFAULT}
+                beforeImage={FAVOURITE_TERTIARY_ICON}
+                beforeProps={{ width: 20, height: 20 }}
+            />
 
-            <Dropdown dropDownListData={dropDownListData} showListData={showProfileMenu} buttonChildren={<UserProfileBadge showProfileMenu={showProfileMenu} setShowProfileMenu={setShowProfileMenu} />} dropDownListPosition={EWrapperDropdownListPosition.RIGHT}/>
+            <Dropdown
+                dropDownListData={dropDownListData}
+                showListData={showProfileMenu}
+                buttonChildren={
+                    <UserProfileBadge showProfileMenu={showProfileMenu} setShowProfileMenu={setShowProfileMenu} />} dropDownListPosition={EWrapperDropdownListPosition.RIGHT}
+            />
 
         </div>
     )
