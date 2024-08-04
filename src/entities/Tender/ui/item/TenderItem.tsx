@@ -79,7 +79,7 @@ export const TenderItem = ({
                         {tenderType && <TenderType tenderType={tenderType} />}
                         {tenderCategory && <CategoryItem category={tenderCategory} />}
                     </div>
-                    <FavouriteAutoToTenderButton tenderId={tender.id} view={ETenderFavouriteViewItem.SMALL_FILL} />
+                    <FavouriteAutoToTenderButton tenderId={tender.id} view={ETenderFavouriteViewItem.SMALL_FILL} tenderType={tender.type ?? ''}/>
                 </div>
 
                 <div className={cl.middleContainer} >
