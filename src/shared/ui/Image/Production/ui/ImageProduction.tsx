@@ -6,7 +6,7 @@ import { ImageAPI } from "../../API/ImageAPI";
 import { ImageProductionColor, ImageProductionVariant } from "../data/production.image.data";
 import { Button, ButtonVariant } from "@/shared/ui/Button";
 
-interface ImageADProps {
+interface ImageProductionProps {
     src: string
     variant?: ImageProductionVariant
     color?: ImageProductionColor
@@ -16,7 +16,7 @@ interface ImageADProps {
     classNameImage?: string,
 }
 
-export const ImageProduction:FC<ImageADProps> = ({
+export const ImageProduction:FC<ImageProductionProps> = ({
     src, 
     variant=ImageProductionVariant.GrayToImage, color=ImageProductionColor.Empty,
     isActive=false, 

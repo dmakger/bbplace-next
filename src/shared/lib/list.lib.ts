@@ -20,8 +20,7 @@ export const getIndexBeforeDelete = (length: number, index?: number) => {
  */
 export const getPrevIndex = (length: number, index?: number) => {
     if (index === undefined || length === 0) return
-    if (length === 1) return 0
-    return index - 1
+    return Math.max(index - 1, 0)
 }
 
 

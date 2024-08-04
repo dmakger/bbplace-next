@@ -16,6 +16,8 @@ import { ButtonColor, ButtonSize } from "@/shared/ui/Button/model/button.model";
 import { ImageProduction } from "@/shared/ui/Image/Production/ui/ImageProduction";
 import { ImageProductionColor, ImageProductionVariant } from "@/shared/ui/Image/Production/data/production.image.data";
 import { getIndexBeforeDelete } from "@/shared/lib/list.lib";
+import { InputImageSlider } from "../components/Slider/InputImageSlider";
+import { InputImageSliderT } from "../components/SliderT/InputImageSliderT";
 
 
 interface InputImageProps extends IWrapperRectangleInputChildren, IInput {
@@ -155,14 +157,25 @@ export const InputImage:FC<InputImageProps> = ({
             {/* image list */}
             {imageList.length > 0 && (
                 <div className={cl.bottom}>
-                    <div className={cl.imageList}>
+                    <InputImageSliderT items={imageList} 
+                                        slideWidth={70} gap={10} 
+                                        componentProps={{
+                                            variant: ImageProductionVariant.ToGray,
+                                        }} />
+                    {/* <InputImageSlider isLoading={false} amount={1} slides={imageList} 
+                                      slideProps={{
+                                        variant: ImageProductionVariant.ToGray, 
+                                        // onClick: {() => handleOnImage(index)}
+                                        // isActive: index === activeIndexImage,
+                                      }}/> */}
+                    {/* <div className={cl.imageList}>
                         {imageList.map((image, index) => (
                             <ImageProduction src={getImage(image)} 
                                              variant={ImageProductionVariant.ToGray} 
                                              onClick={() => handleOnImage(index)}
                                              isActive={index === activeIndexImage} />
                         ))}
-                    </div>
+                    </div> */}
                     <Button onClick={handleOnClickButton} variant={ButtonVariant.DEFAULT} 
                             beforeImage={IMAGE_ADD_ICON} beforeProps={{width: 20, height: 20}} 
                             loading={isUploadingImage}
