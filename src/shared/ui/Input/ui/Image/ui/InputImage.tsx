@@ -8,16 +8,16 @@ import { Button, ButtonVariant } from "@/shared/ui/Button";
 import { getInputImagePrompt } from "../lib/image.input.lib";
 import { IMAGE_ADD_ICON } from "@/shared/ui/Icon/data/imageAdd.data.icon";
 import { FileAPI } from "@/entities/File/api/file.api";
-import { ImageAPI } from "@/shared/ui/Image/API/ImageAPI";
 import { getImage } from "@/shared/lib/image.lib";
 import { ImageInputPrompt } from "../data/image.input.data";
 import { TRASH_NEGATIVE_TO_WHITE_ICON } from "@/shared/ui/Icon/data/trash.data.icon";
 import { ButtonColor, ButtonSize } from "@/shared/ui/Button/model/button.model";
 import { ImageProduction } from "@/shared/ui/Image/Production/ui/ImageProduction";
 import { ImageProductionColor, ImageProductionVariant } from "@/shared/ui/Image/Production/data/production.image.data";
-import { getIndexBeforeDelete } from "@/shared/lib/list.lib";
-import { InputImageSlider } from "../components/Slider/InputImageSlider";
+import { getIndexBeforeDelete, getNextIndex, getPrevIndex } from "@/shared/lib/list.lib";
 import { InputImageSliderT } from "../components/SliderT/InputImageSliderT";
+import { TListItemOnClick } from "@/shared/model/list.model";
+import { ControlPanel } from "@/shared/ui/Control/ui/Panel/ControlPanel";
 
 
 interface InputImageProps extends IWrapperRectangleInputChildren, IInput {
@@ -93,13 +93,15 @@ export const InputImage:FC<InputImageProps> = ({
                 })
             );
             const newSuccessAttachments = newAttachments.filter((it): it is string => it !== undefined);
+            const prevImageListLength = imageList.length 
             setImageList((prevImageList) => [...prevImageList, ...newSuccessAttachments]);
-            setActiveIndexImage(newSuccessAttachments.length - 1);
+            setActiveIndexImage(prevImageListLength + newSuccessAttachments.length - 1);
         } finally {
             setIsUploadingImage(false);
         }
     };
 
+    // on delete
     const handleOnDeleteByIndex = () => {
         if (activeIndexImage === undefined || activeIndexImage > imageList.length || !setImageList) return
         const newIndex = getIndexBeforeDelete(imageList.length, activeIndexImage)
@@ -111,9 +113,18 @@ export const InputImage:FC<InputImageProps> = ({
         }
     }
 
-    const handleOnImage = (index: number) => {
-        if (index < imageList.length)
+    // on image
+    const handleOnImage: TListItemOnClick<string> = (_, index) => {
+        if (index !== undefined && index < imageList.length)
             setActiveIndexImage(index)
+    }
+
+    const handleOnPrevControlPanel = () => {
+        setActiveIndexImage(prevIndex => getPrevIndex(imageList.length, prevIndex))
+    }
+
+    const handleOnNextControlPanel = () => {
+        setActiveIndexImage(prevIndex => getNextIndex(imageList.length, prevIndex))
     }
     
     return (
@@ -125,15 +136,15 @@ export const InputImage:FC<InputImageProps> = ({
                     className={cl.input}
                     disabled={disabled} {...rest}/>
             
-            {/* active image */}
             {activeIndexImage !== undefined && activeIndexImage <= imageList.length ? (
                 <div className={cl.wrapperActiveImage}>
                     <div className={cl.leftPanel}>
                         <Button variant={ButtonVariant.CONTENT} color={ButtonColor.Negative} size={ButtonSize.Medium}
                                 beforeImage={TRASH_NEGATIVE_TO_WHITE_ICON} 
                                 onClick={handleOnDeleteByIndex}/>
-                        <Button variant={ButtonVariant.CONTENT} color={ButtonColor.Negative} size={ButtonSize.Medium}
-                                beforeImage={TRASH_NEGATIVE_TO_WHITE_ICON} />
+                        <ControlPanel current={activeIndexImage+1} 
+                                      onClickPrev={handleOnPrevControlPanel} 
+                                      onClickNext={handleOnNextControlPanel} />
                     </div>
                     <ImageProduction src={getImage(imageList[activeIndexImage])} 
                                      variant={ImageProductionVariant.Color} 
@@ -157,25 +168,14 @@ export const InputImage:FC<InputImageProps> = ({
             {/* image list */}
             {imageList.length > 0 && (
                 <div className={cl.bottom}>
-                    <InputImageSliderT items={imageList} 
-                                        slideWidth={70} gap={10} 
-                                        componentProps={{
-                                            variant: ImageProductionVariant.ToGray,
-                                        }} />
-                    {/* <InputImageSlider isLoading={false} amount={1} slides={imageList} 
-                                      slideProps={{
-                                        variant: ImageProductionVariant.ToGray, 
-                                        // onClick: {() => handleOnImage(index)}
-                                        // isActive: index === activeIndexImage,
-                                      }}/> */}
-                    {/* <div className={cl.imageList}>
-                        {imageList.map((image, index) => (
-                            <ImageProduction src={getImage(image)} 
-                                             variant={ImageProductionVariant.ToGray} 
-                                             onClick={() => handleOnImage(index)}
-                                             isActive={index === activeIndexImage} />
-                        ))}
-                    </div> */}
+                    <InputImageSliderT items={imageList} gap={10} 
+                        pagingAmount={3}
+                        activeIndex={activeIndexImage}
+                        componentProps={{
+                            variant: ImageProductionVariant.ToGray,
+                        }} 
+                        onClickItem={handleOnImage}
+                        classNameWrapper={cl.imageList} />
                     <Button onClick={handleOnClickButton} variant={ButtonVariant.DEFAULT} 
                             beforeImage={IMAGE_ADD_ICON} beforeProps={{width: 20, height: 20}} 
                             loading={isUploadingImage}

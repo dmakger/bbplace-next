@@ -7,6 +7,7 @@ import { TAnyParams } from "./params.model";
  */
 export interface IListTopLevel<T> extends TAnyParams {
     items: T[];
+    activeIndex?: number
     listRef?: React.RefObject<HTMLDivElement>
     componentProps?: TAnyParams;
     onClickItem?: TListItemOnClick<T>
@@ -30,6 +31,7 @@ export interface IList<T> extends IListTopLevel<T> {
  */
 export interface IListItem<T> extends TAnyParams {
     item: T,
+    isActive?: boolean
     onClick?: TListItemOnClick<T>
     style?: object
     className?: string,

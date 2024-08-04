@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_Slider.module.scss';
 import { Axis } from "@/shared/model/button.model";
-import { ISlider, ISliderItem, ISliderTopLevel } from "../model/slider.model";
+import { ISliderItem, ISliderTopLevel } from "../model/slider.model";
 import { ButtonArrowWLine } from "@/shared/ui/Button/data/Arrow/WLine/ButtonArrowWLine";
 
 interface SliderProps<T> extends ISliderTopLevel<T> {

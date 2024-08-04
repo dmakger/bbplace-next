@@ -3,6 +3,7 @@
     border-radius: 15px;
     border: 2px solid var(--empty);
     display: flex;
+    overflow: hidden;
     transition: .2s;
 
     .foreground {
@@ -72,6 +73,8 @@
 
 // TO_GRAY
 .toGray {
+    border: none;
+
     &:hover {
         .foreground {
             opacity: 0.5;
@@ -100,6 +103,7 @@
         @media (max-width: 768px) {
             width: 50px;
             height: 50px;
+            border-radius: 10px;
         }
     }
 }

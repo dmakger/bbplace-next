@@ -11,14 +11,18 @@ export const List = <T extends any>({
     component: ListItemComponent,
     componentProps,
     direction = DEFAULT__LIST_DIRECTION,
+    activeIndex,
     gap,
+    onClickItem=()=>{},
     style,
-    className
+    className,
+    ...rest
 }: ListProps<T>) => {
     return (
         <div ref={listRef} style={{gap: `${gap}px`}} className={cls(cl.list, cl[direction], className)}>
             {items.map((it, index) => (
-               <ListItemComponent {...componentProps} item={it} style={style} 
+               <ListItemComponent {...componentProps} item={it} style={style} onClick={() => onClickItem(it, index)}
+                                  isActive={activeIndex === index}
                                   key={it && typeof it === 'object' && 'id' in it ? it.id as number : index} /> 
             ))}
         </div>
