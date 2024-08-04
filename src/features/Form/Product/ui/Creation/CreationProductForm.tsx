@@ -1,8 +1,6 @@
-"use client"
-
 import { cls } from "@/shared/lib/classes.lib"
-import cl from './_ProductSingleCreationPage.module.scss'
-import { useRef, useState } from "react"
+import cl from './_CreationProductForm.module.scss'
+import { FC, useRef, useState } from "react"
 import { Button } from "@/shared/ui/Button"
 import { ButtonSize, ButtonVariant } from "@/shared/ui/Button/model/button.model"
 import { MainInfoProductForm } from "../../../../../features/Form/Product/ui/Main/MainInfoProductForm"
@@ -11,16 +9,15 @@ import { AdditionalInfoProductForm } from "@/features/Form/Product/ui/Additional
 import { IPropsAdditionalInfoProductForm } from "@/features/Form/Product/model/additionalInfo.product.form.model"
 import { VariationInfoProductForm } from "@/features/Form/Product/ui/Variation/VariationInfoProductForm"
 import { IPropsVariationInfoProductForm } from "@/features/Form/Product/model/variationInfo.product.form.model"
-import { useAppSelector } from "@/storage/hooks"
 
-interface IProductSingleCreationPage {
+interface CreationProductFormProps{
+    mainInfoData?: IPropsMainInfoProductForm,
+    additionalInfoData?: IPropsAdditionalInfoProductForm,
+    variationInfoData?: IPropsVariationInfoProductForm,
     className?: string,
 }
 
-export const ProductSingleCreationPage = ({ className }: IProductSingleCreationPage) => {
-    // RTK
-    const { id: userId } = useAppSelector(state => state.user)    
-
+export const CreationProductForm:FC<CreationProductFormProps> = ({className}) => {
     // REF
     const mainFormSubmitRef = useRef<() => void>();
     const additionalFormSubmitRef = useRef<() => void>();
@@ -44,22 +41,19 @@ export const ProductSingleCreationPage = ({ className }: IProductSingleCreationP
         }
     }
 
-    console.log('qwe userId', userId)
     console.log('qwe mainInfoData', mainInfoData)
     console.log('qwe additionalInfoData', additionalInfoData)
     console.log('qwe variationInfoData', variationInfoData)
 
     return (
-        <div className={cls(cl.ProductSingleCreationPage, className)}>
-            <div className={cl.mid}>
-                <MainInfoProductForm setData={setMainInfoData} triggerSubmit={(submitFn) => { mainFormSubmitRef.current = submitFn }} />
-                <AdditionalInfoProductForm setData={setAdditionalInfoData} triggerSubmit={(submitFn) => { additionalFormSubmitRef.current = submitFn }} />
-                <VariationInfoProductForm setData={setVariationInfoData} triggerSubmit={(submitFn) => { variationFormSubmitRef.current = submitFn }} />
+        <div className={cls(cl.block, className)}>
+            <MainInfoProductForm setData={setMainInfoData} triggerSubmit={(submitFn) => { mainFormSubmitRef.current = submitFn }} />
+            <AdditionalInfoProductForm setData={setAdditionalInfoData} triggerSubmit={(submitFn) => { additionalFormSubmitRef.current = submitFn }} />
+            <VariationInfoProductForm setData={setVariationInfoData} triggerSubmit={(submitFn) => { variationFormSubmitRef.current = submitFn }} />
 
-                <Button variant={ButtonVariant.FILL} size={ButtonSize.Big} 
-                        title="Добавить товар"
-                        onClick={handleOnClick} />
-            </div>
+            <Button variant={ButtonVariant.FILL} size={ButtonSize.Big} 
+                    title="Добавить товар"
+                    onClick={handleOnClick} />
         </div>
     )
 }
