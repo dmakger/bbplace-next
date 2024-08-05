@@ -7,9 +7,12 @@ import { TAnyParams } from "./params.model";
  */
 export interface IListTopLevel<T> extends TAnyParams {
     items: T[];
+    activeIndex?: number
+    listRef?: React.RefObject<HTMLDivElement>
     componentProps?: TAnyParams;
     onClickItem?: TListItemOnClick<T>
     direction?: ListDirection;
+    gap?: number
     className?: string;
     classNameItem?: string;
 }
@@ -28,11 +31,13 @@ export interface IList<T> extends IListTopLevel<T> {
  */
 export interface IListItem<T> extends TAnyParams {
     item: T,
+    isActive?: boolean
     onClick?: TListItemOnClick<T>
+    style?: object
     className?: string,
 }
 
 /**
  * Функция нажатия на `ListItem`
  */
-export type TListItemOnClick<T> = (it: T) => void
+export type TListItemOnClick<T> = (it: T, index?: number) => void

@@ -63,7 +63,6 @@ export const AdditionalInfoProductForm:FC<AdditionalInfoProductFormProps> = ({se
         if (!formRef.current) return
         
         const formData = getFormDataFromForm(formRef.current)
-        console.log('qwe formData', formData)
         if (setData) {
             setData({
                 packageType: formData.packageType,
@@ -75,7 +74,7 @@ export const AdditionalInfoProductForm:FC<AdditionalInfoProductFormProps> = ({se
                 packagingWidth: +formData.packagingWidth,
                 packagingHeight: +formData.packagingHeight,
 
-                vat:  +formData.vat === YES_FORM__DATA.id,
+                vat: +formData.vat === YES_FORM__DATA.id,
                 isHasTestProbe: +formData.isHasTestProbe === YES_FORM__DATA.id,
                 warehouses: addedWarehousesOption.map(it => it.name),
                 brand: formData.brand,

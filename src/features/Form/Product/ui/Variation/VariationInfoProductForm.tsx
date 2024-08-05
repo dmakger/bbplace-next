@@ -56,8 +56,6 @@ export const VariationInfoProductForm:FC<VariationInfoProductFormProps> = ({setD
     const {data: metricList} = MetricsAPI.useGetMetricsQuery()             
     const {data: currencyList} = CurrencyAPI.useGetCurrenciesQuery()
 
-    console.log('qwe uploadedImageList', uploadedImageList)
-
     // EFFECT
     // metric
     useEffect(() => {

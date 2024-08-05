@@ -3,9 +3,8 @@ import { ICharacteristic } from "./characteristic.product.model"
 import { IArgsRequest } from "@/api/model/request.model.api"
 import { ICategory } from "@/entities/Metrics/model/category.metrics.model"
 
-interface IBaseProduct {
-    id: number
-    groupId: number | null
+
+export interface IBaseProduct {
     name: string | null
     ownerId: string | null
     categoryId:	number
@@ -23,18 +22,23 @@ interface IBaseProduct {
     isHasTestProbe:	boolean
     status: string | null
     warehouses:	string[] | null
+}
+
+
+export interface IBaseWIdsProduct extends IBaseProduct{
+    id: number
+    groupId: number | null
     createdAt: string
     deletedAt: string | null
 }
 
 
-
-export interface IProductAPI extends IBaseProduct {
+export interface IProductAPI extends IBaseWIdsProduct {
     media: string
     characteristics: string
 }
 
-export interface IProduct extends IBaseProduct {
+export interface IProduct extends IBaseWIdsProduct {
     media: IMediaProduct
     characteristics: ICharacteristic
     category?: ICategory

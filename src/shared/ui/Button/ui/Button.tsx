@@ -24,6 +24,7 @@ export interface IButton {
     notificationVariant?: ENotificationVariants,
 
     title?: string,
+    titleLoading?: string,
     href?: string
 
     beforeImage?: IIcon,
@@ -51,18 +52,20 @@ export interface IButton {
     classNameTextHovered?: string
     classNameTextPressed?: string
     classNameTextDisabled?: string
+    classNameTextLoading?: string
 }
 
 export const Button = ({
     variant = ButtonVariant.BORDERED_RED_WIDE, color=ButtonColor.Primary, type = ButtonType.Button, size=ButtonSize.DefaultSize,
     ref,
     notificationVariant=ENotificationVariants.NONE,
+    titleLoading,
     title, href,
     beforeImage, beforeProps, afterImage, afterText, afterProps, 
     active=false, success=false, disabled=false, hovered, loading=false, noTranslation=false,
     onClick=()=>{}, onMouseEnter=()=>{}, onMouseLeave=()=>{},
     children, className, classNameLink, 
-    classNameText, classNameAfterText, classNameTextHovered, classNameTextPressed, classNameTextDisabled,
+    classNameText, classNameAfterText, classNameTextHovered, classNameTextPressed, classNameTextDisabled, classNameTextLoading
 }: IButton) => {
 
     // STYLES
@@ -104,10 +107,16 @@ export const Button = ({
     }, [hovered])
 
     const html =  (
-        <button type={type} ref={ref} disabled={disabled || loading} 
+        <button type={type} ref={ref} disabled={disabled}
                 onClick={e => onClick(e)} onMouseEnter={handleOnMouseEnter} onMouseLeave={handleOnMouseLeave} 
                 onMouseDown={handleOnMouseDown} onMouseUp={handleOnMouseUp}
-                className={cls(cl.button, cl[classes[0]], cl[color], cl[size], active ? cl.active : '', classes.length > 0 && classes[1] === 'new' ? cl.new : cl.old, className)}>
+                className={cls(
+                    cl.button, 
+                    cl[classes[0]], cl[color], cl[size], 
+                    active ? cl.active : '', loading ? cl.loading : '', 
+                    classes.length > 0 && classes[1] === 'new' ? cl.new : cl.old, 
+                    className
+                )}>
             {beforeImage &&
                 <ImageSmart {...beforeProps} icon={beforeImage} 
                             width={beforeProps && beforeProps.width ? beforeProps.width: sizeImage} 
@@ -122,7 +131,8 @@ export const Button = ({
                     isHovered ? classNameTextHovered : '',
                     isPressed ? classNameTextPressed : '',
                     disabled ? classNameTextDisabled : '',
-                )}>{title}</span>
+                    loading ? classNameTextLoading : '',
+                )}>{loading ? titleLoading ?? title : title}</span>
             }
             {afterImage &&
                 <ImageSmart {...afterProps} icon={afterImage}

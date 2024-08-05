@@ -1,31 +1,28 @@
+export interface IPropsTenderBase {
+    name: string
+    categoryId: number
+    currency: string
+    description: string
+    shareContacts: boolean
+    attachments: string
+}
+
 /**
  * Необходим для пробрасывания данных по URL: `tender/api/Tenders/AddSaleRequest`
  */
-export interface IPropsTenderSale {
-    name: string,
-    categoryId: number,
+export interface IPropsTenderSale extends IPropsTenderBase {
     price: number,
-    currency: string,
     minOrder: number,
     minOrderUnits: string,
     bulkDiscounts: boolean | null,
-    description: string,
-    shareContacts: boolean,
-    attachments: string
 }
 
 
 /**
  * Необходим для пробрасывания данных по URL: `tender/api/Tenders/AddPurchaseRequest`
  */
-export interface IPropsTenderPurchase {
-    name: string,
-    categoryId: number,
+export interface IPropsTenderPurchase extends IPropsTenderBase {
     quantity: number,
     quantityUnits: string,
     maximumBudget: number,
-    currency: string,
-    description: string,
-    shareContacts: boolean,
-    attachments: string
 }

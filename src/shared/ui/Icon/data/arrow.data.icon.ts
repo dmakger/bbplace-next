@@ -17,6 +17,7 @@ import ArrowWLineSecondaryIcon from '@/shared/assets/img/Arrow/ArrowWLineSeconda
 import ArrowWLineSecondaryHoveredIcon from '@/shared/assets/img/Arrow/ArrowWLineSecondaryHovered.svg'
 
 import ArrowWLineTertiaryIcon from '@/shared/assets/img/Arrow/ArrowWLineTertiary.svg'
+import ArrowWLineOnTertiaryIcon from '@/shared/assets/img/Arrow/ArrowWLineOnTertiary.svg'
 import ArrowWLineTertiaryHoveredIcon from '@/shared/assets/img/Arrow/ArrowWLineTertiaryHovered.svg'
 import ArrowWLineTertiaryPressedIcon from '@/shared/assets/img/Arrow/ArrowWLineTertiaryPressed.svg'
 import ArrowWLineTertiaryActiveIcon from '@/shared/assets/img/Arrow/ArrowWLineTertiaryActive.svg'
@@ -70,10 +71,18 @@ export const ARROW_WLINE_SECONDARY_ICON: IIcon = {
 
 export const ARROW_WLINE_TERTIARY_ICON: IIcon = {
     default: ARROW_WLINE_TERTIARY_DEFAULT_ICON.default,
+    defaultHovered: ArrowWLineOnTertiaryIcon,
+    defaultPressed: ArrowWLineOnTertiaryIcon,
+
     active: ArrowWLineTertiaryActiveIcon,
-    defaultHovered: ArrowWLineTertiaryHoveredIcon,
-    defaultPressed: ArrowWLineTertiaryPressedIcon
 }
+
+export const ARROW_WLINE_TERTIARY_GRAY_ICON: IIcon = {
+    default: ArrowWLineTertiaryIcon,
+    defaultHovered: ArrowWLineTertiaryHoveredIcon,
+    defaultPressed: ArrowWLineTertiaryPressedIcon,
+}
+
 
 export const ARROW_WLINE_TERTIARY_MOBILE_ICON: IIcon = {
     default: ARROW_WLINE_TERTIARY_DEFAULT_ICON.default
