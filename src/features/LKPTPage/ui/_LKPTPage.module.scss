@@ -5,6 +5,10 @@
     border: 1px solid #E1E1E1;
     border-top: none;
     border-radius: 20px;
+
+    @media (max-width: 768px) {
+        border-radius: 0px;
+    }
 }
 
 .visible {

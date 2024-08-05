@@ -14,14 +14,15 @@ import { WrapperRectangleInput } from "@/shared/ui/Wrapper/RectangleInput"
 import { useAppSelector } from "@/storage/hooks"
 import { FormEvent, useRef, useState } from "react"
 import { IFile } from '@/entities/File/model/file.model'
-import { OptionsAttachmentItem } from '@/shared/ui/Form/OptionsAttachmentItem'
 import { isEqual } from 'lodash'
-import { EOptionsAttachmentSize, EOptionsAttachmentVariants } from '@/shared/ui/Form/OptionsAttachmentItem/model/optionsAttachment.model'
 import { getImageFile } from '@/entities/File/lib/file.lib'
 import { cls } from '@/shared/lib/classes.lib'
 import { ISupportChildrenPageFormValues, ISupportChildrenPageInitialErrors } from '../model/supportChildrenPage.model'
 import { INITIAL_ERRORS } from '../data/supportChildrenPage.data'
 import { isTelEmailValid } from '@/entities/Auth/data/telNEmail.data'
+import { OptionsAttachmentItem } from '@/shared/ui/Form/OptionsAttachment/ui/Item/OptionsAttachmentItem'
+import { EOptionsAttachmentSize, EOptionsAttachmentVariants } from '@/shared/ui/Form/OptionsAttachment/data/optionsAttachment.data'
+import { EInputTextType } from '@/shared/ui/Input/ui/Text/data/text.input.data'
 
 export const SupportChildrenPage = () => {
 
@@ -46,76 +47,73 @@ export const SupportChildrenPage = () => {
 
     //REF
     const formRef = useRef<HTMLFormElement>(null)
+    
 
     //FUNCTIONS
     const sendMessage = async (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
+        e.preventDefault();
+    
         if (!formRef.current) return;
-        const { Name, CompanyName, Contact, Theme, Message } = getFormData(formRef.current)
-       
-        const newErrors = INITIAL_ERRORS;
+    
+        // Создаем объект FormData из формы
+        const formData = new FormData(formRef.current);
+    
+        // Извлекаем данные в виде объекта
+        const { Name, CompanyName, Contact, Theme, Message } = getFormData(formData);
+    
+        const newErrors = { ...INITIAL_ERRORS };
         let hasError = false;
-
-        //FULLNAME
+    
+        // Валидация данных
         if (!Name) {
             newErrors.Name = FILL_THE_FIELD;
             hasError = true;
         }
-
-        //COMPANY
-        if(!CompanyName){
-            newErrors.CompanyName = FILL_THE_FIELD
-            hasError = true
+        if (!CompanyName) {
+            newErrors.CompanyName = FILL_THE_FIELD;
+            hasError = true;
         }
-
-        //CONTACTS
         if (!Contact) {
             newErrors.Contact = FILL_THE_FIELD;
             hasError = true;
-        } else if(!isTelEmailValid(Contact)){
+        } else if (!isTelEmailValid(Contact)) {
             hasError = true;
         }
-
-        //THEME
-        if(!Theme){
-            newErrors.Theme = FILL_THE_FIELD
+        if (!Theme) {
+            newErrors.Theme = FILL_THE_FIELD;
             hasError = true;
         }
-
-        //MESSAGE
         if (!Message) {
             newErrors.Message = FILL_THE_FIELD;
             hasError = true;
         }
-        
-        if (hasError) return;
-
-        const formData = new FormData(formRef.current)
-
-        const formValues: ISupportChildrenPageFormValues = {name, companyName, contact, theme, message}
-
-        Object.keys(formValues).forEach(key => {
+    
+        if (hasError) {
+            setErrors(newErrors);
+            return;
+        }
+    
+        const formValues: ISupportChildrenPageFormValues = { name, companyName, contact, theme, message };
+        Object.keys(formValues).forEach((key) => {
             formData.append(key, formValues[key] as string);
         });
-        
+    
         try {
-            await sendSupportMessage(formData).unwrap()    
-                    
-            setName('')
-            setCompanyName('')
-            setContact('')
-            setTheme('')
-            setMessage('')   
-
+            await sendSupportMessage(formData).unwrap();
+    
+            setName('');
+            setCompanyName('');
+            setContact('');
+            setTheme('');
+            setMessage('');
+    
             setSelectedFiles([]);
             setSelectedResponseFiles([]);
             setErrors(INITIAL_ERRORS);
-
-        }
-        catch (e: any) {
+        } catch (e: any) {
             console.log(e);
         }
-    }
+    };
 
 
     const handleDeleteItem = (file: IFile | IResponseFile) => {
@@ -143,7 +141,7 @@ export const SupportChildrenPage = () => {
         </WrapperRectangleInput>
 
         <WrapperRectangleInput labelText="Контакты" isRequired errorInputMessage={errors.Contact} isDescriptionTooltip descriptionTooltipText='Укажите ваш телефон или email для обратной связи.'>
-            <Input.Text variant={EInputVariants.RECTANGULAR} name="Contact" value={contact} setValue={setContact} type='tel email' required  placeholder="Введите email или номер телефона" warning={!!errors.Contact} error={!!errors.Contact} />
+            <Input.Text variant={EInputVariants.RECTANGULAR} name="Contact" value={contact} setValue={setContact} type={EInputTextType.Tel_Email} required  placeholder="Введите email или номер телефона" warning={!!errors.Contact} error={!!errors.Contact} />
         </WrapperRectangleInput>
 
         <WrapperRectangleInput labelText="Тема" isRequired errorInputMessage={errors.Theme}>

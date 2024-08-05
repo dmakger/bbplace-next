@@ -33,11 +33,14 @@ export const MobileNavbar = ({
 	useEffect(() => {
 		if (pathname === FAVOURITES_ITEM_MOBILE_MENU_DATA?.link && is420) {
 			setFilteredMenuData(menuData.filter(it => it.link !== FAVOURITES_ITEM_MOBILE_MENU_DATA.link))
+			console.log(pathname);
 		}
 		if(pathname.includes('support')){			
 			setFilteredMenuData(SUPPORT_PAGE_MOBILE_DATA)
 		}
 	}, [pathname, menuData, is420])
+
+	
 
 
 	//FUNCTIONS
@@ -65,7 +68,7 @@ export const MobileNavbar = ({
 			</nav>
 			<Modal view={EModalView.RIGHT} _isOpen={showSidebarMenu} buttonNode onClickOverlay={() => setShowSidebarMenu(false)}
 				classNameSidebar={cl.modalSidebar} >
-				<MobileNavbarMenu setShowSidebarMenu={setShowSidebarMenu} />
+				<MobileNavbarMenu setShowSidebarMenu={setShowSidebarMenu} is420={is420} />
 			</Modal>
 			<HandleSize width={420} set={setIs420} />
 		</>

@@ -34,7 +34,7 @@ export const REVIEWS_LK_MENU_DATA: IMenuItem = {
 }
 
 export const FAVOURITES_LK_MENU_DATA: IMenuItem = {
-    link: DASHBOARD_PAGES.FAVORITE.path,
+    link: DASHBOARD_PAGES.FAVOURITES.path,
     title: 'Избранное',
 }
 
@@ -57,7 +57,7 @@ export const PROFILE_BUTTONS_LK_ITEM_MENU_DATA: IMenuButton = {
 
 
 export const LK_MENU_DATA: IMenuItem[] | IMenuButton[] = [
-    NOTIFICATION_ITEM_LK_MENU_DATA,
+    // NOTIFICATION_ITEM_LK_MENU_DATA,
     SUPPORT_LK_ITEM_MENU_DATA,
     LANG_EN_LK_ITEM_MENU_DATA,
     PROFILE_BUTTONS_LK_ITEM_MENU_DATA

@@ -8,4 +8,5 @@ export enum EInputTextType {
     Number = 'number',
     Email = 'email',
     Password = 'password',
+    Tel_Email = 'tel email'
 }

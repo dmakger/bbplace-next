@@ -109,7 +109,9 @@
 
 //NO_TITLE
 .noTitle{
+    flex-direction: row !important;
     gap: 10px !important;
+    align-items: center !important;
 }
 
 .addButtonLink {

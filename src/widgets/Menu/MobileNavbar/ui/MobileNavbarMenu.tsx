@@ -20,11 +20,13 @@ import { FAVORITES_LK_MENU_DATA } from "@/features/User/Auth/data/userAuth.data"
 interface IMobileNavbarMenu {
     className?: string,
     setShowSidebarMenu: Function
+    is420: boolean
 }
 
 export const MobileNavbarMenu = ({
     className,
-    setShowSidebarMenu
+    setShowSidebarMenu,
+    is420
 }: IMobileNavbarMenu) => {
 
     //STATE
@@ -46,7 +48,7 @@ export const MobileNavbarMenu = ({
             LANG_EN_LK_ITEM_MENU_DATA,
             SUPPORT_LK_ITEM_MENU_DATA,
         ],
-        pathname ===  FAVORITES_LK_MENU_DATA.link ? [FAVORITES_LK_MENU_DATA] : [],
+        pathname === FAVORITES_LK_MENU_DATA.link && is420 ? [FAVORITES_LK_MENU_DATA] : [],
         role !== 'Buyer' ? PRODUCT_DROPDOWN_MENU_DATA : [],
         TENDER_DROPDOWN_MENU_DATA,
         [REVIEWS_LK_MENU_DATA]
@@ -57,7 +59,7 @@ export const MobileNavbarMenu = ({
             <WrapperColumnNoGap>
                 <Dropdown
                     classNameWrapperDropdownList={cl.dropdownProfileButtons}
-                    classNameWrapperDropdownListVisible={cl.dropdownProfileButtonsVisible} 
+                    classNameWrapperDropdownListVisible={cl.dropdownProfileButtonsVisible}
                     dropDownListData={[PROFILE_BUTTONS_LK_ITEM_MENU_DATA]}
                     showListData={showProfileButtonsDropdown}
                     buttonChildren={<UserProfileBadge variant={EUserProfileBadgeVariants.MOBILE} showProfileMenu={showProfileButtonsDropdown} setShowProfileMenu={setShowProfileButtonsDropdown} />}
@@ -70,7 +72,7 @@ export const MobileNavbarMenu = ({
                     dropDownListPosition={EWrapperDropdownListPosition.RIGHT} />
             </WrapperColumnNoGap>
 
-            <MenuItem title="Закрыть" onClick={closeSidebar} className={cl.closeButton} beforeImage={MARK_MENU_ITEM_ICON}/>
+            <MenuItem title="Закрыть" onClick={closeSidebar} className={cl.closeButton} beforeImage={MARK_MENU_ITEM_ICON} />
         </div>
     )
 }

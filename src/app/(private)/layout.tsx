@@ -8,8 +8,8 @@ import { UserAPI } from '@/entities/Auth/api/auth.api';
 import { useActionCreators } from '@/storage/hooks';
 import { getAccessToken, isAuth, removeFromStorage } from '@/entities/Auth/lib/auth-token.lib';
 import { jwtDecode } from 'jwt-decode';
-import { HeaderLK } from '@/widgets/HeaderLK';
 import { LK_MOBILE_DATA } from '@/shared/data/menu/mobile.menu.data';
+import { HeaderLK } from '@/widgets/HeaderLK';
 
 export default function PrivateLayout({ children }: PropsWithChildren<unknown>) {
     // API 
