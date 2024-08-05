@@ -27,7 +27,7 @@ export const WrapperModalBottomDropSearch:FC<WrapperModalBottomDropSearchProps> 
                                 variant={EInputVariants.RECTANGULAR}
                                 beforeImage={SEARCH__ICON} beforeProps={{width: 16, height: 16}}
                                 placeholder={title}
-                                defaultValue={searchQuery}
+                                value={searchQuery}
                                 onChangeEvent={handleInputChange}
                                 autoFocus={true} />
                 </div>

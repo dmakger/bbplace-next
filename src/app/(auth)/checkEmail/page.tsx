@@ -1,5 +1,5 @@
 import Wrapper1280 from "@/shared/ui/Wrapper/1280/Wrapper1280";
-import { CheckEmailChildrenPage } from "@/widgets/Pages/NotAuth/CheckEmailChildrenPage";
+import { CheckEmailChildrenPage } from "@/widgets/Pages/LogIn/CheckEmailChildrenPage";
 
 export default function CheckEmailPage() {
     return (

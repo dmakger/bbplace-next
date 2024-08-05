@@ -50,7 +50,7 @@ export const SearchChild = () => {
     return (
         <form className={cl.search} onSubmit={handleOnSubmit} ref={formRef}>
             <PTCSelect classNameTitle={cl.select} classNameButton={cl.buttonSelect}/>
-            <Input.Text name={'search'} placeholder="Поиск..." className={cl.text} classNameInputText={cl.textInput} />
+            <Input.Text name={'search'} placeholder="Поиск..." className={cl.text}/>
             <ButtonSearch className={cl.button} />
         </form>
     )

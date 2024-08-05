@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import cl from './_MobileNavbar.module.scss'
-import { FAVOURITES_ITEM_MOBILE_MENU_DATA, MOBILE_MENU_DATA } from '@/shared/data/menu/mobile.menu.data';
+import { FAVOURITES_ITEM_MOBILE_MENU_DATA, MOBILE_MENU_DATA, SUPPORT_PAGE_MOBILE_DATA } from '@/shared/data/menu/mobile.menu.data';
 import { usePathname, useRouter } from 'next/navigation';
 import { IIconVariants } from '@/shared/model/icon.model';
 import { IIcon } from '@/shared/ui/Icon/model/icon.model';
@@ -20,7 +20,6 @@ interface IMobileNavbar {
 export const MobileNavbar = ({
 	menuData = MOBILE_MENU_DATA
 }: IMobileNavbar) => {
-
 	//STATE
 	const [showSidebarMenu, setShowSidebarMenu] = useState<boolean>(false)
 	const [is420, setIs420] = useState<boolean>(false)
@@ -34,6 +33,9 @@ export const MobileNavbar = ({
 	useEffect(() => {
 		if (pathname === FAVOURITES_ITEM_MOBILE_MENU_DATA?.link && is420) {
 			setFilteredMenuData(menuData.filter(it => it.link !== FAVOURITES_ITEM_MOBILE_MENU_DATA.link))
+		}
+		if(pathname.includes('support')){			
+			setFilteredMenuData(SUPPORT_PAGE_MOBILE_DATA)
 		}
 	}, [pathname, menuData, is420])
 
