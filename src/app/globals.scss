@@ -35,6 +35,9 @@
   --red-3: #A45055;
 
   --blue-1: #43B0FF;
+  --blue-2: #26A5E4;
+  --blue-3: #0077FF;
+  --blue-4: #2867B2;
 
 
   // new
@@ -46,6 +49,7 @@
   --n-red-4: #CA2B3E;
   --n-red-5: #A12232;
   --n-red-6: #761925;
+  --n-red-7: #E4405F;
   --n-red-light-1: #F19C9F;
   --n-red-light-2: #FCE9E9;
   --n-red-light-3: #FBEAEC;
@@ -81,7 +85,7 @@
   --n-green-3: #E5F7E4;
   --n-green-4: #96C791;
   --n-green-5: #51C846;
-
+  --n-green-6: #25D366;
 
   // specify
   --foreground-1: var(--n-black-1);
@@ -155,6 +159,11 @@
   --input-surface: var(--white);
 
   --online: var(--n-green-5);
+  --instagram: var(--n-red-7);
+  --telegram: var(--blue-2);
+  --vk: var(--blue-3);
+  --linkedin: var(--blue-4);
+  --whatsapp: var(--n-green-5);
 
   // ===={ FONT }====
 
@@ -250,7 +259,7 @@ body {
   
   input, textarea {
     color: var(--foreground-1);
-    font-family: var(--inter-font);
+    font-family: var(--font-family);
 
     &::placeholder {
       color: var(--gray-5);
@@ -261,6 +270,7 @@ body {
 body {
   background-color: var(--background-1);
   color: var(--foreground-1);
+  font-family: var(--font-family);
   font-weight: var(--font-weight-reg);
 }
 

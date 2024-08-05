@@ -25,7 +25,8 @@ export interface IButton {
 
     title?: string,
     titleLoading?: string,
-    href?: string
+    href?: string,
+    linkTarget?: string,
 
     beforeImage?: IIcon,
     beforeProps?: IIconProps
@@ -37,6 +38,7 @@ export interface IButton {
     success?: boolean,
     disabled?: boolean
     hovered?: boolean
+    pressed?: boolean,
     loading?: boolean
     noTranslation?: boolean
 
@@ -60,9 +62,10 @@ export const Button = ({
     ref,
     notificationVariant=ENotificationVariants.NONE,
     titleLoading,
-    title, href,
+    title, href, linkTarget,
     beforeImage, beforeProps, afterImage, afterText, afterProps, 
-    active=false, success=false, disabled=false, hovered, loading=false, noTranslation=false,
+    active=false, success=false, disabled=false, hovered, pressed, loading=false, noTranslation=false, 
+
     onClick=()=>{}, onMouseEnter=()=>{}, onMouseLeave=()=>{},
     children, className, classNameLink, 
     classNameText, classNameAfterText, classNameTextHovered, classNameTextPressed, classNameTextDisabled, classNameTextLoading
@@ -105,6 +108,11 @@ export const Button = ({
         if (hovered !== undefined)
             setIsHovered(hovered)
     }, [hovered])
+
+    useEffect(() => {
+        if (pressed !== undefined)
+            setIsPressed(pressed)
+    }, [pressed])
 
     const html =  (
         <button type={type} ref={ref} disabled={disabled}
@@ -152,7 +160,7 @@ export const Button = ({
     if (!href)
         return html
     return (
-        <Link href={disabled ? '' : href} className={classNameLink}>{html}</Link>
+        <Link href={disabled ? '' : href} className={classNameLink} target={linkTarget}>{html}</Link>
     )
 }
 

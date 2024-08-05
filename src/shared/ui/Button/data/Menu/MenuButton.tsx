@@ -7,7 +7,7 @@ import { ButtonColor, ButtonSize, ButtonVariant, EMenuButtonVariant, IMenuButton
 import { usePathname, useRouter } from 'next/navigation'
 import { useActionCreators, useAppSelector } from '@/storage/hooks'
 import { DASHBOARD_PAGES, MAIN_PAGES } from '@/config/pages-url.config'
-import { GLOBE_ICON } from '@/shared/ui/Icon/data/globe.data.icon'
+import { GLOBE_ICON } from '@/shared/ui/Icon/data/globe.data.icon';
 
 export const MenuButton = ({
     className,
@@ -33,6 +33,8 @@ export const MenuButton = ({
 
     const editProfile = () => router.push(DASHBOARD_PAGES.PROFILE_EDIT.path);
 
+    const isActive = pathname === link;
+        
     const renderButton = () => (
         <Button
             title={title}
@@ -45,10 +47,12 @@ export const MenuButton = ({
                     // : (variant === EMenuButtonVariant.LOCALIZATION && true) ? cl.activeLang 
                     : ''
             )}
+            linkTarget={link?.includes('html') ? 'target' : ''}
             variant={ButtonVariant.CLEAR}
             afterImage={variant === EMenuButtonVariant.LOCALIZATION ? GLOBE_ICON : undefined}
             afterProps={{ width: 20, height: 20 }}
             afterText={notificationCounter ?? ''}
+            disabled={isActive}
             classNameAfterText={cl.notificationCounter}
             color={variant === EMenuButtonVariant.LINK ? ButtonColor.Secondary : ButtonColor.Tertiary}
         />
