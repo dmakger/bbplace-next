@@ -1,6 +1,32 @@
 .block {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 20px;
     width: 100%;
+
+
+    // .content {
+    //     position: absolute;
+    //     z-index: -1;
+    //     opacity: 0;
+    //     transition: .2s;
+    // }
+    // .visible {
+    //     position: relative;
+    //     z-index: 1;
+    //     opacity: 1;
+    // }
+
+    .content {
+        overflow: hidden;
+        transition: height 0.3s ease, opacity 0.3s ease;
+        opacity: 0;
+        height: 0;
+      
+        &.visible {
+          opacity: 1;
+          height: auto;
+        }
+    }
 }

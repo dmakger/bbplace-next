@@ -11,9 +11,9 @@ import { VariationInfoProductForm } from "@/features/Form/Product/ui/Variation/V
 import { IPropsVariationInfoProductForm } from "@/features/Form/Product/model/variationInfo.product.form.model"
 
 interface CreationProductFormProps{
-    mainInfoData?: IPropsMainInfoProductForm,
-    additionalInfoData?: IPropsAdditionalInfoProductForm,
-    variationInfoData?: IPropsVariationInfoProductForm,
+    // mainInfoData?: IPropsMainInfoProductForm,
+    // additionalInfoData?: IPropsAdditionalInfoProductForm,
+    // variationInfoData?: IPropsVariationInfoProductForm,
     className?: string,
 }
 

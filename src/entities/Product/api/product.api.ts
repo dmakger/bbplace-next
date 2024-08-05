@@ -67,7 +67,16 @@ export const ProductAPI = createApi({
                 method: 'GET',
             })
         }),
+
         //DRAFT
+        getDraft: build.query<IProductAPI, number | string>({
+            query: (draftId) => ({
+                url: `/GetItemDraft/${draftId}`,
+                method: 'GET',
+                headers: getHeaderAuthorization(),
+            })
+        }),
+
         deleteDraft: build.mutation<void, number | string>({
             query: (draftId) => ({
                 url: `/DeleteItemDraft/${draftId}`,

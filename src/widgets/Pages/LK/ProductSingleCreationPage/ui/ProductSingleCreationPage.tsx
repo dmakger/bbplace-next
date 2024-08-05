@@ -2,16 +2,16 @@
 
 import { cls } from "@/shared/lib/classes.lib"
 import cl from './_ProductSingleCreationPage.module.scss'
-import { useRef, useState } from "react"
-import { Button } from "@/shared/ui/Button"
-import { ButtonSize, ButtonVariant } from "@/shared/ui/Button/model/button.model"
-import { MainInfoProductForm } from "../../../../../features/Form/Product/ui/Main/MainInfoProductForm"
-import { IPropsMainInfoProductForm } from "@/features/Form/Product/model/mainInfo.product.form.model"
-import { AdditionalInfoProductForm } from "@/features/Form/Product/ui/Additional/AdditionalInfoProductForm"
-import { IPropsAdditionalInfoProductForm } from "@/features/Form/Product/model/additionalInfo.product.form.model"
-import { VariationInfoProductForm } from "@/features/Form/Product/ui/Variation/VariationInfoProductForm"
-import { IPropsVariationInfoProductForm } from "@/features/Form/Product/model/variationInfo.product.form.model"
+import { useEffect, useState } from "react"
 import { useAppSelector } from "@/storage/hooks"
+import { CreationProductForm } from "@/features/Form/Product/ui/Creation/CreationProductForm"
+import SuspenseL from "@/shared/ui/Wrapper/SuspenseL/SuspenseL"
+import { ProductAPI } from "@/entities/Product/api/product.api"
+import { skipToken } from "@reduxjs/toolkit/query"
+import { IProduct, IProductAPI } from "@/entities/Product/model/product.model"
+import { CurrencyAPI } from "@/entities/Metrics/api/currency.metrics.api"
+import { MetricsAPI } from "@/entities/Metrics/api/metrics.metrics.api"
+import { productApiListToProductList } from "@/entities/Product/lib/product.lib"
 
 interface IProductSingleCreationPage {
     className?: string,
@@ -19,47 +19,37 @@ interface IProductSingleCreationPage {
 
 export const ProductSingleCreationPage = ({ className }: IProductSingleCreationPage) => {
     // RTK
-    const { id: userId } = useAppSelector(state => state.user)    
-
-    // REF
-    const mainFormSubmitRef = useRef<() => void>();
-    const additionalFormSubmitRef = useRef<() => void>();
-    const variationFormSubmitRef = useRef<() => void>();
+    const { id: userId } = useAppSelector(state => state.user)
 
     // STATE
-    const [mainInfoData, setMainInfoData] = useState<IPropsMainInfoProductForm | undefined>()
-    const [additionalInfoData, setAdditionalInfoData] = useState<IPropsAdditionalInfoProductForm | undefined>()
-    const [variationInfoData, setVariationInfoData] = useState<IPropsVariationInfoProductForm | undefined>()
+    const [groupId, setGroupId] = useState<string | null>(null)
+    const [draftId, setDraftId] = useState<string | null>(null)
+    const [products, setProducts] = useState<IProduct[]>([])
 
-    // HANDLE
-    const handleOnClick = () => {
-        if (mainFormSubmitRef.current) {
-            mainFormSubmitRef.current();
-        }
-        if (additionalFormSubmitRef.current) {
-            additionalFormSubmitRef.current();
-        }
-        if (variationFormSubmitRef.current) {
-            variationFormSubmitRef.current();
-        }
-    }
+    // API
+    const { data: productsAPI } = ProductAPI.useGetProductsByGroupQuery(groupId ?? skipToken, {refetchOnMountOrArgChange: true})
+    const { data: draftAPI } = ProductAPI.useGetDraftQuery(draftId ?? skipToken, {refetchOnMountOrArgChange: true})
+    const { data: currencies } = CurrencyAPI.useGetCurrenciesQuery();
+    const { data: metrics } = MetricsAPI.useGetMetricsQuery();
 
-    console.log('qwe userId', userId)
-    console.log('qwe mainInfoData', mainInfoData)
-    console.log('qwe additionalInfoData', additionalInfoData)
-    console.log('qwe variationInfoData', variationInfoData)
+    // EFFECT
+    useEffect(() => {
+        if ((!currencies || !metrics) || !(productsAPI || draftAPI)) return
+        const productsAPILoaded = (productsAPI ?? [draftAPI]) as IProductAPI[]
+
+        setProducts(productApiListToProductList(productsAPILoaded, metrics, currencies))
+    }, [productsAPI, draftAPI, currencies, metrics])
+
+    console.log('qwe groupId', groupId)
 
     return (
-        <div className={cls(cl.ProductSingleCreationPage, className)}>
-            <div className={cl.mid}>
-                <MainInfoProductForm setData={setMainInfoData} triggerSubmit={(submitFn) => { mainFormSubmitRef.current = submitFn }} />
-                <AdditionalInfoProductForm setData={setAdditionalInfoData} triggerSubmit={(submitFn) => { additionalFormSubmitRef.current = submitFn }} />
-                <VariationInfoProductForm setData={setVariationInfoData} triggerSubmit={(submitFn) => { variationFormSubmitRef.current = submitFn }} />
-
-                <Button variant={ButtonVariant.FILL} size={ButtonSize.Big} 
-                        title="Добавить товар"
-                        onClick={handleOnClick} />
-            </div>
+        <div className={cls(cl.page, className)}>
+            <SuspenseL.Any data={[
+                { searchKey: "groupId", set: setGroupId },
+                { searchKey: "draftId", set: setDraftId },
+            ]}>
+                <CreationProductForm />
+            </SuspenseL.Any>
         </div>
     )
 }
