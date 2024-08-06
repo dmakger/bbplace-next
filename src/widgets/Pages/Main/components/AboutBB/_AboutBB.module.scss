@@ -1,12 +1,23 @@
 .AboutBB {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    position: relative;
     width: 100%;
     background-color: var(--background-brown);
     border-radius: 20px;
 
     @media (max-width: 768px) {
         border-radius: 0px;
+    }
+    
+    .rightBackgroundIcon{
+        width: 167px;
+        background: no-repeat center/100% url('../../../../../shared/assets/img/BBPRightPart/BBPRightPart.svg');
+    }
+
+    .leftBackgroundIcon{
+        width: 167px;
+        background: no-repeat center/100% url('../../../../../shared/assets/img/BBPLeftPart/BBPLeftPart.svg');
     }
 
     .mainContainer {
@@ -47,7 +58,7 @@
                     flex-direction: column;
                 }
 
-                .redButton{
+                .fill{
                     width: 100%;
                 }
             }
