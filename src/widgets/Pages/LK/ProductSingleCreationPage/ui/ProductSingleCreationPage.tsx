@@ -14,6 +14,9 @@ import { MetricsAPI } from "@/entities/Metrics/api/metrics.metrics.api"
 import { productApiListToProductList } from "@/entities/Product/lib/product.lib"
 import { ProductTypeArticleBlock } from "@/entities/Product/ui/TypeArticle/Block/ProductTypeArticleBlock"
 import { TListItemOnClick } from "@/shared/model/list.model"
+import { CountryAPI } from "@/entities/Metrics/api/country.metrics.api"
+import { productToPropsProductForm } from "@/features/Form/Product/lib/product.form.lib"
+import { IPropsProductForm } from "@/features/Form/Product/model/product.form.model"
 
 interface IProductSingleCreationPage {
     className?: string,
@@ -27,7 +30,8 @@ export const ProductSingleCreationPage = ({ className }: IProductSingleCreationP
     const [groupId, setGroupId] = useState<string | null>(null)
     const [draftId, setDraftId] = useState<string | null>(null)
     const [products, setProducts] = useState<IProduct[]>([])
-    const [currentProduct, setCurrentProduct] = useState<IProduct | null>(null)
+    const [currentProduct, setCurrentProduct] = useState<IProduct | undefined>(undefined)
+    const [currentPropsProduct, setCurrentPropsProduct] = useState<IPropsProductForm | undefined>(undefined)
 
     // API
     // const { data: productsAPI } = ProductAPI.useGetProductsByGroupQuery(groupId ?? skipToken, {refetchOnMountOrArgChange: true})
@@ -38,25 +42,30 @@ export const ProductSingleCreationPage = ({ className }: IProductSingleCreationP
     const { data: draftAPI } = ProductAPI.useGetDraftQuery(draftId ?? skipToken, {refetchOnMountOrArgChange: true})
     const { data: currencies } = CurrencyAPI.useGetCurrenciesQuery();
     const { data: metrics } = MetricsAPI.useGetMetricsQuery();
+    const { data: countries } = CountryAPI.useGetCountriesQuery();
 
     // EFFECT
     useEffect(() => {
         if ((!currencies || !metrics) || !(productsAPI || draftAPI)) return
         const productsAPILoaded = (productsAPI ?? [draftAPI]) as IProductAPI[]
 
-        setProducts(productApiListToProductList(productsAPILoaded, metrics, currencies))
+        setProducts(productApiListToProductList(productsAPILoaded, metrics, currencies, countries))
     }, [productsAPI, draftAPI, currencies, metrics])
-
-    console.log('qwe groupId', groupId)
 
     // HANDLE
     // create product
     const handleOnCreateProduct = () => {
-        setCurrentProduct(null)
+        setCurrentProduct(undefined)
     }
     // on product
     const handleOnProduct: TListItemOnClick<IProduct> = (it, _) => {
+        if (metrics === undefined) return
         setCurrentProduct(it)
+        setCurrentPropsProduct(productToPropsProductForm(it, metrics))
+    }
+    // on delete
+    const handleOnDelete: TListItemOnClick<IProduct> = (it, _) => {
+
     }
 
     return (
@@ -68,8 +77,12 @@ export const ProductSingleCreationPage = ({ className }: IProductSingleCreationP
                 <ProductTypeArticleBlock items={products} 
                                          onCreateProduct={handleOnCreateProduct}
                                          onClickItem={handleOnProduct}
+                                         onDeleteItem={handleOnDelete}
+                                         componentProps={{
+                                            onClickDelete: handleOnDelete,
+                                         }}
                                          activeId={currentProduct ? currentProduct.id : undefined} />
-                <CreationProductForm isDraft={draftId !== null} />
+                <CreationProductForm data={currentPropsProduct} isDraft={draftId !== null} />
             </SuspenseL.Any>
         </div>
     )

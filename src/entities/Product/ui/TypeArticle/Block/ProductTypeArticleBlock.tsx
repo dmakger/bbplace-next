@@ -2,7 +2,7 @@ import { FC } from "react"
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_ProductTypeArticleBlock.module.scss'
-import { IListTopLevel } from "@/shared/model/list.model";
+import { IListTopLevel, TListItemOnClick } from "@/shared/model/list.model";
 import { IProduct } from "@/entities/Product/model/product.model";
 import { List } from "@/shared/ui/List/Default/List";
 import { ProductTypeArticleItem } from "../Item/ProductTypeArticleItem";

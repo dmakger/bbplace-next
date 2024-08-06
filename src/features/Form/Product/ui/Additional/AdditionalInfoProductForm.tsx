@@ -24,15 +24,17 @@ import { Direction } from "@/shared/ui/Direction/Direction";
 import { ListDirection } from "@/shared/data/list.data";
 import { NO_FORM__DATA, YES_FORM__DATA } from "@/shared/data/option/base.option.data";
 import { TIME_UNIT__OPTION__DATA } from "@/shared/data/option/timeUnit.option.data";
+import { processDeliveryOption, processWarehousesOption, processFeaturesOption, processEquipmentOption } from "../../lib/process.additionalInfo.product.form.lib";
 
 interface AdditionalInfoProductFormProps{
+    data?: IPropsAdditionalInfoProductForm
     setData?: Dispatch<SetStateAction<IPropsAdditionalInfoProductForm | undefined>>
     triggerSubmit?: (submitFn: () => void) => void,
     isOpenForm?: boolean
     className?: string,
 }
 
-export const AdditionalInfoProductForm:FC<AdditionalInfoProductFormProps> = ({setData, triggerSubmit, isOpenForm, className}) => {
+export const AdditionalInfoProductForm:FC<AdditionalInfoProductFormProps> = ({data, setData, triggerSubmit, isOpenForm, className}) => {
     // REF
     const formRef = useRef<HTMLFormElement>(null)
 
@@ -40,8 +42,8 @@ export const AdditionalInfoProductForm:FC<AdditionalInfoProductFormProps> = ({se
     const [metricOptions, setMetricOptions] = useState<IOption[]>([])
 
     const [selectedGenderOption, setSelectedGenderOption] = useState<IOption>(UNISEX_GENDER__PRODUCT_FORM__DATA)
-    const [selectedExpirationDateMetricOption, setSelectedExpirationDateMetricOption] = useState<IOption | null>(null)
-    const [selectedWeightMetricOption, setSelectedWeightMetricOption] = useState<IOption | null>(null)
+    const [selectedExpirationDateMetricOption, setSelectedExpirationDateMetricOption] = useState<IOption | undefined>()
+    const [selectedWeightMetricOption, setSelectedWeightMetricOption] = useState<IOption | undefined>()
 
     const [addedDeliveryOption, setAddedDeliveryOption] = useState<IOption[]>([])
     const [addedWarehousesOption, setAddedWarehousesOption] = useState<IOption[]>([])
@@ -50,9 +52,22 @@ export const AdditionalInfoProductForm:FC<AdditionalInfoProductFormProps> = ({se
 
 
     // API
-    const {data: metricList} = MetricsAPI.useGetMetricsQuery()             
+    const {data: metricList} = MetricsAPI.useGetMetricsQuery()
 
     // EFFECT
+    // data
+    useEffect(() => {
+        setSelectedGenderOption(prev => data?.gender ?? prev)
+        setSelectedExpirationDateMetricOption(prev => data?.expirationDateMetric ?? prev)
+        setSelectedWeightMetricOption(prev => data?.weightMetric ?? prev)
+
+        setAddedDeliveryOption(prev => data?.delivery ?? prev)
+        setAddedWarehousesOption(prev => data?.warehouses ?? prev)
+        setAddedFeaturesOption(prev => data?.features ?? prev)
+        setAddedEquipmentOption(prev => data?.equipment ?? prev)
+
+    }, [data])
+
     useEffect(() => {
         if (!metricList) return
         setMetricOptions(metricListToOptionList(metricList))
@@ -67,7 +82,7 @@ export const AdditionalInfoProductForm:FC<AdditionalInfoProductFormProps> = ({se
         if (setData) {
             setData({
                 packageType: formData.packageType,
-                delivery: addedDeliveryOption.map(it => it.name),
+                delivery: addedDeliveryOption,
                 paymentConditions: formData.paymentConditions,
                 deliveryTime: formData.deliveryTime,
 
@@ -77,7 +92,7 @@ export const AdditionalInfoProductForm:FC<AdditionalInfoProductFormProps> = ({se
 
                 vat: +formData.vat === YES_FORM__DATA.id,
                 isHasTestProbe: +formData.isHasTestProbe === YES_FORM__DATA.id,
-                warehouses: addedWarehousesOption.map(it => it.name),
+                warehouses: addedWarehousesOption,
                 brand: formData.brand,
                 gender: selectedGenderOption,
 
@@ -85,51 +100,19 @@ export const AdditionalInfoProductForm:FC<AdditionalInfoProductFormProps> = ({se
                 expirationDateMetric: selectedExpirationDateMetricOption,
                 weight: formData.weight,
                 weightMetric: selectedWeightMetricOption,
-                features: addedFeaturesOption.map(it => it.name),
+                features: addedFeaturesOption,
                 composition: formData.composition,
-                equipment: addedEquipmentOption.map(it => it.name),
+                equipment: addedEquipmentOption,
             } as IPropsAdditionalInfoProductForm)
         }
     }
-
-    // PROCESS
-    const processDeliveryOption = (tempDataStorage: Record<string, any>) => {
-        const value = tempDataStorage.delivery
-        return !value 
-            ? undefined 
-            : { id: generateId(), name: value} as IOption
-
-    }
-
-    const processWarehousesOption = (tempDataStorage: Record<string, any>) => {
-        const value = tempDataStorage.warehouses
-        return !value 
-            ? undefined 
-            : { id: generateId(), name: value} as IOption
-    }
-
-    const processFeaturesOption = (tempDataStorage: Record<string, any>) => {
-        const value = tempDataStorage.features
-        return !value 
-            ? undefined 
-            : { id: generateId(), name: value} as IOption
-    }
-
-    const processEquipmentOption = (tempDataStorage: Record<string, any>) => {
-        const equipmentText = tempDataStorage.equipmentText
-        const equipmentAmount = tempDataStorage.equipmentAmount
-        return !equipmentText || !equipmentAmount 
-            ? undefined 
-            : { id: generateId(), name: `${equipmentText} ${equipmentAmount}`} as IOption
-    }
-
 
     return (
         <WrapperWOSubmit triggerSubmit={triggerSubmit} formRef={formRef}>
             <WrapperSubblockForm title="Дополнительная информация" variant={SubblockFormVariant.Toggle} isOpen={isOpenForm} className={className}>
                 <form ref={formRef} onSubmit={handleOnSubmit} className={cl.form}>
                     <WrapperRectangleInput labelText={"Тип упаковки"}>
-                        <Input.Text name={'packageType'} placeholder="Все возможные виды упаковки" variant={EInputVariants.RECTANGULAR} />
+                        <Input.Text name={'packageType'} placeholder="Все возможные виды упаковки" variant={EInputVariants.RECTANGULAR} defaultValue={data?.packageType} />
                     </WrapperRectangleInput>
                     
                     <WrapperRectangleInput labelText={"Службы доставки"}>
@@ -139,15 +122,15 @@ export const AdditionalInfoProductForm:FC<AdditionalInfoProductFormProps> = ({se
                     </WrapperRectangleInput>
                     
                     <WrapperRectangleInput labelText={"Условия оплаты"}>
-                        <Input.Text name={'paymentConditions'} placeholder="Частичная или полная, при каких условиях" variant={EInputVariants.RECTANGULAR} />
+                        <Input.Text name={'paymentConditions'} placeholder="Частичная или полная, при каких условиях" variant={EInputVariants.RECTANGULAR} defaultValue={data?.paymentConditions} />
                     </WrapperRectangleInput>
                     <WrapperRectangleInput labelText={"Срок изготовления"}>
-                        <Input.Text name={'deliveryTime'} placeholder="Когда товар будет готов к отправке" variant={EInputVariants.RECTANGULAR} />
+                        <Input.Text name={'deliveryTime'} placeholder="Когда товар будет готов к отправке" variant={EInputVariants.RECTANGULAR} defaultValue={data?.deliveryTime} />
                     </WrapperRectangleInput>
                     <WrapperRectangleInput labelText={"Размер упаковки в миллиметрах"}>
-                        <Input.Text name={'packagingLength'} placeholder="Длина" type={EInputTextType.Number} variant={EInputVariants.RECTANGULAR} />
-                        <Input.Text name={'packagingWidth'} placeholder="Ширина" type={EInputTextType.Number} variant={EInputVariants.RECTANGULAR} />
-                        <Input.Text name={'packagingHeight'} placeholder="Высота" type={EInputTextType.Number} variant={EInputVariants.RECTANGULAR} />
+                        <Input.Text name={'packagingLength'} placeholder="Длина" type={EInputTextType.Number} variant={EInputVariants.RECTANGULAR} defaultValue={`${data?.packagingLength}`} />
+                        <Input.Text name={'packagingWidth'} placeholder="Ширина" type={EInputTextType.Number} variant={EInputVariants.RECTANGULAR} defaultValue={`${data?.packagingWidth}`} />
+                        <Input.Text name={'packagingHeight'} placeholder="Высота" type={EInputTextType.Number} variant={EInputVariants.RECTANGULAR} defaultValue={`${data?.packagingHeight}`} />
                     </WrapperRectangleInput>
                     <WrapperRectangleInput labelText={"Облагается НДС"}>
                         <Input.Radio name='vat' variant={EInputVariants.RECTANGULAR} variantRadio={ERadioVariant.SINGLE}
@@ -169,25 +152,25 @@ export const AdditionalInfoProductForm:FC<AdditionalInfoProductFormProps> = ({se
                     </WrapperRectangleInput>
 
                     <WrapperRectangleInput labelText={"Бренд"}>
-                        <Input.Text name={'brand'} placeholder="Название компании изготовителя" variant={EInputVariants.RECTANGULAR} />
+                        <Input.Text name={'brand'} placeholder="Название компании изготовителя" variant={EInputVariants.RECTANGULAR} defaultValue={data?.brand} />
                     </WrapperRectangleInput>
 
                     <WrapperRectangleInput labelText={"Пол"}>
-                        <Input.TextAndSelect name={'gender'} placeholder="Выберите из списка" 
+                        <Input.TextAndSelect name={'gender'} placeholder="Выберите из списка" defaultOption={selectedGenderOption}
                                 options={GENDER__PRODUCT_FORM__DATA} onClickOption={setSelectedGenderOption}
                                 titleModal="Пол" variant={EInputVariants.RECTANGULAR} /> 
                     </WrapperRectangleInput>
                     <WrapperRectangleInput labelText={"Срок годности"}>
-                        <Input.Text name={'expirationDate'} placeholder="Введите число" type={EInputTextType.Number} variant={EInputVariants.RECTANGULAR} />
-                        <Input.TextAndSelect name={'expirationDateMetric'} placeholder="Измерение" 
+                        <Input.Text name={'expirationDate'} placeholder="Введите число" type={EInputTextType.Number} variant={EInputVariants.RECTANGULAR} defaultValue={data?.expirationDate} />
+                        <Input.TextAndSelect name={'expirationDateMetric'} placeholder="Измерение" defaultOption={selectedExpirationDateMetricOption}
                                 options={TIME_UNIT__OPTION__DATA} onClickOption={setSelectedExpirationDateMetricOption}
-                                titleModal="Пол" variant={EInputVariants.RECTANGULAR} /> 
+                                titleModal="Срок годности" variant={EInputVariants.RECTANGULAR} /> 
                     </WrapperRectangleInput>
                     <WrapperRectangleInput labelText={"Вес"}>
-                        <Input.Text name={'weight'} placeholder="Введите число" variant={EInputVariants.RECTANGULAR} />
-                        <Input.TextAndSelect name={'weightMetric'} placeholder="Измерение" 
+                        <Input.Text name={'weight'} placeholder="Введите число" variant={EInputVariants.RECTANGULAR} defaultValue={`${data?.weight}`} />
+                        <Input.TextAndSelect name={'weightMetric'} placeholder="Измерение" defaultOption={selectedWeightMetricOption}
                                 options={metricOptions} onClickOption={setSelectedWeightMetricOption}
-                                titleModal="Пол" variant={EInputVariants.RECTANGULAR} /> 
+                                titleModal="Вес" variant={EInputVariants.RECTANGULAR} /> 
                     </WrapperRectangleInput>
 
                     <WrapperRectangleInput labelText={"Особенности"}>
@@ -197,7 +180,7 @@ export const AdditionalInfoProductForm:FC<AdditionalInfoProductFormProps> = ({se
                     </WrapperRectangleInput>
 
                     <WrapperRectangleInput labelText={"Состав"}>
-                        <Input.Text name={'composition'} placeholder="Начните вводить" inputTypeVariant={EInputTextTypeVariants.TEXTAREA}
+                        <Input.Text name={'composition'} placeholder="Начните вводить" inputTypeVariant={EInputTextTypeVariants.TEXTAREA} defaultValue={data?.composition}
                                     variant={EInputVariants.RECTANGULAR}  />
                     </WrapperRectangleInput>
 

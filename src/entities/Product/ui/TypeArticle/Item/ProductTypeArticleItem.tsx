@@ -31,6 +31,9 @@ export const ProductTypeArticleItem:FC<ProductTypeArticleItemProps> = ({
     const handleOnClick = () => {
         if (onClick) onClick()
     }
+    const handleOnDelete = () => {
+        if (onClickDelete) onClickDelete(product)
+    }
 
     // HTML
     return (
@@ -38,7 +41,7 @@ export const ProductTypeArticleItem:FC<ProductTypeArticleItemProps> = ({
             {onClickDelete && (
                 <Button variant={ButtonVariant.CONTENT} color={ButtonColor.Negative} 
                         beforeImage={TRASH_NEGATIVE_TO_WHITE_ICON} 
-                        onClick={onClickDelete} className={cl.buttonDelete} />
+                        onClick={handleOnDelete} className={cl.buttonDelete} />
             )}
             {media.attachments.length > 0 && (
                 <div className={cl.wrapperImage}>

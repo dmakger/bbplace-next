@@ -50,15 +50,11 @@ export const CreationProductForm:FC<CreationProductFormProps> = ({data, isDraft=
         }
     }
 
-    console.log('qwe mainInfoData', mainInfoData)
-    console.log('qwe additionalInfoData', additionalInfoData)
-    console.log('qwe variationInfoData', variationInfoData)
-
     return (
         <div className={cls(cl.block, className)}>
-            <MainInfoProductForm setData={setMainInfoData} triggerSubmit={(submitFn) => { mainFormSubmitRef.current = submitFn }} isOpenForm={!isDraft} />
-            <AdditionalInfoProductForm setData={setAdditionalInfoData} triggerSubmit={(submitFn) => { additionalFormSubmitRef.current = submitFn }} isOpenForm={!isDraft} />
-            <VariationInfoProductForm setData={setVariationInfoData} triggerSubmit={(submitFn) => { variationFormSubmitRef.current = submitFn }} />
+            <MainInfoProductForm data={mainInfoData} setData={setMainInfoData} triggerSubmit={(submitFn) => { mainFormSubmitRef.current = submitFn }} isOpenForm={!isDraft} />
+            <AdditionalInfoProductForm data={additionalInfoData} setData={setAdditionalInfoData} triggerSubmit={(submitFn) => { additionalFormSubmitRef.current = submitFn }} isOpenForm={!isDraft} />
+            <VariationInfoProductForm data={variationInfoData} setData={setVariationInfoData} triggerSubmit={(submitFn) => { variationFormSubmitRef.current = submitFn }} />
 
             <Button variant={ButtonVariant.FILL} size={ButtonSize.Big} 
                     title="Добавить товар"

@@ -30,13 +30,14 @@ import { IWholesale } from "@/entities/Metrics/model/wholesale.metrics.model";
 import { ISize } from "@/entities/Metrics/model/size.metrics.model";
 
 interface VariationInfoProductFormProps{
+    data?: IPropsVariationInfoProductForm
     setData?: Dispatch<SetStateAction<IPropsVariationInfoProductForm | undefined>>
     triggerSubmit?: (submitFn: () => void) => void,
     isOpenForm?: boolean
     className?: string,
 }
 
-export const VariationInfoProductForm:FC<VariationInfoProductFormProps> = ({setData, triggerSubmit, isOpenForm, className}) => {
+export const VariationInfoProductForm:FC<VariationInfoProductFormProps> = ({data, setData, triggerSubmit, isOpenForm, className}) => {
     // REF
     const formRef = useRef<HTMLFormElement>(null)
 
@@ -58,6 +59,13 @@ export const VariationInfoProductForm:FC<VariationInfoProductFormProps> = ({setD
     const {data: currencyList} = CurrencyAPI.useGetCurrenciesQuery()
 
     // EFFECT
+    // data
+    useEffect(() => {
+        // setAddedWholesaleOption(prev => data?.media.wholesalePrices ?? prev)
+        // setAddedSizesOption(prev => data?.warehouses ?? prev)
+        setUploadedImageList(prev => data?.media.attachments ?? prev)
+    }, [data])
+
     // metric
     useEffect(() => {
         if (!metricList) return

@@ -35,6 +35,14 @@
         }
     }
 
+    .buttonDelete + .wrapperImage + .text {
+        width: calc(100% - 110px);
+    }
+
+    .buttonDelete + .text {
+        width: calc(100% - 55px);
+    }
+
     .wrapperImage + .text {
         width: calc(100% - 55px);
     }

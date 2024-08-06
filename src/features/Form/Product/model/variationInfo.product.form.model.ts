@@ -7,5 +7,5 @@ import { IOption } from "@/shared/model/option.model";
  */
 export interface IPropsVariationInfoProductForm {
     media: IMediaProduct
-    customs: IOption[]
+    customs?: IOption[]
 }

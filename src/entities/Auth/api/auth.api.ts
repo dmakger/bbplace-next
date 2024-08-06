@@ -5,6 +5,7 @@ import { ISupplierAPI } from '@/entities/Supplier/model/supplier.model';
 import { IAuthForm, ILoginResponseDecoded, ICheckEmailExists, IRegistrationRequest, IResetPassword, ISendResetPassword } from '../model/auth.model';
 import { saveTokensStorage, getAccessToken, getRefreshToken, getHeaderAuthorizationIfExists } from '../lib/auth-token.lib';
 import { jwtDecode } from 'jwt-decode';
+import build from 'next/dist/build';
 
 const axiosBaseQuery: BaseQueryFn<
     { url: string; method: AxiosRequestConfig['method']; data?: AxiosRequestConfig['data']; params?: AxiosRequestConfig['params'] },
@@ -106,7 +107,15 @@ export const UserAPI = createApi({
                 data: body,
             })
         }),
-    }),
+
+        addUserData: builder.mutation<ISupplierAPI, string>({
+            query: (userId) => ({
+                url: `/GetUserInfo?userId=${userId}`,
+                method: 'POST',
+                body: {}
+            })
+        }),
+    })
 });
 
 // export const { useGetUserDataQuery, useUserLoginMutation, useRefreshTokenMutation } = UserAPI;

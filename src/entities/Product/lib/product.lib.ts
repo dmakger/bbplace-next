@@ -6,21 +6,24 @@ import { IMetrics } from "@/entities/Metrics/model/metric.metrics.model";
 import { currencyToObject } from "@/entities/Metrics/lib/currency/currency.metrics.lib";
 import { metricsToObject } from "@/entities/Metrics/lib/metrics/base.metrics.metrics.lib";
 import { IProcessProductProps } from "../model/props.product.model";
+import { ICountry } from "@/entities/Metrics/model/country.metrics.model";
 
 
-export const productApiListToProductList = (productListAPI: IProductAPI[], metrics?: IMetrics[], currencyList?: ICurrency[]): IProduct[] => {
-    return productListAPI.map(it => productApiToProduct({productAPI: it, metrics, currencyList}))
+export const productApiListToProductList = (productListAPI: IProductAPI[], metrics?: IMetrics[], currencyList?: ICurrency[], countries?: ICountry[]): IProduct[] => {
+    return productListAPI.map(it => productApiToProduct({productAPI: it, metrics, currencyList, countries}))
 }
 
 
 
 // PRODUCT API => PRODUCT 
 // Из {IProductAPI} ===> {IProduct}
-export const productApiToProduct = ({productAPI, metrics, currencyList, hasSupplier=false}: IProcessProductProps): IProduct => {
+export const productApiToProduct = ({productAPI, metrics, currencyList, countries}: IProcessProductProps): IProduct => {
     const media = JSON.parse(productAPI.media) as IMediaProduct
     const characteristics = JSON.parse(productAPI.characteristics) as ICharacteristic
+    const country = countries ? countries.find(it => it.name === productAPI.country || it.fullName === productAPI.country) : undefined
     return processProduct({
-        ...productAPI, 
+        ...productAPI,
+        country, 
         media, 
         characteristics,
     }, metrics, currencyList)
@@ -30,12 +33,12 @@ export const productApiToProduct = ({productAPI, metrics, currencyList, hasSuppl
 // PRODUCT => PRODUCT API
 // Из {IProduct} ===> {IProductAPI}
 export const productToProductAPI = (product: IProduct): IProductAPI => {
-    const media = JSON.stringify(product.media)
-    const characteristics = JSON.stringify(product.characteristics)
+    const {country, media, characteristics, ..._product} = product
     return {
-        ...product, 
-        media, 
-        characteristics,
+        ..._product, 
+        country: country ? country.name : null,
+        media: JSON.stringify(media),
+        characteristics: JSON.stringify(characteristics),
     }
 }
 
@@ -43,7 +46,7 @@ export const productToProductAPI = (product: IProduct): IProductAPI => {
 
 // ============={ PROCESS }================
 // Обработка
-export const processProduct = (product: IProduct, metrics?: IMetrics[], currencyList?: ICurrency[], hasSupplier?:boolean) => {
+export const processProduct = (product: IProduct, metrics?: IMetrics[], currencyList?: ICurrency[]) => {
     let _product = {...product}
     _product = processProductWholesalePrices(_product, metrics, currencyList)
     _product.media.wholesalePrices = _product.media.wholesalePrices.map(it => ({...it, quantity: +it.quantity}))

@@ -23,13 +23,14 @@ import { WrapperWOSubmit } from "@/shared/ui/Wrapper/WOSubmit/WrapperWOSubmit";
 
 
 interface MainInfoProductFormProps {
+    data?: IPropsMainInfoProductForm
     setData?: Dispatch<SetStateAction<IPropsMainInfoProductForm | undefined>>
     triggerSubmit?: (submitFn: () => void) => void,
     isOpenForm?: boolean
     className?: string,
 }
 
-export const MainInfoProductForm:FC<MainInfoProductFormProps> = ({setData, triggerSubmit, isOpenForm, className}) => {
+export const MainInfoProductForm:FC<MainInfoProductFormProps> = ({data, setData, triggerSubmit, isOpenForm, className}) => {
     // REF
     const formRef = useRef<HTMLFormElement>(null)
 
@@ -38,12 +39,18 @@ export const MainInfoProductForm:FC<MainInfoProductFormProps> = ({setData, trigg
 
     const [selectedCategoryIds, setSelectedCategoryIds] = useState<number[]>([])
     const [selectedStatusOption, setSelectedStatusOption] = useState<IOption>(NO_FORM__DATA)
-    const [selectedCountryOption, setSelectedCountryOption] = useState<IOption | null>(null)
+    const [selectedCountryOption, setSelectedCountryOption] = useState<IOption | undefined>()
 
     // API
     const {data: countryList} = CountryAPI.useGetCountriesQuery()              
 
     // EFFECT
+    // data
+    useEffect(() => {
+        setSelectedStatusOption(prev => data?.status ?? prev)
+        setSelectedCountryOption(prev => data?.country ?? prev)
+    }, [data])
+
     // country
     useEffect(() => {
         if (!countryList) return
@@ -74,7 +81,7 @@ export const MainInfoProductForm:FC<MainInfoProductFormProps> = ({setData, trigg
             <WrapperSubblockForm title="Основная информация" variant={SubblockFormVariant.Toggle} isOpen={isOpenForm} className={className}>
                 <form ref={formRef} onSubmit={handleOnSubmit} className={cl.form}>
                     <WrapperRectangleInput labelText={"Наименование"} isRequired={true}>
-                        <Input.Text name={'name'} placeholder="До 50 символов"
+                        <Input.Text name={'name'} placeholder="До 50 символов" defaultValue={data?.name}
                                     required={true} variant={EInputVariants.RECTANGULAR} />
                     </WrapperRectangleInput>
                     <CategoryRecursiveSelect
@@ -84,23 +91,23 @@ export const MainInfoProductForm:FC<MainInfoProductFormProps> = ({setData, trigg
                         descriptionTooltipText='Выберите категорию из списка'
                         setSelectedCategoriesId={setSelectedCategoryIds} />
                     <WrapperRectangleInput labelText={"Статус товара"} isRequired={true}>
-                        <Input.TextAndSelect name={'statusProduct'} placeholder="Выберите статус" 
+                        <Input.TextAndSelect name={'statusProduct'} placeholder="Выберите статус" defaultOption={selectedStatusOption}
                                 options={STATUS__PRODUCT_FORM__DATA} onClickOption={setSelectedStatusOption}
                                 titleModal="Статус товара" required={true} variant={EInputVariants.RECTANGULAR} /> 
                     </WrapperRectangleInput>
                     <WrapperRectangleInput labelText={"Наличие сертификата"} isRequired={true}>
                         <Input.Radio name='hasCertificate' variant={EInputVariants.RECTANGULAR} variantRadio={ERadioVariant.SINGLE}
-                                    option={YES_FORM__DATA} required={true} />
+                                    option={YES_FORM__DATA} required={true} isActive={!!data?.hasCertificate} />
                         <Input.Radio name='hasCertificate' variant={EInputVariants.RECTANGULAR} variantRadio={ERadioVariant.SINGLE}
-                                    option={NO_FORM__DATA} required={true} /> 
+                                    option={NO_FORM__DATA} required={true} isActive={!data?.hasCertificate} /> 
                     </WrapperRectangleInput>
                     <WrapperRectangleInput labelText={"Страна производства"} isRequired={true}>
-                        <Input.TextAndSelect name={'country'} placeholder="Выберите страну" 
+                        <Input.TextAndSelect name={'country'} placeholder="Выберите страну" defaultOption={selectedCountryOption}
                                 options={countryOptions} onClickOption={setSelectedCountryOption}
                                 titleModal="Страна производства" required={true} variant={EInputVariants.RECTANGULAR} /> 
                     </WrapperRectangleInput>
                     <WrapperRectangleInput labelText={"Описание"} isRequired={true}>
-                        <Input.Text name={'description'} placeholder="Начните вводить"
+                        <Input.Text name={'description'} placeholder="Начните вводить" defaultValue={data?.description}
                                     required={true} variant={EInputVariants.RECTANGULAR} 
                                     inputTypeVariant={EInputTextTypeVariants.TEXTAREA} />
                     </WrapperRectangleInput>
