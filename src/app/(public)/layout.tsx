@@ -9,6 +9,7 @@ import { UserAPI } from '@/entities/Auth/api/auth.api';
 import { useActionCreators } from '@/storage/hooks';
 import { getAccessToken, isAuth, removeFromStorage } from '@/entities/Auth/lib/auth-token.lib';
 import { jwtDecode } from 'jwt-decode';
+import { TopBar } from '@/features/TopBar';
 
 export default function Layout({ children }: PropsWithChildren<unknown>) {
     // API 
@@ -40,6 +41,7 @@ export default function Layout({ children }: PropsWithChildren<unknown>) {
 
     return (
         <WrapperGap>
+            <TopBar/>
             <Header />
             <div className={cl.content}>
                 {children}

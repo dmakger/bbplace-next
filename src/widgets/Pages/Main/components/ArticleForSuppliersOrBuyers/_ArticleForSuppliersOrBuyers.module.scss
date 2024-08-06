@@ -1,0 +1,67 @@
+.ArticleForSuppliersOrBuyers {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background: linear-gradient(90deg, #fff 30%, #f5f5f5 100%);
+    border-radius: 20px;
+
+    @media (max-width: 1024px) {
+        background: transparent;
+        background-color: var(--background-2);
+    }
+
+    @media (max-width: 768px) {
+        border-radius: 0px;
+    }
+
+    .titleContainer {
+        padding: 10px 20px;
+        border-bottom: 1px solid var(--background-1);
+
+        .title {
+            padding: 18px 0;
+            font-size: var(--font-size-m);
+            font-weight: var(--font-weight-sb);
+
+            @media (max-width: 768px) {
+                font-size: var(--font-size-sm);
+            }
+        }
+    }
+
+    & li {
+        max-width: 530px;
+
+        @media (max-width: 1024px) {
+            max-width: 482px
+        }
+
+        @media (max-width: 768px) {
+            max-width: fit-content;
+        }
+
+        .subtitleContainer {
+            width: fit-content;
+            background-color: var(--background-1);
+            padding: 10px 20px 10px 40px;
+            border-radius: 0 5px 5px 0;
+
+            .subtitle {
+                font-weight: var(--font-weight-med);
+
+                @media (max-width: 768px) {
+                    font-size: var(--font-size-s);
+                }
+            }
+        }
+
+        .text {
+            padding: 10px 20px 20px 40px;
+
+            @media (max-width: 768px) {
+                font-size: var(--font-size-s);
+            }
+        }
+
+    }
+}

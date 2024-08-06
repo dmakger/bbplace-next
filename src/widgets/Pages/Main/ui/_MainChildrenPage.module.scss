@@ -1,0 +1,16 @@
+.content{
+    flex-direction: column;
+    gap: 21px;
+    
+    .articles{
+        display: flex;
+        gap: 20px;
+        border-radius: 20px;
+
+        @media (max-width: 768px) {
+            flex-direction: column;
+            gap: 5px;
+            border-radius: 0px;
+        }
+    }
+}
