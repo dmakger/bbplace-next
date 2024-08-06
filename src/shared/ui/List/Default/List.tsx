@@ -11,19 +11,33 @@ export const List = <T extends any>({
     component: ListItemComponent,
     componentProps,
     direction = DEFAULT__LIST_DIRECTION,
+    activeId,
     activeIndex,
     gap,
-    onClickItem=()=>{},
+    onClickItem = () => {},
     style,
     className,
+    classNameItem,
     ...rest
 }: ListProps<T>) => {
+
+    // Объединяем className из componentProps с classNameItem, если они оба существуют
+    const updatedComponentProps = {
+        ...componentProps,
+        className: cls(componentProps?.className, classNameItem)
+    };
+
     return (
-        <div ref={listRef} style={{gap: `${gap}px`}} className={cls(cl.list, cl[direction], className)}>
+        <div ref={listRef} style={{ gap: `${gap}px` }} className={cls(cl.list, cl[direction], className)} {...rest}>
             {items.map((it, index) => (
-               <ListItemComponent {...componentProps} item={it} style={style} onClick={() => onClickItem(it, index)}
-                                  isActive={activeIndex === index}
-                                  key={it && typeof it === 'object' && 'id' in it ? it.id as number : index} /> 
+                <ListItemComponent
+                    {...updatedComponentProps}
+                    item={it}
+                    style={style}
+                    onClick={() => onClickItem(it, index)}
+                    isActive={activeIndex === index || !!(it && typeof it === 'object' && 'id' in it && it.id && activeId === it.id)}
+                    key={it && typeof it === 'object' && 'id' in it ? it.id as number : index}
+                />
             ))}
         </div>
     )

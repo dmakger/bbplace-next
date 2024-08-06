@@ -28,10 +28,11 @@ import { TIME_UNIT__OPTION__DATA } from "@/shared/data/option/timeUnit.option.da
 interface AdditionalInfoProductFormProps{
     setData?: Dispatch<SetStateAction<IPropsAdditionalInfoProductForm | undefined>>
     triggerSubmit?: (submitFn: () => void) => void,
+    isOpenForm?: boolean
     className?: string,
 }
 
-export const AdditionalInfoProductForm:FC<AdditionalInfoProductFormProps> = ({setData, triggerSubmit, className}) => {
+export const AdditionalInfoProductForm:FC<AdditionalInfoProductFormProps> = ({setData, triggerSubmit, isOpenForm, className}) => {
     // REF
     const formRef = useRef<HTMLFormElement>(null)
 
@@ -125,7 +126,7 @@ export const AdditionalInfoProductForm:FC<AdditionalInfoProductFormProps> = ({se
 
     return (
         <WrapperWOSubmit triggerSubmit={triggerSubmit} formRef={formRef}>
-            <WrapperSubblockForm title="Дополнительная информация" variant={SubblockFormVariant.Toggle} className={className}>
+            <WrapperSubblockForm title="Дополнительная информация" variant={SubblockFormVariant.Toggle} isOpen={isOpenForm} className={className}>
                 <form ref={formRef} onSubmit={handleOnSubmit} className={cl.form}>
                     <WrapperRectangleInput labelText={"Тип упаковки"}>
                         <Input.Text name={'packageType'} placeholder="Все возможные виды упаковки" variant={EInputVariants.RECTANGULAR} />

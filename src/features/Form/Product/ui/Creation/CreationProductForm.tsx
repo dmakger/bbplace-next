@@ -1,6 +1,6 @@
 import { cls } from "@/shared/lib/classes.lib"
 import cl from './_CreationProductForm.module.scss'
-import { FC, useRef, useState } from "react"
+import { FC, useEffect, useRef, useState } from "react"
 import { Button } from "@/shared/ui/Button"
 import { ButtonSize, ButtonVariant } from "@/shared/ui/Button/model/button.model"
 import { MainInfoProductForm } from "../../../../../features/Form/Product/ui/Main/MainInfoProductForm"
@@ -9,15 +9,16 @@ import { AdditionalInfoProductForm } from "@/features/Form/Product/ui/Additional
 import { IPropsAdditionalInfoProductForm } from "@/features/Form/Product/model/additionalInfo.product.form.model"
 import { VariationInfoProductForm } from "@/features/Form/Product/ui/Variation/VariationInfoProductForm"
 import { IPropsVariationInfoProductForm } from "@/features/Form/Product/model/variationInfo.product.form.model"
+import { IPropsProductForm } from "../../model/product.form.model"
+import { isEqual } from "lodash"
 
-interface CreationProductFormProps{
-    // mainInfoData?: IPropsMainInfoProductForm,
-    // additionalInfoData?: IPropsAdditionalInfoProductForm,
-    // variationInfoData?: IPropsVariationInfoProductForm,
+interface CreationProductFormProps {
+    data?: IPropsProductForm
+    isDraft?: boolean
     className?: string,
 }
 
-export const CreationProductForm:FC<CreationProductFormProps> = ({className}) => {
+export const CreationProductForm:FC<CreationProductFormProps> = ({data, isDraft=false, className}) => {
     // REF
     const mainFormSubmitRef = useRef<() => void>();
     const additionalFormSubmitRef = useRef<() => void>();
@@ -27,6 +28,14 @@ export const CreationProductForm:FC<CreationProductFormProps> = ({className}) =>
     const [mainInfoData, setMainInfoData] = useState<IPropsMainInfoProductForm | undefined>()
     const [additionalInfoData, setAdditionalInfoData] = useState<IPropsAdditionalInfoProductForm | undefined>()
     const [variationInfoData, setVariationInfoData] = useState<IPropsVariationInfoProductForm | undefined>()
+
+    // EFFECT
+    useEffect(() => {
+        if (data === undefined) return
+        setMainInfoData(prev => isEqual(prev, data.main) ? prev : data.main)
+        setAdditionalInfoData(prev => isEqual(prev, data.additional) ? prev : data.additional)
+        setVariationInfoData(prev => isEqual(prev, data.variation) ? prev : data.variation)
+    }, [data])
 
     // HANDLE
     const handleOnClick = () => {
@@ -47,8 +56,8 @@ export const CreationProductForm:FC<CreationProductFormProps> = ({className}) =>
 
     return (
         <div className={cls(cl.block, className)}>
-            <MainInfoProductForm setData={setMainInfoData} triggerSubmit={(submitFn) => { mainFormSubmitRef.current = submitFn }} />
-            <AdditionalInfoProductForm setData={setAdditionalInfoData} triggerSubmit={(submitFn) => { additionalFormSubmitRef.current = submitFn }} />
+            <MainInfoProductForm setData={setMainInfoData} triggerSubmit={(submitFn) => { mainFormSubmitRef.current = submitFn }} isOpenForm={!isDraft} />
+            <AdditionalInfoProductForm setData={setAdditionalInfoData} triggerSubmit={(submitFn) => { additionalFormSubmitRef.current = submitFn }} isOpenForm={!isDraft} />
             <VariationInfoProductForm setData={setVariationInfoData} triggerSubmit={(submitFn) => { variationFormSubmitRef.current = submitFn }} />
 
             <Button variant={ButtonVariant.FILL} size={ButtonSize.Big} 

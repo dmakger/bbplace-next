@@ -32,10 +32,11 @@ import { ISize } from "@/entities/Metrics/model/size.metrics.model";
 interface VariationInfoProductFormProps{
     setData?: Dispatch<SetStateAction<IPropsVariationInfoProductForm | undefined>>
     triggerSubmit?: (submitFn: () => void) => void,
+    isOpenForm?: boolean
     className?: string,
 }
 
-export const VariationInfoProductForm:FC<VariationInfoProductFormProps> = ({setData, triggerSubmit, className}) => {
+export const VariationInfoProductForm:FC<VariationInfoProductFormProps> = ({setData, triggerSubmit, isOpenForm, className}) => {
     // REF
     const formRef = useRef<HTMLFormElement>(null)
 
@@ -140,7 +141,7 @@ export const VariationInfoProductForm:FC<VariationInfoProductFormProps> = ({setD
 
     return (
         <WrapperWOSubmit triggerSubmit={triggerSubmit} formRef={formRef}>
-            <WrapperSubblockForm title="Вариация товара" variant={SubblockFormVariant.Toggle} className={className}>
+            <WrapperSubblockForm title="Вариация товара" variant={SubblockFormVariant.Toggle} isOpen={isOpenForm} className={className}>
                 <form ref={formRef} onSubmit={handleOnSubmit} className={cl.form}>
                     <WrapperRectangleInput labelText={"Артикулы продавца"} isRequired={true}>
                         <Input.Text name={'color'} placeholder="Тип" variant={EInputVariants.RECTANGULAR} required={true} />

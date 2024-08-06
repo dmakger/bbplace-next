@@ -25,10 +25,11 @@ import { WrapperWOSubmit } from "@/shared/ui/Wrapper/WOSubmit/WrapperWOSubmit";
 interface MainInfoProductFormProps {
     setData?: Dispatch<SetStateAction<IPropsMainInfoProductForm | undefined>>
     triggerSubmit?: (submitFn: () => void) => void,
+    isOpenForm?: boolean
     className?: string,
 }
 
-export const MainInfoProductForm:FC<MainInfoProductFormProps> = ({setData, triggerSubmit, className}) => {
+export const MainInfoProductForm:FC<MainInfoProductFormProps> = ({setData, triggerSubmit, isOpenForm, className}) => {
     // REF
     const formRef = useRef<HTMLFormElement>(null)
 
@@ -70,7 +71,7 @@ export const MainInfoProductForm:FC<MainInfoProductFormProps> = ({setData, trigg
 
     return (
         <WrapperWOSubmit triggerSubmit={triggerSubmit} formRef={formRef}>
-            <WrapperSubblockForm title="Основная информация" variant={SubblockFormVariant.Toggle} className={className}>
+            <WrapperSubblockForm title="Основная информация" variant={SubblockFormVariant.Toggle} isOpen={isOpenForm} className={className}>
                 <form ref={formRef} onSubmit={handleOnSubmit} className={cl.form}>
                     <WrapperRectangleInput labelText={"Наименование"} isRequired={true}>
                         <Input.Text name={'name'} placeholder="До 50 символов"
