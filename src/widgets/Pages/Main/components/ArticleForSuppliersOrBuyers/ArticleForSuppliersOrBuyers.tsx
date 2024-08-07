@@ -32,7 +32,7 @@ export const ArticleForSuppliersOrBuyers = ({
             </div>
             <ol>
                 {(variant === EArticleForSuppliersOrBuyersVariants.BUYERS ? BUYERS_ARTICLE_TEXT : SUPPLIERS_ARTICLE_TEXT).map(it => (
-                    <li>
+                    <li key={it.subtitle}>
                         <div className={cl.subtitleContainer}>
                             <h6 className={cl.subtitle}>{it.subtitle}</h6>
                         </div>

@@ -18,11 +18,11 @@ export const AboutBB = () => {
     const router = useRouter()
 
     //RTK
-    const {isAuth} = useAppSelector(state => state.user)
+    const { isAuth } = useAppSelector(state => state.user)
 
     //FUNCTIONS
     const goToRegistration = () => router.push(MAIN_PAGES.REGISTRATION.path);
-    
+
     //VARIABLE
     const aboutBBTextArray: string[] = [
         'BBPlace — оптовая онлайн-платформа, разработанная для облегчения и улучшения бизнес-процессов в СНГ. ',
@@ -35,7 +35,6 @@ export const AboutBB = () => {
     return (
         <>
             <section className={cl.AboutBB}>
-            <div className={cl.leftBackgroundIcon}/>
                 <div className={cl.mainContainer}>
                     <h3 className={cl.title}>Немного о BBPlace</h3>
                     <div className={cl.aboutBBColumnContainer}>
@@ -61,12 +60,8 @@ export const AboutBB = () => {
                         </div>
                     </div>
                 </div>
-                <div className={cl.rightBackgroundIcon}/>
-
-
-
             </section>
-            <HandleSize width={768} set={setIs768}/>
+            <HandleSize width={768} set={setIs768} />
         </>
 
     )

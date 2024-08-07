@@ -1,28 +1,23 @@
 .AboutBB {
     display: flex;
-    justify-content: space-between;
-    position: relative;
-    width: 100%;
+    justify-content: center;
+    width: 1240px;
     background-color: var(--background-brown);
+    background-image: url('../../../../../shared/assets/img/BBPRightPart/BBPRightPart.svg'),
+                     url('../../../../../shared/assets/img/BBPLeftPart/BBPLeftPart.svg');
+    background-position: 100% 0%, 0% 0%;
+    background-repeat: no-repeat;
     border-radius: 20px;
 
     @media (max-width: 768px) {
         border-radius: 0px;
     }
-    
-    .rightBackgroundIcon{
-        width: 167px;
-        background: no-repeat center/100% url('../../../../../shared/assets/img/BBPRightPart/BBPRightPart.svg');
-    }
 
-    .leftBackgroundIcon{
-        width: 167px;
-        background: no-repeat center/100% url('../../../../../shared/assets/img/BBPLeftPart/BBPLeftPart.svg');
-    }
 
     .mainContainer {
         display: flex;
         flex-direction: column;
+        border-radius: 20px;
         width: 610px;
         padding: 0 40px;
 
@@ -63,10 +58,5 @@
                 }
             }
         }
-
-        
     }
-
-
-
 }
