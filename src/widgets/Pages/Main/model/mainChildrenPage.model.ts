@@ -10,5 +10,6 @@ export interface IArticleForSuppliersOrBuyersText{
 
 export interface IPrimeItem{
     name: string,
+    categoryId: number,
     quantity: number
 }

@@ -39,7 +39,7 @@ export const AboutBB = () => {
                     <h3 className={cl.title}>Немного о BBPlace</h3>
                     <div className={cl.aboutBBColumnContainer}>
                         {aboutBBTextArray.map(it => (
-                            <p className={cl.aboutBBText}>{it}</p>
+                            <p className={cl.aboutBBText} key={it}>{it}</p>
                         ))}
                         <div className={cl.buttonsContainer}>
                             <Button
