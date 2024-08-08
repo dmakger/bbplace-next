@@ -128,21 +128,21 @@ export const AdditionalInfoProductForm:FC<AdditionalInfoProductFormProps> = ({da
                         <Input.Text name={'deliveryTime'} placeholder="Когда товар будет готов к отправке" variant={EInputVariants.RECTANGULAR} defaultValue={data?.deliveryTime} />
                     </WrapperRectangleInput>
                     <WrapperRectangleInput labelText={"Размер упаковки в миллиметрах"}>
-                        <Input.Text name={'packagingLength'} placeholder="Длина" type={EInputTextType.Number} variant={EInputVariants.RECTANGULAR} defaultValue={`${data?.packagingLength}`} />
-                        <Input.Text name={'packagingWidth'} placeholder="Ширина" type={EInputTextType.Number} variant={EInputVariants.RECTANGULAR} defaultValue={`${data?.packagingWidth}`} />
-                        <Input.Text name={'packagingHeight'} placeholder="Высота" type={EInputTextType.Number} variant={EInputVariants.RECTANGULAR} defaultValue={`${data?.packagingHeight}`} />
+                        <Input.Text name={'packagingLength'} placeholder="Длина" type={EInputTextType.Number} variant={EInputVariants.RECTANGULAR} defaultValue={data?.packagingLength} />
+                        <Input.Text name={'packagingWidth'} placeholder="Ширина" type={EInputTextType.Number} variant={EInputVariants.RECTANGULAR} defaultValue={data?.packagingWidth} />
+                        <Input.Text name={'packagingHeight'} placeholder="Высота" type={EInputTextType.Number} variant={EInputVariants.RECTANGULAR} defaultValue={data?.packagingHeight} />
                     </WrapperRectangleInput>
                     <WrapperRectangleInput labelText={"Облагается НДС"}>
                         <Input.Radio name='vat' variant={EInputVariants.RECTANGULAR} variantRadio={ERadioVariant.SINGLE}
-                                    option={YES_FORM__DATA} isActive={true} />
+                                    option={YES_FORM__DATA} isActive={!!data?.vat} />
                         <Input.Radio name='vat' variant={EInputVariants.RECTANGULAR} variantRadio={ERadioVariant.SINGLE}
-                                    option={NO_FORM__DATA} /> 
+                                    option={NO_FORM__DATA} isActive={!data?.vat}/> 
                     </WrapperRectangleInput>
                     <WrapperRectangleInput labelText={"Тестовый пробник"}>
                         <Input.Radio name='isHasTestProbe' variant={EInputVariants.RECTANGULAR} variantRadio={ERadioVariant.SINGLE}
-                                    option={YES_FORM__DATA} />
+                                    option={YES_FORM__DATA} isActive={!!data?.isHasTestProbe} />
                         <Input.Radio name='isHasTestProbe' variant={EInputVariants.RECTANGULAR} variantRadio={ERadioVariant.SINGLE}
-                                    option={NO_FORM__DATA} /> 
+                                    option={NO_FORM__DATA} isActive={!data?.isHasTestProbe}/> 
                     </WrapperRectangleInput>
 
                     <WrapperRectangleInput labelText={"Склады по городам"}>
@@ -167,7 +167,7 @@ export const AdditionalInfoProductForm:FC<AdditionalInfoProductFormProps> = ({da
                                 titleModal="Срок годности" variant={EInputVariants.RECTANGULAR} /> 
                     </WrapperRectangleInput>
                     <WrapperRectangleInput labelText={"Вес"}>
-                        <Input.Text name={'weight'} placeholder="Введите число" variant={EInputVariants.RECTANGULAR} defaultValue={`${data?.weight}`} />
+                        <Input.Text name={'weight'} placeholder="Введите число" variant={EInputVariants.RECTANGULAR} defaultValue={data?.weight} />
                         <Input.TextAndSelect name={'weightMetric'} placeholder="Измерение" defaultOption={selectedWeightMetricOption}
                                 options={metricOptions} onClickOption={setSelectedWeightMetricOption}
                                 titleModal="Вес" variant={EInputVariants.RECTANGULAR} /> 

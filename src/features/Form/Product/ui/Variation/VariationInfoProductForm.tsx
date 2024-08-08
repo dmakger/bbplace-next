@@ -8,7 +8,7 @@ import { IPropsVariationInfoProductForm } from "../../model/variationInfo.produc
 import { MetricsAPI } from "@/entities/Metrics/api/metrics.metrics.api";
 import { CurrencyAPI } from "@/entities/Metrics/api/currency.metrics.api";
 import { IOption } from "@/shared/model/option.model";
-import { metricListToOptionList } from "@/entities/Metrics/lib/option.metric.metrics.lib";
+import { metricListToOptionList, metricToOption } from "@/entities/Metrics/lib/option.metric.metrics.lib";
 import { WrapperWOSubmit } from "@/shared/ui/Wrapper/WOSubmit/WrapperWOSubmit";
 import { WrapperSubblockForm } from "@/shared/ui/Wrapper/SubblockForm/ui/WrapperSubblockForm";
 import { SubblockFormVariant } from "@/shared/ui/Wrapper/SubblockForm/data/subblockForm.data";
@@ -21,13 +21,14 @@ import { Direction } from "@/shared/ui/Direction/Direction";
 import { ListDirection } from "@/shared/data/list.data";
 import { EInputTextType } from "@/shared/ui/Input/ui/Text/data/text.input.data";
 import { getSymbolByCodeCurrency } from "@/entities/Metrics/lib/currency/currency.metrics.lib";
-import { currencyListToOptionList } from "@/entities/Metrics/lib/currency/option.currency.metrics.lib";
+import { currencyListToOptionList, currencyToOption } from "@/entities/Metrics/lib/currency/option.currency.metrics.lib";
 import { IMediaProduct } from "@/entities/Product/model/media.product.model";
 import { fromOptionToType } from "@/shared/lib/option/to.option.lib";
 import { ICurrency } from "@/entities/Metrics/model/currency.metrics.model";
 import { IMetrics } from "@/entities/Metrics/model/metric.metrics.model";
 import { IWholesale } from "@/entities/Metrics/model/wholesale.metrics.model";
 import { ISize } from "@/entities/Metrics/model/size.metrics.model";
+import { processSizeOptionInProductForm, processWholesaleOptionInProductForm } from "../../lib/process.variation.product.lib";
 
 interface VariationInfoProductFormProps{
     data?: IPropsVariationInfoProductForm
@@ -46,8 +47,8 @@ export const VariationInfoProductForm:FC<VariationInfoProductFormProps> = ({data
     const [currencyOptions, setCurrencyOptions] = useState<IOption[]>([])
 
     const [selectedWholesaleCurrencyOption, setSelectedWholesaleCurrencyOption] = useState<IOption | undefined>()
-    const [selectedWholesaleMetricOption, setSelectedWholesaleMetricOption] = useState<IOption | null>(null)
-    const [selectedSizeMetricOption, setSelectedSizeMetricOption] = useState<IOption | null>(null)
+    const [selectedWholesaleMetricOption, setSelectedWholesaleMetricOption] = useState<IOption | undefined>()
+    const [selectedSizeMetricOption, setSelectedSizeMetricOption] = useState<IOption | undefined>()
     
     const [uploadedImageList, setUploadedImageList] = useState<string[]>([])
 
@@ -61,8 +62,25 @@ export const VariationInfoProductForm:FC<VariationInfoProductFormProps> = ({data
     // EFFECT
     // data
     useEffect(() => {
-        // setAddedWholesaleOption(prev => data?.media.wholesalePrices ?? prev)
-        // setAddedSizesOption(prev => data?.warehouses ?? prev)
+        if (!data) return
+        const media = data.media
+        setSelectedWholesaleCurrencyOption(() => media.currency ?? undefined)
+        setSelectedWholesaleMetricOption(() => media.priceUnits ?? undefined)
+        setAddedWholesaleOption(() => {
+            // let {currency, priceUnits, wholesalePrices} = media
+            if (!media.currency || !media.priceUnits) return []
+
+            const currency = currencyToOption(media.currency)
+            const priceUnits = metricToOption(media.priceUnits)
+            return media.wholesalePrices.map(wp => (
+                processWholesaleOptionInProductForm(wp.price, wp.quantity, currency, priceUnits)
+            )).filter(it => it !== undefined)
+        })
+        setAddedSizesOption(() => { 
+            return media.sizes.map(it => (
+                processSizeOptionInProductForm(it.size, metricToOption(it.sizeUnit))
+            )).filter(it => it !== undefined)
+        })
         setUploadedImageList(prev => data?.media.attachments ?? prev)
     }, [data])
 
@@ -112,38 +130,12 @@ export const VariationInfoProductForm:FC<VariationInfoProductFormProps> = ({data
     // PROCESS
     // wholesale
     const processWholesaleOption = (tempDataStorage: Record<string, any>) => {
-        const {wholesalePrice, wholesaleQuantity} = tempDataStorage
-        return !wholesalePrice || !wholesaleQuantity || !selectedWholesaleCurrencyOption || !selectedWholesaleMetricOption
-            ? undefined 
-            : { 
-                id: generateId(), 
-                name: `${wholesalePrice} ${getSymbolByCodeCurrency(`${selectedWholesaleCurrencyOption.params?.code}`, selectedWholesaleCurrencyOption.params?.code)} от ${wholesaleQuantity} ${selectedWholesaleMetricOption.params?.shortName}.`,
-                params: {
-                    'price': wholesalePrice,
-                    'quantity': wholesaleQuantity,
-                },
-                options: [
-                    selectedWholesaleCurrencyOption,
-                    selectedWholesaleMetricOption,
-                ]
-            } as IOption
+        return processWholesaleOptionInProductForm(tempDataStorage.wholesalePrice, tempDataStorage.wholesaleQuantity, selectedWholesaleCurrencyOption, selectedWholesaleMetricOption)
     }
 
     // size
     const processSizeOption = (tempDataStorage: Record<string, any>) => {
-        const {sizeValue} = tempDataStorage
-        return !sizeValue || !selectedSizeMetricOption 
-            ? undefined 
-            : { 
-                id: generateId(), 
-                name: `${sizeValue} ${selectedSizeMetricOption.params?.shortName}.`,
-                params: {
-                    'size': sizeValue,
-                },
-                options: [
-                    selectedSizeMetricOption,
-                ]
-            } as IOption
+        return processSizeOptionInProductForm(tempDataStorage.sizeValue, selectedSizeMetricOption)
     }
 
 
@@ -152,8 +144,8 @@ export const VariationInfoProductForm:FC<VariationInfoProductFormProps> = ({data
             <WrapperSubblockForm title="Вариация товара" variant={SubblockFormVariant.Toggle} isOpen={isOpenForm} className={className}>
                 <form ref={formRef} onSubmit={handleOnSubmit} className={cl.form}>
                     <WrapperRectangleInput labelText={"Артикулы продавца"} isRequired={true}>
-                        <Input.Text name={'color'} placeholder="Тип" variant={EInputVariants.RECTANGULAR} required={true} />
-                        <Input.Text name={'article'} placeholder="Артикул" variant={EInputVariants.RECTANGULAR} required={true} />
+                        <Input.Text name={'color'} placeholder="Тип" variant={EInputVariants.RECTANGULAR} required={true} defaultValue={data?.media.color} />
+                        <Input.Text name={'article'} placeholder="Артикул" variant={EInputVariants.RECTANGULAR} required={true} defaultValue={data?.media.article} />
                     </WrapperRectangleInput>
 
                     <WrapperRectangleInput labelText={"Фотографии"}>
@@ -168,14 +160,14 @@ export const VariationInfoProductForm:FC<VariationInfoProductFormProps> = ({data
                                 <Input.Text name={'wholesalePrice'} placeholder="Цена товара" required={true} 
                                             type={EInputTextType.Number} variant={EInputVariants.RECTANGULAR} />
                                 <Input.TextAndSelect name={'wholesaleCurrency'} placeholder="Валюта" required={true} disabled={addedWholesaleOption.length > 0}
-                                            options={currencyOptions} onClickOption={setSelectedWholesaleCurrencyOption}
+                                            options={currencyOptions} onClickOption={setSelectedWholesaleCurrencyOption} defaultOption={selectedWholesaleCurrencyOption}
                                             titleModal="Валюта" variant={EInputVariants.RECTANGULAR} /> 
                             </Direction>
                             <Direction direction={ListDirection.Row}>
                                 <Input.Text name={'wholesaleQuantity'} placeholder="При заказе от" required={true} 
                                             type={EInputTextType.Number} variant={EInputVariants.RECTANGULAR} />
                                 <Input.TextAndSelect name={'wholesaleMetric'} placeholder="Измерение" required={true} disabled={addedWholesaleOption.length > 0}
-                                                    options={metricOptions} onClickOption={setSelectedWholesaleMetricOption}
+                                                    options={metricOptions} onClickOption={setSelectedWholesaleMetricOption} defaultOption={selectedWholesaleMetricOption}
                                                     titleModal="Измерение" variant={EInputVariants.RECTANGULAR} /> 
                             </Direction>
                         </Input.Addition>
@@ -185,7 +177,7 @@ export const VariationInfoProductForm:FC<VariationInfoProductFormProps> = ({data
                         <Input.Addition options={addedSizesOption} setOptions={setAddedSizesOption} process={processSizeOption}>
                             <Direction direction={ListDirection.Row}>
                                 <Input.Text name={'sizeValue'} placeholder="Значение" required={true} 
-                                            type={EInputTextType.Number} variant={EInputVariants.RECTANGULAR} />
+                                            variant={EInputVariants.RECTANGULAR} />
                                 <Input.TextAndSelect name={'sizeMetric'} placeholder="Измерение" required={true}
                                                     options={metricOptions} onClickOption={setSelectedSizeMetricOption}
                                                     titleModal="Измерение" variant={EInputVariants.RECTANGULAR} /> 

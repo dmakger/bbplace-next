@@ -20,11 +20,12 @@ import { IPropsProductForm } from "@/features/Form/Product/model/product.form.mo
 
 interface IProductSingleCreationPage {
     groupId?: string
-    draftId?: string
+    productId?: string
+    isDraft?: boolean
     className?: string,
 }
 
-export const ProductSingleCreationPage = ({ groupId, draftId, className }: IProductSingleCreationPage) => {
+export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, className }: IProductSingleCreationPage) => {
     // RTK
     const { id: userId } = useAppSelector(state => state.user)
 
@@ -35,22 +36,27 @@ export const ProductSingleCreationPage = ({ groupId, draftId, className }: IProd
 
     // API
     const { data: productsAPI } = ProductAPI.useGetProductsByGroupQuery(groupId ?? skipToken, {refetchOnMountOrArgChange: true})
-    // const { data: productsAPI } = ProductAPI.useGetProductsQuery(
-    //     { limit: 5, page: 3 },
-    //     { refetchOnMountOrArgChange: true }
-    // );
-    const { data: draftAPI } = ProductAPI.useGetDraftQuery(draftId ?? skipToken, {refetchOnMountOrArgChange: true})
+    const { data: draftAPI } = ProductAPI.useGetDraftQuery(isDraft && productId ? productId : skipToken, {refetchOnMountOrArgChange: true})
     const { data: currencies } = CurrencyAPI.useGetCurrenciesQuery();
     const { data: metrics } = MetricsAPI.useGetMetricsQuery();
     const { data: countries } = CountryAPI.useGetCountriesQuery();
 
     // EFFECT
     useEffect(() => {
-        if ((!currencies || !metrics) || !(productsAPI || draftAPI)) return
+        if ((!currencies || !metrics || !countries) || !(productsAPI || draftAPI)) return
         const productsAPILoaded = (productsAPI ?? [draftAPI]) as IProductAPI[]
 
         setProducts(productApiListToProductList(productsAPILoaded, metrics, currencies, countries))
-    }, [productsAPI, draftAPI, currencies, metrics])
+    }, [productsAPI, draftAPI, currencies, metrics, countries])
+
+    useEffect(() => {
+        if (productId === undefined || products.length === 0) return
+
+        const _currentProduct = products.find(it => it.id === +productId)
+        if (_currentProduct) {
+            handleOnProduct(_currentProduct)
+        }
+    }, [productId, products])
 
     // HANDLE
     // create product
@@ -61,12 +67,13 @@ export const ProductSingleCreationPage = ({ groupId, draftId, className }: IProd
     const handleOnProduct: TListItemOnClick<IProduct> = (it, _) => {
         if (metrics === undefined) return
         setCurrentProduct(it)
-        setCurrentPropsProduct(productToPropsProductForm(it, metrics))
+        setCurrentPropsProduct(productToPropsProductForm(it))
     }
     // on delete
     const handleOnDelete: TListItemOnClick<IProduct> = (it, _) => {}
 
-    console.log('qwe product form edit', products)
+    console.log('qwe product form edit', currentProduct)
+    console.log('qwe product form edit', currentPropsProduct)
 
     return (
         <div className={cls(cl.page, className)}>
@@ -74,11 +81,9 @@ export const ProductSingleCreationPage = ({ groupId, draftId, className }: IProd
                                         onCreateProduct={handleOnCreateProduct}
                                         onClickItem={handleOnProduct}
                                         onDeleteItem={handleOnDelete}
-                                        componentProps={{
-                                        onClickDelete: handleOnDelete,
-                                        }}
+                                        componentProps={{ onClickDelete: handleOnDelete }}
                                         activeId={currentProduct ? currentProduct.id : undefined} />
-            <CreationProductForm data={currentPropsProduct} isDraft={draftId !== null} />
+            <CreationProductForm data={currentPropsProduct} isEdit={true} />
         </div>
     )
 }

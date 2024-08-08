@@ -63,6 +63,11 @@ export const InputImage:FC<InputImageProps> = ({
 
     // EFFECT
     useEffect(() => {
+        if (imageList.length > 0 && activeIndexImage === undefined)
+            setActiveIndexImage(0)
+    }, [imageList])
+
+    useEffect(() => {
         setLocTitle(() => title ?? getInputImagePrompt(multiple))
     }, [title, multiple])
 

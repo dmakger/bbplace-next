@@ -18,7 +18,7 @@ import { PASSWORD_VALID_RULES, isPasswordValid } from '@/entities/Auth/data/pass
 interface InputTextProps extends IWrapperRectangleInputChildren, IInput {
     title?: string
     variantInputText?: EInputTextVariant
-    defaultValue?: string,
+    defaultValue?: string | number,
     type?: EInputTextType,
     inputTypeVariant?: EInputTextTypeVariants
 
@@ -46,7 +46,7 @@ export function InputText({
     type = EInputTextType.Text,
     beforeImage, beforeProps,
     onChange = () => { }, onChangeEvent = () => { },
-    defaultValue = '',
+    defaultValue,
     success, setSuccess, warning, setWarning,
     setInputValueLength,
     size,

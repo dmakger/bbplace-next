@@ -11,10 +11,10 @@ import { IPropsVariationInfoProductForm } from "../model/variationInfo.product.f
 import { IPropsProductForm } from "../model/product.form.model";
 import { processDeliveryOption, processEquipmentOption, processFeaturesOption, processWarehousesOption } from "./process.additionalInfo.product.form.lib";
 
-export const productToPropsProductForm = (product: IProduct, metricList: IMetrics[]): IPropsProductForm => {
+export const productToPropsProductForm = (product: IProduct): IPropsProductForm => {
     return {
         main: productToPropsMainProductForm(product),
-        additional: productToPropsAdditionalProductForm(product, metricList),
+        additional: productToPropsAdditionalProductForm(product),
         variation: productToPropsMediaProductForm(product),
     }
 }
@@ -33,12 +33,12 @@ export const productToPropsMainProductForm = (product: IProduct): IPropsMainInfo
 }
 
 
-export const productToPropsAdditionalProductForm = (product: IProduct, metricList: IMetrics[]): IPropsAdditionalInfoProductForm => {
+export const productToPropsAdditionalProductForm = (product: IProduct): IPropsAdditionalInfoProductForm => {
     const {expirationDate, expirationDateMetric} = expirationDateToExpirationDateAndMetric(product.characteristics.expirationDate)
-    const weightMetric = metricList.find(it => it.name === product.characteristics.weightUnits)
     const delivery = (product.delivery ?? []).map(it => processDeliveryOption({delivery: it})).filter(it => it !== undefined)
     const warehouses = (product.warehouses ?? []).map(it => processWarehousesOption({warehouses: it})).filter(it => it !== undefined)
-    const features = (product.warehouses ?? []).map(it => processFeaturesOption({features: it})).filter(it => it !== undefined)
+    const weightUnits = product.characteristics.weightUnits ? metricToOption(product.characteristics.weightUnits) : undefined
+    const features = (product.characteristics.features ?? []).map(it => processFeaturesOption({features: it})).filter(it => it !== undefined)
     const equipment = equipmentToEquipmentList(product.characteristics.equipment)
     const equipmentOptionList = equipment.map(it => {
         const lastSpaceIndex = it.lastIndexOf(' ');
@@ -64,7 +64,7 @@ export const productToPropsAdditionalProductForm = (product: IProduct, metricLis
         expirationDate: expirationDate,
         expirationDateMetric: expirationDateMetric,
         weight: product.characteristics.weight,
-        weightMetric: weightMetric ? metricToOption(weightMetric) : undefined,
+        weightMetric: weightUnits,
         features: features,
         composition: product.characteristics.composition,
         equipment: equipmentOptionList,

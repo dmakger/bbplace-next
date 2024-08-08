@@ -11,12 +11,12 @@ import { useState, Suspense } from "react";
 export default function ProductEditPage() {
     // STATE
     const [groupId, setGroupId] = useState<string | undefined>()
-    const [draftId, setDraftId] = useState<string | undefined>()
+    const [productId, setProductId] = useState<string | undefined>()
 
 
     const PRODUCT_EDIT_OPTIONS_TAB: IEditProductsTab = {
         single: {
-            optionTab: <ProductSingleCreationPage groupId={groupId} draftId={draftId} />,
+            optionTab: <ProductSingleCreationPage groupId={groupId} productId={productId} />,
             optionValue: String(SWITCH_SELECTOR_PRODUCT_EDIT_PAGE_SINGLE.value)
         }
     }
@@ -25,7 +25,7 @@ export default function ProductEditPage() {
             <Suspense fallback={<div>Loading...</div>}>
                 <SuspenseL.Any data={[
                     { searchKey: "groupId", set: setGroupId, defaultValue: undefined },
-                    { searchKey: "draftId", set: setDraftId, defaultValue: undefined },
+                    { searchKey: "id", set: setProductId, defaultValue: undefined },
                 ]}>
                     <WrapperLKPT options={LK_PRODUCT_PAGE_EDIT}
                         pageTitle="Новый товар"

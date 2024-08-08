@@ -14,11 +14,11 @@ import { isEqual } from "lodash"
 
 interface CreationProductFormProps {
     data?: IPropsProductForm
-    isDraft?: boolean
+    isEdit?: boolean
     className?: string,
 }
 
-export const CreationProductForm:FC<CreationProductFormProps> = ({data, isDraft=false, className}) => {
+export const CreationProductForm:FC<CreationProductFormProps> = ({data, isEdit=false, className}) => {
     console.log('qwe propsProductForm', data)
     
     // REF
@@ -54,8 +54,8 @@ export const CreationProductForm:FC<CreationProductFormProps> = ({data, isDraft=
 
     return (
         <div className={cls(cl.block, className)}>
-            <MainInfoProductForm data={mainInfoData} setData={setMainInfoData} triggerSubmit={(submitFn) => { mainFormSubmitRef.current = submitFn }} isOpenForm={!isDraft} />
-            <AdditionalInfoProductForm data={additionalInfoData} setData={setAdditionalInfoData} triggerSubmit={(submitFn) => { additionalFormSubmitRef.current = submitFn }} isOpenForm={!isDraft} />
+            <MainInfoProductForm data={mainInfoData} setData={setMainInfoData} triggerSubmit={(submitFn) => { mainFormSubmitRef.current = submitFn }} isOpenForm={!isEdit} />
+            <AdditionalInfoProductForm data={additionalInfoData} setData={setAdditionalInfoData} triggerSubmit={(submitFn) => { additionalFormSubmitRef.current = submitFn }} isOpenForm={!isEdit} />
             <VariationInfoProductForm data={variationInfoData} setData={setVariationInfoData} triggerSubmit={(submitFn) => { variationFormSubmitRef.current = submitFn }} />
 
             <Button variant={ButtonVariant.FILL} size={ButtonSize.Big} 
