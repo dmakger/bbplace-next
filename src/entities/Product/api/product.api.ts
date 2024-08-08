@@ -99,6 +99,13 @@ export const ProductAPI = createApi({
                 method: 'GET',
             })
         }),
+        getDraftsByGroup: build.query<IProductAPI[], string | number>({
+            query: (groupId) => ({
+                url: `/GetItemsDrafts/${groupId}`,
+                method: 'GET',
+                headers: getHeaderAuthorization(),
+            }),
+        }),
 
         //EXCEL
         getImportExcelTemplate: build.mutation<Blob, number[]>({

@@ -2,7 +2,6 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 20px;
     width: 100%;
 
 
@@ -27,6 +26,7 @@
         &.visible {
           opacity: 1;
           height: auto;
+          margin-top: 20px;
         }
     }
 }

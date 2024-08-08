@@ -1,4 +1,7 @@
 .block {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     max-width: 610px;
     width: 100%;
 }

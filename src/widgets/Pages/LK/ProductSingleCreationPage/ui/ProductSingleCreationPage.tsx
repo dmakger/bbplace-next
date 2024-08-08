@@ -35,19 +35,19 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
     const [currentPropsProduct, setCurrentPropsProduct] = useState<IPropsProductForm | undefined>(undefined)
 
     // API
-    const { data: productsAPI } = ProductAPI.useGetProductsByGroupQuery(groupId ?? skipToken, {refetchOnMountOrArgChange: true})
-    const { data: draftAPI } = ProductAPI.useGetDraftQuery(isDraft && productId ? productId : skipToken, {refetchOnMountOrArgChange: true})
+    const { data: productsAPI } = ProductAPI.useGetProductsByGroupQuery(!isDraft && groupId ? groupId : skipToken, {refetchOnMountOrArgChange: true})
+    const { data: draftsAPI } = ProductAPI.useGetDraftsByGroupQuery(isDraft && groupId ? groupId : skipToken, {refetchOnMountOrArgChange: true})
     const { data: currencies } = CurrencyAPI.useGetCurrenciesQuery();
     const { data: metrics } = MetricsAPI.useGetMetricsQuery();
     const { data: countries } = CountryAPI.useGetCountriesQuery();
 
     // EFFECT
     useEffect(() => {
-        if ((!currencies || !metrics || !countries) || !(productsAPI || draftAPI)) return
-        const productsAPILoaded = (productsAPI ?? [draftAPI]) as IProductAPI[]
+        if ((!currencies || !metrics || !countries) || !(productsAPI || draftsAPI)) return
+        const productsAPILoaded = (isDraft ? draftsAPI : productsAPI) as IProductAPI[]
 
         setProducts(productApiListToProductList(productsAPILoaded, metrics, currencies, countries))
-    }, [productsAPI, draftAPI, currencies, metrics, countries])
+    }, [productsAPI, draftsAPI, currencies, metrics, countries])
 
     useEffect(() => {
         if (productId === undefined || products.length === 0) return
