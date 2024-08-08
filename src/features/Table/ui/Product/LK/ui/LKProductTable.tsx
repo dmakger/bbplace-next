@@ -22,6 +22,8 @@ import { IGroupProducts } from "@/entities/Product/model/group.product.model";
 import { LKProductTableCellToggleWCheckbox } from "../components/Cell/ToggleWCheckbox/LKProductTableCellToggleWCheckbox";
 import { cls } from "@/shared/lib/classes.lib";
 import { skipToken } from "@reduxjs/toolkit/query";
+import { useRouter } from "next/navigation";
+import { DASHBOARD_PAGES } from "@/config/pages-url.config";
 
 interface LKProductTableProps {
     _products?: IProduct[]
@@ -29,6 +31,9 @@ interface LKProductTableProps {
 }
 
 export const LKProductTable:FC<LKProductTableProps> = ({_products, ...rest}) => {
+    //ROUTER
+    const router = useRouter();
+    
     // STATE
     const [categoryList, setCategoryList] = useState<ICategory[]>([])
     const [products, setProducts] = useState<IProduct[]>([]);
@@ -198,7 +203,12 @@ export const LKProductTable:FC<LKProductTableProps> = ({_products, ...rest}) => 
     }
 
     // EDIT ON CLICK
-    const onClickEdit = (_product: IProduct) => { }
+    const onClickEdit = (_product: IProduct) => { 
+        const {groupId, id} = _product
+        if (groupId === null) return
+
+        router.push(DASHBOARD_PAGES.EDIT_PRODUCT({groupId, id}).path);
+     }
 
     return (
         <>

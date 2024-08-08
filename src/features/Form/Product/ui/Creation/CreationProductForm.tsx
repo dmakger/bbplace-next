@@ -19,6 +19,8 @@ interface CreationProductFormProps {
 }
 
 export const CreationProductForm:FC<CreationProductFormProps> = ({data, isDraft=false, className}) => {
+    console.log('qwe propsProductForm', data)
+    
     // REF
     const mainFormSubmitRef = useRef<() => void>();
     const additionalFormSubmitRef = useRef<() => void>();

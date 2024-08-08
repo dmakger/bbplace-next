@@ -75,7 +75,12 @@ class DASHBOARD extends Route {
     NEW_TENDER = this.createPath('/tender/new', true);
 
     CURRENT_CHAT = this.createDynamicPath((id: ISupplier['id']) => `/chat/${id}`, true);
-    EDIT_PRODUCT = this.createDynamicPath((id: IProduct['id']) => `/product/edit/${id}`, true);
+    // EDIT_PRODUCT = this.createDynamicPath((id: IProduct['id']) => `/product/edit/${id}`, true);
+    // EDIT_PRODUCT = this.createDynamicPath((groupId: IProduct['groupId'], id: IProduct['id']) => `/product/edit?groupId=${groupId}&id=${id}`, true);
+    EDIT_PRODUCT = this.createDynamicPath<{ groupId: number, id: IProduct['id'] }>(
+        (params) => `/product/edit?groupId=${params.groupId}&id=${params.id}`,
+        true
+    );
 }
 
 export const DASHBOARD_PAGES = new DASHBOARD('/i');

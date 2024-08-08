@@ -86,6 +86,23 @@ export const SWITCH_SELECTOR_PRODUCT_PAGE_MULTIPLE: IOption = {
     value: 'multiple'
 }
 
+export const LK_PRODUCT_PAGE_CREATE: IOption[] = [
+    SWITCH_SELECTOR_PRODUCT_PAGE_MULTIPLE,
+    SWITCH_SELECTOR_PRODUCT_PAGE_SINGLE
+]
+
+//LK_PRODUCT_PAGE_EDIT
+
+export const SWITCH_SELECTOR_PRODUCT_EDIT_PAGE_SINGLE: IOption = {
+    id: 13,
+    name: 'Редактирование товара',
+    value: 'single'
+}
+
+export const LK_PRODUCT_PAGE_EDIT: IOption[] = [
+    SWITCH_SELECTOR_PRODUCT_EDIT_PAGE_SINGLE,
+]
+
 //LK_PRICES_N_DISCOUNTS
 
 export const SWITCH_SELECTOR_PRICES_N_DISCOUNTS: IOption = {
@@ -94,10 +111,7 @@ export const SWITCH_SELECTOR_PRICES_N_DISCOUNTS: IOption = {
     value: 'pricesNDiscounts'
 }
 
-export const LK_PRODUCT_PAGE_CREATE: IOption[] = [
-    SWITCH_SELECTOR_PRODUCT_PAGE_MULTIPLE,
-    SWITCH_SELECTOR_PRODUCT_PAGE_SINGLE
-]
+
 export enum ProductsTypeLK {
     Active,
     Draft,

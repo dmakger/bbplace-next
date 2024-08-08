@@ -31,6 +31,10 @@ export interface ICreateNewProductsTab extends IOptionTabParent {
     multiple: IOptionTab,
 }
 
+export interface IEditProductsTab extends IOptionTabParent {
+    single: IOptionTab,
+}
+
 export interface IPricesNDiscountsTab extends IOptionTabParent{
     pricesNDiscounts: IOptionTab,
 }
@@ -42,6 +46,8 @@ export interface IOptionTabTender extends IOptionTabParent {
 }
 
 export type OptionsTabType = (
-    IUserProductsTab | IDetailedProductOptionsTab | ICreateNewProductsTab | IPricesNDiscountsTab
+    IUserProductsTab | IDetailedProductOptionsTab 
+    | ICreateNewProductsTab | IEditProductsTab
+    | IPricesNDiscountsTab
     | IOptionTabTender
 );

@@ -19,26 +19,26 @@ import { productToPropsProductForm } from "@/features/Form/Product/lib/product.f
 import { IPropsProductForm } from "@/features/Form/Product/model/product.form.model"
 
 interface IProductSingleCreationPage {
+    groupId?: string
+    draftId?: string
     className?: string,
 }
 
-export const ProductSingleCreationPage = ({ className }: IProductSingleCreationPage) => {
+export const ProductSingleCreationPage = ({ groupId, draftId, className }: IProductSingleCreationPage) => {
     // RTK
     const { id: userId } = useAppSelector(state => state.user)
 
     // STATE
-    const [groupId, setGroupId] = useState<string | null>(null)
-    const [draftId, setDraftId] = useState<string | null>(null)
     const [products, setProducts] = useState<IProduct[]>([])
     const [currentProduct, setCurrentProduct] = useState<IProduct | undefined>(undefined)
     const [currentPropsProduct, setCurrentPropsProduct] = useState<IPropsProductForm | undefined>(undefined)
 
     // API
-    // const { data: productsAPI } = ProductAPI.useGetProductsByGroupQuery(groupId ?? skipToken, {refetchOnMountOrArgChange: true})
-    const { data: productsAPI } = ProductAPI.useGetProductsQuery(
-        { limit: 5, page: 3 },
-        { refetchOnMountOrArgChange: true }
-    );
+    const { data: productsAPI } = ProductAPI.useGetProductsByGroupQuery(groupId ?? skipToken, {refetchOnMountOrArgChange: true})
+    // const { data: productsAPI } = ProductAPI.useGetProductsQuery(
+    //     { limit: 5, page: 3 },
+    //     { refetchOnMountOrArgChange: true }
+    // );
     const { data: draftAPI } = ProductAPI.useGetDraftQuery(draftId ?? skipToken, {refetchOnMountOrArgChange: true})
     const { data: currencies } = CurrencyAPI.useGetCurrenciesQuery();
     const { data: metrics } = MetricsAPI.useGetMetricsQuery();
@@ -64,26 +64,21 @@ export const ProductSingleCreationPage = ({ className }: IProductSingleCreationP
         setCurrentPropsProduct(productToPropsProductForm(it, metrics))
     }
     // on delete
-    const handleOnDelete: TListItemOnClick<IProduct> = (it, _) => {
+    const handleOnDelete: TListItemOnClick<IProduct> = (it, _) => {}
 
-    }
+    console.log('qwe product form edit', products)
 
     return (
         <div className={cls(cl.page, className)}>
-            <SuspenseL.Any data={[
-                { searchKey: "groupId", set: setGroupId },
-                { searchKey: "draftId", set: setDraftId },
-            ]}>
-                <ProductTypeArticleBlock items={products} 
-                                         onCreateProduct={handleOnCreateProduct}
-                                         onClickItem={handleOnProduct}
-                                         onDeleteItem={handleOnDelete}
-                                         componentProps={{
-                                            onClickDelete: handleOnDelete,
-                                         }}
-                                         activeId={currentProduct ? currentProduct.id : undefined} />
-                <CreationProductForm data={currentPropsProduct} isDraft={draftId !== null} />
-            </SuspenseL.Any>
+            <ProductTypeArticleBlock items={products} 
+                                        onCreateProduct={handleOnCreateProduct}
+                                        onClickItem={handleOnProduct}
+                                        onDeleteItem={handleOnDelete}
+                                        componentProps={{
+                                        onClickDelete: handleOnDelete,
+                                        }}
+                                        activeId={currentProduct ? currentProduct.id : undefined} />
+            <CreationProductForm data={currentPropsProduct} isDraft={draftId !== null} />
         </div>
     )
 }
