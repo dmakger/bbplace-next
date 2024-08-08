@@ -1,11 +1,17 @@
 .content{
     flex-direction: column;
     gap: 21px;
+    width: 100%;
     margin: 0 20px;
     overflow: hidden;
 
     @media (max-width: 768px) {
         padding: 0px;
+    }
+
+    .topContainer{
+        width: 100%;
+ 
     }
     
     .articles{
