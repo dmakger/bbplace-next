@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { FC, ReactNode, useEffect, useRef, useState } from "react";
 import { cls } from "@/shared/lib/classes.lib";
@@ -23,13 +23,18 @@ export const WrapperSubblockForm: FC<WrapperSubblockFormProps> = ({
 }) => {
   // STATE
   const [isOpen, setIsOpen] = useState(isOurOpen);
-  const [height, setHeight] = useState<number | "auto">(isOurOpen ? "auto" : 0);
+  const [height, setHeight] = useState<number | undefined>(undefined);
   const contentRef = useRef<HTMLDivElement>(null);
 
-  // HANDLE
-  const handleOnClickHeader = () => {
-    setIsOpen((prevState) => !prevState);
-  };
+  // EFFECT
+  useEffect(() => {
+    setIsOpen(isOurOpen);
+    if (isOurOpen) {
+      setHeight(contentRef.current?.scrollHeight); // Присваиваем scrollHeight вместо "auto"
+    } else {
+      setHeight(0);
+    }
+  }, [isOurOpen]);
 
   useEffect(() => {
     const content = contentRef.current;
@@ -55,12 +60,16 @@ export const WrapperSubblockForm: FC<WrapperSubblockFormProps> = ({
     if (content) {
       if (isOpen) {
         setHeight(content.scrollHeight);
-        setTimeout(() => setHeight("auto"), 300); // Сброс высоты до "auto" после завершения анимации
       } else {
         setHeight(0);
       }
     }
   }, [isOpen, children]);
+
+  // HANDLE
+  const handleOnClickHeader = () => {
+    setIsOpen((prevState) => !prevState);
+  };
 
   return (
     <div className={cls(cl.block, className)}>
@@ -73,7 +82,7 @@ export const WrapperSubblockForm: FC<WrapperSubblockFormProps> = ({
       <div
         ref={contentRef}
         className={cls(cl.content, isOpen ? cl.visible : "")}
-        style={{ height: height }}
+        style={{ height: isOpen ? height : 0, transition: 'height 300ms ease' }}
       >
         {children}
       </div>

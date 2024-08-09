@@ -1,5 +1,6 @@
 "use client"
 
+import { DASHBOARD_PAGES } from "@/config/pages-url.config";
 import { IEditProductsTab } from "@/features/DetailedPageInfo/model/detailedPageInfo.model";
 import { LK_PRODUCT_PAGE_EDIT, SWITCH_SELECTOR_PRODUCT_EDIT_PAGE_SINGLE } from "@/shared/ui/SwitchSelector/data/switchSelector.data";
 import Wrapper1280 from "@/shared/ui/Wrapper/1280/Wrapper1280";
@@ -24,11 +25,12 @@ export default function ProductEditPage() {
         <Wrapper1280>
             <Suspense fallback={<div>Loading...</div>}>
                 <SuspenseL.Any data={[
-                    { searchKey: "groupId", set: setGroupId, defaultValue: undefined },
-                    { searchKey: "id", set: setProductId, defaultValue: undefined },
+                    { searchKey: "groupId", set: setGroupId },
+                    { searchKey: "id", set: setProductId },
                 ]}>
                     <WrapperLKPT options={LK_PRODUCT_PAGE_EDIT}
                         pageTitle="Новый товар"
+                        buttonBackProps={{href: DASHBOARD_PAGES.PRODUCTS.path}}
                         startPage={SWITCH_SELECTOR_PRODUCT_EDIT_PAGE_SINGLE}
                         optionsTab={PRODUCT_EDIT_OPTIONS_TAB}
                         isButtonAdd={false} />

@@ -77,8 +77,11 @@ class DASHBOARD extends Route {
     CURRENT_CHAT = this.createDynamicPath((id: ISupplier['id']) => `/chat/${id}`, true);
     // EDIT_PRODUCT = this.createDynamicPath((id: IProduct['id']) => `/product/edit/${id}`, true);
     // EDIT_PRODUCT = this.createDynamicPath((groupId: IProduct['groupId'], id: IProduct['id']) => `/product/edit?groupId=${groupId}&id=${id}`, true);
-    EDIT_PRODUCT = this.createDynamicPath<{ groupId: number, id: IProduct['id'] }>(
-        (params) => `/product/edit?groupId=${params.groupId}&id=${params.id}`,
+    EDIT_PRODUCT = this.createDynamicPath<{ groupId: number, id?: IProduct['id'] }>(
+        (params) => {
+            const startURL = `/product/edit?groupId=${params.groupId}`
+            return params.id !== undefined ? `${startURL}&id=${params.id}`: startURL
+        },
         true
     );
 }

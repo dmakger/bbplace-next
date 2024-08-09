@@ -8,7 +8,6 @@ import { ICountry } from "@/entities/Metrics/model/country.metrics.model"
 export interface IBaseProduct {
     name: string | null
     ownerId: string | null
-    categoryId:	number
     certification: boolean
     delivery: string[] | null
     paymentConditions: string | null
@@ -24,8 +23,13 @@ export interface IBaseProduct {
     warehouses:	string[] | null
 }
 
+export interface IBaseWCategoryProduct extends IBaseProduct {
+    categoryId:	number
+}
 
-export interface IBaseWIdsProduct extends IBaseProduct{
+
+
+export interface IBaseWIdsProduct extends IBaseWCategoryProduct{
     id: number
     groupId: number | null
     createdAt: string

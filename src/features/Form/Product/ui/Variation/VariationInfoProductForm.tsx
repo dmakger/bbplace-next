@@ -2,25 +2,21 @@
 
 import { Dispatch, FC, FormEvent, SetStateAction, useEffect, useRef, useState } from "react"
 
-import { cls } from '@/shared/lib/classes.lib';
 import cl from './_VariationInfoProductForm.module.scss'
 import { IPropsVariationInfoProductForm } from "../../model/variationInfo.product.form.model";
 import { MetricsAPI } from "@/entities/Metrics/api/metrics.metrics.api";
 import { CurrencyAPI } from "@/entities/Metrics/api/currency.metrics.api";
 import { IOption } from "@/shared/model/option.model";
 import { metricListToOptionList, metricToOption } from "@/entities/Metrics/lib/option.metric.metrics.lib";
-import { WrapperWOSubmit } from "@/shared/ui/Wrapper/WOSubmit/WrapperWOSubmit";
 import { WrapperSubblockForm } from "@/shared/ui/Wrapper/SubblockForm/ui/WrapperSubblockForm";
 import { SubblockFormVariant } from "@/shared/ui/Wrapper/SubblockForm/data/subblockForm.data";
 import { getFormDataFromForm } from "@/shared/lib/formData.lib";
 import { WrapperRectangleInput } from "@/shared/ui/Wrapper/RectangleInput";
 import Input from "@/shared/ui/Input/Input";
 import { EInputVariants } from "@/shared/ui/Input/model/input.model";
-import { generateId } from "@/shared/lib/generateId.lib";
 import { Direction } from "@/shared/ui/Direction/Direction";
 import { ListDirection } from "@/shared/data/list.data";
 import { EInputTextType } from "@/shared/ui/Input/ui/Text/data/text.input.data";
-import { getSymbolByCodeCurrency } from "@/entities/Metrics/lib/currency/currency.metrics.lib";
 import { currencyListToOptionList, currencyToOption } from "@/entities/Metrics/lib/currency/option.currency.metrics.lib";
 import { IMediaProduct } from "@/entities/Product/model/media.product.model";
 import { fromOptionToType } from "@/shared/lib/option/to.option.lib";
@@ -29,6 +25,7 @@ import { IMetrics } from "@/entities/Metrics/model/metric.metrics.model";
 import { IWholesale } from "@/entities/Metrics/model/wholesale.metrics.model";
 import { ISize } from "@/entities/Metrics/model/size.metrics.model";
 import { processSizeOptionInProductForm, processWholesaleOptionInProductForm } from "../../lib/process.variation.product.lib";
+import { WrapperWOSubmit } from "@/shared/ui/Wrapper/WOSubmit/ui/WrapperWOSubmit";
 
 interface VariationInfoProductFormProps{
     data?: IPropsVariationInfoProductForm
@@ -62,12 +59,18 @@ export const VariationInfoProductForm:FC<VariationInfoProductFormProps> = ({data
     // EFFECT
     // data
     useEffect(() => {
-        if (!data) return
+        if (!data) {
+            setSelectedWholesaleCurrencyOption(undefined)
+            setSelectedWholesaleMetricOption(undefined)
+            setAddedWholesaleOption([])
+            setAddedSizesOption([])
+            setUploadedImageList([])
+            return
+        }
         const media = data.media
         setSelectedWholesaleCurrencyOption(() => media.currency ?? undefined)
         setSelectedWholesaleMetricOption(() => media.priceUnits ?? undefined)
         setAddedWholesaleOption(() => {
-            // let {currency, priceUnits, wholesalePrices} = media
             if (!media.currency || !media.priceUnits) return []
 
             const currency = currencyToOption(media.currency)
@@ -81,7 +84,7 @@ export const VariationInfoProductForm:FC<VariationInfoProductFormProps> = ({data
                 processSizeOptionInProductForm(it.size, metricToOption(it.sizeUnit))
             )).filter(it => it !== undefined)
         })
-        setUploadedImageList(prev => data?.media.attachments ?? prev)
+        setUploadedImageList(() => data?.media.attachments ?? [])
     }, [data])
 
     // metric
@@ -157,16 +160,16 @@ export const VariationInfoProductForm:FC<VariationInfoProductFormProps> = ({data
                     <WrapperRectangleInput labelText={"Оптовые цены"} isRequired={true}>
                         <Input.Addition options={addedWholesaleOption} setOptions={setAddedWholesaleOption} process={processWholesaleOption}>
                             <Direction direction={ListDirection.Row}>
-                                <Input.Text name={'wholesalePrice'} placeholder="Цена товара" required={true} 
+                                <Input.Text name={'wholesalePrice'} placeholder="Цена товара" 
                                             type={EInputTextType.Number} variant={EInputVariants.RECTANGULAR} />
-                                <Input.TextAndSelect name={'wholesaleCurrency'} placeholder="Валюта" required={true} disabled={addedWholesaleOption.length > 0}
+                                <Input.TextAndSelect name={'wholesaleCurrency'} placeholder="Валюта" disabled={addedWholesaleOption.length > 0}
                                             options={currencyOptions} onClickOption={setSelectedWholesaleCurrencyOption} defaultOption={selectedWholesaleCurrencyOption}
                                             titleModal="Валюта" variant={EInputVariants.RECTANGULAR} /> 
                             </Direction>
                             <Direction direction={ListDirection.Row}>
-                                <Input.Text name={'wholesaleQuantity'} placeholder="При заказе от" required={true} 
+                                <Input.Text name={'wholesaleQuantity'} placeholder="При заказе от" 
                                             type={EInputTextType.Number} variant={EInputVariants.RECTANGULAR} />
-                                <Input.TextAndSelect name={'wholesaleMetric'} placeholder="Измерение" required={true} disabled={addedWholesaleOption.length > 0}
+                                <Input.TextAndSelect name={'wholesaleMetric'} placeholder="Измерение" disabled={addedWholesaleOption.length > 0}
                                                     options={metricOptions} onClickOption={setSelectedWholesaleMetricOption} defaultOption={selectedWholesaleMetricOption}
                                                     titleModal="Измерение" variant={EInputVariants.RECTANGULAR} /> 
                             </Direction>
@@ -176,9 +179,9 @@ export const VariationInfoProductForm:FC<VariationInfoProductFormProps> = ({data
                     <WrapperRectangleInput labelText={"Размеры"} isRequired={true}>
                         <Input.Addition options={addedSizesOption} setOptions={setAddedSizesOption} process={processSizeOption}>
                             <Direction direction={ListDirection.Row}>
-                                <Input.Text name={'sizeValue'} placeholder="Значение" required={true} 
+                                <Input.Text name={'sizeValue'} placeholder="Значение" 
                                             variant={EInputVariants.RECTANGULAR} />
-                                <Input.TextAndSelect name={'sizeMetric'} placeholder="Измерение" required={true}
+                                <Input.TextAndSelect name={'sizeMetric'} placeholder="Измерение"
                                                     options={metricOptions} onClickOption={setSelectedSizeMetricOption}
                                                     titleModal="Измерение" variant={EInputVariants.RECTANGULAR} /> 
                             </Direction>

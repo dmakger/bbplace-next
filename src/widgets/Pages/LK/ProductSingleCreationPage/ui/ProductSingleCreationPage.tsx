@@ -2,10 +2,9 @@
 
 import { cls } from "@/shared/lib/classes.lib"
 import cl from './_ProductSingleCreationPage.module.scss'
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import { useAppSelector } from "@/storage/hooks"
-import { CreationProductForm } from "@/features/Form/Product/ui/Creation/CreationProductForm"
-import SuspenseL from "@/shared/ui/Wrapper/SuspenseL/SuspenseL"
+import { ProductForm } from "@/features/Form/Product/ui/Single/ProductForm"
 import { ProductAPI } from "@/entities/Product/api/product.api"
 import { skipToken } from "@reduxjs/toolkit/query"
 import { IProduct, IProductAPI } from "@/entities/Product/model/product.model"
@@ -17,22 +16,28 @@ import { TListItemOnClick } from "@/shared/model/list.model"
 import { CountryAPI } from "@/entities/Metrics/api/country.metrics.api"
 import { productToPropsProductForm } from "@/features/Form/Product/lib/product.form.lib"
 import { IPropsProductForm } from "@/features/Form/Product/model/product.form.model"
+import { useRouter } from "next/navigation"
+import { DASHBOARD_PAGES } from "@/config/pages-url.config"
 
 interface IProductSingleCreationPage {
-    groupId?: string
-    productId?: string
+    groupId?: string | null
+    productId?: string | null
     isDraft?: boolean
     className?: string,
 }
 
 export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, className }: IProductSingleCreationPage) => {
-    // RTK
-    const { id: userId } = useAppSelector(state => state.user)
+    // ROUTE
+    const router = useRouter();
+    
+    // REF
+    const productFormRef = useRef<{handleOnClick: () => void} | null>(null)
 
     // STATE
+    // const [isEdit, setIsEdit] = useState(!!productId)
     const [products, setProducts] = useState<IProduct[]>([])
-    const [currentProduct, setCurrentProduct] = useState<IProduct | undefined>(undefined)
-    const [currentPropsProduct, setCurrentPropsProduct] = useState<IPropsProductForm | undefined>(undefined)
+    const [currentProduct, setCurrentProduct] = useState<IProduct | undefined>()
+    const [currentPropsProduct, setCurrentPropsProduct] = useState<IPropsProductForm | undefined>()
 
     // API
     const { data: productsAPI } = ProductAPI.useGetProductsByGroupQuery(!isDraft && groupId ? groupId : skipToken, {refetchOnMountOrArgChange: true})
@@ -42,48 +47,73 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
     const { data: countries } = CountryAPI.useGetCountriesQuery();
 
     // EFFECT
+    const isEditForm = useMemo(() => !!productId, [productId])
+
     useEffect(() => {
         if ((!currencies || !metrics || !countries) || !(productsAPI || draftsAPI)) return
         const productsAPILoaded = (isDraft ? draftsAPI : productsAPI) as IProductAPI[]
 
-        setProducts(productApiListToProductList(productsAPILoaded, metrics, currencies, countries))
+        setProducts(prevProducts => {
+            const newProducts = productApiListToProductList(productsAPILoaded, metrics, currencies, countries);
+            if (JSON.stringify(prevProducts) !== JSON.stringify(newProducts)) {
+                return newProducts;
+            }
+            return prevProducts;
+        })
     }, [productsAPI, draftsAPI, currencies, metrics, countries])
 
     useEffect(() => {
-        if (productId === undefined || products.length === 0) return
+        if (!productId || products.length === 0) return
 
         const _currentProduct = products.find(it => it.id === +productId)
         if (_currentProduct) {
-            handleOnProduct(_currentProduct)
+            // swapProduct(_currentProduct)
+            setCurrentProduct(_currentProduct)
+            setCurrentPropsProduct(productToPropsProductForm(_currentProduct))
         }
     }, [productId, products])
 
     // HANDLE
+    // сбор данных из формы
+    const handleGetFormData = () => {
+        if (productFormRef.current) {
+            productFormRef.current.handleOnClick()
+        }
+    }
+
     // create product
-    const handleOnCreateProduct = () => {
+    const handleOnCreateProduct = async () => {
+        if (!groupId || !isEditForm) return
         setCurrentProduct(undefined)
+        setCurrentPropsProduct(undefined)
+        await handleGetFormData()
+        router.push(DASHBOARD_PAGES.EDIT_PRODUCT({groupId: +groupId}).path);
     }
     // on product
-    const handleOnProduct: TListItemOnClick<IProduct> = (it, _) => {
-        if (metrics === undefined) return
-        setCurrentProduct(it)
-        setCurrentPropsProduct(productToPropsProductForm(it))
+    const handleOnProduct: TListItemOnClick<IProduct> = async (it, _) => {
+        if (currentProduct && it.id === currentProduct.id) return
+        if (currentProduct) await handleGetFormData()
+        router.push(DASHBOARD_PAGES.EDIT_PRODUCT({groupId: it.groupId!, id: it.id}).path);
     }
     // on delete
     const handleOnDelete: TListItemOnClick<IProduct> = (it, _) => {}
 
-    console.log('qwe product form edit', currentProduct)
-    console.log('qwe product form edit', currentPropsProduct)
+    // load
+    const handleLoadProduct = (formData: IPropsProductForm) => {
+        console.log('qwe load data', formData)
+    }
+
+    console.log('qwe isEditForm', isEditForm)
 
     return (
         <div className={cls(cl.page, className)}>
             <ProductTypeArticleBlock items={products} 
-                                        onCreateProduct={handleOnCreateProduct}
-                                        onClickItem={handleOnProduct}
-                                        onDeleteItem={handleOnDelete}
-                                        componentProps={{ onClickDelete: handleOnDelete }}
-                                        activeId={currentProduct ? currentProduct.id : undefined} />
-            <CreationProductForm data={currentPropsProduct} isEdit={true} />
+                onCreateProduct={handleOnCreateProduct}
+                onClickItem={handleOnProduct}
+                onDeleteItem={handleOnDelete}
+                componentProps={{ onClickDelete: handleOnDelete }}
+                activeId={currentProduct ? currentProduct.id : undefined} />
+            <ProductForm ref={productFormRef} data={currentPropsProduct} loadFormData={handleLoadProduct} isEdit={isEditForm} />
         </div>
     )
 }

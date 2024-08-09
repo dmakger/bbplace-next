@@ -5,7 +5,6 @@ import { Dispatch, FC, FormEvent, SetStateAction, useEffect, useRef, useState } 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_AdditionalInfoProductForm.module.scss'
 import { IPropsAdditionalInfoProductForm } from "../../model/additionalInfo.product.form.model";
-import { WrapperWOSubmit } from "@/shared/ui/Wrapper/WOSubmit/WrapperWOSubmit";
 import { WrapperSubblockForm } from "@/shared/ui/Wrapper/SubblockForm/ui/WrapperSubblockForm";
 import { SubblockFormVariant } from "@/shared/ui/Wrapper/SubblockForm/data/subblockForm.data";
 import { getFormDataFromForm } from "@/shared/lib/formData.lib";
@@ -25,6 +24,8 @@ import { ListDirection } from "@/shared/data/list.data";
 import { NO_FORM__DATA, YES_FORM__DATA } from "@/shared/data/option/base.option.data";
 import { TIME_UNIT__OPTION__DATA } from "@/shared/data/option/timeUnit.option.data";
 import { processDeliveryOption, processWarehousesOption, processFeaturesOption, processEquipmentOption } from "../../lib/process.additionalInfo.product.form.lib";
+import { TriggerSubmitType } from "@/shared/ui/Wrapper/WOSubmit/model/woSubmit.model";
+import { WrapperWOSubmit } from "@/shared/ui/Wrapper/WOSubmit/ui/WrapperWOSubmit";
 
 interface AdditionalInfoProductFormProps{
     data?: IPropsAdditionalInfoProductForm
@@ -57,14 +58,14 @@ export const AdditionalInfoProductForm:FC<AdditionalInfoProductFormProps> = ({da
     // EFFECT
     // data
     useEffect(() => {
-        setSelectedGenderOption(prev => data?.gender ?? prev)
-        setSelectedExpirationDateMetricOption(prev => data?.expirationDateMetric ?? prev)
-        setSelectedWeightMetricOption(prev => data?.weightMetric ?? prev)
+        setSelectedGenderOption(() => data?.gender ?? UNISEX_GENDER__PRODUCT_FORM__DATA)
+        setSelectedExpirationDateMetricOption(() => data?.expirationDateMetric ?? undefined)
+        setSelectedWeightMetricOption(() => data?.weightMetric ?? undefined)
 
-        setAddedDeliveryOption(prev => data?.delivery ?? prev)
-        setAddedWarehousesOption(prev => data?.warehouses ?? prev)
-        setAddedFeaturesOption(prev => data?.features ?? prev)
-        setAddedEquipmentOption(prev => data?.equipment ?? prev)
+        setAddedDeliveryOption(() => data?.delivery ?? [])
+        setAddedWarehousesOption(() => data?.warehouses ?? [])
+        setAddedFeaturesOption(() => data?.features ?? [])
+        setAddedEquipmentOption(() => data?.equipment ?? [])
 
     }, [data])
 

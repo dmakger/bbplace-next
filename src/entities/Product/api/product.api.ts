@@ -7,6 +7,7 @@ import { getArgsProduct } from "../lib/args.product.lib";
 import { getURL } from "@/api/request";
 import { PRODUCT_BY_USER_LIMIT, PRODUCT_START_PAGE } from "../data/product.data";
 import { getHeaderAuthorization } from "@/entities/Auth/lib/auth-token.lib";
+import { IPropsCreateProduct, IPropsUpdateProduct } from "../model/props.product.model";
 
 
 export const ProductAPI = createApi({
@@ -107,7 +108,8 @@ export const ProductAPI = createApi({
             }),
         }),
 
-        //EXCEL
+
+        // ==========={ EXCEL }===========
         getImportExcelTemplate: build.mutation<Blob, number[]>({
             query: (selectedCategoriesId: number[]) => ({
                 url: `/GetImportExcelTemplate`,
@@ -144,7 +146,50 @@ export const ProductAPI = createApi({
                 responseHandler: (response) => response.blob(),
         })
         }),
-        //GROUP
+        
+
+        // ==========={ PRODUCT => CREATE | UPDATE | DELETE }===========
+        // create
+        createProduct: build.mutation<number, IPropsCreateProduct>({
+            query: (body) => ({
+                url: `/AddItem`,
+                method: 'POST',
+                headers: getHeaderAuthorization(),
+                body
+            }),
+        }),
+
+        // update
+        updateProduct: build.mutation<number, IPropsUpdateProduct>({
+            query: (body) => ({
+                url: `/EditItem`,
+                method: 'POST',
+                headers: getHeaderAuthorization(),
+                body
+            }),
+        }),
+
+        // delete
+        deleteProducts: build.mutation<void, number[]>({
+            query: (checkedItems) => ({
+                url: `/DeleteItems`,
+                method: 'POST',
+                headers: getHeaderAuthorization(),
+                body: checkedItems
+            }),
+        }),
+        deleteProductsDrafts: build.mutation<void, number[]>({
+            query: (checkedItems) => ({
+                url: `/DeleteItemsDrafts`,
+                method: 'POST',
+                headers: getHeaderAuthorization(),
+                body: checkedItems
+            }),
+        }),
+
+
+        // ==========={ GROUP => CREATE | GET }===========
+        // create
         createGroup: build.mutation<number, void>({
             query: () => ({
                 url: `/CreateGroup`,
@@ -161,6 +206,20 @@ export const ProductAPI = createApi({
                 body: {}
             })
         }),
+
+        // getter
+        getGroupProducts: build.query<IProductAPI[], string | number>({
+            query: (groupId) => ({
+                url: `/GetItems/${groupId}`,
+            })
+        }),
+        getGroupDrafts: build.query<IProductAPI[], string | number>({
+            query: (groupId) => ({
+                url: `/GetItemsDrafts/${groupId}`,
+            })
+        }),
+
+        // add in group
         addProductToGroup: build.mutation<number, IGroupData>({
             query: ({groupId, productId}) => ({
                 url: `/AddItemToGroup/${productId}/${groupId}`,
@@ -176,32 +235,6 @@ export const ProductAPI = createApi({
                 headers: getHeaderAuthorization(),
                 body: {}
             })
-        }),
-        getGroupProducts: build.query<IProductAPI[], string | number>({
-            query: (groupId) => ({
-                url: `/GetItems/${groupId}`,
-            })
-        }),
-        getGroupDrafts: build.query<IProductAPI[], string | number>({
-            query: (groupId) => ({
-                url: `/GetItemsDrafts/${groupId}`,
-            })
-        }),
-        deleteProducts: build.mutation<void, number[]>({
-            query: (checkedItems) => ({
-                url: `/DeleteItems`,
-                method: 'POST',
-                headers: getHeaderAuthorization(),
-                body: checkedItems
-            }),
-        }),
-        deleteProductsDrafts: build.mutation<void, number[]>({
-            query: (checkedItems) => ({
-                url: `/DeleteItemsDrafts`,
-                method: 'POST',
-                headers: getHeaderAuthorization(),
-                body: checkedItems
-            }),
         }),
     })
 

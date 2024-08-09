@@ -63,8 +63,11 @@ export const InputImage:FC<InputImageProps> = ({
 
     // EFFECT
     useEffect(() => {
-        if (imageList.length > 0 && activeIndexImage === undefined)
+        if (imageList.length === 0) {
+            setActiveIndexImage(undefined);
+        } else if (imageList.length > 0 && activeIndexImage === undefined) {
             setActiveIndexImage(0)
+        }
     }, [imageList])
 
     useEffect(() => {
@@ -141,7 +144,7 @@ export const InputImage:FC<InputImageProps> = ({
                     className={cl.input}
                     disabled={disabled} {...rest}/>
             
-            {activeIndexImage !== undefined && activeIndexImage <= imageList.length ? (
+            {activeIndexImage !== undefined && activeIndexImage <= imageList.length && imageList.length > 0 ? (
                 <div className={cl.wrapperActiveImage}>
                     <div className={cl.leftPanel}>
                         <Button variant={ButtonVariant.CONTENT} color={ButtonColor.Negative} size={ButtonSize.Medium}

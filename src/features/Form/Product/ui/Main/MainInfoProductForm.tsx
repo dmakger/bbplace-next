@@ -19,7 +19,7 @@ import { countryListToOptionList } from "@/entities/Metrics/lib/option.country.m
 import { EInputTextTypeVariants } from "@/shared/ui/Input/Text/model/text.input.model";
 import { getFormDataFromForm } from "@/shared/lib/formData.lib";
 import { IPropsMainInfoProductForm } from "../../model/mainInfo.product.form.model";
-import { WrapperWOSubmit } from "@/shared/ui/Wrapper/WOSubmit/WrapperWOSubmit";
+import { WrapperWOSubmit } from "@/shared/ui/Wrapper/WOSubmit/ui/WrapperWOSubmit";
 
 
 interface MainInfoProductFormProps {
@@ -47,8 +47,9 @@ export const MainInfoProductForm:FC<MainInfoProductFormProps> = ({data, setData,
     // EFFECT
     // data
     useEffect(() => {
-        setSelectedStatusOption(prev => data?.status ?? prev)
-        setSelectedCountryOption(prev => data?.country ?? prev)
+        setSelectedCategoryIds(() => data?.categoryId ? [data?.categoryId] : [])
+        setSelectedStatusOption(() => data?.status ?? NO_FORM__DATA)
+        setSelectedCountryOption(() => data?.country ?? undefined)
     }, [data])
 
     // country
@@ -89,6 +90,7 @@ export const MainInfoProductForm:FC<MainInfoProductFormProps> = ({data, setData,
                         isRequired
                         isDescriptionTooltip
                         descriptionTooltipText='Выберите категорию из списка'
+                        defaultId={selectedCategoryIds.length > 0 ? selectedCategoryIds[0] : undefined}
                         setSelectedCategoriesId={setSelectedCategoryIds} />
                     <WrapperRectangleInput labelText={"Статус товара"} isRequired={true}>
                         <Input.TextAndSelect name={'statusProduct'} placeholder="Выберите статус" defaultOption={selectedStatusOption}

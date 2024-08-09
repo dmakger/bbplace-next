@@ -5,7 +5,6 @@ import { countryToOption } from "@/entities/Metrics/lib/option.country.metrics.l
 import { IPropsAdditionalInfoProductForm } from "../model/additionalInfo.product.form.model";
 import { GENDER__PRODUCT_FORM__DATA, UNISEX_GENDER__PRODUCT_FORM__DATA } from "../data/gender.product.form.data copy";
 import { equipmentToEquipmentList, expirationDateToExpirationDateAndMetric } from "./additionalInfo.product.form.lib";
-import { IMetrics } from "@/entities/Metrics/model/metric.metrics.model";
 import { metricToOption } from "@/entities/Metrics/lib/option.metric.metrics.lib";
 import { IPropsVariationInfoProductForm } from "../model/variationInfo.product.form.model";
 import { IPropsProductForm } from "../model/product.form.model";
