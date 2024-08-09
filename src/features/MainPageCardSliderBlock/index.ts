@@ -1,0 +1,1 @@
+export {MainPageCardSliderBlock} from './ui/MainPageCardSliderBlock'

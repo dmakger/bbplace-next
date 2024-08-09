@@ -9,6 +9,7 @@ import { Rating } from "@/shared/ui/Rating";
 
 interface IBottomLineSupplier {
     supplier: ISupplier,
+    hasVerifiedStatus?: boolean,
     supplierRating?: number,
     numberOfReviews?: number,
     isForDescPage?: boolean,
@@ -18,6 +19,7 @@ interface IBottomLineSupplier {
 
 export const BottomLineSupplier = ({
     supplier,
+    hasVerifiedStatus,
     supplierRating = 0,
     numberOfReviews = 0,
     isForDescPage,
@@ -25,7 +27,7 @@ export const BottomLineSupplier = ({
     classNameVerified
 }: IBottomLineSupplier) => {
 
-    const verifiedSupplier = <VerifiedSupplier _isVerified={true} hasIcon={isForDescPage} className={classNameVerified}/>
+    const verifiedSupplier = <VerifiedSupplier _isVerified={isVerified(supplier)} hasIcon={isForDescPage} className={classNameVerified}/>
 
     return (
         <div className={cls(cl.lineContainer, className)}>
@@ -39,14 +41,16 @@ export const BottomLineSupplier = ({
                 </>
             ) : (
                 <>
-                    {supplier.country &&
+                    {/* {supplier.country &&
                         <span>{supplier.country}</span>
-                    }
-                    {isVerified(supplier) && verifiedSupplier}
-                    {
+                    } */}
+
+                    {hasVerifiedStatus && verifiedSupplier}
+
+                    {/* {
                         supplierRating > 0 &&
                         <span className={cl.rating}>{supplierRating}</span>
-                    }
+                    } */}
                 </>
             )}
         </div>

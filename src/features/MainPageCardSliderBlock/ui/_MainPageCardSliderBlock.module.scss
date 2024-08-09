@@ -1,0 +1,24 @@
+.MainPageCardSliderBlock{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: var(--background-2);
+    border-radius: 20px;
+
+    .topContainer{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        border-bottom: 1px solid var(--background-1);
+
+        .title{
+            font-family: var(--third-family);
+            font-size: var(--font-size-m);
+            font-weight: var(--font-weight-sb);
+            @media (max-width: 768px) {
+                font-size: var(--font-size-sm);
+            }
+        }
+    }
+}

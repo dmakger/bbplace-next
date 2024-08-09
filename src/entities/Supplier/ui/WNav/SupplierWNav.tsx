@@ -17,6 +17,7 @@ interface SupplierWNavProps {
     id: ISupplier['id'] | null
     view?: ESupplierView,
     hasImage?: boolean,
+    hasVerifiedStatus?: boolean,
     subscribeView?: ESupplierSubscribeViewItem
     navs?: TViewNav[]
     axis?: ESupplierAxis
@@ -31,7 +32,7 @@ interface SupplierWNavProps {
 
 }
 
-export const SupplierWNav:FC<SupplierWNavProps> = ({id, view=ESupplierView.LARGE_WHITE, subscribeView=ESupplierSubscribeViewItem.NONE, hasImage = false, navs=[], axis=ESupplierAxis.HORIZONTAL, className, classNameSupplier, classNameSmallSupplier, classNameNavs, classNameNavsItem, classNameName, classNameVerified, imageSizes}) => {
+export const SupplierWNav:FC<SupplierWNavProps> = ({id, view=ESupplierView.LARGE_WHITE, subscribeView=ESupplierSubscribeViewItem.NONE, hasImage = false, hasVerifiedStatus = false, navs=[], axis=ESupplierAxis.HORIZONTAL, className, classNameSupplier, classNameSmallSupplier, classNameNavs, classNameNavsItem, classNameName, classNameVerified, imageSizes}) => {
     const { data: supplier } = UserAPI.useGetUserDataQuery(id!)    
     const { data: supplierRating } = ReviewAPI.useGetSupplierScoreQuery(id ?? '')
 
@@ -50,6 +51,7 @@ export const SupplierWNav:FC<SupplierWNavProps> = ({id, view=ESupplierView.LARGE
             <SupplierAuto supplier={supplierState} 
                           view={view}
                           hasImage={hasImage} 
+                          hasVerifiedStatus={hasVerifiedStatus}
                           subscribeView={subscribeView}
                           classNameSupplier={classNameSupplier}
                           classNameSmallSupplier={classNameSmallSupplier}
