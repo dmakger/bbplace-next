@@ -1,13 +1,12 @@
 "use client"
 
 import { Dispatch, FC, FormEvent, SetStateAction, useEffect, useRef, useState } from "react"
-
 import cl from './_VariationInfoProductForm.module.scss'
 import { IPropsVariationInfoProductForm } from "../../model/variationInfo.product.form.model";
 import { MetricsAPI } from "@/entities/Metrics/api/metrics.metrics.api";
 import { CurrencyAPI } from "@/entities/Metrics/api/currency.metrics.api";
 import { IOption } from "@/shared/model/option.model";
-import { metricListToOptionList, metricToOption } from "@/entities/Metrics/lib/option.metric.metrics.lib";
+import { metricListToOptionList, metricToOption, optionToMetric } from "@/entities/Metrics/lib/option.metric.metrics.lib";
 import { WrapperSubblockForm } from "@/shared/ui/Wrapper/SubblockForm/ui/WrapperSubblockForm";
 import { SubblockFormVariant } from "@/shared/ui/Wrapper/SubblockForm/data/subblockForm.data";
 import { getFormDataFromForm } from "@/shared/lib/formData.lib";
@@ -26,124 +25,149 @@ import { IWholesale } from "@/entities/Metrics/model/wholesale.metrics.model";
 import { ISize } from "@/entities/Metrics/model/size.metrics.model";
 import { processSizeOptionInProductForm, processWholesaleOptionInProductForm } from "../../lib/process.variation.product.lib";
 import { WrapperWOSubmit } from "@/shared/ui/Wrapper/WOSubmit/ui/WrapperWOSubmit";
+import { IFormInfo } from "../../model/product.form.model";
+import { getEmptyFormInfo } from "../../lib/product.form.lib";
 
-interface VariationInfoProductFormProps{
+interface VariationInfoProductFormProps {
     data?: IPropsVariationInfoProductForm
     setData?: Dispatch<SetStateAction<IPropsVariationInfoProductForm | undefined>>
-    triggerSubmit?: (submitFn: () => void) => void,
+    triggerSubmit?: (submitFn: () => Promise<IFormInfo<IPropsVariationInfoProductForm>>) => void;
     isOpenForm?: boolean
     className?: string,
 }
 
-export const VariationInfoProductForm:FC<VariationInfoProductFormProps> = ({data, setData, triggerSubmit, isOpenForm, className}) => {
+export const VariationInfoProductForm: FC<VariationInfoProductFormProps> = ({data, setData, triggerSubmit, isOpenForm, className}) => {
     // REF
-    const formRef = useRef<HTMLFormElement>(null)
+    const formRef = useRef<HTMLFormElement>(null);
 
     // STATE
-    const [metricOptions, setMetricOptions] = useState<IOption[]>([])
-    const [currencyOptions, setCurrencyOptions] = useState<IOption[]>([])
+    const [metricOptions, setMetricOptions] = useState<IOption[]>([]);
+    const [currencyOptions, setCurrencyOptions] = useState<IOption[]>([]);
 
-    const [selectedWholesaleCurrencyOption, setSelectedWholesaleCurrencyOption] = useState<IOption | undefined>()
-    const [selectedWholesaleMetricOption, setSelectedWholesaleMetricOption] = useState<IOption | undefined>()
-    const [selectedSizeMetricOption, setSelectedSizeMetricOption] = useState<IOption | undefined>()
-    
-    const [uploadedImageList, setUploadedImageList] = useState<string[]>([])
+    const [selectedWholesaleCurrencyOption, setSelectedWholesaleCurrencyOption] = useState<IOption | undefined>();
+    const [selectedWholesaleMetricOption, setSelectedWholesaleMetricOption] = useState<IOption | undefined>();
+    const [selectedSizeMetricOption, setSelectedSizeMetricOption] = useState<IOption | undefined>();
 
-    const [addedWholesaleOption, setAddedWholesaleOption] = useState<IOption[]>([])
-    const [addedSizesOption, setAddedSizesOption] = useState<IOption[]>([])
+    const [uploadedImageList, setUploadedImageList] = useState<string[]>([]);
+    const [addedWholesaleOption, setAddedWholesaleOption] = useState<IOption[]>([]);
+    const [addedSizesOption, setAddedSizesOption] = useState<IOption[]>([]);
 
-    // API
-    const {data: metricList} = MetricsAPI.useGetMetricsQuery()             
-    const {data: currencyList} = CurrencyAPI.useGetCurrenciesQuery()
+    const {data: metricList} = MetricsAPI.useGetMetricsQuery();
+    const {data: currencyList} = CurrencyAPI.useGetCurrenciesQuery();
 
     // EFFECT
-    // data
+    // load data
     useEffect(() => {
         if (!data) {
-            setSelectedWholesaleCurrencyOption(undefined)
-            setSelectedWholesaleMetricOption(undefined)
-            setAddedWholesaleOption([])
-            setAddedSizesOption([])
-            setUploadedImageList([])
-            return
+            setSelectedWholesaleCurrencyOption(undefined);
+            setSelectedWholesaleMetricOption(undefined);
+            setAddedWholesaleOption([]);
+            setAddedSizesOption([]);
+            setUploadedImageList([]);
+            return;
         }
-        const media = data.media
-        setSelectedWholesaleCurrencyOption(() => media.currency ?? undefined)
-        setSelectedWholesaleMetricOption(() => media.priceUnits ?? undefined)
-        setAddedWholesaleOption(() => {
-            if (!media.currency || !media.priceUnits) return []
 
-            const currency = currencyToOption(media.currency)
-            const priceUnits = metricToOption(media.priceUnits)
+        const media = data.media;
+        setSelectedWholesaleCurrencyOption(() => media.currency ? currencyToOption(media.currency) : undefined);
+        setSelectedWholesaleMetricOption(() => media.priceUnits ? metricToOption(media.priceUnits) : undefined);
+
+        setAddedWholesaleOption(() => {
+            if (!media.currency || !media.priceUnits) return [];
+            const currency = currencyToOption(media.currency);
+            const priceUnits = metricToOption(media.priceUnits);
             return media.wholesalePrices.map(wp => (
                 processWholesaleOptionInProductForm(wp.price, wp.quantity, currency, priceUnits)
-            )).filter(it => it !== undefined)
-        })
+            )).filter(it => it !== undefined);
+        });
+
         setAddedSizesOption(() => { 
             return media.sizes.map(it => (
                 processSizeOptionInProductForm(it.size, metricToOption(it.sizeUnit))
-            )).filter(it => it !== undefined)
-        })
-        setUploadedImageList(() => data?.media.attachments ?? [])
-    }, [data])
+            )).filter(it => it !== undefined);
+        });
 
-    // metric
+        setUploadedImageList(() => data?.media.attachments ?? []);
+    }, [data]);
+
+    // load options
     useEffect(() => {
-        if (!metricList) return
-        setMetricOptions(metricListToOptionList(metricList))
-    }, [metricList])
-    // currency
+        if (metricList) setMetricOptions(metricListToOptionList(metricList));
+    }, [metricList]);
+
     useEffect(() => {
-        if (!currencyList) return
-        setCurrencyOptions(currencyListToOptionList(currencyList))
-    }, [currencyList])
+        if (currencyList) setCurrencyOptions(currencyListToOptionList(currencyList));
+    }, [currencyList]);
 
     // HANDLE
-    const handleOnSubmit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        if (!formRef.current) return
-        
-        const formData = getFormDataFromForm(formRef.current)
-        const currency = fromOptionToType<ICurrency>(selectedWholesaleCurrencyOption!)
-        const priceUnits = fromOptionToType<IMetrics>(selectedWholesaleMetricOption!)
+    // on submit
+    const handleOnSubmit = (e: FormEvent<HTMLFormElement>): IFormInfo<IPropsVariationInfoProductForm> => {
+        const defaultFormInfo = getEmptyFormInfo<IPropsVariationInfoProductForm>()
+        if (!formRef.current) return defaultFormInfo
+
+        const sizes = addedSizesOption.map(it => {
+            const _optionsSizes = it.options
+            if (!_optionsSizes || _optionsSizes.length === 0) return undefined
+            return {
+                size: it.params!.size,
+                sizeUnit: optionToMetric(_optionsSizes[0]),
+            } as ISize
+        }).filter(it => it !== undefined)
+        if (!formRef.current.checkValidity() || addedWholesaleOption.length === 0 || sizes.length === 0) {
+            e.preventDefault();
+            formRef.current.reportValidity();  // Вызывает встроенные сообщения браузера
+            return defaultFormInfo
+        }
+        e.preventDefault();
+
+        const formData = getFormDataFromForm(formRef.current!);
+        const currency = fromOptionToType<ICurrency>(selectedWholesaleCurrencyOption!);
+        const priceUnits = fromOptionToType<IMetrics>(selectedWholesaleMetricOption!);
+
         const media: IMediaProduct = {
             attachments: uploadedImageList,
             color: formData.color,
             article: formData.article,
-            currency: fromOptionToType<ICurrency>(selectedWholesaleCurrencyOption!),
-            priceUnits: fromOptionToType<IMetrics>(selectedWholesaleMetricOption!),
+            currency: currency,
+            priceUnits: priceUnits,
             wholesalePrices: addedWholesaleOption.map(it => ({
                 price: it.params!.price,
                 quantity: it.params!.quantity,
                 metrics: priceUnits,
                 currency: currency,
             } as IWholesale)),
-            sizes: addedSizesOption.map(it => ({
-                size: it.params!.size,
-                sizeUnit: it.options?.at(0),
-            } as ISize)),
-        }
-        if (setData) {
-            setData({
-                media
-            } as IPropsVariationInfoProductForm)
-        }
+            sizes: sizes,
+        };
+
+        const updatedData = { media } as IPropsVariationInfoProductForm;
+
+        if (setData) setData(updatedData);
+
+        return {
+            isValid: true,
+            form: updatedData,
+        };
     }
 
     // PROCESS
-    // wholesale
     const processWholesaleOption = (tempDataStorage: Record<string, any>) => {
-        return processWholesaleOptionInProductForm(tempDataStorage.wholesalePrice, tempDataStorage.wholesaleQuantity, selectedWholesaleCurrencyOption, selectedWholesaleMetricOption)
+        return processWholesaleOptionInProductForm(tempDataStorage.wholesalePrice, tempDataStorage.wholesaleQuantity, selectedWholesaleCurrencyOption, selectedWholesaleMetricOption);
     }
 
-    // size
     const processSizeOption = (tempDataStorage: Record<string, any>) => {
-        return processSizeOptionInProductForm(tempDataStorage.sizeValue, selectedSizeMetricOption)
+        return processSizeOptionInProductForm(tempDataStorage.sizeValue, selectedSizeMetricOption);
     }
-
 
     return (
-        <WrapperWOSubmit triggerSubmit={triggerSubmit} formRef={formRef}>
+        <WrapperWOSubmit 
+            triggerSubmit={(submitFn) => triggerSubmit?.(() => {
+                const form = formRef.current;
+                if (form) {
+                    form.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
+                }
+                return Promise.resolve(handleOnSubmit(new Event("submit") as unknown as FormEvent<HTMLFormElement>));
+            })} 
+            formRef={formRef}
+        >
             <WrapperSubblockForm title="Вариация товара" variant={SubblockFormVariant.Toggle} isOpen={isOpenForm} className={className}>
                 <form ref={formRef} onSubmit={handleOnSubmit} className={cl.form}>
                     <WrapperRectangleInput labelText={"Артикулы продавца"} isRequired={true}>

@@ -26,11 +26,13 @@ import { TIME_UNIT__OPTION__DATA } from "@/shared/data/option/timeUnit.option.da
 import { processDeliveryOption, processWarehousesOption, processFeaturesOption, processEquipmentOption } from "../../lib/process.additionalInfo.product.form.lib";
 import { TriggerSubmitType } from "@/shared/ui/Wrapper/WOSubmit/model/woSubmit.model";
 import { WrapperWOSubmit } from "@/shared/ui/Wrapper/WOSubmit/ui/WrapperWOSubmit";
+import { IFormInfo } from "../../model/product.form.model";
+import { getEmptyFormInfo } from "../../lib/product.form.lib";
 
 interface AdditionalInfoProductFormProps{
     data?: IPropsAdditionalInfoProductForm
     setData?: Dispatch<SetStateAction<IPropsAdditionalInfoProductForm | undefined>>
-    triggerSubmit?: (submitFn: () => void) => void,
+    triggerSubmit?: (submitFn: () => Promise<IFormInfo<IPropsAdditionalInfoProductForm>>) => void;
     isOpenForm?: boolean
     className?: string,
 }
@@ -75,41 +77,59 @@ export const AdditionalInfoProductForm:FC<AdditionalInfoProductFormProps> = ({da
     }, [metricList])
 
     // HANDLE
-    const handleOnSubmit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        if (!formRef.current) return
+    const handleOnSubmit = (e: FormEvent<HTMLFormElement>): IFormInfo<IPropsAdditionalInfoProductForm> => {
+        const defaultFormInfo = getEmptyFormInfo<IPropsAdditionalInfoProductForm>()
+        if (!formRef.current) return defaultFormInfo
+
+        if (!formRef.current.checkValidity()) {
+            e.preventDefault();
+            formRef.current.reportValidity();  // Вызывает встроенные сообщения браузера
+            return defaultFormInfo
+        }
+        e.preventDefault();
         
         const formData = getFormDataFromForm(formRef.current)
+        const updatedData = {
+            packageType: formData.packageType,
+            delivery: addedDeliveryOption,
+            paymentConditions: formData.paymentConditions,
+            deliveryTime: formData.deliveryTime,
+
+            packagingLength: +formData.packagingLength,
+            packagingWidth: +formData.packagingWidth,
+            packagingHeight: +formData.packagingHeight,
+
+            vat: +formData.vat === YES_FORM__DATA.id,
+            isHasTestProbe: +formData.isHasTestProbe === YES_FORM__DATA.id,
+            warehouses: addedWarehousesOption,
+            brand: formData.brand,
+            gender: selectedGenderOption,
+
+            expirationDate: formData.expirationDate,
+            expirationDateMetric: selectedExpirationDateMetricOption,
+            weight: formData.weight,
+            weightMetric: selectedWeightMetricOption,
+            features: addedFeaturesOption,
+            composition: formData.composition,
+            equipment: addedEquipmentOption,
+        } as IPropsAdditionalInfoProductForm
         if (setData) {
-            setData({
-                packageType: formData.packageType,
-                delivery: addedDeliveryOption,
-                paymentConditions: formData.paymentConditions,
-                deliveryTime: formData.deliveryTime,
-
-                packagingLength: +formData.packagingLength,
-                packagingWidth: +formData.packagingWidth,
-                packagingHeight: +formData.packagingHeight,
-
-                vat: +formData.vat === YES_FORM__DATA.id,
-                isHasTestProbe: +formData.isHasTestProbe === YES_FORM__DATA.id,
-                warehouses: addedWarehousesOption,
-                brand: formData.brand,
-                gender: selectedGenderOption,
-
-                expirationDate: formData.expirationDate,
-                expirationDateMetric: selectedExpirationDateMetricOption,
-                weight: formData.weight,
-                weightMetric: selectedWeightMetricOption,
-                features: addedFeaturesOption,
-                composition: formData.composition,
-                equipment: addedEquipmentOption,
-            } as IPropsAdditionalInfoProductForm)
+            setData(updatedData)
+        }
+        return {
+            isValid: true,
+            form: updatedData,
         }
     }
 
     return (
-        <WrapperWOSubmit triggerSubmit={triggerSubmit} formRef={formRef}>
+        <WrapperWOSubmit triggerSubmit={(submitFn) => triggerSubmit?.(() => {
+            const form = formRef.current;
+            if (form) {
+                form.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
+            }
+            return Promise.resolve(handleOnSubmit(new Event("submit") as unknown as FormEvent<HTMLFormElement>)); // Изменено
+        })} formRef={formRef}>
             <WrapperSubblockForm title="Дополнительная информация" variant={SubblockFormVariant.Toggle} isOpen={isOpenForm} className={className}>
                 <form ref={formRef} onSubmit={handleOnSubmit} className={cl.form}>
                     <WrapperRectangleInput labelText={"Тип упаковки"}>

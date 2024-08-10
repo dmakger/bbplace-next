@@ -14,7 +14,7 @@ import { productApiListToProductList } from "@/entities/Product/lib/product.lib"
 import { ProductTypeArticleBlock } from "@/entities/Product/ui/TypeArticle/Block/ProductTypeArticleBlock"
 import { TListItemOnClick } from "@/shared/model/list.model"
 import { CountryAPI } from "@/entities/Metrics/api/country.metrics.api"
-import { productToPropsProductForm } from "@/features/Form/Product/lib/product.form.lib"
+import { isValidPropsProductForm, productToPropsProductForm } from "@/features/Form/Product/lib/product.form.lib"
 import { IPropsProductForm } from "@/features/Form/Product/model/product.form.model"
 import { useRouter } from "next/navigation"
 import { DASHBOARD_PAGES } from "@/config/pages-url.config"
@@ -36,14 +36,13 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
     const { id: userId } = useAppSelector(state => state.user)
     
     // REF
-    const productFormRef = useRef<{handleOnClick: () => void} | null>(null)
+    const productFormRef = useRef<{getUpdatedData: () => Promise<IPropsProductForm>} | null>(null)
 
     // STATE
     // const [isEdit, setIsEdit] = useState(!!productId)
     const [products, setProducts] = useState<IProduct[]>([])
     const [currentProduct, setCurrentProduct] = useState<IProduct | undefined>()
     const [currentPropsProduct, setCurrentPropsProduct] = useState<IPropsProductForm | undefined>()
-    const [prevPropsProduct, setPrevPropsProduct] = useState<IPropsProductForm | undefined>()
 
     // API
     const { data: productsAPI } = ProductAPI.useGetProductsByGroupQuery(!isDraft && groupId ? groupId : skipToken, {refetchOnMountOrArgChange: true})
@@ -54,6 +53,7 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
     const [ createProduct ] = ProductAPI.useCreateProductMutation()
     const [ addProductToGroup ] = ProductAPI.useAddProductToGroupMutation()
     const [ deleteProduct ] = ProductAPI.useDeleteProductMutation()
+    const [ getProductById ] = ProductAPI.useGetProductByIdMutation()
 
     // EFFECT
     const isEditForm = useMemo(() => !!productId, [productId])
@@ -61,22 +61,21 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
     useEffect(() => {
         if ((!currencies || !metrics || !countries) || !(productsAPI || draftsAPI)) return
         const productsAPILoaded = (isDraft ? draftsAPI : productsAPI) as IProductAPI[]
-
-        setProducts(prevProducts => {
-            const newProducts = productApiListToProductList(productsAPILoaded, metrics, currencies, countries);
-            if (JSON.stringify(prevProducts) !== JSON.stringify(newProducts)) {
-                return newProducts;
-            }
-            return prevProducts;
-        })
+        addProducts(productsAPILoaded)
     }, [productsAPI, draftsAPI, currencies, metrics, countries])
+
+    const addProducts = (_productsAPI: IProductAPI[]) => {
+        setProducts(prevProducts => {
+            const newProducts = productApiListToProductList(_productsAPI, metrics, currencies, countries);
+            return JSON.stringify(prevProducts) !== JSON.stringify(newProducts) ? [...newProducts, ...prevProducts] : prevProducts
+        })
+    }
 
     useEffect(() => {
         if (!productId || products.length === 0) return
 
         const _currentProduct = products.find(it => it.id === +productId)
         if (_currentProduct) {
-            // swapProduct(_currentProduct)
             setCurrentProduct(_currentProduct)
             setCurrentPropsProduct(productToPropsProductForm(_currentProduct))
         }
@@ -84,10 +83,15 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
 
     // HANDLE
     // сбор данных из формы
-    const handleGetFormData = () => {
-        if (productFormRef.current) {
-            productFormRef.current.handleOnClick()
-        }
+    const handleGetFormData = (data?: Promise<IPropsProductForm>) => {
+        console.log('qwe handleGetFormData')
+        if (!productFormRef.current) return
+
+        (data ? data : productFormRef.current.getUpdatedData()).then(r => {
+            handleLoadProduct(r)
+        }, e => {
+            console.log('qwe error updatedData', e)
+        })
     }
 
     // create product
@@ -95,13 +99,13 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
         if (!groupId || !isEditForm) return
         setCurrentProduct(undefined)
         setCurrentPropsProduct(undefined)
-        await handleGetFormData()
+        // await handleGetFormData()
         router.push(DASHBOARD_PAGES.EDIT_PRODUCT({groupId: +groupId}).path);
     }
     // on product
-    const handleOnProduct: TListItemOnClick<IProduct> = async (it, _) => {
+    const handleOnProduct: TListItemOnClick<IProduct> = (it, _) => {
         if (currentProduct && it.id === currentProduct.id) return
-        if (currentProduct) await handleGetFormData()
+        if (currentProduct) handleGetFormData()
         router.push(DASHBOARD_PAGES.EDIT_PRODUCT({groupId: it.groupId!, id: it.id}).path);
     }
     // on delete
@@ -117,31 +121,35 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
     // load
     const handleLoadProduct = async (formData: IPropsProductForm) => {
         console.log('qwe load data', formData, currentPropsProduct)
-        if (!isEditForm && groupId) {
-            // ! PRODUCTION
-            // const serializerData = productFormToCreateProduct(formData, userId)
-            // ! TEST
+        if (!isEditForm && groupId && isValidPropsProductForm(formData)) {
+            const serializerData = productFormToCreateProduct(formData, userId)
+            if (serializerData === undefined)
+                return
             // const serializerData = productFormToCreateProductTest()
-            // console.log('qwe serializer data', serializerData)
-            // const createdProductId = await createProduct(serializerData).unwrap()
-            // console.log('qwe createdProductId', createdProductId)
-            // await addProductToGroup({groupId: +groupId, productId: createdProductId}).then(() => {
-            //     router.push(DASHBOARD_PAGES.EDIT_PRODUCT({groupId: +groupId, id: createdProductId}).path);
-            // })
+            const createdProductId = await createProduct(serializerData).unwrap()
+            await addProductToGroup({groupId: +groupId, productId: createdProductId}).then(async () => {
+                await getProductById(createdProductId).then(r => {
+                    if ('data' in r)
+                        addProducts([r.data as IProductAPI])
+                })
+                router.push(DASHBOARD_PAGES.EDIT_PRODUCT({groupId: +groupId, id: createdProductId}).path);
+            })
         }
     }
 
     return (
         <div className={cls(cl.page, className)}>
-            <ProductTypeArticleBlock items={products} 
-                onCreateProduct={handleOnCreateProduct}
-                onClickItem={handleOnProduct}
-                onDeleteItem={handleOnDelete}
-                componentProps={{ onClickDelete: handleOnDelete }}
-                activeId={currentProduct ? currentProduct.id : undefined} />
-            <ProductForm ref={productFormRef} data={currentPropsProduct} loadFormData={handleLoadProduct} isEdit={isEditForm} />
+            <div className={cl.left}>
+                <ProductTypeArticleBlock items={products} 
+                    onCreateProduct={handleOnCreateProduct}
+                    onClickItem={handleOnProduct}
+                    onDeleteItem={handleOnDelete}
+                    componentProps={{ onClickDelete: handleOnDelete }}
+                    activeId={currentProduct ? currentProduct.id : undefined} 
+                    className={cl.typeArticleBlock} />
+            </div>
+            <ProductForm ref={productFormRef} data={currentPropsProduct} loadData={handleGetFormData} isEdit={isEditForm} />
             <>
-                {/* {JSON.stringify(productFormToCreateProductTest())} */}
                 {products && (JSON.stringify(products.map(it => it.id)))}
             </>
         </div>

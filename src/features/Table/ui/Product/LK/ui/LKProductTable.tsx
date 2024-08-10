@@ -26,11 +26,11 @@ import { useRouter } from "next/navigation";
 import { DASHBOARD_PAGES } from "@/config/pages-url.config";
 
 interface LKProductTableProps {
-    _products?: IProduct[]
+    products?: IProduct[]
     className?: string,
 }
 
-export const LKProductTable:FC<LKProductTableProps> = ({_products, ...rest}) => {
+export const LKProductTable:FC<LKProductTableProps> = ({products: _products, ...rest}) => {
     //ROUTER
     const router = useRouter();
     
@@ -65,13 +65,14 @@ export const LKProductTable:FC<LKProductTableProps> = ({_products, ...rest}) => 
 
         const fetchCategories = async () => {
             try {
-                const categories = await Promise.all(
+                await Promise.all(
                     productsAPI.map(async (it) => {
                         const categoryResponse = await getCategory(it.categoryId).unwrap();
                         return categoryResponse[0]; // Assuming the response is an array and we need the first element
                     })
-                );
-                setCategoryList(categories);
+                ).then(categories => {
+                    setCategoryList(categories)
+                })
             } catch (error) {
                 console.error("Failed to fetch categories", error);
             }
@@ -196,15 +197,16 @@ export const LKProductTable:FC<LKProductTableProps> = ({_products, ...rest}) => 
 
         const errorsProduct: IProduct[] = []
         _products.map(async it => {
-            // await deleteProduct(it.id).unwrap().catch(() => {
-            //     errorsProduct.push(it)
-            // })
+            await deleteProduct(it.id).unwrap().catch(() => {
+                errorsProduct.push(it)
+            })
         })
     }
 
     // EDIT ON CLICK
     const onClickEdit = (_product: IProduct) => { 
         const {groupId, id} = _product
+        console.log('qwe edit ', groupId, id)
         if (groupId === null) return
 
         router.push(DASHBOARD_PAGES.EDIT_PRODUCT({groupId, id}).path);

@@ -7,14 +7,38 @@ import { GENDER__PRODUCT_FORM__DATA, UNISEX_GENDER__PRODUCT_FORM__DATA } from ".
 import { equipmentToEquipmentList, expirationDateToExpirationDateAndMetric } from "./additionalInfo.product.form.lib";
 import { metricToOption } from "@/entities/Metrics/lib/option.metric.metrics.lib";
 import { IPropsVariationInfoProductForm } from "../model/variationInfo.product.form.model";
-import { IPropsProductForm } from "../model/product.form.model";
+import { IFormInfo, IPropsProductForm } from "../model/product.form.model";
 import { processDeliveryOption, processEquipmentOption, processFeaturesOption, processWarehousesOption } from "./process.additionalInfo.product.form.lib";
+
+export const isValidPropsProductForm = (formData: IPropsProductForm) => {
+    const {main, additional, variation} = formData
+    return main && additional && variation 
+        && main.isValid && additional.isValid && variation.isValid
+}
+
+
+export const getEmptyFormInfo = <T>(): IFormInfo<T> => {
+    return {
+        isValid: false,
+        form: undefined
+    }
+}
+
 
 export const productToPropsProductForm = (product: IProduct): IPropsProductForm => {
     return {
-        main: productToPropsMainProductForm(product),
-        additional: productToPropsAdditionalProductForm(product),
-        variation: productToPropsMediaProductForm(product),
+        main: {
+            isValid: true,
+            form: productToPropsMainProductForm(product),
+        } as IFormInfo<IPropsMainInfoProductForm>,
+        additional: {
+            isValid: true,
+            form: productToPropsAdditionalProductForm(product),
+        } as IFormInfo<IPropsAdditionalInfoProductForm>,
+        variation: {
+            isValid: true,
+            form: productToPropsMediaProductForm(product),
+        } as IFormInfo<IPropsVariationInfoProductForm>,
     }
 }
 

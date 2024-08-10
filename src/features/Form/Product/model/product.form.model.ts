@@ -8,7 +8,12 @@ import { IPropsVariationInfoProductForm } from "./variationInfo.product.form.mod
  * `IPropsMainInfoProductForm`, `IPropsAdditionalInfoProductForm`, `IPropsVariationInfoProductForm`
  */
 export interface IPropsProductForm {
-    main: IPropsMainInfoProductForm,
-    additional: IPropsAdditionalInfoProductForm,
-    variation: IPropsVariationInfoProductForm,
+    main?: IFormInfo<IPropsMainInfoProductForm>,
+    additional?: IFormInfo<IPropsAdditionalInfoProductForm>,
+    variation?: IFormInfo<IPropsVariationInfoProductForm>,
+}
+
+export interface IFormInfo<T> {
+    isValid: boolean,
+    form?: T,
 }

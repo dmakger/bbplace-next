@@ -45,6 +45,11 @@ export const ProductAPI = createApi({
             }),
             // providesTags: result => ['Item']
         }),
+        getProductById: build.mutation<IProductAPI, number | string>({
+            query: (itemId) => ({
+                url: `/GetItem/${itemId}`,
+            }),
+        }),
         deleteProduct: build.mutation<IProductAPI, number | string>({
             query: (itemId) => ({
                 url: `/DeleteItem/${itemId}`,

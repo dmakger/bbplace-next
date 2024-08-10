@@ -77,7 +77,8 @@ export const CategoryRecursiveSelect = ({
     //EFFECT
     useEffect(() => {
         if (categories) {
-            const options = categoryListToOptionList(((categories as ICategoriesWithSubcategories[]).filter(it => it.name !== 'Нет категории')))
+            // const options = categoryListToOptionList(((categories as ICategoriesWithSubcategories[]).filter(it => it.name !== 'Нет категории')))
+            const options = categoryListToOptionList(categories as ICategoriesWithSubcategories[])
             setUpdatedCategories(options ?? [])
         }
     }, [categories])
@@ -85,7 +86,6 @@ export const CategoryRecursiveSelect = ({
     useEffect(() => {
         setSelectedCategoriesId && setSelectedCategoriesId(selectedOptions.map(it => it.id))
     }, [selectedOptionsCommonArray])
-
 
 
     //INPUTS_ARRAY

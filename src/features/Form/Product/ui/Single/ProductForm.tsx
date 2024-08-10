@@ -9,83 +9,80 @@ import { AdditionalInfoProductForm } from "@/features/Form/Product/ui/Additional
 import { IPropsAdditionalInfoProductForm } from "@/features/Form/Product/model/additionalInfo.product.form.model"
 import { VariationInfoProductForm } from "@/features/Form/Product/ui/Variation/VariationInfoProductForm"
 import { IPropsVariationInfoProductForm } from "@/features/Form/Product/model/variationInfo.product.form.model"
-import { IPropsProductForm } from "../../model/product.form.model"
+import { IFormInfo, IPropsProductForm } from "../../model/product.form.model"
 import { isEqual } from "lodash"
 
 interface ProductFormProps {
-    data?: IPropsProductForm
-    loadFormData?: (formData: IPropsProductForm) => void
-    isEdit?: boolean
-    className?: string,
+    data?: IPropsProductForm;
+    loadData?: (data: Promise<IPropsProductForm>) => void;
+    isEdit?: boolean;
+    className?: string;
 }
 
-export const ProductForm = forwardRef(({ data, loadFormData, isEdit = false, className }: ProductFormProps, ref) => {
+export const ProductForm = forwardRef(({ data, loadData, isEdit = false, className }: ProductFormProps, ref) => {
     // REF
-    const mainFormSubmitRef = useRef<() => void>();
-    const additionalFormSubmitRef = useRef<() => void>();
-    const variationFormSubmitRef = useRef<() => void>();
+    const mainFormSubmitRef = useRef<() => Promise<IFormInfo<IPropsMainInfoProductForm>>>();
+    const additionalFormSubmitRef = useRef<() => Promise<IFormInfo<IPropsAdditionalInfoProductForm>>>();
+    const variationFormSubmitRef = useRef<() => Promise<IFormInfo<IPropsVariationInfoProductForm>>>();
 
     // STATE
-    const [mainInfoData, setMainInfoData] = useState<IPropsMainInfoProductForm | undefined>(data?.main)
-    const [additionalInfoData, setAdditionalInfoData] = useState<IPropsAdditionalInfoProductForm | undefined>(data?.additional)
-    const [variationInfoData, setVariationInfoData] = useState<IPropsVariationInfoProductForm | undefined>(data?.variation)
+    const [mainInfoData, setMainInfoData] = useState<IPropsMainInfoProductForm | undefined>(data?.main?.form);
+    const [additionalInfoData, setAdditionalInfoData] = useState<IPropsAdditionalInfoProductForm | undefined>(data?.additional?.form);
+    const [variationInfoData, setVariationInfoData] = useState<IPropsVariationInfoProductForm | undefined>(data?.variation?.form);
 
     // EFFECT
     useEffect(() => {
-        setMainInfoData(prev => isEqual(prev, data?.main) ? prev : data?.main)
-        setAdditionalInfoData(prev => isEqual(prev, data?.additional) ? prev : data?.additional)
-        setVariationInfoData(prev => isEqual(prev, data?.variation) ? prev : data?.variation)
-    }, [data])
+        setMainInfoData(prev => isEqual(prev, data?.main?.form) ? prev : data?.main?.form);
+        setAdditionalInfoData(prev => isEqual(prev, data?.additional?.form) ? prev : data?.additional?.form);
+        setVariationInfoData(prev => isEqual(prev, data?.variation?.form) ? prev : data?.variation?.form);
+    }, [data]);
 
-    useEffect(() => {
-        if (!loadFormData) return;
-    
-        const hasChanges = !isEqual(data?.main, mainInfoData) ||
-            !isEqual(data?.additional, additionalInfoData) ||
-            !isEqual(data?.variation, variationInfoData);
-    
-        if (hasChanges) {
-            loadFormData({
-                main: mainInfoData,
-                additional: additionalInfoData,
-                variation: variationInfoData
-            } as IPropsProductForm);
-        }
-    }, [mainInfoData, additionalInfoData, variationInfoData, loadFormData]);    
-
+    // FOR REF
     useImperativeHandle(ref, () => ({
-        handleOnClick,
-    }))
+        getUpdatedData
+    }));
 
     // HANDLE
-    const handleOnClick = useCallback(() => {
-        mainFormSubmitRef.current?.()
-        additionalFormSubmitRef.current?.()
-        variationFormSubmitRef.current?.()
-    }, [])
+    const writeFormDataToParent = () => {
+        if (loadData) {
+            loadData(getUpdatedData());
+        }
+    }
+
+    const getUpdatedData = async (): Promise<IPropsProductForm> => {
+        const main = await mainFormSubmitRef.current?.();
+        const additional = await additionalFormSubmitRef.current?.();
+        const variation = await variationFormSubmitRef.current?.();
+
+        return {
+            main,
+            additional,
+            variation
+        };
+    }
 
     return (
         <div className={cls(cl.block, className)}>
             <MainInfoProductForm
                 data={mainInfoData}
                 setData={setMainInfoData}
-                triggerSubmit={submitFn => { mainFormSubmitRef.current = submitFn }} 
+                triggerSubmit={submitFn => { mainFormSubmitRef.current = submitFn; }} 
                 isOpenForm={!isEdit} />
             <AdditionalInfoProductForm
                 data={additionalInfoData}
                 setData={setAdditionalInfoData}
-                triggerSubmit={submitFn => { additionalFormSubmitRef.current = submitFn }}
+                triggerSubmit={submitFn => { additionalFormSubmitRef.current = submitFn; }}
                 isOpenForm={!isEdit} />
             <VariationInfoProductForm
                 data={variationInfoData}
                 setData={setVariationInfoData}
-                triggerSubmit={submitFn => { variationFormSubmitRef.current = submitFn }} />
+                triggerSubmit={submitFn => { variationFormSubmitRef.current = submitFn; }} />
 
             {!isEdit && (
                 <Button variant={ButtonVariant.FILL} size={ButtonSize.Big}
                     title="Добавить товар"
-                    onClick={handleOnClick} />
+                    onClick={writeFormDataToParent} />
             )}
         </div>
-    )
-})
+    );
+});

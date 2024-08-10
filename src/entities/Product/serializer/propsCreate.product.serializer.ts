@@ -8,115 +8,35 @@ import { GENDER__PRODUCT_FORM__DATA } from "@/features/Form/Product/data/gender.
 import { optionToCountry } from "@/entities/Metrics/lib/option.country.metrics.lib";
 import { optionToMetric } from "@/entities/Metrics/lib/option.metric.metrics.lib";
 import { IMediaProduct } from "../model/media.product.model";
+import { CREATE_PRODUCT_TEST } from "../test/create.form.product.test";
 
 
 export const productFormToCreateProductTest = () => {
-    // 1. swap country to name
-    return {
-        "categoryId": 335,
-        "certification": false,
-        "country": "Австрия",
-        "characteristics": JSON.stringify({
-          "brand": "123",
-          "weight": "123",
-          "expirationDate": "123 Недели",
-          "gender": "Женский",
-          "features": ["123"],
-          "description": "123123",
-          "composition": "123",
-          "equipment": "123 123",
-          "country": "Австрия",
-          "weightUnits": {
-            "id": 2,
-            "name": "Тонны",
-            "params": {
-              "shortName": "т"
-            }
-          }
-        }),
-        "delivery": ["123"],
-        "deliveryTime": "123",
-        "isCustomDesign": true,
-        "isHasTestProbe": true,
-        "media": JSON.stringify({
-          "attachments": ["300cf690-d2aa-4224-81e3-dbc08f358a01.jpeg"],
-          "color": "123",
-          "article": "123",
-          "currency": {
-            "id": 2,
-            "name": "Российский Рубль",
-            "country": "РФ",
-            "code": "RUB"
-          },
-          "priceUnits": {
-            "id": 3,
-            "name": "Штуки",
-            "shortName": "шт"
-          },
-          "wholesalePrices": [
-            {
-              "price": "123",
-              "quantity": "123",
-              "metrics": {
-                "id": 3,
-                "name": "Штуки",
-                "shortName": "шт"
-              },
-              "currency": {
-                "id": 2,
-                "name": "Российский Рубль",
-                "country": "РФ",
-                "code": "RUB"
-              }
-            }
-          ],
-          "sizes": [
-            {
-              "size": "123",
-              "sizeUnit": {
-                "id": 2,
-                "name": "Тонны",
-                "params": {
-                  "shortName": "т"
-                }
-              }
-            }
-          ]
-        }),
-        "name": "qweqweqwe",
-        "ownerId": "",
-        "packageType": "123",
-        "packagingHeight": 54,
-        "packagingLength": 123,
-        "packagingWidth": 34,
-        "paymentConditions": "123",
-        "status": "Под заказ",
-        "vat": 1,
-        "warehouses": ["123"]
-      } as IPropsCreateProduct
+    return CREATE_PRODUCT_TEST
 }
 
 
 export const productFormToCreateProduct = (data: IPropsProductForm, ownerId: IUser['id']) => {
-    const {main, additional} = data 
+    let {main, additional, variation} = data
+    if (!main || !additional || !variation || !main.form || !additional.form || !variation.form) return 
     return {
-        name: main.name,
+        name: main.form.name,
         ownerId: ownerId,
-        categoryId: main.categoryId,
-        country: main.country!.name,
-        certification: main.hasCertificate,
-        delivery: additional.delivery.map(it => it.name),
-        paymentConditions: additional.paymentConditions,
-        deliveryTime: additional.deliveryTime,
-        packagingLength: additional.packagingLength,
-        packagingWidth: additional.packagingWidth,
-        packagingHeight: additional.packagingHeight,
-        packageType: additional.packageType,
-        vat: +additional.vat,
+        categoryId: main.form.categoryId,
+        country: main.form.country!.name,
+        certification: main.form.hasCertificate,
+        delivery: additional.form.delivery.map(it => it.name),
+        paymentConditions: additional.form.paymentConditions,
+        deliveryTime: additional.form.deliveryTime,
+        packagingLength: additional.form.packagingLength,
+        packagingWidth: additional.form.packagingWidth,
+        packagingHeight: additional.form.packagingHeight,
+        packageType: additional.form.packageType,
+        vat: +additional.form.vat,
         isCustomDesign: true,
-        isHasTestProbe: additional.isHasTestProbe,
-        status: STATUS__PRODUCT_FORM__DATA.find(it => it.id === main.status.id)!.name,
-        warehouses: additional.warehouses.map(it => it.name),
+        isHasTestProbe: additional.form.isHasTestProbe,
+        status: STATUS__PRODUCT_FORM__DATA.find(it => it.id === main.form?.status.id)!.name,
+        warehouses: additional.form.warehouses.map(it => it.name),
         media: productFormToMediaProduct(data),
         characteristics: productFormToCharacteristicProduct(data),
     } as IPropsCreateProduct
@@ -124,7 +44,8 @@ export const productFormToCreateProduct = (data: IPropsProductForm, ownerId: IUs
 
 
 export const productFormToMediaProduct = (data: IPropsProductForm) => {
-    const {media} = data.variation 
+    if (!data.variation || !data.variation.form) return 
+    const {media} = data.variation.form
     return JSON.stringify({
         attachments: media.attachments,
         color: media.color,
@@ -139,16 +60,17 @@ export const productFormToMediaProduct = (data: IPropsProductForm) => {
 
 export const productFormToCharacteristicProduct = (data: IPropsProductForm) => {
     const {main, additional} = data 
+    if (!main || !additional || !main.form || !additional.form) return 
     return JSON.stringify({
-        brand: additional.brand,
-        weight: additional.weight,
-        expirationDate: expirationDateAndMetricToExpirationDate(additional.expirationDate, additional.expirationDateMetric),
-        gender: GENDER__PRODUCT_FORM__DATA.find(it => it.id === additional.gender.id)!.name,
-        features: additional.features.map(it => it.name),
-        description: main.description,
-        composition: additional.composition,
-        equipment: equipmentListToEquipment(additional.equipment.map(it => it.name)),
-        country: optionToCountry(main.country!),
-        weightUnits: additional.weightMetric ? optionToMetric(additional.weightMetric) : undefined,
+        brand: additional.form.brand,
+        weight: additional.form.weight,
+        expirationDate: expirationDateAndMetricToExpirationDate(additional.form.expirationDate, additional.form.expirationDateMetric),
+        gender: GENDER__PRODUCT_FORM__DATA.find(it => it.id === additional.form?.gender.id)!.name,
+        features: additional.form.features.map(it => it.name),
+        description: main.form.description,
+        composition: additional.form.composition,
+        equipment: equipmentListToEquipment(additional.form.equipment.map(it => it.name)),
+        country: optionToCountry(main.form.country!),
+        weightUnits: additional.form.weightMetric ? optionToMetric(additional.form.weightMetric) : undefined,
     } as ICharacteristic)
 }

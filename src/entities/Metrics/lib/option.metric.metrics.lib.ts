@@ -34,6 +34,6 @@ export const optionListToMetricList = (options: IOption[]) => {
  * Перевод `option` в `metric`
  */
 export const optionToMetric = (option: IOption) => {
-    const {id, name, ...params} = option
+    const {id, name, params} = option
     return {id, name, ...params} as IMetrics
 }

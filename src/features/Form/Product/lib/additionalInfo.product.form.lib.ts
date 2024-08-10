@@ -5,7 +5,9 @@ import { IOption } from "@/shared/model/option.model";
  * Перевод `expirationDate`, `expirationDateMetric` из интерфейс `IPropsAdditionalInfoProductForm` в `string`  
  * Необходим для перевода данный в `IProduct`
  */
-export const expirationDateAndMetricToExpirationDate = (expirationDate: string, expirationDateMetric: IOption) => {
+export const expirationDateAndMetricToExpirationDate = (expirationDate: string, expirationDateMetric?: IOption) => {
+    if (!expirationDate || !expirationDateMetric) return ''
+    
     return `${expirationDate} ${expirationDateMetric.name}`
 }
 
