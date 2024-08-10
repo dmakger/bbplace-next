@@ -38,20 +38,20 @@ export const ProductForm = forwardRef(({ data, loadFormData, isEdit = false, cla
     }, [data])
 
     useEffect(() => {
-        if (!loadFormData) return
-
+        if (!loadFormData) return;
+    
         const hasChanges = !isEqual(data?.main, mainInfoData) ||
             !isEqual(data?.additional, additionalInfoData) ||
-            !isEqual(data?.variation, variationInfoData)
-
+            !isEqual(data?.variation, variationInfoData);
+    
         if (hasChanges) {
             loadFormData({
                 main: mainInfoData,
                 additional: additionalInfoData,
                 variation: variationInfoData
-            } as IPropsProductForm)
+            } as IPropsProductForm);
         }
-    }, [mainInfoData, additionalInfoData, variationInfoData, loadFormData, data])
+    }, [mainInfoData, additionalInfoData, variationInfoData, loadFormData]);    
 
     useImperativeHandle(ref, () => ({
         handleOnClick,

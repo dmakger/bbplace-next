@@ -42,7 +42,9 @@ export const MainInfoProductForm:FC<MainInfoProductFormProps> = ({data, setData,
     const [selectedCountryOption, setSelectedCountryOption] = useState<IOption | undefined>()
 
     // API
-    const {data: countryList} = CountryAPI.useGetCountriesQuery()              
+    const {data: countryList} = CountryAPI.useGetCountriesQuery() 
+    
+    // console.log('qwe data', data)
 
     // EFFECT
     // data
@@ -67,7 +69,7 @@ export const MainInfoProductForm:FC<MainInfoProductFormProps> = ({data, setData,
         if (setData) {
             setData({
                 name: formData.name,
-                categoryId: selectedCategoryIds[0],
+                categoryId: data?.categoryId ? data.categoryId : selectedCategoryIds[0],
                 status: selectedStatusOption,
                 hasCertificate: false,
                 country: selectedCountryOption,
@@ -90,7 +92,6 @@ export const MainInfoProductForm:FC<MainInfoProductFormProps> = ({data, setData,
                         isRequired
                         isDescriptionTooltip
                         descriptionTooltipText='Выберите категорию из списка'
-                        defaultId={selectedCategoryIds.length > 0 ? selectedCategoryIds[0] : undefined}
                         setSelectedCategoriesId={setSelectedCategoryIds} />
                     <WrapperRectangleInput labelText={"Статус товара"} isRequired={true}>
                         <Input.TextAndSelect name={'statusProduct'} placeholder="Выберите статус" defaultOption={selectedStatusOption}

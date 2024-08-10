@@ -21,6 +21,7 @@ export interface IProcessProductProps {
  * Используется при вызове `/AddItem` в `ProductAPI`
  */
 export interface IPropsCreateProduct extends IBaseWCategoryProduct {
+    country: string
     media: string
     characteristics: string
 }

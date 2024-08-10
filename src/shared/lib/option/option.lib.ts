@@ -19,14 +19,14 @@ export const getOptionByKeyAndValue = (key: string, value: string | number, opti
 }
 
 
-export const categoryWithSubcategoriesListToOptionList = (categories: ICategoriesWithSubcategories[]) => {
+export const categoryListToOptionList = (categories: ICategoriesWithSubcategories[]) => {
     return categories.map(it => categoryToOption(it))
 }
 
 
 export const categoryWithSubcategoriesToOption = (category: ICategoriesWithSubcategories): IOption => {
     const {id, name, subcategories} = category
-    return {id, name, options: categoryWithSubcategoriesListToOptionList(subcategories)} as IOption
+    return {id, name, options: categoryListToOptionList(subcategories)} as IOption
 }
 
 export const categoryToOption = (category: ICategory): IOption => {

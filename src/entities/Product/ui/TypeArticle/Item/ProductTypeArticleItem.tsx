@@ -51,6 +51,7 @@ export const ProductTypeArticleItem:FC<ProductTypeArticleItemProps> = ({
             <div className={cl.text}>
                 <span className={cl.type}>{media.color}</span>
                 <span className={cl.article}>{media.article}</span>
+                <span className={cl.article}>{product.id}</span>
             </div>
         </div>
     )

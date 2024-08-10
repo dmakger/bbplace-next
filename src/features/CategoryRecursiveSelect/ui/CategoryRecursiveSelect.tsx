@@ -7,17 +7,15 @@ import { ERecursiveSelectVariant, IRecursiveSelectInputsArray } from '@/shared/u
 import { IOption } from '@/shared/model/option.model'
 import { useEffect, useState } from 'react'
 import { CategoryAPI } from '@/entities/Metrics/api/category.metrics.api'
-import { categoryToOption, categoryWithSubcategoriesListToOptionList } from '@/shared/lib/option/option.lib'
 import { createInputArray } from '@/shared/ui/Input/ui/RecursiveSelect'
+import { categoryListToOptionList } from '@/shared/lib/option/option.lib'
 import { ICategoriesWithSubcategories } from '@/entities/Metrics/model/category.metrics.model'
-import { skipToken } from '@reduxjs/toolkit/query'
 
 interface ICategoryRecursiveSelect {
     className?: string,
     variant?: ERecursiveSelectVariant
     labelText?: string,
     classNameLabel?: string,
-    defaultId?: number
     setSelectedCategoriesId?: Function,
     onClickBellowButton?: Function,
 
@@ -44,8 +42,6 @@ export const CategoryRecursiveSelect = ({
     labelText = '',
     variant = ERecursiveSelectVariant.SINGLE,
     classNameLabel,
-
-    defaultId,
     setSelectedCategoriesId,
     onClickBellowButton,
 
@@ -76,29 +72,21 @@ export const CategoryRecursiveSelect = ({
     const [selectedOptionsCommonArray, setSelectedOptionsCommonArray] = useState<IOption[]>([])
 
     //API
-    // const { data: categories } = CategoryAPI.useGetCategoriesWithSubcategoriesQuery({toOption: false})
-    const { data: categories } = CategoryAPI.useGetCategoriesWithSubcategoriesQuery(defaultId !== undefined ? skipToken : {toOption: false})
-    const { data: defaultCategory } = CategoryAPI.useGetCategoryByIdQuery(defaultId === undefined ? skipToken : defaultId)
+    const { data: categories } = CategoryAPI.useGetCategoriesWithSubcategoriesQuery({toOption: false})
 
     //EFFECT
     useEffect(() => {
         if (categories) {
-            const options = categoryWithSubcategoriesListToOptionList(categories as ICategoriesWithSubcategories[])
+            const options = categoryListToOptionList(((categories as ICategoriesWithSubcategories[]).filter(it => it.name !== 'Нет категории')))
             setUpdatedCategories(options ?? [])
         }
     }, [categories])
 
     useEffect(() => {
-        if (defaultCategory) {
-            const category = categoryToOption(defaultCategory)
-            setSelectedOptions([category])
-            setSelectedOptionsCommonArray([category])
-        }
-    }, [defaultCategory])
-
-    useEffect(() => {
         setSelectedCategoriesId && setSelectedCategoriesId(selectedOptions.map(it => it.id))
     }, [selectedOptionsCommonArray])
+
+
 
     //INPUTS_ARRAY
     const inputsArray: IRecursiveSelectInputsArray[] = createInputArray(
