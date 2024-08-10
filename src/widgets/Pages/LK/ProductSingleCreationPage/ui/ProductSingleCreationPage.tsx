@@ -54,6 +54,7 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
     const [ addProductToGroup ] = ProductAPI.useAddProductToGroupMutation()
     const [ deleteProduct ] = ProductAPI.useDeleteProductMutation()
     const [ getProductById ] = ProductAPI.useGetProductByIdMutation()
+    const [ createGroup ] = ProductAPI.useCreateGroupMutation()
 
     // EFFECT
     const isEditForm = useMemo(() => !!productId, [productId])
@@ -135,6 +136,7 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
                 router.push(DASHBOARD_PAGES.EDIT_PRODUCT({groupId: +groupId, id: createdProductId}).path);
             })
         }
+        
     }
 
     return (
@@ -152,6 +154,6 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
             <>
                 {products && (JSON.stringify(products.map(it => it.id)))}
             </>
-        </div>
+        </div> 
     )
 }
