@@ -132,7 +132,7 @@ export const Button = ({
     if (!href)
         return html
     return (
-        <Link href={href} className={classNameLink}>{html}</Link>
+        <Link href={disabled ? '' : href} className={classNameLink}>{html}</Link>
     )
 }
 

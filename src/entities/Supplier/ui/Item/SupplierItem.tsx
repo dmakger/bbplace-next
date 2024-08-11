@@ -22,6 +22,8 @@ import { SupplierInfoLabel } from '../../components/SupplierInfoLabel/SupplierIn
 import { FavouriteAutoToSupplierButton } from '../../components/Button/Favourite/Auto/FavouriteAutoToSupplerButton'
 import { ProductASC } from '@/entities/Product/ui/AtSupplierCard'
 import { EAtSupplierCardVariant } from '@/entities/Product/ui/AtSupplierCard/model/atSupplierCard.model'
+import Link from 'next/link'
+import { HandleSize } from '@/shared/ui/Handle/Size/HandleSize'
 
 
 interface ISupplierItem {
@@ -32,6 +34,7 @@ export const SupplierItem = ({ supplier }: ISupplierItem) => {
 
   // STATE
   const [supplierProducts, setSupplierProducts] = useState<IProduct[]>([])
+  const [is768, setIs768] = useState<boolean>(false)
 
   //API
   const { data: supplierRating } = ReviewAPI.useGetSupplierScoreQuery(supplier.id)
@@ -44,12 +47,12 @@ export const SupplierItem = ({ supplier }: ISupplierItem) => {
       setSupplierProducts(productApiListToProductList(supplierProductsAPI))
   }, [supplierProductsAPI])
 
-  const isButton = supplierProducts && supplierProducts.length > 2;
+  // const isButton = supplierProducts && supplierProducts.length > 2;
 
 
   return (
     <>
-      <section className={cl.SupplierItem}>
+      <Link href={is768 ? MAIN_PAGES.CURRENT_SUPPLIER(supplier.id).path : ''} className={cl.SupplierItem}>
         {/* <SupplierWNav 
           classNameName={cl.supplierName}
           id={supplier.id}
@@ -101,34 +104,34 @@ export const SupplierItem = ({ supplier }: ISupplierItem) => {
           />
           <div className={cl.subTopContainer}>
             {supplier.category?.some(it => it !== null) && <SupplierInfoLabel category={supplier.category} />}
-            <SupplierInfoLabel vip/>
+            <SupplierInfoLabel vip />
           </div>
-          
+
           <HeadingToTextTable
-              variant={EHeadingToTextVariants.COLUMN}
-              data={getDataHeadingToTextSupplierTable({
-                variant: IGetDataHeadingToTextSupplierTableVariant.SUPPLIER_PAGE,
-                supplier,
-                supplierRating: supplierRating ?? 0,
-                supplierReviews: supplierReviews?.length ?? 0,
-                isCountryNeeded: true
-              })}
-              classNameMain={cl.table}
-              classNameHeadingItem={cl.headingItem}
-              classNameTextItem={cl.textItem}
-              classNameColumn={cl.columnTable}
-            />
+            variant={EHeadingToTextVariants.COLUMN}
+            data={getDataHeadingToTextSupplierTable({
+              variant: IGetDataHeadingToTextSupplierTableVariant.SUPPLIER_PAGE,
+              supplier,
+              supplierRating: supplierRating ?? 0,
+              supplierReviews: supplierReviews?.length ?? 0,
+              isCountryNeeded: true
+            })}
+            classNameMain={cl.table}
+            classNameHeadingItem={cl.headingItem}
+            classNameTextItem={cl.textItem}
+            classNameColumn={cl.columnTable}
+          />
           <div className={cl.buttonsContainer}>
-            <Button variant={ButtonVariant.BORDER} title='Откликнуться' size={ButtonSize.Small}/>
+            <Button variant={ButtonVariant.BORDER} title='Откликнуться' size={ButtonSize.Small} />
             <FavouriteAutoToSupplierButton supplierId={supplier.id} view={ESupplierFavouriteViewItem.SMALL_FILL} />
           </div>
         </div>
         {supplierProducts.length > 0 && <div className={cl.productCardsContainer}>
-              <ProductASC product={supplierProducts[0]}/>
-              {supplierProducts[1] && <ProductASC product={supplierProducts[1]} variant={EAtSupplierCardVariant.SMALL}/>}
+          <ProductASC product={supplierProducts[0]} supplierId={supplier.id} supplierName={supplier.brandName} />
+          {supplierProducts[1] && <ProductASC product={supplierProducts[1]} variant={EAtSupplierCardVariant.SMALL} supplierId={supplier.id} supplierName={supplier.brandName} />}
         </div>}
-      </section>
-
+      </Link>
+      <HandleSize width={768} set={setIs768} />
     </>
   )
 }
