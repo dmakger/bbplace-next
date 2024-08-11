@@ -1,5 +1,5 @@
 import { IPropsProductForm } from "@/features/Form/Product/model/product.form.model";
-import { IPropsCreateProduct } from "../model/props.product.model";
+import { IPropsCreateProduct, IPropsUpdateProduct } from "../model/props.product.model";
 import { IUser } from "@/entities/Auth/model/auth.model";
 import { STATUS__PRODUCT_FORM__DATA } from "@/features/Form/Product/data/status.product.form.data";
 import { ICharacteristic } from "../model/characteristic.product.model";
@@ -8,21 +8,34 @@ import { GENDER__PRODUCT_FORM__DATA } from "@/features/Form/Product/data/gender.
 import { optionToCountry } from "@/entities/Metrics/lib/option.country.metrics.lib";
 import { optionToMetric } from "@/entities/Metrics/lib/option.metric.metrics.lib";
 import { IMediaProduct } from "../model/media.product.model";
-import { CREATE_PRODUCT_TEST } from "../test/create.form.product.test";
+import { CREATE_DRAFT_PRODUCT_TEST, CREATE_PRODUCT_TEST } from "../test/create.form.product.test";
 
 
-export const productFormToCreateProductTest = () => {
-    return CREATE_PRODUCT_TEST
+export const productFormToCreateProductTest = (isDraft: boolean) => {
+    const data = isDraft ? CREATE_DRAFT_PRODUCT_TEST : CREATE_PRODUCT_TEST
+    return {
+        ...data,
+        media: JSON.stringify(data.media),
+        characteristics: JSON.stringify(data.characteristics),
+    } as IPropsUpdateProduct | IPropsCreateProduct
+}
+
+/**
+ * Является `data` типа `IPropsUpdateProduct | IPropsCreateProduct` черновиком?  
+ * Черновиком является:   
+ * 1. Если нет изображений: `media.attachments.length === 0`
+ */
+export const isDraftByPropsCreateUpdateProduct = (data: IPropsUpdateProduct | IPropsCreateProduct) => {
+    return (JSON.parse(data.media) as IMediaProduct).attachments.length === 0
 }
 
 
-export const productFormToCreateProduct = (data: IPropsProductForm, ownerId: IUser['id']) => {
+export const productFormToCreateOrEditProduct = (data: IPropsProductForm, ownerId: IUser['id'], propsToEdit?: boolean ): IPropsUpdateProduct | IPropsCreateProduct | undefined => {
     let {main, additional, variation} = data
     if (!main || !additional || !variation || !main.form || !additional.form || !variation.form) return 
-    return {
+    const props = {
         name: main.form.name,
         ownerId: ownerId,
-        categoryId: main.form.categoryId,
         country: main.form.country!.name,
         certification: main.form.hasCertificate,
         delivery: additional.form.delivery.map(it => it.name),
@@ -39,7 +52,10 @@ export const productFormToCreateProduct = (data: IPropsProductForm, ownerId: IUs
         warehouses: additional.form.warehouses.map(it => it.name),
         media: productFormToMediaProduct(data),
         characteristics: productFormToCharacteristicProduct(data),
-    } as IPropsCreateProduct
+    } as IPropsUpdateProduct
+    if (propsToEdit) 
+        return props
+    return {...props, categoryId: main.form.categoryId } as IPropsCreateProduct
 }
 
 

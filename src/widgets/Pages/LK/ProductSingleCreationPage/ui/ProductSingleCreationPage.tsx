@@ -18,8 +18,8 @@ import { isValidPropsProductForm, productToPropsProductForm } from "@/features/F
 import { IPropsProductForm } from "@/features/Form/Product/model/product.form.model"
 import { useRouter } from "next/navigation"
 import { DASHBOARD_PAGES } from "@/config/pages-url.config"
-import { productFormToCreateProduct, productFormToCreateProductTest } from "@/entities/Product/serializer/propsCreate.product.serializer"
-import { IPropsCreateProduct } from "@/entities/Product/model/props.product.model"
+import { isDraftByPropsCreateUpdateProduct, productFormToCreateOrEditProduct, productFormToCreateProductTest } from "@/entities/Product/serializer/propsCreate.product.serializer"
+import { IPropsCreateProduct, IPropsUpdateProduct } from "@/entities/Product/model/props.product.model"
 
 interface IProductSingleCreationPage {
     groupId?: string | null
@@ -51,6 +51,7 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
     const { data: metrics } = MetricsAPI.useGetMetricsQuery();
     const { data: countries } = CountryAPI.useGetCountriesQuery();
     const [ createProduct ] = ProductAPI.useCreateProductMutation()
+    const [ createDraftProduct ] = ProductAPI.useCreateDraftProductMutation()
     const [ addProductToGroup ] = ProductAPI.useAddProductToGroupMutation()
     const [ deleteProduct ] = ProductAPI.useDeleteProductMutation()
     const [ getProductById ] = ProductAPI.useGetProductByIdMutation()
@@ -122,25 +123,40 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
     // load
     const handleLoadProduct = async (formData: IPropsProductForm) => {
         console.log('qwe load data', formData, currentPropsProduct)
-        if (!isEditForm && groupId && isValidPropsProductForm(formData)) {
-            const serializerData = productFormToCreateProduct(formData, userId)
-            if (serializerData === undefined)
-                return
-            // const serializerData = productFormToCreateProductTest()
-            const createdProductId = await createProduct(serializerData).unwrap()
-            await addProductToGroup({groupId: +groupId, productId: createdProductId}).then(async () => {
-                await getProductById(createdProductId).then(r => {
-                    if ('data' in r)
-                        addProducts([r.data as IProductAPI])
+        if (!isValidPropsProductForm(formData)) return
+        // IS EDIT
+        if (isEditForm) {
+            const serializerData = productFormToCreateOrEditProduct(formData, userId, true) as (IPropsUpdateProduct | undefined)
+            if (serializerData === undefined) return
+
+            if (isDraftByPropsCreateUpdateProduct(serializerData)) {
+
+            }
+        }
+        // IS CREATE
+        else if (groupId) {
+            // ПЕРЕВОД ДАННЫХ ИЗ ФОРМЫ В ДАННЫЕ ДЛЯ ОТПРАВКИ НА БЭК
+            const serializerData = productFormToCreateOrEditProduct(formData, userId, false) as (IPropsCreateProduct | undefined)
+            if (serializerData === undefined) return
+
+            if (isDraftByPropsCreateUpdateProduct(serializerData)) {
+                await createDraftProduct(serializerData).unwrap()
+                router.push(DASHBOARD_PAGES.EDIT_PRODUCT({groupId: +groupId}).path);
+            } else {
+                const createdProductId = await createProduct(serializerData).unwrap()
+                await addProductToGroup({groupId: +groupId, productId: createdProductId}).then(async () => {
+                    await getProductById(createdProductId).then(r => {
+                        if ('data' in r) addProducts([r.data as IProductAPI])
+                    })
+                    router.push(DASHBOARD_PAGES.EDIT_PRODUCT({groupId: +groupId, id: createdProductId}).path);
                 })
-                router.push(DASHBOARD_PAGES.EDIT_PRODUCT({groupId: +groupId, id: createdProductId}).path);
-            })
+            }
         }
         
     }
 
     return (
-        <div className={cls(cl.page, className)}>
+        <div className={cls(cl.page, className)}> 
             <div className={cl.left}>
                 <ProductTypeArticleBlock items={products} 
                     onCreateProduct={handleOnCreateProduct}

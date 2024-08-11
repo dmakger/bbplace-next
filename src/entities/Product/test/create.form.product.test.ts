@@ -1,7 +1,7 @@
 /**
  * Тестовый товар для создания товара в форме товарки. Используется в `/AddItem`
  */
-export const CREATE_PRODUCT_TEST = {
+export const CREATE_DRAFT_PRODUCT_TEST = {
     name: "Сухой корм для взрослых кошек с индейкой и лососем Lapsville, 3.5 кг",
     ownerId: "",
     categoryId: 2146,
@@ -19,11 +19,8 @@ export const CREATE_PRODUCT_TEST = {
     isHasTestProbe: true,
     status: "Под заказ",
     warehouses: ["Москва"],
-    media: JSON.stringify({
-        attachments: [
-            "d6ffd3a2-e5a6-4a93-95f9-9bce7af032cf.png",
-            "c72aad86-5bec-4ca9-a004-399dc0b71d76.png"
-        ],
+    media: {
+        attachments: [],
         color: "Индейка, лосось",
         article: "1",
         currency: {
@@ -96,8 +93,8 @@ export const CREATE_PRODUCT_TEST = {
                 }
             }
         ]
-    }),
-    characteristics: JSON.stringify({
+    },
+    characteristics: {
         brand: "Lapsville",
         weight: "3.5",
         expirationDate: "547 Дни",
@@ -120,5 +117,17 @@ export const CREATE_PRODUCT_TEST = {
                 shortName: "кг"
             }
         }
-    })
+    }
+}
+
+
+export const CREATE_PRODUCT_TEST = {
+    ...CREATE_DRAFT_PRODUCT_TEST,
+    media: {
+        ...CREATE_DRAFT_PRODUCT_TEST.media,
+        attachments: [
+            "d6ffd3a2-e5a6-4a93-95f9-9bce7af032cf.png",
+            "c72aad86-5bec-4ca9-a004-399dc0b71d76.png"
+        ],
+    }
 }

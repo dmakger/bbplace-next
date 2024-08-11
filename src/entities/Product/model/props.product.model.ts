@@ -28,9 +28,11 @@ export interface IPropsCreateProduct extends IBaseWCategoryProduct {
 
 
 /**
- * Используется при вызове `/EditItem` в `ProductAPI`
+ * Используется при вызове `/EditItem` в `ProductAPI`  
+ * Отличается от `IPropsCreateProduct` отсутствием `categoryId`
  */
 export interface IPropsUpdateProduct extends IBaseProduct {
+    country: string
     media: string
     characteristics: string
 }

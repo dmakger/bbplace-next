@@ -164,6 +164,15 @@ export const ProductAPI = createApi({
             }),
         }),
 
+        createDraftProduct: build.mutation<number, IPropsCreateProduct>({
+            query: (body) => ({
+                url: `/AddItemDraft`,
+                method: 'POST',
+                headers: getHeaderAuthorization(),
+                body
+            }),
+        }),
+
         // update
         updateProduct: build.mutation<number, IPropsUpdateProduct>({
             query: (body) => ({
