@@ -103,3 +103,13 @@ export enum ProductsTypeLK {
     Draft,
     WithoutPrice,
 }
+
+
+//LK_PROFILE_EDIT
+
+export const SWITCH_SELECTOR_PROFILE_EDIT: IOption = {
+    id: 13,
+    name: 'Редактирование',
+    value: 'profileEdit'
+}
+

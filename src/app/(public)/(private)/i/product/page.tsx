@@ -31,7 +31,7 @@ export default function LKProductPage() {
                 <WrapperLKPT pageTitle="Мои товары" 
                              options={PRODUCT_PAGE_OPTIONS_ARRAY} optionsTab={MY_PRODUCTS_OPTIONS_TAB}
                              startPage={SWITCH_SELECTOR_CREATED_PRODUCTS_OPTION} 
-                             isButtonAdd={false}/>
+                             isButtonRight={false}/>
             </WrapperAuth>
         </Wrapper1280>
     )

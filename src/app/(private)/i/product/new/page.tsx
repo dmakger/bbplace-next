@@ -46,7 +46,7 @@ export default function ProductNewPage() {
                             : SWITCH_SELECTOR_PRODUCT_PAGE_SINGLE
                         }
                         optionsTab={PRODUCT_NEW_PAGE_OPTIONS_TAB}
-                        isButtonAdd={false} />
+                        isButtonRight={false} />
                 </SuspenseL.Any>
             </Suspense>
         </Wrapper1280>

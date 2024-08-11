@@ -45,3 +45,8 @@ export type OptionsTabType = (
     IUserProductsTab | IDetailedProductOptionsTab | ICreateNewProductsTab | IPricesNDiscountsTab
     | IOptionTabTender
 );
+
+// ====={ PROFILE }=====
+export interface IProfileEditTab extends IOptionTabParent {
+    profileEdit: IOptionTab
+}
