@@ -35,6 +35,6 @@ export const optionListToCountryList = (options: IOption[]) => {
  * Перевод `option` в `страну`
  */
 export const optionToCountry = (option: IOption) => {
-    const {id, name, ...params} = option
+    const {id, name, params} = option
     return {id, name, ...params} as ICountry
 }

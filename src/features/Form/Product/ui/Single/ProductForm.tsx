@@ -32,6 +32,7 @@ export const ProductForm = forwardRef(({ data, loadData, isEdit = false, classNa
 
     // EFFECT
     useEffect(() => {
+        console.log('qwe productForm', data)
         setMainInfoData(prev => isEqual(prev, data?.main?.form) ? prev : data?.main?.form);
         setAdditionalInfoData(prev => isEqual(prev, data?.additional?.form) ? prev : data?.additional?.form);
         setVariationInfoData(prev => isEqual(prev, data?.variation?.form) ? prev : data?.variation?.form);

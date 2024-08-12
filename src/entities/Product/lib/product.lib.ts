@@ -7,6 +7,7 @@ import { currencyToObject } from "@/entities/Metrics/lib/currency/currency.metri
 import { metricsToObject } from "@/entities/Metrics/lib/metrics/base.metrics.metrics.lib";
 import { IProcessProductProps } from "../model/props.product.model";
 import { ICountry } from "@/entities/Metrics/model/country.metrics.model";
+import { isEqual } from "lodash";
 
 
 export const productApiListToProductList = (productListAPI: IProductAPI[], metrics?: IMetrics[], currencyList?: ICurrency[], countries?: ICountry[]): IProduct[] => {
@@ -60,7 +61,8 @@ export const processProduct = (product: IProduct, metrics?: IMetrics[], currency
 const processProductCharacteristic = (characteristics: IProductAPI['characteristics'], metrics?: IMetrics[], currencyList?: ICurrency[], countries?: ICountry[]) => {
     const characteristicsAPI = JSON.parse(characteristics) as ICharacteristicAPI
     // console.log('qwe characteristicsAPI', characteristicsAPI)
-    const country = countries?.find(it => `${it.id}` === characteristicsAPI.country || it.name === characteristicsAPI.country || it.fullName === characteristicsAPI.country)
+    const country = countries?.find(it => `${it.id}` === characteristicsAPI.country || it.name === characteristicsAPI.country || it.fullName === characteristicsAPI.country || isEqual(it, characteristicsAPI.country))
+    // console.log('qwe country', country, characteristicsAPI.country)
     const weightUnits = metrics?.find(it => `${it.id}` === `${characteristicsAPI.weightUnits}` || it.name === characteristicsAPI.weightUnits || it.shortName === characteristicsAPI.weightUnits)
     return {
         ...characteristicsAPI,

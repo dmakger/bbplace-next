@@ -1,3 +1,4 @@
+import { ProductsTypeLK } from "@/shared/ui/SwitchSelector/data/switchSelector.data";
 import { ReactNode } from "react";
 
 
@@ -21,9 +22,9 @@ export interface IDetailedProductOptionsTab extends IOptionTabParent{
 }
 
 export interface IUserProductsTab extends IOptionTabParent {
-    active: IOptionTab,
-    drafts: IOptionTab,
-    woPrice?: IOptionTab 
+    [ProductsTypeLK.Active]: IOptionTab,
+    [ProductsTypeLK.Draft]: IOptionTab,
+    [ProductsTypeLK.WithoutPrice]?: IOptionTab 
 }
 
 export interface ICreateNewProductsTab extends IOptionTabParent {

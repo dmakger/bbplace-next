@@ -24,13 +24,16 @@ import { cls } from "@/shared/lib/classes.lib";
 import { skipToken } from "@reduxjs/toolkit/query";
 import { useRouter } from "next/navigation";
 import { DASHBOARD_PAGES } from "@/config/pages-url.config";
+import { ProductsTypeLK } from "@/shared/ui/SwitchSelector/data/switchSelector.data";
+import { EProductType } from "@/entities/Product/data/type.product.data";
 
 interface LKProductTableProps {
     products?: IProduct[]
+    type?: ProductsTypeLK
     className?: string,
 }
 
-export const LKProductTable:FC<LKProductTableProps> = ({products: _products, ...rest}) => {
+export const LKProductTable:FC<LKProductTableProps> = ({products: _products, type=ProductsTypeLK.Active, ...rest}) => {
     //ROUTER
     const router = useRouter();
     
@@ -52,6 +55,7 @@ export const LKProductTable:FC<LKProductTableProps> = ({products: _products, ...
     // API
     const [getCategory] = CategoryAPI.useGetCategoryMutation();
     const [deleteProduct] = ProductAPI.useDeleteProductMutation();
+    const [deleteDraftProduct] = ProductAPI.useDeleteDraftMutation();
     const { data: productsAPI, isLoading: isProductLoading } = ProductAPI.useGetProductsQuery(
         _products === undefined ? { limit: 24, page: 11 } : skipToken, 
         { refetchOnMountOrArgChange: true }
@@ -197,7 +201,8 @@ export const LKProductTable:FC<LKProductTableProps> = ({products: _products, ...
 
         const errorsProduct: IProduct[] = []
         _products.map(async it => {
-            await deleteProduct(it.id).unwrap().catch(() => {
+            const deleteProductFunc = type === ProductsTypeLK.Active ? deleteProduct : deleteDraftProduct
+            await deleteProductFunc(it.id).catch(() => {
                 errorsProduct.push(it)
             })
         })
@@ -209,7 +214,8 @@ export const LKProductTable:FC<LKProductTableProps> = ({products: _products, ...
         console.log('qwe edit ', groupId, id)
         if (groupId === null) return
 
-        router.push(DASHBOARD_PAGES.EDIT_PRODUCT({groupId, id}).path);
+        const typeProduct = type === ProductsTypeLK.Active ? EProductType.Public : EProductType.Draft
+        router.push(DASHBOARD_PAGES.EDIT_PRODUCT({type: typeProduct, groupId, id}).path);
      }
 
     return (

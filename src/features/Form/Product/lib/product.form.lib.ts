@@ -12,8 +12,10 @@ import { processDeliveryOption, processEquipmentOption, processFeaturesOption, p
 
 export const isValidPropsProductForm = (formData: IPropsProductForm) => {
     const {main, additional, variation} = formData
+    // return main && additional && variation 
+    //     && main.isValid && additional.isValid && variation.isValid
     return main && additional && variation 
-        && main.isValid && additional.isValid && variation.isValid
+        && main.isValid && variation.isValid
 }
 
 

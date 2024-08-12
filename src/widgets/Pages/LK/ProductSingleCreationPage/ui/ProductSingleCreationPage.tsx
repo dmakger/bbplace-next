@@ -20,6 +20,7 @@ import { useRouter } from "next/navigation"
 import { DASHBOARD_PAGES } from "@/config/pages-url.config"
 import { isDraftByPropsCreateUpdateProduct, productFormToCreateOrEditProduct, productFormToCreateProductTest, propsUpdateToCreateProduct } from "@/entities/Product/serializer/propsCreate.product.serializer"
 import { IPropsCreateProduct, IPropsUpdateProduct } from "@/entities/Product/model/props.product.model"
+import { EProductType } from "@/entities/Product/data/type.product.data"
 
 interface IProductSingleCreationPage {
     groupId?: string | null
@@ -67,6 +68,7 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
 
 
     // EFFECT
+    const typeProduct = useMemo(() => isDraft ? EProductType.Draft : EProductType.Public, [isDraft])
     const isEditForm = useMemo(() => !!productId, [productId])
 
     useEffect(() => {
@@ -76,6 +78,7 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
     }, [productsAPI, draftsAPI, currencies, metrics, countries])
 
     const addProducts = (_productsAPI: IProductAPI[]) => {
+        console.log('qwe addProducts', _productsAPI)
         setProducts(prevProducts => {
             const newProducts = productApiListToProductList(_productsAPI, metrics, currencies, countries);
             return JSON.stringify(prevProducts) !== JSON.stringify(newProducts) ? [...newProducts, ...prevProducts] : prevProducts
@@ -86,6 +89,7 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
         if (!productId || products.length === 0) return
 
         const _currentProduct = products.find(it => it.id === +productId)
+        console.log('qwe currentProduct', _currentProduct)
         if (_currentProduct) {
             setCurrentProduct(_currentProduct)
             setCurrentPropsProduct(productToPropsProductForm(_currentProduct))
@@ -121,15 +125,17 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
     }
     // on delete
     const handleOnDelete: TListItemOnClick<IProduct> = async (it, _) => {
-        await deleteProduct(it.id).then(() => {
+        const currentDeleteProduct = isDraft ? deleteDraftProduct : deleteProduct
+        await currentDeleteProduct(it.id).then(() => {
             setProducts(prev => prev.filter(prevItem => prevItem.id !== it.id))
             if (groupId) {
-                router.push(DASHBOARD_PAGES.EDIT_PRODUCT({groupId: +groupId}).path);
+                router.push(DASHBOARD_PAGES.EDIT_PRODUCT({type: typeProduct, groupId: +groupId}).path);
             }
         })
     }
 
     // load
+    // TODO: Сделать разделение по компонентам. update.product.form.ts
     const handleLoadProduct = async (formData: IPropsProductForm) => {
         console.log('qwe load data', formData, currentPropsProduct)
         if (!isValidPropsProductForm(formData)) return
@@ -137,11 +143,19 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
         // IS EDIT
         if (isEditForm && productId) {
             const serializerData = productFormToCreateOrEditProduct(formData, userId, true) as (IPropsUpdateProduct | undefined)
+            console.log('qwe serializerData', serializerData)
             if (serializerData === undefined) return
 
             if (isDraftByPropsCreateUpdateProduct(serializerData)) {
                 if (isDraft) {
-                    await updateDraftProduct(serializerData).unwrap()
+                    await updateDraftProduct({id: productId, body: serializerData}).then(() => {
+                        setProducts(prev => (
+                            prev.map(it => {
+                                if (it.id !== +productId) return it
+                                return {...it, media: JSON.parse(serializerData.media)}
+                            })
+                        ))
+                    })
                 } else {
                     const createdPropsFormData = propsUpdateToCreateProduct(serializerData, formData)
                     if (createdPropsFormData === undefined) return
@@ -150,13 +164,26 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
                         await deleteProduct(+productId).unwrap()
                         if ('data' in r) {
                             const draftGroupId = await createDraftGroup().unwrap()
-                            await addProductToDraftGroup({groupId: draftGroupId, productId: r.data})
+                            await addProductToDraftGroup({groupId: draftGroupId, productId: r.data}).then(() => {
+                                if (products.length === 1) {
+                                    router.push(DASHBOARD_PAGES.EDIT_PRODUCT({type: EProductType.Draft, groupId: draftGroupId}).path);
+                                } else {
+                                    setProducts(prev => prev.filter(it => it.id !== +productId))
+                                }
+                            })
                         }
                     })
                 }
             } else {
                 if (!isDraft) {
-                    await updateProduct(serializerData).unwrap()
+                    await updateProduct({id: productId, body: serializerData}).then(() => {
+                        setProducts(prev => (
+                            prev.map(it => {
+                                if (it.id !== +productId) return it
+                                return {...it, media: JSON.parse(serializerData.media)}
+                            })
+                        ))
+                    })
                 } else {
                     const createdPropsFormData = propsUpdateToCreateProduct(serializerData, formData)
                     if (createdPropsFormData === undefined) return
@@ -164,8 +191,14 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
                     await createProduct(createdPropsFormData).then(async r => {
                         await deleteDraftProduct(productId).unwrap()
                         if ('data' in r) {
-                            const _groupId = await createGroup().unwrap()
-                            await addProductToGroup({groupId: _groupId, productId: r.data})
+                            const createdGroupId = await createGroup().unwrap()
+                            await addProductToGroup({groupId: createdGroupId, productId: r.data}).then(() => {
+                                if (products.length === 1) {
+                                    router.push(DASHBOARD_PAGES.EDIT_PRODUCT({type: EProductType.Draft, groupId: createdGroupId}).path);
+                                } else {
+                                    setProducts(prev => prev.filter(it => it.id !== +productId))
+                                }
+                            })
                         }
                     })
                 }
@@ -184,7 +217,7 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
                     if (!isDraft) return
                     await getDraftProductById(createdProductId).then(r => {
                         if ('data' in r) addProducts([r.data as IProductAPI])
-                        router.push(DASHBOARD_PAGES.EDIT_PRODUCT({groupId: _groupId, id: createdProductId}).path);
+                        router.push(DASHBOARD_PAGES.EDIT_PRODUCT({type: typeProduct, groupId: _groupId, id: createdProductId}).path);
                     })
                 })
             } else {
@@ -194,7 +227,7 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
                     if (isDraft) return
                     await getProductById(createdProductId).then(r => {
                         if ('data' in r) addProducts([r.data as IProductAPI])
-                        router.push(DASHBOARD_PAGES.EDIT_PRODUCT({groupId: _groupId, id: createdProductId}).path);
+                        router.push(DASHBOARD_PAGES.EDIT_PRODUCT({type: typeProduct, groupId: _groupId, id: createdProductId}).path);
                     })
                 })
             }

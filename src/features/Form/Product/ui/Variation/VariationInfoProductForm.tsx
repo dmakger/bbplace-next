@@ -23,7 +23,7 @@ import { ICurrency } from "@/entities/Metrics/model/currency.metrics.model";
 import { IMetrics } from "@/entities/Metrics/model/metric.metrics.model";
 import { IWholesale } from "@/entities/Metrics/model/wholesale.metrics.model";
 import { ISize } from "@/entities/Metrics/model/size.metrics.model";
-import { processSizeOptionInProductForm, processWholesaleOptionInProductForm } from "../../lib/process.variation.product.lib";
+import { processSizeOptionInProductForm, processWholesaleOptionInProductForm } from "../../lib/process.variation.product.form.lib";
 import { WrapperWOSubmit } from "@/shared/ui/Wrapper/WOSubmit/ui/WrapperWOSubmit";
 import { IFormInfo } from "../../model/product.form.model";
 import { getEmptyFormInfo } from "../../lib/product.form.lib";

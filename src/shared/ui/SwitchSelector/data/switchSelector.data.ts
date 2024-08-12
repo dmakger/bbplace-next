@@ -1,6 +1,14 @@
 import { IUserProductsTab } from "@/features/DetailedPageInfo/model/detailedPageInfo.model"
 import { IOption } from "@/shared/model/option.model"
 
+
+export enum ProductsTypeLK {
+    Active = 'active',
+    Draft = 'draft',
+    WithoutPrice = 'woPrice',
+}
+
+
 export const SWITCH_SELECTOR_DESCRIPTION_OPTION: IOption = {
     id: 1,
     name: 'Описание',
@@ -30,24 +38,24 @@ export const SWITCH_SELECTOR_SUPPLIER_OPTION: IOption = {
 export const SWITCH_SELECTOR_CREATED_PRODUCTS_OPTION: IOption = {
     id: 5,
     name: 'Cозданные',
-    value: 'active'
+    value: ProductsTypeLK.Active,
 }
 
 export const SWITCH_SELECTOR_WO_PRICE_PRODUCTS_OPTION: IOption = {
     id: 6,
     name: 'Без цен',
-    value: 'woPrice'
+    value: ProductsTypeLK.WithoutPrice,
 }
 
 export const SWITCH_SELECTOR_DRAFT_PRODUCTS_OPTION: IOption = {
     id: 7,
     name: 'Черновики',
-    value: 'drafts'
+    value: ProductsTypeLK.Draft,
 }
 
 export const PRODUCT_PAGE_OPTIONS_ARRAY: IOption[] = [
     SWITCH_SELECTOR_CREATED_PRODUCTS_OPTION,
-    SWITCH_SELECTOR_WO_PRICE_PRODUCTS_OPTION,
+    // SWITCH_SELECTOR_WO_PRICE_PRODUCTS_OPTION,
     SWITCH_SELECTOR_DRAFT_PRODUCTS_OPTION
 ]
 
@@ -112,8 +120,3 @@ export const SWITCH_SELECTOR_PRICES_N_DISCOUNTS: IOption = {
 }
 
 
-export enum ProductsTypeLK {
-    Active,
-    Draft,
-    WithoutPrice,
-}

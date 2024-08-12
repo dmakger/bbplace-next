@@ -181,17 +181,17 @@ export const ProductAPI = createApi({
         }),
 
         // update
-        updateProduct: build.mutation<number, IPropsUpdateProduct>({
-            query: (body) => ({
-                url: `/EditItem`,
+        updateProduct: build.mutation<number, {id: number|string, body: IPropsUpdateProduct}>({
+            query: ({id, body}) => ({
+                url: `/EditItem/${id}`,
                 method: 'POST',
                 headers: getHeaderAuthorization(),
                 body
             }),
         }),
-        updateDraftProduct: build.mutation<number, IPropsUpdateProduct>({
-            query: (body) => ({
-                url: `/EditItemDraft`,
+        updateDraftProduct: build.mutation<number, {id: number|string, body: IPropsUpdateProduct}>({
+            query: ({id, body}) => ({
+                url: `/EditItemDraft/${id}`,
                 method: 'POST',
                 headers: getHeaderAuthorization(),
                 body

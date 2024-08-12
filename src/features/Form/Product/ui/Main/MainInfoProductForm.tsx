@@ -45,6 +45,7 @@ export const MainInfoProductForm: FC<MainInfoProductFormProps> = ({ data, setDat
 
     // EFFECT
     useEffect(() => {
+        console.log('qwe main', data)
         setSelectedCategoryIds(data?.categoryId ? [data.categoryId] : []);
         setSelectedStatusOption(data?.status ?? READY_STATUS__PRODUCT_FORM__DATA);
         setSelectedCountryOption(data?.country ?? undefined);
