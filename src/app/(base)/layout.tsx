@@ -1,6 +1,7 @@
 "use client"
 
-import cl from './_PrivateLayout.module.scss'
+import cl from './_PublicLayout.module.scss'
+import { Header } from "@/widgets/Header";
 import { MobileNavbar } from "@/widgets/MobileNavbar";
 import { PropsWithChildren, useEffect } from "react";
 import { WrapperGap } from "@/shared/ui/Wrapper/Gap/WrapperGap";
@@ -8,10 +9,9 @@ import { UserAPI } from '@/entities/Auth/api/auth.api';
 import { useActionCreators } from '@/storage/hooks';
 import { getAccessToken, isAuth, removeFromStorage } from '@/entities/Auth/lib/auth-token.lib';
 import { jwtDecode } from 'jwt-decode';
-import { LK_MOBILE_DATA } from '@/shared/data/menu/mobile.menu.data';
-import { HeaderLK } from '@/widgets/HeaderLK';
+import { Footer } from '@/widgets/Footer';
 
-export default function PrivateLayout({ children }: PropsWithChildren<unknown>) {
+export default function Layout({ children }: PropsWithChildren<unknown>) {
     // API 
     const [refreshToken] = UserAPI.useRefreshTokenMutation()
     
@@ -41,11 +41,11 @@ export default function PrivateLayout({ children }: PropsWithChildren<unknown>) 
 
     return (
         <WrapperGap>
-            <HeaderLK />
             <div className={cl.content}>
                 {children}
             </div>
-            <MobileNavbar menuData={LK_MOBILE_DATA}/>
+            <MobileNavbar/>
+            <Footer/>
         </WrapperGap>
     )
 }

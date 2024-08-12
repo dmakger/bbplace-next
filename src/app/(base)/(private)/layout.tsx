@@ -1,4 +1,5 @@
 import { WrapperAuth } from "@/shared/ui/Wrapper/Auth/WrapperAuth";
+import { HeaderLK } from "@/widgets/HeaderLK";
 
 export default function RootLayout({
     children,
@@ -8,6 +9,7 @@ export default function RootLayout({
 
     return (
         <WrapperAuth>
+          <HeaderLK />
             {children}
         </WrapperAuth>
     )

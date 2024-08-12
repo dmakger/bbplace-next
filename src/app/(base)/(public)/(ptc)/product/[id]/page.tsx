@@ -33,6 +33,7 @@ import { getDiapason } from "@/entities/Metrics/lib/metrics/diapason.metrics.met
 import { cls } from "@/shared/lib/classes.lib";
 import { useInView } from "react-intersection-observer";
 import { MainInfoProduct } from "@/features/Block/Info/Product";
+import { CountryAPI } from "@/entities/Metrics/api/country.metrics.api";
 
 export default function ProductDetailPage() {
     // ROUTER
@@ -53,15 +54,17 @@ export default function ProductDetailPage() {
     // API
     const { data: currencyList } = CurrencyAPI.useGetCurrenciesQuery()
     const { data: metrics } = MetricsAPI.useGetMetricsQuery()
+    const { data: countries } = CountryAPI.useGetCountriesQuery()
+
     const { data: productAPI } = ProductAPI.useGetProductQuery(Array.isArray(id) ? id[0] : id, { refetchOnMountOrArgChange: true })
     const { data: productAPIListGroup } = ProductAPI.useGetProductsByGroupQuery(productAPI && productAPI.groupId ? productAPI.groupId : skipToken, { refetchOnMountOrArgChange: true })
+    
     const { data: itemReviews } = ReviewAPI.useGetProductReviewsQuery({ itemId: String(id), limit: REVIEW_LIMIT ?? 0, page: REVIEW_START_PAGE })
     const { data: itemScore } = ReviewAPI.useGetProductAvgScoreQuery(String(id) ?? '')
+    
     const { data: supplierAPI } = UserAPI.useGetUserDataQuery(product?.ownerId as string)
     const { data: supplierReviews } = ReviewAPI.useGetSellerReviewsQuery({ supplierId: product?.ownerId ?? '', limit: REVIEW_LIMIT ?? 0, page: REVIEW_START_PAGE })
     const { data: supplierRating } = ReviewAPI.useGetSupplierScoreQuery(product?.ownerId ?? '')
-
-
 
     //EFFECT
     useEffect(() => {
@@ -71,15 +74,15 @@ export default function ProductDetailPage() {
 
     useEffect(() => {
         if (productAPI) {
-            setProduct(productApiToProduct({ productAPI, metrics, currencyList }));
+            setProduct(productApiToProduct({ productAPI, metrics, currencyList, countries }));
         }
-    }, [productAPI, currencyList, metrics]);
+    }, [productAPI, currencyList, metrics, countries]);
 
     useEffect(() => {
         if (productAPIListGroup) {
-            setProductListGroup(productApiListToProductList(productAPIListGroup, metrics, currencyList));
+            setProductListGroup(productApiListToProductList(productAPIListGroup, metrics, currencyList, countries));
         }
-    }, [productAPIListGroup, currencyList, metrics]);
+    }, [productAPIListGroup, currencyList, metrics, countries]);
 
     useEffect(() => {
         let sizes: string[] = [];
