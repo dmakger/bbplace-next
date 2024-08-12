@@ -10,14 +10,15 @@ import { useRouter } from "next/navigation"
 import { DASHBOARD_PAGES } from "@/config/pages-url.config"
 import { ESwitchSelectorVariants } from "@/shared/ui/SwitchSelector/model/switchSelector.model"
 import { ButtonArrowWLine } from "@/shared/ui/Button/data/Arrow/WLine/ButtonArrowWLine"
-import { ButtonColor } from "@/shared/ui/Button/model/button.model"
+import { ButtonColor, ButtonSize } from "@/shared/ui/Button/model/button.model"
 import { IButton } from "@/shared/ui/Button/ui/Button"
 
 interface IHeaderPT {
     title: string,
     buttonBackProps?: IButton
-    isButtonAdd?: boolean,
-    buttonAddProps?: IButton
+    isButtonRight?: boolean,
+    buttonRightTitle?: string
+    buttonRightProps?: IButton,
     selectedOption: IOption,
     setSelectedOption: Function
     options: IOption[],
@@ -30,7 +31,8 @@ interface IHeaderPT {
 export const HeaderLKPT = ({
     title,
     buttonBackProps,
-    isButtonAdd = true, buttonAddProps,
+    buttonRightTitle = 'Добавить',
+    isButtonRight = true, buttonRightProps,
     selectedOption, setSelectedOption,
     options,optionsTab,
     className,
@@ -55,9 +57,7 @@ export const HeaderLKPT = ({
                         sizes={{width: 17, height: 17}}
                         {...buttonBackProps}
                     />
-                    {title && <span className={cl.headerTitle}>
-                        {title}
-                    </span>}
+                    {title && <span className={cl.headerTitle}>{title}</span>}
                 </div>
 
                 <SwitchSelector className={cl.switchSelector}
@@ -67,14 +67,15 @@ export const HeaderLKPT = ({
                     optionsTab={optionsTab}
                     variant={ESwitchSelectorVariants.TABS} />
             </div>
-            {isButtonAdd &&
-                <div className={cl.addButtonContainer}>
+            {isButtonRight &&
+                <div className={cl.buttonRightContainer}>
                     <Button variant={ButtonVariant.FILL}
+                        size={ButtonSize.Big}
                         color={ButtonColor.Primary}
-                        title="Добавить"
-                        className={cl.addButton}
-                        classNameLink={cl.addButtonLink}
-                        {...buttonAddProps}
+                        title={buttonRightTitle}
+                        className={cl.buttonRight}
+                        classNameLink={cl.buttonRightLink}
+                        {...buttonRightProps}
                     />
                 </div>
             }

@@ -47,6 +47,9 @@ export const RecursiveSelectInput = ({
     //STATE
     const [deletingOption, setDeletingOption] = useState<number>()
 
+    console.log(selectedOptions);
+    
+
     //FUNCTION
     const addSelectedOption = (option: IOption, level: number) => {
         const newSelectedOptionsCategory = [...selectedOptionsCommonArray]

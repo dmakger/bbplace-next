@@ -13,7 +13,6 @@ import { useAppSelector } from "@/storage/hooks"
 import { IEditProfilePersonalFormValues } from "../../model/editProfile.model"
 import { INITIAL_PERSONAL_ERRORS } from "../../data/editProfile.data"
 import { getFormDataFromForm } from "@/shared/lib/formData.lib"
-import { UserAPI } from "@/entities/Auth/api/auth.api"
 import { ISupplierAPI } from "@/entities/Supplier/model/supplier.model"
 
 
@@ -35,10 +34,16 @@ export const PersonalInfoEditProfileForm = ({
     const { email, fullName } = useAppSelector(state => state.user)
 
     //STATE
-    const [phoneNumber, setPhoneNumber] = useState<string>(userData?.phoneNumber ?? '')
+    const [phoneNumber, setPhoneNumber] = useState<string>('')
     const [name, setName] = useState<string>(fullName ?? '')
     const [uploadedImageList, setUploadedImageList] = useState<string>(userData?.photoId ?? '')
 
+    useEffect(() => {
+        if(userData){
+            setPhoneNumber(userData.phoneNumber)
+        }
+    }, [userData])
+   
     
     const [errors, setErrors] = useState<IEditProfilePersonalFormValues>(INITIAL_PERSONAL_ERRORS);
 
@@ -73,12 +78,12 @@ export const PersonalInfoEditProfileForm = ({
                         <Input.Text type={EInputTextType.Email} variant={EInputVariants.RECTANGULAR} value={email} disabled />
                     </WrapperRectangleInput>
 
-                    <WrapperRectangleInput labelText="Номер телефона" errorInputMessage={errors.contact} isDescriptionTooltip descriptionTooltipText='Ваш контактный номер для быстрой связи.'>
-                        <Input.Text variant={EInputVariants.RECTANGULAR} name="phoneNumber" type={EInputTextType.Text} placeholder="Введите номер" defaultValue={phoneNumber} warning={!!errors.Contact} error={!!errors.Contact} />
+                    <WrapperRectangleInput labelText="Номер телефона" errorInputMessage={errors.phoneNumber} isDescriptionTooltip descriptionTooltipText='Ваш контактный номер для быстрой связи.'>
+                        <Input.Text variant={EInputVariants.RECTANGULAR} name="phoneNumber" type={EInputTextType.Text} placeholder="Введите номер" value={phoneNumber} warning={!!errors.phoneNumber} error={!!errors.phoneNumber} />
                     </WrapperRectangleInput>
 
-                    <WrapperRectangleInput labelText="Имя" errorInputMessage={errors.name} isDescriptionTooltip descriptionTooltipText='Ваше полное ФИО для персонализации профиля.'>
-                        <Input.Text variant={EInputVariants.RECTANGULAR} name="Name" value={name} setValue={setName} placeholder="Введите ФИО" error={!!errors.Name} warning={!!errors.Name} />
+                    <WrapperRectangleInput labelText="Имя" errorInputMessage={errors.fullName} isDescriptionTooltip descriptionTooltipText='Ваше полное ФИО для персонализации профиля.'>
+                        <Input.Text variant={EInputVariants.RECTANGULAR} name="Name" value={name} setValue={setName} placeholder="Введите ФИО" error={!!errors.fullName} warning={!!errors.fullName} />
                     </WrapperRectangleInput>
 
                     <WrapperRectangleInput labelText={"Фотография"} isDescriptionTooltip descriptionTooltipText="Ваша фотография или логотип компании для узнаваемости.">

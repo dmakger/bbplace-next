@@ -43,7 +43,7 @@ export const ProductNewChildrenPage = () => {
                         : SWITCH_SELECTOR_PRODUCT_PAGE_SINGLE
                     }
                     optionsTab={PRODUCT_NEW_PAGE_OPTIONS_TAB}
-                    isButtonAdd={false} />
+                    isButtonRight={false} />
             </SuspenseL>
         </Wrapper1280>
     )

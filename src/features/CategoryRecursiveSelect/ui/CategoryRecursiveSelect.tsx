@@ -7,7 +7,7 @@ import { ERecursiveSelectVariant, IResursiveSelectInputsArray } from '@/shared/u
 import { IOption } from '@/shared/model/option.model'
 import { useEffect, useState } from 'react'
 import { CategoryAPI } from '@/entities/Metrics/api/category.metrics.api'
-import { getOptionsFromCategoriesWithSubcategories } from '@/shared/lib/option/option.lib'
+import { findOptionById, getOptionsFromCategoriesWithSubcategories } from '@/shared/lib/option/option.lib'
 import { createInputArray } from '@/shared/ui/Input/ui/RecursiveSelect'
 
 interface ICategoryRecursiveSelect {
@@ -15,7 +15,7 @@ interface ICategoryRecursiveSelect {
     variant?: ERecursiveSelectVariant
     labelText?: string,
     classNameLabel?: string,
-    defaultCategoriesId: number[],
+    defaultCategoriesId?: number[],
     setSelectedCategoriesId?: Function,
     onClickBellowButton?: Function,
 
@@ -83,15 +83,17 @@ export const CategoryRecursiveSelect = ({
         }
     }, [categories])
 
+   
     useEffect(() => {
         if (updatedCategories && defaultCategoriesId) {
             const foundOptions = defaultCategoriesId
-                .map(id => updatedCategories.find(it => it.id === id))
-                .filter((option): option is IOption => option !== undefined);
-
-            setSelectedOptions(foundOptions);
+                .map(id => findOptionById(updatedCategories, id))
+                .filter((option): option is IOption => option !== undefined)
+                setSelectedOptions(foundOptions);
         }
     }, [updatedCategories, defaultCategoriesId])
+
+       
 
     useEffect(() => {
         setSelectedCategoriesId && setSelectedCategoriesId(selectedOptions.map(it => it.id))
@@ -105,7 +107,6 @@ export const CategoryRecursiveSelect = ({
         classNamesInputArray ?? [],
         placeholdersInputsArray ?? []
     );
-
 
     return (
         <WrapperRectangleInput

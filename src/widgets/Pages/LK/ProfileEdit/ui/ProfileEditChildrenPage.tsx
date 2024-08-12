@@ -10,7 +10,8 @@ import { TinAPI, UserAPI } from "@/entities/Auth/api/auth.api"
 import { IEditProfileCompanyFormValues, IEditProfilePersonalFormValues } from "@/features/Form/EditProfile/model/editProfile.model"
 import { useAppSelector } from "@/storage/hooks"
 import { ISupplierAPI } from "@/entities/Supplier/model/supplier.model"
-import { INITIAL_SUPPLIER_DATA } from "@/entities/Supplier/data/supplier.data"
+
+
 
 export const ProfileEditChildrenPage = () => {
 
@@ -31,12 +32,8 @@ export const ProfileEditChildrenPage = () => {
     //EFFECT
     useEffect(() => {
         if (userDataValues)
-            setUserData(userDataValues)
-        console.log(userDataValues, userData);
-        
+            setUserData(userDataValues)        
     }, [userDataValues])
-
-
 
     //REF
     const personalFormSubmit = useRef<() => void>(() => { });
@@ -44,13 +41,15 @@ export const ProfileEditChildrenPage = () => {
 
     const PROFILE_EDIT_TAB: IProfileEditTab = {
         profileEdit: {
-            optionTab: <ProfileEditForm
-                personalFormSubmit={personalFormSubmit}
-                companyFormSubmitRef={companyFormSubmitRef}
-                setPersonalInfoData={setPersonalInfoData}
-                setCompanyInfoData={setCompanyInfoData}
-                userData={userData}
-            />,
+            optionTab: userData ? ( 
+                <ProfileEditForm
+                    personalFormSubmit={personalFormSubmit}
+                    companyFormSubmitRef={companyFormSubmitRef}
+                    setPersonalInfoData={setPersonalInfoData}
+                    setCompanyInfoData={setCompanyInfoData}
+                    userData={userData} 
+                />
+            ) : <div>Loading...</div>, 
             optionValue: String(SWITCH_SELECTOR_PROFILE_EDIT.value)
         }
     }
@@ -63,11 +62,11 @@ export const ProfileEditChildrenPage = () => {
         if (companyFormSubmitRef.current) {
             companyFormSubmitRef.current();
         }
-
+        if(personalInfoData )
         try {
             await updateInfo({
-                email: personalInfoData?.email ?? '',
-                phoneNumber: personalInfoData?.phoneNumber ?? '',
+                email: personalInfoData.email ?? '',
+                phoneNumber: personalInfoData.phoneNumber ?? '',
                 fullName: personalInfoData?.fullName ?? '',
                 photoId: personalInfoData?.photoId ?? '',
                 category: companyInfoData?.categories ?? '',

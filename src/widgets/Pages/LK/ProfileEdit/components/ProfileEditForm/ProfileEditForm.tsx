@@ -1,6 +1,6 @@
 import { cls } from "@/shared/lib/classes.lib"
 import cl from './_ProfileEditForm.module.scss'
-import { Dispatch, MutableRefObject, SetStateAction } from "react";
+import { Dispatch, MutableRefObject, RefObject, SetStateAction } from "react";
 import { IEditProfileCompanyFormValues, IEditProfilePersonalFormValues } from "@/features/Form/EditProfile/model/editProfile.model";
 import { CompanyInfoEditProfileForm, PersonalInfoEditProfileForm } from "@/features/Form/EditProfile/ui";
 import { ISupplierAPI } from "@/entities/Supplier/model/supplier.model";

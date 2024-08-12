@@ -18,10 +18,10 @@ export const getOptionByKeyAndValue = (key: string, value: string | number, opti
     }
 }
 
-export const getOptionsFromCategoriesWithSubcategories = (categories:ICategoriesWithSubcategories[]) => {
-    if(!categories) return;
+export const getOptionsFromCategoriesWithSubcategories = (categories: ICategoriesWithSubcategories[]) => {
+    if (!categories) return;
 
-    let optionsArray:IOption[] = [];
+    let optionsArray: IOption[] = [];
 
     optionsArray = categories.map(it => {
         return {
@@ -32,4 +32,20 @@ export const getOptionsFromCategoriesWithSubcategories = (categories:ICategories
     })
 
     return optionsArray;
+}
+
+/**
+ * @param options - массив Options, по элементам которого будем искать совпадение с id
+ * @param id - id, по которому будет искаться Option 
+ * @returns `foundOption` в случае нахождения option с такимм id, и `undefined`, если option с таким id не существует
+ */
+export const findOptionById = (options: IOption[], id: number): IOption | undefined => {
+    for (const option of options) {
+        if (option.id === id) return option;
+        if (option.options?.length) {
+            const foundOption: IOption | undefined = findOptionById(option.options, id)
+            if (foundOption) return foundOption;
+        }
+    }
+    return undefined
 }

@@ -34,7 +34,7 @@ export interface ILoginResponseDecoded {
 }
 
 export interface IUpdateUserInfo {
-    email?: string
+    email: string
     phoneNumber: string
     category: string
     shortDescription: string

@@ -2,11 +2,13 @@ import { IEditProfileCompanyFormValues, IEditProfilePersonalFormValues } from ".
 
 export const INITIAL_PERSONAL_ERRORS: IEditProfilePersonalFormValues = {
     phoneNumber: '',
-    name: ''
+    fullName: '',
+    email: '',
+    photoId: ''
 };
 
 export const INITIAL_COMPANY_ERRORS: IEditProfileCompanyFormValues = {
-    categories: [],
+    categories: '',
     shortDesc: '',
     fullDesc: '',
     legalName: '',

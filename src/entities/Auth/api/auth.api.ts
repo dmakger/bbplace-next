@@ -44,7 +44,7 @@ export const UserAPI = createApi({
                 method: 'POST',
             }),
         }),
-        updateUserInfo: builder.mutation<void, IUpdateUserInfo>({
+        updateUserInfo: builder.mutation<any, IUpdateUserInfo>({
             query: (data) => ({
                 url: '/Authenticate/UpdateUserInfo',
                 method: 'POST',

@@ -2,7 +2,7 @@
 
 import cl from './_WrapperLKPT.module.scss'
 import { IOptionTab, OptionsTabType } from "@/features/DetailedPageInfo/model/detailedPageInfo.model"
-import { HeaderLKPT } from "@/features/Headers/HeaderLK"
+import { HeaderLKPT } from '@/features/Headers/HeaderLKPT'
 import { LKPTPage } from '@/features/LKPTPage'
 import { cls } from "@/shared/lib/classes.lib"
 import { IOption } from '@/shared/model/option.model'
