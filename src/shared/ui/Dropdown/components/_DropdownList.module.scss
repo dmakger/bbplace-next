@@ -1,0 +1,22 @@
+.DropdownList {
+    .lastEl {
+        border-radius: 0 0 14px 14px;
+    }
+}
+
+
+.left {
+    .firstEl {
+        border-radius: 0 14px 0px 0px;
+    }
+}
+
+.right {
+    .firstEl {
+        border-radius: 14px 0px 0px 0px;
+    }
+}
+
+.noBorderBottom{
+    border-bottom: none !important;
+}

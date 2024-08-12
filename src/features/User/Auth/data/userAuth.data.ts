@@ -2,7 +2,7 @@ import { DASHBOARD_PAGES, MAIN_PAGES } from "@/config/pages-url.config";
 import { IMenuItem } from "@/shared/model/menu.model";
 
 export const FAVORITES_LK_MENU_DATA: IMenuItem = {
-    link: DASHBOARD_PAGES.FAVORITE.path,
+    link: DASHBOARD_PAGES.FAVOURITES.path,
     title: "Избранное",
 }
 
@@ -21,7 +21,7 @@ export const LOGOUT_LK_MENU_DATA: IMenuItem = {
     title: "Выйти из аккаунта",
 }
 
-export const LK_MODAL_MENU_DATA: IMenuItem[] = [
+export const LK_OLD_MODAL_MENU_DATA: IMenuItem[] = [
     FAVORITES_LK_MENU_DATA,
     CHATS_LK_MENU_DATA,
     SUPPORT_LK_MENU_DATA,

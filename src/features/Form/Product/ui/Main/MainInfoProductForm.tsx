@@ -16,6 +16,8 @@ import { countryListToOptionList } from "@/entities/Metrics/lib/option.country.m
 import { EInputTextTypeVariants } from "@/shared/ui/Input/Text/model/text.input.model";
 import { getFormDataFromForm } from "@/shared/lib/formData.lib";
 import { IPropsMainInfoProductForm } from "../../model/mainInfo.product.form.model";
+import { WrapperWOSubmit } from "@/shared/ui/Wrapper/WOSubmit/WrapperWOSubmit";
+import { ERecursiveSelectVariant } from "@/shared/ui/Input/ui/RecursiveSelect/model/recursiveSelect.model";
 import { WrapperWOSubmit } from "@/shared/ui/Wrapper/WOSubmit/ui/WrapperWOSubmit";
 import { IFormInfo } from "../../model/product.form.model";
 import { getEmptyFormInfo } from "../../lib/product.form.lib";
@@ -39,6 +41,7 @@ export const MainInfoProductForm: FC<MainInfoProductFormProps> = ({ data, setDat
     const [selectedCategoryIds, setSelectedCategoryIds] = useState<number[]>([]);
     const [selectedStatusOption, setSelectedStatusOption] = useState<IOption>(READY_STATUS__PRODUCT_FORM__DATA);
     const [selectedCountryOption, setSelectedCountryOption] = useState<IOption | undefined>();
+    const [defaultCategoriesId, setDefaultCategoriesId] = useState<number[]>([335, 2413, 1655])
 
     // API
     const { data: countryList } = CountryAPI.useGetCountriesQuery();
@@ -109,7 +112,10 @@ export const MainInfoProductForm: FC<MainInfoProductFormProps> = ({ data, setDat
                         isRequired
                         isDescriptionTooltip
                         descriptionTooltipText='Выберите категорию из списка'
-                        setSelectedCategoriesId={setSelectedCategoryIds} />
+                        setSelectedCategoriesId={setSelectedCategoryIds}
+                        defaultCategoriesId={defaultCategoriesId}
+                        variant={ERecursiveSelectVariant.MULTIPLE}
+                         />
                     <WrapperRectangleInput labelText={"Статус товара"} isRequired={true}>
                         <Input.TextAndSelect name={'statusProduct'} placeholder="Выберите статус" defaultOption={selectedStatusOption}
                             options={STATUS__PRODUCT_FORM__DATA} onClickOption={setSelectedStatusOption}

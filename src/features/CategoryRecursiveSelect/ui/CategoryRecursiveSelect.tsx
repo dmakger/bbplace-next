@@ -16,6 +16,7 @@ interface ICategoryRecursiveSelect {
     variant?: ERecursiveSelectVariant
     labelText?: string,
     classNameLabel?: string,
+    defaultCategoriesId: number[],
     setSelectedCategoriesId?: Function,
     onClickBellowButton?: Function,
 
@@ -42,6 +43,7 @@ export const CategoryRecursiveSelect = ({
     labelText = '',
     variant = ERecursiveSelectVariant.SINGLE,
     classNameLabel,
+    defaultCategoriesId,
     setSelectedCategoriesId,
     onClickBellowButton,
 
@@ -82,6 +84,16 @@ export const CategoryRecursiveSelect = ({
             setUpdatedCategories(options ?? [])
         }
     }, [categories])
+
+    useEffect(() => {
+        if (updatedCategories && defaultCategoriesId) {
+            const foundOptions = defaultCategoriesId
+                .map(id => updatedCategories.find(it => it.id === id))
+                .filter((option): option is IOption => option !== undefined);
+
+            setSelectedOptions(foundOptions);
+        }
+    }, [updatedCategories, defaultCategoriesId])
 
     useEffect(() => {
         setSelectedCategoriesId && setSelectedCategoriesId(selectedOptions.map(it => it.id))

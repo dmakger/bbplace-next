@@ -15,14 +15,14 @@ export const DASHBOARD_ITEM_MENU_DATA: IIconVariants = {
     image: <ChatsSVGIcon />,
 }
 
-export const FAVORITE_ITEM_MENU_DATA: IIconVariants = {
+export const FAVOURITES_ITEM_MENU_DATA: IIconVariants = {
     id: 4,
-    link: DASHBOARD_PAGES.FAVORITE.path,
+    link: DASHBOARD_PAGES.FAVOURITES.path,
     title: "Избранное",
     image: <FavouriteSVGIcon/>,
 }
 
 export const MENU_DATA: IIconVariants[] = [
-    FAVORITE_ITEM_MENU_DATA,
+    FAVOURITES_ITEM_MENU_DATA,
     DASHBOARD_ITEM_MENU_DATA,
   ]

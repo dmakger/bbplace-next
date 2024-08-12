@@ -119,4 +119,37 @@ export const SWITCH_SELECTOR_PRICES_N_DISCOUNTS: IOption = {
     value: 'pricesNDiscounts'
 }
 
+//LK_FAVOURITES
+export const SWITCH_SELECTOR_PRODUCTS_OPTION: IOption = {
+    id: 13,
+    name: 'Товары',
+    value: 'products'
+}
 
+export const SWITCH_SELECTOR_SUPPLIERS_OPTION: IOption = {
+    id: 14,
+    name: 'Поставщики',
+    value: 'suppliers'
+}
+
+export const SWITCH_SELECTOR_PURCHASE_TENDERS_W_CAPTION_OPTION: IOption = {
+    id: 15,
+    name: 'Покупка',
+    value: 'tenderPurchase',
+    caption: 'Тендер'
+}
+
+export const SWITCH_SELECTOR_SALE_TENDERS_W_CAPTION_OPTION: IOption = {
+    id: 16,
+    name: 'Продажа',
+    value: 'tenderSale',
+    caption: 'Тендер'
+}
+
+
+export const LK_FAVOURITES_PAGE: IOption[] = [
+    SWITCH_SELECTOR_PRODUCTS_OPTION,
+    SWITCH_SELECTOR_PURCHASE_TENDERS_W_CAPTION_OPTION,
+    SWITCH_SELECTOR_SALE_TENDERS_W_CAPTION_OPTION,
+    SWITCH_SELECTOR_SUPPLIERS_OPTION
+]

@@ -38,6 +38,7 @@ export const UserSlice = createSlice({
         },
         setNotAuth(state){
             state.isAuth = false;
+            state.email = '';
             removeFromStorage()
         }
     },

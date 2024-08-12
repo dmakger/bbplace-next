@@ -10,6 +10,7 @@ import { IListItem } from "@/shared/model/list.model";
 import { OptionT } from "@/shared/ui/Option/ui/this/OptionT";
 import { OptionVariant } from "@/shared/data/option/option.data";
 
+
 interface TenderLKItemProps extends IListItem<ITender> {
     onClickDelete?: (tenderId: ITender['id'], type?: ETenderType) => void
 }

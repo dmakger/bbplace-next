@@ -43,7 +43,10 @@ class MAIN extends Route {
     HOME = this.createPath('/');
     CATALOG = this.createPath('/catalog');
     PRODUCTS = this.createPath('/product');
+    
     TENDERS = this.createPath('/tender');
+    BUYERS_TENDERS = this.createPath('/tender?application=Покупка&nptk=1', true);
+
     SUPPLIERS = this.createPath('/supplier');
 
     SUPPORT = this.createPath('/support');
@@ -60,6 +63,8 @@ class MAIN extends Route {
         true
     );
 
+    CURRENT_DOCUMENT = this.createDynamicPath((documentName: string) => `/documents/${documentName}`)
+
 }
 
 export const MAIN_PAGES = new MAIN('')
@@ -68,13 +73,17 @@ export const MAIN_PAGES = new MAIN('')
 class DASHBOARD extends Route {
     HOME = this.createPath('/', true);
     PROFILE_EDIT = this.createPath('/edit', true);
-    FAVORITE = this.createPath('/favorite', true);
+    FAVOURITES = this.createPath('/favourites', true);
     CHATS = this.createPath('/chat', true);
 
     PRODUCTS = this.createPath('/product', true);
     TENDERS = this.createPath('/tender', true);
+
+    PRICES_N_DISCOUNTS = this.createPath('/pricesNDiscounts', true);
+    REVIEWS = this.createPath('/reviews', true);
     
     NEW_TENDER = this.createPath('/tender/new', true);
+    NEW_PRODUCT = this.createPath('/product/new', true);
 
     CURRENT_CHAT = this.createDynamicPath((id: ISupplier['id']) => `/chat/${id}`, true);
     // EDIT_PRODUCT = this.createDynamicPath((id: IProduct['id']) => `/product/edit/${id}`, true);

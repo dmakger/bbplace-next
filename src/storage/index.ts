@@ -13,6 +13,7 @@ import { MetricsReducer } from "@/entities/Metrics/storage/metrics.metrics.stora
 import { ProductAPI } from "@/entities/Product/api/product.api";
 import { ReviewAPI } from "@/entities/Review/api/review.api";
 import { SupplierAPI } from "@/entities/Supplier/api/supplier.api";
+import { SupportAPI } from "@/entities/Support";
 import { TenderAPI } from "@/entities/Tender/api/tender.api";
 import { SignalrReducer } from "@/features/Signalr/signalrSlice";
 import { PTCReducer } from "@/features/storage/PTC/ptc.storage";
@@ -40,6 +41,8 @@ const rootReducer = combineReducers({
     [CountryAPI.reducerPath]: CountryAPI.reducer,
 
     [FavouriteAPI.reducerPath]: FavouriteAPI.reducer,
+
+    [SupportAPI.reducerPath]: SupportAPI.reducer,
 })
 
 export const setupStore = () => {
@@ -62,6 +65,8 @@ export const setupStore = () => {
                 CountryAPI.middleware,
                 
                 FavouriteAPI.middleware,
+
+                SupportAPI.middleware
             ),
     })
 }

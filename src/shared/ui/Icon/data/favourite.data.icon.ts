@@ -12,6 +12,10 @@ import FavouritePrimary from '@/shared/assets/img/Favourite/FavouritePrimary.svg
 import FavouritePrimaryHovered from '@/shared/assets/img/Favourite/FavouritePrimaryHovered.svg'
 import FavouritePrimaryPressed from '@/shared/assets/img/Favourite/FavouritePrimaryPressed.svg'
 
+import FavouriteTertiaryDefaultIcon from '@/shared/assets/img/Favourite/FavouriteTertiaryDefaultIcon.svg'
+import FavouriteTertiaryHoveredIcon from '@/shared/assets/img/Favourite/FavouriteTertiaryHoveredIcon.svg'
+import FavouriteTertiaryPressedIcon from '@/shared/assets/img/Favourite/FavouriteTertiaryPressedIcon.svg'
+
 
 
 export const FAVOURITE_ICON: IIcon = {
@@ -31,7 +35,13 @@ export const FAVOURITE_NEW_ICON: IIcon = {
     activePressed: FavouritePrimaryPressed,
 }
 
-export const FAVOURITE_ICON_MENU = {
+export const FAVOURITE_ICON_MENU: IIcon = {
     default: FavouriteGrayOutline,
+    defaultPressed: FavouriteTertiaryPressedIcon,
     active: FavouriteBlackOutline
+}
+
+export const FAVOURITE_TERTIARY_ICON: IIcon = {
+    default: FavouriteTertiaryDefaultIcon,
+    defaultHovered: FavouriteTertiaryHoveredIcon
 }
