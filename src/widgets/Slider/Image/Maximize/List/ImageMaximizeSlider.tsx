@@ -18,7 +18,12 @@ interface ImageMaximizeSliderProps extends ISlider{
     classNameSlide?: string
 }
 
-export const ImageMaximizeSlider:FC<ImageMaximizeSliderProps> = ({hasMaximize=false, isFullWindow=false, slides, className, classNameSlide, ...rest}) => {
+export const ImageMaximizeSlider:FC<ImageMaximizeSliderProps> = ({
+    hasMaximize=false, isFullWindow=false, 
+    slides=[], 
+    className, classNameSlide, 
+    ...rest
+}) => {
     // VARS
     const slideProps: ISlider['slideProps'] = {isFullWindow, classNameSlide}
     

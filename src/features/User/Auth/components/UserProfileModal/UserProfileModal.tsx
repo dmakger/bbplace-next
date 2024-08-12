@@ -1,7 +1,7 @@
 import { User } from '@/entities/User'
 import cl from './UserProfileModal.module.scss'
 import { useActionCreators, useAppSelector } from '@/storage/hooks'
-import { LK_MODAL_MENU_DATA } from '../../data/userAuth.data'
+import { LK_OLD_MODAL_MENU_DATA } from '../../data/userAuth.data'
 import { Button, ButtonVariant } from '@/shared/ui/Button'
 import { cls } from '@/shared/lib/classes.lib'
 import { DASHBOARD_PAGES, MAIN_PAGES } from '@/config/pages-url.config'
@@ -32,7 +32,7 @@ export const UserProfileModal = ({ isShowProfileModal }: IUserProfileModal) => {
         <Button variant={ButtonVariant.BACKGROUND_GRAY} title={"Личный кабинет"} href={DASHBOARD_PAGES.HOME.path} className={cl.lk} />
       </div>
       <div className={cl.bottomContainer}>
-        {LK_MODAL_MENU_DATA.map(it => (
+        {LK_OLD_MODAL_MENU_DATA.map(it => (
           <Button variant={ButtonVariant.ALMOST_RECTANGULAR}
                   title={it.title} href={it.link}
                   className={cls(cl.menuButtons, it.link === MAIN_PAGES.HOME.path ? cl.logOutButton : '')}

@@ -9,6 +9,7 @@ import { UserAPI } from '@/entities/Auth/api/auth.api';
 import { useActionCreators } from '@/storage/hooks';
 import { getAccessToken, isAuth, removeFromStorage } from '@/entities/Auth/lib/auth-token.lib';
 import { jwtDecode } from 'jwt-decode';
+import { Footer } from '@/widgets/Footer';
 
 export default function Layout({ children }: PropsWithChildren<unknown>) {
     // API 
@@ -45,6 +46,7 @@ export default function Layout({ children }: PropsWithChildren<unknown>) {
                 {children}
             </div>
             <MobileNavbar/>
+            <Footer/>
         </WrapperGap>
     )
 }

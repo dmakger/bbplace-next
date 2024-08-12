@@ -1,29 +1,73 @@
 "use client"
 
-import Link from 'next/link'
-import Image from 'next/image'
 import cl from './_MenuButton.module.scss'
-import { IMenuItem } from '@/shared/model/menu.model'
 import { cls } from '@/shared/lib/classes.lib'
-import { useState } from 'react'
+import { Button } from '../..'
+import { ButtonColor, ButtonSize, ButtonVariant, EMenuButtonVariant, IMenuButton } from '../../model/button.model'
+import { usePathname, useRouter } from 'next/navigation'
+import { useActionCreators, useAppSelector } from '@/storage/hooks'
+import { DASHBOARD_PAGES, MAIN_PAGES } from '@/config/pages-url.config'
+import { GLOBE_ICON } from '@/shared/ui/Icon/data/globe.data.icon';
 
-interface MenuButtonProps {
-    item: IMenuItem
-    className?: string
-}
+export const MenuButton = ({
+    className,
+    variant = EMenuButtonVariant.LINK,
+    title,
+    link,
+    notificationCounter
+}: IMenuButton) => {
 
-export default function MenuButton({item, className}: MenuButtonProps) {
-    const [isHovered, setIsHovered] = useState(false);
-    
+    //ROUTER
+    const pathname = usePathname();
+    const router = useRouter();
+
+    //RTK
+    const { email } = useAppSelector(state => state.user);
+    const actionCreators = useActionCreators();
+
+    //FUNCTIONS
+    const logOut = () => {
+        actionCreators.setNotAuth();
+        router.replace(MAIN_PAGES.LOGIN.path);
+    }
+
+    const editProfile = () => router.push(DASHBOARD_PAGES.PROFILE_EDIT.path);
+
+    const isActive = pathname === link;
+        
+    const renderButton = () => (
+        <Button
+            title={title}
+            href={link}
+            className={cls(
+                className,
+                cl.MenuButton,
+                cl[variant],
+                (variant === EMenuButtonVariant.LINK && pathname === link) ? cl.activeLink
+                    // : (variant === EMenuButtonVariant.LOCALIZATION && true) ? cl.activeLang 
+                    : ''
+            )}
+            linkTarget={link?.includes('html') ? 'target' : ''}
+            variant={ButtonVariant.CLEAR}
+            afterImage={variant === EMenuButtonVariant.LOCALIZATION ? GLOBE_ICON : undefined}
+            afterProps={{ width: 20, height: 20 }}
+            afterText={notificationCounter ?? ''}
+            disabled={isActive}
+            classNameAfterText={cl.notificationCounter}
+            color={variant === EMenuButtonVariant.LINK ? ButtonColor.Secondary : ButtonColor.Tertiary}
+        />
+    );
+
+    const renderProfileButtons = () => (
+        <div className={cls(cl.profileButtons, className)}>
+            <Button title='Выйти' variant={ButtonVariant.CONTENT} size={ButtonSize.Small} color={ButtonColor.Negative} onClick={logOut} />
+            <Button title='Изменить' variant={ButtonVariant.BORDER} color={ButtonColor.Secondary} size={ButtonSize.Small} className={cl.buttonEdit} onClick={editProfile} />
+        </div>
+    );
+
     return (
-        <Link href={item.link} 
-              onMouseEnter={() => setIsHovered(true)} 
-              onMouseLeave={() => setIsHovered(false)} 
-              className={cls(cl.link, className)}>
-            <Image src={item.image || ''} 
-                   alt={item.title ? item.title : 'menu item'} 
-                   width={27} height={27} />
-            <span className={cl.title}>{item.title}</span>
-        </Link>
-    )
+        <>
+            {variant !== EMenuButtonVariant.PROFILE_BUTTONS ? renderButton() : renderProfileButtons()}
+        </>
+    );
 }

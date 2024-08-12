@@ -3,18 +3,12 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_Slider.module.scss';
 import { Axis } from "@/shared/model/button.model";
-import { ISlider } from "../model/slider.model";
+import { ISliderItem, ISliderTopLevel } from "../model/slider.model";
 import { ButtonArrowWLine } from "@/shared/ui/Button/data/Arrow/WLine/ButtonArrowWLine";
 
-interface SliderProps<T> extends ISlider {
-    slides?: T[];
+interface SliderProps<T> extends ISliderTopLevel<T> {
     style?: object;
-    component: React.FC<{
-        slide: T,
-        className?: string,
-        style?: object,
-        setTypeOfFile?: Function
-    }>;
+    component: React.FC<ISliderItem<T>>;
     setTypeOfFile?: Function;
 }
 
@@ -35,7 +29,7 @@ export const Slider = <T extends (object | string)>({
 
     const getWidthSlide = useCallback(() => {
         return slidesWidth / amount - 10;
-    }, [slidesWidth]);
+    }, [slidesWidth, amount]);
 
     // Touch state
     const [touchStartX, setTouchStartX] = useState(0);
@@ -44,7 +38,6 @@ export const Slider = <T extends (object | string)>({
     // EFFECT
     useEffect(() => {
         const handleResize = () => {
-            
             if (slidesRef.current) {
                 setSlidesWidth(slidesRef.current.offsetWidth);
             }
@@ -56,7 +49,7 @@ export const Slider = <T extends (object | string)>({
         }
 
         window.addEventListener('resize', handleResize);
-        
+
         return () => {
             window.removeEventListener('resize', handleResize);
             if (slidesRef.current) {
@@ -75,12 +68,15 @@ export const Slider = <T extends (object | string)>({
     // НАВИГАЦИЯ СЛАЙДЕРА
     const nextSlide = () => {
         let newStartIndex = startIndex + 1;
-        if (setLimit && newStartIndex + 5 > limit) {
-            setLimit(limit * 10);
+        // Проверяем, что следующий индекс не выходит за пределы доступного контента
+        if (newStartIndex <= slides.length - amount) {
+            if (setLimit && newStartIndex + amount > limit) {
+                setLimit(limit * 10);
+            }
+            setStartIndex(newStartIndex);
+            setTranslateX(translateX - slidesWidth / amount);
+            setActiveIndex(newStartIndex);
         }
-        setStartIndex(newStartIndex);
-        setTranslateX(translateX - slidesWidth / amount);
-        setActiveIndex(newStartIndex);
     };
 
     const prevSlide = () => {
@@ -110,8 +106,8 @@ export const Slider = <T extends (object | string)>({
     };
 
     return (
-        <div style={style} 
-            className={cls(cl.slider, className)} 
+        <div style={style}
+            className={cls(cl.slider, className)}
             ref={slidesRef}
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}

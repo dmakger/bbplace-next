@@ -2,7 +2,7 @@ import { IOption } from "@/shared/model/option.model";
 
 /**
  * ##### ФОРМА ТОВАРА  
- * Данные из группы `Основная информация`
+ * Данные из группы `Дополнительная информация`
  */
 export interface IPropsAdditionalInfoProductForm {
     packageType: string

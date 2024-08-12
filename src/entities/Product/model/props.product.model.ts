@@ -1,5 +1,5 @@
 import { IMetrics } from "@/entities/Metrics/model/metric.metrics.model";
-import { IProduct, IProductAPI } from "./product.model";
+import { IBaseProduct, IProduct, IProductAPI } from "./product.model";
 import { ICurrency } from "@/entities/Metrics/model/currency.metrics.model";
 
 export interface IProductProps {
@@ -13,4 +13,12 @@ export interface IProcessProductProps {
     metrics?: IMetrics[], 
     currencyList?: ICurrency[]
     hasSupplier?: boolean
+}
+
+/**
+ * Используется при вызове `/AddItem`
+ */
+export interface IPropsCreateProduct extends IBaseProduct {
+    media: string
+    characteristics: string
 }

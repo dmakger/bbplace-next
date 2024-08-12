@@ -20,6 +20,7 @@ import { EInputTextTypeVariants } from "@/shared/ui/Input/Text/model/text.input.
 import { getFormDataFromForm } from "@/shared/lib/formData.lib";
 import { IPropsMainInfoProductForm } from "../../model/mainInfo.product.form.model";
 import { WrapperWOSubmit } from "@/shared/ui/Wrapper/WOSubmit/WrapperWOSubmit";
+import { ERecursiveSelectVariant } from "@/shared/ui/Input/ui/RecursiveSelect/model/recursiveSelect.model";
 
 
 interface MainInfoProductFormProps {
@@ -38,6 +39,7 @@ export const MainInfoProductForm:FC<MainInfoProductFormProps> = ({setData, trigg
     const [selectedCategoryIds, setSelectedCategoryIds] = useState<number[]>([])
     const [selectedStatusOption, setSelectedStatusOption] = useState<IOption>(NO_FORM__DATA)
     const [selectedCountryOption, setSelectedCountryOption] = useState<IOption | null>(null)
+    const [defaultCategoriesId, setDefaultCategoriesId] = useState<number[]>([335, 2413, 1655])
 
     // API
     const {data: countryList} = CountryAPI.useGetCountriesQuery()              
@@ -81,7 +83,10 @@ export const MainInfoProductForm:FC<MainInfoProductFormProps> = ({setData, trigg
                         isRequired
                         isDescriptionTooltip
                         descriptionTooltipText='Выберите категорию из списка'
-                        setSelectedCategoriesId={setSelectedCategoryIds} />
+                        setSelectedCategoriesId={setSelectedCategoryIds}
+                        defaultCategoriesId={defaultCategoriesId}
+                        variant={ERecursiveSelectVariant.MULTIPLE}
+                         />
                     <WrapperRectangleInput labelText={"Статус товара"} isRequired={true}>
                         <Input.TextAndSelect name={'statusProduct'} placeholder="Выберите статус" 
                                 options={STATUS__PRODUCT_FORM__DATA} onClickOption={setSelectedStatusOption}
