@@ -1,4 +1,4 @@
-import { ICategoriesWithSubcategories } from "@/entities/Metrics/model/category.metrics.model";
+import { ICategoriesWithSubcategories, ICategory } from "@/entities/Metrics/model/category.metrics.model";
 import { IOption } from "../../model/option.model";
 
 export const getValueOption = (option: IOption) => {
@@ -18,18 +18,19 @@ export const getOptionByKeyAndValue = (key: string, value: string | number, opti
     }
 }
 
-export const getOptionsFromCategoriesWithSubcategories = (categories:ICategoriesWithSubcategories[]) => {
-    if(!categories) return;
 
-    let optionsArray:IOption[] = [];
-
-    optionsArray = categories.map(it => {
-        return {
-            id: it.id,
-            name: it.name,
-            options: getOptionsFromCategoriesWithSubcategories(it.subcategories)
-        }
-    })
-
-    return optionsArray;
+export const categoryListToOptionList = (categories: ICategoriesWithSubcategories[]) => {
+    return categories.map(it => categoryToOption(it))
 }
+
+
+export const categoryWithSubcategoriesToOption = (category: ICategoriesWithSubcategories): IOption => {
+    const {id, name, subcategories} = category
+    return {id, name, options: categoryListToOptionList(subcategories)} as IOption
+}
+
+export const categoryToOption = (category: ICategory): IOption => {
+    const {id, name, ...params} = category
+    return {id, name, params} as IOption
+}
+

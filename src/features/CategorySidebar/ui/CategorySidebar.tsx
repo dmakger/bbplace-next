@@ -24,7 +24,7 @@ export const CategorySidebar = ({
     const [filteredCategories, setFilteredCategories] = useState<ICategoriesWithSubcategories[]>([])
     
     //API
-    const { data: categories } = CategoryAPI.useGetCategoriesWithSubcategoriesQuery()
+    const { data: categories } = CategoryAPI.useGetCategoriesWithSubcategoriesQuery({toOption: false})
 
     //REF
     const ref = useRef<HTMLDivElement>(null)
@@ -32,7 +32,7 @@ export const CategorySidebar = ({
     //EFFECT
     useEffect(() => {
         if(categories)
-            setFilteredCategories(categories.filter(it => it.name !== 'Нет категории'))
+            setFilteredCategories(categories as ICategoriesWithSubcategories[])
     }, [categories])
 
     useEffect(() => {
@@ -41,7 +41,7 @@ export const CategorySidebar = ({
         }
     }, [isShowCategories])
 
-    const handleHoverCategory = (index: number, it: ICategoriesWithSubcategories) => {
+    const handleHoverCategory = (_: number, it: ICategoriesWithSubcategories) => {
         let newSelectedOptions = [...selectedCategoriesArray]
         
             if (it.depth === 0) {

@@ -57,37 +57,35 @@ export const FetchProduct:FC<FetchProductProps> = ({set, type, propsProduct, has
     
     // SET CATEGORIES
     useEffect(() => {
-        if (!hasCategory || !productsAPI) return;
+        if (!hasCategory || productsAPI.length === 0 || !getCategory) return;
 
         const fetchCategories = async () => {
-            try {
-                const categories = await Promise.all(
-                    productsAPI.map(async (it) => {
-                        const categoryResponse = await getCategory(it.categoryId).unwrap();
-                        return categoryResponse[0]; // Assuming the response is an array and we need the first element
-                    })
-                );
-                setCategoryList(categories);
-            } catch (error) {
+            await Promise.all(
+                productsAPI.map(async (it) => {
+                    const categoryResponse = await getCategory(it.categoryId).unwrap();
+                    return categoryResponse[0]; // Assuming the response is an array and we need the first element
+                })
+            ).then(categories => {
+                setCategoryList(categories)
+            }, error => {
                 console.error("Failed to fetch categories", error);
-            }
+            })
         };
 
         fetchCategories();
-    }, [hasCategory, allProductsAPI, getCategory]);
+    }, [hasCategory, productsAPI, getCategory]);
     
     
     // SET PRODUCTS
     useEffect(() => {
         if (productsAPI && set) {
-            set(() => {
-                return productsAPI.map((it, index) => {
-                    let newProduct = { ...productApiToProduct({ productAPI: it }) }
-                    if (hasCategory && categoryList)
-                        newProduct.category = categoryList[index]
-                    return newProduct
-                })
-            })
+            set(() => productsAPI.map((it, index) => {
+                let newProduct = { ...productApiToProduct({ productAPI: it }) }
+                if (hasCategory && categoryList){
+                    newProduct.category = categoryList[index]
+                }
+                return newProduct
+            }))
         }
     }, [set, productsAPI, hasCategory, categoryList])
     
