@@ -18,7 +18,7 @@ import { isValidPropsProductForm, productToPropsProductForm } from "@/features/F
 import { IPropsProductForm } from "@/features/Form/Product/model/product.form.model"
 import { useRouter } from "next/navigation"
 import { DASHBOARD_PAGES } from "@/config/pages-url.config"
-import { isDraftByPropsCreateUpdateProduct, productFormToCreateOrEditProduct, productFormToCreateProductTest } from "@/entities/Product/serializer/propsCreate.product.serializer"
+import { isDraftByPropsCreateUpdateProduct, productFormToCreateOrEditProduct, productFormToCreateProductTest, propsUpdateToCreateProduct } from "@/entities/Product/serializer/propsCreate.product.serializer"
 import { IPropsCreateProduct, IPropsUpdateProduct } from "@/entities/Product/model/props.product.model"
 
 interface IProductSingleCreationPage {
@@ -50,12 +50,21 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
     const { data: currencies } = CurrencyAPI.useGetCurrenciesQuery();
     const { data: metrics } = MetricsAPI.useGetMetricsQuery();
     const { data: countries } = CountryAPI.useGetCountriesQuery();
-    const [ createProduct ] = ProductAPI.useCreateProductMutation()
-    const [ createDraftProduct ] = ProductAPI.useCreateDraftProductMutation()
-    const [ addProductToGroup ] = ProductAPI.useAddProductToGroupMutation()
-    const [ deleteProduct ] = ProductAPI.useDeleteProductMutation()
+
     const [ getProductById ] = ProductAPI.useGetProductByIdMutation()
+    const [ createProduct ] = ProductAPI.useCreateProductMutation()
+    const [ updateProduct ] = ProductAPI.useUpdateProductMutation()
+    const [ deleteProduct ] = ProductAPI.useDeleteProductMutation()
     const [ createGroup ] = ProductAPI.useCreateGroupMutation()
+    const [ addProductToGroup ] = ProductAPI.useAddProductToGroupMutation()
+
+    const [ getDraftProductById ] = ProductAPI.useGetDraftProductByIdMutation()
+    const [ createDraftProduct ] = ProductAPI.useCreateDraftProductMutation()
+    const [ updateDraftProduct ] = ProductAPI.useUpdateDraftProductMutation()
+    const [ deleteDraftProduct ] = ProductAPI.useDeleteDraftMutation()
+    const [ createDraftGroup ] = ProductAPI.useCreateDraftGroupMutation()
+    const [ addProductToDraftGroup ] = ProductAPI.useAddProductToDraftGroupMutation()
+
 
     // EFFECT
     const isEditForm = useMemo(() => !!productId, [productId])
@@ -124,13 +133,42 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
     const handleLoadProduct = async (formData: IPropsProductForm) => {
         console.log('qwe load data', formData, currentPropsProduct)
         if (!isValidPropsProductForm(formData)) return
+        console.log('qwe load isValid')
         // IS EDIT
-        if (isEditForm) {
+        if (isEditForm && productId) {
             const serializerData = productFormToCreateOrEditProduct(formData, userId, true) as (IPropsUpdateProduct | undefined)
             if (serializerData === undefined) return
 
             if (isDraftByPropsCreateUpdateProduct(serializerData)) {
+                if (isDraft) {
+                    await updateDraftProduct(serializerData).unwrap()
+                } else {
+                    const createdPropsFormData = propsUpdateToCreateProduct(serializerData, formData)
+                    if (createdPropsFormData === undefined) return
 
+                    await createDraftProduct(createdPropsFormData).then(async r => {
+                        await deleteProduct(+productId).unwrap()
+                        if ('data' in r) {
+                            const draftGroupId = await createDraftGroup().unwrap()
+                            await addProductToDraftGroup({groupId: draftGroupId, productId: r.data})
+                        }
+                    })
+                }
+            } else {
+                if (!isDraft) {
+                    await updateProduct(serializerData).unwrap()
+                } else {
+                    const createdPropsFormData = propsUpdateToCreateProduct(serializerData, formData)
+                    if (createdPropsFormData === undefined) return
+
+                    await createProduct(createdPropsFormData).then(async r => {
+                        await deleteDraftProduct(productId).unwrap()
+                        if ('data' in r) {
+                            const _groupId = await createGroup().unwrap()
+                            await addProductToGroup({groupId: _groupId, productId: r.data})
+                        }
+                    })
+                }
             }
         }
         // IS CREATE
@@ -140,15 +178,24 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
             if (serializerData === undefined) return
 
             if (isDraftByPropsCreateUpdateProduct(serializerData)) {
-                await createDraftProduct(serializerData).unwrap()
-                router.push(DASHBOARD_PAGES.EDIT_PRODUCT({groupId: +groupId}).path);
+                const createdProductId = await createDraftProduct(serializerData).unwrap()
+                const _groupId = isDraft ? +groupId : await createDraftGroup().unwrap()
+                await addProductToDraftGroup({groupId: _groupId, productId: createdProductId}).then(async () => {
+                    if (!isDraft) return
+                    await getDraftProductById(createdProductId).then(r => {
+                        if ('data' in r) addProducts([r.data as IProductAPI])
+                        router.push(DASHBOARD_PAGES.EDIT_PRODUCT({groupId: _groupId, id: createdProductId}).path);
+                    })
+                })
             } else {
                 const createdProductId = await createProduct(serializerData).unwrap()
-                await addProductToGroup({groupId: +groupId, productId: createdProductId}).then(async () => {
+                const _groupId = isDraft ? await createGroup().unwrap() : +groupId
+                await addProductToGroup({groupId: _groupId, productId: createdProductId}).then(async () => {
+                    if (isDraft) return
                     await getProductById(createdProductId).then(r => {
                         if ('data' in r) addProducts([r.data as IProductAPI])
+                        router.push(DASHBOARD_PAGES.EDIT_PRODUCT({groupId: _groupId, id: createdProductId}).path);
                     })
-                    router.push(DASHBOARD_PAGES.EDIT_PRODUCT({groupId: +groupId, id: createdProductId}).path);
                 })
             }
         }

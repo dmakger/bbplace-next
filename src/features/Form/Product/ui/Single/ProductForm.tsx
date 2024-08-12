@@ -78,11 +78,11 @@ export const ProductForm = forwardRef(({ data, loadData, isEdit = false, classNa
                 setData={setVariationInfoData}
                 triggerSubmit={submitFn => { variationFormSubmitRef.current = submitFn; }} />
 
-            {!isEdit && (
+            {/* {!isEdit && ( */}
                 <Button variant={ButtonVariant.FILL} size={ButtonSize.Big}
                     title="Добавить товар"
                     onClick={writeFormDataToParent} />
-            )}
+            {/* )} */}
         </div>
     );
 });

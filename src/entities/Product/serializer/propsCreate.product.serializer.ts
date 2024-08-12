@@ -30,6 +30,17 @@ export const isDraftByPropsCreateUpdateProduct = (data: IPropsUpdateProduct | IP
 }
 
 
+export const propsUpdateToCreateProduct = (updateProduct: IPropsUpdateProduct, propsProductForm: IPropsProductForm): IPropsCreateProduct | undefined => {
+    if (!propsProductForm.main || !propsProductForm.main.form) return 
+    const {form: mainForm} = propsProductForm.main
+
+    return {
+        ...updateProduct,
+        categoryId: mainForm.categoryId,
+    }
+}
+
+
 export const productFormToCreateOrEditProduct = (data: IPropsProductForm, ownerId: IUser['id'], propsToEdit?: boolean ): IPropsUpdateProduct | IPropsCreateProduct | undefined => {
     let {main, additional, variation} = data
     if (!main || !additional || !variation || !main.form || !additional.form || !variation.form) return 

@@ -50,6 +50,13 @@ export const ProductAPI = createApi({
                 url: `/GetItem/${itemId}`,
             }),
         }),
+
+        getDraftProductById: build.mutation<IProductAPI, number | string>({
+            query: (itemId) => ({
+                url: `/GetItemDraft/${itemId}`,
+            }),
+        }),
+
         deleteProduct: build.mutation<IProductAPI, number | string>({
             query: (itemId) => ({
                 url: `/DeleteItem/${itemId}`,
@@ -182,6 +189,14 @@ export const ProductAPI = createApi({
                 body
             }),
         }),
+        updateDraftProduct: build.mutation<number, IPropsUpdateProduct>({
+            query: (body) => ({
+                url: `/EditItemDraft`,
+                method: 'POST',
+                headers: getHeaderAuthorization(),
+                body
+            }),
+        }),
 
         // delete
         deleteProducts: build.mutation<void, number[]>({
@@ -242,7 +257,7 @@ export const ProductAPI = createApi({
                 body: {}
             })
         }),
-        addItemToDraftGroup: build.mutation<number, IGroupData>({
+        addProductToDraftGroup: build.mutation<number, IGroupData>({
             query: ({groupId, productId}) => ({
                 url: `/AddItemToDraftGroup/${productId}/${groupId}`,
                 method: 'POST',
