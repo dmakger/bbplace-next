@@ -19,3 +19,21 @@ export const metricToOption = (metric: IMetrics) => {
     const {id, name, ...params} = metric
     return {id, name, params} as IOption
 }
+
+
+// ==========={ OPTION TO METRIC }===========
+/**
+ * Перевод списка `option` в список `metric`
+ */
+export const optionListToMetricList = (options: IOption[]) => {
+    return options.map(opt => optionToMetric(opt))
+}
+
+
+/**
+ * Перевод `option` в `metric`
+ */
+export const optionToMetric = (option: IOption) => {
+    const {id, name, params} = option
+    return {id, name, ...params} as IMetrics
+}

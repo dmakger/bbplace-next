@@ -2,9 +2,9 @@ import { FC, useState } from "react"
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_CatalogImage.module.scss'
-import { ImageAD } from "@/shared/ui/Image/Active/ImageActive";
 import { ImageMaximizeSlider } from "../Slider/Image/Maximize/List/ImageMaximizeSlider";
 import { Button, ButtonVariant } from "@/shared/ui/Button";
+import { ImageProduction } from "@/shared/ui/Image/Production/ui/ImageProduction";
 
 interface CatalogImageProps{
     imageList?: string[]
@@ -30,7 +30,7 @@ export const CatalogImage:FC<CatalogImageProps> = ({imageList=[], hasMaximize=fa
                 <div className={cl.columnData}>
                     {imageList.map((image, index) => (
                         <Button variant={ButtonVariant.DEFAULT} onClick={() => handleOnClick(index)} key={index}>
-                            <ImageAD src={image} isActive={index === activeIndex} classNameImage={cl.image} />
+                            <ImageProduction src={image} isActive={index === activeIndex} classNameImage={cl.image} />
                         </Button>
                     ))}
                 </div>
