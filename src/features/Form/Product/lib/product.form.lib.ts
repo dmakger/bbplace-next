@@ -9,6 +9,7 @@ import { metricToOption } from "@/entities/Metrics/lib/option.metric.metrics.lib
 import { IPropsVariationInfoProductForm } from "../model/variationInfo.product.form.model";
 import { IFormInfo, IPropsProductForm } from "../model/product.form.model";
 import { processDeliveryOption, processEquipmentOption, processFeaturesOption, processWarehousesOption } from "./process.additionalInfo.product.form.lib";
+import { IOption } from "@/shared/model/option.model";
 
 export const isValidPropsProductForm = (formData: IPropsProductForm) => {
     const {main, additional, variation} = formData
@@ -60,10 +61,10 @@ export const productToPropsMainProductForm = (product: IProduct): IPropsMainInfo
 
 export const productToPropsAdditionalProductForm = (product: IProduct): IPropsAdditionalInfoProductForm => {
     const {expirationDate, expirationDateMetric} = expirationDateToExpirationDateAndMetric(product.characteristics.expirationDate)
-    const delivery = (product.delivery ?? []).map(it => processDeliveryOption({delivery: it})).filter(it => it !== undefined)
-    const warehouses = (product.warehouses ?? []).map(it => processWarehousesOption({warehouses: it})).filter(it => it !== undefined)
+    const delivery = (product.delivery ?? []).map(it => processDeliveryOption({delivery: it})).filter(it => it !== undefined) as IOption[]
+    const warehouses = (product.warehouses ?? []).map(it => processWarehousesOption({warehouses: it})).filter(it => it !== undefined) as IOption[]
     const weightUnits = product.characteristics.weightUnits ? metricToOption(product.characteristics.weightUnits) : undefined
-    const features = (product.characteristics.features ?? []).map(it => processFeaturesOption({features: it})).filter(it => it !== undefined)
+    const features = (product.characteristics.features ?? []).map(it => processFeaturesOption({features: it})).filter(it => it !== undefined) as IOption[]
     const equipment = equipmentToEquipmentList(product.characteristics.equipment)
     const equipmentOptionList = equipment.map(it => {
         const lastSpaceIndex = it.lastIndexOf(' ');
@@ -71,7 +72,7 @@ export const productToPropsAdditionalProductForm = (product: IProduct): IPropsAd
         const amount = it.substring(lastSpaceIndex + 1);
 
         return processEquipmentOption({equipmentText: text, equipmentAmount: amount})
-    }).filter(it => it !== undefined)
+    }).filter(it => it !== undefined) as IOption[]
 
     return {
         packageType: product.packageType ?? undefined,

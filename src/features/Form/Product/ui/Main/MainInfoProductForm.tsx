@@ -16,7 +16,6 @@ import { countryListToOptionList } from "@/entities/Metrics/lib/option.country.m
 import { EInputTextTypeVariants } from "@/shared/ui/Input/Text/model/text.input.model";
 import { getFormDataFromForm } from "@/shared/lib/formData.lib";
 import { IPropsMainInfoProductForm } from "../../model/mainInfo.product.form.model";
-import { WrapperWOSubmit } from "@/shared/ui/Wrapper/WOSubmit/WrapperWOSubmit";
 import { ERecursiveSelectVariant } from "@/shared/ui/Input/ui/RecursiveSelect/model/recursiveSelect.model";
 import { WrapperWOSubmit } from "@/shared/ui/Wrapper/WOSubmit/ui/WrapperWOSubmit";
 import { IFormInfo } from "../../model/product.form.model";

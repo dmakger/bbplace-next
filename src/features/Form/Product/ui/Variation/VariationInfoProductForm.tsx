@@ -77,13 +77,13 @@ export const VariationInfoProductForm: FC<VariationInfoProductFormProps> = ({dat
             const priceUnits = metricToOption(media.priceUnits);
             return media.wholesalePrices.map(wp => (
                 processWholesaleOptionInProductForm(wp.price, wp.quantity, currency, priceUnits)
-            )).filter(it => it !== undefined);
+            )).filter(it => it !== undefined) as IOption[]
         });
 
         setAddedSizesOption(() => { 
             return media.sizes.map(it => (
                 processSizeOptionInProductForm(it.size, metricToOption(it.sizeUnit))
-            )).filter(it => it !== undefined);
+            )).filter(it => it !== undefined) as IOption[]
         });
 
         setUploadedImageList(() => data?.media.attachments ?? []);
@@ -111,7 +111,7 @@ export const VariationInfoProductForm: FC<VariationInfoProductFormProps> = ({dat
                 size: it.params!.size,
                 sizeUnit: optionToMetric(_optionsSizes[0]),
             } as ISize
-        }).filter(it => it !== undefined)
+        }).filter(it => it !== undefined) as ISize[]
         if (!formRef.current.checkValidity() || addedWholesaleOption.length === 0 || sizes.length === 0) {
             e.preventDefault();
             formRef.current.reportValidity();  // Вызывает встроенные сообщения браузера

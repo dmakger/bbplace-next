@@ -28,7 +28,8 @@ export const ProductTable = ({
     //EFFECT
     useEffect(() => {
         if (countries)
-            setSelectedCountry(getCharacteristic({ characteristic: product.characteristics.country, list: countries }))
+            setSelectedCountry(product.characteristics.country.name)
+            // setSelectedCountry(getCharacteristic({ characteristic: product.characteristics.country, list: countries }))
     }, [countries])
 
     useEffect(() => {

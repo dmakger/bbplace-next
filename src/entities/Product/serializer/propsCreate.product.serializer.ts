@@ -59,7 +59,7 @@ export const productFormToCreateOrEditProduct = (data: IPropsProductForm, ownerI
         vat: +additional.form.vat,
         isCustomDesign: true,
         isHasTestProbe: additional.form.isHasTestProbe,
-        status: STATUS__PRODUCT_FORM__DATA.find(it => it.id === main.form?.status.id)!.name,
+        status: STATUS__PRODUCT_FORM__DATA.find(it => it.id === main?.form?.status.id)!.name,
         warehouses: additional.form.warehouses.map(it => it.name),
         media: productFormToMediaProduct(data),
         characteristics: productFormToCharacteristicProduct(data),
