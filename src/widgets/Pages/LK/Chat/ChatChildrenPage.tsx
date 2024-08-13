@@ -1,35 +1,44 @@
 "use client"
 
 import { FC, useEffect } from "react"
-
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_ChatChildrenPage.module.scss'
-import { useAppSelector } from "@/storage/hooks";
-import { startChatSignalRConnection } from "@/entities/Chat/connection/chat.connection";
+import { useAppSelector, useAppDispatch } from "@/storage/hooks";
+import { startChatSignalRConnection } from "@/entities/Chat/connection/start.chat.connection";
 import connection from "@/api/signalr/signalrClient";
+import Cookies from 'js-cookie';
+import { HubConnectionState } from "@microsoft/signalr";
 
-interface ChatChildrenPageProps{
+interface ChatChildrenPageProps {
     className?: string,
 }
 
-export const ChatChildrenPage:FC<ChatChildrenPageProps> = ({className}) => {
+export const ChatChildrenPage: FC<ChatChildrenPageProps> = ({ className }) => {
     const { chats } = useAppSelector((state) => state.chat);
+    const dispatch = useAppDispatch();
 
-    useEffect(() => {
-        console.log('Setting up SignalR connection');
-        startChatSignalRConnection();
+    useEffect(() => {  
+        if (connection.state === HubConnectionState.Disconnected) {
+            dispatch(startChatSignalRConnection());
+        }
     
         return () => {
-            console.log('Cleaning up SignalR connection');
-            connection.stop();
+            if (connection.state === HubConnectionState.Connected) {
+                connection.stop();
+            }
         };
-    }, [startChatSignalRConnection]);
+    }, [dispatch]);
 
-    console.log('qwe chats', chats)
+    console.log('Current chats in state:', chats); // Log current state
 
     return (
         <div className={cls(className)}>
-
+            {/* {chats.map(chat => (
+                <div key={chat.id}>
+                    <p>Chat ID: {chat.id}</p>
+                    <p>Message: {chat.message.text}</p>
+                </div>
+            ))} */}
         </div>
     )
 }
