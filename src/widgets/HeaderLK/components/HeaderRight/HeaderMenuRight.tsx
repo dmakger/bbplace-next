@@ -13,6 +13,7 @@ import { EWrapperDropdownListPosition } from "@/shared/ui/Wrapper/DropdownList/m
 import { BUYER_HOME_LK_MENU_DATA, LK_MENU_DATA, SELLER_HOME_LK_MENU_DATA } from "../../data/headerLK.data"
 import { IMenuButton } from "@/shared/ui/Button/model/button.model"
 import { CHAT_HEADER_ICON } from "@/shared/ui/Icon/data/chat.data.icon"
+import { DASHBOARD_PAGES } from "@/config/pages-url.config"
 
 interface IHeaderMenuRight {
     className?: string,
@@ -34,11 +35,10 @@ export const HeaderMenuRight = ({ className }: IHeaderMenuRight) => {
 
     return (
         <div className={cls(cl.HeaderMenuRight, className)}>
-            <Button
-                className={cl.button}
-                variant={ButtonVariant.DEFAULT}
-                beforeImage={CHAT_HEADER_ICON}
-                beforeProps={{ width: 20, height: 20 }}
+            <Button variant={ButtonVariant.DEFAULT}
+                    beforeImage={CHAT_HEADER_ICON} beforeProps={{ width: 20, height: 20 }}
+                    href={DASHBOARD_PAGES.CHATS.path}
+                    className={cl.button}
             />
             <Button
                 className={cl.button}

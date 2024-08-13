@@ -74,20 +74,12 @@ class DASHBOARD extends Route {
     HOME = this.createPath('/', true);
     PROFILE_EDIT = this.createPath('/edit', true);
     FAVOURITES = this.createPath('/favourites', true);
+    
     CHATS = this.createPath('/chat', true);
+    CURRENT_CHAT = this.createDynamicPath((id: ISupplier['id']) => `/chat/${id}`, true);
 
     PRODUCTS = this.createPath('/product', true);
-    TENDERS = this.createPath('/tender', true);
-
-    PRICES_N_DISCOUNTS = this.createPath('/pricesNDiscounts', true);
-    REVIEWS = this.createPath('/reviews', true);
-    
-    NEW_TENDER = this.createPath('/tender/new', true);
     NEW_PRODUCT = this.createPath('/product/new', true);
-
-    CURRENT_CHAT = this.createDynamicPath((id: ISupplier['id']) => `/chat/${id}`, true);
-    // EDIT_PRODUCT = this.createDynamicPath((id: IProduct['id']) => `/product/edit/${id}`, true);
-    // EDIT_PRODUCT = this.createDynamicPath((groupId: IProduct['groupId'], id: IProduct['id']) => `/product/edit?groupId=${groupId}&id=${id}`, true);
     EDIT_PRODUCT = this.createDynamicPath<{ groupId: number, type?: string | EProductType, id?: IProduct['id'] }>(
         ({type, groupId, id}) => {
             const startURL = `/product/edit?type=${toProductType(type)}&groupId=${groupId}`
@@ -95,6 +87,12 @@ class DASHBOARD extends Route {
         },
         true
     );
+
+    TENDERS = this.createPath('/tender', true);
+    NEW_TENDER = this.createPath('/tender/new', true);
+    
+    PRICES_N_DISCOUNTS = this.createPath('/pricesNDiscounts', true);
+    REVIEWS = this.createPath('/reviews', true);
 }
 
 export const DASHBOARD_PAGES = new DASHBOARD('/i');

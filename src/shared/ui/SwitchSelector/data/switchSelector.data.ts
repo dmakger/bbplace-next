@@ -153,3 +153,15 @@ export const LK_FAVOURITES_PAGE: IOption[] = [
     SWITCH_SELECTOR_SALE_TENDERS_W_CAPTION_OPTION,
     SWITCH_SELECTOR_SUPPLIERS_OPTION
 ]
+
+
+// CHATS
+export const SWITCH_SELECTOR__CHAT__OPTION: IOption = {
+    id: 17,
+    name: "Чат",
+    value: "chat",
+}
+
+export const LK_CHATS_PAGE: IOption[] = [
+    SWITCH_SELECTOR__CHAT__OPTION,
+]
