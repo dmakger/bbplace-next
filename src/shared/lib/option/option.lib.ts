@@ -49,3 +49,25 @@ export const findOptionById = (options: IOption[], id: number): IOption | undefi
     }
     return undefined
 }
+
+export const categoryListToOptionList = (categories: ICategoriesWithSubcategories[]) => {
+    return categories.map(it => categoryToOption(it))
+}
+
+export const categoryListToOptionWithSubcategoriesList = (categories: ICategoriesWithSubcategories[]) => {
+    return categories.map(it => categoryWithSubcategoriesToOption(it))
+
+}
+
+export const categoryWithSubcategoriesToOption = (category: ICategoriesWithSubcategories): IOption => {
+    const {id, name, subcategories} = category
+    return {id, name, options: categoryListToOptionWithSubcategoriesList(subcategories)} as IOption
+}
+
+
+
+export const categoryToOption = (category: ICategory): IOption => {
+    const {id, name, ...params} = category
+    return {id, name, params} as IOption
+}
+

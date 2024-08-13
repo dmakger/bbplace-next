@@ -7,9 +7,9 @@ import { ERecursiveSelectVariant, IRecursiveSelectInputsArray } from '@/shared/u
 import { IOption } from '@/shared/model/option.model'
 import { useEffect, useState } from 'react'
 import { CategoryAPI } from '@/entities/Metrics/api/category.metrics.api'
-import { findOptionById, getOptionsFromCategoriesWithSubcategories } from '@/shared/lib/option/option.lib'
 import { createInputArray } from '@/shared/ui/Input/ui/RecursiveSelect'
 import { ICategoriesWithSubcategories } from '@/entities/Metrics/model/category.metrics.model'
+import { categoryListToOptionWithSubcategoriesList, findOptionById } from '@/shared/lib/option/option.lib'
 
 interface ICategoryRecursiveSelect {
     className?: string,
@@ -79,8 +79,7 @@ export const CategoryRecursiveSelect = ({
     //EFFECT
     useEffect(() => {
         if (categories) {
-            // const options = categoryListToOptionList(((categories as ICategoriesWithSubcategories[]).filter(it => it.name !== 'Нет категории')))
-            const options = categoryListToOptionList(categories as ICategoriesWithSubcategories[])
+            const options = categoryListToOptionWithSubcategoriesList(((categories as ICategoriesWithSubcategories[]).filter(it => it.name !== 'Нет категории')))
             setUpdatedCategories(options ?? [])
         }
     }, [categories])
@@ -93,13 +92,13 @@ export const CategoryRecursiveSelect = ({
                 .filter((option): option is IOption => option !== undefined)
                 setSelectedOptions(foundOptions);
         }
-    }, [updatedCategories, defaultCategoriesId])
+    }, [updatedCategories, defaultCategoriesId])    
 
        
 
-    useEffect(() => {
-        setSelectedCategoriesId && setSelectedCategoriesId(selectedOptions.map(it => it.id))
-    }, [selectedOptionsCommonArray])
+    // useEffect(() => {
+    //     setSelectedCategoriesId && setSelectedCategoriesId(selectedOptions.map(it => it.id))
+    // }, [selectedOptions])
 
 
     //INPUTS_ARRAY

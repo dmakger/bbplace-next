@@ -1,4 +1,3 @@
-import { IUserProductsTab } from "@/features/DetailedPageInfo/model/detailedPageInfo.model"
 import { IOption } from "@/shared/model/option.model"
 
 
@@ -153,7 +152,6 @@ export const LK_FAVOURITES_PAGE: IOption[] = [
     SWITCH_SELECTOR_SALE_TENDERS_W_CAPTION_OPTION,
     SWITCH_SELECTOR_SUPPLIERS_OPTION
 ]
-
 
 //LK_PROFILE_EDIT
 
