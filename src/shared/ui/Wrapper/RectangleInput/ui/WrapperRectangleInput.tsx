@@ -108,7 +108,6 @@ export const WrapperRectangleInput = ({
 	const [warning, setWarning] = useState<boolean>(false);
 	const [success, setSuccess] = useState<boolean>(false);
 
-// <<<<<<< HEAD
   //EFFECT
   useEffect(() => {
     const allSuccess = Object.values(successes).every(v => v === true);
@@ -201,6 +200,7 @@ export const WrapperRectangleInput = ({
             <div className={cl.tooltipsNLinkContainer}>
 
               {linkText && <Button title={linkText}
+                linkTarget='_blank'
                 href={linkHref}
                 variant={ButtonVariant.DEFAULT}
                 className={cl.buttonLink}

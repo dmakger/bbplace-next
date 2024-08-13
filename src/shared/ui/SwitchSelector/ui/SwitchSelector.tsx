@@ -104,6 +104,7 @@ export const SwitchSelector = ({
                                     name={it.name}
                                     checked={isChecked(selectedOption, it)}
                                     onChange={() => { }} />
+                                <span className={cl.caption}>{it.caption}</span>
                                 <label
                                     htmlFor={String(it.id)}>
                                     {it.name}

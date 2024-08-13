@@ -16,7 +16,7 @@ export const ListItemOption: FC<ListItemOptionProps> = ({
     ...rest
 }) => {
     // HANDLE
-    const handleOnClickOption: IListItem<IOption>['onClick'] = (it) => {
+    const handleOnClickOption: IListItem<IOption>['onClick'] = (it: IOption) => {
         if (onClick)
             onClick(it)
     }

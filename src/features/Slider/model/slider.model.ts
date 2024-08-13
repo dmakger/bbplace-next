@@ -12,3 +12,15 @@ export interface ISlider {
     className?: string,
     classNameSlides?: string
 }
+
+export interface ISliderTopLevel<T> extends ISlider {
+    slides?: T[]
+}
+
+
+export interface ISliderItem<T> extends TAnyParams {
+    slide: T,
+    style?: object
+    setTypeOfFile?: Function
+    className?: string,
+}

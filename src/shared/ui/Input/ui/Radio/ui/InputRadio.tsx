@@ -48,15 +48,23 @@ export function InputRadio({
 
     // EFFECT
     useEffect(() => {
+        // console.log('qwe selectedOption', selectedOption?.id !== option.id)
         if (selectedOption?.id !== option.id) {
             setIsOwnChecked(false); 
         } 
+        // setIsOwnChecked(selectedOption?.id !== option.id)
         if(selectedOption){
             setWarning && setWarning(false)
             setSuccess && setSuccess(true)
         } 
         
     }, [selectedOption]);
+
+    useEffect(() => {
+        setIsOwnChecked(isActive)
+        setWarning && setWarning(false)
+        setSuccess && setSuccess(true)
+    }, [isActive])
 
     useEffect(() => {
         if (error && !selectedOption) {

@@ -1,12 +1,12 @@
-.ProductSingleCreationPage {
+.page {
     width: 100%;
+    display: flex;
+    gap: 20px;
 
-    .mid {
-        max-width: 610px;
-        width: 100%;
-    }
-
-    .descriptionTooltip{
-        width: 110px !important;
+    .left {
+        .typeArticleBlock {
+            position: sticky;
+            top: 68px;    
+        }
     }
 }

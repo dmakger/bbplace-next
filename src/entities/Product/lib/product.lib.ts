@@ -1,26 +1,29 @@
 import { ICurrency } from "@/entities/Metrics/model/currency.metrics.model";
-import { ICharacteristic } from "../model/characteristic.product.model";
+import { ICharacteristic, ICharacteristicAPI } from "../model/characteristic.product.model";
 import { IMediaProduct } from "../model/media.product.model";
 import { IProduct, IProductAPI } from "../model/product.model";
 import { IMetrics } from "@/entities/Metrics/model/metric.metrics.model";
 import { currencyToObject } from "@/entities/Metrics/lib/currency/currency.metrics.lib";
 import { metricsToObject } from "@/entities/Metrics/lib/metrics/base.metrics.metrics.lib";
 import { IProcessProductProps } from "../model/props.product.model";
+import { ICountry } from "@/entities/Metrics/model/country.metrics.model";
+import { isEqual } from "lodash";
 
 
-export const productApiListToProductList = (productListAPI: IProductAPI[], metrics?: IMetrics[], currencyList?: ICurrency[]): IProduct[] => {
-    return productListAPI.map(it => productApiToProduct({productAPI: it, metrics, currencyList}))
+export const productApiListToProductList = (productListAPI: IProductAPI[], metrics?: IMetrics[], currencyList?: ICurrency[], countries?: ICountry[]): IProduct[] => {
+    return productListAPI.map(it => productApiToProduct({productAPI: it, metrics, currencyList, countries}))
 }
 
 
 
 // PRODUCT API => PRODUCT 
 // Из {IProductAPI} ===> {IProduct}
-export const productApiToProduct = ({productAPI, metrics, currencyList, hasSupplier=false}: IProcessProductProps): IProduct => {
+export const productApiToProduct = ({productAPI, metrics, currencyList, countries}: IProcessProductProps): IProduct => {
     const media = JSON.parse(productAPI.media) as IMediaProduct
-    const characteristics = JSON.parse(productAPI.characteristics) as ICharacteristic
+    const characteristics = processProductCharacteristic(productAPI.characteristics, metrics, currencyList, countries)
     return processProduct({
-        ...productAPI, 
+        ...productAPI,
+        country: characteristics.country, 
         media, 
         characteristics,
     }, metrics, currencyList)
@@ -30,12 +33,12 @@ export const productApiToProduct = ({productAPI, metrics, currencyList, hasSuppl
 // PRODUCT => PRODUCT API
 // Из {IProduct} ===> {IProductAPI}
 export const productToProductAPI = (product: IProduct): IProductAPI => {
-    const media = JSON.stringify(product.media)
-    const characteristics = JSON.stringify(product.characteristics)
+    const {country, media, characteristics, ..._product} = product
     return {
-        ...product, 
-        media, 
-        characteristics,
+        ..._product, 
+        country: country ? country.name : null,
+        media: JSON.stringify(media),
+        characteristics: JSON.stringify(characteristics),
     }
 }
 
@@ -43,11 +46,29 @@ export const productToProductAPI = (product: IProduct): IProductAPI => {
 
 // ============={ PROCESS }================
 // Обработка
-export const processProduct = (product: IProduct, metrics?: IMetrics[], currencyList?: ICurrency[], hasSupplier?:boolean) => {
+export const processProduct = (product: IProduct, metrics?: IMetrics[], currencyList?: ICurrency[]) => {
     let _product = {...product}
     _product = processProductWholesalePrices(_product, metrics, currencyList)
+    // _product.characteristics.weightUnits = metrics
     _product.media.wholesalePrices = _product.media.wholesalePrices.map(it => ({...it, quantity: +it.quantity}))
     return _product
+}
+
+
+/**
+ * Перевод `characteristics: string` в `ICharacteristic` 
+ */
+const processProductCharacteristic = (characteristics: IProductAPI['characteristics'], metrics?: IMetrics[], currencyList?: ICurrency[], countries?: ICountry[]) => {
+    const characteristicsAPI = JSON.parse(characteristics) as ICharacteristicAPI
+    // console.log('qwe characteristicsAPI', characteristicsAPI)
+    const country = countries?.find(it => `${it.id}` === characteristicsAPI.country || it.name === characteristicsAPI.country || it.fullName === characteristicsAPI.country || isEqual(it, characteristicsAPI.country))
+    // console.log('qwe country', country, characteristicsAPI.country)
+    const weightUnits = metrics?.find(it => `${it.id}` === `${characteristicsAPI.weightUnits}` || it.name === characteristicsAPI.weightUnits || it.shortName === characteristicsAPI.weightUnits)
+    return {
+        ...characteristicsAPI,
+        country,
+        weightUnits,
+    } as ICharacteristic
 }
 
 
@@ -81,7 +102,3 @@ const processProductWholesalePrices = (product: IProduct, metrics?: IMetrics[], 
         }
     }
 }
-
-
-// // ДОБАВЛЕНИЕ В ПРОДУКТ {SUPPLIER}
-// const 
