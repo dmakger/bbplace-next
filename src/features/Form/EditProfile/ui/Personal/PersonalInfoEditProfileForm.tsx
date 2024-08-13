@@ -1,7 +1,6 @@
 'use client'
 
 import cl from './_PersonalInfoEditProfileForm.module.scss'
-import { WrapperWOSubmit } from "@/shared/ui/Wrapper/WOSubmit/WrapperWOSubmit"
 import { Dispatch, FormEvent, SetStateAction, useEffect, useRef, useState } from "react"
 import { WrapperSubblockForm } from "@/shared/ui/Wrapper/SubblockForm/ui/WrapperSubblockForm"
 import { SubblockFormVariant } from "@/shared/ui/Wrapper/SubblockForm/data/subblockForm.data"
@@ -14,6 +13,7 @@ import { IEditProfilePersonalFormValues } from "../../model/editProfile.model"
 import { INITIAL_PERSONAL_ERRORS } from "../../data/editProfile.data"
 import { getFormDataFromForm } from "@/shared/lib/formData.lib"
 import { ISupplierAPI } from "@/entities/Supplier/model/supplier.model"
+import { WrapperWOSubmit } from '@/shared/ui/Wrapper/WOSubmit/ui/WrapperWOSubmit'
 
 
 interface IPersonalInfoEditProfileForm {

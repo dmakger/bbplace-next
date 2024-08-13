@@ -1,7 +1,6 @@
 'use client'
 
 import cl from './_CompanyInfoEditProfileForm.module.scss'
-import { WrapperWOSubmit } from "@/shared/ui/Wrapper/WOSubmit/WrapperWOSubmit"
 import { WrapperSubblockForm } from "@/shared/ui/Wrapper/SubblockForm/ui/WrapperSubblockForm"
 import { SubblockFormVariant } from "@/shared/ui/Wrapper/SubblockForm/data/subblockForm.data"
 import { WrapperRectangleInput } from "@/shared/ui/Wrapper/RectangleInput"
@@ -18,6 +17,8 @@ import { ISupplierAPI } from "@/entities/Supplier/model/supplier.model"
 import { IOption } from '@/shared/model/option.model'
 import { CategoryAPI } from '@/entities/Metrics/api/category.metrics.api'
 import { ERecursiveSelectVariant } from '@/shared/ui/Input/ui/RecursiveSelect/model/recursiveSelect.model'
+import { WrapperWOSubmit } from '@/shared/ui/Wrapper/WOSubmit/ui/WrapperWOSubmit'
+import { findOptionById } from '@/shared/lib/option/option.lib'
 
 interface ICompanyInfoEditProfileForm {
     setData?: Dispatch<SetStateAction<IEditProfileCompanyFormValues | undefined>>
@@ -65,12 +66,17 @@ export const CompanyInfoEditProfileForm = ({
     useEffect(() => {
         if(selectedCategoriesId.length && categories){
             const categoriesOption = selectedCategoriesId
-            .map(it => categories.find(category => it === category.id))
+            .map(id => findOptionById(categories, id))
             .filter((option): option is IOption => option !== undefined)
             setSelectedCategoriesAsOption(categoriesOption)
         }
             
     }, [selectedCategoriesId, categories])
+
+    console.log(selectedCategoriesId, selectedCategoriesAsOption);
+    
+
+    
        
 
     // REF
