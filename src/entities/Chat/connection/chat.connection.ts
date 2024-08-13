@@ -21,9 +21,9 @@ export const ChatSlice = createSlice({
         	state.messages.push(action.payload);
       	},
       	chatsReceived: (state, action: PayloadAction<IChat[]>) => {
-			console.log('qwe state chats', action.payload)
-        	state.chats = action.payload;
-      	},
+			console.log('Updating state with chats:', action.payload);
+			state.chats = action.payload;
+		},
     },
 });
   
@@ -31,16 +31,21 @@ export const { messageReceived, chatsReceived } = ChatSlice.actions;
   
 export const startChatSignalRConnection = (): AppThunk => async (dispatch) => {
     try {
-		await connection.start();
-      	console.log('SignalR Connected.');
+		await connection.start()
+			.then(() => console.log('SignalR Connected.'))
+			.catch((err) => console.error('SignalR Connection Error: ', err));
   
       	connection.on('ReceiveMessage', (message) => {
         	dispatch(messageReceived(message));
       	});
   
-      	connection.on('GetChatsAndLastMessages', (chats: IChat[]) => {
-        	dispatch(chatsReceived(chats));
-      	});
+      	// connection.on('GetChatsAndLastMessages', (chats: IChat[]) => {
+        // 	dispatch(chatsReceived(chats));
+      	// });
+		connection.on('GetChatsAndLastMessages', (chats) => {
+			console.log('Received chats:', chats);
+			dispatch(chatsReceived(chats));
+		});
   
     } catch (err) {
       	console.log('Error while establishing connection: ', err);

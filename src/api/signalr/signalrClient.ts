@@ -11,7 +11,8 @@ const connection = new signalR.HubConnectionBuilder()
 		// logMessageContent: true,
 	})
 	.withAutomaticReconnect()
-	.configureLogging(signalR.LogLevel.Information)
+	// .configureLogging(signalR.LogLevel.Information)
+	.configureLogging(signalR.LogLevel.Debug)
 	.build();
 
 export default connection;
