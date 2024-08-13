@@ -7,6 +7,7 @@ import { getArgsProduct } from "../lib/args.product.lib";
 import { getURL } from "@/api/request";
 import { PRODUCT_BY_USER_LIMIT, PRODUCT_START_PAGE } from "../data/product.data";
 import { getHeaderAuthorization } from "@/entities/Auth/lib/auth-token.lib";
+import { IPropsCreateProduct, IPropsUpdateProduct } from "../model/props.product.model";
 
 
 export const ProductAPI = createApi({
@@ -44,6 +45,18 @@ export const ProductAPI = createApi({
             }),
             // providesTags: result => ['Item']
         }),
+        getProductById: build.mutation<IProductAPI, number | string>({
+            query: (itemId) => ({
+                url: `/GetItem/${itemId}`,
+            }),
+        }),
+
+        getDraftProductById: build.mutation<IProductAPI, number | string>({
+            query: (itemId) => ({
+                url: `/GetItemDraft/${itemId}`,
+            }),
+        }),
+
         deleteProduct: build.mutation<IProductAPI, number | string>({
             query: (itemId) => ({
                 url: `/DeleteItem/${itemId}`,
@@ -99,8 +112,16 @@ export const ProductAPI = createApi({
                 method: 'GET',
             })
         }),
+        getDraftsByGroup: build.query<IProductAPI[], string | number>({
+            query: (groupId) => ({
+                url: `/GetItemsDrafts/${groupId}`,
+                method: 'GET',
+                headers: getHeaderAuthorization(),
+            }),
+        }),
 
-        //EXCEL
+
+        // ==========={ EXCEL }===========
         getImportExcelTemplate: build.mutation<Blob, number[]>({
             query: (selectedCategoriesId: number[]) => ({
                 url: `/GetImportExcelTemplate`,
@@ -137,7 +158,67 @@ export const ProductAPI = createApi({
                 responseHandler: (response) => response.blob(),
         })
         }),
-        //GROUP
+        
+
+        // ==========={ PRODUCT => CREATE | UPDATE | DELETE }===========
+        // create
+        createProduct: build.mutation<number, IPropsCreateProduct>({
+            query: (body) => ({
+                url: `/AddItem`,
+                method: 'POST',
+                headers: getHeaderAuthorization(),
+                body
+            }),
+        }),
+
+        createDraftProduct: build.mutation<number, IPropsCreateProduct>({
+            query: (body) => ({
+                url: `/AddItemDraft`,
+                method: 'POST',
+                headers: getHeaderAuthorization(),
+                body
+            }),
+        }),
+
+        // update
+        updateProduct: build.mutation<number, {id: number|string, body: IPropsUpdateProduct}>({
+            query: ({id, body}) => ({
+                url: `/EditItem/${id}`,
+                method: 'POST',
+                headers: getHeaderAuthorization(),
+                body
+            }),
+        }),
+        updateDraftProduct: build.mutation<number, {id: number|string, body: IPropsUpdateProduct}>({
+            query: ({id, body}) => ({
+                url: `/EditItemDraft/${id}`,
+                method: 'POST',
+                headers: getHeaderAuthorization(),
+                body
+            }),
+        }),
+
+        // delete
+        deleteProducts: build.mutation<void, number[]>({
+            query: (checkedItems) => ({
+                url: `/DeleteItems`,
+                method: 'POST',
+                headers: getHeaderAuthorization(),
+                body: checkedItems
+            }),
+        }),
+        deleteProductsDrafts: build.mutation<void, number[]>({
+            query: (checkedItems) => ({
+                url: `/DeleteItemsDrafts`,
+                method: 'POST',
+                headers: getHeaderAuthorization(),
+                body: checkedItems
+            }),
+        }),
+
+
+        // ==========={ GROUP => CREATE | GET }===========
+        // create
         createGroup: build.mutation<number, void>({
             query: () => ({
                 url: `/CreateGroup`,
@@ -154,22 +235,8 @@ export const ProductAPI = createApi({
                 body: {}
             })
         }),
-        addProductToGroup: build.mutation<number, IGroupData>({
-            query: ({groupId, productId}) => ({
-                url: `/AddItemToGroup/${productId}/${groupId}`,
-                method: 'POST',
-                headers: getHeaderAuthorization(),
-                body: {}
-            })
-        }),
-        addItemToDraftGroup: build.mutation<number, IGroupData>({
-            query: ({groupId, productId}) => ({
-                url: `/AddItemToDraftGroup/${productId}/${groupId}`,
-                method: 'POST',
-                headers: getHeaderAuthorization(),
-                body: {}
-            })
-        }),
+
+        // getter
         getGroupProducts: build.query<IProductAPI[], string | number>({
             query: (groupId) => ({
                 url: `/GetItems/${groupId}`,
@@ -180,21 +247,23 @@ export const ProductAPI = createApi({
                 url: `/GetItemsDrafts/${groupId}`,
             })
         }),
-        deleteProducts: build.mutation<void, number[]>({
-            query: (checkedItems) => ({
-                url: `/DeleteItems`,
+
+        // add in group
+        addProductToGroup: build.mutation<number, IGroupData>({
+            query: ({groupId, productId}) => ({
+                url: `/AddItemToGroup/${productId}/${groupId}`,
                 method: 'POST',
                 headers: getHeaderAuthorization(),
-                body: checkedItems
-            }),
+                body: {}
+            })
         }),
-        deleteProductsDrafts: build.mutation<void, number[]>({
-            query: (checkedItems) => ({
-                url: `/DeleteItemsDrafts`,
+        addProductToDraftGroup: build.mutation<number, IGroupData>({
+            query: ({groupId, productId}) => ({
+                url: `/AddItemToDraftGroup/${productId}/${groupId}`,
                 method: 'POST',
                 headers: getHeaderAuthorization(),
-                body: checkedItems
-            }),
+                body: {}
+            })
         }),
     })
 

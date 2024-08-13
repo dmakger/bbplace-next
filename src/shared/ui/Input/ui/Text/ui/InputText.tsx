@@ -19,7 +19,7 @@ import { FILL_THE_FIELD } from '@/entities/Auth/data/errorMessages.data';
 interface InputTextProps extends IWrapperRectangleInputChildren, IInput {
     title?: string
     variantInputText?: EInputTextVariant
-    defaultValue?: string,
+    defaultValue?: string | number,
     type?: EInputTextType,
     inputTypeVariant?: EInputTextTypeVariants
     value?: string
@@ -50,7 +50,7 @@ export function InputText({
     type = EInputTextType.Text,
     beforeImage, beforeProps,
     onChange = () => { }, onChangeEvent = () => { },
-    defaultValue = '',
+    defaultValue,
     success, setSuccess, warning, setWarning,
     setInputValueLength,
     size,

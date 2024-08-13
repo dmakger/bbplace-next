@@ -39,6 +39,11 @@ export const WrapperLKPT = ({
 
     //EFFECT
     useEffect(() => {
+        if (selectedPage.id !== startPage.id)
+            setSelectedPage(startPage)
+    }, [startPage])
+
+    useEffect(() => {
         const convertToArray = (optionsTab: OptionsTabType): IOptionTab[] => {
             return Object.values(optionsTab).filter((option): option is IOptionTab => option !== undefined);
         };

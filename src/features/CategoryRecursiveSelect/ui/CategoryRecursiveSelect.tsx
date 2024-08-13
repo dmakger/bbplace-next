@@ -3,12 +3,13 @@
 import cl from './_CategoryRecursiveSelect.module.scss'
 import { WrapperRectangleInput } from '@/shared/ui/Wrapper/RectangleInput'
 import Input from '@/shared/ui/Input/Input'
-import { ERecursiveSelectVariant, IResursiveSelectInputsArray } from '@/shared/ui/Input/ui/RecursiveSelect/model/recursiveSelect.model'
+import { ERecursiveSelectVariant, IRecursiveSelectInputsArray } from '@/shared/ui/Input/ui/RecursiveSelect/model/recursiveSelect.model'
 import { IOption } from '@/shared/model/option.model'
 import { useEffect, useState } from 'react'
 import { CategoryAPI } from '@/entities/Metrics/api/category.metrics.api'
 import { findOptionById, getOptionsFromCategoriesWithSubcategories } from '@/shared/lib/option/option.lib'
 import { createInputArray } from '@/shared/ui/Input/ui/RecursiveSelect'
+import { ICategoriesWithSubcategories } from '@/entities/Metrics/model/category.metrics.model'
 
 interface ICategoryRecursiveSelect {
     className?: string,
@@ -73,12 +74,13 @@ export const CategoryRecursiveSelect = ({
     const [selectedOptionsCommonArray, setSelectedOptionsCommonArray] = useState<IOption[]>([])
 
     //API
-    const { data: categories } = CategoryAPI.useGetCategoriesWithSubcategoriesQuery()    
+    const { data: categories } = CategoryAPI.useGetCategoriesWithSubcategoriesQuery({toOption: false})
 
     //EFFECT
     useEffect(() => {
         if (categories) {
-            const options = getOptionsFromCategoriesWithSubcategories(categories.filter(it => it.name !== 'Нет категории'))
+            // const options = categoryListToOptionList(((categories as ICategoriesWithSubcategories[]).filter(it => it.name !== 'Нет категории')))
+            const options = categoryListToOptionList(categories as ICategoriesWithSubcategories[])
             setUpdatedCategories(options ?? [])
         }
     }, [categories])
@@ -99,8 +101,9 @@ export const CategoryRecursiveSelect = ({
         setSelectedCategoriesId && setSelectedCategoriesId(selectedOptions.map(it => it.id))
     }, [selectedOptionsCommonArray])
 
+
     //INPUTS_ARRAY
-    const inputsArray: IResursiveSelectInputsArray[] = createInputArray(
+    const inputsArray: IRecursiveSelectInputsArray[] = createInputArray(
         inputsLevel,
         updatedCategories,
         selectedOptionsCommonArray,

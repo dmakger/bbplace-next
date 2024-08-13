@@ -1,4 +1,4 @@
-import { ICategoriesWithSubcategories } from "@/entities/Metrics/model/category.metrics.model";
+import { ICategoriesWithSubcategories, ICategory } from "@/entities/Metrics/model/category.metrics.model";
 import { IOption } from "../../model/option.model";
 
 export const getValueOption = (option: IOption) => {
