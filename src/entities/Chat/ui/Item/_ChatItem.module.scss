@@ -1,0 +1,39 @@
+.chat {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 10px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all .2s;
+  // ==={ for testing }===
+  //margin-bottom: 400px;
+
+  &:hover {
+    background-color: $lightGray;
+  }
+
+  .text {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+
+    .name {
+      font-weight: 500;
+    }
+  }
+
+  .lastMessage {
+    color: $gray;
+  }
+
+  .right {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    .createdAt {
+      color: $gray;
+    }
+  } 
+}

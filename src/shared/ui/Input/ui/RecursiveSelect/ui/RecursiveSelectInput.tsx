@@ -7,7 +7,7 @@ import { IImageSizes } from "@/shared/model/image.model"
 import Input from "../../../Input"
 import { useState } from "react"
 import { IWrapperRectangleInputChildren } from "@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model"
-import { ERecursiveSelectVariant, IResursiveSelectInputsArray } from "../model/recursiveSelect.model"
+import { ERecursiveSelectVariant, IRecursiveSelectInputsArray } from "../model/recursiveSelect.model"
 import { OptionsAttachmentItem } from "@/shared/ui/Form/OptionsAttachment/ui/Item/OptionsAttachmentItem"
 import { EOptionsAttachmentSize } from "@/shared/ui/Form/OptionsAttachment/data/optionsAttachment.data"
 
@@ -17,7 +17,7 @@ interface IRecursiveSelectInput extends IWrapperRectangleInputChildren {
     variantRecursive?: ERecursiveSelectVariant,
     arrowSizes?: IImageSizes,
     inputLevels: number,
-    inputsProps: IResursiveSelectInputsArray[],
+    inputsProps: IRecursiveSelectInputsArray[],
     selectedOptionsCommonArray: IOption[],
     setSelectedOptionsCommonArray: Function,
     selectedOptions: IOption[],
@@ -122,9 +122,9 @@ export const RecursiveSelectInput = ({
                     <OptionsAttachmentItem
                         size={EOptionsAttachmentSize.BIG}
                         className={cls(cl.optionsAttachmentShow, deletingOption === option.id ? cl.optionsAttachmentHide : '')}
-                        key={option.id}
                         title={option.name}
                         handleDelete={() => handleDeleteItem(option)}
+                        key={option.id}
                     />
                 ))}
             </div>}

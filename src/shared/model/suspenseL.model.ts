@@ -6,6 +6,6 @@ import { Dispatch, SetStateAction } from "react";
  */
 export interface ISuspenseLItem {
     searchKey: string,
-    set: Dispatch<SetStateAction<string | null>>
+    set: Dispatch<SetStateAction<string | null>> | Dispatch<SetStateAction<string | undefined>>
     defaultValue?: any
 }

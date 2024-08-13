@@ -118,7 +118,15 @@ export const UserAPI = createApi({
                 data: body,
             })
         }),
-    }),
+
+        addUserData: builder.mutation<ISupplierAPI, string>({
+            query: (userId) => ({
+                url: `/GetUserInfo?userId=${userId}`,
+                method: 'POST',
+                body: {}
+            })
+        }),
+    })
 });
 
 // export const { useGetUserDataQuery, useUserLoginMutation, useRefreshTokenMutation } = UserAPI;

@@ -15,8 +15,9 @@ import { ReviewAPI } from "@/entities/Review/api/review.api";
 import { SupplierAPI } from "@/entities/Supplier/api/supplier.api";
 import { SupportAPI } from "@/entities/Support";
 import { TenderAPI } from "@/entities/Tender/api/tender.api";
+import { SignalrReducer } from "@/features/Signalr/signalrSlice";
 import { PTCReducer } from "@/features/storage/PTC/ptc.storage";
-import {combineReducers, configureStore} from "@reduxjs/toolkit";
+import {Action, combineReducers, configureStore, ThunkAction} from "@reduxjs/toolkit";
 
 const rootReducer = combineReducers({
     categoryList: CategoryReducer,
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
     countryList: CountryReducer,
     ptc: PTCReducer,
     user: UserReducer,
+    signalr: SignalrReducer,
 
     [UserAPI.reducerPath]: UserAPI.reducer,
     [TinAPI.reducerPath]: TinAPI.reducer,
@@ -75,3 +77,4 @@ export const setupStore = () => {
 export type RootState = ReturnType<typeof rootReducer>
 export type AppStore = ReturnType<typeof setupStore>
 export type AppDispatch = AppStore['dispatch']
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>;

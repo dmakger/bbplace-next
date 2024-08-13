@@ -1,6 +1,6 @@
 import { IOption } from "@/shared/model/option.model";
 
-export interface IResursiveSelectInputsArray {
+export interface IRecursiveSelectInputsArray {
     currentOptions: IOption[],
     defaultOption: IOption | undefined,
     placeholder: string,

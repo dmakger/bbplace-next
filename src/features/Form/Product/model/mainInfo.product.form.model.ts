@@ -9,6 +9,6 @@ export interface IPropsMainInfoProductForm {
     categoryId: number
     status: IOption
     hasCertificate: boolean
-    country: IOption | null
+    country?: IOption
     description: string
 }

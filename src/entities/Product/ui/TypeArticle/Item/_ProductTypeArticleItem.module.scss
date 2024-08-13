@@ -1,0 +1,69 @@
+.block {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--secondary-surface-sub);
+    padding: 10px;
+    cursor: pointer;
+    transition: .2s;
+
+    &:hover {
+        background-color: var(--secondary-surface);
+    }
+
+    &.active {
+        background-color: var(--background-2);
+
+        &:hover {
+            background-color: var(--tertiary-surface-low);
+        }
+
+        .text {
+            .type {
+                color: var(--font);
+            }
+        }
+    }
+
+    .wrapperImage {
+        .image {
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            border: 1px solid var(--background-1);   
+        }
+    }
+
+    .buttonDelete + .wrapperImage + .text {
+        width: calc(100% - 110px);
+    }
+
+    .buttonDelete + .text {
+        width: calc(100% - 55px);
+    }
+
+    .wrapperImage + .text {
+        width: calc(100% - 55px);
+    }
+
+    .text {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        transition: inherit;
+
+        .type {
+            color: var(--secondary);
+            font-weight: var(--font-weight-med);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            transition: inherit;
+        }
+        .article {
+            color: var(--font-caption);
+            transition: inherit;
+        }
+    }
+}

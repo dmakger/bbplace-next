@@ -1,0 +1,9 @@
+.content {
+    width: 100%;
+    min-height: 500px;
+    // background-color: var(--background-2);
+
+    @media (max-width: 768px) {
+        margin-bottom: 81px;
+    }
+}

@@ -2,13 +2,12 @@ import { IMediaProduct } from "./media.product.model"
 import { ICharacteristic } from "./characteristic.product.model"
 import { IArgsRequest } from "@/api/model/request.model.api"
 import { ICategory } from "@/entities/Metrics/model/category.metrics.model"
+import { ICountry } from "@/entities/Metrics/model/country.metrics.model"
 
 
 export interface IBaseProduct {
     name: string | null
     ownerId: string | null
-    categoryId:	number
-    country: string | null
     certification: boolean
     delivery: string[] | null
     paymentConditions: string | null
@@ -24,8 +23,13 @@ export interface IBaseProduct {
     warehouses:	string[] | null
 }
 
+export interface IBaseWCategoryProduct extends IBaseProduct {
+    categoryId:	number
+}
 
-export interface IBaseWIdsProduct extends IBaseProduct{
+
+
+export interface IBaseWIdsProduct extends IBaseWCategoryProduct{
     id: number
     groupId: number | null
     createdAt: string
@@ -34,11 +38,13 @@ export interface IBaseWIdsProduct extends IBaseProduct{
 
 
 export interface IProductAPI extends IBaseWIdsProduct {
+    country: string | null
     media: string
     characteristics: string
 }
 
 export interface IProduct extends IBaseWIdsProduct {
+    country?: ICountry
     media: IMediaProduct
     characteristics: ICharacteristic
     category?: ICategory
