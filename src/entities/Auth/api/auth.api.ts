@@ -138,12 +138,17 @@ export const TinAPI = createApi({
         baseUrl: options.baseURL + 'validations/api/Validations'
     }),
     endpoints: (build) => ({
-        updateTIN: build.mutation<void, number>({
+        updateTIN: build.mutation<any, string>({
             query: (TIN) => ({
                 url: `/RequestValidation/${TIN}`,
                 method: 'POST',
                 headers: getHeaderAuthorization(),
-            }),   
+                
+            }),  
+            transformResponse: (response: any) => {
+                saveTokensStorage(response); // Сохранение токенов в куки
+                return jwtDecode(response.accessToken);
+            } 
         }),
     })
 })

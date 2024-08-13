@@ -47,7 +47,6 @@ export const RecursiveSelectInput = ({
     //STATE
     const [deletingOption, setDeletingOption] = useState<number>()
 
-    console.log(selectedOptions);
     
 
     //FUNCTION

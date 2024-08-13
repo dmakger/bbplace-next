@@ -17,6 +17,7 @@ interface ICategoryRecursiveSelect {
     labelText?: string,
     classNameLabel?: string,
     defaultCategoriesId?: number[],
+    setSelectedCategoriesAsOption?: Function,
     setSelectedCategoriesId?: Function,
     onClickBellowButton?: Function,
 
@@ -44,6 +45,7 @@ export const CategoryRecursiveSelect = ({
     variant = ERecursiveSelectVariant.SINGLE,
     classNameLabel,
     defaultCategoriesId,
+    setSelectedCategoriesAsOption,
     setSelectedCategoriesId,
     onClickBellowButton,
 
@@ -71,7 +73,7 @@ export const CategoryRecursiveSelect = ({
     //STATE
     const [selectedOptions, setSelectedOptions] = useState<IOption[]>([])
     const [updatedCategories, setUpdatedCategories] = useState<IOption[]>([])
-    const [selectedOptionsCommonArray, setSelectedOptionsCommonArray] = useState<IOption[]>([])
+    const [selectedOptionsCommonArray, setSelectedOptionsCommonArray] = useState<IOption[]>([]) //Необходим для заполнения в рамках одной категории
 
     //API
     const { data: categories } = CategoryAPI.useGetCategoriesWithSubcategoriesQuery({toOption: false})
@@ -94,12 +96,11 @@ export const CategoryRecursiveSelect = ({
         }
     }, [updatedCategories, defaultCategoriesId])    
 
-       
 
-    // useEffect(() => {
-    //     setSelectedCategoriesId && setSelectedCategoriesId(selectedOptions.map(it => it.id))
-    // }, [selectedOptions])
-
+    useEffect(() => {
+        setSelectedCategoriesAsOption && setSelectedCategoriesAsOption(selectedOptions.map(it => it))
+    }, [selectedOptions])
+    
 
     //INPUTS_ARRAY
     const inputsArray: IRecursiveSelectInputsArray[] = createInputArray(

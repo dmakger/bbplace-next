@@ -15,10 +15,8 @@ import { IEditProfileCompanyFormValues } from "../../model/editProfile.model"
 import { getFormDataFromForm } from "@/shared/lib/formData.lib"
 import { ISupplierAPI } from "@/entities/Supplier/model/supplier.model"
 import { IOption } from '@/shared/model/option.model'
-import { CategoryAPI } from '@/entities/Metrics/api/category.metrics.api'
 import { ERecursiveSelectVariant } from '@/shared/ui/Input/ui/RecursiveSelect/model/recursiveSelect.model'
 import { WrapperWOSubmit } from '@/shared/ui/Wrapper/WOSubmit/ui/WrapperWOSubmit'
-import { findOptionById } from '@/shared/lib/option/option.lib'
 
 interface ICompanyInfoEditProfileForm {
     setData?: Dispatch<SetStateAction<IEditProfileCompanyFormValues | undefined>>
@@ -27,22 +25,18 @@ interface ICompanyInfoEditProfileForm {
     userData: ISupplierAPI
 }
 
-export const CompanyInfoEditProfileForm = ({ 
+export const CompanyInfoEditProfileForm = ({
     className,
     setData,
     triggerSubmit,
     userData
- }: ICompanyInfoEditProfileForm) => {
-
-    //API
-    const {data: categories} = CategoryAPI.useGetCategoriesQuery()
+}: ICompanyInfoEditProfileForm) => {
 
     //RTK
     const { legalName: legalCompanyName, brandName: brandCompanyName } = useAppSelector(state => state.user)
 
-
     //STATE
-    const [selectedCategoriesId, setSelectedCategoriesId] = useState<number[]>([])
+    const [defaultCategoriesId, setDefaultCategoriesId] = useState<number[]>([])
     const [selectedCategoriesAsOption, setSelectedCategoriesAsOption] = useState<IOption[]>([])
 
     const [shortDescription, setShortDescription] = useState<string>('')
@@ -55,29 +49,13 @@ export const CompanyInfoEditProfileForm = ({
 
     //EFFECT
     useEffect(() => {
-        if(userData){
+        if (userData) {
             setShortDescription(userData.shortDescription)
             setFullDescription(userData.description)
             setTIN(userData.inn)
-            setSelectedCategoriesId(JSON.parse(userData.category).map((it: IOption) => it.id))            
+            setDefaultCategoriesId(JSON.parse(userData.category).map((it: IOption) => it.id))
         }
     }, [userData])
-
-    useEffect(() => {
-        if(selectedCategoriesId.length && categories){
-            const categoriesOption = selectedCategoriesId
-            .map(id => findOptionById(categories, id))
-            .filter((option): option is IOption => option !== undefined)
-            setSelectedCategoriesAsOption(categoriesOption)
-        }
-            
-    }, [selectedCategoriesId, categories])
-
-    console.log(selectedCategoriesId, selectedCategoriesAsOption);
-    
-
-    
-       
 
     // REF
     const formRef = useRef<HTMLFormElement>(null)
@@ -86,7 +64,6 @@ export const CompanyInfoEditProfileForm = ({
     const handleOnSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         if (!formRef.current) return
-        
         const formData = getFormDataFromForm(formRef.current)
         if (setData) {
             setData({
@@ -100,16 +77,23 @@ export const CompanyInfoEditProfileForm = ({
         }
     }
     return (
-        <WrapperWOSubmit formRef={formRef} triggerSubmit={triggerSubmit}>
+        <WrapperWOSubmit triggerSubmit={(submitFn) => triggerSubmit?.(() => {
+            const form = formRef.current;
+            if (form) {
+                form.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
+            }
+            return Promise.resolve(handleOnSubmit(new Event("submit") as unknown as FormEvent<HTMLFormElement>)); 
+        })} formRef={formRef}>
             <WrapperSubblockForm title="Профиль компании" variant={SubblockFormVariant.Toggle} className={className}>
                 <form ref={formRef} onSubmit={handleOnSubmit} className={cl.form}>
-                <CategoryRecursiveSelect
+                    <CategoryRecursiveSelect
                         labelText="Категория"
                         isDescriptionTooltip
                         descriptionTooltipText='Укажите категории товаров, которые вы предлагаете или заинтересованы.'
                         variant={ERecursiveSelectVariant.MULTIPLE}
-                        defaultCategoriesId={selectedCategoriesId}
-                        setSelectedCategoriesId={setSelectedCategoriesId} />
+                        setSelectedCategoriesAsOption={setSelectedCategoriesAsOption}
+                        defaultCategoriesId={defaultCategoriesId}
+                    />
                     <WrapperRectangleInput labelText="Краткое описание" errorInputMessage={errors.shortDesc} isDescriptionTooltip descriptionTooltipText='Краткая информация о вашем бизнесе. Не более 60 символов.'>
                         <Input.Text variant={EInputVariants.RECTANGULAR} name="shortDesc" value={shortDescription} setValue={setShortDescription} type={EInputTextType.Text} placeholder="Кратко опишите деятельность" warning={!!errors.shortDesc} error={!!errors.shortDesc} />
                     </WrapperRectangleInput>
