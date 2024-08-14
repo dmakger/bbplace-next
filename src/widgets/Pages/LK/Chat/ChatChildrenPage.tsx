@@ -12,18 +12,24 @@ import { HistoryChat } from "@/entities/Chat/ui/History/HistoryChat";
 import connection from "@/api/connection/lib/connection.lib";
 import { INVOKE_CHATS__PROPS_DEFAULT, INVOKE_MESSAGES__PROPS_DEFAULT } from "@/entities/Chat/data/default.chat.data";
 import { IPropsInvokeMessages } from "@/entities/Chat/model/connection.chat.model";
+import { stopConnection } from "@/api/connection/lib/wrapper.connection.lib";
+import { useSearchParams } from "next/navigation";
 
 interface ChatChildrenPageProps {
     className?: string,
 }
 
 export const ChatChildrenPage: FC<ChatChildrenPageProps> = ({ className }) => {
+    // ROUTE
+    const searchParams = useSearchParams();
+    const chatId = searchParams.get('id') ?? undefined
+
     // RTK
     const { chatDataList, messages } = useAppSelector((state) => state.chat);
     const dispatch = useAppDispatch();
 
     // STATE
-    const [chatId, setChatId] = useState<string | undefined>()
+    // const [chatId, setChatId] = useState<string | undefined>()
     const [propsInvokeMessages, setPropsInvokeMessages] = useState<IPropsInvokeMessages | undefined>()
 
     // EFFECT
@@ -33,43 +39,45 @@ export const ChatChildrenPage: FC<ChatChildrenPageProps> = ({ className }) => {
         } else {
             setPropsInvokeMessages(prev => {
                 const currentProps = prev === undefined ? INVOKE_MESSAGES__PROPS_DEFAULT : prev
-                
                 return {...currentProps, chatId: +chatId} as IPropsInvokeMessages
             })
         }
     }, [chatId])
 
     useEffect(() => {  
-        console.log('qwe state', connection.state)
-        if (connection.state === HubConnectionState.Disconnected) {
-            // dispatch(setupChatConnection(INVOKE_CHATS__PROPS_DEFAULT, propsInvokeMessages));
-            const props = chatId ? {...INVOKE_MESSAGES__PROPS_DEFAULT, chatId: +chatId} as IPropsInvokeMessages : undefined
-            console.log('qwe props', props)
-            dispatch(setupChatConnection(INVOKE_CHATS__PROPS_DEFAULT, props));
+        console.log('qwe state', connection.state, propsInvokeMessages, chatId);
+        
+        // Разрываем текущее соединение, если оно активно
+        if (connection.state === HubConnectionState.Connected) {
+            console.log('qwe stopping existing connection');
+            connection.stop().then(() => {
+                dispatch(setupChatConnection(INVOKE_CHATS__PROPS_DEFAULT, propsInvokeMessages));
+            });
+        } else if (connection.state === HubConnectionState.Disconnected) {
+            dispatch(setupChatConnection(INVOKE_CHATS__PROPS_DEFAULT, propsInvokeMessages));
         }
     
         return () => {
-            if (connection.state === HubConnectionState.Connected) {
-                connection.stop();
-            }
+            stopConnection();
         };
     }, [dispatch, propsInvokeMessages, chatId]);
+    
 
-    console.log('qwe chatId:', chatId);
-    console.log('qwe chats:', chatDataList);
+    // console.log('qwe chatId:', chatId);
+    // console.log('qwe chats:', chatDataList);
     console.log('qwe messages:', messages);
-    console.log('qwe propsInvokeMessages:', propsInvokeMessages);
+    // console.log('qwe propsInvokeMessages:', propsInvokeMessages);
 
     return (
         <div className={cls(className)}>
             <ChatDataList items={chatDataList} />
-            <SuspenseL>
+            {/* <SuspenseL>
                 <SuspenseL.Any data={[
                     { searchKey: "id", set: setChatId },
-                ]}>
+                ]}> */}
                     <HistoryChat />
-                </SuspenseL.Any>
-            </SuspenseL>
+                {/* </SuspenseL.Any>
+            </SuspenseL> */}
         </div>
     )
 }
