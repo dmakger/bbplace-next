@@ -20,3 +20,10 @@ export const wrapperConnection = (connectionList: IConnectionItem[]): AppThunk =
         setTimeout(() => dispatch(wrapperConnection(connectionList)), 5000);
     }
 };
+
+
+export const stopConnection = () => {
+    if (connection.state === HubConnectionState.Connected) {
+        connection.stop();
+    }
+}

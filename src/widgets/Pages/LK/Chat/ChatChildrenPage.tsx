@@ -33,13 +33,15 @@ export const ChatChildrenPage: FC<ChatChildrenPageProps> = ({ className }) => {
         } else {
             setPropsInvokeMessages(prev => {
                 const currentProps = prev === undefined ? INVOKE_MESSAGES__PROPS_DEFAULT : prev
+                
                 return {...currentProps, chatId: +chatId} as IPropsInvokeMessages
             })
         }
     }, [chatId])
 
     useEffect(() => {  
-        if (connection.state === HubConnectionState.Disconnected || (connection.state === HubConnectionState.Connected && chatId !== undefined)) {
+        console.log('qwe state', connection.state)
+        if (connection.state === HubConnectionState.Disconnected) {
             // dispatch(setupChatConnection(INVOKE_CHATS__PROPS_DEFAULT, propsInvokeMessages));
             const props = chatId ? {...INVOKE_MESSAGES__PROPS_DEFAULT, chatId: +chatId} as IPropsInvokeMessages : undefined
             console.log('qwe props', props)

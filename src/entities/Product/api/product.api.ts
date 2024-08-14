@@ -2,12 +2,12 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 import { options } from "@/api/interceptors";
 import { IGetProductsByUser, IGroupData, IProductAPI } from "../model/product.model";
-import { IArgsRequest } from "@/api/connection/model/request.model.api";
 import { getArgsProduct } from "../lib/args.product.lib";
 import { getURL } from "@/api/request";
 import { PRODUCT_BY_USER_LIMIT, PRODUCT_START_PAGE } from "../data/product.data";
 import { getHeaderAuthorization } from "@/entities/Auth/lib/auth-token.lib";
 import { IPropsCreateProduct, IPropsUpdateProduct } from "../model/props.product.model";
+import { IArgsRequest } from "@/api/api/model/request.model.api";
 
 
 export const ProductAPI = createApi({

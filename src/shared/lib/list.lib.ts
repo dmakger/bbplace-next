@@ -41,5 +41,5 @@ export const getNextIndex = (length: number, index?: number) => {
  * @returns 
  */
 export const getListWithout = <T>(list: (T | undefined | null)[]): T[] => {
-    return list.filter(it => it !== undefined && it !== null)
+    return list.filter(it => it !== undefined && it !== null) as T[]
 }
