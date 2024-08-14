@@ -1,0 +1,39 @@
+.chat {
+  display: flex;
+  gap: 10px;
+  padding: 15px 20px;
+  background-color: var(--tertiary-surface-low);
+  transition: .2s;
+
+  .image {
+    border-radius: 30px;
+  }
+
+  .middle {
+    display: flex;
+    flex-direction: column;
+    padding: 5px 0;
+
+    .name {
+      font-weight: var(--font-weight-med);
+    }
+    .lastMessage {
+      .lastMessageText {
+        font-size: var(--font-size-sreg);
+        color: var(--font-caption);
+      }
+    }
+  }
+
+  .right {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    gap: 5px;
+
+    .createdAt {
+      font-size: var(--font-size-sreg);
+      color: var(--font-caption);
+    }
+  } 
+}

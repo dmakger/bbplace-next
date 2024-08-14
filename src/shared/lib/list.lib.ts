@@ -34,3 +34,12 @@ export const getNextIndex = (length: number, index?: number) => {
     if (length-1 === index) return index
     return index + 1
 }
+
+/**
+ * Удаляет из списков все `undefined` и `null`
+ * @param list - передаваемый список
+ * @returns 
+ */
+export const getListWithout = <T>(list: (T | undefined | null)[]): T[] => {
+    return list.filter(it => it !== undefined && it !== null)
+}

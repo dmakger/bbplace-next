@@ -1,7 +1,7 @@
 import {createApi} from "@reduxjs/toolkit/query/react";
 import {fetchBaseQuery} from "@reduxjs/toolkit/query";
 import { options } from "@/api/interceptors";
-import { IArgsRequest } from "@/api/model/request.model.api";
+import { IArgsRequest } from "@/api/connection/model/request.model.api";
 import { getURL } from "@/api/request";
 import { ISupplierAPI } from "../model/supplier.model";
 import { getArgsSupplier } from "../lib/args.supplier.lib";

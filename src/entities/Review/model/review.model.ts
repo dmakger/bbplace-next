@@ -1,4 +1,4 @@
-import { IArgsRequest } from "@/api/model/request.model.api"
+import { IArgsRequest } from "@/api/connection/model/request.model.api"
 
 //BASE
 export interface IBaseReview {

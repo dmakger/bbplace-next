@@ -43,7 +43,7 @@ export const MainInfoProduct = ({
             />}
             <div className={cl.buttonContainer} >
                 <Button variant={ButtonVariant.BACKGROUND_RED}
-                    href={DASHBOARD_PAGES.CURRENT_CHAT(product.ownerId ?? '').path}
+                    href={DASHBOARD_PAGES.CHATS(product.ownerId ?? '').path}
                     title="Заказать" />
             </div>
         </div>

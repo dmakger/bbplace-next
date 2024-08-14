@@ -1,25 +1,49 @@
 "use client"
 
-import { FC, useEffect } from "react"
+import { FC, useEffect, useState } from "react"
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_ChatChildrenPage.module.scss'
 import { useAppSelector, useAppDispatch } from "@/storage/hooks";
-import { startChatSignalRConnection } from "@/entities/Chat/connection/start.chat.connection";
-import connection from "@/api/signalr/signalrClient";
-import Cookies from 'js-cookie';
+import { setupChatConnection } from "@/entities/Chat/connection/start.chat.connection";
 import { HubConnectionState } from "@microsoft/signalr";
+import { ChatDataList } from "@/entities/Chat/ui/ChatData/List/ChatDataList";
+import SuspenseL from "@/shared/ui/Wrapper/SuspenseL/SuspenseL";
+import { HistoryChat } from "@/entities/Chat/ui/History/HistoryChat";
+import connection from "@/api/connection/lib/connection.lib";
+import { INVOKE_CHATS__PROPS_DEFAULT, INVOKE_MESSAGES__PROPS_DEFAULT } from "@/entities/Chat/data/default.chat.data";
+import { IPropsInvokeMessages } from "@/entities/Chat/model/connection.chat.model";
 
 interface ChatChildrenPageProps {
     className?: string,
 }
 
 export const ChatChildrenPage: FC<ChatChildrenPageProps> = ({ className }) => {
-    const { chats } = useAppSelector((state) => state.chat);
+    // RTK
+    const { chatDataList, messages } = useAppSelector((state) => state.chat);
     const dispatch = useAppDispatch();
 
+    // STATE
+    const [chatId, setChatId] = useState<string | undefined>()
+    const [propsInvokeMessages, setPropsInvokeMessages] = useState<IPropsInvokeMessages | undefined>()
+
+    // EFFECT
+    useEffect(() => {
+        if (chatId === undefined) {
+            setPropsInvokeMessages(undefined)
+        } else {
+            setPropsInvokeMessages(prev => {
+                const currentProps = prev === undefined ? INVOKE_MESSAGES__PROPS_DEFAULT : prev
+                return {...currentProps, chatId: +chatId} as IPropsInvokeMessages
+            })
+        }
+    }, [chatId])
+
     useEffect(() => {  
-        if (connection.state === HubConnectionState.Disconnected) {
-            dispatch(startChatSignalRConnection());
+        if (connection.state === HubConnectionState.Disconnected || (connection.state === HubConnectionState.Connected && chatId !== undefined)) {
+            // dispatch(setupChatConnection(INVOKE_CHATS__PROPS_DEFAULT, propsInvokeMessages));
+            const props = chatId ? {...INVOKE_MESSAGES__PROPS_DEFAULT, chatId: +chatId} as IPropsInvokeMessages : undefined
+            console.log('qwe props', props)
+            dispatch(setupChatConnection(INVOKE_CHATS__PROPS_DEFAULT, props));
         }
     
         return () => {
@@ -27,18 +51,23 @@ export const ChatChildrenPage: FC<ChatChildrenPageProps> = ({ className }) => {
                 connection.stop();
             }
         };
-    }, [dispatch]);
+    }, [dispatch, propsInvokeMessages, chatId]);
 
-    console.log('Current chats in state:', chats); // Log current state
+    console.log('qwe chatId:', chatId);
+    console.log('qwe chats:', chatDataList);
+    console.log('qwe messages:', messages);
+    console.log('qwe propsInvokeMessages:', propsInvokeMessages);
 
     return (
         <div className={cls(className)}>
-            {/* {chats.map(chat => (
-                <div key={chat.id}>
-                    <p>Chat ID: {chat.id}</p>
-                    <p>Message: {chat.message.text}</p>
-                </div>
-            ))} */}
+            <ChatDataList items={chatDataList} />
+            <SuspenseL>
+                <SuspenseL.Any data={[
+                    { searchKey: "id", set: setChatId },
+                ]}>
+                    <HistoryChat />
+                </SuspenseL.Any>
+            </SuspenseL>
         </div>
     )
 }
