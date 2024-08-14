@@ -63,6 +63,9 @@ class MAIN extends Route {
         (params) => `/tender/${params.id}/${params.type || ETenderType.PURCHASE}`,
         true
     );
+
+    CURRENT_DOCUMENT = this.createDynamicPath((documentName: string) => `/documents/${documentName}`)
+
 }
 
 export const MAIN_PAGES = new MAIN('')

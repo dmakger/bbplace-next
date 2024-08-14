@@ -1,3 +1,5 @@
+'use client'
+
 import Wrapper1280 from '@/shared/ui/Wrapper/1280/Wrapper1280'
 import cl from './_MainChildrenPage.module.scss'
 import { ArticleForSuppliersOrBuyers } from '../components/ArticleForSuppliersOrBuyers/ArticleForSuppliersOrBuyers'
@@ -6,13 +8,55 @@ import { AboutBB } from '../components/AboutBB/AboutBB'
 import { PrimeList } from '../components/PrimeList/PrimeList'
 import { MainPageCardSliderBlock } from '@/features/MainPageCardSliderBlock'
 import { MAIN_PAGES } from '@/config/pages-url.config'
+import { ProductAPI } from '@/entities/Product/api/product.api'
+import { CardsProductSlider } from '@/features/MainPageCardSliderBlock/components/Product/CardsProductSlider'
+import { CurrencyAPI } from '@/entities/Metrics/api/currency.metrics.api'
+import { MetricsAPI } from '@/entities/Metrics/api/metrics.metrics.api'
+import { useEffect, useState } from 'react'
+import { IProduct } from '@/entities/Product/model/product.model'
+import { productApiListToProductList } from '@/entities/Product/lib/product.lib'
+import { PRODUCT_ARGS_REQUEST } from '@/entities/Product/data/product.data'
+import { TenderAPI } from '@/entities/Tender/api/tender.api'
+import { TENDER_ARGS_REQUEST } from '@/entities/Tender/data/tender.data'
+import { ITender } from '@/entities/Tender/model/tender.model'
+import { tenderAPIListToTenderList } from '@/entities/Tender/lib/process.tender.lib'
+import { CardsTenderSlider } from '@/features/MainPageCardSliderBlock/components/Tender/CardsTenderSlider'
+import { SupplierAPI } from '@/entities/Supplier/api/supplier.api'
+import { SUPPLIER_ARGS_REQUEST } from '@/entities/Supplier/data/supplier.data'
+import { ISupplier } from '@/entities/Supplier/model/supplier.model'
+import { supplierApiListToSupplierList } from '@/entities/Supplier/lib/process.supplier.lib'
+import { CardsSupplierSlider } from '@/features/MainPageCardSliderBlock/components/Supplier/CardsSupplierSlider'
+import { SliderPagingVariant } from '@/shared/data/sliderT.data'
 
 export const MainChildrenPage = () => {
 
+    //STATE
+    const [productList, setProductList] = useState<IProduct[]>([]);
+    const [tenderList, setTenderList] = useState<ITender[]>([]);
+    const [supplierList, setSupplierList] = useState<ISupplier[]>([]);
+
+    //API
+    const { data: currencyList } = CurrencyAPI.useGetCurrenciesQuery();
+    const { data: metrics } = MetricsAPI.useGetMetricsQuery();
+    const { data: productsAPI } = ProductAPI.useGetProductsQuery({ limit: PRODUCT_ARGS_REQUEST.limit, page: 0 }, { refetchOnMountOrArgChange: true });
+    const { data: allTendersAPI, isLoading: isTendersLoading } = TenderAPI.useGetAllTendersQuery({ limit: TENDER_ARGS_REQUEST.limit, page: 0 });
+    const { data: suppliersAPI, isLoading: isSupplierLoading } = SupplierAPI.useGetSuppliersQuery({ limit: SUPPLIER_ARGS_REQUEST.limit, page: 0 }, { refetchOnMountOrArgChange: true })    
+
+    //EFFECT
+    useEffect(() => {
+        if (productsAPI) setProductList(productApiListToProductList(productsAPI, metrics, currencyList));
+        if (allTendersAPI) setTenderList(tenderAPIListToTenderList(allTendersAPI, metrics, currencyList))
+        if (suppliersAPI) setSupplierList(supplierApiListToSupplierList(suppliersAPI))
+    }, [productsAPI, allTendersAPI, suppliersAPI, metrics, currencyList]);
+
+    console.log(suppliersAPI, supplierList);
+    
+
+
     const mainPageCardSliderBlockArray: IMainPageCardSliderBlockItem[] = [
-        { title: 'Новые товары', buttonTitle: 'Все товары', buttonHref: MAIN_PAGES.PRODUCTS.path },
-        { title: 'Новые тендеры', buttonTitle: 'Все тендеры', buttonHref: MAIN_PAGES.TENDERS.path },
-        { title: 'Надёжные поставщики', buttonTitle: 'Все поставщики', buttonHref: MAIN_PAGES.SUPPLIERS.path },
+        // { title: 'Новые товары', buttonTitle: 'Все товары', buttonHref: MAIN_PAGES.PRODUCTS.path, children: <CardsProductSlider items={productList} gap={20} /> },
+        { title: 'Новые тендеры', buttonTitle: 'Все тендеры', buttonHref: MAIN_PAGES.TENDERS.path, children: <CardsTenderSlider items={tenderList} gap={20} className={cl.list} slideWidth={1000}/> },
+        // { title: 'Надёжные поставщики', buttonTitle: 'Все поставщики', buttonHref: MAIN_PAGES.SUPPLIERS.path, children: <CardsSupplierSlider items={supplierList} gap={20} pagingVariant={SliderPagingVariant.Full} /> },
     ]
 
     return (
@@ -31,9 +75,8 @@ export const MainChildrenPage = () => {
                         title={it.title}
                         buttonTitle={it.buttonTitle}
                         buttonHref={it.buttonHref}
-                    />
+                        children={it.children} />
                 ))}
-
                 <AboutBB />
             </Wrapper1280>
         </div>

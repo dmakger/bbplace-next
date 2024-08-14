@@ -49,7 +49,6 @@ export default function Layout({ children }: PropsWithChildren<unknown>) {
     return (
         <WrapperGap>
             {pathname === MAIN_PAGES.HOME.path && !isUserAuth && <TopBar/>}
-            <Header />
             <div className={cl.content}>
                 {children}
             </div>

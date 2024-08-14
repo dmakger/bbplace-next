@@ -1,3 +1,5 @@
+'use client'
+
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_ProductV.module.scss';
 import { FC, useState } from 'react';

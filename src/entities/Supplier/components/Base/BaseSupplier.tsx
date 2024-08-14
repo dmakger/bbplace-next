@@ -17,7 +17,8 @@ interface BaseSupplierProps {
     supplierRating?: number,
     numberOfReviews?: number,
     hasImage?: boolean,
-    hasVerifiedStatus?: boolean
+    hasVerifiedStatus?: boolean,
+    hasCountry?: boolean,
     subscribeView?: ESupplierSubscribeViewItem
     isGray?: boolean,
     isForDescPage?: boolean,
@@ -33,6 +34,7 @@ export const BaseSupplier: FC<BaseSupplierProps> = ({
     numberOfReviews,
     hasImage = false,
     hasVerifiedStatus = false,
+    hasCountry,
     subscribeView = ESupplierSubscribeViewItem.NONE,
     isGray = false,
     isForDescPage = false,
@@ -50,6 +52,7 @@ export const BaseSupplier: FC<BaseSupplierProps> = ({
                 <span className={cls(cl.name, isForDescPage ? cl.bigName : '', classNameName)}>{getNameSupplier(supplier)}</span>
                 <BottomLineSupplier supplier={supplier}
                     hasVerifiedStatus={hasVerifiedStatus}
+                    hasCountry={hasCountry}
                     supplierRating={supplierRating}
                     numberOfReviews={numberOfReviews}
                     isForDescPage={isForDescPage}
