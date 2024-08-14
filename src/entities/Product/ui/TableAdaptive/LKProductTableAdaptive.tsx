@@ -58,7 +58,7 @@ export const LKProductTableAdaptive:FC<LKProductTableAdaptiveProps> = ({typeProd
                 // <ProductLKList products={products} variant={EProductLKVariants.DEFAULT} />
                 <ProductLKSmartList typeProduct={typeProduct} />
             ) : (
-                <LKProductTable _products={products} />
+                <LKProductTable products={products} type={typeProduct} />
             )}
             {/* <ProductLKSmartList typeProduct={typeProduct} /> */}
             <HandleSize set={setIs768} width={768} />

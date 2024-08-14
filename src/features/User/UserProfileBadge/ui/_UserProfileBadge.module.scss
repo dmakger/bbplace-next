@@ -1,0 +1,91 @@
+.UserProfileBadge {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--tertiary-surface-low);
+    position: relative;
+    transition: .3s;
+    width: 162px;
+
+    .infoContainer {
+        display: flex;
+        flex-direction: column;
+        padding: 12.5px 0;
+        text-align: left;
+
+        .role {
+            font-size: var(--font-size-xxs);
+            color: var(--font-caption);
+        }
+
+        .userName {
+            width: 100px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            text-overflow: ellipsis;
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-med);
+        }
+    }
+
+    &:hover,
+    &.activeBadge {
+        background-color: var(--tertiary-surface);
+        transition: .3s;
+
+        .arrowContainer {
+            background-color: var(--tertiary-surface);
+            transition: .3s;
+
+            & img {
+                transform: translateY(1px);
+                transition: .3s;
+            }
+        }
+    }
+}
+
+//VARIANTS
+.desktop {
+    gap: 2px;
+    padding: 0px 2px 0 0;
+    border-radius: 25px;
+
+    .infoContainer {
+        width: 95px;
+        padding-left: 15px;
+    }
+
+    &:hover,
+    &.activeBadge {
+        border-radius: 25px 25px 0 0;
+    }
+}
+
+.mobile {
+    justify-content: space-between;
+    width: 250px;
+    padding: 5px 15px;
+
+    .infoContainer {
+        width: 170px;
+
+        .userName {
+            width: 100%;
+        }
+    }
+
+    &:hover,
+    &.activeBadge {
+        border-radius: 16px 0 0 0;
+    }
+}
+
+.activeArrow {
+    & img {
+        rotate: 180deg;
+        transition: .3s;
+    }
+}

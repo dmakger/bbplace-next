@@ -1,0 +1,16 @@
+.button {
+    background-color: var(--tertiary-surface-low);
+    border-radius: 30px;
+    padding: 10px;
+    display: flex;
+    width: fit-content;
+
+    transition: .2s;
+
+    &:hover {
+        background-color: var(--tertiary-surface);
+    }
+    &:disabled {
+        background-color: var(--tertiary-surface-low);
+    }
+}

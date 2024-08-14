@@ -98,7 +98,7 @@ export const ProductLK = ({
   return (
     <div className={cls(cl.LKProduct, className)}>
       {variant === EProductLKVariants.DEFAULT && category && <span className={cl.category}>
-        {category[0].name}
+        {category.name}
       </span>}
       <div className={cl.imageContainer}>
         <ImageAPI src={product.media.attachments[0]} />

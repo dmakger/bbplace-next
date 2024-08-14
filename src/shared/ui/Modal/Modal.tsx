@@ -16,9 +16,10 @@ interface ModalProps{
     buttonNode: ReactNode
     children: ReactNode
     className?: string,
+    classNameSidebar?: string
 }
 
-export const Modal:FC<ModalProps> = ({_isOpen=false, onClickOverlay=()=>{}, view=EModalView.CENTER, hasBlack=true, hasClose=false, buttonNode, children, className}) => {    
+export const Modal:FC<ModalProps> = ({_isOpen=false, onClickOverlay=()=>{}, view=EModalView.CENTER, hasBlack=true, hasClose=false, buttonNode, children, className, classNameSidebar}) => {    
     // STATE
     const [isOpen, setIsOpen] = useState(false);
 
@@ -49,7 +50,7 @@ export const Modal:FC<ModalProps> = ({_isOpen=false, onClickOverlay=()=>{}, view
             {buttonNode}
             <div className={cls(isOpen ? cl.open : '', cl.modal, className)}>
                 <div onClick={()=>onClickOverlay()} className={cls(isOpen ? cl.openOverlay : '', cl.overlay, hasBlack ? cl.black : '', className)} />
-                <div className={cls(isOpen ? cl.openSidebar : '', views[view], cl.sidebar)}>
+                <div className={cls(isOpen ? cl.openSidebar : '', views[view], cl.sidebar, classNameSidebar)}>
                     {hasClose && 
                         <Button title="Close" onClick={onClickOverlay} className={cl.close} />
                     }

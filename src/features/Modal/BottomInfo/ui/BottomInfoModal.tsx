@@ -54,9 +54,11 @@ export const BottomInfoModal = ({
         setIsOpen && setIsOpen(false)
     }
 
-    const navigateToEditProduct = (productId: number) => {
-        router.push(DASHBOARD_PAGES.EDIT_PRODUCT(productId).path)
+    const navigateToEditProduct = () => {
+        if (!product || product.groupId === null) return
+        router.push(DASHBOARD_PAGES.EDIT_PRODUCT({groupId: product.groupId, id: product.id}).path);
     }
+     
     return (
 
         <div className={cls(cl.BottomInfo, className)}>

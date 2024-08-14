@@ -9,7 +9,8 @@ export interface IOption {
     value?: string | number
     params?: TParams
     options?: IOption[]
-    type?: OptionType
+    type?: OptionType,
+    caption?: string
 }
 
 

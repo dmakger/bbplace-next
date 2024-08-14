@@ -24,11 +24,12 @@ export const ProductTable = ({
     const { data: countries } = CountryAPI.useGetCountriesQuery()
     const { data: metrics } = MetricsAPI.useGetMetricsQuery()
 
-
     //EFFECT
     useEffect(() => {
-        if (countries)
-            setSelectedCountry(getCharacteristic({ characteristic: product.characteristics.country, list: countries }))
+        if (countries){
+            setSelectedCountry(product.characteristics.country?.name)
+            // setSelectedCountry(getCharacteristic({ characteristic: product.characteristics.country, list: countries }))
+        }
     }, [countries])
 
     useEffect(() => {

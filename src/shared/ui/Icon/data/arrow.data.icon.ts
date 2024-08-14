@@ -9,6 +9,9 @@ import ArrowWOSecondaryHoveredIcon from '@/shared/assets/img/Arrow/ArrowWOSecond
 
 import ArrowWOTertiaryIcon from '@/shared/assets/img/Arrow/ArrowWOLineTertiaryIcon.svg'
 import ArrowWOTertiaryDisabledIcon from '@/shared/assets/img/Arrow/ArrowWOLineTertiaryDisabledIcon.svg'
+import ArrowWOTertiaryHoveredIcon from '@/shared/assets/img/Arrow/ArrowWOLineTertiaryHovered.svg'
+import ArrowWOTertiaryPressedIcon from '@/shared/assets/img/Arrow/ArrowWOLineTertiaryPressed.svg'
+
 
 import ArrowWLineSecondaryIcon from '@/shared/assets/img/Arrow/ArrowWLineSecondary.svg'
 import ArrowWLineSecondaryHoveredIcon from '@/shared/assets/img/Arrow/ArrowWLineSecondaryHovered.svg'
@@ -16,6 +19,7 @@ import ArrowWLineSecondaryHoveredIcon from '@/shared/assets/img/Arrow/ArrowWLine
 import ArrowWLineDefaultBlackIcon from '@/shared/assets/img/Arrow/ArrowWLineDefaultBlackIcon.svg'
 
 import ArrowWLineTertiaryIcon from '@/shared/assets/img/Arrow/ArrowWLineTertiary.svg'
+import ArrowWLineOnTertiaryIcon from '@/shared/assets/img/Arrow/ArrowWLineOnTertiary.svg'
 import ArrowWLineTertiaryHoveredIcon from '@/shared/assets/img/Arrow/ArrowWLineTertiaryHovered.svg'
 import ArrowWLineTertiaryPressedIcon from '@/shared/assets/img/Arrow/ArrowWLineTertiaryPressed.svg'
 import ArrowWLineTertiaryActiveIcon from '@/shared/assets/img/Arrow/ArrowWLineTertiaryActive.svg'
@@ -48,6 +52,13 @@ export const ARROW_TERTIARY_WO_ICON: IIcon = {
     disabled: ArrowWOTertiaryDisabledIcon
 }
 
+export const ARROW_TERTIARY_WO_FULL_ICON: IIcon = {
+    default: ArrowWOTertiaryIcon,
+    defaultHovered: ArrowWOTertiaryHoveredIcon,
+    defaultPressed: ArrowWOTertiaryPressedIcon,
+    active: ArrowWOTertiaryPressedIcon
+} 
+
 // ======{ WITH LINE }======
 
 export const ARROW_WLINE_DEFAULT_BLACK_ICON: IIcon = {
@@ -66,10 +77,18 @@ export const ARROW_WLINE_SECONDARY_ICON: IIcon = {
 
 export const ARROW_WLINE_TERTIARY_ICON: IIcon = {
     default: ARROW_WLINE_TERTIARY_DEFAULT_ICON.default,
+    defaultHovered: ArrowWLineOnTertiaryIcon,
+    defaultPressed: ArrowWLineOnTertiaryIcon,
+
     active: ArrowWLineTertiaryActiveIcon,
-    defaultHovered: ArrowWLineTertiaryHoveredIcon,
-    defaultPressed: ArrowWLineTertiaryPressedIcon
 }
+
+export const ARROW_WLINE_TERTIARY_GRAY_ICON: IIcon = {
+    default: ArrowWLineTertiaryIcon,
+    defaultHovered: ArrowWLineTertiaryHoveredIcon,
+    defaultPressed: ArrowWLineTertiaryPressedIcon,
+}
+
 
 export const ARROW_WLINE_TERTIARY_MOBILE_ICON: IIcon = {
     default: ARROW_WLINE_TERTIARY_DEFAULT_ICON.default

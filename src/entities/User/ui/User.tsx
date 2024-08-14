@@ -4,15 +4,48 @@ import defaultImageJPG from '@/shared/assets/img/default-image.jpg'
 import { cls } from '@/shared/lib/classes.lib'
 import cl from './_User.module.scss'
 import { MouseEventHandler } from 'react'
+import { EUserVariants } from '../model/user.model'
+import { ARROW_TERTIARY_WO_ICON } from '@/shared/ui/Icon/data/arrow.data.icon'
+import { ENotificationVariants } from '@/shared/ui/Notification/model/notification.model'
+import { Notification } from '@/shared/ui/Notification'
 
 interface UserProps {
     image?: string
+    variant?: EUserVariants,
+    notificationVariant?: ENotificationVariants,
     className?: string,
-    onClick?: MouseEventHandler<HTMLDivElement>
+    classNameArrowContainer?: string
+    onClick?: MouseEventHandler
 }
 
-export const User = ({ image, className, onClick }: UserProps) => {
+export const User = ({
+    image,
+    variant = EUserVariants.DEFAULT,
+    notificationVariant = ENotificationVariants.NONE,
+    className,
+    classNameArrowContainer,
+    onClick
+}: UserProps) => {
     return (
-        <Image src={image ? image : defaultImageJPG} alt={'Avatar'} className={cls(cl.image, className)} onClick={onClick} priority/>
+        <>
+            {variant === EUserVariants.DEFAULT ?
+                <Image src={image ? image : defaultImageJPG}
+                    alt={'Avatar'}
+                    className={cls(cl.image, className)}
+                    onClick={onClick}
+                    priority /> :
+
+                <div onClick={onClick} className={cl.userImageContainer}>
+                    <Image src={image ? image : defaultImageJPG}
+                        className={cls(cl.image, className)}
+                        alt={'Avatar'} />
+                    <div className={cls(cl.arrowContainer, classNameArrowContainer)}>
+                        <Image src={ARROW_TERTIARY_WO_ICON.default} alt='' className={cl.arrow} width={8} height={5} />
+                    </div>
+                    <Notification variant={notificationVariant} />
+
+                </div>}
+        </>
+
     )
 }

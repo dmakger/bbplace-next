@@ -15,7 +15,6 @@ interface ImageSliderProps extends ISlider{
 export const ImageSlider:FC<ImageSliderProps> = ({className, ...rest}) => {
     return (
         <Slider component={ImageSlide} 
-        
                 className={cls(cl.slider, className)} 
                 {...rest}/>
     )

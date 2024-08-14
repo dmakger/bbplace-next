@@ -7,9 +7,11 @@ import { ButtonColor, ButtonSize } from "@/shared/ui/Button/model/button.model"
 import { SUPPORT_ICON } from "@/shared/ui/Icon/data/support.data.icon"
 import { ARROW_WLINE_TERTIARY_ICON } from "@/shared/ui/Icon/data/arrow.data.icon"
 import { FormEventHandler, ReactNode, RefObject } from "react"
-import { useRouter } from "next/navigation"
-import { MAIN_PAGES } from "@/config/pages-url.config"
+import { usePathname, useRouter } from "next/navigation"
+import { DASHBOARD_PAGES, MAIN_PAGES } from "@/config/pages-url.config"
 import { Logo } from "@/shared/ui/Logo"
+import { useAppSelector } from "@/storage/hooks"
+import { LK_ICON } from "@/shared/ui/Icon/data/lk.data.icon"
 
 interface IWrapperForLogInNSupportPages {
     className?: string,
@@ -32,15 +34,28 @@ export const WrapperForLogInNSupportPages = ({
     //ROUTER
     const router = useRouter();
 
+    //PATHNAME
+    const pathname = usePathname()
+
+    //RTK
+    const { isAuth } = useAppSelector(state => state.user)    
+
     //FUNCTION
     const navigateToTheSupport = () => router.push(MAIN_PAGES.SUPPORT.path);
+
+    const navigateToTheLK = () => {
+        if(!isAuth){
+            return router.push(MAIN_PAGES.LOGIN.path)
+        }
+        router.push(DASHBOARD_PAGES.HOME.path);
+    }
 
     const goBack = () => router.back();
 
     const navigateToTheForgotPassword = () => router.push(MAIN_PAGES.FORGOT_PASSWORD.path)
 
     return (
-        <div className={cls(cl.WrapperForLogInNSupportPages, className)}>
+        <main className={cls(cl.WrapperForLogInNSupportPages, className)}>
             <Logo sizes={{ width: 120, height: 120 }}
                 className={cl.logoButton} />
             <form className={cl.formContainer} onSubmit={onSubmitFunc} ref={formRef}>
@@ -48,7 +63,7 @@ export const WrapperForLogInNSupportPages = ({
                     <h4 className={cl.pageTitle}>{pageTitle}</h4>
                 </div>
                 {children}
-                {forgotPasswordButton && <Button 
+                {forgotPasswordButton && <Button
                     className={cl.forgotPasswordButton}
                     title="Не помню пароль"
                     size={ButtonSize.Big}
@@ -67,14 +82,23 @@ export const WrapperForLogInNSupportPages = ({
                     title="Назад"
                     onClick={goBack}
                 />
-                <Button variant={ButtonVariant.CONTENT}
-                    color={ButtonColor.Tertiary}
-                    beforeImage={SUPPORT_ICON}
-                    beforeProps={{ width: 18, height: 18 }}
-                    size={ButtonSize.Medium}
-                    title="Поддержка"
-                    onClick={navigateToTheSupport} />
+                {pathname.includes('support') ?
+                    <Button variant={ButtonVariant.CONTENT}
+                        color={ButtonColor.Tertiary}
+                        beforeImage={LK_ICON}
+                        beforeProps={{ width: 18, height: 18 }}
+                        size={ButtonSize.Medium}
+                        title="Мой профиль"
+                        onClick={navigateToTheLK} />
+                    :
+                    <Button variant={ButtonVariant.CONTENT}
+                        color={ButtonColor.Tertiary}
+                        beforeImage={SUPPORT_ICON}
+                        beforeProps={{ width: 18, height: 18 }}
+                        size={ButtonSize.Medium}
+                        title="Поддержка"
+                        onClick={navigateToTheSupport} />}
             </div>
-        </div>
+        </main>
     )
 }

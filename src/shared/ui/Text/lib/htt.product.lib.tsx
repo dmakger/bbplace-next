@@ -16,7 +16,7 @@ export const getDataHeadingToTextProductTable = ({
 
     const createdAt = product.createdAt
 
-    const COUNTRY_PRODUCT_DATA: IHeadingToText = { heading: 'Страна изготовитель', body: product.country ?? '' }
+    const COUNTRY_PRODUCT_DATA: IHeadingToText = { heading: 'Страна изготовитель', body: product.country?.name ?? '' }
     const STATUS_PRODUCT_DATA: IHeadingToText = { heading: 'Статус', body: product.status ?? '' }
     const WAREHOUSES_PRODUCT_DATA: IHeadingToText = { heading: 'Склад', body: warehouses }
     const DESCRIPTION_PRODUCT_DATA: IHeadingToText = { heading: 'Описание', body: product.characteristics.description }

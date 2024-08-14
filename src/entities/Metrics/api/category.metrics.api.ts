@@ -1,6 +1,8 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import { ICategoriesWithSubcategories, ICategory } from "../model/category.metrics.model"
 import { options } from "@/api/interceptors";
+import { IOption } from "@/shared/model/option.model";
+import { categoryListToOptionList } from "../lib/option.category.metrics.lib";
 
 export const CategoryAPI = createApi({
 	reducerPath: 'categoryAPI',
@@ -25,11 +27,15 @@ export const CategoryAPI = createApi({
                 }
 			})
 		}),
-		getCategoriesWithSubcategories: build.query<ICategoriesWithSubcategories[], void>({
-            query: () => ({
+		getCategoriesWithSubcategories: build.query<ICategoriesWithSubcategories[] | IOption[], {toOption: boolean}>({
+            query: (props) => ({
                 url: '/GetCategoriesWithSubcategories',
                 responseHandler: async (res) => {
-                    const data = await res.json() as ICategoriesWithSubcategories[]
+                    const data = await res.json().then(r => {
+						const _r = (r as ICategoriesWithSubcategories[]).filter(it => it.name !== 'Нет категории')
+						if (!props.toOption) return _r
+						return categoryListToOptionList(_r)
+					})
                     return [...data].sort((a, b) => a.name.localeCompare(b.name))
                 }
             })
@@ -40,7 +46,7 @@ export const CategoryAPI = createApi({
 				method: 'GET',
 			})
 		}),
-		getCategoryById: build.query<ICategory[], number>({
+		getCategoryById: build.query<ICategory, number>({
 			query: (id) => ({
 				url: `/GetCategory/${id}`,
 				method: 'GET',
