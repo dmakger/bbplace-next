@@ -12,6 +12,7 @@ import { jwtDecode } from 'jwt-decode';
 import { TopBar } from '@/features/TopBar';
 import { usePathname } from 'next/navigation';
 import { MAIN_PAGES } from '@/config/pages-url.config';
+import { Footer } from '@/widgets/Footer';
 
 export default function Layout({ children }: PropsWithChildren<unknown>) {
     // API 
@@ -47,13 +48,12 @@ export default function Layout({ children }: PropsWithChildren<unknown>) {
 
     return (
         <WrapperGap>
-            {pathname === MAIN_PAGES.HOME.path && !isUserAuth && <TopBar/>}
-            <Header />
+            {/* {pathname === MAIN_PAGES.HOME.path && !isUserAuth && <TopBar/>} */}
             <div className={cl.content}>
                 {children}
             </div>
-            <MobileNavbar/>
-            <Footer/>
+            {/* <MobileNavbar/>
+            <Footer/> */}
         </WrapperGap>
     )
 }

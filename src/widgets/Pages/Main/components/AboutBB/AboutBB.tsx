@@ -34,32 +34,35 @@ export const AboutBB = () => {
 
     return (
         <>
-            <section className={cl.AboutBB}>
-                <div className={cl.mainContainer}>
-                    <h3 className={cl.title}>Немного о BBPlace</h3>
-                    <div className={cl.aboutBBColumnContainer}>
-                        {aboutBBTextArray.map(it => (
-                            <p className={cl.aboutBBText}>{it}</p>
-                        ))}
-                        <div className={cl.buttonsContainer}>
-                            <Button
-                                className={isAuth ? cl.fill : ''}
-                                variant={ButtonVariant.BORDER}
-                                color={ButtonColor.Secondary}
-                                size={!is768 ? ButtonSize.Big : ButtonSize.Medium}
-                                title='Подробнее'
-                            />
 
-                            {!isAuth && <Button
-                                className={cl.fill}
-                                variant={ButtonVariant.FILL}
-                                size={!is768 ? ButtonSize.Big : ButtonSize.Medium}
-                                title='Стать частью BBPlace'
-                                onClick={goToRegistration}
-                            />}
+            <section className={cl.AboutBB}>
+            <div className={cl.wrapper}/>
+
+                    <div className={cl.mainContainer}>
+                        <h3 className={cl.title}>Немного о BBPlace</h3>
+                        <div className={cl.aboutBBColumnContainer}>
+                            {aboutBBTextArray.map(it => (
+                                <p className={cl.aboutBBText} key={it}>{it}</p>
+                            ))}
+                            <div className={cl.buttonsContainer}>
+                                <Button
+                                    className={isAuth ? cl.fill : ''}
+                                    variant={ButtonVariant.BORDER}
+                                    color={ButtonColor.Secondary}
+                                    size={!is768 ? ButtonSize.Big : ButtonSize.Medium}
+                                    title='Подробнее'
+                                />
+
+                                {!isAuth && <Button
+                                    className={cl.fill}
+                                    variant={ButtonVariant.FILL}
+                                    size={!is768 ? ButtonSize.Big : ButtonSize.Medium}
+                                    title='Стать частью BBPlace'
+                                    onClick={goToRegistration}
+                                />}
+                            </div>
                         </div>
                     </div>
-                </div>
             </section>
             <HandleSize width={768} set={setIs768} />
         </>

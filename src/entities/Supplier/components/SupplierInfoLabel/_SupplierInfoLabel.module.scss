@@ -1,0 +1,37 @@
+.SupplierCategoryItem {
+    background-color: var(--gray-3);
+    padding: 0px 15px;
+    border-radius: 20px;
+    font-size: var(--font-size-s);
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:hover {
+        background-color: var(--hover);
+        transition: 0.3s;
+    }
+
+    &:active {
+        background-color: var(--border);
+        transition: 0.3s;
+    }
+
+    @media (max-width: 768px) {
+        & span{
+            max-width: 89px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            text-overflow: ellipsis;
+        }
+    }
+}
+
+.vip {
+    background-color: var(--n-yellow-5);
+
+    & span {
+        font-weight: var(--font-weight-med);
+    }
+}

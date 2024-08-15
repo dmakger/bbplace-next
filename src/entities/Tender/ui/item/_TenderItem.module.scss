@@ -23,7 +23,7 @@ $mobile-dimension: 768px;
     flex-direction: column;
     gap: 36px;
     max-width: var(--max-width-2);
-    background-color: var(--white);
+    background-color: var(--background-gray) !important;
     border-radius: 15px;
     border-bottom: 1px solid var(--gray-5);
     padding: 16px;
@@ -44,6 +44,7 @@ $mobile-dimension: 768px;
 
         .info {
             display: flex;
+            align-items: center;
             gap: 20px;
 
             @media (max-width: $mobile-dimension) {
@@ -56,6 +57,7 @@ $mobile-dimension: 768px;
         display: flex;
         flex-direction: column;
         gap: 16px;
+        flex: 1;
 
         .cardTitle {
             display: -webkit-box;
@@ -91,6 +93,7 @@ $mobile-dimension: 768px;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        flex: 0;
 
         .buttonToTender {
             @include desktop;
@@ -114,10 +117,15 @@ $mobile-dimension: 768px;
             .smallSupplier {
                 word-break: break-all;
             }
+            .blockSupplier{
+                background-color: var(--background-gray);
+
+            }
 
             .supplier {
                 justify-content: space-between;
-
+                background-color: var(--background-gray);
+                
                 @media (width > $mobile-dimension) {
                     justify-content: start;
                     gap: 10px;
@@ -150,6 +158,7 @@ $mobile-dimension: 768px;
         font-weight: var(--font-weight-reg);
         font-size: var(--font-size-s);
         color: var(--gray-9);
+        white-space: nowrap;
     }
 
     .text{

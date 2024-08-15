@@ -12,6 +12,8 @@ interface SupplierAutoProps {
     supplier: ISupplier
     view?: ESupplierView
     hasImage?: boolean
+    hasVerifiedStatus?: boolean,
+    hasCountry?: boolean,
     subscribeView?: ESupplierSubscribeViewItem
     navs?: TViewNav[],
     supplierRating?: number,
@@ -22,9 +24,9 @@ interface SupplierAutoProps {
     imageSizes?: IImageSizes
 }
 
-export const SupplierAuto: FC<SupplierAutoProps> = ({ supplier, view, hasImage = false, subscribeView = ESupplierSubscribeViewItem.NONE, navs, supplierRating, classNameSmallSupplier, classNameSupplier, classNameName,classNameVerified, imageSizes }) => {
+export const SupplierAuto: FC<SupplierAutoProps> = ({ supplier, view, hasImage = false, hasVerifiedStatus = false, hasCountry, subscribeView = ESupplierSubscribeViewItem.NONE, navs, supplierRating, classNameSmallSupplier, classNameSupplier, classNameName,classNameVerified, imageSizes }) => {
     const props = { supplier, supplierRating, className: classNameSmallSupplier,classNameVerified, imageSizes }
-    const propsLarge = { ...props, hasImage, subscribeView, navs, className: classNameSupplier, classNameName }
+    const propsLarge = { ...props, hasImage, hasVerifiedStatus, hasCountry, subscribeView, navs, className: classNameSupplier, classNameName }
 
     if (view === ESupplierView.SMALL)
         return <SupplierSmall {...props} />

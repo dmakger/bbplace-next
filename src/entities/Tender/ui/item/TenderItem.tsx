@@ -99,14 +99,15 @@ export const TenderItem = ({
                 <div className={cl.bottomContainer}>
                     <div className={cl.supplierBlock} onClick={handleInfoClick}>
                         <SupplierWNav
-                            className={cl.supplier}
+                            hasVerifiedStatus
+                            hasCountry
+                            className={cl.blockSupplier}
+                            classNameSupplier={cl.supplier}
                             classNameSmallSupplier={cl.smallSupplier}
                             id={ownerId}
                             view={is768 ? ESupplierView.SMALL : ESupplierView.LARGE_GRAY}
                             subscribeView={ESupplierSubscribeViewItem.SMALL}
-                            navs={[
-                                is768 ? ESupplierToChatViewItem.LARGE : ESupplierToChatViewItem.LARGE_WIDE,
-                            ]} />
+                            />
                     </div>
                     <CreatedAt createdAt={createdAt} />
                     <div className={cl.buttonToTender} onClick={handleInfoClick}>

@@ -1,5 +1,9 @@
 .TenderType {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 10px 15px;
+    max-height: 31px;
     border-radius: 20px;
     border: 1px solid var(--gray-9);
     text-align: center;

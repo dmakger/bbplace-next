@@ -15,7 +15,7 @@ export const Product:FC<ProductProps> = ({view=DEFAULT_VIEW_PRODUCT, product, ..
     if (view === EViewProduct.HORIZONTAL)
         return <ProductH product={product} {...rest} />
     if(view === EViewProduct.AT_SUPPLIER_CARD)
-        return <ProductASC slide={product} {...rest}/>
+        return <ProductASC product={product} {...rest}/>
     if(view === EViewProduct.LK_PRODUCT)
         return <ProductLK product={product} {...rest} />
     return <ProductV product={product} {...rest} />
