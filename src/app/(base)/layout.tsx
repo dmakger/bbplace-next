@@ -1,7 +1,6 @@
 "use client"
 
 import cl from './_PublicLayout.module.scss'
-import { Header } from "@/widgets/Header";
 import { MobileNavbar } from "@/widgets/MobileNavbar";
 import { PropsWithChildren, useEffect } from "react";
 import { WrapperGap } from "@/shared/ui/Wrapper/Gap/WrapperGap";
@@ -48,12 +47,12 @@ export default function Layout({ children }: PropsWithChildren<unknown>) {
 
     return (
         <WrapperGap>
-            {/* {pathname === MAIN_PAGES.HOME.path && !isUserAuth && <TopBar/>} */}
+            {pathname === MAIN_PAGES.HOME.path && !isUserAuth && <TopBar/>}
             <div className={cl.content}>
                 {children}
             </div>
-            {/* <MobileNavbar/>
-            <Footer/> */}
+            <MobileNavbar/>
+            <Footer/>
         </WrapperGap>
     )
 }

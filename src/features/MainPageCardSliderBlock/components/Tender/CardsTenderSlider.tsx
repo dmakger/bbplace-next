@@ -5,11 +5,12 @@ import { CardsTenderSliderItem } from "./item/CardsTenderSliderItem"
 
 interface ICardsTenderSlider extends ISliderTTop<ITender>{
     className?: string,
-
+    classNameLine?: string,
+    classNameBlockSupplier?: string
 }
 
-export const CardsTenderSlider = ({...rest}: ICardsTenderSlider) => {
+export const CardsTenderSlider = ({classNameLine, classNameBlockSupplier, ...rest}: ICardsTenderSlider) => {
     return (
-        <SliderT component={CardsTenderSliderItem} {...rest}/>
+        <SliderT component={CardsTenderSliderItem} componentProps={{classNameLine: classNameLine, classNameBlockSupplier: classNameBlockSupplier}}  {...rest}/>
     )
 }

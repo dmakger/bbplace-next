@@ -26,12 +26,16 @@ import Link from "next/link"
 import { MAIN_PAGES } from "@/config/pages-url.config"
 
 interface ITenderItem {
-    tender: ICommonTender
+    tender: ICommonTender,
+    classNameLine?: string,
+    classNameBlockSupplier?: string,
     className?: string
 }
 
 export const TenderItem = ({
     tender,
+    classNameLine,
+    classNameBlockSupplier,
     tender: { id, categoryId, ownerId, createdAt },
     className,
 }: ITenderItem) => {
@@ -58,12 +62,12 @@ export const TenderItem = ({
 
     const goToTheTenderMobile = () => {
         if (is768) {
-            push(`tender/${id}`);
+            push(MAIN_PAGES.CURRENT_TENDER({id: tender.id, type: tender.type}).path);
         }
     };
 
     const goToTheTenderDesktop = () => {
-        push(`tender/${id}`);
+        push(MAIN_PAGES.CURRENT_TENDER({id: tender.id, type: tender.type}).path);
     };
 
     const handleInfoClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -101,7 +105,7 @@ export const TenderItem = ({
                         <SupplierWNav
                             hasVerifiedStatus
                             hasCountry
-                            className={cl.blockSupplier}
+                            className={cls(cl.blockSupplier, classNameBlockSupplier)}
                             classNameSupplier={cl.supplier}
                             classNameSmallSupplier={cl.smallSupplier}
                             id={ownerId}
@@ -116,7 +120,7 @@ export const TenderItem = ({
                                 afterImage={ARROW_ICON} afterProps={{width: 14, height: 14}} />
                     </div>
                 </div>
-                <div className={cl.mobileLine}/>
+                <div className={cls(cl.mobileLine, classNameLine)}/>
             </section>
             <HandleSize width={768} set={setIs768} />
         </>

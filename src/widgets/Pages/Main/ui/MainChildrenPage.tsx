@@ -27,6 +27,9 @@ import { ISupplier } from '@/entities/Supplier/model/supplier.model'
 import { supplierApiListToSupplierList } from '@/entities/Supplier/lib/process.supplier.lib'
 import { CardsSupplierSlider } from '@/features/MainPageCardSliderBlock/components/Supplier/CardsSupplierSlider'
 import { SliderPagingVariant } from '@/shared/data/sliderT.data'
+import { PrimeBannerSlider } from '../components/PrimeBannerSlider/PrimeBannerSlider'
+import { PRIME_MOBILE_SLIDER_LIST, PRIME_SLIDER_LIST } from '../data/mainChildrenPage.data'
+import { HandleSize } from '@/shared/ui/Handle/Size/HandleSize'
 
 export const MainChildrenPage = () => {
 
@@ -34,37 +37,40 @@ export const MainChildrenPage = () => {
     const [productList, setProductList] = useState<IProduct[]>([]);
     const [tenderList, setTenderList] = useState<ITender[]>([]);
     const [supplierList, setSupplierList] = useState<ISupplier[]>([]);
+    const [is768, setIs768] = useState<boolean>(false)
 
     //API
     const { data: currencyList } = CurrencyAPI.useGetCurrenciesQuery();
     const { data: metrics } = MetricsAPI.useGetMetricsQuery();
-    const { data: productsAPI } = ProductAPI.useGetProductsQuery({ limit: 5, page: 3 }, { refetchOnMountOrArgChange: true });
+    const { data: productsAPI } = ProductAPI.useGetProductsQuery({ limit: PRODUCT_ARGS_REQUEST.limit, page: 0 }, { refetchOnMountOrArgChange: true });
     const { data: allTendersAPI, isLoading: isTendersLoading } = TenderAPI.useGetAllTendersQuery({ limit: TENDER_ARGS_REQUEST.limit, page: 0 });
-    const { data: suppliersAPI, isLoading: isSupplierLoading } = SupplierAPI.useGetSuppliersQuery({ limit: SUPPLIER_ARGS_REQUEST.limit, page: 0 }, { refetchOnMountOrArgChange: true })    
+    const { data: suppliersAPI, isLoading: isSupplierLoading } = SupplierAPI.useGetSuppliersQuery({ limit: SUPPLIER_ARGS_REQUEST.limit, page: 0 }, { refetchOnMountOrArgChange: true })
 
     //EFFECT
     useEffect(() => {
         if (productsAPI) setProductList(productApiListToProductList(productsAPI, metrics, currencyList));
         if (allTendersAPI) setTenderList(tenderAPIListToTenderList(allTendersAPI, metrics, currencyList))
         if (suppliersAPI) setSupplierList(supplierApiListToSupplierList(suppliersAPI))
-    }, [productsAPI, allTendersAPI, suppliersAPI, metrics, currencyList]);    
+    }, [productsAPI, allTendersAPI, suppliersAPI, metrics, currencyList]);
 
 
     const mainPageCardSliderBlockArray: IMainPageCardSliderBlockItem[] = [
-        // { title: 'Новые товары', buttonTitle: 'Все товары', buttonHref: MAIN_PAGES.PRODUCTS.path, children: <CardsProductSlider items={productList} gap={20} className={cl.list} classNameItem={cl.productItem} pagingVariant={SliderPagingVariant.Full}/> },
-        // { title: 'Новые тендеры', buttonTitle: 'Все тендеры', buttonHref: MAIN_PAGES.TENDERS.path, children: <CardsTenderSlider items={tenderList} gap={20} className={cl.list} classNameItem={cl.tenderItem}/> },
+        { title: 'Новые товары', buttonTitle: 'Все товары', buttonHref: MAIN_PAGES.PRODUCTS.path, children: <CardsProductSlider items={productList} gap={20} className={cl.list} classNameItem={cl.productItem} pagingVariant={SliderPagingVariant.Full} /> },
+        { title: 'Новые тендеры', buttonTitle: 'Все тендеры', buttonHref: MAIN_PAGES.TENDERS.path, children: <CardsTenderSlider items={tenderList} gap={20} className={cl.list} classNameItem={cl.tenderItem} classNameLine={cl.line} classNameBlockSupplier={cl.blockSupplier} /> },
         { title: 'Надёжные поставщики', buttonTitle: 'Все поставщики', buttonHref: MAIN_PAGES.SUPPLIERS.path, children: <CardsSupplierSlider items={supplierList} gap={20} className={cl.list} classNameItem={cl.supplierItem} /> },
     ]
 
     return (
+        <>
             <Wrapper1280 classNameContent={cl.content}>
-                {/* <div className={cl.topContainer}>
+                <div className={cl.topContainer}>
+                    <PrimeBannerSlider items={!is768 ? PRIME_SLIDER_LIST : PRIME_MOBILE_SLIDER_LIST} className={cl.primeSliderImage} />
                     <PrimeList />
-                </div> */}
+                </div>
                 <div className={cl.articles}>
                     <ArticleForSuppliersOrBuyers variant={EArticleForSuppliersOrBuyersVariants.BUYERS} />
                     <ArticleForSuppliersOrBuyers variant={EArticleForSuppliersOrBuyersVariants.SUPPLIERS} />
-                </div> 
+                </div>
                 {mainPageCardSliderBlockArray.map(it => (
                     <MainPageCardSliderBlock
                         key={it.title}
@@ -75,5 +81,8 @@ export const MainChildrenPage = () => {
                 ))}
                 <AboutBB />
             </Wrapper1280>
+            <HandleSize width={768} set={setIs768} />
+        </>
+
     )
 }

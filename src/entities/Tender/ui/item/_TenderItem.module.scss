@@ -23,13 +23,14 @@ $mobile-dimension: 768px;
     flex-direction: column;
     gap: 36px;
     max-width: var(--max-width-2);
-    background-color: var(--background-gray) !important;
-    border-radius: 15px;
+    background-color: var(--background-2);
+    border-radius: 15px 15px 0 0;
     border-bottom: 1px solid var(--gray-5);
     padding: 16px;
 
     @media (max-width: $mobile-dimension) {
         gap: 15px;
+        padding: 10px;
         border-radius: 0px;
         border-bottom: none;
     }
@@ -38,18 +39,18 @@ $mobile-dimension: 768px;
         display: flex;
         justify-content: space-between;
 
-        @media (max-width: $mobile-dimension) {
-            justify-content: flex-end;
-        }
+        // @media (max-width: $mobile-dimension) {
+        //     justify-content: flex-end;
+        // }
 
         .info {
             display: flex;
             align-items: center;
             gap: 20px;
 
-            @media (max-width: $mobile-dimension) {
-                display: none;
-            }
+            // @media (max-width: $mobile-dimension) {
+            //     display: none;
+            // }
         }
     }
 
@@ -58,6 +59,10 @@ $mobile-dimension: 768px;
         flex-direction: column;
         gap: 16px;
         flex: 1;
+
+        @media (max-width: 768px) {
+            gap: 10px;
+        }
 
         .cardTitle {
             display: -webkit-box;
@@ -70,7 +75,7 @@ $mobile-dimension: 768px;
 
             @media (max-width: $mobile-dimension) {
                 font-size: var(--font-size-reg);
-                margin-top: -33px;
+                -webkit-line-clamp: 1;
             }
         }
 
@@ -118,13 +123,12 @@ $mobile-dimension: 768px;
                 word-break: break-all;
             }
             .blockSupplier{
-                background-color: var(--background-gray);
-
+                background-color: var(--background-2);
             }
 
             .supplier {
                 justify-content: space-between;
-                background-color: var(--background-gray);
+                background-color: var(--background-1);
                 
                 @media (width > $mobile-dimension) {
                     justify-content: start;

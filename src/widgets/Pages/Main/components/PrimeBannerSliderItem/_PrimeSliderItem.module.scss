@@ -1,0 +1,12 @@
+.image{
+    width: 100%;
+    object-position: center;
+    object-fit: fill;
+
+    @media (max-width: 768px) {
+        height: 425px;
+    }
+    @media (max-width: 425px) {
+        height: 320px;
+    }
+}

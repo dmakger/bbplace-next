@@ -11,7 +11,14 @@
     }
 
     .topContainer{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
         width: 100%;
+        @media (max-width: 1024px) {
+            flex-direction: column;
+        }
     }
     
     .articles{
@@ -29,6 +36,11 @@
     }
 }
 
+.primeSliderImage{
+    width: 100%;
+    
+}
+
 .list{
     width: 100%;
     height: 100%;
@@ -38,11 +50,20 @@
 //TENDER
 .tenderItem{
     min-width: 580px;
+    background-color: var(--background-1) !important;
 
     @media (max-width: 768px){
         min-width: 400px;
         border-radius: 15px;
-    }
+    } 
+}
+
+.line{
+    display: none !important;
+}
+
+.blockSupplier{
+    background-color: var(--background-1) !important;
 }
 
 //PRODUCT

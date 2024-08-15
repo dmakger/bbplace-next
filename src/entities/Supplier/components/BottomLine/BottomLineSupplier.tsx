@@ -47,7 +47,7 @@ export const BottomLineSupplier = ({
                         <span>{supplier.country}</span>
                     }
 
-                    {hasVerifiedStatus && verifiedSupplier}
+                    {isVerified(supplier) && verifiedSupplier}
 
                     {/* {
                         supplierRating > 0 &&
