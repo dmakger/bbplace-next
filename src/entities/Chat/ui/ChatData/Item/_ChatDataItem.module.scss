@@ -5,8 +5,24 @@
   background-color: var(--tertiary-surface-low);
   transition: .2s;
 
-  .image {
-    border-radius: 30px;
+  &:hover {
+    background-color: var(--tertiary-surface);
+  }
+
+  &:active {
+    background-color: var(--active-surface);  
+  }
+
+  &.active {
+    background-color: var(--active-surface);  
+  }
+
+  .imageWrapper {
+    width: 50px;
+    height: 50px;
+    .image {
+      border-radius: 30px;
+    }
   }
 
   .middle {
@@ -32,13 +48,23 @@
 
   .right {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: end;
     margin-left: auto;
     gap: 5px;
 
     .createdAt {
       font-size: var(--font-size-sreg);
       color: var(--font-caption);
+    }
+
+    .unread {
+      background-color: var(--primary);
+      padding: 3px 6px;
+      border-radius: 20px;
+      font-size: var(--font-size-xxs);
+      font-weight: var(--font-weight-sb);
+      color: var(--on-primary);
     }
   } 
 }

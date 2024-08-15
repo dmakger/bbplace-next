@@ -20,9 +20,10 @@ export const getDate = (date: Date | string) => {
     return date.toLocaleDateString()
 }
 
+
 export const getDaysDifference = (_dayA: Date | string, _dayB: Date | string) => {
-    const dayA = stringToDate(_dayA)
-    const dayB = stringToDate(_dayB)
+    const dayA: Date = new Date(stringToDate(_dayA))
+    const dayB: Date = new Date(stringToDate(_dayB))
     // Обнуляем время, чтобы избежать влияния на вычисление разницы в днях
     dayA.setHours(0, 0, 0, 0);
     dayB.setHours(0, 0, 0, 0);

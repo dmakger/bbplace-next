@@ -1,6 +1,7 @@
 "use client"
 
 import { FC } from "react"
+import Link from "next/link";
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_ChatDataItem.module.scss'
@@ -11,13 +12,15 @@ import { formatDate } from "@/shared/lib/dateTime.lib";
 import { IListItem } from "@/shared/model/list.model";
 import { ImageAPI } from "@/shared/ui/Image/API/ImageAPI";
 import { getSupplierImage } from "@/entities/Supplier/lib/image.supplier.lib";
-import Link from "next/link";
 import { DASHBOARD_PAGES } from "@/config/pages-url.config";
+
 
 interface ChatDataItemProps extends IListItem<IChatData> {}
 
 export const ChatDataItem:FC<ChatDataItemProps> = ({
     item: dialog,
+    activeId,
+    isActive=false,
     className,
     ...rest
 }) => {
@@ -28,8 +31,10 @@ export const ChatDataItem:FC<ChatDataItemProps> = ({
     const { data: brand } = UserAPI.useGetUserDataQuery(dialog.chat.userA === id ? dialog.chat.userB : dialog.chat.userA)
 
     return (
-        <Link href={DASHBOARD_PAGES.CHATS(dialog.chat.id).path} className={cls(cl.chat, className)}>
-            <ImageAPI src={getSupplierImage(brand?.photoId?.key)} toImage={false} width={50} height={50} quality={100} className={cl.image} />
+        <Link href={DASHBOARD_PAGES.CHATS(dialog.chat.id).path} className={cls(cl.chat, isActive || activeId === dialog.chat.id ? cl.active : '', className)}>
+            <div className={cl.imageWrapper}>
+                <ImageAPI src={getSupplierImage(brand?.photoId?.key)} toImage={false} width={50} height={50} quality={100} className={cl.image} />
+            </div>
             <div className={cl.middle}>
                 <span className={cl.name}>{brand ? brand.brandName : ''}</span>
                 <div className={cl.lastMessage}>
@@ -38,6 +43,9 @@ export const ChatDataItem:FC<ChatDataItemProps> = ({
             </div>
             <div className={cl.right}>
                 <span className={cl.createdAt}>{formatDate(dialog.message.createdAt)}</span>
+                {!dialog.message.isRead && (
+                    <span className={cl.unread}> 1+ </span>
+                )}
             </div>
         </Link>
     )

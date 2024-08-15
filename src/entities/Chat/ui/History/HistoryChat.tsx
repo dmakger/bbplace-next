@@ -47,7 +47,9 @@ export const HistoryChat:FC<HistoryChatProps> = ({messages=[], chatId, className
                 <React.Fragment key={msg.id}>
                     {index === 0 || getDaysDifference(messages[index - 1].createdAt, msg.createdAt) > 0 ? (
                         // <DateMessagesAreaDialog date={msg.createdAt}/>
-                        <span>{getDate(msg.createdAt)}</span>
+                        <div className={cl.date}>
+                            <span>{getDate(msg.createdAt)}</span>
+                        </div>
                     ) : null}
                     <MessageItem item={msg} myId={id} key={msg.id} messageRefs={messageRefs} />
                 </React.Fragment>

@@ -32,6 +32,7 @@ export interface IList<T> extends IListTopLevel<T> {
  */
 export interface IListItem<T> extends TAnyParams {
     item: T,
+    activeId?: number | string
     isActive?: boolean
     // onClick?: TListItemOnClick<T>
     onClick?: Function

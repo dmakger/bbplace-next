@@ -13,6 +13,7 @@ export const ChatDataList:FC<ChatDataListProps> = ({
     className,
     ...rest
 }) => {
+    console.log('qwe rest', rest.activeId)
     return (
         <List component={ChatDataItem} 
               className={cls(cl.list, className)}

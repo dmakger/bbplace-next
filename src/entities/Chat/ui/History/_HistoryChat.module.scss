@@ -8,4 +8,12 @@
     max-height: 610px;
     height: 100%;
     overflow-y: auto;
+
+    .date {
+        display: flex;
+        justify-content: center;
+        font-size: var(--font-size-s);
+        color: var(--font-caption);
+        padding: 28px 0 3px 0;
+    }
 }

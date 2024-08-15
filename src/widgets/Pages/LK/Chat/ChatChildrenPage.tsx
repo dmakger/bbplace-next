@@ -40,7 +40,7 @@ export const ChatChildrenPage: FC<ChatChildrenPageProps> = ({ className }) => {
 
     return (
         <div className={cls(cl.page, className)}>
-            <ChatDataList items={chatDataList} />
+            <ChatDataList items={[...chatDataList, ...chatDataList, ...chatDataList, ...chatDataList]} activeId={chatId ? +chatId : chatId} />
             {chatId && (
                 <HistoryChat messages={messages} chatId={chatId} />
             )}

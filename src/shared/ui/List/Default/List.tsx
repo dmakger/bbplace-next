@@ -27,8 +27,6 @@ export const List = <T extends any>({
         className: cls(componentProps?.className, classNameItem)
     };
 
-    console.log('qwe list', items)
-
     return (
         <div ref={listRef} style={{ gap: `${gap}px` }} className={cls(cl.list, cl[direction], className)} {...rest}>
             {items.map((it, index) => (
@@ -37,6 +35,7 @@ export const List = <T extends any>({
                     item={it}
                     style={style}
                     onClick={() => onClickItem(it, index)}
+                    activeId={activeId}
                     isActive={activeIndex === index || !!(it && typeof it === 'object' && 'id' in it && it.id && activeId === it.id)}
                     key={it && typeof it === 'object' && 'id' in it ? it.id as number : index}
                 />
