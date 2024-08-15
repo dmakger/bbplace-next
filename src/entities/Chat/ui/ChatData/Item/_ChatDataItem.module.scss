@@ -18,9 +18,14 @@
       font-weight: var(--font-weight-med);
     }
     .lastMessage {
+      max-width: 210px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
       .lastMessageText {
         font-size: var(--font-size-sreg);
         color: var(--font-caption);
+        white-space: nowrap;
       }
     }
   }

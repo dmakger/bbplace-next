@@ -20,5 +20,5 @@ export interface IInvokeConnection {
  */
 export interface IConnectionItem {
     on: IOnConnection,
-    invoke: IInvokeConnection,
+    invoke?: IInvokeConnection,
 }

@@ -15,5 +15,6 @@ export const INVOKE_CHATS__PROPS_DEFAULT: IPropsInvokeChats = {
 export const INVOKE_MESSAGES__PROPS_DEFAULT: IPropsInvokeMessages = {
     chatId: -1,
     limit: 100,
+    // limit: 10,
     page: 0
 }

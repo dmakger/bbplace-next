@@ -16,7 +16,8 @@ export const wrapperConnection = (connectionList: IConnectionItem[]): AppThunk =
         connectionList.map(it => {
             const { on, invoke } = it;
             connection.on(on.name, (...args) => { on.handle(...args)(dispatch) });
-            connection.invoke(invoke.name, ...invoke.props);
+            if (invoke)
+                connection.invoke(invoke.name, ...invoke.props);
         });
     } catch (err) {
         console.error('Error while establishing connection: ', err);

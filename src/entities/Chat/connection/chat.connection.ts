@@ -21,6 +21,7 @@ export const ChatSlice = createSlice({
         	state.messages.push(action.payload);
       	},
         messagesReceived: (state, action: PayloadAction<IMessage[]>) => {
+			console.log('qwe messagesReceived', action.payload)
         	state.messages = action.payload
       	},
       	chatsReceived: (state, action: PayloadAction<IChatData[]>) => {

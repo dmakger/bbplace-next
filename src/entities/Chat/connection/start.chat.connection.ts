@@ -1,5 +1,5 @@
 import { AppThunk } from "@/storage";
-import { chatsReceived, messagesReceived } from "./chat.connection";
+import { chatsReceived, messageAddReceived, messagesReceived } from "./chat.connection";
 import { IConnectionItem } from "@/api/connection/model/connection.model";
 import { wrapperConnection } from "@/api/connection/lib/wrapper.connection.lib";
 import { EChatOnConnection } from "../data/on.chat.data";
@@ -37,6 +37,14 @@ export const setupChatConnection = (propsChats?: IPropsInvokeChats, propsMessage
         }
     };
 
+    const handleReceiveMessage = (receivedMessage: any) => async (dispatch: any) => {
+        try {
+            dispatch(messageAddReceived(receivedMessage));
+        } catch (error) {
+            console.error('Error processing received messages:', error);
+        }
+    };
+
     // Определяем IConnectionItem для события ReceiveChats и вызова GetChatsAndLastMessages
     const connectionItems: IConnectionItem[] = getListWithout<IConnectionItem>([
         propsChats ? {
@@ -58,6 +66,12 @@ export const setupChatConnection = (propsChats?: IPropsInvokeChats, propsMessage
                 name: 'GetMessages',
                 props: [propsMessages.chatId, propsMessages.limit, propsMessages.page]
             }
+        } : undefined,
+        propsMessages ? {
+            on: {
+                name: EChatOnConnection.Message,
+                handle: handleReceiveMessage
+            },
         } : undefined,
     ]);
 

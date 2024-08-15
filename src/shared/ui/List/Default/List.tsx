@@ -27,6 +27,8 @@ export const List = <T extends any>({
         className: cls(componentProps?.className, classNameItem)
     };
 
+    console.log('qwe list', items)
+
     return (
         <div ref={listRef} style={{ gap: `${gap}px` }} className={cls(cl.list, cl[direction], className)} {...rest}>
             {items.map((it, index) => (

@@ -20,15 +20,25 @@ export const getDate = (date: Date | string) => {
     return date.toLocaleDateString()
 }
 
-export const getDaysDifference = (dayA: Date, dayB: Date) => {
-    const timeDifference = dayB.getTime() - dayA.getTime()
-    return Math.floor(timeDifference / MILLISECONDS_IN_A_DAY)
+export const getDaysDifference = (_dayA: Date | string, _dayB: Date | string) => {
+    const dayA = stringToDate(_dayA)
+    const dayB = stringToDate(_dayB)
+    // Обнуляем время, чтобы избежать влияния на вычисление разницы в днях
+    dayA.setHours(0, 0, 0, 0);
+    dayB.setHours(0, 0, 0, 0);
+
+    // Вычисляем разницу в миллисекундах
+    const differenceInMilliseconds = dayB.getTime() - dayA.getTime();
+
+    // Конвертируем разницу в миллисекундах в разницу в днях
+    const differenceInDays = differenceInMilliseconds / MILLISECONDS_IN_A_DAY;
+
+    // Возвращаем абсолютное значение разницы в днях
+    return Math.abs(Math.round(differenceInDays));
 }
 
-export const getTime = (day: Date, sep: string = ':') => {
-    // const dayString = day.toString()
-    // return dayString.substring(dayString.indexOf('T') + 1).substring(dayString.indexOf('.'), 0).substring(0, 5)
-    // day.setHours(day.getHours() - 3);
+export const getTime = (_day: Date | string, sep: string = ':') => {
+    const day = typeof _day === 'string' ? new Date(_day) : _day
     const minutes = day.getMinutes()
     let minutesString = String(minutes)
     if (minutes < 10)
@@ -38,4 +48,8 @@ export const getTime = (day: Date, sep: string = ':') => {
 
 const getDayOfWeek = (day: Date) => {
     return DAYS_OF_WEEK[day.getDay()]
+}
+
+const stringToDate = (date: string | Date) => {
+    return typeof date === 'string' ? new Date(date) : date
 }
