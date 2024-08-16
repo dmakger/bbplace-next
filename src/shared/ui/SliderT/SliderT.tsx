@@ -29,7 +29,7 @@ export const SliderT = <T extends any>({
 
     items,
     direction = ListDirection.Row,
-    activeIndex,
+    activeIndex = 0,
     gap = 0,
     ...rest
 }: SliderTProps<T>) => {

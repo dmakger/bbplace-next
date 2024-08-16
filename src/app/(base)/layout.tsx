@@ -50,9 +50,9 @@ export default function Layout({ children }: PropsWithChildren<unknown>) {
             {pathname === MAIN_PAGES.HOME.path && !isUserAuth && <TopBar/>}
             <div className={cl.content}>
                 {children}
+                <Footer/>
             </div>
             <MobileNavbar/>
-            <Footer/>
         </WrapperGap>
     )
 }

@@ -7,7 +7,7 @@
     border-radius: 20px 20px 0 0;
 
     @media (max-width: 768px) {
-        flex-direction: row;
+        flex-direction: row !important;
         overflow-x: scroll;
 
         &::-webkit-scrollbar {

@@ -3,8 +3,13 @@
     flex-direction: column;
     justify-content: center;
     width: 100%;
+    max-width: 295px;
     background-color: var(--background-2);
     border-radius: 20px;
+
+    @media (max-width: 1024px) {
+        max-width: 100%;
+    }
 
     .itemsContainer {
         display: flex;
@@ -20,6 +25,7 @@
                 display: none;
             }
         }
+        
     }
 
     .lastItem {
