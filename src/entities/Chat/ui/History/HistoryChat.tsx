@@ -4,20 +4,19 @@ import React, { FC, useEffect, useRef } from "react"
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_HistoryChat.module.scss'
-import { IMessage } from "../../model/chat.model";
 import { useAppSelector } from "@/storage/hooks";
 import { MessageItem } from "../Message/Item/MessageItem";
-import { getDate, getDaysDifference } from "@/shared/lib/dateTime.lib";
+import { getDateForChat, getDaysDifference } from "@/shared/lib/dateTime.lib";
+import { UserAPI } from "@/entities/Auth/api/auth.api";
 
 interface HistoryChatProps {
-    messages?: IMessage[]
-    chatId: string
     className?: string,
 }
 
-export const HistoryChat:FC<HistoryChatProps> = ({messages=[], chatId, className}) => {
+export const HistoryChat:FC<HistoryChatProps> = ({className}) => {
     // RTK
-    const { id } = useAppSelector(state => state.user);
+    const { id: userId } = useAppSelector(state => state.user);
+    const { messages } = useAppSelector((state) => state.chat);
     
     // REF
     const chatEndRef = useRef<HTMLDivElement>(null);
@@ -25,19 +24,17 @@ export const HistoryChat:FC<HistoryChatProps> = ({messages=[], chatId, className
 
     // EFFECT
     useEffect(() => {
-        if (!chatId || !messages.length) return;
+        if (!messages.length) return;
 
-        // Find the index of the first unread message
         const firstUnreadMessage = messages.find(msg => !msg.isRead);
         const firstUnreadId = firstUnreadMessage?.id;
         if (firstUnreadId && messageRefs.current[firstUnreadId]) {
-            console.log('qwe YEEES')
             messageRefs.current[firstUnreadId]?.scrollIntoView({ behavior: "smooth" });
         } else {
             // Fallback на прокрутку в конец, если все сообщения прочитаны или нет непрочитанных
             chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
         }
-    }, [messages, chatId]);
+    }, [messages]);
 
 
     return (
@@ -46,12 +43,11 @@ export const HistoryChat:FC<HistoryChatProps> = ({messages=[], chatId, className
             {messages.map((msg, index) => (
                 <React.Fragment key={msg.id}>
                     {index === 0 || getDaysDifference(messages[index - 1].createdAt, msg.createdAt) > 0 ? (
-                        // <DateMessagesAreaDialog date={msg.createdAt}/>
                         <div className={cl.date}>
-                            <span>{getDate(msg.createdAt)}</span>
+                            <span>{getDateForChat(msg.createdAt)}</span>
                         </div>
                     ) : null}
-                    <MessageItem item={msg} myId={id} key={msg.id} messageRefs={messageRefs} />
+                    <MessageItem item={msg} myId={userId} key={msg.id} messageRefs={messageRefs} />
                 </React.Fragment>
             ))}
             <div ref={chatEndRef} />

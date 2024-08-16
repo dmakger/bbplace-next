@@ -14,10 +14,21 @@ export const formatDate = (date: string | Date) => {
     return oldDate.toLocaleDateString()
 }
 
-export const getDate = (date: Date | string) => {
+export const dateToString = (date: Date | string) => {
     if (typeof date === "string")
         return new Date(date).toLocaleDateString()
     return date.toLocaleDateString()
+}
+
+
+export const getDateForChat = (date: Date | string) => {
+    const today = new Date()
+    const diff = getDaysDifference(date, today)
+    if (diff === 0)
+        return "Сегодня"
+    if (diff === 1)
+        return "Вчера"
+    return dateToString(date)
 }
 
 

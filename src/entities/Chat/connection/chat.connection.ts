@@ -3,14 +3,14 @@ import { IChat, IChatData, IMessage } from '@/entities/Chat/model/chat.model';
 
 interface ChatState {
 	messages: IMessage[];
-    chats: IChat[];
     chatDataList: IChatData[];
+    currentChat?: IChatData;
 }
   
 const initialState: ChatState = {
 	messages: [],
-	chats: [],
 	chatDataList: [],
+	currentChat: undefined,
 };
   
 export const ChatSlice = createSlice({
@@ -21,15 +21,18 @@ export const ChatSlice = createSlice({
         	state.messages.push(action.payload);
       	},
         messagesReceived: (state, action: PayloadAction<IMessage[]>) => {
-			console.log('qwe messagesReceived', action.payload)
         	state.messages = action.payload
       	},
+
       	chatsReceived: (state, action: PayloadAction<IChatData[]>) => {
             state.chatDataList = action.payload;
         },
+		currentChatReceived: (state, action: PayloadAction<IChatData>) => {
+        	state.currentChat = action.payload
+      	},
     },
 });
   
-export const { messageAddReceived, messagesReceived, chatsReceived } = ChatSlice.actions;
+export const { messageAddReceived, messagesReceived, chatsReceived, currentChatReceived } = ChatSlice.actions;
 
 export const ChatReducer = ChatSlice.reducer;

@@ -7,7 +7,7 @@ import cl from './_MessageItem.module.scss'
 import { IListItem } from "@/shared/model/list.model";
 import { IMessage } from "@/entities/Chat/model/chat.model";
 import { IUser } from "@/entities/Auth/model/auth.model";
-import { formatDate, getDate, getDaysDifference, getTime } from "@/shared/lib/dateTime.lib";
+import { formatDate, dateToString, getDaysDifference, getTime } from "@/shared/lib/dateTime.lib";
 import { ImageSmart } from "@/shared/ui/Image/Smart/ImageSmart";
 import { ImageAPI } from "@/shared/ui/Image/API/ImageAPI";
 import { MESSAGE_STATUS_READ__ICON, MESSAGE_STATUS_SENT__ICON } from "@/shared/ui/Icon/data/messageStatus.data";
