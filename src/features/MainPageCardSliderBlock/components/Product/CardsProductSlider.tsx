@@ -5,7 +5,6 @@ import { IProduct } from "@/entities/Product/model/product.model"
 
 interface ICardsProductSlider extends ISliderTTop<IProduct>{
     className?: string,
-
 }
 
 export const CardsProductSlider = ({...rest}: ICardsProductSlider) => {

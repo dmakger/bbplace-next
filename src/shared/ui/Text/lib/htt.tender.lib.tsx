@@ -20,7 +20,7 @@ export const getDataTenderInfo = ({
     const minOrder = tender.minOrder;
     const minOrderUnits = tender.minOrderUnits?.shortName;
     const price = tender.price;
-    const currency = tender.currency.code ?? '';
+    const currency = tender.currency?.code ?? '';
 
     const CREATED_AT_TENDER_DATA = {
         body: <InfoItem body={<p>{getDate(tender.createdAt)}</p>} heading="От:"/>}

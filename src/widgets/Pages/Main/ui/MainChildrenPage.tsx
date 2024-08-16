@@ -43,15 +43,31 @@ export const MainChildrenPage = () => {
     const { data: currencyList } = CurrencyAPI.useGetCurrenciesQuery();
     const { data: metrics } = MetricsAPI.useGetMetricsQuery();
     const { data: productsAPI } = ProductAPI.useGetProductsQuery({ limit: PRODUCT_ARGS_REQUEST.limit, page: 0 }, { refetchOnMountOrArgChange: true });
-    const { data: allTendersAPI, isLoading: isTendersLoading } = TenderAPI.useGetAllTendersQuery({ limit: TENDER_ARGS_REQUEST.limit, page: 0 });
-    const { data: suppliersAPI, isLoading: isSupplierLoading } = SupplierAPI.useGetSuppliersQuery({ limit: SUPPLIER_ARGS_REQUEST.limit, page: 0 }, { refetchOnMountOrArgChange: true })
+    const { data: saleTendersApi } = TenderAPI.useGetSaleTendersQuery({limit: TENDER_ARGS_REQUEST.limit, page: 0});
+    const { data: purchaseTendersApi } = TenderAPI.useGetPurchaseTendersQuery({limit: TENDER_ARGS_REQUEST.limit, page: 0});
+    const { data: suppliersAPI } = SupplierAPI.useGetSuppliersQuery({ limit: SUPPLIER_ARGS_REQUEST.limit, page: 0 }, { refetchOnMountOrArgChange: true })
 
+    
     //EFFECT
     useEffect(() => {
-        if (productsAPI) setProductList(productApiListToProductList(productsAPI, metrics, currencyList));
-        if (allTendersAPI) setTenderList(tenderAPIListToTenderList(allTendersAPI, metrics, currencyList))
-        if (suppliersAPI) setSupplierList(supplierApiListToSupplierList(suppliersAPI))
-    }, [productsAPI, allTendersAPI, suppliersAPI, metrics, currencyList]);
+        if (productsAPI && metrics && currencyList) 
+            setProductList(productApiListToProductList(productsAPI, metrics, currencyList));
+    }, [productsAPI, metrics, currencyList]);
+
+    useEffect(() => {
+        if (saleTendersApi && purchaseTendersApi && metrics && currencyList) {
+            const allSortedByDateTenders = [
+                ...tenderAPIListToTenderList(saleTendersApi, metrics, currencyList),
+                ...tenderAPIListToTenderList(purchaseTendersApi, metrics, currencyList)
+            ].sort((a, b) => (new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()))
+            setTenderList(allSortedByDateTenders);
+        }
+    }, [saleTendersApi, purchaseTendersApi, metrics, currencyList]);
+
+    useEffect(() => {
+        if(suppliersAPI && metrics && currencyList)
+            setSupplierList(supplierApiListToSupplierList(suppliersAPI))
+    }, [suppliersAPI])
 
 
     const mainPageCardSliderBlockArray: IMainPageCardSliderBlockItem[] = [
@@ -64,7 +80,7 @@ export const MainChildrenPage = () => {
         <>
             <Wrapper1280 classNameContent={cl.content}>
                 <div className={cl.topContainer}>
-                    <PrimeBannerSlider items={!is768 ? PRIME_SLIDER_LIST : PRIME_MOBILE_SLIDER_LIST} className={cl.primeSliderImage} />
+                    <PrimeBannerSlider items={!is768 ? PRIME_SLIDER_LIST : PRIME_MOBILE_SLIDER_LIST}/>
                     <PrimeList />
                 </div>
                 <div className={cl.articles}>

@@ -7,9 +7,7 @@ interface ICardsSupplierSliderItem extends IListItem<ISupplier>{
 
 export const CardsSupplierSliderItem = ({
     item: supplier,
-    className,
-    ...rest
-    
+    className    
 }: ICardsSupplierSliderItem) => {
     return (
        <SupplierItem supplier={supplier} className={className}/>

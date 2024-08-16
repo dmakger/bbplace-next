@@ -13,9 +13,3 @@ export interface ISliderTTop<T> extends IListTopLevel<T> {
 export interface ISliderT<T> extends ISliderTTop<T> {
     component: IList<T>['component']
 }
-
-export interface ISliderImage{
-    id: number,
-    src: string | StaticImport
-}
-

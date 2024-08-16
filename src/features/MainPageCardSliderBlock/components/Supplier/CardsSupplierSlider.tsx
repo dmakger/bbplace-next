@@ -4,8 +4,7 @@ import { CardsSupplierSliderItem } from "./item/CardsSupplierSliderItem"
 import { ISupplier } from "@/entities/Supplier/model/supplier.model"
 
 interface ICardsSupplierSlider extends ISliderTTop<ISupplier>{
-    className?: string,
-
+    className?: string
 }
 
 export const CardsSupplierSlider = ({...rest}: ICardsSupplierSlider) => {

@@ -3,6 +3,7 @@
     flex-direction: column;
     justify-content: center;
     width: 100%;
+    height: 100%;
     max-width: 295px;
     background-color: var(--background-2);
     border-radius: 20px;
@@ -11,9 +12,15 @@
         max-width: 100%;
     }
 
+    @media (max-width: 768px) {
+        border-radius: 0px;
+    }
+
     .itemsContainer {
         display: flex;
         flex-direction: column;
+        flex: 1;
+        height: 100%;
         width: 100%;
         border-radius: 20px;
 
@@ -76,6 +83,7 @@
                 padding: 11.5px 20px;
             }
             @media (max-width: 1024px) {
+                flex: 0.5;
                 width: 728px;
             }
             @media (max-width: 768px) {
@@ -84,10 +92,17 @@
         }
 
         .buttonContainer {
+            flex: 0;
             width: 100%;
             .button{
                 width: 100%;
+                white-space: nowrap;
+                
             }
+            @media (max-width: 1024px) {
+                flex: 0.5;
+            }
+ 
         }
     }
 

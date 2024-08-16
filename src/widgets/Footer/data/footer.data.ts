@@ -1,5 +1,5 @@
 import { DASHBOARD_PAGES, MAIN_PAGES } from "@/config/pages-url.config";
-import { DATA_PROCESSING_DOCUMENT, DATA_PROCESSING_POLICY_DOCUMENT, OFFERT_DOCUMENT } from "@/shared/data/documents.data";
+import { BBP_PRESENTATION_DOCUMENT, DATA_PROCESSING_DOCUMENT, DATA_PROCESSING_POLICY_DOCUMENT, OFFERT_DOCUMENT } from "@/shared/data/documents.data";
 import { IMenuItem } from "@/shared/model/menu.model";
 
 //FOOTER_TOP
@@ -73,6 +73,10 @@ export const DATA_PROCESSING_DOCUMENT_LINK_ITEM: IMenuItem = {
 export const DATA_PROCESSING_POLICY_DOCUMENT_LINK_ITEM: IMenuItem = {
     link: MAIN_PAGES.CURRENT_DOCUMENT(DATA_PROCESSING_POLICY_DOCUMENT).path,
     title: 'Политика в отношении обработки персональных данных',
+}
+
+export const BBP_PRESENTATION_DOCUMENT_LINK_ITEM: IMenuItem = {
+    link: MAIN_PAGES.CURRENT_DOCUMENT(BBP_PRESENTATION_DOCUMENT).path
 }
 
 export const DOCUMENTS_LINK_ITEMS_ARRAY: IMenuItem[] = [

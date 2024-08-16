@@ -45,6 +45,8 @@ export const SliderT = <T extends any>({
     const [currentScrollSize, setCurrentScrollSize] = useState(0)
     const [canScrollPrev, setCanScrollPrev] = useState(false)
     const [canScrollNext, setCanScrollNext] = useState(false)
+    const [currentIndex, setCurrentIndex] = useState(activeIndex); 
+
     
 
     // EFFECT
@@ -101,6 +103,9 @@ export const SliderT = <T extends any>({
 
             setCanScrollPrev(sliderRef.current.scrollLeft > 0);
             setCanScrollNext(sliderRef.current.scrollLeft < maxScrollLeft);
+
+            const newCurrentIndex = Math.round(sliderRef.current!.scrollLeft / (slideWidth + gap));
+            setCurrentIndex(newCurrentIndex + 1);
         };
 
         updateScrollState();
@@ -157,7 +162,7 @@ export const SliderT = <T extends any>({
                       className={cls(cl.slideContainer, className)}
                       {...rest} />
             </div>
-            {hasGalleryCounter && <GalleryCounter activeIndex={activeIndex} listLength={items.length}/>}
+            {hasGalleryCounter && items.length > 1 && <GalleryCounter activeIndex={currentIndex} listLength={items.length}/>}
             
             <ButtonArrowWLine isSecondary={false} axis={Axis.Top} onClick={onNext} sizes={{ width: 20, height: 20 }}
                 className={cls(cl.nextButton, canScrollNext ? cl.visible : '')} />
