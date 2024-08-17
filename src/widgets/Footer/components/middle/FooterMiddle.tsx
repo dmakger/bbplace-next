@@ -11,7 +11,8 @@ import { WHATS_APP_ICON } from '@/shared/ui/Icon/data/whatsApp.data'
 import { cls } from '@/shared/lib/classes.lib'
 import { INSTAGRAM_LINK, LINKED_IN_LINK, TELEGRAM_LINK, VK_LINK, WHATS_APP_LINK } from '@/shared/data/sideLinks.data'
 import { handleCopyLink } from '@/shared/lib/copyLink.lib'
-import { BBP_PRESENTATION_DOCUMENT_LINK_ITEM } from '../../data/footer.data'
+import { MAIN_PAGES } from '@/config/pages-url.config'
+import { BBP_PRESENTATION_DOCUMENT } from '@/shared/data/documents.data'
 
 
 interface IFooterMiddle {
@@ -26,7 +27,7 @@ export const FooterMiddle = ({
 
     const leftButtons = [
         { title: 'Поддержка', beforeImage: SUPPORT_SECONDARY_ICON, beforeProps: { width: 18, height: 18 }, className: cl.button },
-        { title: 'О компании', className: cl.button, link: BBP_PRESENTATION_DOCUMENT_LINK_ITEM.link },
+        { title: 'О компании', className: cl.button, link: MAIN_PAGES.CURRENT_DOCUMENT(BBP_PRESENTATION_DOCUMENT).path },
         { className: cls(cl.button, cl.roundedButton), beforeImage: AT_SIGN_ICON, beforeProps: { width: 18, height: 18 }, onClick: () => handleCopyLink() }
     ];
 

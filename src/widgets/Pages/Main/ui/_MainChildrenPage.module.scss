@@ -1,9 +1,8 @@
-.content{
+.content {
     flex-direction: column;
     gap: 21px;
     width: 100%;
     background-color: var(--background-1);
-    padding: 0 20px;
     overflow: hidden;
 
     @media (max-width: 768px) {
@@ -11,22 +10,24 @@
         padding: 0px;
     }
 
-    .topContainer{
+    .topContainer {
         display: flex;
         justify-content: center;
         align-items: center;
         gap: 20px;
         width: 100%;
         height: 100%;
+
         @media (max-width: 1024px) {
             flex-direction: column;
         }
+
         @media (max-width: 768px) {
             gap: 0px;
         }
     }
-    
-    .articles{
+
+    .articles {
         display: flex;
         justify-content: center;
         gap: 20px;
@@ -41,41 +42,50 @@
     }
 }
 
-.list{
+.list {
     width: 100%;
     height: 100%;
     padding: 20px;
 }
 
 //TENDER
-.tenderItem{
+.tenderItem {
     min-width: 580px;
     background-color: var(--background-1) !important;
 
-    @media (max-width: 768px){
+    @media (max-width: 768px) {
         min-width: 400px;
         border-radius: 15px;
-    } 
+    }
 }
 
-.line{
+.line {
     display: none !important;
 }
 
-.blockSupplier{
+.blockSupplier {
     background-color: var(--background-1) !important;
 }
 
 //PRODUCT
-.productItem{
+.productItem {
     flex-grow: 1;
 }
 
-.supplierItem{
+.supplierItem {
     min-width: 910px;
+    background-color: var(--background-gray);
+    border-bottom: none;
 
-    @media (max-width: 768px){
+    @media (max-width: 768px) {
         min-width: 310px;
     }
 
+    .supplierWNav {
+        background-color: var(--background-1) !important;
+    }
+
+    .baseSupplier {
+        background-color: var(--background-1) !important;
+    }
 }

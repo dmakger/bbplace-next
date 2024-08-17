@@ -27,12 +27,17 @@ import { NavSupplier } from '../../components/Nav/NavSupplier'
 
 interface ISupplierItem {
   supplier: ISupplier,
-  className?: string
+  className?: string,
+  classNameSupplierWNav?: string,
+  classNameBaseSupplier?: string
 }
 
 export const SupplierItem = ({
   supplier,
-  className }: ISupplierItem) => {
+  className,
+  classNameSupplierWNav,
+  classNameBaseSupplier
+ }: ISupplierItem) => {
 
   // STATE
   const [supplierProducts, setSupplierProducts] = useState<IProduct[]>([])
@@ -49,58 +54,16 @@ export const SupplierItem = ({
       setSupplierProducts(productApiListToProductList(supplierProductsAPI))
   }, [supplierProductsAPI])
 
-  // const isButton = supplierProducts && supplierProducts.length > 2;
 
 
   return (
     <>
       <section className={cls(cl.SupplierItem, className)}>
-        {/* <SupplierWNav 
-          classNameName={cl.supplierName}
-          id={supplier.id}
-          navs={[
-            is768 ? ESupplierSubscribeViewItem.NONE : ESupplierSubscribeViewItem.LARGE,
-            is768 ? ESupplierToChatViewItem.NONE : ESupplierToChatViewItem.LARGE_WIDE,
-            is768 ? ESupplierToProfileViewItem.NONE : ESupplierToProfileViewItem.SMALL
-          ]}
-        />
-        <div className={cl.bottomContainer}>
-          <div className={cl.bottomLeftContainer}>
-            {supplier.category?.some(it => it !== null) && <SupplierCategoryItem category={supplier.category} />}
-            <div className={cl.line} />
-            <HeadingToTextTable
-              variant={EHeadingToTextVariants.COLUMN}
-              data={getDataHeadingToTextSupplierTable({
-                variant: IGetDataHeadingToTextSupplierTableVariant.SUPPLIER_PAGE,
-                supplier,
-                supplierRating: supplierRating ?? 0,
-                supplierReviews: supplierReviews?.length ?? 0,
-                isCountryNeeded: true
-              })}
-              classNameMain={cl.table}
-              classNameHeadingItem={cl.headingItem}
-              classNameTextItem={cl.textItem}
-              classNameColumn={cl.columnTable}
-            />
-            <NavSupplier supplierId={supplier.id} views={[
-              is560 ? ESupplierSubscribeViewItem.SMALL : (is768 ? ESupplierSubscribeViewItem.LARGE : ESupplierSubscribeViewItem.NONE),
-              is355 ? ESupplierToChatViewItem.LARGE :  (is768 ? ESupplierToChatViewItem.LARGE_WIDE : ESupplierToChatViewItem.NONE),
-              is445 ? ESupplierToProfileViewItem.SMALL :  (is768 ? ESupplierToProfileViewItem.LARGE : ESupplierToProfileViewItem.NONE)
-            ]} />
-          </div>
-          <div className={cl.bottomRightContainer}>
-            <ScrollSlider slides={supplierProducts} component={ProductASC} classNameSlidesContainer={!isButton ? cl.noButton : ''}>
-              {isButton && <Button variant={ButtonVariant.BACKGROUND_RED_HUGE} href={MAIN_PAGES.CURRENT_SUPPLIER(supplier.id).path}>
-                Все товары
-              </Button>}
-            </ScrollSlider>
-          </div>
-        </div> */}
         <div className={cl.infoContainer}>
           <SupplierWNav
-            className={cl.supplierWNav}
+            className={cls(cl.supplierWNav, classNameSupplierWNav)}
             classNameName={cl.supplierName}
-            classNameSupplier={cl.baseSupplier}
+            classNameSupplier={cls(cl.baseSupplier, classNameBaseSupplier)}
             id={supplier.id}
             hasVerifiedStatus={true}
           />

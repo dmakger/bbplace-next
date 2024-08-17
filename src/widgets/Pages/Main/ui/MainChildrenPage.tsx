@@ -28,7 +28,7 @@ import { supplierApiListToSupplierList } from '@/entities/Supplier/lib/process.s
 import { CardsSupplierSlider } from '@/features/MainPageCardSliderBlock/components/Supplier/CardsSupplierSlider'
 import { SliderPagingVariant } from '@/shared/data/sliderT.data'
 import { PrimeBannerSlider } from '../components/PrimeBannerSlider/PrimeBannerSlider'
-import { PRIME_MOBILE_SLIDER_LIST, PRIME_SLIDER_LIST } from '../data/mainChildrenPage.data'
+import { PRIME_SLIDER_LIST } from '../data/mainChildrenPage.data'
 import { HandleSize } from '@/shared/ui/Handle/Size/HandleSize'
 
 export const MainChildrenPage = () => {
@@ -37,7 +37,7 @@ export const MainChildrenPage = () => {
     const [productList, setProductList] = useState<IProduct[]>([]);
     const [tenderList, setTenderList] = useState<ITender[]>([]);
     const [supplierList, setSupplierList] = useState<ISupplier[]>([]);
-    const [is768, setIs768] = useState<boolean>(false)
+    // const [is768, setIs768] = useState<boolean>(false)
 
     //API
     const { data: currencyList } = CurrencyAPI.useGetCurrenciesQuery();
@@ -65,22 +65,37 @@ export const MainChildrenPage = () => {
     }, [saleTendersApi, purchaseTendersApi, metrics, currencyList]);
 
     useEffect(() => {
-        if(suppliersAPI && metrics && currencyList)
+        if(suppliersAPI)
             setSupplierList(supplierApiListToSupplierList(suppliersAPI))
     }, [suppliersAPI])
 
 
     const mainPageCardSliderBlockArray: IMainPageCardSliderBlockItem[] = [
-        { title: 'Новые товары', buttonTitle: 'Все товары', buttonHref: MAIN_PAGES.PRODUCTS.path, children: <CardsProductSlider items={productList} gap={20} className={cl.list} classNameItem={cl.productItem} pagingVariant={SliderPagingVariant.Full} /> },
-        { title: 'Новые тендеры', buttonTitle: 'Все тендеры', buttonHref: MAIN_PAGES.TENDERS.path, children: <CardsTenderSlider items={tenderList} gap={20} className={cl.list} classNameItem={cl.tenderItem} classNameLine={cl.line} classNameBlockSupplier={cl.blockSupplier} /> },
-        { title: 'Надёжные поставщики', buttonTitle: 'Все поставщики', buttonHref: MAIN_PAGES.SUPPLIERS.path, children: <CardsSupplierSlider items={supplierList} gap={20} className={cl.list} classNameItem={cl.supplierItem} /> },
+        {
+            title: 'Новые товары',
+            buttonTitle: 'Все товары',
+            buttonHref: MAIN_PAGES.PRODUCTS.path,
+            children: <CardsProductSlider items={productList} gap={20} className={cl.list} classNameItem={cl.productItem} pagingVariant={SliderPagingVariant.Full} />
+        },
+        {
+            title: 'Новые тендеры',
+            buttonTitle: 'Все тендеры',
+            buttonHref: MAIN_PAGES.TENDERS.path,
+            children: <CardsTenderSlider items={tenderList} gap={20} className={cl.list} classNameItem={cl.tenderItem} classNameLine={cl.line} classNameBlockSupplier={cl.blockSupplier} />
+        },
+        {
+            title: 'Надёжные поставщики',
+            buttonTitle: 'Все поставщики',
+            buttonHref: MAIN_PAGES.SUPPLIERS.path,
+            children: <CardsSupplierSlider items={supplierList} gap={20} className={cl.list} classNameItem={cl.supplierItem} classNameSupplierWNav={cl.supplierWNav} classNameBaseSupplier={cl.baseSupplier} />
+        }
     ]
 
     return (
-        <>
+      
             <Wrapper1280 classNameContent={cl.content}>
                 <div className={cl.topContainer}>
-                    <PrimeBannerSlider items={!is768 ? PRIME_SLIDER_LIST : PRIME_MOBILE_SLIDER_LIST}/>
+                    <PrimeBannerSlider items={PRIME_SLIDER_LIST}/>
                     <PrimeList />
                 </div>
                 <div className={cl.articles}>
@@ -97,8 +112,5 @@ export const MainChildrenPage = () => {
                 ))}
                 <AboutBB />
             </Wrapper1280>
-            <HandleSize width={768} set={setIs768} />
-        </>
-
     )
 }

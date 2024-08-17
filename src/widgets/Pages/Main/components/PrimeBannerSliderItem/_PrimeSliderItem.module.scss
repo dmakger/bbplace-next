@@ -5,14 +5,6 @@
     object-position: center;
     object-fit: fill;
 
-    @media (max-width: 1024px) {
-        object-fit: contain;
-        height: fit-content;
-    }
-
-    @media (max-width: 768px) {
-        object-fit: scale-down;
-    }
 
     @media (max-width: 425px) {
         height: 100%;
