@@ -1,0 +1,21 @@
+.header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--chat-surface);
+    padding: 15px 20px;
+    border-radius: 20px 20px 0 0;
+    border-bottom: 1px solid var(--block-border);
+
+    .imageWrapper {
+        width: 50px;
+        height: 50px;
+        .image {
+            border-radius: 30px;
+        }
+    }
+
+    .name {
+        font-weight: var(--font-weight-med);
+    }
+}

@@ -13,6 +13,7 @@ import { IListItem } from "@/shared/model/list.model";
 import { ImageAPI } from "@/shared/ui/Image/API/ImageAPI";
 import { getSupplierImage } from "@/entities/Supplier/lib/image.supplier.lib";
 import { DASHBOARD_PAGES } from "@/config/pages-url.config";
+import { getOtherUserIdByChat } from "@/entities/Chat/lib/chat.lib";
 
 
 interface ChatDataItemProps extends IListItem<IChatData> {}
@@ -28,7 +29,7 @@ export const ChatDataItem:FC<ChatDataItemProps> = ({
     const {id} = useAppSelector(state => state.user)
     
     // API
-    const { data: brand } = UserAPI.useGetUserDataQuery(dialog.chat.userA === id ? dialog.chat.userB : dialog.chat.userA)
+    const { data: brand } = UserAPI.useGetUserDataQuery(getOtherUserIdByChat(dialog.chat, id))
 
     return (
         <Link href={DASHBOARD_PAGES.CHATS(dialog.chat.id).path} className={cls(cl.chat, isActive || activeId === dialog.chat.id ? cl.active : '', className)}>
@@ -43,7 +44,7 @@ export const ChatDataItem:FC<ChatDataItemProps> = ({
             </div>
             <div className={cl.right}>
                 <span className={cl.createdAt}>{formatDate(dialog.message.createdAt)}</span>
-                {!dialog.message.isRead && (
+                {!dialog.message.isRead && brand && dialog.message.sender === brand?.id && (
                     <span className={cl.unread}> 1+ </span>
                 )}
             </div>

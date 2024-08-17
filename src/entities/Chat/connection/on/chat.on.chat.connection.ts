@@ -1,7 +1,6 @@
-import { IConnectionItem, IOnConnection } from "@/api/connection/model/connection.model";
+import { IOnConnection } from "@/api/connection/model/connection.model";
 import { EChatOnConnection } from "../../data/on.chat.data";
 import { IChat, IChatData } from "../../model/chat.model";
-import { IPropsInvokeChats } from "../../model/connection.chat.model";
 import { chatsReceived, currentChatReceived } from "../chat.connection";
 
 
@@ -33,7 +32,7 @@ export const CHATS__ON_CONNECTION: IOnConnection = {
 
 
 // =================={ CHAT }==================
-const handleReceiveChatCurrent = (receivedChat: IChatData) => async (dispatch: any) => {
+const handleReceiveChatCurrent = (receivedChat: IChat) => async (dispatch: any) => {
     try {
         dispatch(currentChatReceived(receivedChat));
     } catch (error) {

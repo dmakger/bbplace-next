@@ -33,9 +33,11 @@ export const ChatChildrenPage: FC<ChatChildrenPageProps> = ({ className }) => {
             if (connection.state === HubConnectionState.Disconnected && currentChatId !== chatId) {
                 setCurrentChatId(chatId);
                 const propsMessages = chatId ? { ...INVOKE_MESSAGES__PROPS_DEFAULT, chatId: +chatId } : undefined;
+                const propsGetChatById = chatId ? {chatId: +chatId} : undefined
                 await dispatch(setupChatConnection({
                     propsChats: INVOKE_CHATS__PROPS_DEFAULT,
                     propsMessages,
+                    propsGetChatById,
                 }));
             }
         };
@@ -63,13 +65,11 @@ export const ChatChildrenPage: FC<ChatChildrenPageProps> = ({ className }) => {
         };
     }, [chatId]);
 
-    console.log('qwe currentChat', currentChat)
-
     return (
         <div className={cls(cl.page, className)}>
             <ChatDataList items={chatDataList} activeId={chatId ? +chatId : chatId} />
             {chatId && (
-                <DialogChat chatId={+chatId} />
+                <DialogChat />
             )}
         </div>
     )

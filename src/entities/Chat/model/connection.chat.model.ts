@@ -1,5 +1,8 @@
 import { IUser } from "@/entities/Auth/model/auth.model"
+import { IChat } from "./chat.model"
 
+
+// ============={ CHATS }=============
 /**
  * Аргументы для отправителя чатов
  */
@@ -18,6 +21,14 @@ export interface IPropsInvokeAddChat {
 
 
 /**
+ * Аргументы для получения чата по `chatId`
+ */
+export interface IPropsInvokeGetChatById {
+    chatId: IChat['id']
+}
+
+// ============={ MESSAGES }=============
+/**
  * Аргументы для отправителя сообщений
  */
 export interface IPropsInvokeMessages {
@@ -27,8 +38,12 @@ export interface IPropsInvokeMessages {
 }
 
 
+// ============={ CORE }=============
+
 export interface IPropsChatConnection {
     propsChats?: IPropsInvokeChats, 
+    propsGetChatById?: IPropsInvokeGetChatById
     propsAddChat?: IPropsInvokeAddChat
+
     propsMessages?: IPropsInvokeMessages, 
 }

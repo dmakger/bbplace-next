@@ -4,7 +4,7 @@ import { IChat, IChatData, IMessage } from '@/entities/Chat/model/chat.model';
 interface ChatState {
 	messages: IMessage[];
     chatDataList: IChatData[];
-    currentChat?: IChatData;
+    currentChat?: IChat;
 }
   
 const initialState: ChatState = {
@@ -27,7 +27,7 @@ export const ChatSlice = createSlice({
       	chatsReceived: (state, action: PayloadAction<IChatData[]>) => {
             state.chatDataList = action.payload;
         },
-		currentChatReceived: (state, action: PayloadAction<IChatData>) => {
+		currentChatReceived: (state, action: PayloadAction<IChat>) => {
         	state.currentChat = action.payload
       	},
     },

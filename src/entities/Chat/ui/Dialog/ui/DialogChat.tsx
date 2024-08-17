@@ -1,25 +1,24 @@
+"use client"
+
 import { FC } from "react"
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_DialogChat.module.scss'
-import { DialogChatHeader } from "../components/header/DialogChatHeader";
-import { IChat } from "@/entities/Chat/model/chat.model";
-import { UserAPI } from "@/entities/Auth/api/auth.api";
+import { DialogChatHeader } from "../components/Header/DialogChatHeader";
 import { HistoryChat } from "../../History/HistoryChat";
+import { DialogMessageInput } from "../components/MessageInput/DialogMessageInput";
 
 interface DialogChatProps{
-    chatId: IChat['id']
     className?: string,
 }
 
-export const DialogChat:FC<DialogChatProps> = ({chatId, className}) => {
-    // API
-    // const { data: brand } = UserAPI.useGetUserDataQuery(chatId)
+export const DialogChat:FC<DialogChatProps> = ({className}) => {
 
     return (
         <div className={cls(cl.block, className)}>
             <DialogChatHeader />
             <HistoryChat />
+            <DialogMessageInput />
         </div>
     )
 }

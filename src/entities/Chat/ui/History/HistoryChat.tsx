@@ -23,18 +23,18 @@ export const HistoryChat:FC<HistoryChatProps> = ({className}) => {
     const messageRefs = useRef<{ [key: number]: HTMLDivElement | null }>({});
 
     // EFFECT
-    useEffect(() => {
-        if (!messages.length) return;
+    // useEffect(() => {
+    //     if (!messages.length) return;
 
-        const firstUnreadMessage = messages.find(msg => !msg.isRead);
-        const firstUnreadId = firstUnreadMessage?.id;
-        if (firstUnreadId && messageRefs.current[firstUnreadId]) {
-            messageRefs.current[firstUnreadId]?.scrollIntoView({ behavior: "smooth" });
-        } else {
-            // Fallback на прокрутку в конец, если все сообщения прочитаны или нет непрочитанных
-            chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
-        }
-    }, [messages]);
+    //     const firstUnreadMessage = messages.find(msg => !msg.isRead);
+    //     const firstUnreadId = firstUnreadMessage?.id;
+    //     if (firstUnreadId && messageRefs.current[firstUnreadId]) {
+    //         messageRefs.current[firstUnreadId]?.scrollIntoView({ behavior: "smooth" });
+    //     } else {
+    //         // Fallback на прокрутку в конец, если все сообщения прочитаны или нет непрочитанных
+    //         chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    //     }
+    // }, [messages]);
 
 
     return (
