@@ -14,6 +14,7 @@ import { INITIAL_PERSONAL_ERRORS } from "../../data/editProfile.data"
 import { getFormDataFromForm } from "@/shared/lib/formData.lib"
 import { ISupplierAPI } from "@/entities/Supplier/model/supplier.model"
 import { WrapperWOSubmit } from '@/shared/ui/Wrapper/WOSubmit/ui/WrapperWOSubmit'
+import { TEL_VALID_RULES, isTelValid } from '@/entities/Auth/data/telNEmail.data'
 
 
 interface IPersonalInfoEditProfileForm {
@@ -36,13 +37,17 @@ export const PersonalInfoEditProfileForm = ({
     //STATE
     const [phoneNumber, setPhoneNumber] = useState<string>('')
     const [name, setName] = useState<string>(fullName ?? '')
-    const [uploadedImageList, setUploadedImageList] = useState<string>(userData?.photoId ?? '')
+    const [uploadedImageList, setUploadedImageList] = useState<string[]>([])
 
     useEffect(() => {
         if(userData){
             setPhoneNumber(userData.phoneNumber)
+            userData.photoId && setUploadedImageList([userData.photoId])
         }
-    }, [userData])
+    }, [userData])    
+
+    console.log(uploadedImageList);
+    
    
     
     const [errors, setErrors] = useState<IEditProfilePersonalFormValues>(INITIAL_PERSONAL_ERRORS);
@@ -54,6 +59,20 @@ export const PersonalInfoEditProfileForm = ({
     const handleOnSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         if (!formRef.current) return
+
+        const newErrors = { ...INITIAL_PERSONAL_ERRORS };
+        let hasError = false;
+
+        //PHONE_NUMBER
+        if(!isTelValid(phoneNumber)){
+            newErrors.phoneNumber = TEL_VALID_RULES;
+            hasError = true;
+        } 
+
+        if (hasError) {
+            setErrors(newErrors);
+            return;
+        }
 
         const formData = getFormDataFromForm(formRef.current)
         if (setData) {
@@ -78,18 +97,18 @@ export const PersonalInfoEditProfileForm = ({
                         <Input.Text type={EInputTextType.Email} variant={EInputVariants.RECTANGULAR} value={email} disabled />
                     </WrapperRectangleInput>
 
-                    <WrapperRectangleInput labelText="Номер телефона" errorInputMessage={errors.phoneNumber} isDescriptionTooltip descriptionTooltipText='Ваш контактный номер для быстрой связи.'>
-                        <Input.Text variant={EInputVariants.RECTANGULAR} name="phoneNumber" type={EInputTextType.Text} placeholder="Введите номер" value={phoneNumber} warning={!!errors.phoneNumber} error={!!errors.phoneNumber} />
+                    <WrapperRectangleInput labelText="Номер телефона" isDescriptionTooltip descriptionTooltipText='Ваш контактный номер для быстрой связи.'>
+                        <Input.Text variant={EInputVariants.RECTANGULAR} name="phoneNumber" type={EInputTextType.Tel} placeholder="Введите номер" value={phoneNumber} setValue={setPhoneNumber} warning={!!errors.phoneNumber} error={!!errors.phoneNumber} />
                     </WrapperRectangleInput>
 
-                    <WrapperRectangleInput labelText="Имя" errorInputMessage={errors.fullName} isDescriptionTooltip descriptionTooltipText='Ваше полное ФИО для персонализации профиля.'>
-                        <Input.Text variant={EInputVariants.RECTANGULAR} name="Name" value={name} setValue={setName} placeholder="Введите ФИО" error={!!errors.fullName} warning={!!errors.fullName} />
+                    <WrapperRectangleInput labelText="Имя" isDescriptionTooltip descriptionTooltipText='Ваше полное ФИО для персонализации профиля.'>
+                        <Input.Text variant={EInputVariants.RECTANGULAR} name="Name" value={name} setValue={setName} placeholder="Введите ФИО"  />
                     </WrapperRectangleInput>
 
                     <WrapperRectangleInput labelText={"Фотография"} isDescriptionTooltip descriptionTooltipText="Ваша фотография или логотип компании для узнаваемости.">
                         <Input.Image name={'attachments'} placeholder="Начните вводить"
                             imageList={uploadedImageList} setImageList={setUploadedImageList}
-                            variant={EInputVariants.RECTANGULAR} />
+                            variant={EInputVariants.RECTANGULAR} multiple={false}/>
                     </WrapperRectangleInput>
                 </form>
             </WrapperSubblockForm>

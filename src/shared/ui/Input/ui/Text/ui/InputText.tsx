@@ -12,9 +12,10 @@ import { IIcon } from '@/shared/ui/Icon/model/icon.model';
 import { ImageSmart } from '@/shared/ui/Image/Smart/ImageSmart';
 import { IIconProps } from '@/shared/model/button.model';
 import { ButtonImageSize } from '@/shared/ui/Button/data/button.data';
-import { EMAIL_VALID_RULES, TEL_N_EMAIL_VALID_RULES, isEmailValid, isTelEmailValid } from '@/entities/Auth/data/telNEmail.data';
+import { EMAIL_VALID_RULES, TEL_N_EMAIL_VALID_RULES, TEL_VALID_RULES, isEmailValid, isTelEmailValid, isTelValid } from '@/entities/Auth/data/telNEmail.data';
 import { PASSWORD_VALID_RULES, isPasswordValid } from '@/entities/Auth/data/password.data';
 import { FILL_THE_FIELD } from '@/entities/Auth/data/errorMessages.data';
+import { isValueExceededMaxLength } from '../lib/inputText.lib';
 
 interface InputTextProps extends IWrapperRectangleInputChildren, IInput {
     title?: string
@@ -27,6 +28,7 @@ interface InputTextProps extends IWrapperRectangleInputChildren, IInput {
     beforeImage?: IIcon
     beforeProps?: IIconProps,
     disabled?: boolean,
+    maxLength?: number,
 
     classNameInputText?: string
     classNameTextArea?: string
@@ -57,6 +59,7 @@ export function InputText({
     error = false,
     setError,
     disabled,
+    maxLength,
     setErrorMessageArray,
     // Состояния для отображения статусов
     onMouseEnter = () => { }, onMouseLeave = () => { },
@@ -98,10 +101,13 @@ export function InputText({
     // Функция для проверки значения ввода
     const checkValue = (value: string) => {
 
-        if(!required) return;
-        
-        let isErr = value.trim() === '';
+        let isErr = false;
+        isErr = required && value.trim() === '';
 
+        if(!required && value.trim() === ''){
+            isErr = false
+        }
+    
         if (isErr) {
             setWarning?.(true);
             setIsWarning(true);
@@ -118,9 +124,15 @@ export function InputText({
         }
 
         //TEL_N_EMAIL
-        if(type === 'tel email'){
+        if(type === EInputTextType.Tel_Email){
             isErr = !isTelEmailValid(value);            
             if (isErr) setErrorMessageArray?.([TEL_N_EMAIL_VALID_RULES]);
+        }
+
+        //TEL
+        if(type === EInputTextType.Tel && value.trim() !== ''){            
+            isErr = !isTelValid(value);                        
+            if (isErr) setErrorMessageArray?.([TEL_VALID_RULES]);            
         }
 
         //PASSWORD
@@ -128,12 +140,18 @@ export function InputText({
             isErr = !isPasswordValid(value);
             if (isErr) setErrorMessageArray?.([PASSWORD_VALID_RULES]);
         }
+
+        if(maxLength){
+            isErr = !!isValueExceededMaxLength(value, maxLength)
+            if (isErr) setErrorMessageArray?.([isValueExceededMaxLength(value, maxLength)]);
+        } 
+
         setWarning?.(isErr);
         setIsWarning(isErr);
-        setSuccess?.(!isErr);
-        setIsSuccess(!isErr);
+        required && setSuccess?.(!isErr);
+        required && setIsSuccess(!isErr);
         setError?.(false)
-
+        
     };
 
     // HANDLE
@@ -199,6 +217,7 @@ export function InputText({
                         ref={inputRef}
                         type={type}
                         value={value}
+                        maxLength={maxLength}
                         required={required}
                         placeholder={placeholder}
                         defaultValue={defaultValue}

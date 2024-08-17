@@ -10,13 +10,13 @@ import { EInputVariants } from "@/shared/ui/Input/model/input.model"
 import { Dispatch, FormEvent, SetStateAction, useEffect, useRef, useState } from "react"
 import { useAppSelector } from "@/storage/hooks"
 import { CategoryRecursiveSelect } from "@/features/CategoryRecursiveSelect"
-import { INITIAL_COMPANY_ERRORS } from "../../data/editProfile.data"
-import { IEditProfileCompanyFormValues } from "../../model/editProfile.model"
 import { getFormDataFromForm } from "@/shared/lib/formData.lib"
 import { ISupplierAPI } from "@/entities/Supplier/model/supplier.model"
 import { IOption } from '@/shared/model/option.model'
 import { ERecursiveSelectVariant } from '@/shared/ui/Input/ui/RecursiveSelect/model/recursiveSelect.model'
 import { WrapperWOSubmit } from '@/shared/ui/Wrapper/WOSubmit/ui/WrapperWOSubmit'
+import { EInputTextTypeVariants } from '@/shared/ui/Input/Text/model/text.input.model'
+import { IEditProfileCompanyFormValues } from '../../model/editProfile.model'
 
 interface ICompanyInfoEditProfileForm {
     setData?: Dispatch<SetStateAction<IEditProfileCompanyFormValues | undefined>>
@@ -45,8 +45,6 @@ export const CompanyInfoEditProfileForm = ({
     const [brandName, setBrandName] = useState<string>(brandCompanyName ?? '')
     const [TIN, setTIN] = useState<string>('')
 
-    const [errors, setErrors] = useState<IEditProfileCompanyFormValues>(INITIAL_COMPANY_ERRORS);
-
     //EFFECT
     useEffect(() => {
         if (userData) {
@@ -56,6 +54,9 @@ export const CompanyInfoEditProfileForm = ({
             setDefaultCategoriesId(JSON.parse(userData.category).map((it: IOption) => it.id))
         }
     }, [userData])
+
+    console.log(userData.category);
+    
 
     // REF
     const formRef = useRef<HTMLFormElement>(null)
@@ -94,24 +95,24 @@ export const CompanyInfoEditProfileForm = ({
                         setSelectedCategoriesAsOption={setSelectedCategoriesAsOption}
                         defaultCategoriesId={defaultCategoriesId}
                     />
-                    <WrapperRectangleInput labelText="Краткое описание" errorInputMessage={errors.shortDesc} isDescriptionTooltip descriptionTooltipText='Краткая информация о вашем бизнесе. Не более 60 символов.'>
-                        <Input.Text variant={EInputVariants.RECTANGULAR} name="shortDesc" value={shortDescription} setValue={setShortDescription} type={EInputTextType.Text} placeholder="Кратко опишите деятельность" warning={!!errors.shortDesc} error={!!errors.shortDesc} />
+                    <WrapperRectangleInput labelText="Краткое описание" isDescriptionTooltip descriptionTooltipText='Краткая информация о вашем бизнесе. Не более 60 символов.'>
+                        <Input.Text variant={EInputVariants.RECTANGULAR} name="shortDesc" value={shortDescription} setValue={setShortDescription} type={EInputTextType.Text} placeholder="Кратко опишите деятельность" maxLength={60}/>
                     </WrapperRectangleInput>
 
-                    <WrapperRectangleInput labelText="Полное описание" errorInputMessage={errors.fullDesc} isDescriptionTooltip descriptionTooltipText="Подробная информация о вашей компании и предлагаемых товарах.">
-                        <Input.Text variant={EInputVariants.RECTANGULAR} name="fullDesc" value={fullDescription} setValue={setFullDescription} placeholder="Начните вводить" error={!!errors.fullDesc} warning={!!errors.fullDesc} />
+                    <WrapperRectangleInput labelText="Полное описание" isDescriptionTooltip descriptionTooltipText="Подробная информация о вашей компании и предлагаемых товарах.">
+                        <Input.Text variant={EInputVariants.RECTANGULAR} inputTypeVariant={EInputTextTypeVariants.TEXTAREA} name="fullDesc" value={fullDescription} setValue={setFullDescription} placeholder="Начните вводить" />
                     </WrapperRectangleInput>
 
-                    <WrapperRectangleInput labelText="Юридическое наименование" errorInputMessage={errors.legalName} isDescriptionTooltip descriptionTooltipText='Официальное сокращенное название вашей компании. Пример, ООО "Бибиплейс".'>
-                        <Input.Text variant={EInputVariants.RECTANGULAR} name="legalName" value={legalName} setValue={setLegalName} type={EInputTextType.Text} placeholder="Название как в документах" warning={!!errors.legalName} error={!!errors.legalName} />
+                    <WrapperRectangleInput labelText="Юридическое наименование" isDescriptionTooltip descriptionTooltipText='Официальное сокращенное название вашей компании. Пример, ООО "Бибиплейс".'>
+                        <Input.Text variant={EInputVariants.RECTANGULAR} name="legalName" value={legalName} setValue={setLegalName} type={EInputTextType.Text} placeholder="Название как в документах" />
                     </WrapperRectangleInput>
 
-                    <WrapperRectangleInput labelText="Наименование бренда" errorInputMessage={errors.brandName} isDescriptionTooltip descriptionTooltipText='Название бренда, под которым вы работаете (при наличии)'>
-                        <Input.Text variant={EInputVariants.RECTANGULAR} name="brandName" value={brandName} setValue={setBrandName} type={EInputTextType.Text} placeholder="Введите название" warning={!!errors.brandName} error={!!errors.brandName} />
+                    <WrapperRectangleInput labelText="Наименование бренда" isDescriptionTooltip descriptionTooltipText='Название бренда, под которым вы работаете (при наличии)'>
+                        <Input.Text variant={EInputVariants.RECTANGULAR} name="brandName" value={brandName} setValue={setBrandName} type={EInputTextType.Text} placeholder="Введите название" />
                     </WrapperRectangleInput>
 
-                    <WrapperRectangleInput labelText="ИНН" errorInputMessage={errors.tin} isDescriptionTooltip descriptionTooltipText='Индивидуальный налоговый номер для идентификации компании.'>
-                        <Input.Text variant={EInputVariants.RECTANGULAR} name="tin" value={TIN} setValue={setTIN} type={EInputTextType.Number} placeholder="Введите номер налогоплательщика" warning={!!errors.tin} error={!!errors.tin} />
+                    <WrapperRectangleInput labelText="ИНН" isDescriptionTooltip descriptionTooltipText='Индивидуальный налоговый номер для идентификации компании.'>
+                        <Input.Text variant={EInputVariants.RECTANGULAR} name="tin" value={TIN} setValue={setTIN} type={EInputTextType.Number} placeholder="Введите номер налогоплательщика"/>
                     </WrapperRectangleInput>
                 </form>
             </WrapperSubblockForm>

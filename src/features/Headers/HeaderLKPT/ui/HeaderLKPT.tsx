@@ -53,7 +53,7 @@ export const HeaderLKPT = ({
                     <ButtonArrowWLine
                         className={cl.backButton}
                         axis={Axis.Bottom}
-                        // onClick={backNavigation}
+                        onClick={backNavigation}
                         sizes={{width: 17, height: 17}}
                         {...buttonBackProps}
                     />

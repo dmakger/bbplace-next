@@ -150,9 +150,9 @@ export const InputImage:FC<InputImageProps> = ({
                         <Button variant={ButtonVariant.CONTENT} color={ButtonColor.Negative} size={ButtonSize.Medium}
                                 beforeImage={TRASH_NEGATIVE_TO_WHITE_ICON} 
                                 onClick={handleOnDeleteByIndex}/>
-                        <ControlPanel current={activeIndexImage+1} 
+                        {multiple && <ControlPanel current={activeIndexImage+1} 
                                       onClickPrev={handleOnPrevControlPanel} 
-                                      onClickNext={handleOnNextControlPanel} />
+                                      onClickNext={handleOnNextControlPanel} />}
                     </div>
                     <ImageProduction src={getImage(imageList[activeIndexImage])} 
                                      variant={ImageProductionVariant.Color} 
@@ -174,7 +174,7 @@ export const InputImage:FC<InputImageProps> = ({
             )}
 
             {/* image list */}
-            {imageList.length > 0 && (
+            {imageList.length > 0 && multiple &&  (
                 <div className={cl.bottom}>
                     <InputImageSliderT items={imageList} gap={10} 
                         pagingAmount={3}
