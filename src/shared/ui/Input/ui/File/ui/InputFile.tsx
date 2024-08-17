@@ -104,8 +104,6 @@ export const InputFile:FC<InputFileProps> = ({
         })
     }
 
-    console.log('qwe loading', isUploading)
-
     // Получение загруженных файлов
     const getFileList = async (uploadedFileList: (IResponseFile | null)[]) => {
         const newFileList: IFile[] = []

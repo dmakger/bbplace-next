@@ -10,7 +10,10 @@ import { CHAT__ON_CONNECTION, CHATS__ON_CONNECTION } from "./on/chat.on.chat.con
 /**
  * Настраивает соединение для события ReceiveChats и вызова GetChatsAndLastMessages
  */
-export const setupChatConnection = ({propsChats, propsAddChat, propsGetChatById, propsMessages}: IPropsChatConnection): AppThunk => {
+export const setupChatConnection = ({
+    propsChats, propsAddChat, propsGetChatById, 
+    propsMessages, propsAddMessage
+}: IPropsChatConnection): AppThunk => {
     const onList: IOnConnection[] = [
         CHATS__ON_CONNECTION,
         CHAT__ON_CONNECTION,
@@ -36,6 +39,10 @@ export const setupChatConnection = ({propsChats, propsAddChat, propsGetChatById,
         propsMessages ? {
             name: 'GetMessages',
             props: [propsMessages.chatId, propsMessages.limit, propsMessages.page],
+        } : undefined,
+        propsAddMessage ? {
+            name: 'AddMessage',
+            props: [propsAddMessage],
         } : undefined,
     ])
 

@@ -29,13 +29,23 @@ export interface IPropsInvokeGetChatById {
 
 // ============={ MESSAGES }=============
 /**
- * Аргументы для отправителя сообщений
+ * Аргументы для получения сообщений по `id`
  */
 export interface IPropsInvokeMessages {
     chatId: number
     limit: number
     page: number
 }
+
+/**
+ * Аргументы для отправки сообщений
+ */
+export interface IPropsInvokeAddMessage {
+    chatId: number
+    text: string
+    attachments: string
+}
+
 
 
 // ============={ CORE }=============
@@ -46,4 +56,5 @@ export interface IPropsChatConnection {
     propsAddChat?: IPropsInvokeAddChat
 
     propsMessages?: IPropsInvokeMessages, 
+    propsAddMessage?: IPropsInvokeAddMessage, 
 }

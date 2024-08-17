@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IChat, IChatData, IMessage } from '@/entities/Chat/model/chat.model';
+import { ChatDataList } from '../ui/ChatData/List/ChatDataList';
 
 interface ChatState {
 	messages: IMessage[];
@@ -18,7 +19,19 @@ export const ChatSlice = createSlice({
     initialState,
     reducers: {
 		messageAddReceived: (state, action: PayloadAction<IMessage>) => {
-        	state.messages.push(action.payload);
+			const newMessage = action.payload
+        	state.messages.push(newMessage);  
+			const chatIndex = state.chatDataList.findIndex(
+                (chatData) => chatData.chat.id === newMessage.chatId
+            );
+            if (chatIndex !== -1) {
+                const updatedChatData = {
+                    ...state.chatDataList[chatIndex],
+                    message: newMessage,
+                };
+                state.chatDataList.splice(chatIndex, 1);
+                state.chatDataList.unshift(updatedChatData);
+            }
       	},
         messagesReceived: (state, action: PayloadAction<IMessage[]>) => {
         	state.messages = action.payload
