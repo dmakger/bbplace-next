@@ -148,13 +148,13 @@ export const TabPageForm = ({
                 </WrapperGrayButton>
             ) : (
                 <CategoryRecursiveSelect
-                    variant={ERecursiveSelectVariant.MULTIPLE}
-                    buttonWrapperText="Скачать шаблон"
-                    labelText="1. Генерация шаблона"
-                    classNameLabel={cl.label}
-                    setSelectedCategoriesId={setSelectedCategoriesId}
-                    onClickBellowButton={downloadExcelTemplate}
-                />
+                        variant={ERecursiveSelectVariant.MULTIPLE}
+                        buttonWrapperText="Скачать шаблон"
+                        labelText="1. Генерация шаблона"
+                        classNameLabel={cl.label}
+                        setSelectedCategoriesId={setSelectedCategoriesId}
+                        onClickBellowButton={downloadExcelTemplate} 
+                        defaultCategoriesId={[]}/>
             )}
 
             <WrapperRectangleInput

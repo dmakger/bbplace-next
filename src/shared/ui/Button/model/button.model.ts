@@ -22,6 +22,10 @@ export enum ButtonVariant{
     TONAL = "tonal new",
     BORDER = "border new",
     CONTENT = "content new",
+    BLANK = "blank new",
+
+    
+    LINK = 'link',
 
     DEFAULT = 'default',
     CLEAR = 'clear',
@@ -36,4 +40,19 @@ export enum ButtonVariant{
     W_ARROW_RED = 'w-arrow-red',
     BACKGROUND_GRAY = 'background-gray',
     BORDERED_BLUE = 'bordered-blue'
+}
+
+
+export enum EMenuButtonVariant{
+    LINK = 'link',
+    LOCALIZATION = 'localization',
+    PROFILE_BUTTONS = 'profile-buttons'
+}
+
+export interface IMenuButton {
+    title?: string
+    className?: string
+    variant?: EMenuButtonVariant
+    link?: string,
+    notificationCounter?: string,
 }

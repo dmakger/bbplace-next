@@ -1,4 +1,6 @@
-import { FC } from "react"
+"use client"
+
+import { FC, useMemo } from "react"
 import Image from 'next/image'
 import cl from './_ImageAPI.module.scss'
 import { getImage } from "@/shared/lib/image.lib"
@@ -8,6 +10,7 @@ import defaultImageJPG from '@/shared/assets/img/default-image.jpg'
 
 interface ImageAPIProps {
     src: string
+    toImage?: boolean
     alt?: string
     width?: number
     height?: number
@@ -16,11 +19,17 @@ interface ImageAPIProps {
     className?: string,
 }
 
-export const ImageAPI: FC<ImageAPIProps> = ({ src, alt, width = 40, height = 40, priority = true, quality=80, className }) => {
+export const ImageAPI: FC<ImageAPIProps> = ({ src, toImage=true, alt, width = 40, height = 40, priority = true, quality=80, className }) => {
+    // MEMO
+    const image = useMemo(() => {
+        return src ? (toImage ? getImage(src) : src) : defaultImageJPG 
+    }, [src, toImage])
+
     return (
         <Image loader={() => src}
             unoptimized={true}
-            src={src ? getImage(src) : defaultImageJPG}
+            // src={src ? getImage(src) : defaultImageJPG}
+            src={image}
             priority={priority}
             alt={alt ? alt : src}
             width={width ?? 100}

@@ -20,14 +20,30 @@
 
     .option {
         display: flex;
+        position: relative;
         transition: 0.3s ease-in-out;
         cursor: pointer;
+
+        .caption {
+            position: absolute;
+            top: 8px;
+            left: 25px;
+            font-size: var(--font-size-xxxs);
+            transition: 0.3s ease-in-out;
+
+            @media (max-width:768px) {
+                top: 4px;
+                left: 15px;
+                font-size: var(--font-size-xxxxs);
+            }
+        }
 
         & input {
             display: none;
         }
 
         & label {
+
             width: fit-content;
             font-size: var(--font-size-sm);
             font-weight: var(--font-weight-med);
@@ -36,6 +52,7 @@
             .optionQuantity {
                 margin-left: 5px;
                 color: var(--font-caption-sub);
+
             }
 
             @media (max-width: 768px) {
@@ -163,10 +180,13 @@
             border-top-left-radius: 20px;
         }
 
-
         .option {
             border-radius: 20px 20px 0 0;
             padding: 18px 25px;
+
+            .caption {
+                color: var(--secondary);
+            }
 
             & label {
                 color: var(--secondary);
@@ -184,6 +204,10 @@
                 background-color: var(--secondary-hovered);
                 transition: 0.3s ease-in-out;
 
+                .caption {
+                    color: var(--background-2);
+                }
+
                 & label {
                     color: var(--background-2);
                     cursor: inherit;
@@ -199,6 +223,10 @@
 
         .choosen {
             background-color: var(--background-2);
+
+            .caption {
+                color: var(--font) !important;
+            }
 
             & label {
                 color: var(--font);

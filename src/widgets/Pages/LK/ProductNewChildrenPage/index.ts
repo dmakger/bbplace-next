@@ -1,0 +1,1 @@
+export {ProductNewChildrenPage} from './ui/ProductNewChildrenPage'

@@ -1,7 +1,7 @@
 import {createApi} from "@reduxjs/toolkit/query/react";
 import {fetchBaseQuery} from "@reduxjs/toolkit/query";
 import { options } from "@/api/interceptors";
-import { IArgsRequest } from "@/api/model/request.model.api";
+import { IArgsRequest } from "@/api/api/model/request.model.api"
 import { getURL } from "@/api/request";
 import { ETenderType, IPurchaseTender, ISaleTender, ITender, ITenderAPI, ITenderByTwoObjectsAPI } from "../model/tender.model";
 import { getArgsTender } from "../lib/args.tender.lib";

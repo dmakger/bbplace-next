@@ -1,7 +1,7 @@
 import { IAttachment } from "@/shared/model/attachment.model"
 import { ALL_FORMATS, FILE_FORMAT_IMAGES, FILE_FORMAT_TO_CHILD, FileFormat } from "../data/file.data"
 import { EFileName, IFile, IFileName } from "../model/file.model"
-import { getDate, getTime } from "@/shared/lib/dateTime.lib"
+import { dateToString, getTime } from "@/shared/lib/dateTime.lib"
 
 // Returns an array of string with a file format equal to [formatFilter]    
 export const filterFilesByFormat = (files: string[] | IFile[] | IAttachment[], formatFilter: FileFormat): string[] | IFile[] => {
@@ -92,5 +92,5 @@ export const getOnlyFormatByFile = (file?: string) => {
 
 export const getFileName = ({text='', fullName='', type=EFileName.EXCEL}: IFileName) => {
     const today = new Date();
-    return `${getDate(today)} - ${text}. ${fullName} ${getTime(today, '-')}.${type}` 
+    return `${dateToString(today)} - ${text}. ${fullName} ${getTime(today, '-')}.${type}` 
 }

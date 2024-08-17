@@ -1,0 +1,60 @@
+.FooterTopColumn {
+    width: 100%;
+    padding: 40px 0 30px;
+    border-right: 1px solid var(--block-border);
+
+    @media (max-width: 768px) {
+        padding: 0;
+        border-right: none;
+    }
+
+    .desktop {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        .title {
+            font-weight: var(--font-weight-med);
+            padding: 0 40px;
+        }
+
+        @media (max-width: 768px) {
+            display: none;
+        }
+    }
+
+    .mobile {
+
+        @media (min-width: 768px) {
+            display: none;
+        }
+
+        .bottomChild {
+            padding: 0 !important;
+        }
+
+        .mobileButtonTitle {
+            background-color: var(--secondary-surface);
+            border: none;
+            font-size: var(--font-size-s);
+            font-weight: var(--font-weight-med);
+        }
+
+        .modalTitle {
+            font-weight: var(--font-weight-med);
+        }
+    }
+
+    .linksContainer {
+        .menuLink {
+            padding: 10px 40px !important;
+            border-bottom: none !important;
+            font-size: var(--font-size-reg);
+            text-align: left;
+
+            @media (max-width: 768px) {
+                font-size: var(--font-size-xs);
+            }
+        }
+    }
+}

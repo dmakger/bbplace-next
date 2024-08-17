@@ -10,6 +10,8 @@ import { cls } from '@/shared/lib/classes.lib'
 import { ButtonColor, ButtonSize, ButtonType } from '../model/button.model'
 import { ButtonImageSize } from '../data/button.data'
 import { getImageSizeBySize } from '../lib/button.lib'
+import { ENotificationVariants } from '../../Notification/model/notification.model'
+import { Notification } from '../../Notification'
 
 export interface IButton {
     variant?: ButtonVariant
@@ -17,20 +19,26 @@ export interface IButton {
     type?: ButtonType
     size?: ButtonSize
 
-    ref?: RefObject<HTMLButtonElement>
+    ref?: RefObject<HTMLButtonElement>,
+
+    notificationVariant?: ENotificationVariants,
 
     title?: string,
-    href?: string
+    titleLoading?: string,
+    href?: string,
+    linkTarget?: string,
 
-    beforeImage?: IIcon
+    beforeImage?: IIcon,
     beforeProps?: IIconProps
-    afterImage?: IIcon
+    afterImage?: IIcon,
+    afterText?: string,
     afterProps?: IIconProps
     
     active?: boolean
     success?: boolean,
     disabled?: boolean
     hovered?: boolean
+    pressed?: boolean,
     loading?: boolean
     noTranslation?: boolean
 
@@ -41,21 +49,26 @@ export interface IButton {
     children?: ReactNode
     className?: string
     classNameLink?: string
-    classNameText?: string
+    classNameText?: string,
+    classNameAfterText?: string,
     classNameTextHovered?: string
     classNameTextPressed?: string
     classNameTextDisabled?: string
+    classNameTextLoading?: string
 }
 
 export const Button = ({
     variant = ButtonVariant.BORDERED_RED_WIDE, color=ButtonColor.Primary, type = ButtonType.Button, size=ButtonSize.DefaultSize,
     ref,
-    title, href,
-    beforeImage, beforeProps, afterImage, afterProps, 
-    active=false, success=false, disabled=false, hovered, loading=false, noTranslation=false,
+    notificationVariant=ENotificationVariants.NONE,
+    titleLoading,
+    title, href, linkTarget,
+    beforeImage, beforeProps, afterImage, afterText, afterProps, 
+    active=false, success=false, disabled=false, hovered, pressed, loading=false, noTranslation=false, 
+
     onClick=()=>{}, onMouseEnter=()=>{}, onMouseLeave=()=>{},
     children, className, classNameLink, 
-    classNameText, classNameTextHovered, classNameTextPressed, classNameTextDisabled,
+    classNameText, classNameAfterText, classNameTextHovered, classNameTextPressed, classNameTextDisabled, classNameTextLoading
 }: IButton) => {
 
     // STYLES
@@ -96,11 +109,22 @@ export const Button = ({
             setIsHovered(hovered)
     }, [hovered])
 
+    useEffect(() => {
+        if (pressed !== undefined)
+            setIsPressed(pressed)
+    }, [pressed])
+
     const html =  (
-        <button type={type} ref={ref} disabled={disabled || loading} 
+        <button type={type} ref={ref} disabled={disabled}
                 onClick={e => onClick(e)} onMouseEnter={handleOnMouseEnter} onMouseLeave={handleOnMouseLeave} 
                 onMouseDown={handleOnMouseDown} onMouseUp={handleOnMouseUp}
-                className={cls(cl.button, cl[classes[0]], cl[color], cl[size], active ? cl.active : '', classes.length > 0 && classes[1] === 'new' ? cl.new : cl.old, className)}>
+                className={cls(
+                    cl.button, 
+                    cl[classes[0]], cl[color], cl[size], 
+                    active ? cl.active : '', loading ? cl.loading : '', !title ? cl.noTitle : '',
+                    classes.length > 0 && classes[1] === 'new' ? cl.new : cl.old, 
+                    className
+                )}>
             {beforeImage &&
                 <ImageSmart {...beforeProps} icon={beforeImage} 
                             width={beforeProps && beforeProps.width ? beforeProps.width: sizeImage} 
@@ -115,7 +139,8 @@ export const Button = ({
                     isHovered ? classNameTextHovered : '',
                     isPressed ? classNameTextPressed : '',
                     disabled ? classNameTextDisabled : '',
-                )}>{title}</span>
+                    loading ? classNameTextLoading : '',
+                )}>{loading ? titleLoading ?? title : title}</span>
             }
             {afterImage &&
                 <ImageSmart {...afterProps} icon={afterImage}
@@ -124,7 +149,10 @@ export const Button = ({
                             isActive={active && !success} isHovered={isHovered} isSuccess={success} isPressed={isPressed} isDisabled={disabled} isLoading={loading}
                             className={cls(cl.image, afterProps?.className)} />
             }
+            {afterText &&
+                <span className={classNameAfterText}>{afterText}</span>}
             {children}
+            <Notification variant={notificationVariant}/>
         </button>
     )
 
@@ -132,7 +160,7 @@ export const Button = ({
     if (!href)
         return html
     return (
-        <Link href={disabled ? '' : href} className={classNameLink}>{html}</Link>
+        <Link href={disabled ? '' : href} className={classNameLink} target={linkTarget}>{html}</Link>
     )
 }
 

@@ -2,13 +2,13 @@ import { IOption } from "@/shared/model/option.model";
 
 /**
  * ##### ФОРМА ТОВАРА  
- * Данные из группы `Основная информация`
+ * Данные из группы `Дополнительная информация`
  */
 export interface IPropsAdditionalInfoProductForm {
-    packageType: string
-    delivery: string[]
-    paymentConditions: string
-    deliveryTime: string
+    packageType?: string
+    delivery: IOption[]
+    paymentConditions?: string
+    deliveryTime?: string
 
     packagingLength: number
     packagingWidth: number
@@ -16,15 +16,15 @@ export interface IPropsAdditionalInfoProductForm {
 
     vat: boolean
     isHasTestProbe: boolean
-    warehouses: string[]
+    warehouses: IOption[]
     brand: string
     gender: IOption
 
     expirationDate: string
     expirationDateMetric: IOption
-    weight: number
-    weightMetric: IOption
-    features: string[]
+    weight?: number
+    weightMetric?: IOption
+    features: IOption[]
     composition: string
-    equipment: string[]
+    equipment: IOption[]
 }

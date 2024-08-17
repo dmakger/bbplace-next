@@ -1,3 +1,5 @@
+import {Action, combineReducers, configureStore, ThunkAction} from "@reduxjs/toolkit";
+
 import { UserAPI } from "@/entities/Auth/api/auth.api";
 import { UserReducer } from "@/entities/Auth/storage/auth.storage";
 import { FavouriteAPI } from "@/entities/Favourite/api/favourite.api";
@@ -13,9 +15,11 @@ import { MetricsReducer } from "@/entities/Metrics/storage/metrics.metrics.stora
 import { ProductAPI } from "@/entities/Product/api/product.api";
 import { ReviewAPI } from "@/entities/Review/api/review.api";
 import { SupplierAPI } from "@/entities/Supplier/api/supplier.api";
+import { SupportAPI } from "@/entities/Support";
 import { TenderAPI } from "@/entities/Tender/api/tender.api";
 import { PTCReducer } from "@/features/storage/PTC/ptc.storage";
-import {combineReducers, configureStore} from "@reduxjs/toolkit";
+import { ChatReducer } from "@/entities/Chat/connection/chat.connection";
+
 
 const rootReducer = combineReducers({
     categoryList: CategoryReducer,
@@ -24,6 +28,7 @@ const rootReducer = combineReducers({
     countryList: CountryReducer,
     ptc: PTCReducer,
     user: UserReducer,
+    chat: ChatReducer,
 
     [UserAPI.reducerPath]: UserAPI.reducer,
     [FileAPI.reducerPath]: FileAPI.reducer,
@@ -38,6 +43,8 @@ const rootReducer = combineReducers({
     [CountryAPI.reducerPath]: CountryAPI.reducer,
 
     [FavouriteAPI.reducerPath]: FavouriteAPI.reducer,
+
+    [SupportAPI.reducerPath]: SupportAPI.reducer,
 })
 
 export const setupStore = () => {
@@ -60,6 +67,8 @@ export const setupStore = () => {
                 CountryAPI.middleware,
                 
                 FavouriteAPI.middleware,
+
+                SupportAPI.middleware
             ),
     })
 }
@@ -68,3 +77,4 @@ export const setupStore = () => {
 export type RootState = ReturnType<typeof rootReducer>
 export type AppStore = ReturnType<typeof setupStore>
 export type AppDispatch = AppStore['dispatch']
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>;

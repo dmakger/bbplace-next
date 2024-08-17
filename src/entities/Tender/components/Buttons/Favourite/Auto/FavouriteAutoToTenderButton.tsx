@@ -11,6 +11,7 @@ interface FavouriteAutoToTenderButtonProps{
     variantFavourite?: ButtonFavouriteProps['variantFavourite']
     isSubscribed?: boolean
     className?: string,
+    tenderType: string
 }
 
 export const FavouriteAutoToTenderButton:FC<FavouriteAutoToTenderButtonProps> = ({ view=ETenderFavouriteViewItem.NONE, ...rest}) => {

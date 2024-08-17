@@ -1,8 +1,8 @@
 'use client'
+import { ChangeEvent, useEffect, useRef, useState, KeyboardEvent } from 'react';
 
-import { cls } from '@/shared/lib/classes.lib'
+import { cls } from '@/shared/lib/classes.lib';
 import cl from './_InputText.module.scss';
-import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { WrapperTitleInput } from '@/shared/ui/Wrapper/Title/Input/WrapperTitleInput';
 import { EInputTextType, EInputTextVariant } from '../data/text.input.data';
 import { IWrapperRectangleInputChildren } from '@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model';
@@ -11,17 +11,19 @@ import { EInputTextTypeVariants } from '../../../Text/model/text.input.model';
 import { IIcon } from '@/shared/ui/Icon/model/icon.model';
 import { ImageSmart } from '@/shared/ui/Image/Smart/ImageSmart';
 import { IIconProps } from '@/shared/model/button.model';
-import { ButtonImageSize } from '@/shared/ui/Button/data/button.data'
-import { EMAIL_VALID_RULES, isEmailValid } from '@/entities/Auth/data/email.data'
-import { PASSWORD_VALID_RULES, isPasswordValid } from '@/entities/Auth/data/password.data'
+import { ButtonImageSize } from '@/shared/ui/Button/data/button.data';
+import { EMAIL_VALID_RULES, TEL_N_EMAIL_VALID_RULES, isEmailValid, isTelEmailValid } from '@/entities/Auth/data/telNEmail.data';
+import { PASSWORD_VALID_RULES, isPasswordValid } from '@/entities/Auth/data/password.data';
+import { FILL_THE_FIELD } from '@/entities/Auth/data/errorMessages.data';
 
 interface InputTextProps extends IWrapperRectangleInputChildren, IInput {
     title?: string
     variantInputText?: EInputTextVariant
-    defaultValue?: string,
+    defaultValue?: string | number,
     type?: EInputTextType,
     inputTypeVariant?: EInputTextTypeVariants
-
+    value?: string
+    setValue?: Function
     beforeImage?: IIcon
     beforeProps?: IIconProps,
     disabled?: boolean,
@@ -31,6 +33,10 @@ interface InputTextProps extends IWrapperRectangleInputChildren, IInput {
 
     onMouseEnter?: Function
     onMouseLeave?: Function
+    onKeyDown?: (e: KeyboardEvent<HTMLTextAreaElement>) => void
+
+    rows?: number
+    refTextArea?: React.RefObject<HTMLTextAreaElement>
 }
 
 export function InputText({
@@ -38,6 +44,8 @@ export function InputText({
     inputTypeVariant = EInputTextTypeVariants.TEXT,
     variantInputText = EInputTextVariant.DEFAULT,
     title,
+    value,
+    setValue,
     name, placeholder,
     required = false,
     className,
@@ -46,7 +54,7 @@ export function InputText({
     type = EInputTextType.Text,
     beforeImage, beforeProps,
     onChange = () => { }, onChangeEvent = () => { },
-    defaultValue = '',
+    defaultValue,
     success, setSuccess, warning, setWarning,
     setInputValueLength,
     size,
@@ -56,6 +64,10 @@ export function InputText({
     setErrorMessageArray,
     // Состояния для отображения статусов
     onMouseEnter = () => { }, onMouseLeave = () => { },
+    onKeyDown=()=>{},
+
+    rows,
+    refTextArea: refOutTextArea,
     ...rest }: InputTextProps) {
 
     //STATE
@@ -68,7 +80,7 @@ export function InputText({
     const inputRef = useRef<HTMLInputElement>(null);
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
-    // Эффект для обработки ошибок
+    //EFFECT
     useEffect(() => {
         if (error) {
             // Ошибка обнаружена
@@ -83,8 +95,19 @@ export function InputText({
         }
     }, [error]);
 
+
+    useEffect(() => {
+        if(value?.trim() === ''){
+            setIsSuccess(false)
+            setSuccess?.(false);
+        }  
+    }, [value])
+
     // Функция для проверки значения ввода
     const checkValue = (value: string) => {
+
+        if(!required) return;
+        
         let isErr = value.trim() === '';
 
         if (isErr) {
@@ -92,7 +115,7 @@ export function InputText({
             setIsWarning(true);
             setSuccess?.(false);
             setIsSuccess(false);
-            setErrorMessageArray?.(['Пожалуйста, заполните это поле']);
+            setErrorMessageArray?.([FILL_THE_FIELD]);
             return;
         }
 
@@ -100,6 +123,12 @@ export function InputText({
         if (type === EInputTextType.Email) {
             isErr = !isEmailValid(value);
             if (isErr) setErrorMessageArray?.([EMAIL_VALID_RULES]);
+        }
+
+        //TEL_N_EMAIL
+        if(type === 'tel email'){
+            isErr = !isTelEmailValid(value);            
+            if (isErr) setErrorMessageArray?.([TEL_N_EMAIL_VALID_RULES]);
         }
 
         //PASSWORD
@@ -123,6 +152,7 @@ export function InputText({
     const handleOnChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const value = e.target.value
         setInputValueLength?.(value.length)
+        setValue?.(value)
         checkValue(value)
         onChange(value)
         onChangeEvent(e)
@@ -176,6 +206,7 @@ export function InputText({
                         name={name}
                         ref={inputRef}
                         type={type}
+                        value={value}
                         required={required}
                         placeholder={placeholder}
                         defaultValue={defaultValue}
@@ -196,12 +227,15 @@ export function InputText({
                         classNameTextArea
                     )}
                     name={name}
-                    ref={textAreaRef}
+                    value={value}
+                    ref={refOutTextArea ?? textAreaRef}
                     defaultValue={defaultValue}
                     required={required}
                     placeholder={placeholder}
+                    rows={rows}
                     onChange={handleOnChange}
                     onBlur={(e) => checkValue(e.target.value)}
+                    onKeyDown={onKeyDown}
                     {...rest}
                 />
             )}

@@ -1,0 +1,42 @@
+.Notification {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    height: 15px;
+    border-radius: 50%;
+}
+
+.online,
+.dot {
+    width: 15px;
+    height: 15px;
+    outline: 2px solid var(--background-2);
+
+}
+
+.online {
+    background-color: var(--online);
+}
+
+.dot {
+    background-color: var(--primary);
+}
+
+.counter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 16px;
+    outline: 1px solid var(--background-2);
+    background-color: var(--primary);
+
+    & span {
+        font-size: var(--font-size-xxxxs);
+        color: var(--on-primary);
+        font-weight: var(--font-weight-sb);
+    }
+}
+
+.none {
+    display: none;
+}

@@ -4,7 +4,7 @@ import {skipToken} from "@reduxjs/toolkit/query";
 import { IFavouriteRequest } from "../model/favourite.model";
 import { FavouriteAction } from "../data/favourite.data"
 import { FavouriteAPI } from "../api/favourite.api"
-import { IPurchaseTender, ISaleTender } from "@/entities/Tender/model/tender.model";
+import { IPurchaseTender, IPurchaseTenderAPI, ISaleTender, ISaleTenderAPI } from "@/entities/Tender/model/tender.model";
 import { IProductAPI } from "@/entities/Product/model/product.model";
 
 interface FavouriteLibProps {
@@ -63,4 +63,14 @@ export const useFavourite = ({body, onlyFavourite=false}: FavouriteLibProps) => 
             },
         }
     }
+}
+
+/**
+ * Убирает пустые элементы из переданного массива
+ * @returns количество актуальных элементов
+ */
+
+export const getFavouriteArrayLength = (array: IProductAPI[] | IPurchaseTenderAPI[] | ISaleTenderAPI[]) => {
+    if(!array) return;
+    return array.filter(it => it.id !== 0).length;
 }
