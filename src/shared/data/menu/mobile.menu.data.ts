@@ -23,7 +23,7 @@ export const MAIN_ITEM_MOBILE_MENU_DATA: IIconVariants = {
 
 export const CATALOG_ITEM_MOBILE_MENU_DATA: IIconVariants = {
   id: 2,
-  link: MAIN_PAGES.CATALOG.path,
+  link: MAIN_PAGES.PRODUCTS.path,
   title: "Каталог",
   image: CATALOG_ICON
 }

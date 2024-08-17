@@ -41,7 +41,7 @@ class Route {
 // ======={ MAIN }=======
 class MAIN extends Route {
     HOME = this.createPath('/');
-    CATALOG = this.createPath('/catalog');
+    // CATALOG = this.createPath('/catalog');
     PRODUCTS = this.createPath('/product');
     
     TENDERS = this.createPath('/tender');
