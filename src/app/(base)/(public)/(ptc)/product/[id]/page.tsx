@@ -42,7 +42,6 @@ export default function ProductDetailPage() {
     // STATE
     const [product, setProduct] = useState<IProduct>();
     const [productListGroup, setProductListGroup] = useState<IProduct[]>([]);
-    const [supplier, setSupplier] = useState<ISupplier>()
     const [productSizes, setProductSizes] = useState<IOption[]>([])
     const [choosenSize, setChoosenSize] = useState<IOption[]>([])
 
@@ -62,15 +61,9 @@ export default function ProductDetailPage() {
     const { data: itemReviews } = ReviewAPI.useGetProductReviewsQuery({ itemId: String(id), limit: REVIEW_LIMIT ?? 0, page: REVIEW_START_PAGE })
     const { data: itemScore } = ReviewAPI.useGetProductAvgScoreQuery(String(id) ?? '')
     
-    const { data: supplierAPI } = UserAPI.useGetUserDataQuery(product?.ownerId as string)
+    const { data: supplier } = UserAPI.useGetUserDataQuery(product?.ownerId as string)
     const { data: supplierReviews } = ReviewAPI.useGetSellerReviewsQuery({ supplierId: product?.ownerId ?? '', limit: REVIEW_LIMIT ?? 0, page: REVIEW_START_PAGE })
     const { data: supplierRating } = ReviewAPI.useGetSupplierScoreQuery(product?.ownerId ?? '')
-
-    //EFFECT
-    useEffect(() => {
-        if (supplierAPI)
-            setSupplier(supplierApiToSupplier(supplierAPI))
-    }, [supplierAPI])
 
     useEffect(() => {
         if (productAPI) {

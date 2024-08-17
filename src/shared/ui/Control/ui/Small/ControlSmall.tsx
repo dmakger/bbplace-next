@@ -4,7 +4,7 @@ import { cls } from '@/shared/lib/classes.lib';
 import cl from './_ControlSmall.module.scss'
 import { Axis } from "@/shared/model/button.model";
 import { Button } from "@/shared/ui/Button";
-import { ARROW_FLEX__ICON } from "@/shared/ui/Icon/data/arrow/flex.arrow.data";
+import { ARROW_FLEX__ICON } from "@/shared/ui/Icon/data/Arrow/flex.arrow.data";
 import { ButtonVariant } from "@/shared/ui/Button/model/button.model";
 
 interface ControlSmallProps {

@@ -1,11 +1,11 @@
 import { createApi, BaseQueryFn } from '@reduxjs/toolkit/query/react';
 import { AxiosRequestConfig, AxiosError } from 'axios';
 import apiClient from './interceptor.auth.api';
-import { ISupplierAPI } from '@/entities/Supplier/model/supplier.model';
+import { ISupplier, ISupplierAPI } from '@/entities/Supplier/model/supplier.model';
 import { IAuthForm, ILoginResponseDecoded, ICheckEmailExists, IRegistrationRequest, IResetPassword, ISendResetPassword } from '../model/auth.model';
 import { saveTokensStorage, getAccessToken, getRefreshToken, getHeaderAuthorizationIfExists } from '../lib/auth-token.lib';
 import { jwtDecode } from 'jwt-decode';
-import build from 'next/dist/build';
+import { supplierApiToSupplier } from '@/entities/Supplier/lib/process.supplier.lib';
 
 const axiosBaseQuery: BaseQueryFn<
     { url: string; method: AxiosRequestConfig['method']; data?: AxiosRequestConfig['data']; params?: AxiosRequestConfig['params'] },
@@ -38,11 +38,25 @@ export const UserAPI = createApi({
     reducerPath: 'userAPI',
     baseQuery: axiosBaseQuery,
     endpoints: (builder) => ({
-        getUserData: builder.query<ISupplierAPI, string>({
+        getUserData: builder.query<ISupplier, string>({
             query: (userId) => ({
                 url: `/Authenticate/GetUserInfo?userId=${userId}`,
                 method: 'POST',
             }),
+            transformResponse: (response: ISupplierAPI) => {
+                const supplier = supplierApiToSupplier(response)!
+                return supplier
+            }
+        }),
+        getUserDataById: builder.mutation<ISupplierAPI, string>({
+            query: (userId) => ({
+                url: `/Authenticate/GetUserInfo?userId=${userId}`,
+                method: 'POST',
+            }),
+            // transformResponse: (response: ISupplierAPI) => {
+            //     console.log('qwe response', response)
+            //     return supplierApiToSupplier(response)!
+            // }
         }),
         userLogin: builder.mutation<ILoginResponseDecoded, IAuthForm>({
             query: ({ username, password }) => ({
@@ -105,14 +119,6 @@ export const UserAPI = createApi({
                 url: `/Authenticate/ResetPassword`,
                 method: 'POST',
                 data: body,
-            })
-        }),
-
-        addUserData: builder.mutation<ISupplierAPI, string>({
-            query: (userId) => ({
-                url: `/GetUserInfo?userId=${userId}`,
-                method: 'POST',
-                body: {}
             })
         }),
     })

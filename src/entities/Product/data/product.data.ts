@@ -1,4 +1,4 @@
-import { IArgsRequest } from "@/api/model/request.model.api"
+import { IArgsRequest } from "@/api/api/model/request.model.api"
 import { IOption } from "@/shared/model/option.model"
 import { SWITCH_SELECTOR_CHARACTERISTIC_OPTION, SWITCH_SELECTOR_DESCRIPTION_OPTION } from "@/shared/ui/SwitchSelector"
 import { SWITCH_SELECTOR_REVIEWS_OPTION, SWITCH_SELECTOR_SUPPLIER_OPTION } from "@/shared/ui/SwitchSelector/data/switchSelector.data"

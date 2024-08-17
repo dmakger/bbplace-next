@@ -55,8 +55,15 @@ export interface IOptionTabFavourites extends IOptionTabParent {
 }
 
 
+// ====={ CHAT }=====
+export interface IOptionTabChat extends IOptionTabParent {
+    chat: IOptionTab
+}
+
+// ============================
 export type OptionsTabType = (
     IUserProductsTab | IDetailedProductOptionsTab 
     | ICreateNewProductsTab | IPricesNDiscountsTab
     | IOptionTabTender | IOptionTabFavourites
+    | IOptionTabChat
 );

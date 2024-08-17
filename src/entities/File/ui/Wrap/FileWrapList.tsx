@@ -13,6 +13,8 @@ interface FileWrapListProps{
     setFileList?: Dispatch<SetStateAction<IFile[]>>
     responseFileList: IResponseFile[]
     setResponseFileList?: Dispatch<SetStateAction<IResponseFile[]>>
+    inLine?: boolean
+
     onClickDeleteItem?: (file: IFile) => void
     className?: string,
 }
@@ -20,6 +22,7 @@ interface FileWrapListProps{
 export const FileWrapList:FC<FileWrapListProps> = ({
     fileList, setFileList, 
     responseFileList, setResponseFileList, 
+    inLine=false,
     onClickDeleteItem, className
 }) => {    
     // HANDLE
@@ -33,7 +36,7 @@ export const FileWrapList:FC<FileWrapListProps> = ({
     }, [onClickDeleteItem, setFileList])
 
     return (
-        <div className={cls(cl.list, className)}>
+        <div className={cls(cl.block, inLine ? cl.list : cl.wrap, className)}>
             {fileList.map((file, index) => (
                 <FileItemAttachment file={file} 
                                     onClickDelete={() => onClickDelete(file, responseFileList[index])}

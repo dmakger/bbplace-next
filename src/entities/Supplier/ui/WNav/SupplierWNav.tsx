@@ -36,11 +36,6 @@ export const SupplierWNav:FC<SupplierWNavProps> = ({id, view=ESupplierView.LARGE
     const { data: supplierRating } = ReviewAPI.useGetSupplierScoreQuery(id ?? '')
 
     const [supplierState, setSupplierState] = useState<ISupplier>()
-
-    useEffect(() => {
-        if (supplier)
-            setSupplierState(supplierApiToSupplier(supplier))
-    }, [supplier])
     
 
     if (!supplierState)

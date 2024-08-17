@@ -3,6 +3,7 @@
  * Есть зависимость от css
  */
 export enum ImageProductionVariant {
+    Default = 'default',
     Color = 'color',
     GrayToImage = 'grayToImage',
     ToGray = 'toGray',

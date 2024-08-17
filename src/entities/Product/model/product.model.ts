@@ -1,8 +1,8 @@
 import { IMediaProduct } from "./media.product.model"
 import { ICharacteristic } from "./characteristic.product.model"
-import { IArgsRequest } from "@/api/model/request.model.api"
 import { ICategory } from "@/entities/Metrics/model/category.metrics.model"
 import { ICountry } from "@/entities/Metrics/model/country.metrics.model"
+import { IArgsRequest } from "@/api/api/model/request.model.api"
 
 
 export interface IBaseProduct {

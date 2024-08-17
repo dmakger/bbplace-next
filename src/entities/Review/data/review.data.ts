@@ -1,4 +1,4 @@
-import { IArgsRequest } from "@/api/model/request.model.api"
+import { IArgsRequest } from "@/api/api/model/request.model.api"
 
 export const REVIEW_START_PAGE: IArgsRequest['page'] = 0
 export const REVIEW_LIMIT: IArgsRequest['limit'] = 24

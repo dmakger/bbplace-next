@@ -20,7 +20,6 @@ import { useEffect, useState } from "react";
 export default function SupplierPage() {
 
     //STATE
-    const [supplier, setSupplier] = useState<ISupplier>()
     const [supplierProducts, setSupplierProducts] = useState<IProduct[]>([])
 
     //PARAMS
@@ -31,13 +30,7 @@ export default function SupplierPage() {
     const { data: supplierRating } = ReviewAPI.useGetSupplierScoreQuery(supplierId as string)
     const { data: supplierReviews } = ReviewAPI.useGetSellerReviewsQuery({ supplierId: supplierId, limit: REVIEW_LIMIT ?? 0, page: REVIEW_START_PAGE })
     const { data: supplierProductsAPI } = ProductAPI.useGetProductsByUserQuery({ userId: supplierId, limit: PRODUCT_LIMIT })
-    const { data: supplierAPI } = UserAPI.useGetUserDataQuery(supplierId)    
-
-    //EFFECT
-    useEffect(() => {
-        if (supplierAPI)
-            setSupplier(supplierApiToSupplier(supplierAPI))
-    }, [supplierAPI])
+    const { data: supplier } = UserAPI.useGetUserDataQuery(supplierId)    
 
     useEffect(() => {
         if(supplierProductsAPI)

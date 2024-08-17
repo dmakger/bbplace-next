@@ -74,6 +74,7 @@
   --n-gray-7: #E6E6EA;
   --n-gray-8: #FAFAFA;
   --n-gray-9: #E1E1E1;
+  --n-gray-10: #EEEEF1;
 
   --n-yellow-1: #FDFAED;
   --n-yellow-2: #E8C331;
@@ -95,12 +96,14 @@
   --background-gray: var(--gray-2);
   --background-gray-low: var(--n-gray-8);
 
-  --block-border: var(--n-gray-7);
+  // --block-border: var(--n-gray-7);
 
   --disabled: var(--n-gray-4);
   --on-disabled: var(--white);
   
   --hover: var(--gray-4);
+
+  --active-surface: var(--white);
 
   --font: var(--n-black-1);
   --font-caption: var(--n-gray-1);
@@ -154,9 +157,10 @@
   --rating-surface: var(--n-yellow-1);
   --rating-low: var(--n-yellow-2);
   --rating: var(--n-yellow-3);
-
+  
   --dialog-surface: var(--n-yellow-4);
   --input-surface: var(--white);
+  --chat-surface: var(--n-gray-10);
 
   --online: var(--n-green-5);
   --instagram: var(--n-red-7);

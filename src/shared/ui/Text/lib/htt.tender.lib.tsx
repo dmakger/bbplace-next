@@ -1,6 +1,6 @@
 import { getTenderType } from "@/entities/Tender/lib/tender.lib";
 import { ETenderType } from "@/entities/Tender/model/tender.model";
-import { getDate } from "@/shared/lib/dateTime.lib";
+import { dateToString } from "@/shared/lib/dateTime.lib";
 import { IGetDataTenderInfo, IHeadingToText } from "@/shared/model/text.model";
 import { InfoItem } from "../../InfoItem";
 import { CreatedAt } from "../../CreatedAt";
@@ -23,7 +23,7 @@ export const getDataTenderInfo = ({
     const currency = tender.currency.code ?? '';
 
     const CREATED_AT_TENDER_DATA = {
-        body: <InfoItem body={<p>{getDate(tender.createdAt)}</p>} heading="От:"/>}
+        body: <InfoItem body={<p>{dateToString(tender.createdAt)}</p>} heading="От:"/>}
 
 
     //PURCHASE

@@ -22,6 +22,7 @@ export enum ButtonVariant{
     TONAL = "tonal new",
     BORDER = "border new",
     CONTENT = "content new",
+    BLANK = "blank new",
 
     
     LINK = 'link',

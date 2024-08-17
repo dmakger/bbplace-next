@@ -7,7 +7,7 @@ export const FAVORITES_LK_MENU_DATA: IMenuItem = {
 }
 
 export const CHATS_LK_MENU_DATA: IMenuItem = {
-    link: DASHBOARD_PAGES.CHATS.path,
+    link: DASHBOARD_PAGES.CHATS(undefined).path,
     title: "Сообщения",
 }
 
