@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IChat, IChatData, IMessage } from '@/entities/Chat/model/chat.model';
-import { ChatDataList } from '../ui/ChatData/List/ChatDataList';
 
 interface ChatState {
 	messages: IMessage[];
@@ -21,6 +20,7 @@ export const ChatSlice = createSlice({
 		messageAddReceived: (state, action: PayloadAction<IMessage>) => {
 			const newMessage = action.payload
         	state.messages.push(newMessage);  
+			// Переносим чат на вверх в chatDataList
 			const chatIndex = state.chatDataList.findIndex(
                 (chatData) => chatData.chat.id === newMessage.chatId
             );
