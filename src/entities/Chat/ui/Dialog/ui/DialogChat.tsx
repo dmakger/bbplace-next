@@ -4,9 +4,9 @@ import { FC } from "react"
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_DialogChat.module.scss'
-import { DialogChatHeader } from "../components/Header/DialogChatHeader";
 import { HistoryChat } from "../../History/HistoryChat";
 import { DialogMessageInput } from "../components/MessageInput/DialogMessageInput";
+import { DialogChatHeader } from "../components/header/DialogChatHeader";
 
 interface DialogChatProps{
     className?: string,

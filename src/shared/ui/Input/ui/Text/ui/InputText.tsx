@@ -33,6 +33,9 @@ interface InputTextProps extends IWrapperRectangleInputChildren, IInput {
 
     onMouseEnter?: Function
     onMouseLeave?: Function
+
+    rows?: number
+    refTextArea?: React.RefObject<HTMLTextAreaElement>
 }
 
 export function InputText({
@@ -60,6 +63,8 @@ export function InputText({
     setErrorMessageArray,
     // Состояния для отображения статусов
     onMouseEnter = () => { }, onMouseLeave = () => { },
+    rows,
+    refTextArea: refOutTextArea,
     ...rest }: InputTextProps) {
 
     //STATE
@@ -220,10 +225,11 @@ export function InputText({
                     )}
                     name={name}
                     value={value}
-                    ref={textAreaRef}
+                    ref={refOutTextArea ?? textAreaRef}
                     defaultValue={defaultValue}
                     required={required}
                     placeholder={placeholder}
+                    rows={rows}
                     onChange={handleOnChange}
                     onBlur={(e) => checkValue(e.target.value)}
                     {...rest}
