@@ -84,7 +84,7 @@ export const PrimeList = () => {
 
         <div className={cl.bottomContainer}>
           <div className={cl.mainProductQuantityContainer}>
-            <h4>Уже {productsQuantity * 10}+ {getTextByNumber(productsQuantity ?? 0, 'товаров', 'товар', 'товара')}</h4>
+            {productsQuantity !== 0 && <h4>Уже {productsQuantity * 10}+ {getTextByNumber(productsQuantity ?? 0, 'товаров', 'товар', 'товара')}</h4>}
           </div>
           <div className={cl.buttonContainer}>
             <Button

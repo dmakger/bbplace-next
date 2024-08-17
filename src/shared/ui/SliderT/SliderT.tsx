@@ -9,6 +9,7 @@ import { Axis } from '@/shared/model/button.model';
 import { ButtonArrowWLine } from '../Button/data/Arrow/WLine/ButtonArrowWLine';
 import { ListDirection } from '@/shared/data/list.data';
 import { SliderPagingVariant } from '@/shared/data/sliderT.data';
+import { GalleryCounter } from '../GalleryCounter';
 
 interface SliderTProps<T> extends ISliderT<T> {}
 
@@ -24,9 +25,11 @@ export const SliderT = <T extends any>({
     classNameWrapper,
     className,
 
+    hasGalleryCounter = false,
+
     items,
     direction = ListDirection.Row,
-    activeIndex,
+    activeIndex = 0,
     gap = 0,
     ...rest
 }: SliderTProps<T>) => {
@@ -42,6 +45,9 @@ export const SliderT = <T extends any>({
     const [currentScrollSize, setCurrentScrollSize] = useState(0)
     const [canScrollPrev, setCanScrollPrev] = useState(false)
     const [canScrollNext, setCanScrollNext] = useState(false)
+    const [currentIndex, setCurrentIndex] = useState(activeIndex); 
+
+    
 
     // EFFECT
     // slider width
@@ -97,6 +103,9 @@ export const SliderT = <T extends any>({
 
             setCanScrollPrev(sliderRef.current.scrollLeft > 0);
             setCanScrollNext(sliderRef.current.scrollLeft < maxScrollLeft);
+
+            const newCurrentIndex = Math.round(sliderRef.current!.scrollLeft / (slideWidth + gap));
+            setCurrentIndex(newCurrentIndex + 1);
         };
 
         updateScrollState();
@@ -153,6 +162,8 @@ export const SliderT = <T extends any>({
                       className={cls(cl.slideContainer, className)}
                       {...rest} />
             </div>
+            {hasGalleryCounter && items.length > 1 && <GalleryCounter activeIndex={currentIndex} listLength={items.length}/>}
+            
             <ButtonArrowWLine isSecondary={false} axis={Axis.Top} onClick={onNext} sizes={{ width: 20, height: 20 }}
                 className={cls(cl.nextButton, canScrollNext ? cl.visible : '')} />
         </div>

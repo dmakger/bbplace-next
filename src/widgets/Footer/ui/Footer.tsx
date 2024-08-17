@@ -8,7 +8,7 @@ import cl from './_Footer.module.scss'
 export const Footer = () => {
   return (
     <footer>
-      <Wrapper1280 classNameContent={cl.content}>
+      <Wrapper1280 classNameContent={cl.content} classNameWrapper={cl.wrapper}>
         <FooterTop/>
         <FooterMiddle/>
         <FooterBottom/>

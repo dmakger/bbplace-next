@@ -1,3 +1,5 @@
+'use client'
+
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_ProductV.module.scss';
 import { FC, useState } from 'react';
@@ -37,7 +39,7 @@ export const ProductV: FC<ProductVProps> = ({ product, className }) => {
             <Link href={MAIN_PAGES.CURRENT_PRODUCT(product.id).path} className={cl.name}>{product.name}</Link>
             <div className={cl.priceWrapper}>
               <WholesaleDiapason minWholesale={minWholesale} maxWholesale={maxWholesale}
-                                currency={product.media.currency} classNameText={cl.price} />
+                                currency={product.media.currency} classNameText={cl.price} classNameUnit={cl.unit}/>
               <QuantityMetrics heading={'Мин. Кол-во'}
                               wholesale={minWholesale}
                               className={cl.quantity}
@@ -48,6 +50,8 @@ export const ProductV: FC<ProductVProps> = ({ product, className }) => {
           <div className={cl.line} />
           <SupplierWNav id={product.ownerId}
                         view={is768 ? ESupplierView.SMALL : ESupplierView.LARGE_WHITE}
+                        hasCountry
+                        hasVerifiedStatus
                         axis={ESupplierAxis.VERTICAL}
                         className={cl.supplier}
                         classNameNavs={cl.supplierNavs}

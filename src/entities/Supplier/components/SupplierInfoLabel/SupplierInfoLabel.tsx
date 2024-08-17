@@ -14,7 +14,7 @@ export const SupplierInfoLabel = ({
 }: ISupplierInfoLabel) => {
   return (
     <label className={cls(cl.SupplierCategoryItem, vip ? cl.vip : '')}>
-        {category && category.length && getCategoryNameSupplier(category)}
+        {category && category.length && <span>{getCategoryNameSupplier(category)}</span>}
         {vip && <span>PRIME member</span>}
     </label>
   )

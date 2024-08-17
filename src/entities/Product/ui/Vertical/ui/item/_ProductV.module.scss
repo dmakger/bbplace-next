@@ -4,7 +4,6 @@
     flex-direction: column;
     border-radius: 16px;
     background-color: var(--background-2);
-    height: 100%;
     
     .top {
         .image {
@@ -32,12 +31,24 @@
         padding: 16px;
         height: 100%;
 
+        @media(max-width: 420px){
+            gap: 8px;
+        }
+    
+
         .middle {
             display: flex;
             flex-direction: column;
             gap: 16px;
+            flex: 1;
 
+            @media(max-width: 420px){
+                gap: 5px;
+            }
+           
             .name {
+                display: flex;
+                flex: 1;
                 font-size: var(--font-size-sreg);
                 cursor: pointer;
                 transition: .2s;
@@ -45,24 +56,46 @@
                 &:hover {
                     color: var(--red-1);
                 }
+
+                @media (max-width: 768px) {
+                    overflow: hidden;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                    text-overflow: ellipsis;
+                }
             }
             .priceWrapper {
                 display: flex;
                 flex-direction: column;
+                
                 gap: 10px;
 
                 .price {
+                    display: flex;
+                                        
                     font-weight: var(--font-weight-sb);
                     font-size: var(--font-size-sm) !important;
-                    display: flex;
+                    @media(max-width: 420px){
+                        font-size: var(--font-size-s) !important;
+                    }
+                }
+
+                .unit{
+                    @media(max-width: 420px){
+                        font-size: var(--font-size-s);
+                    }
                 }
         
                 .quantity {
                     display: flex;
                     align-items: center;
-                    
 
                     @media (width <= 768px) {
+                        // display: none;
+                    }
+
+                    @media (width <= 425px) {
                         display: none;
                     }
                 }

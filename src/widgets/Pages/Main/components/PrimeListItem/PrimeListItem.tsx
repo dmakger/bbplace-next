@@ -28,9 +28,9 @@ export const PrimeListItem = ({
             href={href}>
             <div className={cl.itemInfo}>
                 <span className={cl.name}>{name}</span>
-                <span className={cl.quantity}>
+                {quantity && <span className={cl.quantity}>
                   {quantity}+ {getTextByNumber(quantity, 'товаров', 'товар', 'товара')}
-                </span>
+                </span>}
             </div>
         </Button>
     )

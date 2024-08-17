@@ -1,19 +1,33 @@
-.content{
+.content {
     flex-direction: column;
     gap: 21px;
     width: 100%;
-    margin: 0 20px;
+    background-color: var(--background-1);
     overflow: hidden;
 
     @media (max-width: 768px) {
+        gap: 5px;
         padding: 0px;
     }
 
-    .topContainer{
+    .topContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
         width: 100%;
+        height: 100%;
+
+        @media (max-width: 1024px) {
+            flex-direction: column;
+        }
+
+        @media (max-width: 768px) {
+            gap: 0px;
+        }
     }
-    
-    .articles{
+
+    .articles {
         display: flex;
         justify-content: center;
         gap: 20px;
@@ -25,5 +39,53 @@
             gap: 5px;
             border-radius: 0px;
         }
+    }
+}
+
+.list {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+}
+
+//TENDER
+.tenderItem {
+    min-width: 580px;
+    background-color: var(--background-1) !important;
+
+    @media (max-width: 768px) {
+        min-width: 400px;
+        border-radius: 15px;
+    }
+}
+
+.line {
+    display: none !important;
+}
+
+.blockSupplier {
+    background-color: var(--background-1) !important;
+}
+
+//PRODUCT
+.productItem {
+    flex-grow: 1;
+}
+
+.supplierItem {
+    min-width: 910px;
+    background-color: var(--background-gray);
+    border-bottom: none;
+
+    @media (max-width: 768px) {
+        min-width: 310px;
+    }
+
+    .supplierWNav {
+        background-color: var(--background-1) !important;
+    }
+
+    .baseSupplier {
+        background-color: var(--background-1) !important;
     }
 }

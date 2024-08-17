@@ -4,7 +4,7 @@ import { ISupplier } from '../../model/supplier.model'
 import cl from './_SupplierItem.module.scss'
 import { ReviewAPI } from '@/entities/Review/api/review.api'
 import { REVIEW_LIMIT, REVIEW_START_PAGE } from '@/entities/Review/data/review.data'
-import { ESupplierFavouriteViewItem, ESupplierSubscribeViewItem, ESupplierToChatViewItem, ESupplierToProfileViewItem } from '../../data/view.supplier.data'
+import { ESupplierFavouriteViewItem, ESupplierToProfileViewItem } from '../../data/view.supplier.data'
 import { SupplierWNav } from '../WNav/SupplierWNav'
 import { getDataHeadingToTextSupplierTable } from '@/shared/ui/Text/lib/htt.supplier.lib'
 import { ProductAPI } from '@/entities/Product/api/product.api'
@@ -14,23 +14,30 @@ import { HeadingToTextTable } from '@/shared/ui/Text'
 import { IProduct } from '@/entities/Product/model/product.model'
 import { productApiListToProductList } from '@/entities/Product/lib/product.lib'
 import { EHeadingToTextVariants, IGetDataHeadingToTextSupplierTableVariant } from '@/shared/model/text.model'
-import { ScrollSlider } from '@/features/ScrollSlider'
 import { Button, ButtonVariant } from '@/shared/ui/Button'
-import { MAIN_PAGES } from '@/config/pages-url.config'
 import { ButtonSize } from '@/shared/ui/Button/model/button.model'
 import { SupplierInfoLabel } from '../../components/SupplierInfoLabel/SupplierInfoLabel'
 import { FavouriteAutoToSupplierButton } from '../../components/Button/Favourite/Auto/FavouriteAutoToSupplerButton'
 import { ProductASC } from '@/entities/Product/ui/AtSupplierCard'
 import { EAtSupplierCardVariant } from '@/entities/Product/ui/AtSupplierCard/model/atSupplierCard.model'
-import Link from 'next/link'
 import { HandleSize } from '@/shared/ui/Handle/Size/HandleSize'
+import { cls } from '@/shared/lib/classes.lib'
+import { NavSupplier } from '../../components/Nav/NavSupplier'
 
 
 interface ISupplierItem {
-  supplier: ISupplier
+  supplier: ISupplier,
+  className?: string,
+  classNameSupplierWNav?: string,
+  classNameBaseSupplier?: string
 }
 
-export const SupplierItem = ({ supplier }: ISupplierItem) => {
+export const SupplierItem = ({
+  supplier,
+  className,
+  classNameSupplierWNav,
+  classNameBaseSupplier
+ }: ISupplierItem) => {
 
   // STATE
   const [supplierProducts, setSupplierProducts] = useState<IProduct[]>([])
@@ -47,58 +54,16 @@ export const SupplierItem = ({ supplier }: ISupplierItem) => {
       setSupplierProducts(productApiListToProductList(supplierProductsAPI))
   }, [supplierProductsAPI])
 
-  // const isButton = supplierProducts && supplierProducts.length > 2;
 
 
   return (
     <>
-      <Link href={is768 ? MAIN_PAGES.CURRENT_SUPPLIER(supplier.id).path : ''} className={cl.SupplierItem}>
-        {/* <SupplierWNav 
-          classNameName={cl.supplierName}
-          id={supplier.id}
-          navs={[
-            is768 ? ESupplierSubscribeViewItem.NONE : ESupplierSubscribeViewItem.LARGE,
-            is768 ? ESupplierToChatViewItem.NONE : ESupplierToChatViewItem.LARGE_WIDE,
-            is768 ? ESupplierToProfileViewItem.NONE : ESupplierToProfileViewItem.SMALL
-          ]}
-        />
-        <div className={cl.bottomContainer}>
-          <div className={cl.bottomLeftContainer}>
-            {supplier.category?.some(it => it !== null) && <SupplierCategoryItem category={supplier.category} />}
-            <div className={cl.line} />
-            <HeadingToTextTable
-              variant={EHeadingToTextVariants.COLUMN}
-              data={getDataHeadingToTextSupplierTable({
-                variant: IGetDataHeadingToTextSupplierTableVariant.SUPPLIER_PAGE,
-                supplier,
-                supplierRating: supplierRating ?? 0,
-                supplierReviews: supplierReviews?.length ?? 0,
-                isCountryNeeded: true
-              })}
-              classNameMain={cl.table}
-              classNameHeadingItem={cl.headingItem}
-              classNameTextItem={cl.textItem}
-              classNameColumn={cl.columnTable}
-            />
-            <NavSupplier supplierId={supplier.id} views={[
-              is560 ? ESupplierSubscribeViewItem.SMALL : (is768 ? ESupplierSubscribeViewItem.LARGE : ESupplierSubscribeViewItem.NONE),
-              is355 ? ESupplierToChatViewItem.LARGE :  (is768 ? ESupplierToChatViewItem.LARGE_WIDE : ESupplierToChatViewItem.NONE),
-              is445 ? ESupplierToProfileViewItem.SMALL :  (is768 ? ESupplierToProfileViewItem.LARGE : ESupplierToProfileViewItem.NONE)
-            ]} />
-          </div>
-          <div className={cl.bottomRightContainer}>
-            <ScrollSlider slides={supplierProducts} component={ProductASC} classNameSlidesContainer={!isButton ? cl.noButton : ''}>
-              {isButton && <Button variant={ButtonVariant.BACKGROUND_RED_HUGE} href={MAIN_PAGES.CURRENT_SUPPLIER(supplier.id).path}>
-                Все товары
-              </Button>}
-            </ScrollSlider>
-          </div>
-        </div> */}
+      <section className={cls(cl.SupplierItem, className)}>
         <div className={cl.infoContainer}>
           <SupplierWNav
-            className={cl.supplierWNav}
+            className={cls(cl.supplierWNav, classNameSupplierWNav)}
             classNameName={cl.supplierName}
-            classNameSupplier={cl.baseSupplier}
+            classNameSupplier={cls(cl.baseSupplier, classNameBaseSupplier)}
             id={supplier.id}
             hasVerifiedStatus={true}
           />
@@ -124,13 +89,16 @@ export const SupplierItem = ({ supplier }: ISupplierItem) => {
           <div className={cl.buttonsContainer}>
             <Button variant={ButtonVariant.BORDER} title='Откликнуться' size={ButtonSize.Small} />
             <FavouriteAutoToSupplierButton supplierId={supplier.id} view={ESupplierFavouriteViewItem.SMALL_FILL} />
+            <NavSupplier supplierId={supplier.id} views={[
+              is768 ? ESupplierToProfileViewItem.SMALL : ESupplierToProfileViewItem.NONE
+            ]} />
           </div>
         </div>
         {supplierProducts.length > 0 && <div className={cl.productCardsContainer}>
           <ProductASC product={supplierProducts[0]} supplierId={supplier.id} supplierName={supplier.brandName} />
           {supplierProducts[1] && <ProductASC product={supplierProducts[1]} variant={EAtSupplierCardVariant.SMALL} supplierId={supplier.id} supplierName={supplier.brandName} />}
         </div>}
-      </Link>
+      </section>
       <HandleSize width={768} set={setIs768} />
     </>
   )

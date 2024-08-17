@@ -13,8 +13,8 @@ import { ARROW_WLINE_DEFAULT_BLACK_ICON } from '@/shared/ui/Icon/data/arrow.data
 
 interface IProductASC {
     product: IProduct,
-    supplierName: string,
-    supplierId: string,
+    supplierName?: string,
+    supplierId?: string,
     variant?: EAtSupplierCardVariant
     className?: string
 }
@@ -56,7 +56,7 @@ export const ProductASC = ({
                 variant={ButtonVariant.CLEAR}
                 title='Все товары'
                 afterImage={ARROW_WLINE_DEFAULT_BLACK_ICON}
-                href={MAIN_PAGES.CURRENT_SUPPLIER(supplierId).path}
+                href={MAIN_PAGES.CURRENT_SUPPLIER(supplierId ?? '').path}
             />
         </div>;
     }

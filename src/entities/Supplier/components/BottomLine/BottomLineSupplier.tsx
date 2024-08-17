@@ -10,6 +10,7 @@ import { Rating } from "@/shared/ui/Rating";
 interface IBottomLineSupplier {
     supplier: ISupplier,
     hasVerifiedStatus?: boolean,
+    hasCountry?: boolean,
     supplierRating?: number,
     numberOfReviews?: number,
     isForDescPage?: boolean,
@@ -20,6 +21,7 @@ interface IBottomLineSupplier {
 export const BottomLineSupplier = ({
     supplier,
     hasVerifiedStatus,
+    hasCountry = false,
     supplierRating = 0,
     numberOfReviews = 0,
     isForDescPage,
@@ -41,11 +43,11 @@ export const BottomLineSupplier = ({
                 </>
             ) : (
                 <>
-                    {/* {supplier.country &&
+                    {hasCountry && supplier.country &&
                         <span>{supplier.country}</span>
-                    } */}
+                    }
 
-                    {hasVerifiedStatus && verifiedSupplier}
+                    {isVerified(supplier) && verifiedSupplier}
 
                     {/* {
                         supplierRating > 0 &&
