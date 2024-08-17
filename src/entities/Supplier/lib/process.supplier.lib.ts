@@ -9,8 +9,9 @@ export const supplierApiListToSupplierList = (supplierListAPI: ISupplierAPI[]): 
 export const supplierApiToSupplier = (supplier?: ISupplierAPI) => {
     if (!supplier) return
 
-    const category = JSON.parse(supplier.category) as ISupplier['category']
-    const photoId = supplier.photoId === "" ? supplier.photoId : JSON.parse(supplier.photoId) as ISupplier['photoId']
+    const category = supplier.category ? JSON.parse(supplier.category) as ISupplier['category'] : null
+    const photoId = supplier.photoId ? JSON.parse(supplier.photoId) as ISupplier['photoId'] : null
+    
     return {
         ...supplier,
         category, 

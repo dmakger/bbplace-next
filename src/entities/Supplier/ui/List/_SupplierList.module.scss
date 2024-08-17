@@ -1,9 +1,14 @@
 .supplierList{
     display: flex;
-    flex-direction: column;
+    flex-direction: column;;
     width: 100%;
     gap: 23px;
+    background-color: var(--background-1);
     @media (max-width: 768px) {
         gap: 0px;
     }
+}
+
+.wrapperPagination{
+    background-color: var(--background-1);
 }

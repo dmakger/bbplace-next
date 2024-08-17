@@ -74,12 +74,14 @@
   --n-gray-7: #E6E6EA;
   --n-gray-8: #FAFAFA;
   --n-gray-9: #E1E1E1;
-  --n-gray-10: #EEEEF1;
+  --n-gray-10: #E6E6E2;
+  // --n-gray-10: #EEEEF1;
 
   --n-yellow-1: #FDFAED;
   --n-yellow-2: #E8C331;
   --n-yellow-3: #9F8212;
   --n-yellow-4: #E1DDBA;
+  --n-yellow-5: #F4FBA5;
 
   --n-green-1: #276E21;
   --n-green-2: #35952D;
@@ -95,6 +97,7 @@
   --background-2: var(--white);
   --background-gray: var(--gray-2);
   --background-gray-low: var(--n-gray-8);
+  --background-brown: var(--n-gray-10);
 
   // --block-border: var(--n-gray-7);
 
@@ -309,6 +312,10 @@ button{
   font-family: inherit;
   color: var(--foreground-1);
   transition: all 0.3s;
+}
+
+ul, li{
+  list-style: none;
 }
 
 h1,h2,h3,h4,h5,h6{

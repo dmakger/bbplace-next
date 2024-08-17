@@ -248,7 +248,7 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
             </div>
             <ProductForm ref={productFormRef} data={currentPropsProduct} loadData={handleGetFormData} isEdit={isEditForm} />
             <>
-                {products && (JSON.stringify(products.map(it => it.id)))}
+                {products.length > 0 && (JSON.stringify(products.map(it => it.id)))}
             </>
         </div> 
     )

@@ -1,0 +1,16 @@
+.button {
+    display: flex;
+    align-items: center;
+    gap: 5px !important;
+
+    .image {
+        transform: rotate(-90deg);
+        transition: transform 0.3s; 
+    }
+
+    &:active {
+        .image {
+            transform: rotate(-90deg) translate(0px, 1px); 
+        }
+    }
+}

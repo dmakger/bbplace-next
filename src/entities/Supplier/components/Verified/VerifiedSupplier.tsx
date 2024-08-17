@@ -31,14 +31,12 @@ export const VerifiedSupplier = ({
             setIsValid(isVerified(supplier))
     }, [supplier])
 
-    if (!isValid)
-        return null
 
     return (
         <div className={cls(cl.VerifiedSupplier, className )}>
             {hasIcon && <Image src={VerifiedIcon} alt="verified" />}
-            <span className={cls(cl.text, className)}>
-                Проверен
+            <span className={cls(isValid ? cl.valid : '', className)}>
+                {isValid ? 'Проверен' : 'Не проверен'}
             </span>
         </div>
     )

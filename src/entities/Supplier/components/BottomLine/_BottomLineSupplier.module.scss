@@ -1,9 +1,15 @@
 .lineContainer{
     display: flex;
+    align-items: center;
     gap: 10px;
     font-size: var(--font-size-xxs);
+    white-space: nowrap;
 
     .rating{
         color: var(--rating);
+    }
+
+    & span{
+        font-size: var(--font-size-s);
     }
 }

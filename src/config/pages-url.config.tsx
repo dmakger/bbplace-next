@@ -58,13 +58,12 @@ class MAIN extends Route {
 
     CURRENT_SUPPLIER = this.createDynamicPath((id: ISupplier['id']) => `/supplier/${id}`, true);
     CURRENT_PRODUCT = this.createDynamicPath((id: IProduct['id']) => `/product/${id}`, true);
+    PRODUCTS_BY_CATEGORY = this.createDynamicPath((id: IProduct['id']) => `/product?category=${id}`, true);
     CURRENT_TENDER = this.createDynamicPath<{ id: ITender['id'], type?: IBaseTender['type'] }>(
         (params) => `/tender/${params.id}/${params.type || ETenderType.PURCHASE}`,
         true
     );
-
     CURRENT_DOCUMENT = this.createDynamicPath((documentName: string) => `/documents/${documentName}`)
-
 }
 
 export const MAIN_PAGES = new MAIN('')
