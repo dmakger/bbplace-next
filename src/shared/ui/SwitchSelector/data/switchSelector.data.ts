@@ -154,10 +154,20 @@ export const LK_FAVOURITES_PAGE: IOption[] = [
 ]
 
 //LK_PROFILE_EDIT
-
 export const SWITCH_SELECTOR_PROFILE_EDIT: IOption = {
     id: 13,
     name: 'Редактирование',
     value: 'profileEdit'
 }
 
+
+// CHATS
+export const SWITCH_SELECTOR__CHAT__OPTION: IOption = {
+    id: 17,
+    name: "Чат",
+    value: "chat",
+}
+
+export const LK_CHATS_PAGE: IOption[] = [
+    SWITCH_SELECTOR__CHAT__OPTION,
+]

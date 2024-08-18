@@ -1,9 +1,12 @@
 .content {
+    display: flex;
+    flex-direction: column;
     width: 100%;
     min-height: 500px;
-    // background-color: var(--background-2);
+    gap: 20px;
 
     @media (max-width: 768px) {
-        margin-bottom: 81px;
+        gap: 5px;
+        margin-bottom: 55px;
     }
 }

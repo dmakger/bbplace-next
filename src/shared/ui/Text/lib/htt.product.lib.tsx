@@ -1,5 +1,5 @@
 import { SEX_OPTIONS } from "@/entities/Product/data/product.data";
-import { getDate } from "@/shared/lib/dateTime.lib";
+import { dateToString } from "@/shared/lib/dateTime.lib";
 import { getHeadingToText } from "@/shared/lib/headingToText.lib";
 import { IGetCharacteristic, IGetDataHeadingToTextProductMainTable, IGetDataHeadingToTextProductTable, IHeadingToText } from "@/shared/model/text.model";
 import { InfoItem } from "@/shared/ui/InfoItem";
@@ -22,7 +22,7 @@ export const getDataHeadingToTextProductTable = ({
     const DESCRIPTION_PRODUCT_DATA: IHeadingToText = { heading: 'Описание', body: product.characteristics.description }
 
     const ratingComponent = <Rating rating={itemRating ?? 0} numberOfReviews={itemReviews ?? 0} hasStar/>
-    const dateComponent = getDate(createdAt);
+    const dateComponent = dateToString(createdAt);
 
     const CREATED_AT_PRODUCT_DATA: IHeadingToText = { heading: isDetailedPageHeader ? '' : 'От', body: isDetailedPageHeader ? <InfoItem heading="От:" body={dateComponent}/> : dateComponent}
     const REVIEWS_PRODUCT_DATA: IHeadingToText = { body: isDetailedPageHeader? <InfoItem body={ratingComponent} color={EInfoItemColor.YELLOW}/> : ratingComponent }

@@ -35,6 +35,7 @@ export const List = <T extends any>({
                     item={it}
                     style={style}
                     onClick={() => onClickItem(it, index)}
+                    activeId={activeId}
                     isActive={activeIndex === index || !!(it && typeof it === 'object' && 'id' in it && it.id && activeId === it.id)}
                     key={it && typeof it === 'object' && 'id' in it ? it.id as number : index}
                 />

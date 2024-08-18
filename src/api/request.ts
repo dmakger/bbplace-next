@@ -1,4 +1,5 @@
-import { IArgsRequest, IParamsRequest } from "./model/request.model.api"
+import { IArgsRequest, IParamsRequest } from "@/api/api/model/request.model.api"
+
 
 export const getURL = (url: string, args?: IArgsRequest) => {
     if (!args) return url

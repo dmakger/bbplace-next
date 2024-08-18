@@ -1,7 +1,7 @@
 import { FC } from "react"
 import { ESupplierFavouriteViewItem } from "@/entities/Supplier/data/view.supplier.data";
 import { IProduct } from "@/entities/Product/model/product.model";
-import { FavouriteSmallToProductButton } from "../Small/FavouriteSmallToSupplierButton";
+import { FavouriteSmallToProductButton } from "../Small/FavouriteSmallToProductButton";
 import { EProductFavouriteViewItem } from "@/entities/Product/data/view.product.data";
 import { ButtonFavouriteProps } from "@/shared/ui/Button/data/Favourite/ButtonFavourite";
 

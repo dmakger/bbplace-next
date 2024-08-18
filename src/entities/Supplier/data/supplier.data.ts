@@ -1,4 +1,4 @@
-import { IArgsRequest } from "@/api/model/request.model.api"
+import { IArgsRequest } from "@/api/api/model/request.model.api"
 import { ISupplierAPI } from "../model/supplier.model"
 
 export enum ESupplierRole {

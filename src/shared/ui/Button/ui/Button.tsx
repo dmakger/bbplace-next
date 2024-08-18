@@ -121,7 +121,7 @@ export const Button = ({
                 className={cls(
                     cl.button, 
                     cl[classes[0]], cl[color], cl[size], 
-                    active ? cl.active : '', loading ? cl.loading : '', 
+                    active ? cl.active : '', loading ? cl.loading : '', !title ? cl.noTitle : '',
                     classes.length > 0 && classes[1] === 'new' ? cl.new : cl.old, 
                     className
                 )}>

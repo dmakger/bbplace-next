@@ -60,17 +60,3 @@ export const FILE_PDF_ICON: IIcon = {
     defaultHovered: FileDownloadHovered,
     defaultPressed: FileDownloadPressed,
 }
-
-
-export const FILE_ADD_ICON: IIcon = {
-    default: FileAdd,
-    defaultHovered: FileAddHovered,
-    defaultPressed: FileAddPressed,
-
-    disabled: FileAddDisabled,
-    loading: FileUploadGray,
-}
-
-export const FILE_ADD_ICON_DISABLED: IIcon = {
-    default: FileAddDisabled,
-}

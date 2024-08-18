@@ -10,4 +10,5 @@ module.exports = {
     workerThreads: false,
     cpus: 1
   },
+  output: "standalone",
 }

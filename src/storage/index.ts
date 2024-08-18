@@ -1,4 +1,5 @@
 import { TinAPI, UserAPI } from "@/entities/Auth/api/auth.api";
+import {Action, combineReducers, configureStore, ThunkAction} from "@reduxjs/toolkit";
 import { UserReducer } from "@/entities/Auth/storage/auth.storage";
 import { FavouriteAPI } from "@/entities/Favourite/api/favourite.api";
 import { FileAPI } from "@/entities/File/api/file.api";
@@ -15,9 +16,9 @@ import { ReviewAPI } from "@/entities/Review/api/review.api";
 import { SupplierAPI } from "@/entities/Supplier/api/supplier.api";
 import { SupportAPI } from "@/entities/Support";
 import { TenderAPI } from "@/entities/Tender/api/tender.api";
-import { SignalrReducer } from "@/features/Signalr/signalrSlice";
 import { PTCReducer } from "@/features/storage/PTC/ptc.storage";
-import {Action, combineReducers, configureStore, ThunkAction} from "@reduxjs/toolkit";
+import { ChatReducer } from "@/entities/Chat/connection/chat.connection";
+
 
 const rootReducer = combineReducers({
     categoryList: CategoryReducer,
@@ -26,7 +27,7 @@ const rootReducer = combineReducers({
     countryList: CountryReducer,
     ptc: PTCReducer,
     user: UserReducer,
-    signalr: SignalrReducer,
+    chat: ChatReducer,
 
     [UserAPI.reducerPath]: UserAPI.reducer,
     [TinAPI.reducerPath]: TinAPI.reducer,

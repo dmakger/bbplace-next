@@ -1,14 +1,16 @@
 "use client"
 
 import cl from './_PublicLayout.module.scss'
-import { Header } from "@/widgets/Header";
 import { MobileNavbar } from "@/widgets/MobileNavbar";
 import { PropsWithChildren, useEffect } from "react";
 import { WrapperGap } from "@/shared/ui/Wrapper/Gap/WrapperGap";
 import { UserAPI } from '@/entities/Auth/api/auth.api';
-import { useActionCreators } from '@/storage/hooks';
+import { useActionCreators, useAppSelector } from '@/storage/hooks';
 import { getAccessToken, isAuth, removeFromStorage } from '@/entities/Auth/lib/auth-token.lib';
 import { jwtDecode } from 'jwt-decode';
+import { TopBar } from '@/features/TopBar';
+import { usePathname } from 'next/navigation';
+import { MAIN_PAGES } from '@/config/pages-url.config';
 import { Footer } from '@/widgets/Footer';
 
 export default function Layout({ children }: PropsWithChildren<unknown>) {
@@ -17,6 +19,10 @@ export default function Layout({ children }: PropsWithChildren<unknown>) {
     
     // RTK
     const actionCreators = useActionCreators()
+    const {isAuth: isUserAuth} = useAppSelector(state => state.user)
+
+    //PATHNAME
+    const pathname = usePathname()
 
 
     useEffect(() => {
@@ -41,11 +47,12 @@ export default function Layout({ children }: PropsWithChildren<unknown>) {
 
     return (
         <WrapperGap>
+            {pathname === MAIN_PAGES.HOME.path && !isUserAuth && <TopBar/>}
             <div className={cl.content}>
                 {children}
+                <Footer/>
             </div>
             <MobileNavbar/>
-            <Footer/>
         </WrapperGap>
     )
 }

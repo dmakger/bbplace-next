@@ -68,7 +68,8 @@ export const SupplierListChild = () => {
         <WrapperSortFilter variant={ECatalogVariants.COMPANIES} pageNumberKey={SUPPLIER_PARAMS.NUMBER_PAGE__KEY}>
             <WrapperPagination amount={countSuppliers ? countSuppliers : 1}
                 active={pageNumber}
-                set={setPageNumber} keyPageParam={SUPPLIER_PARAMS.NUMBER_PAGE__KEY}>
+                set={setPageNumber} keyPageParam={SUPPLIER_PARAMS.NUMBER_PAGE__KEY}
+                className={cl.wrapperPagination}>
                 {supplierList.map(it => (
                     <SupplierItem supplier={it} key={it.id}/>
                 ))}

@@ -41,7 +41,7 @@ class Route {
 // ======={ MAIN }=======
 class MAIN extends Route {
     HOME = this.createPath('/');
-    CATALOG = this.createPath('/catalog');
+    // CATALOG = this.createPath('/catalog');
     PRODUCTS = this.createPath('/product');
     
     TENDERS = this.createPath('/tender');
@@ -58,13 +58,12 @@ class MAIN extends Route {
 
     CURRENT_SUPPLIER = this.createDynamicPath((id: ISupplier['id']) => `/supplier/${id}`, true);
     CURRENT_PRODUCT = this.createDynamicPath((id: IProduct['id']) => `/product/${id}`, true);
+    PRODUCTS_BY_CATEGORY = this.createDynamicPath((id: IProduct['id']) => `/product?category=${id}`, true);
     CURRENT_TENDER = this.createDynamicPath<{ id: ITender['id'], type?: IBaseTender['type'] }>(
         (params) => `/tender/${params.id}/${params.type || ETenderType.PURCHASE}`,
         true
     );
-
     CURRENT_DOCUMENT = this.createDynamicPath((documentName: string) => `/documents/${documentName}`)
-
 }
 
 export const MAIN_PAGES = new MAIN('')
@@ -74,20 +73,13 @@ class DASHBOARD extends Route {
     HOME = this.createPath('/', true);
     PROFILE_EDIT = this.createPath('/edit', true);
     FAVOURITES = this.createPath('/favourites', true);
-    CHATS = this.createPath('/chat', true);
-
-    PRODUCTS = this.createPath('/product', true);
-    TENDERS = this.createPath('/tender', true);
-
-    PRICES_N_DISCOUNTS = this.createPath('/pricesNDiscounts', true);
-    REVIEWS = this.createPath('/reviews', true);
     
-    NEW_TENDER = this.createPath('/tender/new', true);
+    // CHATS = this.createDynamicPath('/chat', true);
+    CHATS = this.createDynamicPath((id?: ISupplier['id'] | number ) => (
+        `/chat` + ( id ? `?id=${id}` : '')
+    ), true);
+    PRODUCTS = this.createPath('/product', true);
     NEW_PRODUCT = this.createPath('/product/new', true);
-
-    CURRENT_CHAT = this.createDynamicPath((id: ISupplier['id']) => `/chat/${id}`, true);
-    // EDIT_PRODUCT = this.createDynamicPath((id: IProduct['id']) => `/product/edit/${id}`, true);
-    // EDIT_PRODUCT = this.createDynamicPath((groupId: IProduct['groupId'], id: IProduct['id']) => `/product/edit?groupId=${groupId}&id=${id}`, true);
     EDIT_PRODUCT = this.createDynamicPath<{ groupId: number, type?: string | EProductType, id?: IProduct['id'] }>(
         ({type, groupId, id}) => {
             const startURL = `/product/edit?type=${toProductType(type)}&groupId=${groupId}`
@@ -95,6 +87,12 @@ class DASHBOARD extends Route {
         },
         true
     );
+
+    TENDERS = this.createPath('/tender', true);
+    NEW_TENDER = this.createPath('/tender/new', true);
+    
+    PRICES_N_DISCOUNTS = this.createPath('/pricesNDiscounts', true);
+    REVIEWS = this.createPath('/reviews', true);
 }
 
 export const DASHBOARD_PAGES = new DASHBOARD('/i');

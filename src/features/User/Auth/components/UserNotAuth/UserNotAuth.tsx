@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, ButtonVariant } from '@/shared/ui/Button';
 import { useActionCreators } from '@/storage/hooks';
 import { UserAPI } from '@/entities/Auth/api/auth.api';
+import { MAIN_PAGES } from '@/config/pages-url.config';
 
 interface IUserNotAuthProps {
     className?: string;
@@ -29,7 +30,8 @@ export const UserNotAuth: React.FC<IUserNotAuthProps> = ({ className }) => {
         <Button 
             variant={ButtonVariant.BORDERED_RED_WIDE} 
             title='Войти' 
-            onClick={login} 
+            // onClick={login} 
+            href={MAIN_PAGES.LOGIN.path}
             className={className} 
         />
     );

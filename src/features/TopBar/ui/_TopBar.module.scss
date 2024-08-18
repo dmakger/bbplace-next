@@ -1,0 +1,16 @@
+.content{
+    flex-direction: row !important;
+
+    .topBar{
+        width: 100%;
+        margin-top: 20px;
+
+        @media (max-width: 768px) {
+            margin: 20px 20px 0 20px;
+        }
+        .topBarButton{
+            width: 100%;
+        }
+    }
+}
+

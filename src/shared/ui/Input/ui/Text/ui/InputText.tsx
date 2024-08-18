@@ -1,8 +1,8 @@
 'use client'
+import { ChangeEvent, useEffect, useRef, useState, KeyboardEvent } from 'react';
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_InputText.module.scss';
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { WrapperTitleInput } from '@/shared/ui/Wrapper/Title/Input/WrapperTitleInput';
 import { EInputTextType, EInputTextVariant } from '../data/text.input.data';
 import { IWrapperRectangleInputChildren } from '@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model';
@@ -35,6 +35,10 @@ interface InputTextProps extends IWrapperRectangleInputChildren, IInput {
 
     onMouseEnter?: Function
     onMouseLeave?: Function
+    onKeyDown?: (e: KeyboardEvent<HTMLTextAreaElement>) => void
+
+    rows?: number
+    refTextArea?: React.RefObject<HTMLTextAreaElement>
 }
 
 export function InputText({
@@ -63,6 +67,10 @@ export function InputText({
     setErrorMessageArray,
     // Состояния для отображения статусов
     onMouseEnter = () => { }, onMouseLeave = () => { },
+    onKeyDown=()=>{},
+
+    rows,
+    refTextArea: refOutTextArea,
     ...rest }: InputTextProps) {
 
     //STATE
@@ -239,12 +247,14 @@ export function InputText({
                     )}
                     name={name}
                     value={value}
-                    ref={textAreaRef}
+                    ref={refOutTextArea ?? textAreaRef}
                     defaultValue={defaultValue}
                     required={required}
                     placeholder={placeholder}
+                    rows={rows}
                     onChange={handleOnChange}
                     onBlur={(e) => checkValue(e.target.value)}
+                    onKeyDown={onKeyDown}
                     {...rest}
                 />
             )}

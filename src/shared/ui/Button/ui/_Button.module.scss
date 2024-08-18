@@ -161,6 +161,10 @@
     background-color: var(--empty);
     color: var(--button-color);
 }
+.blank {
+    background-color: var(--empty);
+    border: none;
+}
 
 .link{
     background-color: var(--tertiary-surface-low);

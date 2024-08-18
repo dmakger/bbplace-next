@@ -1,0 +1,42 @@
+.message {
+    display: flex;
+    flex-direction: column;
+
+    &.me {
+        margin-left: auto;
+        .text {
+            border-radius: 20px 0 5px 20px;
+        }
+        .date {
+            margin-left: auto;
+        }
+    }
+    &.other {
+        margin-right: auto;
+        .text {
+            border-radius: 0 20px 20px 5px;
+        }
+    }
+
+    .date {
+        display: flex;
+        gap: 2.5px;
+        align-items: center;
+
+        .dateText {
+            padding: 11px 10.5px 0 10.5px;
+            width: fit-content;
+            border-radius: 5px 5px 0 0;
+            background-color: var(--tertiary-surface-low);
+            color: var(--font-caption);
+            font-size: var(--font-size-s);
+        }
+    }
+    .text {
+        max-width: 600px;
+        min-width: 80px;
+        width: 100%;
+        padding: 20px;
+        background-color: var(--tertiary-surface-low);
+    }
+}

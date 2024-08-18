@@ -162,7 +162,7 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
 
                     await createDraftProduct(createdPropsFormData).then(async r => {
                         await deleteProduct(+productId).unwrap()
-                        if ('data' in r) {
+                        if ('data' in r && r.data) {
                             const draftGroupId = await createDraftGroup().unwrap()
                             await addProductToDraftGroup({groupId: draftGroupId, productId: r.data}).then(() => {
                                 if (products.length === 1) {
@@ -190,7 +190,7 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
 
                     await createProduct(createdPropsFormData).then(async r => {
                         await deleteDraftProduct(productId).unwrap()
-                        if ('data' in r) {
+                        if ('data' in r && r.data) {
                             const createdGroupId = await createGroup().unwrap()
                             await addProductToGroup({groupId: createdGroupId, productId: r.data}).then(() => {
                                 if (products.length === 1) {
@@ -248,7 +248,7 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
             </div>
             <ProductForm ref={productFormRef} data={currentPropsProduct} loadData={handleGetFormData} isEdit={isEditForm} />
             <>
-                {products && (JSON.stringify(products.map(it => it.id)))}
+                {products.length > 0 && (JSON.stringify(products.map(it => it.id)))}
             </>
         </div> 
     )

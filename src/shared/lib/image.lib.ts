@@ -3,9 +3,13 @@ import { IIcon, IIconBoolean, IWarningIcon } from "../ui/Icon/model/icon.model"
 const START_IMAGE_URL = "https://bbplace.ru/fileservice/api/FilesS3/GetFile"
 
 export const getImage = (image: string) => {
-    if (image.startsWith('https://'))
+    try {
+        if (image.startsWith('https://'))
+            return image
+        return `${START_IMAGE_URL}/${image}`
+    } catch (err) {
         return image
-    return `${START_IMAGE_URL}/${image}`
+    }
 }
 
 // export const getOnlyImage = (images: string[]) => {
