@@ -1,4 +1,4 @@
-// "use client"
+"use client"
 
 import { DASHBOARD_PAGES } from "@/config/pages-url.config"
 import { IOptionTabChat } from "@/features/DetailedPageInfo/model/detailedPageInfo.model"
