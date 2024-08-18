@@ -1,6 +1,6 @@
 "use client"
 
-import { FC, ReactNode } from "react"
+import { FC, ReactNode, useEffect, useState } from "react"
 import { useAppSelector } from "@/storage/hooks";
 
 interface WrapperAuthProps{
@@ -10,10 +10,18 @@ interface WrapperAuthProps{
 export const WrapperAuth: FC<WrapperAuthProps> = ({ children }) => {
     // RTK
     const { isAuth } = useAppSelector(state => state.user);
+    const [isClient, setIsClient] = useState<boolean>(false);
+
+    //EFFECT
+    useEffect(() => {
+        // Устанавливаем флаг клиентского рендеринга
+        setIsClient(true);
+    }, []);
+
 
     // Возвращаем null на сервере, чтобы избежать несоответствия в гидратации
-    if (typeof window === 'undefined') {
-        return null;
+    if (!isClient) {
+        return null; 
     }
 
     return (

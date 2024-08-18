@@ -42,7 +42,7 @@ export const MobileOrderFooter = ({
                 <Button variant={ButtonVariant.BACKGROUND_RED}
                     size={ButtonSize.Medium}
                     classNameLink={cl.button}
-                    href={DASHBOARD_PAGES.CHATS(supplierId ?? undefined).path}
+                    href={DASHBOARD_PAGES.CURRENT_CHAT(supplierId ?? undefined).path}
                     title="Заказать" />
             </div>
                 

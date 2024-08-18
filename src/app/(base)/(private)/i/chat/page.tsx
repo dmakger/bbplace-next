@@ -28,7 +28,7 @@ export default function ChatPage() {
                 options={LK_CHATS_PAGE} optionsTab={CHAT__OPTIONS_TAB}
                 startPage={SWITCH_SELECTOR__CHAT__OPTION} 
                 buttonBackProps={{href: DASHBOARD_PAGES.HOME.path}}
-                isButtonAdd={false}/>
+                isButtonRight={false}/>
         </Wrapper1280>
     )
 }

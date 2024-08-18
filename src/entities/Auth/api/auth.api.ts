@@ -3,9 +3,9 @@ import { AxiosRequestConfig, AxiosError } from 'axios';
 import apiClient from './interceptor.auth.api';
 import { IAuthForm, ILoginResponseDecoded, ICheckEmailExists, IRegistrationRequest, IResetPassword, ISendResetPassword, IUpdateUserInfo } from '../model/auth.model';
 import { saveTokensStorage, getAccessToken, getRefreshToken, getHeaderAuthorizationIfExists, getHeaderAuthorization } from '../lib/auth-token.lib';
-import { jwtDecode } from 'jwt-decode';
 import { options } from '@/api/interceptors';
 import { ISupplier, ISupplierAPI } from '@/entities/Supplier/model/supplier.model';
+import { jwtDecode } from 'jwt-decode';
 import { supplierApiToSupplier } from '@/entities/Supplier/lib/process.supplier.lib';
 
 const axiosBaseQuery: BaseQueryFn<
@@ -65,10 +65,10 @@ export const UserAPI = createApi({
                 method: 'POST',
                 data
             }),
-            transformResponse: (response: any) => {
-                saveTokensStorage(response); // Сохранение токенов в куки
-                return jwtDecode(response.accessToken);
-            }
+            // transformResponse: (response: any) => {
+            //     saveTokensStorage(response); // Сохранение токенов в куки
+            //     return jwtDecode(response.accessToken);
+            // }
         }),
         userLogin: builder.mutation<ILoginResponseDecoded, IAuthForm>({
             query: ({ username, password }) => ({

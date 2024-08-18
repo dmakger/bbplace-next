@@ -9,7 +9,7 @@ export const HOME_LK_ITEM_MENU_DATA: IMenuItem = {
 }
 
 export const NOTIFICATION_ITEM_LK_MENU_DATA: IMenuItem = {
-    link: DASHBOARD_PAGES.CHATS(undefined).path,
+    link: DASHBOARD_PAGES.CURRENT_CHAT(undefined).path,
     title: "Уведомления",
 }
 

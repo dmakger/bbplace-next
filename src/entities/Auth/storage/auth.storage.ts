@@ -22,19 +22,19 @@ export const UserSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        setAuth(state, action: PayloadAction<ILoginResponseDecoded>) {
+        setAuth(state, action: PayloadAction<Partial<ILoginResponseDecoded>>) {  // Используем Partial для обновления только некоторых полей
+            const data = action.payload;
 
-            const data = action.payload
+            if (data.UserId) state.id = data.UserId;
+            if (data.UserName) state.email = data.UserName;
+            if (data.FullName) state.fullName = data.FullName;
+            if (data.LegalName) state.legalName = data.LegalName;
+            if (data.BrandName) state.brandName = data.BrandName;
+            if (data.Role) state.role = data.Role;
+            if (data.MobilePhone) state.phoneNumber = data.MobilePhone;
+            if (data.Country) state.country = data.Country;
 
             state.isAuth = true;
-            state.id = data.UserId;
-            state.email = data.UserName;
-            state.fullName = data.FullName;
-            state.legalName = data.LegalName;
-            state.brandName = data.BrandName;
-            state.role = data.Role;
-            state.phoneNumber = data.MobilePhone;
-            state.country = data.Country;
         },
         setNotAuth(state){
             state.isAuth = false;

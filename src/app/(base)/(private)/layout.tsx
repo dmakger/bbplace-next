@@ -1,9 +1,11 @@
 'use client'
 
 import { MAIN_PAGES } from "@/config/pages-url.config";
+import { LK_MOBILE_DATA } from "@/shared/data/menu/mobile.menu.data";
 import { WrapperAuth } from "@/shared/ui/Wrapper/Auth/WrapperAuth";
 import { useAppSelector } from "@/storage/hooks";
 import { HeaderLK } from "@/widgets/HeaderLK";
+import { MobileNavbar } from "@/widgets/MobileNavbar";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
@@ -28,6 +30,7 @@ export default function RootLayout({
         <WrapperAuth>
           <HeaderLK />
             {children}
+            <MobileNavbar menuData={LK_MOBILE_DATA}/>
         </WrapperAuth>
     )
   }

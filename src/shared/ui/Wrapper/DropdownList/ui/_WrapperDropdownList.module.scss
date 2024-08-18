@@ -1,6 +1,7 @@
 .WrapperDropdownList {
     background-color: var(--background-2);
     opacity: 0;
+    z-index: -1;
     visibility: hidden;
     transition: .3s;
     overflow-y: auto;

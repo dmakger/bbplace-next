@@ -3,7 +3,7 @@ import cl from './_ProfileEditForm.module.scss'
 import { Dispatch, MutableRefObject, SetStateAction } from "react";
 import { IEditProfileCompanyFormValues, IEditProfilePersonalFormValues } from "@/features/Form/EditProfile/model/editProfile.model";
 import { CompanyInfoEditProfileForm, PersonalInfoEditProfileForm } from "@/features/Form/EditProfile/ui";
-import { ISupplierAPI } from "@/entities/Supplier/model/supplier.model";
+import { ISupplier } from "@/entities/Supplier/model/supplier.model";
 
 interface IProfileEditForm {
     className?: string,
@@ -11,7 +11,7 @@ interface IProfileEditForm {
     companyFormSubmitRef: MutableRefObject<() => void>,
     setPersonalInfoData: Dispatch<SetStateAction<IEditProfilePersonalFormValues | undefined>>,
     setCompanyInfoData: Dispatch<SetStateAction<IEditProfileCompanyFormValues | undefined>>,
-    userData: ISupplierAPI
+    userData: ISupplier
 }
 
 export const ProfileEditForm = ({

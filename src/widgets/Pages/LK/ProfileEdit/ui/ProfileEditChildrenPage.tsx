@@ -8,35 +8,44 @@ import { ProfileEditForm } from "../components/ProfileEditForm/ProfileEditForm";
 import { useEffect, useRef, useState } from "react";
 import { TinAPI, UserAPI } from "@/entities/Auth/api/auth.api";
 import { IEditProfileCompanyFormValues, IEditProfilePersonalFormValues } from "@/features/Form/EditProfile/model/editProfile.model";
-import { useAppSelector } from "@/storage/hooks";
-import { ISupplierAPI } from "@/entities/Supplier/model/supplier.model";
+import { useActionCreators, useAppSelector } from "@/storage/hooks";
+import { ISupplier } from "@/entities/Supplier/model/supplier.model";
+import { useRouter } from "next/navigation";
+import { DASHBOARD_PAGES } from "@/config/pages-url.config";
+import { ILoginResponseDecoded, IUser } from "@/entities/Auth/model/auth.model";
 
 export const ProfileEditChildrenPage = () => {
-    // RTK
-    const { id } = useAppSelector(state => state.user);
+    //RTK
+    const { id, role } = useAppSelector(state => state.user);
+    const actionCreators = useActionCreators()
+    const currentAuthData: ILoginResponseDecoded | IUser = useAppSelector(state => state.user);
 
-    // API
-    const [updateInfo] = UserAPI.useUpdateUserInfoMutation();
-    const [updateTIN] = TinAPI.useUpdateTINMutation();
-    const { data: userDataValues } = UserAPI.useGetUserDataQuery(id);
 
-    // STATE
+    //API
+    const [updateInfo, { isLoading: isLoadingInfo }] = UserAPI.useUpdateUserInfoMutation();
+    const [updateTIN, { isLoading: isLoadingITIN }] = TinAPI.useUpdateTINMutation();
+    const { data: userDataValues } = UserAPI.useGetUserDataQuery(id, {refetchOnMountOrArgChange: true});
+
+    //ROUTER
+    const router = useRouter()
+
+    //STATE
     const [personalInfoData, setPersonalInfoData] = useState<IEditProfilePersonalFormValues | undefined>();
     const [companyInfoData, setCompanyInfoData] = useState<IEditProfileCompanyFormValues | undefined>();
-    const [userData, setUserData] = useState<ISupplierAPI>();
+    const [userData, setUserData] = useState<ISupplier>();
     const [formUpdated, setFormUpdated] = useState(false);
 
-    // EFFECT
+    //EFFECT
     useEffect(() => {
         if (userDataValues)
             setUserData(userDataValues);
     }, [userDataValues]);
 
     useEffect(() => {
-        if (formUpdated && personalInfoData && companyInfoData) {
+        if (formUpdated && userData) {
             handleSubmit();
         }
-    }, [formUpdated, personalInfoData, companyInfoData]);
+    }, [formUpdated, userData]);
 
     // REF
     const personalFormSubmit = useRef<() => void>(() => { });
@@ -72,10 +81,20 @@ export const ProfileEditChildrenPage = () => {
                     legalName: companyInfoData.legalName ?? '',
                     brandName: companyInfoData.brandName ?? '',
                 });
-                
+
                 if (companyInfoData.tin !== userData?.inn) {
                     await updateTIN(companyInfoData.tin);
                 }
+                actionCreators.setAuth({
+                    ...currentAuthData,
+                    BrandName: companyInfoData.brandName ?? '',
+                    FullName: personalInfoData.fullName ?? '',
+                    LegalName: companyInfoData.legalName ?? '',
+                    MobilePhone: personalInfoData.phoneNumber ?? '',
+                })
+                const redirectPath = role.includes('Seller') ? DASHBOARD_PAGES.PRODUCTS.path : DASHBOARD_PAGES.CHATS.path;
+                router.push(redirectPath);
+
             }
         } catch (e) {
             console.log(e);
@@ -100,7 +119,7 @@ export const ProfileEditChildrenPage = () => {
                 optionsTab={PROFILE_EDIT_TAB}
                 options={[SWITCH_SELECTOR_PROFILE_EDIT]}
                 buttonRightTitle="Сохранить"
-                buttonRightProps={{ onClick: handleOnClick }}
+                buttonRightProps={{ onClick: handleOnClick, loading: isLoadingInfo || isLoadingITIN, disabled: isLoadingInfo || isLoadingITIN }}
             />
         </Wrapper1280>
     )

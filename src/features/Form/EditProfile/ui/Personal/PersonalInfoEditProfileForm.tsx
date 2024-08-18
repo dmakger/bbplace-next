@@ -12,7 +12,7 @@ import { useAppSelector } from "@/storage/hooks"
 import { IEditProfilePersonalFormValues } from "../../model/editProfile.model"
 import { INITIAL_PERSONAL_ERRORS } from "../../data/editProfile.data"
 import { getFormDataFromForm } from "@/shared/lib/formData.lib"
-import { ISupplierAPI } from "@/entities/Supplier/model/supplier.model"
+import { ISupplier } from "@/entities/Supplier/model/supplier.model"
 import { WrapperWOSubmit } from '@/shared/ui/Wrapper/WOSubmit/ui/WrapperWOSubmit'
 import { TEL_VALID_RULES, isTelValid } from '@/entities/Auth/data/telNEmail.data'
 
@@ -21,7 +21,7 @@ interface IPersonalInfoEditProfileForm {
     setData?: Dispatch<SetStateAction<IEditProfilePersonalFormValues | undefined>>
     triggerSubmit?: (submitFn: () => void) => void,
     className?: string,
-    userData: ISupplierAPI
+    userData: ISupplier
 }
 
 export const PersonalInfoEditProfileForm = ({
@@ -42,12 +42,9 @@ export const PersonalInfoEditProfileForm = ({
     useEffect(() => {
         if(userData){
             setPhoneNumber(userData.phoneNumber)
-            userData.photoId && setUploadedImageList([userData.photoId])
+            userData.photoId && setUploadedImageList([userData.photoId.key])            
         }
-    }, [userData])    
-
-    console.log(uploadedImageList);
-    
+    }, [userData])     
    
     
     const [errors, setErrors] = useState<IEditProfilePersonalFormValues>(INITIAL_PERSONAL_ERRORS);
@@ -64,7 +61,7 @@ export const PersonalInfoEditProfileForm = ({
         let hasError = false;
 
         //PHONE_NUMBER
-        if(!isTelValid(phoneNumber)){
+        if(phoneNumber !== '' && !isTelValid(phoneNumber)){
             newErrors.phoneNumber = TEL_VALID_RULES;
             hasError = true;
         } 
@@ -80,7 +77,7 @@ export const PersonalInfoEditProfileForm = ({
                 email,
                 phoneNumber: formData.phoneNumber ?? phoneNumber,
                 fullName: formData.name ?? name,
-                photoId: JSON.stringify(uploadedImageList[0])
+                photoId: uploadedImageList[0] ? JSON.stringify({key: uploadedImageList[0]}) : ''
             } as IEditProfilePersonalFormValues)
         }
     }
@@ -106,7 +103,7 @@ export const PersonalInfoEditProfileForm = ({
                     </WrapperRectangleInput>
 
                     <WrapperRectangleInput labelText={"Фотография"} isDescriptionTooltip descriptionTooltipText="Ваша фотография или логотип компании для узнаваемости.">
-                        <Input.Image name={'attachments'} placeholder="Начните вводить"
+                        <Input.Image name='photo'
                             imageList={uploadedImageList} setImageList={setUploadedImageList}
                             variant={EInputVariants.RECTANGULAR} multiple={false}/>
                     </WrapperRectangleInput>

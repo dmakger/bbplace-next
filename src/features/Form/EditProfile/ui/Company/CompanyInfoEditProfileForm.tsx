@@ -11,7 +11,7 @@ import { Dispatch, FormEvent, SetStateAction, useEffect, useRef, useState } from
 import { useAppSelector } from "@/storage/hooks"
 import { CategoryRecursiveSelect } from "@/features/CategoryRecursiveSelect"
 import { getFormDataFromForm } from "@/shared/lib/formData.lib"
-import { ISupplierAPI } from "@/entities/Supplier/model/supplier.model"
+import { ISupplier } from "@/entities/Supplier/model/supplier.model"
 import { IOption } from '@/shared/model/option.model'
 import { ERecursiveSelectVariant } from '@/shared/ui/Input/ui/RecursiveSelect/model/recursiveSelect.model'
 import { WrapperWOSubmit } from '@/shared/ui/Wrapper/WOSubmit/ui/WrapperWOSubmit'
@@ -22,7 +22,7 @@ interface ICompanyInfoEditProfileForm {
     setData?: Dispatch<SetStateAction<IEditProfileCompanyFormValues | undefined>>
     triggerSubmit?: (submitFn: () => void) => void,
     className?: string,
-    userData: ISupplierAPI
+    userData: ISupplier
 }
 
 export const CompanyInfoEditProfileForm = ({
@@ -48,15 +48,14 @@ export const CompanyInfoEditProfileForm = ({
     //EFFECT
     useEffect(() => {
         if (userData) {
+            setLegalName(userData.legalName)
+            setBrandName(userData.brandName)
             setShortDescription(userData.shortDescription)
             setFullDescription(userData.description)
             setTIN(userData.inn)
-            setDefaultCategoriesId(JSON.parse(userData.category).map((it: IOption) => it.id))
+            setDefaultCategoriesId(userData.category.map((it: IOption) => it.id));
         }
     }, [userData])
-
-    console.log(userData.category);
-    
 
     // REF
     const formRef = useRef<HTMLFormElement>(null)

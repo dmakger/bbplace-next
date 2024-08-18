@@ -8,6 +8,7 @@ import { useState } from 'react'
 import { useAppSelector } from '@/storage/hooks'
 import { MAIN_PAGES } from '@/config/pages-url.config'
 import { BBP_PRESENTATION_DOCUMENT } from '@/shared/data/documents.data'
+import { cls } from '@/shared/lib/classes.lib'
 export const AboutBB = () => {
     //STATE
     const [is768, setIs768] = useState<boolean>(false)
@@ -34,7 +35,7 @@ export const AboutBB = () => {
                         {aboutBBTextArray.map(it => (
                             <p className={cl.aboutBBText} key={it}>{it}</p>
                         ))}
-                        <div className={cl.buttonsContainer}>
+                        <div className={cls(cl.buttonsContainer, isAuth ? cl.noFlex : '')}>
                             <Button
                                 className={cl.fill}
                                 variant={ButtonVariant.BORDER}
