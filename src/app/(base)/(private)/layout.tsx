@@ -1,6 +1,7 @@
 'use client'
 
 import { MAIN_PAGES } from "@/config/pages-url.config";
+import { UserAPI } from "@/entities/Auth/api/auth.api";
 import { WrapperAuth } from "@/shared/ui/Wrapper/Auth/WrapperAuth";
 import { useAppSelector } from "@/storage/hooks";
 import { HeaderLK } from "@/widgets/HeaderLK";
