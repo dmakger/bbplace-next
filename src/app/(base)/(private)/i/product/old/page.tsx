@@ -1,5 +1,4 @@
 'use client'
-import { useActionCreators } from '@/storage/hooks'
 import cl from './_LKProductPage.module.scss'
 
 import Wrapper1280 from '@/shared/ui/Wrapper/1280/Wrapper1280'
@@ -14,7 +13,6 @@ import { IProduct } from '@/entities/Product/model/product.model'
 import { productApiListToProductList } from '@/entities/Product/lib/product.lib'
 import { CurrencyAPI } from '@/entities/Metrics/api/currency.metrics.api'
 import { MetricsAPI } from '@/entities/Metrics/api/metrics.metrics.api'
-import { UserAPI } from '@/entities/Auth/api/auth.api'
 import { LKSubheader } from '@/features/LKSubheader'
 import { cls } from '@/shared/lib/classes.lib'
 import SuspenseL from '@/shared/ui/Wrapper/SuspenseL/SuspenseL'
@@ -41,29 +39,6 @@ export default function LKProductPage() {
     const { data: currencyList } = CurrencyAPI.useGetCurrenciesQuery()
     const { data: metrics } = MetricsAPI.useGetMetricsQuery()
 
-    //RTK
-    const [userLogin] = UserAPI.useUserLoginMutation();
-    const actionCreators = useActionCreators();
-
-
-    //TEMPORARY LOGIN
-    const login = useCallback(async () => {
-        try {
-            const data = await userLogin({
-                username: 'ilya-yudenkov@mail.ru',
-                password: '12345Ii'
-            }).unwrap();
-            if (data) {
-                actionCreators.setAuth(data);
-            }
-        } catch (error) {
-            console.error('Ошибка аутентификации:', error);
-        }
-    }, [userLogin, actionCreators]);
-
-    useEffect(() => {
-        login()
-    }, [login]);
 
     //EFFECT
     useEffect(() => {

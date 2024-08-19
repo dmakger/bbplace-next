@@ -74,8 +74,7 @@ class DASHBOARD extends Route {
     PROFILE_EDIT = this.createPath('/edit', true);
     FAVOURITES = this.createPath('/favourites', true);
     
-    CHATS = this.createPath('/chat', true);
-    CURRENT_CHAT = this.createDynamicPath((id?: ISupplier['id'] | number ) => (
+    CHATS = this.createDynamicPath((id?: ISupplier['id'] | number ) => (
         `/chat` + ( id ? `?id=${id}` : '')
     ), true);
     PRODUCTS = this.createPath('/product', true);

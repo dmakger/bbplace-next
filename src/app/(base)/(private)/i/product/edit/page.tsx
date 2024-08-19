@@ -37,7 +37,7 @@ export default function ProductEditPage() {
                         buttonBackProps={{href: DASHBOARD_PAGES.PRODUCTS.path}}
                         startPage={SWITCH_SELECTOR_PRODUCT_EDIT_PAGE_SINGLE}
                         optionsTab={PRODUCT_EDIT_OPTIONS_TAB}
-                        isButtonAdd={false} />
+                        isButtonRight={false} />
                 </SuspenseL.Any>
             </Suspense>
         </Wrapper1280>

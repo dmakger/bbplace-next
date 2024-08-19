@@ -46,7 +46,7 @@ export const FavouritesChildrenPage = () => {
                     pageTitle="Избранное"
                     startPage={SWITCH_SELECTOR_PRODUCTS_OPTION}
                     optionsTab={LK_FAVOURITES_OPTIONS_TAB}
-                    isButtonAdd={false} />
+                    isButtonRight={false} />
             </SuspenseL>
         </Wrapper1280>
     )
