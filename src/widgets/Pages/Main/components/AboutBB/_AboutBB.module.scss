@@ -1,7 +1,6 @@
 .AboutBB {
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
     width: 1280px;
     background-color: var(--background-brown);
     background-image: url('../../../../../shared/assets/img/BBPRightPart/BBPRightPart.svg'),
@@ -57,4 +56,8 @@
             }
         }
     }
+}
+
+.noFlex{
+    display: block !important;
 }
