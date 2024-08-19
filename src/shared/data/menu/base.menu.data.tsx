@@ -10,7 +10,7 @@ export const HORIZONTAL_VIEW: IIconVariants = {
 
 export const DASHBOARD_ITEM_MENU_DATA: IIconVariants = {
     id: 3,
-    link: DASHBOARD_PAGES.CURRENT_CHAT(undefined).path,
+    link: DASHBOARD_PAGES.CHATS(undefined).path,
     title: "Чат",
     image: <ChatsSVGIcon />,
 }

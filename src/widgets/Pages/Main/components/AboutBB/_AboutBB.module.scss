@@ -38,8 +38,6 @@
         .aboutBBColumnContainer {
             display: flex;
             flex-direction: column;
-            word-break: break-word; // Перенос слов на следующую строку
-    overflow-wrap: break-word;
             gap: 20px;
             .aboutBBText {
                 @media (max-width: 768px) {

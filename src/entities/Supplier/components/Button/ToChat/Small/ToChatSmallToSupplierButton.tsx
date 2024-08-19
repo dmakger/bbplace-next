@@ -17,7 +17,7 @@ export const ToChatSmallToSupplierButton:FC<ToChatSmallToSupplierButtonProps> = 
     
     return (
         <Button variant={ButtonVariant.BACKGROUND_GRAY} 
-                href={DASHBOARD_PAGES.CURRENT_CHAT(supplierId).path} 
+                href={DASHBOARD_PAGES.CHATS(supplierId).path} 
                 className={cls(className, isWide ? cl.buttonWide : '')}>
             <ToChatIcon />
         </Button>

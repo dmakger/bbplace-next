@@ -32,7 +32,7 @@ export const ChatDataItem:FC<ChatDataItemProps> = ({
     const { data: brand } = UserAPI.useGetUserDataQuery(getOtherUserIdByChat(dialog.chat, id))
 
     return (
-        <Link href={DASHBOARD_PAGES.CURRENT_CHAT(dialog.chat.id).path} className={cls(cl.chat, isActive || activeId === dialog.chat.id ? cl.active : '', className)}>
+        <Link href={DASHBOARD_PAGES.CHATS(dialog.chat.id).path} className={cls(cl.chat, isActive || activeId === dialog.chat.id ? cl.active : '', className)}>
             <div className={cl.imageWrapper}>
                 <ImageAPI src={getSupplierImage(brand?.photoId?.key)} toImage={false} width={50} height={50} quality={100} className={cl.image} />
             </div>
