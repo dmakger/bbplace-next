@@ -1,7 +1,6 @@
 'use client'
 
 import { MAIN_PAGES } from "@/config/pages-url.config";
-import { UserAPI } from "@/entities/Auth/api/auth.api";
 import { WrapperAuth } from "@/shared/ui/Wrapper/Auth/WrapperAuth";
 import { useAppSelector } from "@/storage/hooks";
 import { HeaderLK } from "@/widgets/HeaderLK";
@@ -10,9 +9,9 @@ import { useEffect } from "react";
 
 export default function RootLayout({
 	children,
-  }: Readonly<{
+}: Readonly<{
     children: React.ReactNode;
-  }>) {
+}>) {
     //RTK
     const {isAuth} = useAppSelector(state => state.user)
 
@@ -29,8 +28,8 @@ export default function RootLayout({
 		<>
 			<HeaderLK />
 			<WrapperAuth>
-            	{children}
-        	</WrapperAuth>
-      	</>
+				{children}
+			</WrapperAuth>
+		</>
     )
   }

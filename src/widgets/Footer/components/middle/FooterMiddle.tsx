@@ -1,3 +1,5 @@
+"use client"
+
 import { Button } from '@/shared/ui/Button'
 import cl from './_FooterMiddle.module.scss'
 import { ButtonColor, ButtonSize, ButtonVariant } from '@/shared/ui/Button/model/button.model'

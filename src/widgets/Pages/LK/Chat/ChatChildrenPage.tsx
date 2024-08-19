@@ -1,6 +1,6 @@
 "use client"
 
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect } from "react";
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_ChatChildrenPage.module.scss';
 import { useAppSelector, useAppDispatch } from "@/storage/hooks";

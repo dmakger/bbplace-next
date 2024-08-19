@@ -30,18 +30,16 @@ export default function LKProductPage() {
 
     return (
         <Wrapper1280>
-            <WrapperAuth>
-                <Suspense fallback={<div>Loading...</div>}>
-                    <SuspenseL.Any data={[
-                        { searchKey: "type", set: setTypeProduct },
-                    ]}>
-                        <WrapperLKPT pageTitle="Мои товары" 
-                                    options={PRODUCT_PAGE_OPTIONS_ARRAY} optionsTab={MY_PRODUCTS_OPTIONS_TAB}
-                                    startPage={PRODUCT_PAGE_OPTIONS_ARRAY.find(it => it.value === typeProduct) ?? SWITCH_SELECTOR_CREATED_PRODUCTS_OPTION} 
-                                    isButtonAdd={false}/>
-                    </SuspenseL.Any>
-                </Suspense>
-            </WrapperAuth>
+            <Suspense fallback={<div>Loading...</div>}>
+                <SuspenseL.Any data={[
+                    { searchKey: "type", set: setTypeProduct },
+                ]}>
+                    <WrapperLKPT pageTitle="Мои товары" 
+                                options={PRODUCT_PAGE_OPTIONS_ARRAY} optionsTab={MY_PRODUCTS_OPTIONS_TAB}
+                                startPage={PRODUCT_PAGE_OPTIONS_ARRAY.find(it => it.value === typeProduct) ?? SWITCH_SELECTOR_CREATED_PRODUCTS_OPTION} 
+                                isButtonAdd={false}/>
+                </SuspenseL.Any>
+            </Suspense>
         </Wrapper1280>
     )
 }
