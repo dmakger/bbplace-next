@@ -1,0 +1,10 @@
+.body {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+
+    .title {
+        // font-family: var(--poppins-font);
+        font-family: var(--fourth-family);
+    }
+}

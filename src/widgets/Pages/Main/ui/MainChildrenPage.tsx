@@ -29,6 +29,7 @@ import { CardsSupplierSlider } from '@/features/MainPageCardSliderBlock/componen
 import { SliderPagingVariant } from '@/shared/data/sliderT.data'
 import { PrimeBannerSlider } from '../components/PrimeBannerSlider/PrimeBannerSlider'
 import { PRIME_SLIDER_LIST } from '../data/mainChildrenPage.data'
+import { ModalAction } from '@/shared/ui/Modal/ui/Action/ModalAction'
 
 
 export const MainChildrenPage = () => {
@@ -92,6 +93,7 @@ export const MainChildrenPage = () => {
 
     return (
         <Wrapper1280 classNameContent={cl.content}>
+            <ModalAction title={'Гойда'} />
             <div className={cl.topContainer}>
                 <PrimeBannerSlider items={PRIME_SLIDER_LIST}/>
                 <PrimeList />
