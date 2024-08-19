@@ -18,7 +18,7 @@ import SEARCH_ICON from '@/../public/searchGray.svg'
 import { ERecursiveSelectVariant } from '../../RecursiveSelect/model/recursiveSelect.model'
 import { HandleSize } from '@/shared/ui/Handle/Size/HandleSize'
 import { EModalView } from '@/shared/data/modal.data'
-import { Modal } from '@/shared/ui/Modal/Modal'
+import { Modal } from '@/shared/ui/Modal/ui/Modal/Modal'
 import { WrapperModalBottomDropList } from '@/shared/ui/Wrapper/ModalBottom/DropList/WrapperModalBottomDropSearch'
 import { WrapperModalBottomDropSearch } from '@/shared/ui/Wrapper/ModalBottom/DropSearch/WrapperModalBottomDropSearch'
 import { EInputTextTypeVariants } from '../../../Text/model/text.input.model'
@@ -247,7 +247,7 @@ export function TextAndSelectInput({
                 ) : (
                     <Modal view={EModalView.BOTTOM}
                         buttonNode
-                        _isOpen={showOptions}
+                        isOpen={showOptions}
                         onClickOverlay={toggleShowOptions}>
                         <WrapperModalBottomDropSearch 
                             title={titleModal}

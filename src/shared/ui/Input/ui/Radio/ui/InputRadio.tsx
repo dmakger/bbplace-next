@@ -107,7 +107,6 @@ export function InputRadio({
                 type="radio"
                 name={name}
                 value={option.value ? option.value : option.id}
-                defaultChecked={isActive}
                 required={required}
                 className={cl.input}
                 checked={isOwnChecked}

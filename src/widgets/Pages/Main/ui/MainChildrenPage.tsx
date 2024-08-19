@@ -29,7 +29,7 @@ import { CardsSupplierSlider } from '@/features/MainPageCardSliderBlock/componen
 import { SliderPagingVariant } from '@/shared/data/sliderT.data'
 import { PrimeBannerSlider } from '../components/PrimeBannerSlider/PrimeBannerSlider'
 import { PRIME_SLIDER_LIST } from '../data/mainChildrenPage.data'
-import { HandleSize } from '@/shared/ui/Handle/Size/HandleSize'
+
 
 export const MainChildrenPage = () => {
 
@@ -37,7 +37,6 @@ export const MainChildrenPage = () => {
     const [productList, setProductList] = useState<IProduct[]>([]);
     const [tenderList, setTenderList] = useState<ITender[]>([]);
     const [supplierList, setSupplierList] = useState<ISupplier[]>([]);
-    // const [is768, setIs768] = useState<boolean>(false)
 
     //API
     const { data: currencyList } = CurrencyAPI.useGetCurrenciesQuery();
@@ -92,25 +91,24 @@ export const MainChildrenPage = () => {
     ]
 
     return (
-      
-            <Wrapper1280 classNameContent={cl.content}>
-                <div className={cl.topContainer}>
-                    <PrimeBannerSlider items={PRIME_SLIDER_LIST}/>
-                    <PrimeList />
-                </div>
-                <div className={cl.articles}>
-                    <ArticleForSuppliersOrBuyers variant={EArticleForSuppliersOrBuyersVariants.BUYERS} />
-                    <ArticleForSuppliersOrBuyers variant={EArticleForSuppliersOrBuyersVariants.SUPPLIERS} />
-                </div>
-                {mainPageCardSliderBlockArray.map(it => (
-                    <MainPageCardSliderBlock
-                        key={it.title}
-                        title={it.title}
-                        buttonTitle={it.buttonTitle}
-                        buttonHref={it.buttonHref}
-                        children={it.children} />
-                ))}
-                <AboutBB />
-            </Wrapper1280>
+        <Wrapper1280 classNameContent={cl.content}>
+            <div className={cl.topContainer}>
+                <PrimeBannerSlider items={PRIME_SLIDER_LIST}/>
+                <PrimeList />
+            </div>
+            <div className={cl.articles}>
+                <ArticleForSuppliersOrBuyers variant={EArticleForSuppliersOrBuyersVariants.BUYERS} />
+                <ArticleForSuppliersOrBuyers variant={EArticleForSuppliersOrBuyersVariants.SUPPLIERS} />
+            </div>
+            {mainPageCardSliderBlockArray.map(it => (
+                <MainPageCardSliderBlock
+                    key={it.title}
+                    title={it.title}
+                    buttonTitle={it.buttonTitle}
+                    buttonHref={it.buttonHref}
+                    children={it.children} />
+            ))}
+            <AboutBB />
+        </Wrapper1280>
     )
 }

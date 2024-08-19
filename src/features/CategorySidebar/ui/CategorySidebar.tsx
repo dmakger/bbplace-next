@@ -41,6 +41,7 @@ export const CategorySidebar = ({
         }
     }, [isShowCategories])
 
+    // HANDLE
     const handleHoverCategory = (_: number, it: ICategoriesWithSubcategories) => {
         let newSelectedOptions = [...selectedCategoriesArray]
         

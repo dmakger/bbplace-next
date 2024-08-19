@@ -9,7 +9,7 @@ import { ELabelPosition, IWrapperRectangleInputChildren } from '../model/wrapper
 import { HoverWindow } from '@/shared/ui/HoverWindow';
 import { EHoverBorderColor, EHoverWindowPosition } from '@/shared/ui/HoverWindow/model/hoverWindow.model';
 import { IOption } from '@/shared/model/option.model';
-import { Modal } from '@/shared/ui/Modal/Modal';
+import { Modal } from '@/shared/ui/Modal/ui/Modal/Modal';
 import { EModalView } from '@/shared/data/modal.data';
 import { BottomInfoModal } from '@/features/Modal/BottomInfo';
 import { WrapperModalBottom } from '../../ModalBottom';
@@ -291,7 +291,7 @@ export const WrapperRectangleInput = ({
           view={EModalView.BOTTOM}
           buttonNode
           className={cl.mobileModal}
-          _isOpen={is768 && (isDescriptionActive || isWarningActive)}
+          isOpen={is768 && (isDescriptionActive || isWarningActive)}
           onClickOverlay={closeTheModal}
         >
           <WrapperModalBottom title={labelText}

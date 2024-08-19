@@ -1,6 +1,6 @@
 "use client"
 
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect } from "react";
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_ChatChildrenPage.module.scss';
 import { useAppSelector, useAppDispatch } from "@/storage/hooks";
@@ -25,13 +25,12 @@ export const ChatChildrenPage: FC<ChatChildrenPageProps> = ({ className }) => {
     // RTK
     const { chatDataList } = useAppSelector((state) => state.chat);
     const dispatch = useAppDispatch();
-    const [currentChatId, setCurrentChatId] = useState<string | undefined>();
 
     // EFFECT
     useEffect(() => {
+        console.log('qwe connection.state', connection.state)
         const initiateConnection = async () => {
-            if (connection.state === HubConnectionState.Disconnected && currentChatId !== chatId) {
-                setCurrentChatId(chatId);
+            if (connection.state === HubConnectionState.Disconnected) {
                 const propsMessages = chatId ? { ...INVOKE_MESSAGES__PROPS_DEFAULT, chatId: +chatId } : undefined;
                 const propsGetChatById = chatId ? {chatId: +chatId} : undefined
                 await dispatch(setupChatConnection({

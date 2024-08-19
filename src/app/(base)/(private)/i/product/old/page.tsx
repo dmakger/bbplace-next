@@ -6,7 +6,7 @@ import Wrapper1280 from '@/shared/ui/Wrapper/1280/Wrapper1280'
 import { ProductAPI } from '@/entities/Product/api/product.api'
 import { useEffect, useState, useCallback } from 'react'
 import { ProductLKList } from '@/entities/Product/ui/LKProduct'
-import { Modal } from '@/shared/ui/Modal/Modal'
+import { Modal } from '@/shared/ui/Modal/ui/Modal/Modal'
 import { EProductLKVariants } from '@/entities/Product/ui/LKProduct/model/productLK.model'
 import { EModalView } from '@/shared/data/modal.data'
 import { WrapperModalBottom } from '@/shared/ui/Wrapper/ModalBottom'
@@ -105,7 +105,7 @@ export default function LKProductPage() {
 
                 <Modal view={EModalView.BOTTOM}
                     buttonNode
-                    _isOpen={isOpenSettings || isOpenGroup}
+                    isOpen={isOpenSettings || isOpenGroup}
                     onClickOverlay={closeTheModal}>
                     <WrapperModalBottom
                         setIsOpen={closeTheModal}

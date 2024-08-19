@@ -10,11 +10,10 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function RootLayout({
-    children,
-  }: Readonly<{
+	children,
+}: Readonly<{
     children: React.ReactNode;
-  }>) {
-
+}>) {
     //RTK
     const {isAuth} = useAppSelector(state => state.user)
 
@@ -23,7 +22,8 @@ export default function RootLayout({
 
     //EFFECT
     useEffect(() => {
-      if(!isAuth) router.push(MAIN_PAGES.CHECK_EMAIL.path)
+		if(!isAuth) 
+			router.push(MAIN_PAGES.CHECK_EMAIL.path)
     }, [isAuth])
 
     return (

@@ -1,17 +1,9 @@
-// "use client"
-
 import { DASHBOARD_PAGES } from "@/config/pages-url.config"
 import { IOptionTabChat } from "@/features/DetailedPageInfo/model/detailedPageInfo.model"
 import { LK_CHATS_PAGE, SWITCH_SELECTOR__CHAT__OPTION } from "@/shared/ui/SwitchSelector/data/switchSelector.data"
 import Wrapper1280 from "@/shared/ui/Wrapper/1280/Wrapper1280"
 import { WrapperLKPT } from "@/shared/ui/Wrapper/LKPT"
 import { ChatChildrenPage } from "@/widgets/Pages/LK/Chat/ChatChildrenPage"
-// 
-// import dynamic from 'next/dynamic';
-
-// const ChatChildrenPageClient = dynamic(() => import('@/components/ChatChildrenPageClient'), {
-//     ssr: false, // Отключение серверного рендеринга для этого компонента
-// });
 
 export default function ChatPage() {
     // STATE
@@ -31,4 +23,5 @@ export default function ChatPage() {
                 isButtonRight={false}/>
         </Wrapper1280>
     )
+    return <></>
 }

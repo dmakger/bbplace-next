@@ -13,7 +13,7 @@ interface SmartSidebarProps{
 }
 
 export const SmartSidebar:FC<SmartSidebarProps> = ({className}) => {
-
+    // STATE
     const [isShowCategories, setIsShowCategories] = useState<boolean>(false)
 
     return (
