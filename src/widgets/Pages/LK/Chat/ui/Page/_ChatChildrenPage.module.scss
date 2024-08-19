@@ -1,0 +1,31 @@
+.page {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    max-height: 800px;
+    height: 100%;
+
+    .hidden {
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+        transition: opacity 0.3s ease, height 0.3s ease;
+    } 
+
+    .visible {
+        opacity: 1;
+        height: auto;
+        transition: opacity 0.3s ease, height 0.3s ease;
+    }
+}
+
+.inRow {
+    flex-direction: column;
+
+    .chats {
+        max-width: none;
+    }
+    .dialog {
+        max-width: none;
+    }
+}

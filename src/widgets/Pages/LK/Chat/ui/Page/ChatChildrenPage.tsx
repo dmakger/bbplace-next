@@ -1,6 +1,6 @@
 "use client"
 
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_ChatChildrenPage.module.scss';
 import { useAppSelector, useAppDispatch } from "@/storage/hooks";
@@ -12,6 +12,7 @@ import { stopConnection } from "@/api/connection/lib/wrapper.connection.lib";
 import { useSearchParams } from "next/navigation";
 import connection from "@/api/connection/lib/connection.lib";
 import { INVOKE_CHATS__PROPS_DEFAULT, INVOKE_MESSAGES__PROPS_DEFAULT } from "@/entities/Chat/data/default.chat.data";
+import { HandleSize } from "@/shared/ui/Handle/Size/HandleSize";
 
 interface ChatChildrenPageProps {
     className?: string,
@@ -25,6 +26,9 @@ export const ChatChildrenPage: FC<ChatChildrenPageProps> = ({ className }) => {
     // RTK
     const { chatDataList } = useAppSelector((state) => state.chat);
     const dispatch = useAppDispatch();
+
+    // STATE
+    const [is1024, setIs1024] = useState(false)
 
     // EFFECT
     useEffect(() => {
@@ -64,11 +68,11 @@ export const ChatChildrenPage: FC<ChatChildrenPageProps> = ({ className }) => {
     }, [chatId]);
 
     return (
-        <div className={cls(cl.page, className)}>
-            <ChatDataList items={chatDataList} activeId={chatId ? +chatId : chatId} />
-            {chatId && (
-                <DialogChat />
-            )}
+        <div className={cls(cl.page, is1024 ? cl.inRow : '', className)}>
+            <ChatDataList items={chatDataList} activeId={chatId ? +chatId : chatId} 
+                          className={cls(cl.chats, !is1024 || is1024 && !chatId ? cl.visible : cl.hidden)} />
+            <DialogChat className={cls(cl.dialog, chatId ? cl.visible : cl.hidden)} />
+            <HandleSize width={1024} set={setIs1024} />
         </div>
     )
 }
