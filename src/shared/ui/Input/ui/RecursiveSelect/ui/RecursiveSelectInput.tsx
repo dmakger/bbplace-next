@@ -33,6 +33,7 @@ export const RecursiveSelectInput = ({
         width: 10,
         height: 10
     },
+    inputLevels,
     selectedOptionsCommonArray,
     setSelectedOptionsCommonArray,
     selectedOptions,
@@ -52,22 +53,31 @@ export const RecursiveSelectInput = ({
 
     //FUNCTION
     const addSelectedOption = (option: IOption, level: number) => {
-        const newSelectedOptionsCategory = [...selectedOptionsCommonArray]
 
-        newSelectedOptionsCategory[level] = option
-
-        newSelectedOptionsCategory.length = level + 1
-
-        setSelectedOptionsCommonArray(newSelectedOptionsCategory)
-
-
-        if (!option.options?.length && !selectedOptions.find(it => it.id === option.id)) {
-            if (variantRecursive == ERecursiveSelectVariant.SINGLE) return setSelectedOptions([option]);
-
-            setSelectedOptions([...selectedOptions, option])
-            setSelectedOptionsArray && setSelectedOptionsArray([...selectedOptions, option]) //Для связи с WrapperRectangleInput
-            setSelectedOptionsCommonArray([])
+        if (inputLevels === 1) {
+            if (!selectedOptions.some(item => item.id === option.id)) {
+                setSelectedOptions([...selectedOptions, option]);
+            }
         }
+        else {
+            const newSelectedOptionsCategory = [...selectedOptionsCommonArray]
+
+            newSelectedOptionsCategory[level] = option
+
+            newSelectedOptionsCategory.length = level + 1
+
+            setSelectedOptionsCommonArray(newSelectedOptionsCategory)
+
+
+            if (!option.options?.length && !selectedOptions.find(it => it.id === option.id)) {
+                if (variantRecursive == ERecursiveSelectVariant.SINGLE) return setSelectedOptions([option]);
+
+                setSelectedOptions([...selectedOptions, option])
+                setSelectedOptionsArray && setSelectedOptionsArray([...selectedOptions, option]) //Для связи с WrapperRectangleInput
+                setSelectedOptionsCommonArray([])
+            }
+        }
+
     }
 
     const handleDeleteItem = (option: IOption) => {
@@ -130,8 +140,8 @@ export const RecursiveSelectInput = ({
                     ))}
                 </div>}
             </div>
-            <HandleSize width={768} set={setIs768}/>
-            </>
+            <HandleSize width={768} set={setIs768} />
+        </>
 
     )
 }

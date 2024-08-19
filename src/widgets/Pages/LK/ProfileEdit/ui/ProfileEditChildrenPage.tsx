@@ -23,7 +23,7 @@ export const ProfileEditChildrenPage = () => {
 
     //API
     const [updateInfo, { isLoading: isLoadingInfo }] = UserAPI.useUpdateUserInfoMutation();
-    const [updateTIN, { isLoading: isLoadingITIN }] = TinAPI.useUpdateTINMutation();
+    const [updateTIN, { isLoading: isLoadingTIN }] = TinAPI.useUpdateTINMutation();
     const { data: userDataValues } = UserAPI.useGetUserDataQuery(id, {refetchOnMountOrArgChange: true});
 
     //ROUTER
@@ -119,7 +119,7 @@ export const ProfileEditChildrenPage = () => {
                 optionsTab={PROFILE_EDIT_TAB}
                 options={[SWITCH_SELECTOR_PROFILE_EDIT]}
                 buttonRightTitle="Сохранить"
-                buttonRightProps={{ onClick: handleOnClick, loading: isLoadingInfo || isLoadingITIN, disabled: isLoadingInfo || isLoadingITIN }}
+                buttonRightProps={{ onClick: handleOnClick, loading: isLoadingInfo || isLoadingTIN, disabled: isLoadingInfo || isLoadingTIN }}
             />
         </Wrapper1280>
     )

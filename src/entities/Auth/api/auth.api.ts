@@ -65,10 +65,10 @@ export const UserAPI = createApi({
                 method: 'POST',
                 data
             }),
-            // transformResponse: (response: any) => {
-            //     saveTokensStorage(response); // Сохранение токенов в куки
-            //     return jwtDecode(response.accessToken);
-            // }
+            transformResponse: (response: any) => {
+                saveTokensStorage(response); // Сохранение токенов в куки
+                return jwtDecode(response.accessToken);
+            }
         }),
         userLogin: builder.mutation<ILoginResponseDecoded, IAuthForm>({
             query: ({ username, password }) => ({

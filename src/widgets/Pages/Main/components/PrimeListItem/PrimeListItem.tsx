@@ -21,7 +21,7 @@ export const PrimeListItem = ({
     return (
         <Button
             className={cls(cl.button, className)}
-            variant={ButtonVariant.CLEAR}
+            variant={ButtonVariant.DEFAULT}
             color={ButtonColor.Secondary}
             beforeImage={PACKAGE_ICON}
             beforeProps={{ width: 22, height: 24 }}

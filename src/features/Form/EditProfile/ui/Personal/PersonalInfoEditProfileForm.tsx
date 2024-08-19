@@ -32,16 +32,15 @@ export const PersonalInfoEditProfileForm = ({
 }: IPersonalInfoEditProfileForm) => {
 
     //RTK
-    const { email, fullName } = useAppSelector(state => state.user)
+    const { email, fullName, phoneNumber: phoneNumberRTK } = useAppSelector(state => state.user)
 
     //STATE
-    const [phoneNumber, setPhoneNumber] = useState<string>('')
+    const [phoneNumber, setPhoneNumber] = useState<string>(phoneNumberRTK ?? '')
     const [name, setName] = useState<string>(fullName ?? '')
     const [uploadedImageList, setUploadedImageList] = useState<string[]>([])
 
     useEffect(() => {
         if(userData){
-            setPhoneNumber(userData.phoneNumber)
             userData.photoId && setUploadedImageList([userData.photoId.key])            
         }
     }, [userData])     

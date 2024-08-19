@@ -48,8 +48,6 @@ export const CompanyInfoEditProfileForm = ({
     //EFFECT
     useEffect(() => {
         if (userData) {
-            setLegalName(userData.legalName)
-            setBrandName(userData.brandName)
             setShortDescription(userData.shortDescription)
             setFullDescription(userData.description)
             setTIN(userData.inn)
@@ -82,12 +80,13 @@ export const CompanyInfoEditProfileForm = ({
             if (form) {
                 form.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
             }
-            return Promise.resolve(handleOnSubmit(new Event("submit") as unknown as FormEvent<HTMLFormElement>)); 
+            return Promise.resolve(handleOnSubmit(new Event("submit") as unknown as FormEvent<HTMLFormElement>));
         })} formRef={formRef}>
             <WrapperSubblockForm title="Профиль компании" variant={SubblockFormVariant.Toggle} className={className}>
                 <form ref={formRef} onSubmit={handleOnSubmit} className={cl.form}>
                     <CategoryRecursiveSelect
                         labelText="Категория"
+                        inputsLevel={1}
                         isDescriptionTooltip
                         descriptionTooltipText='Укажите категории товаров, которые вы предлагаете или заинтересованы.'
                         variant={ERecursiveSelectVariant.MULTIPLE}
@@ -111,7 +110,7 @@ export const CompanyInfoEditProfileForm = ({
                     </WrapperRectangleInput>
 
                     <WrapperRectangleInput labelText="ИНН" isDescriptionTooltip descriptionTooltipText='Индивидуальный налоговый номер для идентификации компании.'>
-                        <Input.Text variant={EInputVariants.RECTANGULAR} name="tin" value={TIN} setValue={setTIN} type={EInputTextType.Number} placeholder="Введите номер налогоплательщика"/>
+                        <Input.Text variant={EInputVariants.RECTANGULAR} name="tin" value={TIN} setValue={setTIN} type={EInputTextType.Number} placeholder="Введите номер налогоплательщика" />
                     </WrapperRectangleInput>
                 </form>
             </WrapperSubblockForm>
