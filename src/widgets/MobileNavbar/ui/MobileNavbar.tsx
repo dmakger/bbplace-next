@@ -6,7 +6,7 @@ import { FAVOURITES_ITEM_MOBILE_MENU_DATA, MOBILE_MENU_DATA, SUPPORT_PAGE_MOBILE
 import { usePathname, useRouter } from 'next/navigation';
 import { IIconVariants } from '@/shared/model/icon.model';
 import { IIcon } from '@/shared/ui/Icon/model/icon.model';
-import { Modal } from '@/shared/ui/Modal/Modal';
+import { Modal } from '@/shared/ui/Modal/ui/Modal/Modal';
 import { EModalView } from '@/shared/data/modal.data';
 import { MobileNavbarMenu } from '@/widgets/Menu/MobileNavbar';
 import { MenuItem } from '@/shared/ui/Button/data/MenuItem/MenuItem';
@@ -66,7 +66,7 @@ export const MobileNavbar = ({
 					})}
 				</div>
 			</nav>
-			<Modal view={EModalView.RIGHT} _isOpen={showSidebarMenu} buttonNode onClickOverlay={() => setShowSidebarMenu(false)}
+			<Modal view={EModalView.RIGHT} isOpen={showSidebarMenu} buttonNode onClickOverlay={() => setShowSidebarMenu(false)}
 				classNameSidebar={cl.modalSidebar} >
 				<MobileNavbarMenu setShowSidebarMenu={setShowSidebarMenu} is420={is420} />
 			</Modal>

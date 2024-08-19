@@ -21,7 +21,7 @@ export const Search = () => {
 
 
 
-export const SearchChild = () => {
+const SearchChild = () => {
 
     //STATE
     const { view } = useAppSelector(state => state.ptc)

@@ -15,13 +15,15 @@ interface InputListRadioProps extends IInput{
 }
 
 export default function InputListRadio({ variant = EInputVariants.ROUNDED, options, defaultOption, name, onClickOption, className }: InputListRadioProps) {
+    // STATE
     const [activeOption, setActiveOption] = useState<IOption | undefined>()
 
+    // EFFECT
     useEffect(() => {
         setActiveOption(defaultOption)
     }, [defaultOption])
 
-
+    // HANDLE
     const handleOnItem = (it: IOption) => {
         setActiveOption(it)
         if (onClickOption) onClickOption(it)
