@@ -98,12 +98,10 @@ export const SwitchSelector = ({
                                 ref={isChecked(selectedOption, it) ? selectedOptionRef : null}
                                 key={it.id}
                                 onClick={() => selectOption(it)}>
-                                <input
-                                    type="radio"
-                                    id={String(it.id)}
-                                    name={it.name}
-                                    checked={isChecked(selectedOption, it)}
-                                    onChange={() => { }} />
+                                <input type="radio"
+                                       name={it.name}
+                                       id={String(it.id)}
+                                       checked={isChecked(selectedOption, it)} />
                                 <span className={cl.caption}>{it.caption}</span>
                                 <label
                                     htmlFor={String(it.id)}>

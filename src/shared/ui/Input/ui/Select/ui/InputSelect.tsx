@@ -12,7 +12,7 @@ import { IWrapperRectangleInputChildren } from '@/shared/ui/Wrapper/RectangleInp
 import Input from '../../../Input'
 import WrapperClickOutside from '@/shared/ui/Wrapper/ClickOutside/WrapperClickOutside'
 import { EInputVariants, IInput } from '../../../model/input.model'
-import { Modal } from '@/shared/ui/Modal/Modal'
+import { Modal } from '@/shared/ui/Modal/ui/Modal/Modal'
 import { EModalView } from '@/shared/data/modal.data'
 import { HandleSize } from '@/shared/ui/Handle/Size/HandleSize'
 import { WrapperModalBottomDropList } from '@/shared/ui/Wrapper/ModalBottom/DropList/WrapperModalBottomDropSearch'
@@ -129,7 +129,7 @@ export function InputSelect({
                 ) : (
                     <Modal view={EModalView.BOTTOM}
                         buttonNode
-                        _isOpen={showOptions}
+                        isOpen={showOptions}
                         onClickOverlay={toggleShowOptions}>
                         <WrapperModalBottomDropList 
                             title={titleModal}

@@ -3,7 +3,7 @@ import { FC, useState } from "react"
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_SortModal.module.scss'
 import { ECatalogVariants, SortFilterSidebar } from "@/widgets/SortFilterSidebar";
-import { Modal } from "@/shared/ui/Modal/Modal";
+import { Modal } from "@/shared/ui/Modal/ui/Modal/Modal";
 import { ButtonSort } from "@/shared/ui/Button/data/Sort/ButtonSort";
 import { EModalView } from "@/shared/data/modal.data";
 
@@ -23,13 +23,14 @@ export const SortModal:FC<SortModalProps> = ({hasOutline=false, variant=ECatalog
 
     return (
         <Modal 
-            _isOpen={isOpen} 
+            isOpen={isOpen} 
             onClickOverlay={handleOnClick}
             view={EModalView.RIGHT}  
             buttonNode={
-                <ButtonSort onClick={handleOnClick} hasOutline={hasOutline} className={classNameButton}/>
+                <ButtonSort onClick={handleOnClick} hasOutline={hasOutline} className={classNameButton} />
             }
-            className={classNameModal}>
+            className={classNameModal}
+        >
             <SortFilterSidebar variant={variant} className={cl.sidebar}/>
         </Modal>
     )

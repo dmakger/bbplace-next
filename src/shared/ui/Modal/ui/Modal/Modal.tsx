@@ -5,10 +5,10 @@ import { FC, ReactNode, useEffect, useState } from "react"
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_Modal.module.scss'
 import { EModalView } from "@/shared/data/modal.data";
-import { Button } from "../Button";
+import { Button } from "../../../Button";
 
 interface ModalProps{
-    _isOpen?: boolean
+    isOpen?: boolean
     onClickOverlay?: Function
     view?: EModalView
     hasBlack?: boolean
@@ -19,23 +19,26 @@ interface ModalProps{
     classNameSidebar?: string
 }
 
-export const Modal:FC<ModalProps> = ({_isOpen=false, onClickOverlay=()=>{}, view=EModalView.CENTER, hasBlack=true, hasClose=false, buttonNode, children, className, classNameSidebar}) => {    
+export const Modal:FC<ModalProps> = ({
+    isOpen: isOwnOpen=false, 
+    onClickOverlay=()=>{}, 
+    view=EModalView.CENTER, 
+    hasBlack=true, hasClose=false, 
+    buttonNode, children, 
+    className, classNameSidebar
+}) => {    
     // STATE
     const [isOpen, setIsOpen] = useState(false);
 
     // EFFECT
     useEffect(() => {
-        if (isOpen === _isOpen) return
-        setIsOpen(_isOpen)
-    }, [_isOpen])
+        if (isOpen === isOwnOpen) return
+        setIsOpen(isOwnOpen)
+    }, [isOwnOpen])
 
     useEffect(() => {
-        if(_isOpen)
-            document.body.style.overflow = 'hidden'
-        else{
-            document.body.style.overflow = 'visible'
-        }
-    }, [_isOpen])
+        document.body.style.overflow = isOwnOpen ? 'hidden' : 'visible'
+    }, [isOwnOpen])
 
     // VIEWS
     const views = {

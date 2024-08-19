@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import jwtDecode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 
 export interface IAuthResponse {
     accessToken: string;
@@ -21,9 +21,21 @@ export const getRefreshToken = (): string | null => {
     return refreshToken || null;
 };
 
+export const isTokenExpired = (token: string): boolean => {
+    try {
+        const decoded: { exp: number } = jwtDecode(token);
+        const currentTime = Date.now() / 1000;
+        return decoded.exp < currentTime;
+    } catch (e) {
+        return true;
+    }
+};
+
+
 export const isAuth = (): boolean => {
     const accessToken = getAccessToken();
-    return accessToken !== null && accessToken !== undefined;
+    if (!accessToken) return false;
+    return !isTokenExpired(accessToken);
 };
 
 export const saveTokensStorage = (data: IAuthResponse): void => {    

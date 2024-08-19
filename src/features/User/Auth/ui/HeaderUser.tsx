@@ -3,17 +3,14 @@
 import { useEffect, useState } from 'react'
 import { UserAuth } from '../components/UserAuth/UserAuth'
 import { UserNotAuth } from '../components/UserNotAuth/UserNotAuth'
-import { useAppSelector } from '@/storage/hooks'
 import { isAuth } from '@/entities/Auth/lib/auth-token.lib'
-import { UserAPI } from '@/entities/Auth/api/auth.api'
 
 export const HeaderUser = () => {
+    // STATE
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
-    const { isAuth: _isAuth, id } = useAppSelector(state => state.user)    
 
-
+    // EFFECT
     useEffect(() => {
-        // console.log(isAuth(), isAuthh);
         setIsAuthenticated(isAuth())
     }, [isAuth()])
     

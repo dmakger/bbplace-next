@@ -14,7 +14,7 @@ import { productApiListToProductList } from "@/entities/Product/lib/product.lib"
 import SuspenseL from "@/shared/ui/Wrapper/SuspenseL/SuspenseL";
 import { LKSubheader } from "@/features/LKSubheader";
 import { ProductLKList } from "../list/ProductLKList";
-import { Modal } from "@/shared/ui/Modal/Modal";
+import { Modal } from "@/shared/ui/Modal/ui/Modal/Modal";
 import { BottomInfoModal } from "@/features/Modal/BottomInfo";
 import { EBottomInfoVariant } from "@/features/Modal/BottomInfo/model/bottomInfoModal.model";
 import { EModalView } from "@/shared/data/modal.data";
@@ -88,7 +88,7 @@ export const ProductLKSmartList:FC<ProductLKSmartListProps> = ({typeProduct, cla
 
             <Modal view={EModalView.BOTTOM}
                 buttonNode
-                _isOpen={isOpenSettings || isOpenGroup}
+                isOpen={isOpenSettings || isOpenGroup}
                 onClickOverlay={closeTheModal}>
                 <WrapperModalBottom
                     setIsOpen={closeTheModal}

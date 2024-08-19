@@ -13,6 +13,7 @@ interface CategoryButtonProps {
 }
 
 export const CategoryButton = ({onClick, className, isMobile = false}: CategoryButtonProps) => {
+    // HANDLE
     const handleOnClick = () => {
         if (onClick) onClick()
     }
