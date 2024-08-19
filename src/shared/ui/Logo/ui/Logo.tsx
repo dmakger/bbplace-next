@@ -8,6 +8,7 @@ import { ELogoVariants } from '../model/logo.model';
 import { cls } from '@/shared/lib/classes.lib';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
+import SuspenseL from '../../Wrapper/SuspenseL/SuspenseL';
 
 interface ILogo {
     className?: string,
@@ -16,22 +17,30 @@ interface ILogo {
     title?: string
 }
 
-export const Logo = ({
+export const Logo = ({...rest}: ILogo) => {
+    return (
+        <SuspenseL>
+            <LogoChild {...rest} />
+        </SuspenseL>
+    )
+}
+
+
+const LogoChild = ({
     className,
     variant = ELogoVariants.DEFAULT,
     sizes = { width: 50, height: 50 },
     title
 }: ILogo) => {
 
-    //STATE
+    // STATE
     const [isHovered, setIsHovered] = useState<boolean>(false)
     const [isPressed, setIsPressed] = useState<boolean>(false)
 
-    //PATHNAME
+    // ROUTE
     const pathname = usePathname()
-    const isActive = pathname === '/'
 
-    //FUNCTIONS
+    // FUNCTIONS
     const handleOnMouseEnter = () => {
         setIsHovered(true)
     }
@@ -60,7 +69,7 @@ export const Logo = ({
                 beforeProps={{ width: sizes.width, height: sizes.height }}
             /> :
                 <div 
-                    className={cls(cl.newLogo, isActive ? cl.active : '')}
+                    className={cls(cl.newLogo, pathname === '/' ? cl.active : '')}
                     onMouseEnter={handleOnMouseEnter}
                     onMouseLeave={handleOnMouseLeave}
                     onMouseDown={handleOnMouseDown}
@@ -70,7 +79,7 @@ export const Logo = ({
                         href='/'
                         pressed={isPressed}
                         hovered={isHovered}
-                        active={isActive}
+                        active={pathname === '/'}
                         className={cls(cl.bbIcon, className)}
                         beforeImage={LOGO_INCLINED_ICON}
                         beforeProps={{ width: sizes.width, height: sizes.height }}
