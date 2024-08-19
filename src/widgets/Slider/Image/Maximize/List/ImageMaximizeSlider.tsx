@@ -7,7 +7,7 @@ import cl from './_ImageMaximizeSlider.module.scss'
 import { Slider } from "@/features/Slider/ui/Slider";
 import { ISlider } from "@/features/Slider/model/slider.model";
 import { ImageMaximizeSlide } from "../Item/ImageMaximizeSlide";
-import { Modal } from "@/shared/ui/Modal/Modal";
+import { Modal } from "@/shared/ui/Modal/ui/Modal/Modal";
 import { EModalView } from "@/shared/data/modal.data";
 import { CatalogImage } from "@/widgets/CatalogImage/CatalogImage";
 
@@ -57,7 +57,7 @@ export const ImageMaximizeSlider:FC<ImageMaximizeSliderProps> = ({
     return (
         <>
             {sliderHTML}
-            <Modal _isOpen={isOpen}
+            <Modal isOpen={isOpen}
                     onClickOverlay={handleOnClickMaximize}
                     view={EModalView.RIGHT} hasClose={true} buttonNode={undefined}>
                 <CatalogImage imageList={slides} isFullWindow={isOpen} className={isOpen || isFullWindow ? cl.fullWindow : ''}/>

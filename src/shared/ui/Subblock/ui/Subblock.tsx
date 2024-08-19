@@ -9,7 +9,7 @@ import { ButtonColor } from '../../Button/model/button.model'
 import { ESubblockVariants } from '../model/subblock.model'
 import { Axis } from '@/shared/model/button.model'
 import { ARROW_SECONDARY_WO_ICON } from '../../Icon/data/arrow.data.icon'
-import { Modal } from '../../Modal/Modal'
+import { Modal } from '../../Modal/ui/Modal/Modal'
 import { WrapperModalBottom } from '../../Wrapper/ModalBottom'
 import { EModalView } from '@/shared/data/modal.data'
 
@@ -109,7 +109,7 @@ export const Subblock = ({
                     className={cls(cl.mobileSubblock, classNameMobileButtonTitle)}
                     onClick={() => setIsModalOpen(!isModalOpen)}
                 />
-                <Modal _isOpen={isModalOpen}
+                <Modal isOpen={isModalOpen}
                     view={EModalView.BOTTOM}
                     buttonNode
                     onClickOverlay={closeTheModal}>
