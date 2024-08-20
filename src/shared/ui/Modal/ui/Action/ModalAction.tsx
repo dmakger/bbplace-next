@@ -6,7 +6,6 @@ import { cls } from '@/shared/lib/classes.lib';
 import cl from './_ModalAction.module.scss'
 import { Modal } from "../Modal/Modal";
 import { Button } from "@/shared/ui/Button";
-import { EModalView } from "@/shared/data/modal.data";
 import { WrapperRectangleInput } from "@/shared/ui/Wrapper/RectangleInput";
 import { IModal, IModalActionInput } from "../../model/modal.model";
 import Input from "@/shared/ui/Input/Input";
