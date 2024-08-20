@@ -22,12 +22,17 @@ import { TenderAPI } from "@/entities/Tender/api/tender.api";
 import { IPropsTenderSale } from "@/entities/Tender/model/props.tender.model";
 import { IResponseFile } from "@/entities/File/model/props.file.model";
 import { currencyListToOptionList } from "@/entities/Metrics/lib/currency/option.currency.metrics.lib";
+import { useRouter } from "next/navigation";
+import { DASHBOARD_PAGES } from "@/config/pages-url.config";
 
 interface FormTenderSaleNewProps{
     className?: string,
 }
 
 export const FormTenderSaleNew:FC<FormTenderSaleNewProps> = ({className}) => {
+    // ROUTER
+    const router = useRouter()
+
     // STATE
     const [categoryOptions, setCategoryOptions] = useState<IOption[]>([])
     const [metricOptions, setMetricOptions] = useState<IOption[]>([])
@@ -86,8 +91,8 @@ export const FormTenderSaleNew:FC<FormTenderSaleNewProps> = ({className}) => {
             shareContacts: true,
             attachments: JSON.stringify(uploadedResponseFileList),
         }
-        createSaleTender(apiData).then(res => {
-
+        createSaleTender(apiData).then(() => {
+            router.push(DASHBOARD_PAGES.TENDERS.path)
         })
     }
     

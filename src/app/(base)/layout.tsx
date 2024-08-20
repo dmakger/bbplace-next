@@ -5,6 +5,7 @@ import { WrapperGap } from "@/shared/ui/Wrapper/Gap/WrapperGap";
 import { TopBar } from '@/features/TopBar';
 import { Footer } from '@/widgets/Footer';
 import { UpdateAuth } from '@/entities/Auth/ui/update/UpdateAuth';
+import { NotifyList } from '@/features/Notify/ui/List/NotifyList';
 
 export default function Layout({ children }: PropsWithChildren<unknown>) {
     return (
@@ -16,6 +17,7 @@ export default function Layout({ children }: PropsWithChildren<unknown>) {
                 <Footer/>
             </div>
             <MobileNavbar/>
+            <NotifyList />
         </WrapperGap>
     )
 }
