@@ -124,7 +124,7 @@ export const LKTenderTableAdaptive:FC<LKTenderTableAdaptiveProps> = ({tenderType
             <ModalAction 
                 isOpen={showModal} view={EModalView.CENTER}
                 title={"Удаление тендера"}
-                text={["«Наименование тендера» будет удалён без возможности восстановления."]}
+                text={[`Тендер ${tenderForDeleting ? `«${tenderForDeleting?.name}»` : ""} будет удалён без возможности восстановления.`]}
                 buttonSecond={{
                     variant: ButtonVariant.BORDER,
                     color: ButtonColor.Tertiary,

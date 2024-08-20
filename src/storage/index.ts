@@ -19,6 +19,7 @@ import { SupportAPI } from "@/entities/Support";
 import { TenderAPI } from "@/entities/Tender/api/tender.api";
 import { PTCReducer } from "@/features/storage/PTC/ptc.storage";
 import { ChatReducer } from "@/entities/Chat/connection/chat.connection";
+import { NotifyReducer } from "@/features/Notify/lib/notifySlice";
 
 
 const rootReducer = combineReducers({
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
     ptc: PTCReducer,
     user: UserReducer,
     chat: ChatReducer,
+    notify: NotifyReducer,
 
     [UserAPI.reducerPath]: UserAPI.reducer,
     [FileAPI.reducerPath]: FileAPI.reducer,

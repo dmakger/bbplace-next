@@ -89,6 +89,7 @@
   --n-green-4: #96C791;
   --n-green-5: #51C846;
   --n-green-6: #25D366;
+  --n-green-7: #55A24E;
 
   // specify
   --foreground-1: var(--n-black-1);
@@ -116,8 +117,10 @@
   --border: var(--n-gray-3);
   --block-border: var(--n-gray-8);
 
+  --positive: var(--n-green-7);
   --positive-surface: var(--n-green-3);
   --positive-border: var(--n-green-4);
+  --on-positive: var(--background-2);
 
   --primary: var(--n-red-1);
   --primary-border: var(--n-red-light-1);
@@ -135,14 +138,6 @@
   --secondary-surface: var(--n-blue-light-2);
   --secondary-surface-sub: var(--n-blue-light-3);
 
-  --negative: var(--n-red-4);
-  --negative-border: var(--n-red-4);
-  --negative-hovered: var(--n-red-4);
-  --negative-pressed: var(--n-red-5);
-  --on-negative: var(--white);
-  --negative-surface: var(--n-red-light-3);
-  --negative-surface-sub: var(--n-red-light-3);
-
   --tertiary: var(--n-blue-3);
   --tertiary-border: var(--n-blue-4);
   --tertiary-hovered: var(--n-blue-3);
@@ -152,10 +147,12 @@
   --tertiary-surface-low: var(--n-gray-6);
 
   --negative: var(--n-red-5);
-  --negative-surface: var(--n-red-light-3);
   --negative-border: var(--n-red-4);
   --negative-hovered: var(--n-red-5);
   --negative-pressed: var(--n-red-6);
+  --on-negative: var(--background-2);
+  --negative-surface: var(--n-red-light-3);
+  --negative-surface-sub: var(--n-red-light-3);
 
   --rating-surface: var(--n-yellow-1);
   --rating-low: var(--n-yellow-2);

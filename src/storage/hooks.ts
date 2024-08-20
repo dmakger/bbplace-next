@@ -9,6 +9,7 @@ import { PTCSlice } from "@/features/storage/PTC/ptc.storage";
 import { CountrySlice } from "@/entities/Metrics/storage/country.metrics.storage";
 import { UserSlice } from '@/entities/Auth/storage/auth.storage'
 import { ChatSlice } from "@/entities/Chat/connection/chat.connection";
+import { NotifySlice } from "@/features/Notify/lib/notifySlice";
 
 
 export const useAppDispatch = () => useDispatch<AppDispatch>();
@@ -27,6 +28,7 @@ export const useActionCreators = () => {
             ...PTCSlice.actions,
             ...UserSlice.actions,
             ...ChatSlice.actions,
+            ...NotifySlice.actions,
         }),
         [],
     )
