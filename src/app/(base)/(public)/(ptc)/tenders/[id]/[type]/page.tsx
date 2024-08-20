@@ -36,14 +36,12 @@ export default function TenderPage() {
     //PARAMS
     const params = useParams()
     const tenderId = params.id as string
-    // const tenderTypeParams = toTenderType(params.type as string) as ETenderType
     const tenderTypeParams = toTenderType(params.type as string) as ETenderType
 
     //STATE
     const [is768, setIs768] = useState<boolean>(false)
     const [is1028, setIs1028] = useState<boolean>(false)
     const [tender, setTender] = useState<ISaleTender | IPurchaseTender>()
-    const [tenderType, setTenderType] = useState<ETenderType>(ETenderType.SALE)
     const [images, setImages] = useState<string[]>([])
     const [files, setFiles] = useState<IFile[]>([])
 

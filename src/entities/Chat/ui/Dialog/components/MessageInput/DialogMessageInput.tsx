@@ -57,12 +57,13 @@ export const DialogMessageInput: FC<DialogMessageInputProps> = ({ className }) =
     const handleOnSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         
-        if (!formRef.current || isSubmitting) return; // Блокировка, если уже идет отправка
+        if (!formRef.current) return; // Блокировка, если уже идет отправка
+        // if (!formRef.current || isSubmitting) return; // Блокировка, если уже идет отправка
         
         if (!textAreaRef.current || !textAreaRef.current.value.trim() || !currentChat)
             return;
 
-        setIsSubmitting(true); // Блокировка повторного вызова
+        // setIsSubmitting(true); // Блокировка повторного вызова
         
         const newMessage: IPropsInvokeAddMessage = {
             chatId: currentChat.id,
