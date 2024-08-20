@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
-import { Inter, Poppins } from "next/font/google";
+import { Inter, Geologica } from "next/font/google";
 import "./globals.scss";
 import { Providers } from "./_providers/app-provider";
 import { SITE_NAME } from "@/shared/data/seo.data";
 import { cls } from "@/shared/lib/classes.lib";
 
+const geologica = Geologica({ 
+  subsets: ["latin", "cyrillic"], 
+  variable: '--geologica-font',
+  weight: ['400', '500', '600', '700'],
+});
 const inter = Inter({ subsets: ["latin", "cyrillic"], variable: '--inter-font'});
-// const poppins = Poppins({ 
-//   subsets: ["latin"], 
-//   variable: '--poppins-font',
-//   weight: ['400', '500', '600', '700'],
-// });
 
 export const metadata: Metadata = {
 	title: {
@@ -27,8 +27,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
-      {/* <body className={cls(inter.className, poppins.className)}> */}
-      <body className={cls(inter.className)}>
+      <body className={cls(geologica.className, inter.className)}>
+      {/* <body className={cls(inter.className)}> */}
         <Providers>
           {children}
         </Providers>

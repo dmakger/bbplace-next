@@ -8,10 +8,11 @@ import { EModalView } from "@/shared/data/modal.data";
 
 interface ModalActionProps{
     title: string
+    text?: string[]
     className?: string,
 }
 
-export const ModalAction:FC<ModalActionProps> = ({title, className}) => {
+export const ModalAction:FC<ModalActionProps> = ({title, text=[], className}) => {
     return (
         <Modal 
             view={EModalView.CENTER}
@@ -21,9 +22,15 @@ export const ModalAction:FC<ModalActionProps> = ({title, className}) => {
             } 
             className={cls(className)}
         >
-            <div className={cl.body}>
-                <h2 className={cl.title}>{title}</h2>
-                body
+            <div className={cl.wrapper}>
+                <div className={cl.body}>
+                    <h2 className={cl.title}>{title}</h2>
+                    <div className={cl.text}>
+                        {text.map(textItem => (
+                            <p className={cl.textItem}>{textItem}</p>
+                        ))}
+                    </div>
+                </div>
             </div>
         </Modal>
     )
