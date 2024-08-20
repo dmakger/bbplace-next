@@ -5,7 +5,7 @@ import { cls } from '@/shared/lib/classes.lib'
 import { Button } from '../..'
 import { ButtonColor, ButtonSize, ButtonVariant, EMenuButtonVariant, IMenuButton } from '../../model/button.model'
 import { usePathname, useRouter } from 'next/navigation'
-import { useActionCreators, useAppSelector } from '@/storage/hooks'
+import { useActionCreators } from '@/storage/hooks'
 import { DASHBOARD_PAGES, MAIN_PAGES } from '@/config/pages-url.config'
 import { GLOBE_ICON } from '@/shared/ui/Icon/data/globe.data.icon';
 
@@ -22,7 +22,6 @@ export const MenuButton = ({
     const router = useRouter();
 
     //RTK
-    const { email } = useAppSelector(state => state.user);
     const actionCreators = useActionCreators();
 
     //FUNCTIONS
@@ -47,7 +46,7 @@ export const MenuButton = ({
                     // : (variant === EMenuButtonVariant.LOCALIZATION && true) ? cl.activeLang 
                     : ''
             )}
-            linkTarget={link?.includes('html') ? 'target' : ''}
+            linkTarget={link?.includes('pdf') ? '_target' : ''}
             variant={ButtonVariant.CLEAR}
             afterImage={variant === EMenuButtonVariant.LOCALIZATION ? GLOBE_ICON : undefined}
             afterProps={{ width: 20, height: 20 }}
