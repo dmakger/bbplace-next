@@ -93,10 +93,14 @@ export const MainChildrenPage = () => {
 
     return (
         <Wrapper1280 classNameContent={cl.content}>
-            {/* <ModalAction title={'Гойда Goyda'} text={[
-                'Рекомендуем добавить цены для улучшения рейтинга товара.',
-                'Загрузите фотографии, чтобы товар смог отобразиться на сайте. Иначе он будет перенесён в «Черновики».',
-            ]} /> */}
+            <ModalAction 
+                title={'Гойда Goyda'} 
+                text={[
+                    'Рекомендуем добавить цены для улучшения рейтинга товара.',
+                    'Загрузите фотографии, чтобы товар смог отобразиться на сайте. Иначе он будет перенесён в «Черновики».',
+                ]}
+                hasBackground={true} 
+            />
             <div className={cl.topContainer}>
                 <PrimeBannerSlider items={PRIME_SLIDER_LIST}/>
                 <PrimeList />

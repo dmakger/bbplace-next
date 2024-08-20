@@ -16,13 +16,13 @@ export default function RootLayout({
     const {isAuth} = useAppSelector(state => state.user)
 
     //ROUTER
-    const router = useRouter()
+    // const router = useRouter()
 
     //EFFECT
-    useEffect(() => {
-		if(!isAuth) 
-			router.push(MAIN_PAGES.CHECK_EMAIL.path)
-    }, [isAuth])
+    // useEffect(() => {
+		// if(!isAuth) 
+		// 	router.push(MAIN_PAGES.CHECK_EMAIL.path)
+    // }, [isAuth])
 
     return (
 		<>

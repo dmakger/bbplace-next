@@ -8,19 +8,27 @@ import { IOption } from "@/shared/model/option.model";
 import { OptionsAttachmentList } from "@/shared/ui/Form/OptionsAttachment/ui/List/OptionsAttachmentList";
 
 export interface IInputAdditionProps {
-    options: IOption[]
-    setOptions: Dispatch<SetStateAction<IOption[]>>
-    process: (tempDataStorage: Record<string, any>) => IOption | undefined
+    options?: IOption[]
+    setOptions?: Dispatch<SetStateAction<IOption[]>>
+    process?: (tempDataStorage: Record<string, any>) => IOption | undefined
+    onClickAdd?: Function
     children?: ReactNode
     className?: string,
 }
 
-export const InputAddition:FC<IInputAdditionProps> = ({options=[], setOptions, process, children, className}) => {
+export const InputAddition:FC<IInputAdditionProps> = ({
+    options=[], setOptions, 
+    process, onClickAdd, 
+    children, className
+}) => {
     // REF
     const wrapperRef = useRef<HTMLDivElement | null>(null)
 
     const handleAddValue = () => {
         if (!wrapperRef.current) return;
+
+        if (onClickAdd) 
+            onClickAdd()
 
         const inputs = wrapperRef.current.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('input, select, textarea');
         const formData = new FormData();
@@ -34,8 +42,9 @@ export const InputAddition:FC<IInputAdditionProps> = ({options=[], setOptions, p
             tempDataStorage[key] = value;
         });
 
+        if (!process) return 
         const newOption = process(tempDataStorage)
-        if (newOption)
+        if (newOption && setOptions)
             setOptions(prevOptions => [...prevOptions, newOption])
     };
 
@@ -45,7 +54,9 @@ export const InputAddition:FC<IInputAdditionProps> = ({options=[], setOptions, p
             <Button variant={ButtonVariant.FILL} size={ButtonSize.Medium} 
                     title="Добавить" onClick={handleAddValue}
                     className={cl.button} />
-            <OptionsAttachmentList options={options} setOptions={setOptions} />
+            {setOptions && options && (
+                <OptionsAttachmentList options={options} setOptions={setOptions} />
+            )}
         </div>
     )
 }
