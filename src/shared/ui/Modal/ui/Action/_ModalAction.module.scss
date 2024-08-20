@@ -1,0 +1,29 @@
+.wrapper {
+    max-width: 1240px;
+    width: 100%;
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    max-width: 610px;
+    width: 100%;
+
+    .title {
+        font-family: var(--fourth-family);
+        font-weight: var(--font-weight-sb);
+        font-size: var(--font-size-m);
+        padding: 20px 40px;
+    }
+
+    .text {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .textItem {
+            
+        }
+    }
+}

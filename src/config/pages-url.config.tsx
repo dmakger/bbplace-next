@@ -42,12 +42,12 @@ class Route {
 class MAIN extends Route {
     HOME = this.createPath('/');
     // CATALOG = this.createPath('/catalog');
-    PRODUCTS = this.createPath('/product');
+    PRODUCTS = this.createPath('/products');
     
-    TENDERS = this.createPath('/tender');
-    BUYERS_TENDERS = this.createPath('/tender?application=Покупка&nptk=1', true);
+    TENDERS = this.createPath('/tenders');
+    BUYERS_TENDERS = this.createPath('/tenders?application=Покупка&nptk=1', true);
 
-    SUPPLIERS = this.createPath('/supplier');
+    SUPPLIERS = this.createPath('/suppliers');
 
     SUPPORT = this.createPath('/support');
 
@@ -56,11 +56,11 @@ class MAIN extends Route {
     REGISTRATION = this.createPath('/signUp')
     FORGOT_PASSWORD = this.createPath('/forgotPassword', false, true)
 
-    CURRENT_SUPPLIER = this.createDynamicPath((id: ISupplier['id']) => `/supplier/${id}`, true);
-    CURRENT_PRODUCT = this.createDynamicPath((id: IProduct['id']) => `/product/${id}`, true);
-    PRODUCTS_BY_CATEGORY = this.createDynamicPath((id: IProduct['id']) => `/product?category=${id}`, true);
+    CURRENT_SUPPLIER = this.createDynamicPath((id: ISupplier['id']) => `/suppliers/${id}`, true);
+    CURRENT_PRODUCT = this.createDynamicPath((id: IProduct['id']) => `/products/${id}`, true);
+    PRODUCTS_BY_CATEGORY = this.createDynamicPath((id: IProduct['id']) => `/products?category=${id}`, true);
     CURRENT_TENDER = this.createDynamicPath<{ id: ITender['id'], type?: IBaseTender['type'] }>(
-        (params) => `/tender/${params.id}/${params.type || ETenderType.PURCHASE}`,
+        (params) => `/tenders/${params.id}/${params.type || ETenderType.PURCHASE}`,
         true
     );
     CURRENT_DOCUMENT = this.createDynamicPath((documentName: string) => `/documents/${documentName}`)
@@ -77,18 +77,18 @@ class DASHBOARD extends Route {
     CHATS = this.createDynamicPath((id?: ISupplier['id'] | number ) => (
         `/chat` + ( id ? `?id=${id}` : '')
     ), true);
-    PRODUCTS = this.createPath('/product', true);
-    NEW_PRODUCT = this.createPath('/product/new', true);
+    PRODUCTS = this.createPath('/products', true);
+    NEW_PRODUCT = this.createPath('/products/new', true);
     EDIT_PRODUCT = this.createDynamicPath<{ groupId: number, type?: string | EProductType, id?: IProduct['id'] }>(
         ({type, groupId, id}) => {
-            const startURL = `/product/edit?type=${toProductType(type)}&groupId=${groupId}`
+            const startURL = `/products/edit?type=${toProductType(type)}&groupId=${groupId}`
             return id !== undefined ? `${startURL}&id=${id}`: startURL
         },
         true
     );
 
-    TENDERS = this.createPath('/tender', true);
-    NEW_TENDER = this.createPath('/tender/new', true);
+    TENDERS = this.createPath('/tenders', true);
+    NEW_TENDER = this.createPath('/tenders/new', true);
     
     PRICES_N_DISCOUNTS = this.createPath('/pricesNDiscounts', true);
     REVIEWS = this.createPath('/reviews', true);
