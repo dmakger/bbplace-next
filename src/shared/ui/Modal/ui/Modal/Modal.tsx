@@ -6,14 +6,9 @@ import { cls } from '@/shared/lib/classes.lib';
 import cl from './_Modal.module.scss'
 import { EModalView } from "@/shared/data/modal.data";
 import { Button } from "../../../Button";
+import { IModal } from "../../model/modal.model";
 
-interface ModalProps{
-    isOpen?: boolean
-    onClickOverlay?: Function
-    view?: EModalView
-    hasBlack?: boolean
-    hasClose?: boolean
-    buttonNode: ReactNode
+interface ModalProps extends IModal{
     children: ReactNode
     className?: string,
     classNameSidebar?: string

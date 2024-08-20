@@ -12,7 +12,7 @@ import { OptionVariant } from "@/shared/data/option/option.data";
 
 
 interface TenderLKItemProps extends IListItem<ITender> {
-    onClickDelete?: (tenderId: ITender['id'], type?: ETenderType) => void
+    onClickDelete?: (tender: ITender, type?: ETenderType) => void
 }
 
 export const TenderLKItem: FC<TenderLKItemProps> = ({
@@ -23,7 +23,7 @@ export const TenderLKItem: FC<TenderLKItemProps> = ({
     // HANDLE
     const handleOnClickDelete = () => {
         if (onClickDelete)
-            onClickDelete(tender.id, tender.type)
+            onClickDelete(tender, tender.type)
     }
 
     return (

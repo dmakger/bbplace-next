@@ -19,9 +19,11 @@ import { ButtonColor, ButtonSize, ButtonType } from "@/shared/ui/Button/model/bu
 import { ELabelPosition } from "@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model";
 import { getFormDataFromForm } from "@/shared/lib/formData.lib";
 import { TenderAPI } from "@/entities/Tender/api/tender.api";
-import { IPropsTenderPurchase, IPropsTenderSale } from "@/entities/Tender/model/props.tender.model";
+import { IPropsTenderPurchase } from "@/entities/Tender/model/props.tender.model";
 import { IResponseFile } from "@/entities/File/model/props.file.model";
 import { currencyListToOptionList } from "@/entities/Metrics/lib/currency/option.currency.metrics.lib";
+import { useRouter } from "next/navigation";
+import { DASHBOARD_PAGES } from "@/config/pages-url.config";
 
 
 
@@ -30,6 +32,9 @@ interface FormTenderPurchaseNewProps{
 }
 
 export const FormTenderPurchaseNew:FC<FormTenderPurchaseNewProps> = ({className}) => {
+    // ROUTER
+    const router = useRouter()
+
     // STATE
     const [categoryOptions, setCategoryOptions] = useState<IOption[]>([])
     const [metricOptions, setMetricOptions] = useState<IOption[]>([])
@@ -88,7 +93,7 @@ export const FormTenderPurchaseNew:FC<FormTenderPurchaseNewProps> = ({className}
             attachments: JSON.stringify(uploadedResponseFileList),
         }
         createPurchaseTender(apiData).then(res => {
-            
+            router.push(DASHBOARD_PAGES.TENDERS.path)
         })
     }
     

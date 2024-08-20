@@ -110,7 +110,7 @@ export const UserAPI = createApi({
                 return jwtDecode(response.accessToken);
             }
         }),
-        checkEmailExists: builder.query<boolean, string>({
+        checkEmailExists: builder.mutation<boolean, string>({
             query: (email: string) => ({
                 url: `Authenticate/CheckEmailExists?email=${email}`,
                 method: 'GET',

@@ -27,7 +27,7 @@ export const CheckEmailChildrenPage = () => {
     const router = useRouter()
 
     // API
-    const [triggerCheckEmailExists, { isLoading }] = UserAPI.useLazyCheckEmailExistsQuery()
+    const [triggerCheckEmailExists, { isLoading }] = UserAPI.useCheckEmailExistsMutation()
 
     //RTK
     const actionCreators = useActionCreators();

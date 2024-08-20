@@ -9,7 +9,7 @@ import { TenderLKItem } from "../Item/TenderLKItem";
 import { ListDirection } from "@/shared/data/list.data";
 
 interface TenderLKListProps extends IListTopLevel<ITender> {
-    onClickDelete?: (tenderId: ITender['id'], type?: ETenderType) => void
+    onClickDelete?: (tender: ITender, type?: ETenderType) => void
 }
 
 export const TenderLKList: FC<TenderLKListProps> = ({

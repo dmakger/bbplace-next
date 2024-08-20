@@ -24,7 +24,7 @@ import { isEqual } from "lodash";
 interface LKTenderTableProps {
     tenderType?: ETenderType,
     defaultTenders?: ITender[]
-    onClickDeleteTender?: (tenderId: ITender['id'], type?: ETenderType) => void
+    onClickDeleteTender?: (tender: ITender, type?: ETenderType) => void
     className?: string,
 }
 
@@ -51,18 +51,18 @@ export const LKTenderTable: FC<LKTenderTableProps> = ({ tenderType, defaultTende
     const [deleteTender] = TenderAPI.useDeleteTenderMutation()
 
     // HANDLE
-    const onClickDelete = async (tenderId: ITender['id'], type?: ETenderType) => {
+    const onClickDelete = async (tender: ITender, type?: ETenderType) => {
         if (onClickDeleteTender) {
-            onClickDeleteTender(tenderId, type)
+            onClickDeleteTender(tender, type)
             return
         }
         if (type === undefined || tenders === undefined) return
         // deleteTender()
-        await deleteTender({tenderId, type}).unwrap().then(
+        await deleteTender({tenderId: tender.id, type}).unwrap().then(
             () => {                
                 setTenders(prevTenders => {
                     if (prevTenders !== undefined)
-                        return prevTenders.filter(it => it.id !== tenderId)
+                        return prevTenders.filter(it => it.id !== tender.id)
                 })
             }
         )
@@ -120,7 +120,7 @@ export const LKTenderTable: FC<LKTenderTableProps> = ({ tenderType, defaultTende
                         { cell: <TableCell.Option text={it.name} /> },
                         { cell: <TableCell.Text text={it.category ? it.category.name : ''} />, className: cl.cell },
                         { cell: <TableCell.Text text={`${it.attachments.length}`} />, className: cl.cell },
-                        { cell: <LKTenderTableCellTrash onClick={() => onClickDelete(it.id, it.type)} />, className: cl.cell },
+                        { cell: <LKTenderTableCellTrash onClick={() => onClickDelete(it, it.type)} />, className: cl.cell },
                     ]
                 } as IRow
             })

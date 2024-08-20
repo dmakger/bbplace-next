@@ -29,7 +29,9 @@ import { CardsSupplierSlider } from '@/features/MainPageCardSliderBlock/componen
 import { SliderPagingVariant } from '@/shared/data/sliderT.data'
 import { PrimeBannerSlider } from '../components/PrimeBannerSlider/PrimeBannerSlider'
 import { PRIME_SLIDER_LIST } from '../data/mainChildrenPage.data'
-import { ModalAction } from '@/shared/ui/Modal/ui/Action/ModalAction'
+import { Button } from '@/shared/ui/Button'
+import { useNotify } from '@/features/Notify/lib/hooks'
+import { ENotifyStatus } from '@/features/Notify/data/notify.data'
 
 
 export const MainChildrenPage = () => {
@@ -91,12 +93,15 @@ export const MainChildrenPage = () => {
         }
     ]
 
+    const {notify} = useNotify()
+
+    const addNotify = () => {
+        notify({text: "Гойда", status: ENotifyStatus.Success})
+    }
+
     return (
         <Wrapper1280 classNameContent={cl.content}>
-            {/* <ModalAction title={'Гойда Goyda'} text={[
-                'Рекомендуем добавить цены для улучшения рейтинга товара.',
-                'Загрузите фотографии, чтобы товар смог отобразиться на сайте. Иначе он будет перенесён в «Черновики».',
-            ]} /> */}
+            {/* <Button onClick={addNotify} /> */}
             <div className={cl.topContainer}>
                 <PrimeBannerSlider items={PRIME_SLIDER_LIST}/>
                 <PrimeList />

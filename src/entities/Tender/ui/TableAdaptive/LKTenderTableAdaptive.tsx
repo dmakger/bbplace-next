@@ -2,7 +2,6 @@
 
 import { FC, useState, useEffect } from "react"
 
-import { cls } from '@/shared/lib/classes.lib';
 import cl from './_LKTenderTableAdaptive.module.scss'
 import { ETenderType, ITender } from "../../model/tender.model";
 import { TenderLKList } from "../LK/List/TenderLKList";
@@ -15,12 +14,15 @@ import { CurrencyAPI } from "@/entities/Metrics/api/currency.metrics.api";
 import { MetricsAPI } from "@/entities/Metrics/api/metrics.metrics.api";
 import { CategoryAPI } from "@/entities/Metrics/api/category.metrics.api";
 import { ICategory } from "@/entities/Metrics/model/category.metrics.model";
-import { IRow, IUnionColumn } from "@/shared/ui/Table/model/table.model";
 import { useAppSelector } from "@/storage/hooks";
 import { useParams } from "next/navigation";
 import { toTenderType } from "@/entities/Tender/lib/tender.lib";
 import { skipToken } from "@reduxjs/toolkit/query";
 import { HandleSize } from "@/shared/ui/Handle/Size/HandleSize";
+import { EModalView } from "@/shared/data/modal.data";
+import { EInputTextType } from "@/shared/ui/Input/ui/Text/data/text.input.data";
+import { ModalAction } from "@/shared/ui/Modal/ui/Action/ModalAction";
+import { ButtonColor, ButtonSize, ButtonVariant } from "@/shared/ui/Button/model/button.model";
 
 
 interface LKTenderTableAdaptiveProps{
@@ -38,6 +40,9 @@ export const LKTenderTableAdaptive:FC<LKTenderTableAdaptiveProps> = ({tenderType
     const [is768, setIs768] = useState(false)
     const [tenders, setTenders] = useState<ITender[]>([])
     const [categoryList, setCategoryList] = useState<ICategory[]>([])
+    const [showModal, setShowModal] = useState<boolean>(false)
+    const [tenderForDeleting, setTenderForDeleting] = useState<ITender | undefined>()
+    const [tenderTypeForDeleting, setTenderTypeForDeleting] = useState<ETenderType | undefined>()
     
     // RTK
     const { id: userId } = useAppSelector(state => state.user)
@@ -85,14 +90,27 @@ export const LKTenderTableAdaptive:FC<LKTenderTableAdaptiveProps> = ({tenderType
 
 
     // ======={ HANDLE }=======
-    const onClickDelete = async (tenderId: ITender['id'], type?: ETenderType) => {
+    const onClickDelete = (tender: ITender, type?: ETenderType) => {
         if (type === undefined || tenders === undefined) return
-        // deleteTender()
-        await deleteTender({tenderId, type}).unwrap().then(
-            () => {                
-                setTenders(prevTenders => prevTenders.filter(it => it.id !== tenderId))
-            }
-        )
+        setTenderForDeleting(tender)
+        setTenderTypeForDeleting(type)
+        setShowModal(true)
+    }
+
+    const deleteSelectedTender = async () => {
+        if (!tenderForDeleting || !tenderTypeForDeleting) 
+            return
+        await deleteTender({tenderId: tenderForDeleting.id, type: tenderTypeForDeleting}).unwrap()
+            .then(() => {                
+                setTenders(prevTenders => prevTenders.filter(it => it.id !== tenderForDeleting.id))
+                cancelDeleting()
+            })
+    }
+
+    const cancelDeleting = () => {
+        setShowModal(false)
+        setTenderForDeleting(undefined)
+        setTenderTypeForDeleting(undefined)
     }
     
     return (
@@ -103,6 +121,25 @@ export const LKTenderTableAdaptive:FC<LKTenderTableAdaptiveProps> = ({tenderType
                 <LKTenderTable tenderType={tenderType} defaultTenders={tenders} onClickDeleteTender={onClickDelete}/>
             )}
             <HandleSize set={setIs768} width={768} />
+            <ModalAction 
+                isOpen={showModal} view={EModalView.CENTER}
+                title={"Удаление тендера"}
+                text={[`Тендер ${tenderForDeleting ? `«${tenderForDeleting?.name}»` : ""} будет удалён без возможности восстановления.`]}
+                buttonSecond={{
+                    variant: ButtonVariant.BORDER,
+                    color: ButtonColor.Tertiary,
+                    size: ButtonSize.Big,
+                    title: 'Отмена',
+                    onClick: cancelDeleting
+                }} 
+                buttonFirst={{
+                    variant: ButtonVariant.TONAL,
+                    color: ButtonColor.Negative,
+                    size: ButtonSize.Big,
+                    title: 'Удалить',
+                    onClick: deleteSelectedTender
+                }} 
+                />
         </>
     )
 }
