@@ -1,8 +1,8 @@
 export const OFFERT_DOCUMENT: string = 'PublicOffer.pdf'
 
-export const DATA_PROCESSING_DOCUMENT: string = 'ProcessingOfPersonalData.html'
+export const DATA_PROCESSING_DOCUMENT: string = 'ProcessingOfPersonalData.pdf'
 
-export const DATA_PROCESSING_POLICY_DOCUMENT: string = 'PersonalDataProcessingPolicy.html'
+export const DATA_PROCESSING_POLICY_DOCUMENT: string = 'PersonalDataProcessingPolicy.pdf'
 
 export const BBP_PRESENTATION_DOCUMENT: string = 'BBP_Presentation.pdf'
 
