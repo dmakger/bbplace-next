@@ -1,6 +1,7 @@
 import { IOption } from "@/shared/model/option.model";
 
 export interface IWrapperRectangleInputChildren {
+    checkboxId?: string,
     success?: boolean;
     setSuccess?: Function,
     warning?: boolean,

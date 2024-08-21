@@ -35,6 +35,7 @@ export const InputCheckbox = ({
   isChecked,
   setIsChecked,
   error,
+  checkboxId
 }: IInputCheckbox) => {
   // STATE
   const [isOwnChecked, setIsOwnChecked] = useState<boolean>(checked || isChecked || false);
@@ -99,6 +100,7 @@ export const InputCheckbox = ({
         checked={isOwnChecked}
         required={required}
         onChange={handleCheckboxChange}
+        id={checkboxId}
       />
       <Button
         variant={ButtonVariant.DEFAULT}

@@ -102,6 +102,8 @@ export const WrapperRectangleInput = ({
 
   //Для InputCheckbox
   const [checked, setChecked] = useState<boolean>(false)
+  const uniqueId = `checkbox-${Math.random().toString(36)}`;
+
 
 	const [warnings, setWarnings] = useState<Record<string, boolean>>({});
 	const [successes, setSuccesses] = useState<Record<string, boolean>>({});
@@ -137,6 +139,7 @@ export const WrapperRectangleInput = ({
         setWarnings(prev => ({ ...prev, [id]: false }));
       }
       return cloneElement<IWrapperRectangleInputChildren>(child, {
+        checkboxId: uniqueId,
         success: successes[id],
         warning: warnings[id],
         setSuccess: (value: boolean) => setSuccesses(prev => ({ ...prev, [id]: value })),
@@ -193,7 +196,8 @@ export const WrapperRectangleInput = ({
       <div className={cls(cl.WrapperRectangleInput, className, cl[labelPosition])}>
         <div className={cls(cl.labelNInputsContainer, linkText ? cl.columnStyle : '')}>
           <div className={cl.labelNTooltipContainer}>
-            <label className={cls(cl.label, classNameLabel)} onClick={labelPosition === ELabelPosition.RIGHT ? handleLabelClick : () => { }}>
+            <label className={cls(cl.label, classNameLabel)} onClick={labelPosition === ELabelPosition.RIGHT ? handleLabelClick : () => { }}htmlFor={labelPosition === ELabelPosition.RIGHT ? uniqueId : undefined}
+>
               {labelText}
             </label>
 
