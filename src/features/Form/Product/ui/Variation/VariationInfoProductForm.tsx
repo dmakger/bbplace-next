@@ -112,7 +112,7 @@ export const VariationInfoProductForm: FC<VariationInfoProductFormProps> = ({dat
                 sizeUnit: optionToMetric(_optionsSizes[0]),
             } as ISize
         }).filter(it => it !== undefined) as ISize[]
-        if (!formRef.current.checkValidity() || addedWholesaleOption.length === 0 || sizes.length === 0) {
+        if (!formRef.current.checkValidity() || sizes.length === 0) {
             e.preventDefault();
             formRef.current.reportValidity();  // Вызывает встроенные сообщения браузера
             return defaultFormInfo
@@ -120,8 +120,8 @@ export const VariationInfoProductForm: FC<VariationInfoProductFormProps> = ({dat
         e.preventDefault();
 
         const formData = getFormDataFromForm(formRef.current!);
-        const currency = fromOptionToType<ICurrency>(selectedWholesaleCurrencyOption!);
-        const priceUnits = fromOptionToType<IMetrics>(selectedWholesaleMetricOption!);
+        const currency = selectedWholesaleCurrencyOption === undefined ? undefined : fromOptionToType<ICurrency>(selectedWholesaleCurrencyOption!);
+        const priceUnits = selectedWholesaleMetricOption === undefined ? undefined : fromOptionToType<IMetrics>(selectedWholesaleMetricOption!);
 
         const media: IMediaProduct = {
             attachments: uploadedImageList,
@@ -181,7 +181,7 @@ export const VariationInfoProductForm: FC<VariationInfoProductFormProps> = ({dat
                                     variant={EInputVariants.RECTANGULAR}  />
                     </WrapperRectangleInput>
 
-                    <WrapperRectangleInput labelText={"Оптовые цены"} isRequired={true}>
+                    <WrapperRectangleInput labelText={"Оптовые цены"}>
                         <Input.Addition options={addedWholesaleOption} setOptions={setAddedWholesaleOption} process={processWholesaleOption}>
                             <Direction direction={ListDirection.Row}>
                                 <Input.Text name={'wholesalePrice'} placeholder="Цена товара" 

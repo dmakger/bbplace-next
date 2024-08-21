@@ -139,6 +139,7 @@ export const LKTenderTableAdaptive:FC<LKTenderTableAdaptiveProps> = ({tenderType
                     title: 'Удалить',
                     onClick: deleteSelectedTender
                 }} 
+                onClickOverlay={cancelDeleting}
                 />
         </>
     )
