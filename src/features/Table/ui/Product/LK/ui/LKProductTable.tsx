@@ -26,6 +26,9 @@ import { useRouter } from "next/navigation";
 import { DASHBOARD_PAGES } from "@/config/pages-url.config";
 import { ProductsTypeLK } from "@/shared/ui/SwitchSelector/data/switchSelector.data";
 import { EProductType } from "@/entities/Product/data/type.product.data";
+import { ModalAction } from "@/shared/ui/Modal/ui/Action/ModalAction";
+import { EModalView } from "@/shared/data/modal.data";
+import { ButtonColor, ButtonSize, ButtonVariant } from "@/shared/ui/Button/model/button.model";
 
 interface LKProductTableProps {
     products?: IProduct[]
@@ -48,6 +51,7 @@ export const LKProductTable:FC<LKProductTableProps> = ({products: _products, typ
     const [unionsRestColumn, setUnionsRestColumn] = useState<IUnionColumn[]>([])
     const [selectedProducts, setSelectedProducts] = useState<IProduct[]>([]);
     const [is1024, setIs1024] = useState<boolean>(false);
+    const [showModal, setShowModal] = useState<boolean>(false)
 
     // RTK
     const { id: userId } = useAppSelector(state => state.user)
@@ -140,18 +144,8 @@ export const LKProductTable:FC<LKProductTableProps> = ({products: _products, typ
 
     }, [showRestProducts, selectedProducts, groupsProducts])
 
-    // useEffect(() => {
-    //     const selectedProductsIds = new Set(selectedProducts.map(it => it.id))
-    //     setRowsTable(prevRowsTable => {
-    //         return prevRowsTable.map(it => {
-    //             it.cell
-    //         })
-    //     })
-    // }, [selectedProducts, rowsTable])
-
     // SET UNIONS
     useEffect(() => {
-        // setUnionsColumn(() => is1024 ? [{ start: 1, end: 3 }] : [])
         setUnionsColumn(() => is1024 ? [{ start: 2, end: 4 }] : [])
         setUnionsRestColumn(() => is1024 ? [{ start: 1, end: 3 }] : [])
     }, [is1024])
@@ -189,9 +183,23 @@ export const LKProductTable:FC<LKProductTableProps> = ({products: _products, typ
 
     // DELETE ON CLICK
     const onClickDelete = (_productList?: IProduct[]) => {
-        const _products = _productList === undefined ? [...selectedProducts] : _productList
-                
-        const productsIds = new Set(_products.map(it => it.id))
+        if (_productList)
+            setSelectedProducts(_productList)
+        setShowModal(true)
+    }
+
+    // EDIT ON CLICK
+    const onClickEdit = (_product: IProduct) => { 
+        const {groupId, id} = _product
+        if (groupId === null) return
+
+        const typeProduct = type === ProductsTypeLK.Active ? EProductType.Public : EProductType.Draft
+        router.push(DASHBOARD_PAGES.EDIT_PRODUCT({type: typeProduct, groupId, id}).path);
+    }
+
+    // FOR MODAL
+    const deleteSelectedProduct = () => {
+        const productsIds = new Set(selectedProducts.map(it => it.id))
         setProducts(prevProducts => {
             return prevProducts.filter(it => !productsIds.has(it.id))
         })
@@ -200,23 +208,23 @@ export const LKProductTable:FC<LKProductTableProps> = ({products: _products, typ
         })
 
         const errorsProduct: IProduct[] = []
-        _products.map(async it => {
-            const deleteProductFunc = type === ProductsTypeLK.Active ? deleteProduct : deleteDraftProduct
-            await deleteProductFunc(it.id).catch(() => {
-                errorsProduct.push(it)
+        try {
+            selectedProducts.map(async it => {
+                const deleteProductFunc = type === ProductsTypeLK.Active ? deleteProduct : deleteDraftProduct
+                await deleteProductFunc(it.id).catch(() => {
+                    errorsProduct.push(it)
+                })
             })
-        })
+        } finally {
+            cancelDeleting()
+        }
     }
 
-    // EDIT ON CLICK
-    const onClickEdit = (_product: IProduct) => { 
-        const {groupId, id} = _product
-        console.log('qwe edit ', groupId, id)
-        if (groupId === null) return
-
-        const typeProduct = type === ProductsTypeLK.Active ? EProductType.Public : EProductType.Draft
-        router.push(DASHBOARD_PAGES.EDIT_PRODUCT({type: typeProduct, groupId, id}).path);
-     }
+    const cancelDeleting = () => {
+        setShowModal(false)
+        if (selectedProducts.length === 1)
+            setSelectedProducts([])
+    }
 
     return (
         <>
@@ -232,6 +240,30 @@ export const LKProductTable:FC<LKProductTableProps> = ({products: _products, typ
                         {...rest} />
             }
             <HandleSize width={1024} set={setIs1024} />
+            <ModalAction 
+                isOpen={showModal} view={EModalView.CENTER}
+                title={selectedProducts.length === 1 ? "Удаление товара" : "Удаление товаров"}
+                text={[
+                    selectedProducts.length === 1 
+                        ? `«${selectedProducts[0].name}» будет удалён без возможности восстановления.` 
+                        : `Выбранные ${selectedProducts.length} товара(-ов) будут удалены без возможности восстановления.`
+                ]}
+                buttonSecond={{
+                    variant: ButtonVariant.BORDER,
+                    color: ButtonColor.Tertiary,
+                    size: ButtonSize.Big,
+                    title: 'Отмена',
+                    onClick: cancelDeleting
+                }} 
+                buttonFirst={{
+                    variant: ButtonVariant.TONAL,
+                    color: ButtonColor.Negative,
+                    size: ButtonSize.Big,
+                    title: 'Удалить',
+                    onClick: deleteSelectedProduct
+                }} 
+                onClickOverlay={cancelDeleting}
+                />
         </>
     )
 }
