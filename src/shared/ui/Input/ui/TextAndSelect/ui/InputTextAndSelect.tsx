@@ -1,6 +1,6 @@
 'use client'
 
-import { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import Image from 'next/image'
 import cl from './_InputTextAndSelect.module.scss'
 import { IOption } from '@/shared/model/option.model'
@@ -19,9 +19,7 @@ import { ERecursiveSelectVariant } from '../../RecursiveSelect/model/recursiveSe
 import { HandleSize } from '@/shared/ui/Handle/Size/HandleSize'
 import { EModalView } from '@/shared/data/modal.data'
 import { Modal } from '@/shared/ui/Modal/ui/Modal/Modal'
-import { WrapperModalBottomDropList } from '@/shared/ui/Wrapper/ModalBottom/DropList/WrapperModalBottomDropSearch'
 import { WrapperModalBottomDropSearch } from '@/shared/ui/Wrapper/ModalBottom/DropSearch/WrapperModalBottomDropSearch'
-import { EInputTextTypeVariants } from '../../../Text/model/text.input.model'
 
 interface ITextAndSelectInput extends IWrapperRectangleInputChildren, IInput {
     variantRecursive?: ERecursiveSelectVariant,
@@ -172,7 +170,7 @@ export function TextAndSelectInput({
                         <div className={cls(cl.mainInput,
                             cl[variant],
                             showOptions && variant === EInputVariants.RECTANGULAR ? cl.rectangularListOpen : '',
-                            isWarning ? cl.error : isSuccess ? cl.success : '',
+                            isWarning && variant === EInputVariants.RECTANGULAR ? cl.error  : isSuccess && variant === EInputVariants.RECTANGULAR ? cl.success : '',
                             disabled ? cl.disabled : '',
                             classNameMainInput)}>
                             {showOptions ? (
@@ -216,7 +214,7 @@ export function TextAndSelectInput({
 
                 {!is768 ? (
                     <>
-                        {filteredOptions.length ? (
+                        {filteredOptions.length  ? (
                             <Input.List.Radio
                                 variant={variant}
                                 options={filteredOptions}
@@ -226,7 +224,7 @@ export function TextAndSelectInput({
                                 className={cls(cl.options, classNameOptions, showOptions ? cl.show : '')} />
                         ) : (
                             <>
-                                {variant === EInputVariants.ROUNDED && 
+                                {showOptions && variant === EInputVariants.ROUNDED && 
                                     <p className={cl.noResult}>
                                         К сожалению, такого варианта нет (X_X)
                                     </p>

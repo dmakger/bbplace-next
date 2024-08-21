@@ -106,7 +106,7 @@ export default function ProductDetailPage() {
     const PRODUCT_PAGE_OPTIONS_TAB: IDetailedProductOptionsTab = {
         description: { optionTab: <DetailedPageDescription description={product.characteristics.description} /> },
         characteristics: { optionTab: <ProductTable product={product} /> },
-        reviews: { optionTab: null, optionQuantity: (itemReviews && itemReviews.length > 0) ? itemReviews.length : null },
+        // reviews: { optionTab: null, optionQuantity: (itemReviews && itemReviews.length > 0) ? itemReviews.length : null },
         supplier: {
             optionTab: <DetailedPageSupplier
                 id={product.ownerId ?? ''}

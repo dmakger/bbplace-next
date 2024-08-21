@@ -179,7 +179,7 @@ export const SignUpChildrenPage = () => {
                 <Input.Text variant={EInputVariants.RECTANGULAR} placeholder="Введите ваше ФИО" name="fullName" error={!!errorFullName} warning={!!errorFullName} />
             </WrapperRectangleInput>
 
-            <WrapperRectangleInput labelText="Роль" descriptionTooltipText="Выберите роль" isRequired classNameInputsContainer={cl.radioInputsContainer} classNameDescriptionWindow={cl.descriptionWindow}>
+            <WrapperRectangleInput labelText="Роль" descriptionTooltipText="Укажите, какую роль вы будете выполнять на платформе." isRequired classNameInputsContainer={cl.radioInputsContainer}>
                 <Input.Radio option={SUPPLIER_ROLE_ITEM_DATA} variant={EInputVariants.RECTANGULAR} name='role' required variantRadio={ERadioVariant.SINGLE} warning={!!error} error={!!error} />
                 <Input.Radio option={SELLER_ROLE_ITEM_DATA} variant={EInputVariants.RECTANGULAR} name='role' variantRadio={ERadioVariant.SINGLE} warning={!!error} error={!!error} />
                 <Input.Radio option={SELLER_N_SUPPLIER_ROLE_ITEM_DATA} variant={EInputVariants.RECTANGULAR} name='role' variantRadio={ERadioVariant.SINGLE} warning={!!error} error={!!error} />
@@ -188,7 +188,7 @@ export const SignUpChildrenPage = () => {
             <WrapperRectangleInput
                 labelText="Хочу получать новости от платформы и её партнёров"
                 labelPosition={ELabelPosition.RIGHT}
-                descriptionTooltipText="НОВОСТИ"
+                descriptionTooltipText="Подтвердите для получения новостей и предложений"
                 classNameLabel={cl.labelNews}
             >
                 <Input.Checkbox variant={EInputVariants.RECTANGULAR} name="emailSubscription" warning={!!error} />

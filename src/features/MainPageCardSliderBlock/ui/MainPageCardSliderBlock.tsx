@@ -2,8 +2,6 @@ import { cls } from "@/shared/lib/classes.lib"
 import cl from './_MainPageCardSliderBlock.module.scss'
 import { Button, ButtonVariant } from "@/shared/ui/Button"
 import { ButtonColor, ButtonSize } from "@/shared/ui/Button/model/button.model"
-import { CardsProductSlider } from "../components/Product/CardsProductSlider"
-import { ISliderT } from "@/shared/model/sliderT.model"
 import { ReactNode } from "react"
 
 export interface IMainPageCardSliderBlock {

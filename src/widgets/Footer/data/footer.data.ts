@@ -12,7 +12,7 @@ export const SUPPLIERS_CATALOG_LINK_ITEM: IMenuItem = {
 
 export const PRODUCTS_CATALOG_LINK_ITEM: IMenuItem = {
     link: MAIN_PAGES.PRODUCTS.path,
-    title: "Оптовый каталог поставок",
+    title: "Оптовый каталог",
 }
 
 export const NEW_TENDER_LINK_ITEM: IMenuItem = {
