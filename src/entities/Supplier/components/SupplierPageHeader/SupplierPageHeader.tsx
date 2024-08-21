@@ -15,21 +15,23 @@ interface ISupplierPageHeader {
     className?: string,
     supplier: ISupplier,
     supplierRating: number,
-    supplierReviews: number
+    supplierReviews: number,
+    classNameSupplierWNav?: string
 }
 
 export const SupplierPageHeader = ({
     className,
     supplier,
     supplierRating,
-    supplierReviews
+    supplierReviews,
+    classNameSupplierWNav
 }: ISupplierPageHeader) => {
     return (
         <section className={cls(cl.SupplierPageHeader, className)}>
             <ImageAPI src={supplier.photoId ? supplier.photoId.key : ''} alt={supplier.photoId ? supplier.photoId.name : ''} className={cl.image} width={175} height={175} />
 
             <div className={cl.rightContainer}>
-                <SupplierWNav id={supplier.id} view={ESupplierView.LARGE_WHITE} classNameName={cl.supplierName} />
+                <SupplierWNav id={supplier.id} view={ESupplierView.LARGE_WHITE} classNameName={cl.supplierName} classNameSupplier={cl.supplier} className={cl.baseSupplier}/>
                 <HeadingToTextTable variant={EHeadingToTextVariants.COLUMN} data={getDataHeadingToTextSupplierTable({
                     supplier,
                     supplierRating,
