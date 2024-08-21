@@ -23,6 +23,7 @@ import { EAtSupplierCardVariant } from '@/entities/Product/ui/AtSupplierCard/mod
 import { HandleSize } from '@/shared/ui/Handle/Size/HandleSize'
 import { cls } from '@/shared/lib/classes.lib'
 import { NavSupplier } from '../../components/Nav/NavSupplier'
+import { DASHBOARD_PAGES } from '@/config/pages-url.config'
 
 
 interface ISupplierItem {
@@ -69,7 +70,7 @@ export const SupplierItem = ({
           />
           <div className={cl.subTopContainer}>
             {supplier.category?.some(it => it !== null) && <SupplierInfoLabel category={supplier.category} />}
-            <SupplierInfoLabel vip />
+            {/* <SupplierInfoLabel vip /> */}
           </div>
 
           <HeadingToTextTable
@@ -87,7 +88,7 @@ export const SupplierItem = ({
             classNameColumn={cl.columnTable}
           />
           <div className={cl.buttonsContainer}>
-            <Button variant={ButtonVariant.BORDER} title='Откликнуться' size={ButtonSize.Small} />
+            <Button variant={ButtonVariant.BORDER} title='Откликнуться' size={ButtonSize.Small} href={DASHBOARD_PAGES.CHATS(supplier.id).path}/>
             <FavouriteAutoToSupplierButton supplierId={supplier.id} view={ESupplierFavouriteViewItem.SMALL_FILL} />
             <NavSupplier supplierId={supplier.id} views={[
               is768 ? ESupplierToProfileViewItem.SMALL : ESupplierToProfileViewItem.NONE

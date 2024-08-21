@@ -1,6 +1,5 @@
+import { TinAPI, UserAPI } from "@/entities/Auth/api/auth.api";
 import {Action, combineReducers, configureStore, ThunkAction} from "@reduxjs/toolkit";
-
-import { UserAPI } from "@/entities/Auth/api/auth.api";
 import { UserReducer } from "@/entities/Auth/storage/auth.storage";
 import { FavouriteAPI } from "@/entities/Favourite/api/favourite.api";
 import { FileAPI } from "@/entities/File/api/file.api";
@@ -33,6 +32,7 @@ const rootReducer = combineReducers({
     notify: NotifyReducer,
 
     [UserAPI.reducerPath]: UserAPI.reducer,
+    [TinAPI.reducerPath]: TinAPI.reducer,
     [FileAPI.reducerPath]: FileAPI.reducer,
     [ProductAPI.reducerPath]: ProductAPI.reducer,
     [SupplierAPI.reducerPath]: SupplierAPI.reducer,
@@ -57,6 +57,7 @@ export const setupStore = () => {
                 serializableCheck: false
             }).concat(
                 UserAPI.middleware,
+                TinAPI.middleware,
                 FileAPI.middleware,
                 ProductAPI.middleware,
                 SupplierAPI.middleware,

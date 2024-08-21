@@ -2,7 +2,7 @@
 
 import cl from './_WrapperLKPT.module.scss'
 import { IOptionTab, OptionsTabType } from "@/features/DetailedPageInfo/model/detailedPageInfo.model"
-import { HeaderLKPT } from "@/features/Headers/HeaderLK"
+import { HeaderLKPT } from '@/features/Headers/HeaderLKPT'
 import { LKPTPage } from '@/features/LKPTPage'
 import { cls } from "@/shared/lib/classes.lib"
 import { IOption } from '@/shared/model/option.model'
@@ -15,9 +15,10 @@ interface IWrapperLKPT {
     pageTitle: string,
     optionsTab: OptionsTabType,
     options: IOption[],
-    buttonBackProps?: IButton
-    isButtonAdd?: boolean,
-    buttonAddProps?: IButton
+    buttonBackProps?: IButton,
+    isButtonRight?: boolean,
+    buttonRightTitle?: string
+    buttonRightProps?: IButton,
     className?: string
     classNamePage?: string
 }
@@ -27,7 +28,8 @@ export const WrapperLKPT = ({
     pageTitle = 'Новый товар',
     optionsTab, options,
     buttonBackProps,
-    isButtonAdd, buttonAddProps,
+    isButtonRight, buttonRightProps,
+    buttonRightTitle,
     className, classNamePage,
 }: IWrapperLKPT) => {
 
@@ -57,10 +59,12 @@ export const WrapperLKPT = ({
                 selectedOption={selectedPage}
                 setSelectedOption={setSelectedPage}
                 buttonBackProps={buttonBackProps}
-                isButtonAdd={isButtonAdd} buttonAddProps={buttonAddProps}
+                buttonRightTitle={buttonRightTitle}
+                isButtonRight={isButtonRight} 
+                buttonRightProps={buttonRightProps}
             />
             <LKPTPage optionsTab={optionsTabArray} selectedOption={selectedPage} 
-                        className={classNamePage}/>
+            className={classNamePage}/>
         </div>
     )
 }

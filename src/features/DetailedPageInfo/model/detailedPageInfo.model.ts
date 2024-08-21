@@ -67,3 +67,8 @@ export type OptionsTabType = (
     | IOptionTabTender | IOptionTabFavourites
     | IOptionTabChat
 );
+
+// ====={ PROFILE }=====
+export interface IProfileEditTab extends IOptionTabParent {
+    profileEdit: IOptionTab
+}

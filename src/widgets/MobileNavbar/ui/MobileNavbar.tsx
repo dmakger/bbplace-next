@@ -33,7 +33,6 @@ export const MobileNavbar = ({
 	useEffect(() => {
 		if (pathname === FAVOURITES_ITEM_MOBILE_MENU_DATA?.link && is420) {
 			setFilteredMenuData(menuData.filter(it => it.link !== FAVOURITES_ITEM_MOBILE_MENU_DATA.link))
-			console.log(pathname);
 		}
 		if(pathname.includes('support')){			
 			setFilteredMenuData(SUPPORT_PAGE_MOBILE_DATA)

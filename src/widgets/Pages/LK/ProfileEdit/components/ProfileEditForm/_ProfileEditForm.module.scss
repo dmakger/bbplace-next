@@ -1,0 +1,14 @@
+.ProfileEditForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    max-width: 610px;
+    width: 100%;
+    margin: auto;
+
+    @media (max-width: 1280px) {
+        margin: 0;
+        margin-left: auto;
+    }
+}

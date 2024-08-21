@@ -1,5 +1,6 @@
 'use client'
 
+import cl from './_SupplierDetailPage.module.scss';
 import { UserAPI } from "@/entities/Auth/api/auth.api";
 import { ProductAPI } from "@/entities/Product/api/product.api";
 import { PRODUCT_LIMIT } from "@/entities/Product/data/product.data";
@@ -10,8 +11,6 @@ import { ProductAutoList } from "@/entities/Product/ui/List/Auto/ProductAutoList
 import { ReviewAPI } from "@/entities/Review/api/review.api";
 import { REVIEW_LIMIT, REVIEW_START_PAGE } from "@/entities/Review/data/review.data";
 import { SupplierPageHeader } from "@/entities/Supplier/components/SupplierPageHeader/SupplierPageHeader";
-import { supplierApiToSupplier } from "@/entities/Supplier/lib/process.supplier.lib";
-import { ISupplier } from "@/entities/Supplier/model/supplier.model";
 import Wrapper1280 from "@/shared/ui/Wrapper/1280/Wrapper1280";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -38,8 +37,10 @@ export default function SupplierPage() {
     }, [supplierProductsAPI])
 
     return (
-        <Wrapper1280>
-            {supplier && <SupplierPageHeader supplier={supplier}
+        <Wrapper1280 classNameContent={cl.content}>
+            {supplier && <SupplierPageHeader 
+                classNameSupplierWNav={cl.supplierWNav}
+                supplier={supplier}
                 supplierRating={supplierRating ?? 0}
                 supplierReviews = {supplierReviews?.length ?? 0}
             />}

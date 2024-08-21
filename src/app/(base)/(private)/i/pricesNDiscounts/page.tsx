@@ -24,7 +24,7 @@ export default function PricesNDiscountsPage() {
                 pageTitle=""
                 startPage={SWITCH_SELECTOR_PRICES_N_DISCOUNTS}
                 optionsTab={PRICES_N_DISCOUNTS_TAB}
-                isButtonAdd={false} />
+                isButtonRight={false} />
         </Wrapper1280>
     )
 }

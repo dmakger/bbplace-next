@@ -1,9 +1,10 @@
-import { createApi, BaseQueryFn } from '@reduxjs/toolkit/query/react';
+import { createApi, BaseQueryFn, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { AxiosRequestConfig, AxiosError } from 'axios';
 import apiClient from './interceptor.auth.api';
+import { IAuthForm, ILoginResponseDecoded, ICheckEmailExists, IRegistrationRequest, IResetPassword, ISendResetPassword, IUpdateUserInfo } from '../model/auth.model';
+import { saveTokensStorage, getAccessToken, getRefreshToken, getHeaderAuthorizationIfExists, getHeaderAuthorization } from '../lib/auth-token.lib';
+import { options } from '@/api/interceptors';
 import { ISupplier, ISupplierAPI } from '@/entities/Supplier/model/supplier.model';
-import { IAuthForm, ILoginResponseDecoded, ICheckEmailExists, IRegistrationRequest, IResetPassword, ISendResetPassword } from '../model/auth.model';
-import { saveTokensStorage, getAccessToken, getRefreshToken, getHeaderAuthorizationIfExists } from '../lib/auth-token.lib';
 import { jwtDecode } from 'jwt-decode';
 import { supplierApiToSupplier } from '@/entities/Supplier/lib/process.supplier.lib';
 
@@ -57,6 +58,17 @@ export const UserAPI = createApi({
             //     console.log('qwe response', response)
             //     return supplierApiToSupplier(response)!
             // }
+        }),
+        updateUserInfo: builder.mutation<any, IUpdateUserInfo>({
+            query: (data) => ({
+                url: '/Authenticate/UpdateUserInfo',
+                method: 'POST',
+                data
+            }),
+            transformResponse: (response: any) => {
+                saveTokensStorage(response); // Сохранение токенов в куки
+                return jwtDecode(response.accessToken);
+            }
         }),
         userLogin: builder.mutation<ILoginResponseDecoded, IAuthForm>({
             query: ({ username, password }) => ({
@@ -125,3 +137,25 @@ export const UserAPI = createApi({
 });
 
 // export const { useGetUserDataQuery, useUserLoginMutation, useRefreshTokenMutation } = UserAPI;
+
+
+export const TinAPI = createApi({
+    reducerPath: 'TinAPI',
+    baseQuery: fetchBaseQuery({
+        baseUrl: options.baseURL + 'validations/api/Validations'
+    }),
+    endpoints: (build) => ({
+        updateTIN: build.mutation<any, string>({
+            query: (TIN) => ({
+                url: `/RequestValidation/${TIN}`,
+                method: 'POST',
+                headers: getHeaderAuthorization(),
+                
+            }),  
+            transformResponse: (response: any) => {
+                saveTokensStorage(response); // Сохранение токенов в куки
+                return jwtDecode(response.accessToken);
+            } 
+        }),
+    })
+})

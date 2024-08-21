@@ -8,15 +8,16 @@ import { IOption } from '@/shared/model/option.model'
 import { useEffect, useState } from 'react'
 import { CategoryAPI } from '@/entities/Metrics/api/category.metrics.api'
 import { createInputArray } from '@/shared/ui/Input/ui/RecursiveSelect'
-import { categoryListToOptionList } from '@/shared/lib/option/option.lib'
 import { ICategoriesWithSubcategories } from '@/entities/Metrics/model/category.metrics.model'
+import { categoryListToOptionWithSubcategoriesList, findOptionsWSubcategoriesByIds, findOptionsByIds } from '@/shared/lib/option/option.lib'
 
 interface ICategoryRecursiveSelect {
     className?: string,
     variant?: ERecursiveSelectVariant
     labelText?: string,
     classNameLabel?: string,
-    defaultCategoriesId: number[],
+    defaultCategoriesId?: number[],
+    setSelectedCategoriesAsOption?: Function,
     setSelectedCategoriesId?: Function,
     onClickBellowButton?: Function,
 
@@ -44,6 +45,7 @@ export const CategoryRecursiveSelect = ({
     variant = ERecursiveSelectVariant.SINGLE,
     classNameLabel,
     defaultCategoriesId,
+    setSelectedCategoriesAsOption,
     setSelectedCategoriesId,
     onClickBellowButton,
 
@@ -71,33 +73,40 @@ export const CategoryRecursiveSelect = ({
     //STATE
     const [selectedOptions, setSelectedOptions] = useState<IOption[]>([])
     const [updatedCategories, setUpdatedCategories] = useState<IOption[]>([])
-    const [selectedOptionsCommonArray, setSelectedOptionsCommonArray] = useState<IOption[]>([])
+    const [selectedOptionsCommonArray, setSelectedOptionsCommonArray] = useState<IOption[]>([]) //Необходим для заполнения в рамках одной категории
 
     //API
-    const { data: categories } = CategoryAPI.useGetCategoriesWithSubcategoriesQuery({toOption: false})
+    const { data: categories } = CategoryAPI.useGetCategoriesWithSubcategoriesQuery({ toOption: false })
+    //API
+    const { data: categoryList } = CategoryAPI.useGetCategoriesByIdQuery(undefined)
 
     //EFFECT
     useEffect(() => {
         if (categories) {
-            // const options = categoryListToOptionList(((categories as ICategoriesWithSubcategories[]).filter(it => it.name !== 'Нет категории')))
-            const options = categoryListToOptionList(categories as ICategoriesWithSubcategories[])
+            const options = categoryListToOptionWithSubcategoriesList(((categories as ICategoriesWithSubcategories[]).filter(it => it.name !== 'Нет категории')))
             setUpdatedCategories(options ?? [])
         }
+        if (inputsLevel === 1 && categoryList) setUpdatedCategories(categoryList)
     }, [categories])
+
 
     useEffect(() => {
         if (updatedCategories && defaultCategoriesId) {
-            const foundOptions = defaultCategoriesId
-                .map(id => updatedCategories.find(it => it.id === id))
-                .filter((option): option is IOption => option !== undefined);
-
-            setSelectedOptions(foundOptions);
+            let foundOptions: IOption[] | undefined = []
+            if (inputsLevel > 1) {
+                foundOptions = findOptionsWSubcategoriesByIds(updatedCategories, defaultCategoriesId)
+            }
+            else {
+                foundOptions = findOptionsByIds(updatedCategories, defaultCategoriesId)
+            }
+            setSelectedOptions(foundOptions ?? []);
         }
     }, [updatedCategories, defaultCategoriesId])
 
+
     useEffect(() => {
-        setSelectedCategoriesId && setSelectedCategoriesId(selectedOptions.map(it => it.id))
-    }, [selectedOptionsCommonArray])
+        setSelectedCategoriesAsOption && setSelectedCategoriesAsOption(selectedOptions.map(it => it))
+    }, [selectedOptions])
 
 
     //INPUTS_ARRAY
@@ -108,7 +117,6 @@ export const CategoryRecursiveSelect = ({
         classNamesInputArray ?? [],
         placeholdersInputsArray ?? []
     );
-
 
     return (
         <WrapperRectangleInput
@@ -125,7 +133,7 @@ export const CategoryRecursiveSelect = ({
             onClickBellowButton={onClickBellowButton}
             errorInputMessage={errorInputMessage}
             isCanDisabledBellowButton
-            // isCanDisabledBellowButton={!selectedOptions.length}
+        // isCanDisabledBellowButton={!selectedOptions.length}
         >
             <Input.RecursiveSelect
                 variantRecursive={variant}
@@ -135,7 +143,7 @@ export const CategoryRecursiveSelect = ({
                 selectedOptionsCommonArray={selectedOptionsCommonArray}
                 setSelectedOptionsCommonArray={setSelectedOptionsCommonArray}
                 inputsProps={inputsArray}
-                arrowSizes={{width: 16, height: 15}}
+                arrowSizes={{ width: 16, height: 15 }}
 
             />
         </WrapperRectangleInput>

@@ -32,7 +32,7 @@ export default function LKTenderPage() {
                              buttonBackProps={{href: DASHBOARD_PAGES.HOME.path}}
                              options={TENDER_TYPE_OPTIONS} optionsTab={OPTIONS_TAB}
                              startPage={tenderType === ETenderType.PURCHASE ? SWITCH_SELECTOR_PURCHASE_TENDERS_OPTION : SWITCH_SELECTOR_SALE_TENDERS_OPTION} 
-                             isButtonAdd={true} buttonAddProps={{href: DASHBOARD_PAGES.NEW_TENDER.path}}
+                             isButtonRight={true} buttonRightProps={{href: DASHBOARD_PAGES.NEW_TENDER.path}}
                              classNamePage={cl.block}/>
             </SuspenseL.Tender>
         </Wrapper1280>

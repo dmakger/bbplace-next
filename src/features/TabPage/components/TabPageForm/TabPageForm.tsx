@@ -6,14 +6,13 @@ import { WrapperRectangleInput } from "@/shared/ui/Wrapper/RectangleInput";
 import Input from "@/shared/ui/Input/Input";
 import { EInputVariants } from "@/shared/ui/Input/model/input.model";
 import { ETabPageVariant } from "../../model/tabPage.model";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { IFile } from "@/entities/File/model/file.model";
 import { WrapperGrayButton } from "@/shared/ui/Wrapper/GrayButton";
 import { Button, ButtonVariant } from "@/shared/ui/Button";
 import { ButtonSize } from "@/shared/ui/Button/model/button.model";
 import { ProductAPI } from "@/entities/Product/api/product.api";
-import { UserAPI } from "@/entities/Auth/api/auth.api";
-import { useActionCreators, useAppSelector } from "@/storage/hooks";
+import { useAppSelector } from "@/storage/hooks";
 import { getFileName, getImageFile } from "@/entities/File/lib/file.lib";
 import { CategoryRecursiveSelect } from "@/features/CategoryRecursiveSelect";
 import { ERecursiveSelectVariant } from "@/shared/ui/Input/ui/RecursiveSelect/model/recursiveSelect.model";
@@ -46,28 +45,7 @@ export const TabPageForm = ({
     const { data, isLoading } = ProductAPI.useGetPricesExcelQuery();
 
     //RTK
-    const [userLogin] = UserAPI.useUserLoginMutation();
-    const actionCreators = useActionCreators();
-    const { fullName } = useAppSelector(state => state.user);
-
-    //EFFECT
-    useEffect(() => {
-        const authenticateUser = async () => {
-            try {
-                const userData = await userLogin({
-                    username: 'ilya-yudenkov@mail.ru',
-                    password: '12345Ii'
-                }).unwrap();
-                if (userData) {
-                    actionCreators.setAuth(userData);
-                }
-            } catch (authError) {
-                console.error('Ошибка аутентификации:', authError);
-            }
-        };
-
-        authenticateUser();
-    }, [userLogin, actionCreators]);
+    const { fullName } = useAppSelector(state => state.user); 
 
     //VARIABLE
     const fileName = getFileName({ fullName, text: 'product sheet' });

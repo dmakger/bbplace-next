@@ -1,4 +1,5 @@
 import { IArgsRequest } from "@/api/api/model/request.model.api"
+import { ISupplierAPI } from "../model/supplier.model"
 
 export enum ESupplierRole {
     BUYER = "buyer",
@@ -28,4 +29,23 @@ export const SUPPLIER_LIMIT: IArgsRequest['limit'] = 24
 export const SUPPLIER_ARGS_REQUEST: IArgsRequest = {
     page: SUPPLIER_START_PAGE,
     limit: SUPPLIER_LIMIT
+}
+
+export const INITIAL_SUPPLIER_DATA: ISupplierAPI = {
+    legalName: '',
+    brandName: '',
+    fullName: '',
+    shortDescription: '',
+    description: '',
+    id: '',
+    email: '',
+    phoneNumber: '',
+    inn: '',
+    isValid: false,
+    category: '',
+    country: '',
+    photoId: '',
+    roles: [],
+    emailConfirmed: true,
+    emailSubscription: false
 }

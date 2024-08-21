@@ -12,7 +12,9 @@
     .rightContainer{
         display: flex;
         flex-direction: column;
+        justify-content: space-between;
         gap: 25px;
+        height: 100%;
 
         .table {
 
@@ -53,4 +55,12 @@
 .supplierName {
     font-weight: var(--font-weight-sb);
     font-size: var(--font-size-xl) !important;
+}
+
+.supplier{
+    background-color: var(--background-1) !important;
+}
+
+.baseSupplier{
+    background-color: var(--background-1) !important;
 }

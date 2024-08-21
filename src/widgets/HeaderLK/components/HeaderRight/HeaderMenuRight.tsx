@@ -37,7 +37,7 @@ export const HeaderMenuRight = ({ className }: IHeaderMenuRight) => {
         <div className={cls(cl.HeaderMenuRight, className)}>
             <Button variant={ButtonVariant.DEFAULT}
                     beforeImage={CHAT_HEADER_ICON} beforeProps={{ width: 20, height: 20 }}
-                    href={DASHBOARD_PAGES.CHATS(undefined).path}
+                    href={DASHBOARD_PAGES.CHATS('').path}
                     className={cl.button}
             />
             <Button
@@ -45,6 +45,7 @@ export const HeaderMenuRight = ({ className }: IHeaderMenuRight) => {
                 variant={ButtonVariant.DEFAULT}
                 beforeImage={FAVOURITE_TERTIARY_ICON}
                 beforeProps={{ width: 20, height: 20 }}
+                href={DASHBOARD_PAGES.FAVOURITES.path}
             />
 
             <Dropdown

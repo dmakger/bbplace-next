@@ -3,7 +3,6 @@ import { FC, useEffect, useState } from "react"
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_SupplierWNav.module.scss'
 import { ISupplier } from "../../model/supplier.model";
-import { supplierApiToSupplier } from "../../lib/process.supplier.lib";
 import { UserAPI } from "@/entities/Auth/api/auth.api";
 import { ESupplierSubscribeViewItem } from "../../data/view.supplier.data";
 import { NavSupplier } from "../../components/Nav/NavSupplier";
@@ -38,6 +37,11 @@ export const SupplierWNav:FC<SupplierWNavProps> = ({id, view=ESupplierView.LARGE
     const { data: supplierRating } = ReviewAPI.useGetSupplierScoreQuery(id ?? '')
 
     const [supplierState, setSupplierState] = useState<ISupplier>()
+
+     useEffect(() => {
+        if (supplier)
+            setSupplierState(supplier)
+    }, [supplier])
     
 
     if (!supplierState)

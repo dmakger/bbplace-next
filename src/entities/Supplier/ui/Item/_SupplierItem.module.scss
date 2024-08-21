@@ -107,11 +107,6 @@
     padding: 30px 0px 30px 26px;
     border-radius: 20px;
     border-bottom: 1px solid var(--gray-5);
-    cursor: default;
-
-    @media (max-width: 768px) {
-        cursor: pointer;
-    }
 
     .infoContainer {
         display: flex;
@@ -123,6 +118,7 @@
 
         .supplierWNav {
             background-color: var(--background-2);
+            cursor: pointer;
 
             .supplierName {
                 color: var(--font);
@@ -132,15 +128,6 @@
 
             .baseSupplier {
                 background-color: var(--background-2);
-                cursor: default;
-
-                &:hover {
-                    background-color: var(--background-gray) !important;
-                }
-
-                &:active {
-                    background-color: var(--background-gray) !important;
-                }
             }
         }
 

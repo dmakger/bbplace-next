@@ -1,6 +1,6 @@
 "use client"
 
-import { FC, ReactNode, useState } from "react"
+import { FC, ReactNode } from "react"
 import { useActionCreators, useAppSelector } from "@/storage/hooks";
 import { ModalAction } from "../../Modal/ui/Action/ModalAction";
 import { EModalView } from "@/shared/data/modal.data";
@@ -49,11 +49,6 @@ export const WrapperAuth: FC<WrapperAuthProps> = ({ children }) => {
 
         } catch (error) {
         }
-    }
-
-    // Возвращаем null на сервере, чтобы избежать несоответствия в гидратации
-    if (typeof window === 'undefined') {
-        return null;
     }
 
     return (

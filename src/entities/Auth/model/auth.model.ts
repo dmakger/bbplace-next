@@ -33,6 +33,18 @@ export interface ILoginResponseDecoded {
     Country: string
 }
 
+export interface IUpdateUserInfo {
+    email: string
+    phoneNumber: string
+    category: string
+    shortDescription: string
+    description: string
+    legalName: string
+    brandName: string,
+    fullName: string,
+    photoId: string
+}
+
 export interface ICheckEmailExists{
     exists: boolean
 }
