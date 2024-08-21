@@ -40,14 +40,14 @@ export const MainInfoProductForm: FC<MainInfoProductFormProps> = ({ data, setDat
     const [selectedCategoryIds, setSelectedCategoryIds] = useState<number[]>([]);
     const [selectedStatusOption, setSelectedStatusOption] = useState<IOption>(READY_STATUS__PRODUCT_FORM__DATA);
     const [selectedCountryOption, setSelectedCountryOption] = useState<IOption | undefined>();
-    const [defaultCategoriesId, setDefaultCategoriesId] = useState<number[]>([335, 2413, 1655])
+    // const [defaultCategoriesId, setDefaultCategoriesId] = useState<number[]>([335, 2413, 1655])
+    const [defaultCategoriesId, setDefaultCategoriesId] = useState<number[]>([])
 
     // API
     const { data: countryList } = CountryAPI.useGetCountriesQuery();
 
     // EFFECT
     useEffect(() => {
-        console.log('qwe main', data)
         setSelectedCategoryIds(data?.categoryId ? [data.categoryId] : []);
         setSelectedStatusOption(data?.status ?? READY_STATUS__PRODUCT_FORM__DATA);
         setSelectedCountryOption(data?.country ?? undefined);

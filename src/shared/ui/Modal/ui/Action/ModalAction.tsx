@@ -14,7 +14,7 @@ import { IButton } from "@/shared/ui/Button/ui/Button";
 import Image from "next/image";
 import BBPlaceGrayLeftAndRightBackgroundICON from "@/shared/assets/img/Background/BBPlace/BBPlaceGrayLeftAndRight.svg"
  
-interface ModalActionProps extends IModal{
+export interface IModalActionProps extends IModal{
     title: string
     text?: string[]
     inputProps?: IModalActionInput
@@ -25,7 +25,7 @@ interface ModalActionProps extends IModal{
 }
 
 
-export const ModalAction:FC<ModalActionProps> = ({
+export const ModalAction:FC<IModalActionProps> = ({
     title, 
     text, 
     inputProps,
@@ -55,8 +55,8 @@ export const ModalAction:FC<ModalActionProps> = ({
                     {/* ====={ TEXT }===== */}
                     {text && (
                         <div className={cl.text}>
-                            {text.map(textItem => (
-                                <p className={cl.textItem}>{textItem}</p>
+                            {text.map((textItem, index) => (
+                                <p className={cl.textItem} key={index}>{textItem}</p>
                             ))}
                         </div>
                     )}
