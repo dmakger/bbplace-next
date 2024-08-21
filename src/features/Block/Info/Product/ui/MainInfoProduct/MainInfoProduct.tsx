@@ -30,7 +30,7 @@ export const MainInfoProduct = ({
     return (
         <div className={cls(cl.MainInfoProduct, className)}>
             <BlockInfoProduct product={product} className={cls(cl.wholesaleProduct, inView ? cl.hidden : '')} />
-            <OptionList title="Цвет: "
+            <OptionList title="Тип: "
                 optionList={productListToOptionList(productListGroup)}
                 activeIds={[product.id]}
                 isOnHover />

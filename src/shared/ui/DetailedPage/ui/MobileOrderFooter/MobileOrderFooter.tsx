@@ -6,12 +6,14 @@ import { DASHBOARD_PAGES } from "@/config/pages-url.config"
 import { IWholesale } from "@/entities/Metrics/model/wholesale.metrics.model"
 import { IProduct } from "@/entities/Product/model/product.model"
 import { ButtonSize } from "@/shared/ui/Button/model/button.model"
+import { ETenderType } from "@/entities/Tender/model/tender.model"
 
 interface IMobileOrderFooter {
     className?: string,
     firstStart?: string
     supplierId: string
     product?: IProduct,
+    type?: string
     wholesalePrices: IWholesale[]
     isTop?: boolean,
     classNamePriceQuantity?: string
@@ -23,6 +25,7 @@ export const MobileOrderFooter = ({
     supplierId,
     wholesalePrices,
     isTop = false,
+    type,
     classNamePriceQuantity
 }: IMobileOrderFooter) => {
   
@@ -43,7 +46,7 @@ export const MobileOrderFooter = ({
                     size={ButtonSize.Medium}
                     classNameLink={cl.button}
                     href={DASHBOARD_PAGES.CHATS(supplierId ?? undefined).path}
-                    title="Заказать" />
+                    title={type === ETenderType.PURCHASE ? 'Предложить ' : "Заказать"} />
             </div>
                 
         </div>

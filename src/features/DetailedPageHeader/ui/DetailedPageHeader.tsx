@@ -67,7 +67,9 @@ export const DetailedPageHeader = ({
                     <MobileOrderFooter className={cl.topMobileOrderFooter}
                         supplierId={supplierId ?? ''}
                         wholesalePrices={wholesalePrices ?? []}
-                        isTop />
+                        isTop
+                        type={type}
+                     />
                 </div>
             }
         </div>

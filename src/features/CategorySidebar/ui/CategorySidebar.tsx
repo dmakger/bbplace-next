@@ -43,26 +43,26 @@ export const CategorySidebar = ({
 
     // HANDLE
     const handleHoverCategory = (_: number, it: ICategoriesWithSubcategories) => {
-        let newSelectedOptions = [...selectedCategoriesArray]
+        // let newSelectedOptions = [...selectedCategoriesArray]
         
-            if (it.depth === 0) {
-                newSelectedOptions = [it];            
-            } else if (it.depth >= newSelectedOptions.length) {
-                newSelectedOptions.push(it);
-            } else {
-                newSelectedOptions = newSelectedOptions.slice(0, it.depth);
-                newSelectedOptions[it.depth] = it;
-            }
+        //     if (it.depth === 0) {
+        //         newSelectedOptions = [it];            
+        //     } else if (it.depth >= newSelectedOptions.length) {
+        //         newSelectedOptions.push(it);
+        //     } else {
+        //         newSelectedOptions = newSelectedOptions.slice(0, it.depth);
+        //         newSelectedOptions[it.depth] = it;
+        //     }
 
-        setSelectedCategoriesArray(newSelectedOptions)
+        // setSelectedCategoriesArray(newSelectedOptions)
     }
 
     return (
         <WrapperClickOutside isShow={isShowCategories} _ref={ref} handle={toggleShowCategories}> 
             <div className={cls(cl.CategorySidebar, isShowCategories ? cl.show : '')}>
-                <CategoryColumn className={cls(isShowCategories ? cl.addMainColumn : '')} categories={filteredCategories || []} onHover={handleHoverCategory} />
+                <CategoryColumn className={cls(isShowCategories ? cl.addMainColumn : '')} categories={filteredCategories || []} onHover={handleHoverCategory} toggleShowCategories={toggleShowCategories}/>
 
-                {selectedCategoriesArray && selectedCategoriesArray.map(it => {
+                {/* {selectedCategoriesArray && selectedCategoriesArray.map(it => {
                     return it.subcategories.length > 0 ? (
                         <CategoryColumn key={it.id}
                             categories={it.subcategories}
@@ -70,7 +70,7 @@ export const CategorySidebar = ({
                             className={cls(cl.subColumn, selectedCategoriesArray.length > it.depth ? cl.addColumn : '')}
                             toggleShowCategories={toggleShowCategories} />
                     ) : null
-                })}
+                })} */}
             </div>
         </WrapperClickOutside>
 

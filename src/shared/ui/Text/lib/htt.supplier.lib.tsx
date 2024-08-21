@@ -25,7 +25,7 @@ export const getDataHeadingToTextSupplierTable = ({
     if(variant === IGetDataHeadingToTextSupplierTableVariant.PRODUCT_PAGE)
         processData = [
         COUNTRY_SUPPLIER_DATA,
-        TYPE_OF_BUSINESS_SUPPLIER_DATA,
+        // TYPE_OF_BUSINESS_SUPPLIER_DATA,
         REGISTRATION_DATE_SUPPLIER_DATA,
         RESPONSE_VELOCITY_SUPPLIER_DATA
     ]

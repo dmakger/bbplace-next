@@ -24,13 +24,13 @@ export const CategoryItem = ({
 }: ICategoryItem) => {
 
     const getLinkHref = (category: ICategory | ICategoriesWithSubcategories) => {
-        if ('subcategories' in category) {
-            if (!category.subcategories.length) {                
+        // if ('subcategories' in category) {
+        //     if (!category.subcategories.length) {                
                 // ВМЕСТО: `${MAIN_PAGES.PRODUCTS.path}?category=${category.id}`;
                 return `${MAIN_PAGES.PRODUCTS}?category=${category.id}`;
-            }
-        }
-        return linkHref;
+        //     }
+        // }
+        // return linkHref;
     }
 
     const hideCategoriesSidebar = () => {
@@ -44,7 +44,7 @@ export const CategoryItem = ({
     return (
         <Link href={getLinkHref(category)} className={cls(cl.category, className)} onMouseEnter={handleMouseEnter} onClick={hideCategoriesSidebar}>
             <span className={cl.name}>{category.name}</span>
-            {hasSubcategories && <Image src={'arrow.svg'} className={cl.arrow} alt={'arrow'} width={10} height={10} />}
+            {/* {hasSubcategories && <Image src={'arrow.svg'} className={cl.arrow} alt={'arrow'} width={10} height={10} />} */}
         </Link>
     )
 }

@@ -36,11 +36,11 @@ export const getDataHeadingToTextProductTable = ({
 
     if (isDetailedPageHeader) {
         return [
-            REVIEWS_PRODUCT_DATA,
+            // REVIEWS_PRODUCT_DATA,
             CREATED_AT_PRODUCT_DATA
         ].filter(it => it !== undefined) as IHeadingToText[]
     }
-    return processData.filter(it => it !== undefined) as IHeadingToText[]
+    return processData.filter(it => it.heading && it.body) as IHeadingToText[]
 }
 
 //1. проверяем, что пришло в characteristic: id элемента (number) или name элемента (string)
