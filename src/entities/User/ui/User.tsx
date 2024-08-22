@@ -8,6 +8,7 @@ import { EUserVariants } from '../model/user.model'
 import { ARROW_TERTIARY_WO_ICON } from '@/shared/ui/Icon/data/arrow.data.icon'
 import { ENotificationVariants } from '@/shared/ui/Notification/model/notification.model'
 import { Notification } from '@/shared/ui/Notification'
+import { getSupplierImage } from '@/entities/Supplier/lib/image.supplier.lib'
 
 interface UserProps {
     image?: string
@@ -26,25 +27,24 @@ export const User = ({
     classNameArrowContainer,
     onClick
 }: UserProps) => {
+
     return (
         <>
-            {variant === EUserVariants.DEFAULT ?
-                <Image src={image ? image : defaultImageJPG}
-                    alt={'Avatar'}
-                    className={cls(cl.image, className)}
+            {variant === EUserVariants.DEFAULT ? (
+                <Image src={getSupplierImage(image)} alt={'Avatar'}
                     onClick={onClick}
-                    priority /> :
-
+                    priority 
+                    className={cls(cl.image, className)} /> 
+            ) : (
                 <div onClick={onClick} className={cl.userImageContainer}>
-                    <Image src={image ? image : defaultImageJPG}
-                        className={cls(cl.image, className)}
-                        alt={'Avatar'} />
+                    <Image src={getSupplierImage(image)} alt={'Avatar'} 
+                        className={cls(cl.image, className)} />
                     <div className={cls(cl.arrowContainer, classNameArrowContainer)}>
                         <Image src={ARROW_TERTIARY_WO_ICON.default} alt='' className={cl.arrow} width={8} height={5} />
                     </div>
                     <Notification variant={notificationVariant} />
-
-                </div>}
+                </div>
+            )}
         </>
 
     )

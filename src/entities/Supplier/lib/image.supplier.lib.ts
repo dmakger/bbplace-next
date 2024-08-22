@@ -1,9 +1,9 @@
 import { getImage } from "@/shared/lib/image.lib"
-import { USER_SECONDARY__ICON } from "@/shared/ui/Icon/data/user.data.icon"
+import { USER_GRAY__ICON } from "@/shared/ui/Icon/data/user.data.icon"
 
 /**
  * Возвращает изображение пользователя или дефолтное
  */
 export const getSupplierImage = (image?: string) => {
-    return image ? getImage(image) : USER_SECONDARY__ICON.default
+    return image ? getImage(image) : USER_GRAY__ICON.default
 }

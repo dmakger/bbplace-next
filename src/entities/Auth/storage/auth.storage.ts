@@ -38,7 +38,8 @@ export const UserSlice = createSlice({
 
         setAuthOptional(state, action: PayloadAction<IUserOptionalProps>) {
             console.log('qwe setAuthOptional', action)
-            state = {...state, ...action.payload}
+            const data = action.payload
+            state.photoId = data.photoId
         },
 
         setNotAuth(state){

@@ -1,10 +1,11 @@
 "use client"
 
+import { useRef, useState } from "react"
+
 import { cls } from "@/shared/lib/classes.lib"
 import cl from './_UserAuth.module.scss'
 import { User } from "@/entities/User"
 import WrapperClickOutside from "@/shared/ui/Wrapper/ClickOutside/WrapperClickOutside"
-import { useRef, useState } from "react"
 import UserProfileModal from "../UserProfileModal/UserProfileModal"
 import { useAppSelector } from "@/storage/hooks"
 
@@ -22,11 +23,11 @@ export const UserAuth = ({ className }: IUserAuth) => {
     //REF
     const userRef = useRef<HTMLDivElement>(null)
 
+    // HANDLE
     const showProfileModal = () => setIsShowProfileModal(prevState => !prevState);
 
     console.log('qwe user', user)
     
-
     return (
         <WrapperClickOutside _ref={userRef} isShow={isShowProfileModal} handle={showProfileModal} className={cls(cl.UserAuth, className)}>
             <User image={user.photoId?.key} className={cl.image} onClick={showProfileModal} />
