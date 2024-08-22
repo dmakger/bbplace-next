@@ -1,11 +1,11 @@
 
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import { ILoginResponseDecoded, IUser } from "../model/auth.model";
+import { ILoginResponseDecoded, IUser, IUserOptionalProps } from "../model/auth.model";
 import { isAuth, removeFromStorage } from "../lib/auth-token.lib";
 
-type UserState = IUser;
 
-const initialState: UserState = {
+const initialState: IUser = {
+    id: "",
     fullName: "",
     isAuth: isAuth(),
     legalName: "",
@@ -15,7 +15,6 @@ const initialState: UserState = {
     country: "",
     unreadMessages: 0,
     email: "",
-    id: ""
 }
 
 export const UserSlice = createSlice({
@@ -36,6 +35,11 @@ export const UserSlice = createSlice({
 
             state.isAuth = true;
         },
+
+        setAuthOptional(state, action: PayloadAction<Partial<IUserOptionalProps>>) {
+            state = {...state, ...action.payload}
+        },
+
         setNotAuth(state){
             state.isAuth = false;
             state.email = '';

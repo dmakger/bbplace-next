@@ -6,7 +6,8 @@ import { UserAPI } from '@/entities/Auth/api/auth.api';
 import { useActionCreators } from '@/storage/hooks';
 import { getAccessToken, isAuth, removeFromStorage } from '@/entities/Auth/lib/auth-token.lib';
 import { jwtDecode } from 'jwt-decode';
-import { ILoginResponseDecoded } from '@/entities/Auth/model/auth.model';
+import { ILoginResponseDecoded, IUser } from '@/entities/Auth/model/auth.model';
+import { supplierApiToSupplier } from "@/entities/Supplier/lib/process.supplier.lib";
 
 
 interface UpdateAuthProps{
@@ -16,6 +17,7 @@ interface UpdateAuthProps{
 export const UpdateAuth:FC<UpdateAuthProps> = ({className}) => {
     // API 
     const [refreshToken] = UserAPI.useRefreshTokenMutation();
+    const [getUserDataById] = UserAPI.useGetUserDataByIdMutation();
     
     // RTK
     const actionCreators = useActionCreators();
@@ -24,10 +26,10 @@ export const UpdateAuth:FC<UpdateAuthProps> = ({className}) => {
     useEffect(() => {
         async function initialRefresh() {
             if (isAuth()) {
-                const accessToken = getAccessToken();
-                if (accessToken !== null) {
-                    const decoded = jwtDecode(accessToken);
-                    actionCreators.setAuth(decoded as ILoginResponseDecoded);
+                const userData = getAccessToken(true) as (ILoginResponseDecoded | null);
+                if (userData !== null) {
+                    actionCreators.setAuth(userData);
+                    processUserData(userData.UserId)
                 }
             }
             const data = await refreshToken().unwrap();
@@ -40,6 +42,20 @@ export const UpdateAuth:FC<UpdateAuthProps> = ({className}) => {
         initialRefresh();
     }, [actionCreators, refreshToken]);
 
+    // FUNC
+    const processUserData = (userId: IUser['id']) => {
+        getUserDataById(userId).then(r => {
+            if ('error' in r) return
+
+            const supplier = supplierApiToSupplier(r.data)
+            if (supplier === undefined) return
+
+            actionCreators.setAuthOptional({
+                photoId: supplier.photoId   
+            })
+        })
+        // const supplierData = supplierApiToSupplier(getUserDataById(userId))
+    }
 
     return (
         <></>
