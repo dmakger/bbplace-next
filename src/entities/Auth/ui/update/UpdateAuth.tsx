@@ -5,16 +5,13 @@ import { FC, useEffect } from "react"
 import { UserAPI } from '@/entities/Auth/api/auth.api';
 import { useActionCreators } from '@/storage/hooks';
 import { getAccessToken, isAuth, removeFromStorage } from '@/entities/Auth/lib/auth-token.lib';
-import { jwtDecode } from 'jwt-decode';
 import { ILoginResponseDecoded, IUser } from '@/entities/Auth/model/auth.model';
 import { supplierApiToSupplier } from "@/entities/Supplier/lib/process.supplier.lib";
 
 
-interface UpdateAuthProps{
-    className?: string,
-}
+interface UpdateAuthProps{}
 
-export const UpdateAuth:FC<UpdateAuthProps> = ({className}) => {
+export const UpdateAuth:FC<UpdateAuthProps> = () => {
     // API 
     const [refreshToken] = UserAPI.useRefreshTokenMutation();
     const [getUserDataById] = UserAPI.useGetUserDataByIdMutation();
@@ -44,17 +41,20 @@ export const UpdateAuth:FC<UpdateAuthProps> = ({className}) => {
 
     // FUNC
     const processUserData = (userId: IUser['id']) => {
+        console.log('qwe processUserData')
         getUserDataById(userId).then(r => {
+            console.log('qwe getUserDataById', r)
             if ('error' in r) return
 
             const supplier = supplierApiToSupplier(r.data)
+            console.log('qwe supplierApiToSupplier', supplier)
             if (supplier === undefined) return
 
+            console.log('qwe setAuthOptional')
             actionCreators.setAuthOptional({
                 photoId: supplier.photoId   
             })
         })
-        // const supplierData = supplierApiToSupplier(getUserDataById(userId))
     }
 
     return (

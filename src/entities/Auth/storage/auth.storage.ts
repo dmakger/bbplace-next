@@ -36,7 +36,8 @@ export const UserSlice = createSlice({
             state.isAuth = true;
         },
 
-        setAuthOptional(state, action: PayloadAction<Partial<IUserOptionalProps>>) {
+        setAuthOptional(state, action: PayloadAction<IUserOptionalProps>) {
+            console.log('qwe setAuthOptional', action)
             state = {...state, ...action.payload}
         },
 
