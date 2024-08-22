@@ -1,0 +1,63 @@
+.TCellItem{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100px;
+    min-width: 210px;
+    border-bottom: 1px solid var(--block-border);
+
+    @media (max-width: 1024px){
+        min-width: 158px;
+    }
+
+    .title{
+        text-align: center;
+    }
+
+    .subtitle{
+        color: var(--font-caption);
+    }
+}
+
+.default{    
+    align-items: flex-start;
+    min-width: 350px;
+    padding-left: 30px;
+    background-color: var(--background-2);
+    border-left: 1px solid var(--block-border);
+    border-bottom: 1px solid var(--block-border);
+
+    @media (max-width: 1024px){
+        min-width: 250px;
+    }
+
+    .title{
+        text-align: left;
+        font-weight: var(--font-weight-med);
+    }
+}
+
+.demo{
+    background: linear-gradient(90deg, #f7f4f0 0%, #fbfafa 25%, #fbfafa 75%, #f7f4f0 100%);
+}
+
+.business{
+    background: linear-gradient(90deg, #e6e6e2 0%, #ecece9 25%, #ecece9 75%, #e6e6e2 100%);
+}
+
+.premium{
+    background: linear-gradient(90deg, #eddfc5 0%, #f0e7ca 25%, #f0e7ca 75%, #eddfc5 100%);
+}
+
+.firstDefaultItem{
+    height: 110px;
+    background-color: var(--background-1);
+    border: none;
+}
+
+.secondDefaultItem{
+    border-radius: 20px 0px 0px 0px;
+    border-left: 1px solid var(--block-border);
+}

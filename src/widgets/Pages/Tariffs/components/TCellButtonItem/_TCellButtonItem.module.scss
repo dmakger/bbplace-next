@@ -1,0 +1,61 @@
+.TCellButtonItem {
+    display: flex;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    left: 0;
+    height: 110px;
+    padding: 15px 10px 10px 10px;
+    border-radius: 20px 20px 0 0;
+    border-bottom: 1px solid var(--block-border);
+
+    .middleContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+
+        .button{
+            white-space: nowrap;
+            @media (max-width: 1024px){
+                padding-left: 10px;
+                padding-right: 10px;;
+            }
+        }
+
+        .title {
+            font-size: var(--font-size-msl);
+            font-weight: var(--font-weight-sb);
+
+            @media (max-width: 768px) {
+                font-size: var(--font-size-sm);
+            }
+        }
+
+        .subtitle {
+            padding: 17px 25px;
+            color: var(--font-caption);
+            font-weight: var(--font-weight-med);
+
+            @media (max-width: 768px) {
+                font-size: var(--font-size-s);
+            }
+        }
+    }
+}
+
+
+
+
+.demo {
+    background: linear-gradient(90deg, #f7f4f0 0%, #fbfafa 25%, #fbfafa 75%, #f7f4f0 100%);
+}
+
+.business {
+    background: linear-gradient(90deg, #e6e6e2 0%, #ecece9 25%, #ecece9 75%, #e6e6e2 100%);
+}
+
+.premium {
+    background: linear-gradient(90deg, #eddfc5 0%, #f0e7ca 25%, #f0e7ca 75%, #eddfc5 100%);
+}
