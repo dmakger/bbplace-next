@@ -4,7 +4,7 @@ import { HttpTransportType } from "@microsoft/signalr";
 
 const connection = new signalR.HubConnectionBuilder()
 	.withUrl("wss://bbplace.ru/ws", {
-		accessTokenFactory: () => getAccessToken() ?? '',
+		accessTokenFactory: () => (getAccessToken() ?? '') as string,
 		headers: getHeaderAuthorization(),
 		skipNegotiation: true,
 		transport: HttpTransportType.WebSockets,

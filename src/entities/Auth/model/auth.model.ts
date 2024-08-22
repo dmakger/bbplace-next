@@ -1,3 +1,5 @@
+import { IImage } from "@/shared/model/image.model"
+
 export interface IAuthForm {
 	username: string
 	password: string
@@ -9,7 +11,8 @@ export interface IAuthResponse {
 	expiration?: string
 }
 
-export interface IUser {
+export interface IUser extends IUserOptionalProps {
+    id: string
     fullName: string
     isAuth: boolean
     legalName: string
@@ -19,7 +22,14 @@ export interface IUser {
     country: string
     unreadMessages: number
     email: string
-    id: string
+}
+
+/**
+ * Не обязательные поля пользователя.  
+ * Например поля которые получаем не из `JWT токена` (`photoId`)
+ */
+export interface IUserOptionalProps  {
+    photoId?: IImage
 }
 
 export interface ILoginResponseDecoded {

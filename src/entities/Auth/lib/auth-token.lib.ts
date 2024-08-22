@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie';
 import { jwtDecode } from 'jwt-decode';
+import { ILoginResponseDecoded } from '../model/auth.model';
 
 export interface IAuthResponse {
     accessToken: string;
@@ -11,9 +12,11 @@ export enum ETokens {
     'REFRESH_TOKEN' = 'refreshToken',
 }
 
-export const getAccessToken = (): string | null => {
+export const getAccessToken = (decode?: boolean): string | ILoginResponseDecoded | null => {
     const accessToken = Cookies.get(ETokens.ACCESS_TOKEN);
-    return accessToken || null;
+    if (!decode)
+        return accessToken || null;
+    return accessToken !== undefined ? (jwtDecode(accessToken) as ILoginResponseDecoded) : null
 };
 
 export const getRefreshToken = (): string | null => {
@@ -35,7 +38,7 @@ export const isTokenExpired = (token: string): boolean => {
 export const isAuth = (): boolean => {
     const accessToken = getAccessToken();
     if (!accessToken) return false;
-    return !isTokenExpired(accessToken);
+    return !isTokenExpired(accessToken as string);
 };
 
 export const saveTokensStorage = (data: IAuthResponse): void => {    
