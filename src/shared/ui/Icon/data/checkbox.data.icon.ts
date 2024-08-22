@@ -9,6 +9,8 @@ import CheckboxTertiaryHovered from '@/shared/assets/img/Checkbox/CheckboxTertia
 import CheckboxTertiaryPressed from '@/shared/assets/img/Checkbox/CheckboxTertiaryPressed.svg'
 import CheckboxTertiaryActive from '@/shared/assets/img/Checkbox/CheckboxTertiaryActive.svg'
 
+import CheckboxFontIcon from '@/shared/assets/img/Checkbox/CheckboxFontIcon.svg'
+
 
 //SECONDARY
 export const CHECKBOX_SECONDARY_DEFAULT_ICON: IIcon = {
@@ -58,4 +60,9 @@ export const CHECKBOX_TERTIARY_ICON: IIcon = {
     defaultHovered: CHECKBOX_TERTIARY_HOVERED_ICON.default,
     defaultPressed: CHECKBOX_TERTIARY_PRESSED_ICON.default,
     active: CHECKBOX_TERTIARY_ACTIVE_ICON.default,
+}
+
+
+export const CHECKBOX_FONT_ICON: IIcon = {
+    default: CheckboxFontIcon
 }

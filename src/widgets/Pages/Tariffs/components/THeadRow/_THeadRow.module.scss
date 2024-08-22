@@ -1,0 +1,9 @@
+.THeadRow{
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    padding-top: 20px;
+    background-color: var(--background-1);
+}

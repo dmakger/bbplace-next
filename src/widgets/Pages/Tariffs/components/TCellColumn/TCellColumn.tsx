@@ -1,10 +1,10 @@
+import cl from './_TCellColumn.module.scss'
 import { cls } from '@/shared/lib/classes.lib'
 import { ITCellButtonItem, ITCellItem } from '../../model/tariffs.model'
 import { TCellButtonItem } from '../TCellButtonItem/TCellButtonItem'
 import { TCellItem } from '../TCellItem/TCellItem'
-import cl from './_TCellColumn.module.scss'
 
-interface ITCellColumn {
+export interface ITCellColumn {
     className?: string,
     classNameItem?: string,
     columnData: ITCellItem[] | ITCellButtonItem[]
@@ -17,7 +17,7 @@ export const TCellColumn = ({
 }: ITCellColumn) => {
 
     return (
-        <colgroup className={cl.TCellColumn}>
+        <div className={cl.TCellColumn}>
             {columnData.map(it => {
                 const isTCellButtonItem = 'buttonTitle' in it || it.title === 'Демо' as string;
 
@@ -38,9 +38,10 @@ export const TCellColumn = ({
                         key={it.title as string}
                         variant={it.variant}
                         title={it.title}
+                        iconSrc={it.iconSrc}
                         subtitle={it.subtitle}
                     />)
             })}
-        </colgroup>
+        </div>
     )
 }

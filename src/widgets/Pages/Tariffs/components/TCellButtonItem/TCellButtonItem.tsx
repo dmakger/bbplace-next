@@ -3,16 +3,16 @@
 import { cls } from '@/shared/lib/classes.lib'
 import cl from './_TCellButtonItem.module.scss'
 import { Button, ButtonVariant } from '@/shared/ui/Button'
-import { ButtonSize } from '@/shared/ui/Button/model/button.model'
+import { ButtonColor, ButtonSize } from '@/shared/ui/Button/model/button.model'
 import { HandleSize } from '@/shared/ui/Handle/Size/HandleSize'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { ETCellItemVariants, ITCellButtonItem } from '../../model/tariffs.model'
+import { ETCellVariants, ITCellButtonItem } from '../../model/tariffs.model'
 
 
 export const TCellButtonItem = ({
     className,
-    variant = ETCellItemVariants.DEFAULT,
+    variant = ETCellVariants.DEFAULT,
     title,
     subtitle,
     buttonTitle
@@ -32,7 +32,8 @@ export const TCellButtonItem = ({
                     {subtitle && <span className={cl.subtitle}>{subtitle}</span>}
                     {buttonTitle && <Button
                         className={cl.button}
-                        variant={ButtonVariant.FILL}
+                        variant={variant === ETCellVariants.DEMO ? ButtonVariant.CONTENT : ButtonVariant.FILL}
+                        color={variant === ETCellVariants.DEMO ? ButtonColor.Tertiary : ButtonColor.Primary}
                         size={is1024 ? ButtonSize.Medium : ButtonSize.Big}
                         title={buttonTitle} />}
                 </div>

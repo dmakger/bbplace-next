@@ -1,0 +1,21 @@
+.TariffsAdaptiveTable{
+    display: flex;
+    flex-direction: column;
+
+    .tableContainer{
+        display: flex;
+    }
+    .rowCell{
+        align-items: center !important;
+    }
+
+    .firstTableContainer{
+        display: flex;
+    }
+
+    .secondTableContainer{
+        display: flex;
+
+    }
+}
+

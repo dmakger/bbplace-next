@@ -2,12 +2,24 @@
     display: flex;
     justify-content: center;
     position: sticky;
-    top: 0;
-    left: 0;
+    top: 20px;
+    min-width: 210px;
+    max-width: 210px;
     height: 110px;
     padding: 15px 10px 10px 10px;
     border-radius: 20px 20px 0 0;
     border-bottom: 1px solid var(--block-border);
+
+    @media (max-width: 1024px){
+        min-width: 158px;
+    }
+
+    @media (max-width: 768px) {
+        position: initial;
+        min-width: 100%;
+        border-radius: 0 0;
+    }
+    
 
     .middleContainer {
         display: flex;
@@ -15,12 +27,18 @@
         justify-content: center;
         align-items: center;
         gap: 10px;
+        width: 100%;
+
 
         .button{
             white-space: nowrap;
             @media (max-width: 1024px){
                 padding-left: 10px;
-                padding-right: 10px;;
+                padding-right: 10px;
+            }
+
+            @media (max-width: 768px){
+               width: 100%;
             }
         }
 

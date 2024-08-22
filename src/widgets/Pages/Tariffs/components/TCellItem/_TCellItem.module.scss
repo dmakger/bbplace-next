@@ -19,6 +19,12 @@
     .subtitle{
         color: var(--font-caption);
     }
+
+    .title, .subtitle{
+        @media (max-width: 768px) {
+            font-size: var(--font-size-s);
+        }
+    }
 }
 
 .default{    
@@ -53,6 +59,8 @@
 
 .firstDefaultItem{
     height: 110px;
+    position: sticky;
+    top: 20px;
     background-color: var(--background-1);
     border: none;
 }

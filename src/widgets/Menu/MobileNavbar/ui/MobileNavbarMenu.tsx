@@ -11,7 +11,7 @@ import { IMenuItem } from "@/shared/model/menu.model"
 import { IMenuButton } from "@/shared/ui/Button/model/button.model"
 import { useAppSelector } from "@/storage/hooks"
 import { MenuItem } from "@/shared/ui/Button/data/MenuItem/MenuItem"
-import { MARK_MENU_ITEM_ICON } from "@/shared/ui/Icon/data/xmark.data.icon"
+import { XMARK_MENU_ITEM_ICON } from "@/shared/ui/Icon/data/xmark.data.icon"
 import { WrapperColumnNoGap } from "@/shared/ui/Wrapper/ColumnNoGap"
 import { useState } from "react"
 import { usePathname } from "next/navigation"
@@ -72,7 +72,7 @@ export const MobileNavbarMenu = ({
                     dropDownListPosition={EWrapperDropdownListPosition.RIGHT} />
             </WrapperColumnNoGap>
 
-            <MenuItem title="Закрыть" onClick={closeSidebar} className={cl.closeButton} beforeImage={MARK_MENU_ITEM_ICON} />
+            <MenuItem title="Закрыть" onClick={closeSidebar} className={cl.closeButton} beforeImage={XMARK_MENU_ITEM_ICON} />
         </div>
     )
 }

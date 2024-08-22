@@ -1,6 +1,4 @@
-import { ReactNode } from "react";
-
-export enum ETCellItemVariants{
+export enum ETCellVariants{
     DEFAULT = 'default',
     DEMO = 'demo',
     BUSINESS = 'business',
@@ -10,8 +8,9 @@ export enum ETCellItemVariants{
 export interface ITCellItem{
     className?: string,
     classNameData?: string,
-    variant?: ETCellItemVariants,
-    title: string | ReactNode,
+    variant?: ETCellVariants,
+    title?: string,
+    iconSrc?: string,
     subtitle?: string
 }
 
