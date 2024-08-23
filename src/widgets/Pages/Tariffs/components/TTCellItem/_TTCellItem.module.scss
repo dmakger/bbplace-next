@@ -12,6 +12,14 @@
     @media (max-width: 1024px){
         min-width: 158px;
     }
+    @media (max-width: 768px){
+        border: 1px solid var(--background-1);
+        border-top: none;
+        border-right: none;
+    }
+    @media (max-width: 425px) {
+        min-width: 139px;
+    }
 
     .title{
         text-align: center;
@@ -34,11 +42,19 @@
     max-width: 100%;
     padding: 40px 30px;
     background-color: var(--background-2);
-    border-left: 1px solid var(--block-border);
-    border-bottom: 1px solid var(--block-border);
+    // border-left: 1px solid var(--block-border);
+    border-bottom: 1px solid var(--background-1);
 
     @media (max-width: 1024px){
         min-width: 250px;
+    }
+    @media (max-width: 768px){
+        border: 1px solid var(--background-1);
+        border-top: none;
+        border-right: none;
+    }
+    @media (max-width: 425px) {
+        min-width: 180px;
     }
 
     .title{
@@ -86,6 +102,10 @@
 
 .rowCell{
     align-items: center !important;
+    & h6{
+        text-align: center !important;
+    }
+    text-align: center;
 }
 
 .firstLeftEl{

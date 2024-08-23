@@ -13,6 +13,9 @@ import ArrowWOTertiaryHoveredIcon from '@/shared/assets/img/Arrow/ArrowWOLineTer
 import ArrowWOTertiaryPressedIcon from '@/shared/assets/img/Arrow/ArrowWOLineTertiaryPressed.svg'
 
 
+import ArrowWLineBlack10Icon from '@/shared/assets/img/Arrow/ArrowWLineBlack10Icon.svg'
+
+
 import ArrowWLineSecondaryIcon from '@/shared/assets/img/Arrow/ArrowWLineSecondary.svg'
 import ArrowWLineSecondaryHoveredIcon from '@/shared/assets/img/Arrow/ArrowWLineSecondaryHovered.svg'
 
@@ -87,6 +90,7 @@ export const ARROW_WLINE_TERTIARY_GRAY_ICON: IIcon = {
     default: ArrowWLineTertiaryIcon,
     defaultHovered: ArrowWLineTertiaryHoveredIcon,
     defaultPressed: ArrowWLineTertiaryPressedIcon,
+    disabled: ArrowWLineBlack10Icon
 }
 
 

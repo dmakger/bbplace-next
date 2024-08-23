@@ -3,9 +3,10 @@
     justify-content: flex-end;
     width: 100%;
     position: sticky;
-    top: 0;
+    top: -1px;
     padding-top: 20px;
     background-color: var(--background-1);
+    z-index: 10;
     @media (max-width: 768px) {
         display: none;
     }

@@ -29,6 +29,8 @@ export const TTCellButtonItem = ({
     const [canScrollPrev, setCanScrollPrev] = useState<boolean>(false)
     const [canScrollNext, setCanScrollNext] = useState<boolean>(false)
 
+    const buttonHeight: number = 110;
+
     //ROUTER
     const router = useRouter();
 
@@ -42,14 +44,16 @@ export const TTCellButtonItem = ({
     const onPrev = () => {
         const element = document.getElementById(rowId ? String(rowId - 1) : '');
         if (element) {
-            element.scrollIntoView({ behavior: "smooth", block: "start" });
+            const scrollPosition = element.getBoundingClientRect().top + window.scrollY;
+            window.scrollTo({ top: scrollPosition - buttonHeight, behavior: "smooth" });
         }
     };
 
     const onNext = () => {
         const element = document.getElementById(rowId ? String(rowId + 1) : '');
         if (element) {
-            element.scrollIntoView({ behavior: "smooth", block: "start" });
+            const scrollPosition = element.getBoundingClientRect().top + window.scrollY;
+            window.scrollTo({ top: scrollPosition - buttonHeight, behavior: "smooth" });
         }
     };
 
@@ -70,7 +74,7 @@ export const TTCellButtonItem = ({
                         title={buttonTitle} />}
                 </div>
 
-                <ButtonArrowWLine isSecondary={false} axis={Axis.Top} onClick={onNext} sizes={{ width: 20, height: 20 }}
+                <ButtonArrowWLine isSecondary={false} onClick={onNext} sizes={{ width: 20, height: 20 }}
                     className={cl.nextButton} disabled={!canScrollNext} />
             </td>
             <HandleSize width={1024} set={setIs1024} />

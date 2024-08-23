@@ -14,7 +14,9 @@ export const TTBodyRow = ({
 }: ITTBodyRow) => {
 
     const noFootnote = items.default.classNameData === 'rowCell' && !isPremium;
-    const noForDemo = (items.default.classNameData === 'lastLeftEl' || items.default.classNameData === 'noForDemo') && isDemo || items.demo?.classNameData === 'noForDemo' && isDemo;
+    const noForDemo = (items.default.classNameData === 'lastLeftEl' ||
+     items.default.classNameData === 'noForDemo') && isDemo && !isPremium ||
+       items.demo?.classNameData === 'noForDemo' && isDemo && !isPremium;
 
     return (
         <tr className={cls(cl.TTBodyRow, cl[variant])} id={String(rowId)}>
