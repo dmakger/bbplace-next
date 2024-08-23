@@ -1,4 +1,4 @@
-.THeadRow{
+.TTHeadRow{
     display: flex;
     justify-content: flex-end;
     width: 100%;
@@ -6,4 +6,7 @@
     top: 0;
     padding-top: 20px;
     background-color: var(--background-1);
+    @media (max-width: 768px) {
+        display: none;
+    }
 }
