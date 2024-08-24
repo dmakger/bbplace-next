@@ -1,13 +1,18 @@
-.TTHeadRow{
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
+.TTHeadRow {
     position: sticky;
     top: -1px;
-    padding-top: 20px;
-    background-color: var(--background-1);
-    z-index: 10;
-    @media (max-width: 768px) {
-        display: none;
+
+    & tr {
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
+
+        padding-top: 20px;
+        background-color: var(--background-1);
+        z-index: 10;
+
+        @media (max-width: 768px) {
+            display: none;
+        }
     }
 }

@@ -9,7 +9,6 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { ETTVariants, ITTCellButtonItem } from '../../model/tariffs.model'
 import { ButtonArrowWLine } from '@/shared/ui/Button/data/Arrow/WLine/ButtonArrowWLine'
-import { Axis } from '@/shared/model/button.model'
 import { TARIFFS_INFO_ARRAY } from '../../data/tariffs.data'
 
 
@@ -59,7 +58,7 @@ export const TTCellButtonItem = ({
 
     return (
         <>
-            <td className={cls(cl.TTCellButtonItem, cl[variant], classNameData ? cl[classNameData] : '', className)}>
+            <th className={cls(cl.TTCellButtonItem, cl[variant], classNameData ? cl[classNameData] : '', className)}>
                 <ButtonArrowWLine isSecondary={false} onClick={onPrev} sizes={{ width: 20, height: 20 }}
                     className={cl.prevButton} disabled={!canScrollPrev} />
 
@@ -76,7 +75,7 @@ export const TTCellButtonItem = ({
 
                 <ButtonArrowWLine isSecondary={false} onClick={onNext} sizes={{ width: 20, height: 20 }}
                     className={cl.nextButton} disabled={!canScrollNext} />
-            </td>
+            </th>
             <HandleSize width={1024} set={setIs1024} />
         </>
 

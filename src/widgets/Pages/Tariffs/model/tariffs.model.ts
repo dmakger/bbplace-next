@@ -41,3 +41,7 @@ export interface ITariffsInfo{
     name: string,
     rowId: number
 }
+
+export interface ITTMobileData extends Omit<ITTBodyRow, 'items'>{
+    buttonInfo: ITTCellButtonItem
+}

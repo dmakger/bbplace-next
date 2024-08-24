@@ -1,5 +1,5 @@
 import { XMARK_CAPTION_ICON } from "@/shared/ui/Icon/data/xmark.data.icon"
-import { ITTCellButtonItem, ITTBodyRowData, ITariffsInfo, ETTVariants } from "../model/tariffs.model"
+import { ITTCellButtonItem, ITTBodyRowData, ITariffsInfo, ETTVariants, ITTBodyRow, ITTMobileData } from "../model/tariffs.model"
 import { CHECKBOX_FONT_ICON } from "@/shared/ui/Icon/data/checkbox.data.icon"
 import { INFINITY_FONT_ICON } from "@/shared/ui/Icon/data/infinity.data.icon"
 import { MINUS_CAPTION_ICON } from "@/shared/ui/Icon/data/minus.data.icon"
@@ -60,6 +60,25 @@ export const BUTTONS_INFO_ARRAY: ITTCellButtonItem[] = [
     BUSINESS_BUTTON_INFO,
     PREMIUM_BUTTON_INFO
 ]
+
+//MOBILE_CONFIGS
+export const MOBILE_TT_BODY_DATA: ITTMobileData[] = [
+    {
+        isPremium: true,
+        rowId: PREMIUM_TARIFF_INFO.rowId,
+        buttonInfo: PREMIUM_BUTTON_INFO,
+    },
+    {
+        isBusiness: true,
+        rowId: BUSINESS_TARIFF_INFO.rowId,
+        buttonInfo: BUSINESS_BUTTON_INFO,
+    },
+    {
+        isDemo: true,
+        rowId: DEMO_TARIFF_INFO.rowId,
+        buttonInfo: DEMO_BUTTON_INFO,
+    }
+];
 
 //ROWS_DATA
 export const LIMIT_TT_BODY_ROW_DATA: ITTBodyRowData = {

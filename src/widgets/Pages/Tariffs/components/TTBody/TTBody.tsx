@@ -26,23 +26,26 @@ export const TTBody = ({
 }: ITTBody) => {
 
     const getVariant = (isDemo: boolean, isBusiness: boolean, isPremium: boolean) => {
-        if(isDemo && !isBusiness && !isPremium) return ETTVariants.DEMO
-        if(!isDemo && isBusiness && !isPremium) return ETTVariants.BUSINESS
-        if(!isDemo && !isBusiness && isPremium) return ETTVariants.PREMIUM
+        if (isDemo && !isBusiness && !isPremium) return ETTVariants.DEMO
+        if (!isDemo && isBusiness && !isPremium) return ETTVariants.BUSINESS
+        if (!isDemo && !isBusiness && isPremium) return ETTVariants.PREMIUM
     }
 
     return (
-        <tbody className={cls(cl.TTBody)}>
-            {buttonInfo && <TTCellButtonItem
-                title={buttonInfo.title}
-                buttonTitle={buttonInfo.buttonTitle}
-                className={buttonInfo.className}
-                variant={buttonInfo.variant}
-                subtitle={buttonInfo.subtitle}
-                rowId={rowId}
-            />}
+        <tbody className={cls(cl.TTBody, className)}>
+            <tr>
+                {buttonInfo && <TTCellButtonItem
+                    title={buttonInfo.title}
+                    buttonTitle={buttonInfo.buttonTitle}
+                    className={buttonInfo.className}
+                    variant={buttonInfo.variant}
+                    subtitle={buttonInfo.subtitle}
+                    rowId={rowId}
+                />}
+            </tr>
+
             {bodyData.map(it => (
-                <TTBodyRow 
+                <TTBodyRow
                     key={it.rowId}
                     items={it}
                     isDemo={isDemo}
