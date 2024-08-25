@@ -12,7 +12,7 @@
     }
 
     @media (max-width: 768px) {
-    flex-direction: row !important;
+        flex-direction: row !important;
         overflow-x: scroll;
 
         &::-webkit-scrollbar {

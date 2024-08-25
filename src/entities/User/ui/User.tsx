@@ -1,6 +1,5 @@
 import Image from 'next/image'
 
-import defaultImageJPG from '@/shared/assets/img/default-image.jpg'
 import { cls } from '@/shared/lib/classes.lib'
 import cl from './_User.module.scss'
 import { MouseEventHandler } from 'react'
@@ -31,14 +30,16 @@ export const User = ({
     return (
         <>
             {variant === EUserVariants.DEFAULT ? (
-                <Image src={getSupplierImage(image)} alt={'Avatar'}
+                <Image src={getSupplierImage(image)} alt={'Av2atar'}
+                    width={45}
+                    height={45}
                     onClick={onClick}
                     priority 
                     className={cls(cl.image, className)} /> 
             ) : (
                 <div onClick={onClick} className={cl.userImageContainer}>
                     <Image src={getSupplierImage(image)} alt={'Avatar'} 
-                        className={cls(cl.image, className)} />
+                        className={cls(cl.image, className)}  width={45} height={45}/>
                     <div className={cls(cl.arrowContainer, classNameArrowContainer)}>
                         <Image src={ARROW_TERTIARY_WO_ICON.default} alt='' className={cl.arrow} width={8} height={5} />
                     </div>
