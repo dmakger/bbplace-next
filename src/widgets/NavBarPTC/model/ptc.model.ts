@@ -1,6 +1,6 @@
 export enum EPTC {
-    PRODUCT="product",
-    TENDER="tender",
-    SUPPLIER="supplier",
+    PRODUCT="products",
+    TENDER="tenders",
+    SUPPLIER="suppliers",
     NONE="none",
 }

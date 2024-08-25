@@ -25,8 +25,6 @@ export const UserAuth = ({ className }: IUserAuth) => {
 
     // HANDLE
     const showProfileModal = () => setIsShowProfileModal(prevState => !prevState);
-
-    console.log('qwe user', user)
     
     return (
         <WrapperClickOutside _ref={userRef} isShow={isShowProfileModal} handle={showProfileModal} className={cls(cl.UserAuth, className)}>

@@ -8,6 +8,7 @@ import { ARROW_TERTIARY_WO_ICON } from '@/shared/ui/Icon/data/arrow.data.icon'
 import { ENotificationVariants } from '@/shared/ui/Notification/model/notification.model'
 import { Notification } from '@/shared/ui/Notification'
 import { getSupplierImage } from '@/entities/Supplier/lib/image.supplier.lib'
+import { ImageAPI } from '@/shared/ui/Image/API/ImageAPI'
 
 interface UserProps {
     image?: string
@@ -30,16 +31,13 @@ export const User = ({
     return (
         <>
             {variant === EUserVariants.DEFAULT ? (
-                <Image src={getSupplierImage(image)} alt={'Av2atar'}
-                    width={45}
-                    height={45}
-                    onClick={onClick}
-                    priority 
-                    className={cls(cl.image, className)} /> 
+                <ImageAPI src={getSupplierImage(image)} 
+                        width={45} height={45}
+                        onClick={onClick} 
+                        className={cls(cl.image, className)} />
             ) : (
                 <div onClick={onClick} className={cl.userImageContainer}>
-                    <Image src={getSupplierImage(image)} alt={'Avatar'} 
-                        className={cls(cl.image, className)}  width={45} height={45}/>
+                    <ImageAPI src={getSupplierImage(image)} width={45} height={45} className={cls(cl.image, className)} />
                     <div className={cls(cl.arrowContainer, classNameArrowContainer)}>
                         <Image src={ARROW_TERTIARY_WO_ICON.default} alt='' className={cl.arrow} width={8} height={5} />
                     </div>

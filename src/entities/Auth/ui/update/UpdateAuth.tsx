@@ -29,10 +29,6 @@ export const UpdateAuth:FC<UpdateAuthProps> = () => {
                     processUserData(userData.UserId)
                 }
             }
-            console.log('qwe token', {
-                accessToken: getAccessToken(),
-                refreshToken: getRefreshToken()
-            })
             const data = await refreshToken().unwrap();
             if (data) {
                 actionCreators.setAuth(data);
@@ -45,16 +41,12 @@ export const UpdateAuth:FC<UpdateAuthProps> = () => {
 
     // FUNC
     const processUserData = (userId: IUser['id']) => {
-        console.log('qwe processUserData')
         getUserDataById(userId).then(r => {
-            console.log('qwe getUserDataById', r)
             if ('error' in r) return
 
             const supplier = supplierApiToSupplier(r.data)
-            console.log('qwe supplierApiToSupplier', supplier)
             if (supplier === undefined) return
 
-            console.log('qwe setAuthOptional')
             actionCreators.setAuthOptional({
                 photoId: supplier.photoId   
             })
