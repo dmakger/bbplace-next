@@ -20,7 +20,7 @@ import { IOption } from '@/shared/model/option.model'
 import { getCountriesAsOption } from '@/features/Filter/lib/filter.lib'
 import { ButtonType } from '@/shared/ui/Button/model/button.model'
 import { MAIN_PAGES } from '@/config/pages-url.config'
-import { useActionCreators } from '@/storage/hooks'
+import { useActionCreators, useAppSelector } from '@/storage/hooks'
 import { EInputTextType } from '@/shared/ui/Input/ui/Text/data/text.input.data'
 import { OFFERT_DOCUMENT } from '@/shared/data/documents.data'
 
@@ -39,6 +39,7 @@ export const SignUpChildrenPage = () => {
 
     //RTK
     const actionCreators = useActionCreators();
+    const { prevPath } = useAppSelector(state => state.user)
 
     //REF
     const formRef = useRef<HTMLFormElement>(null)
@@ -131,7 +132,7 @@ export const SignUpChildrenPage = () => {
 
             if (regData) {
                 actionCreators.setAuth(regData);
-                router.replace(MAIN_PAGES.HOME.path)
+                router.replace(prevPath ?? MAIN_PAGES.HOME.path)
             }
         } catch (e: any) {
             e.data.message === 'User already exists!' && setErrorEmail('Пользователь с такой почтой уже зарегистрирован')

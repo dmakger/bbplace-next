@@ -3,12 +3,13 @@
 import { FormEvent, useRef } from "react";
 import cl from './_Search.module.scss'
 import Input from "@/shared/ui/Input/Input";
-import ButtonSearch from "@/shared/ui/Button/data/Search/ButtonSearch";
 import { PTCSelect } from "@/features/Select";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAppSelector } from "@/storage/hooks";
 import { getFormDataFromForm } from "@/shared/lib/formData.lib";
 import SuspenseL from "@/shared/ui/Wrapper/SuspenseL/SuspenseL";
+import { Button, ButtonVariant } from "@/shared/ui/Button";
+import { SEARCH__ICON } from "@/shared/ui/Icon/data/search.data.icon";
 
 
 export const Search = () => {
@@ -18,8 +19,6 @@ export const Search = () => {
         </SuspenseL>
     )
 }
-
-
 
 const SearchChild = () => {
 
@@ -51,7 +50,9 @@ const SearchChild = () => {
         <form className={cl.search} onSubmit={handleOnSubmit} ref={formRef}>
             <PTCSelect classNameTitle={cl.select} classNameButton={cl.buttonSelect}/>
             <Input.Text name={'search'} placeholder="Поиск..." className={cl.text}/>
-            <ButtonSearch className={cl.button} />
+            <Button variant={ButtonVariant.DEFAULT} 
+                    afterImage={SEARCH__ICON} afterProps={{width: 19, height: 19}} 
+                    className={cl.button} />
         </form>
     )
 }

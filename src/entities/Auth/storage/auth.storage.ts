@@ -15,6 +15,7 @@ const initialState: IUser = {
     country: "",
     unreadMessages: 0,
     email: "",
+    prevPath: '',
 }
 
 export const UserSlice = createSlice({
@@ -37,9 +38,9 @@ export const UserSlice = createSlice({
         },
 
         setAuthOptional(state, action: PayloadAction<IUserOptionalProps>) {
-            console.log('qwe setAuthOptional', action)
             const data = action.payload
             state.photoId = data.photoId
+            state.prevPath = data.prevPath
         },
 
         setNotAuth(state){
