@@ -8,7 +8,6 @@ import { User } from "@/entities/User"
 import WrapperClickOutside from "@/shared/ui/Wrapper/ClickOutside/WrapperClickOutside"
 import UserProfileModal from "../UserProfileModal/UserProfileModal"
 import { useAppSelector } from "@/storage/hooks"
-import { getSupplierImage } from "@/entities/Supplier/lib/image.supplier.lib"
 
 interface IUserAuth {
     className?: string,
