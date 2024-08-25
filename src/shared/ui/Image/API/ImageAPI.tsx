@@ -16,19 +16,32 @@ interface ImageAPIProps {
     height?: number
     priority?: boolean
     quality?: number
+    onClick?: Function
     className?: string,
 }
 
-export const ImageAPI: FC<ImageAPIProps> = ({ src, toImage=true, alt, width = 40, height = 40, priority = true, quality=80, className }) => {
+export const ImageAPI: FC<ImageAPIProps> = ({ 
+    src, alt, 
+    width=40, height=40, 
+    priority=true, quality=80,
+    toImage=true,
+    onClick, 
+    className 
+}) => {
     // MEMO
     const image = useMemo(() => {
         return src ? (toImage ? getImage(src) : src) : defaultImageJPG 
     }, [src, toImage])
 
+    // HANDLE
+    const handleOnClickImage = () => {
+        if (onClick) onClick()
+    }
+
     return (
         <Image loader={() => src}
             unoptimized={true}
-            // src={src ? getImage(src) : defaultImageJPG}
+            onClick={handleOnClickImage}
             src={image}
             priority={priority}
             alt={alt ? alt : src}

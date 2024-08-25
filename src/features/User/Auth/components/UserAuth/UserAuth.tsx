@@ -8,6 +8,7 @@ import { User } from "@/entities/User"
 import WrapperClickOutside from "@/shared/ui/Wrapper/ClickOutside/WrapperClickOutside"
 import UserProfileModal from "../UserProfileModal/UserProfileModal"
 import { useAppSelector } from "@/storage/hooks"
+import { getSupplierImage } from "@/entities/Supplier/lib/image.supplier.lib"
 
 interface IUserAuth {
     className?: string,
@@ -25,8 +26,6 @@ export const UserAuth = ({ className }: IUserAuth) => {
 
     // HANDLE
     const showProfileModal = () => setIsShowProfileModal(prevState => !prevState);
-
-    console.log('qwe user', user)
     
     return (
         <WrapperClickOutside _ref={userRef} isShow={isShowProfileModal} handle={showProfileModal} className={cls(cl.UserAuth, className)}>

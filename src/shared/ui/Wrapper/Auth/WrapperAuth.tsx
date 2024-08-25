@@ -8,7 +8,7 @@ import { EInputTextType } from "../../Input/ui/Text/data/text.input.data";
 import cl from './_WrapperAuth.module.scss'
 import { UserAPI } from "@/entities/Auth/api/auth.api";
 import { MAIN_PAGES } from "@/config/pages-url.config";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 interface WrapperAuthProps{
     children: ReactNode
@@ -17,6 +17,7 @@ interface WrapperAuthProps{
 export const WrapperAuth: FC<WrapperAuthProps> = ({ children }) => {
     // ROUTER
     const router = useRouter()
+    const pathname = usePathname()
 
     // RTK
     const { isAuth } = useAppSelector(state => state.user);
@@ -42,6 +43,9 @@ export const WrapperAuth: FC<WrapperAuthProps> = ({ children }) => {
                     Role: "",
                     MobilePhone: "",
                     Country: ""
+                })
+                actionCreators.setAuthOptional({
+                    prevPath: pathname
                 })
             }
 

@@ -13,7 +13,7 @@ interface IUserProfileModal {
 export const UserProfileModal = ({ isShowProfileModal }: IUserProfileModal) => {
 
   // RTK
-  const user = useAppSelector(state => state.user)
+  const {fullName, photoId} = useAppSelector(state => state.user)
   const actionCreators = useActionCreators();
 
   // HANDLE
@@ -26,8 +26,8 @@ export const UserProfileModal = ({ isShowProfileModal }: IUserProfileModal) => {
     <section className={cls(cl.UserProfileModal, isShowProfileModal ? cl.visible : '')} >
       <div className={cl.topContainer}>
         <div className={cl.user}>
-          <p className={cl.greetings}>Здравствуйте, <span>{user.fullName}</span></p>
-          <User />
+          <p className={cl.greetings}>Здравствуйте, <span>{fullName}</span></p>
+          <User image={photoId?.key} />
         </div>
         <Button variant={ButtonVariant.BACKGROUND_GRAY} title={"Личный кабинет"} href={DASHBOARD_PAGES.HOME.path} className={cl.lk} />
       </div>

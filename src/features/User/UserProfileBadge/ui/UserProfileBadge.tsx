@@ -22,10 +22,8 @@ export const UserProfileBadge = ({
     showProfileMenu,
     setShowProfileMenu
 }: IUserProfileBadge) => {
-
-
     //RTK
-    const { role, fullName } = useAppSelector(state => state.user)
+    const { role, fullName, photoId } = useAppSelector(state => state.user)
 
     //VARIABLE
     const userRole = getRoleName(role);
@@ -42,7 +40,7 @@ export const UserProfileBadge = ({
                 <span className={cl.role}>{userRole}</span>
                 <h4 className={cl.userName}>{fullName}</h4>
             </div>
-            <User variant={EUserVariants.AUTH} classNameArrowContainer={cls(cl.arrowContainer, showProfileMenu ? cl.activeArrow : '')} />
+            <User image={photoId?.key} variant={EUserVariants.AUTH} classNameArrowContainer={cls(cl.arrowContainer, showProfileMenu ? cl.activeArrow : '')} />
         </button>
     )
 }

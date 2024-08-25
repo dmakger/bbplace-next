@@ -32,7 +32,6 @@ export const ChatChildrenPage: FC<ChatChildrenPageProps> = ({ className }) => {
 
     // EFFECT
     useEffect(() => {
-        console.log('qwe connection.state', connection.state)
         const initiateConnection = async () => {
             if (connection.state === HubConnectionState.Disconnected) {
                 const propsMessages = chatId ? { ...INVOKE_MESSAGES__PROPS_DEFAULT, chatId: +chatId } : undefined;

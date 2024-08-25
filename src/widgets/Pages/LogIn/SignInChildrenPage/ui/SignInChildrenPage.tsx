@@ -33,7 +33,7 @@ export const SignInChildrenPage = () => {
     const [userLogin, { isLoading }] = UserAPI.useUserLoginMutation();
 
     //RTK
-    const { email } = useAppSelector(state => state.user)
+    const { email, prevPath } = useAppSelector(state => state.user)
     const actionCreators = useActionCreators();
 
     //FUNCTIONS
@@ -58,7 +58,7 @@ export const SignInChildrenPage = () => {
             const data = await userLogin({ username: emailValue, password: password }).unwrap()
             if (data) {
                 actionCreators.setAuth(data);
-                router.replace(MAIN_PAGES.HOME.path)
+                router.replace(prevPath ?? MAIN_PAGES.HOME.path)
             }
         }
         catch (e: any) {

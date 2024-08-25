@@ -30,6 +30,7 @@ export interface IUser extends IUserOptionalProps {
  */
 export interface IUserOptionalProps  {
     photoId?: IImage
+    prevPath?: string
 }
 
 export interface ILoginResponseDecoded {
