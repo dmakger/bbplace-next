@@ -14,7 +14,8 @@ export const MenuButton = ({
     variant = EMenuButtonVariant.LINK,
     title,
     link,
-    notificationCounter
+    notificationCounter,
+    onClick
 }: IMenuButton) => {
 
     //ROUTER
@@ -54,6 +55,7 @@ export const MenuButton = ({
             disabled={isActive}
             classNameAfterText={cl.notificationCounter}
             color={variant === EMenuButtonVariant.LINK ? ButtonColor.Secondary : ButtonColor.Tertiary}
+            onClick={onClick}
         />
     );
 
