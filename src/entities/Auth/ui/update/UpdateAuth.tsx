@@ -4,7 +4,7 @@ import { FC, useEffect } from "react"
 
 import { UserAPI } from '@/entities/Auth/api/auth.api';
 import { useActionCreators } from '@/storage/hooks';
-import { getAccessToken, isAuth, removeFromStorage } from '@/entities/Auth/lib/auth-token.lib';
+import { getAccessToken, getRefreshToken, isAuth, removeFromStorage } from '@/entities/Auth/lib/auth-token.lib';
 import { ILoginResponseDecoded, IUser } from '@/entities/Auth/model/auth.model';
 import { supplierApiToSupplier } from "@/entities/Supplier/lib/process.supplier.lib";
 
@@ -29,6 +29,10 @@ export const UpdateAuth:FC<UpdateAuthProps> = () => {
                     processUserData(userData.UserId)
                 }
             }
+            console.log('qwe token', {
+                accessToken: getAccessToken(),
+                refreshToken: getRefreshToken()
+            })
             const data = await refreshToken().unwrap();
             if (data) {
                 actionCreators.setAuth(data);
