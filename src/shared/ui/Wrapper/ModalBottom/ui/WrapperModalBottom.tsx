@@ -1,7 +1,7 @@
 
 import cl from './_WrapperModalBottom.module.scss'
 import { Button, ButtonVariant } from '@/shared/ui/Button'
-import { XMARK_HOVERED_ICON } from '@/shared/ui/Icon/data/xmark.data.icon'
+import { XMARK_WHITE__ICON } from '@/shared/ui/Icon/data/xmark.data.icon'
 import { ReactNode } from 'react'
 import { cls } from '@/shared/lib/classes.lib'
 
@@ -37,7 +37,7 @@ export const WrapperModalBottom = ({
     return (
         <div className={cls(cl.modalBelowWrapper, className)}>
             <Button variant={ButtonVariant.DEFAULT}
-                beforeImage={XMARK_HOVERED_ICON}
+                beforeImage={XMARK_WHITE__ICON}
                 beforeProps={{ width: 27, height: 27 }}
                 onClick={() => setIsOpen(false)} 
                 className={cl.xmarkButton} />

@@ -50,6 +50,9 @@ export const WrapperAuth: FC<WrapperAuthProps> = ({ children }) => {
         } catch (error) {
         }
     }
+    const handleOnCloseModal = () => {
+        router.back()
+    }
 
     return (
         <>
@@ -69,7 +72,10 @@ export const WrapperAuth: FC<WrapperAuthProps> = ({ children }) => {
                             placeholder: "Введите email",
                             setText: handleEmail,
                             type: EInputTextType.Email
-                        }} />
+                        }} 
+                        hasClose={true}
+                        onClickOverlay={handleOnCloseModal} 
+                        />
                 </>
             )}
         </>

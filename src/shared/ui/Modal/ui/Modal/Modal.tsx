@@ -5,8 +5,9 @@ import { FC, ReactNode, useEffect, useState } from "react"
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_Modal.module.scss'
 import { EModalView } from "@/shared/data/modal.data";
-import { Button } from "../../../Button";
+import { Button, ButtonVariant } from "../../../Button";
 import { IModal } from "../../model/modal.model";
+import { XMARK_WHITE__ICON } from "@/shared/ui/Icon/data/xmark.data.icon";
 
 interface ModalProps extends IModal{
     children: ReactNode
@@ -18,7 +19,8 @@ export const Modal:FC<ModalProps> = ({
     isOpen: isOwnOpen=false, 
     onClickOverlay=()=>{}, 
     view=EModalView.CENTER, 
-    hasBlack=true, hasClose=false, 
+    hasBlack=true, 
+    hasClose=false, propsButtonClose, 
     buttonNode, children, 
     className, classNameSidebar
 }) => {    
@@ -50,7 +52,11 @@ export const Modal:FC<ModalProps> = ({
                 <div onClick={()=>onClickOverlay()} className={cls(isOpen ? cl.openOverlay : '', cl.overlay, hasBlack ? cl.black : '', className)} />
                 <div className={cls(isOpen ? cl.openSidebar : '', views[view], cl.sidebar, classNameSidebar)}>
                     {hasClose && 
-                        <Button title="Close" onClick={onClickOverlay} className={cl.close} />
+                        <Button {...propsButtonClose} 
+                                variant={propsButtonClose?.variant ?? ButtonVariant.DEFAULT}
+                                onClick={propsButtonClose?.onClick ?? onClickOverlay} 
+                                afterImage={propsButtonClose?.afterImage ?? XMARK_WHITE__ICON}
+                                className={cls(cl.close, propsButtonClose?.className)} />
                     }
                     {children}
                 </div>

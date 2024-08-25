@@ -1,6 +1,7 @@
 import { EModalView } from "@/shared/data/modal.data"
 import { ReactNode } from "react"
 import { EInputTextType } from "../../Input/ui/Text/data/text.input.data"
+import { IButton } from "../../Button/ui/Button"
 
 /**
  * Пропсы для `Input.Text` в `ModalAction`
@@ -22,5 +23,7 @@ export interface IModal {
     view?: EModalView
     hasBlack?: boolean
     hasClose?: boolean
+    propsButtonClose?: IButton
+    
     buttonNode?: ReactNode
 }

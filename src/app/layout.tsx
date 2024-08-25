@@ -28,7 +28,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="ru">
-        <meta property="og:image" content="/logo.svg" />
+        <link rel="icon" href="/favicon.ico" />
         <body className={cls(geologica.className, inter.className)}>
 
             {/* Yandex.Metrika counter */}
