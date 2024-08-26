@@ -31,7 +31,9 @@ interface ITextAndSelectInput extends IWrapperRectangleInputChildren, IInput {
     arrowSizes?: IImageSizes
     classNameOptions?: string,
     classNameMainInput?: string,
-    disabled?: boolean
+    disabled?: boolean,
+    inputsLevel?: number,
+    isActiveOptionInInput?: boolean
 }
 
 export function TextAndSelectInput({
@@ -43,7 +45,7 @@ export function TextAndSelectInput({
     options=[], defaultOption,
     onClickOption, setIsListOpen,
     arrowSizes = { width: 10, height: 10 },
-    title, titleModal,
+    title, titleModal, inputsLevel, isActiveOptionInInput,
 
     className, classNameOptions, classNameMainInput,
     disabled, success, setWarning, setSuccess,
@@ -122,10 +124,14 @@ export function TextAndSelectInput({
             setIsSuccess(true)
             setIsWarning(false)
         }
-
         if (onClickOption) onClickOption(it)
         else setActiveOption(it)
 
+        if(isActiveOptionInInput){
+            setActiveOption(it)
+        }
+  
+        
         if (!it.options?.length) {
             setSuccess && setSuccess(true)
             if (variantRecursive === ERecursiveSelectVariant.MULTIPLE) {

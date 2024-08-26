@@ -20,3 +20,8 @@ export enum ELabelPosition{
   TOP = 'top',
   RIGHT = 'right'
 }
+
+export enum EInputsContainerDirection{
+  ROW = 'row',
+  COLUMN = 'column'
+}

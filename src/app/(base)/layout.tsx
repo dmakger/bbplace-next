@@ -16,7 +16,7 @@ export default function Layout({ children }: PropsWithChildren<unknown>) {
                 {children}
                 <Footer/>
             </div>
-            <MobileNavbar/>
+            {/* <MobileNavbar/> */}
             <NotifyList />
         </WrapperGap>
     )

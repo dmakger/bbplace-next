@@ -188,14 +188,14 @@ export const VariationInfoProductForm: FC<VariationInfoProductFormProps> = ({dat
                                             type={EInputTextType.Number} variant={EInputVariants.RECTANGULAR} />
                                 <Input.TextAndSelect name={'wholesaleCurrency'} placeholder="Валюта" disabled={addedWholesaleOption.length > 0}
                                             options={currencyOptions} onClickOption={setSelectedWholesaleCurrencyOption} defaultOption={selectedWholesaleCurrencyOption}
-                                            titleModal="Валюта" variant={EInputVariants.RECTANGULAR} /> 
+                                            titleModal="Валюта" variant={EInputVariants.RECTANGULAR} isActiveOptionInInput/> 
                             </Direction>
                             <Direction direction={ListDirection.Row}>
                                 <Input.Text name={'wholesaleQuantity'} placeholder="При заказе от" 
                                             type={EInputTextType.Number} variant={EInputVariants.RECTANGULAR} />
                                 <Input.TextAndSelect name={'wholesaleMetric'} placeholder="Измерение" disabled={addedWholesaleOption.length > 0}
                                                     options={metricOptions} onClickOption={setSelectedWholesaleMetricOption} defaultOption={selectedWholesaleMetricOption}
-                                                    titleModal="Измерение" variant={EInputVariants.RECTANGULAR} /> 
+                                                    titleModal="Измерение" variant={EInputVariants.RECTANGULAR} isActiveOptionInInput/> 
                             </Direction>
                         </Input.Addition>
                     </WrapperRectangleInput>
@@ -207,7 +207,7 @@ export const VariationInfoProductForm: FC<VariationInfoProductFormProps> = ({dat
                                             variant={EInputVariants.RECTANGULAR} />
                                 <Input.TextAndSelect name={'sizeMetric'} placeholder="Измерение"
                                                     options={metricOptions} onClickOption={setSelectedSizeMetricOption}
-                                                    titleModal="Измерение" variant={EInputVariants.RECTANGULAR} /> 
+                                                    titleModal="Измерение" variant={EInputVariants.RECTANGULAR} isActiveOptionInInput/> 
                             </Direction>
                         </Input.Addition>
                     </WrapperRectangleInput>

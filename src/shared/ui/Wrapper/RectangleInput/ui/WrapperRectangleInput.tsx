@@ -5,7 +5,7 @@ import React, { Dispatch, MouseEvent, ReactNode, SetStateAction, cloneElement, u
 import { TOOLTIP_DESCRIPTION_ICON } from '@/shared/ui/Icon/data/tooltipDescription.data.icon';
 import { TOOLTIP_WARNING_ICON } from '@/shared/ui/Icon/data/tooltipWarning.data.icon';
 import { Button, ButtonVariant } from '@/shared/ui/Button';
-import { ELabelPosition, IWrapperRectangleInputChildren } from '../model/wrapperRectangleInput.model';
+import { EInputsContainerDirection, ELabelPosition, IWrapperRectangleInputChildren } from '../model/wrapperRectangleInput.model';
 import { HoverWindow } from '@/shared/ui/HoverWindow';
 import { EHoverBorderColor, EHoverWindowPosition } from '@/shared/ui/HoverWindow/model/hoverWindow.model';
 import { IOption } from '@/shared/model/option.model';
@@ -26,6 +26,7 @@ interface IWrapperRectangleInput {
   classNameDescriptionWindow?: string,
   classNameWarningWindow?: string,
   classNameInputsContainer?: string,
+  direction?: EInputsContainerDirection,
 
   labelText: string,
   labelPosition?: ELabelPosition,
@@ -58,6 +59,7 @@ export const WrapperRectangleInput = ({
   classNameDescriptionWindow,
   classNameWarningWindow,
   classNameInputsContainer,
+  direction = EInputsContainerDirection.ROW,
 
   labelText,
   children,
@@ -267,7 +269,7 @@ export const WrapperRectangleInput = ({
 
           </div>
 
-          <div className={cls(cl.inputsContainer, classNameInputsContainer)}>
+          <div className={cls(cl.inputsContainer, cl[direction], classNameInputsContainer)}>
             {clonedChildren}
           </div>
 

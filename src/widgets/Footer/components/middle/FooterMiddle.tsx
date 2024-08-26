@@ -15,6 +15,7 @@ import { INSTAGRAM_LINK, LINKED_IN_LINK, TELEGRAM_LINK, VK_LINK, WHATS_APP_LINK 
 import { handleCopyLink } from '@/shared/lib/copyLink.lib'
 import { MAIN_PAGES } from '@/config/pages-url.config'
 import { BBP_PRESENTATION_DOCUMENT } from '@/shared/data/documents.data'
+import { useNotify } from '@/features/Notify/lib/hooks'
 
 
 interface IFooterMiddle {
@@ -26,11 +27,14 @@ export const FooterMiddle = ({
     className
 }: IFooterMiddle) => {
 
+    //NOTIFY
+    const {notify} = useNotify();
+
 
     const leftButtons = [
         { title: 'Поддержка', beforeImage: SUPPORT_SECONDARY_ICON, beforeProps: { width: 18, height: 18 }, className: cl.button, href: MAIN_PAGES.SUPPORT.path },
         { title: 'О компании', className: cl.button, link: MAIN_PAGES.CURRENT_DOCUMENT(BBP_PRESENTATION_DOCUMENT).path },
-        { className: cls(cl.button, cl.roundedButton), beforeImage: AT_SIGN_ICON, beforeProps: { width: 18, height: 18 }, onClick: () => handleCopyLink() }
+        { className: cls(cl.button, cl.roundedButton), beforeImage: AT_SIGN_ICON, beforeProps: { width: 18, height: 18 }, onClick: () => handleCopyLink(notify) }
     ];
 
     const socialButtons = [

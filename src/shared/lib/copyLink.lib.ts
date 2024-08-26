@@ -1,17 +1,18 @@
+import { ENotifyStatus } from "@/features/Notify/data/notify.data";
 /**
  * При нажатии копирует в буфер обмена переданную аргументом ссылку || 'info@bbplace.ru'
  * @param link?
  * @returns 
  */
 
-export const handleCopyLink = (link?: string) => {
+export const handleCopyLink = (notify: Function, link?: string) => {
     const linkToCopy = link || 'info@bbplace.ru';
 
     navigator.clipboard.writeText(linkToCopy)
         .then(() => {
-            console.log('Ссылка скопирована в буфер обмена:', linkToCopy);
+            notify({text:`Ссылка скопирована в буфер обмена: ${linkToCopy}`, status: ENotifyStatus.Success })
         })
-        .catch((error) => {
-            console.error('Ошибка при копировании ссылки:', error);
+        .catch(() => {
+            notify({text:`Ошибка при копировании ссылки: ${linkToCopy}`, status: ENotifyStatus.Error })
         });
 };

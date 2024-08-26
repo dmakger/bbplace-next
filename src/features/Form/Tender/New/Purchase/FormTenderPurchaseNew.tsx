@@ -106,21 +106,21 @@ export const FormTenderPurchaseNew:FC<FormTenderPurchaseNewProps> = ({className}
             <WrapperRectangleInput labelText={"Категория"} isRequired={true}>
                 <Input.TextAndSelect name={'category'} placeholder="Выберите категорию" 
                                     options={categoryOptions} onClickOption={setSelectedCategoryOption}
-                                    titleModal="Категория" required={true} variant={EInputVariants.RECTANGULAR} /> 
+                                    titleModal="Категория" required={true} variant={EInputVariants.RECTANGULAR} isActiveOptionInInput/> 
             </WrapperRectangleInput>
             <WrapperRectangleInput labelText={"Количество"} isRequired={true}>
                 <Input.Text name={'quantity'} placeholder="Введите число"
                             required={true} variant={EInputVariants.RECTANGULAR} />
                 <Input.TextAndSelect name={'quantityUnits'} placeholder="Измерение" 
                                     options={metricOptions} onClickOption={setSelectedQuantityUnitsOption}
-                                    titleModal="Измерение" required={true} variant={EInputVariants.RECTANGULAR} /> 
+                                    titleModal="Измерение" required={true} variant={EInputVariants.RECTANGULAR} isActiveOptionInInput/> 
             </WrapperRectangleInput>
-            <WrapperRectangleInput labelText={"Максимальнй бюджет"}>
+            <WrapperRectangleInput labelText={"Максимальный бюджет"}>
                 <Input.Text name={'maximumBudget'} placeholder="Введите число"
                             variant={EInputVariants.RECTANGULAR} />
                 <Input.TextAndSelect name={'currency'} placeholder="Валюта" 
                                     options={currencyOptions} onClickOption={setSelectedCurrencyOption}
-                                    titleModal="Валюта" variant={EInputVariants.RECTANGULAR} /> 
+                                    titleModal="Валюта" variant={EInputVariants.RECTANGULAR} isActiveOptionInInput/> 
             </WrapperRectangleInput>
             <WrapperRectangleInput labelText={"Описание"} isRequired={true}>
                 <Input.Text name={'description'} placeholder="Начните вводить"
