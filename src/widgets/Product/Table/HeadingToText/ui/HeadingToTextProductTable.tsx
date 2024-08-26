@@ -10,13 +10,14 @@ interface HeadingToTextProductTableProps{
     product: IProduct
     className?: string,
     classNameTextItem?: string,
+    isShort?: boolean
 }
 
-export const HeadingToTextProductTable:FC<HeadingToTextProductTableProps> = ({product, className, ...rest}) => {
+export const HeadingToTextProductTable:FC<HeadingToTextProductTableProps> = ({product, className, isShort=true, ...rest}) => {
     return (
         <HeadingToTextTable data={getDataHeadingToTextProductTable({product})} 
                             variant={EHeadingToTextVariants.COLUMN}
-                            isShort={true} 
+                            isShort={isShort} 
                             classNameMainBlock={className} classNameHeadingItem={cl.headingItem}
                             {...rest} />
     )

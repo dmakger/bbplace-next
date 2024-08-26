@@ -17,6 +17,8 @@ import { getViewByIsList } from '@/shared/lib/view.lib'
 import { IViewToIs } from '@/shared/model/view.model'
 import { EProductFavouriteViewItem } from '@/entities/Product/data/view.product.data'
 import { FavouriteAutoToProductButton } from '@/entities/Product/components/Buttons/Favourite/Auto/FavouriteAutoToProductButton'
+import Link from 'next/link'
+import { MAIN_PAGES } from '@/config/pages-url.config'
 
 interface ProductHProps extends IProductProps {}
 
@@ -37,7 +39,7 @@ export const ProductH:FC<ProductHProps> = ({product, className}) => {
                 <div className={cl.right}>
                     <div className={cl.main}>
                         <div className={cl.top}>
-                            <h4 className={cl.name}>{product.name}</h4>
+                            <Link href={MAIN_PAGES.CURRENT_PRODUCT(product.id).path} className={cl.name}>{product.name}</Link>
                             <FavouriteAutoToProductButton productId={product.id} view={EProductFavouriteViewItem.SMALL} className={cl.favourite} />
                         </div>
                         <div className={cl.middle}>
@@ -48,7 +50,7 @@ export const ProductH:FC<ProductHProps> = ({product, className}) => {
                                             className={cl.quantity}
                                             classNameText={cl.quantityText} />
                         </div>
-                        <HeadingToTextProductTable product={product} className={cl.table} classNameTextItem={cl.tableText} />
+                        <HeadingToTextProductTable product={product} className={cl.table} classNameTextItem={cl.tableText} isShort={false} />
                     </div>
                     <SupplierWNav id={product.ownerId} 
                                   view={is768 ? ESupplierView.SMALL : ESupplierView.LARGE_GRAY}

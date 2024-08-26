@@ -4,12 +4,13 @@ import { cls } from "@/shared/lib/classes.lib"
 import cl from './_Dropdown.module.scss'
 import { Button, ButtonVariant } from "../../Button"
 import { ARROW_TERTIARY_WO_FULL_ICON } from "../../Icon/data/arrow.data.icon"
-import { ReactNode, useEffect, useState } from "react"
+import { ReactNode, useEffect, useRef, useState } from "react"
 import { DropdownList } from "../components/DropdownList"
 import { IMenuItem } from "@/shared/model/menu.model"
 import { EWrapperDropdownListPosition, EWrapperDropdownListVariant } from "../../Wrapper/DropdownList/model/wrapperDropdownList.model"
 import { WrapperDropdownList } from "../../Wrapper/DropdownList"
 import { IMenuButton } from "../../Button/model/button.model"
+import WrapperClickOutside from "../../Wrapper/ClickOutside/WrapperClickOutside"
 
 interface IDropdown {
     className?: string,
@@ -39,6 +40,9 @@ export const Dropdown = ({
     //STATE
     const [showList, setShowList] = useState<boolean>(false)
 
+    //REF
+    const ref = useRef<HTMLDivElement>(null)
+
     //EFFECT
     useEffect(() => {
         if (showListData !== undefined) setShowList(showListData)
@@ -48,7 +52,7 @@ export const Dropdown = ({
     const showDropdownList = () => setShowList(prevState => !prevState)
 
     return (
-        <div className={cls(cl.Dropdown, cl[dropDownListPosition], className)}>
+        <WrapperClickOutside className={cls(cl.Dropdown, cl[dropDownListPosition], className)} isShow={showList} _ref={ref} handle={setShowList}>
             {labelTitle && !buttonChildren ? (
                 <Button
                     title={labelTitle}
@@ -79,10 +83,10 @@ export const Dropdown = ({
                             {index < array.length - 1 && list.length > 0 && <hr className={cl.border} />}
                         </div>
                     ))
-                    : <DropdownList listData={dropDownListData as IMenuItem[]} dropDownListPosition={dropDownListPosition} isLastList />
+                    : <DropdownList listData={dropDownListData as IMenuItem[]} dropDownListPosition={dropDownListPosition} isLastList setShowList={setShowList}/>
                 }
 
             </WrapperDropdownList>
-        </div>
+        </WrapperClickOutside>
     )
 }

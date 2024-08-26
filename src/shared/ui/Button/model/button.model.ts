@@ -55,4 +55,5 @@ export interface IMenuButton {
     variant?: EMenuButtonVariant
     link?: string,
     notificationCounter?: string,
+    onClick?: Function
 }

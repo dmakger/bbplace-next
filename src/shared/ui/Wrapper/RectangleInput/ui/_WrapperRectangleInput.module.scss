@@ -114,7 +114,6 @@
 
         .inputsContainer {
             display: flex;
-            flex-direction: column;
             gap: 5px;
             background-color: var(--tertiary-surface-low);
             padding: 5px;
@@ -190,6 +189,7 @@
 
 
             .label {
+                padding: 0px;
                 cursor: inherit;
             }
 
@@ -266,4 +266,17 @@
             }
         }
     }
+}
+
+//INPUTS_CONTAINER_DIRECTION
+.row, .row-wrap{
+    flex-direction: row; 
+}
+
+.row-wrap{
+    flex-wrap: wrap;
+}
+
+.column{
+    flex-direction: column;
 }

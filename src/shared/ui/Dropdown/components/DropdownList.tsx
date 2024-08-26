@@ -11,6 +11,7 @@ interface IDropdownList {
     listData: IMenuItem[] | IMenuButton[],
     isLastList?: boolean,
     dropDownListPosition?: EWrapperDropdownListPosition,
+    setShowList?: Function
 }
 
 
@@ -19,11 +20,16 @@ export const DropdownList = ({
     classNameButton,
     isLastList,
     listData,
-    dropDownListPosition = EWrapperDropdownListPosition.LEFT
+    dropDownListPosition = EWrapperDropdownListPosition.LEFT,
+    setShowList
 }: IDropdownList) => {
 
     const isMenuNoLinkButton = (item: IMenuItem | IMenuButton): item is IMenuButton => {
         return (item as IMenuButton).variant !== EMenuButtonVariant.LINK;
+    }
+
+    const handleClick = () => {
+        setShowList && setShowList(false);
     }
     
     return (
@@ -41,6 +47,7 @@ export const DropdownList = ({
                                 noBorderBottomClass ? cl.noBorderBottom : '',
                                 classNameButton)}
                             variant={isMenuNoLinkButton(it) ? it.variant : undefined}
+                            onClick={handleClick}
                         />
                     </li>
                 )

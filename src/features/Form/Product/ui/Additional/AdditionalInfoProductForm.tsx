@@ -28,6 +28,7 @@ import { TriggerSubmitType } from "@/shared/ui/Wrapper/WOSubmit/model/woSubmit.m
 import { WrapperWOSubmit } from "@/shared/ui/Wrapper/WOSubmit/ui/WrapperWOSubmit";
 import { IFormInfo } from "../../model/product.form.model";
 import { getEmptyFormInfo } from "../../lib/product.form.lib";
+import { EInputsContainerDirection } from "@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model";
 
 interface AdditionalInfoProductFormProps{
     data?: IPropsAdditionalInfoProductForm
@@ -148,7 +149,7 @@ export const AdditionalInfoProductForm:FC<AdditionalInfoProductFormProps> = ({da
                     <WrapperRectangleInput labelText={"Срок изготовления"}>
                         <Input.Text name={'deliveryTime'} placeholder="Когда товар будет готов к отправке" variant={EInputVariants.RECTANGULAR} defaultValue={data?.deliveryTime} />
                     </WrapperRectangleInput>
-                    <WrapperRectangleInput labelText={"Размер упаковки в миллиметрах"}>
+                    <WrapperRectangleInput labelText={"Размер упаковки в миллиметрах"} direction={EInputsContainerDirection.COLUMN}>
                         <Input.Text name={'packagingLength'} placeholder="Длина" type={EInputTextType.Number} variant={EInputVariants.RECTANGULAR} defaultValue={data?.packagingLength} />
                         <Input.Text name={'packagingWidth'} placeholder="Ширина" type={EInputTextType.Number} variant={EInputVariants.RECTANGULAR} defaultValue={data?.packagingWidth} />
                         <Input.Text name={'packagingHeight'} placeholder="Высота" type={EInputTextType.Number} variant={EInputVariants.RECTANGULAR} defaultValue={data?.packagingHeight} />
