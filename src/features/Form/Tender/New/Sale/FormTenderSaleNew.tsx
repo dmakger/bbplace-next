@@ -37,7 +37,7 @@ export const FormTenderSaleNew:FC<FormTenderSaleNewProps> = ({className}) => {
     const [categoryOptions, setCategoryOptions] = useState<IOption[]>([])
     const [metricOptions, setMetricOptions] = useState<IOption[]>([])
     const [currencyOptions, setCurrencyOptions] = useState<IOption[]>([])
-    const [userShareContact, setUserShareContact] = useState(false)
+    const [userShareContact, setUserShareContact] = useState(true)
 
     const [selectedCategoryOption, setSelectedCategoryOption] = useState<IOption | null>(null)
     const [selectedMinOrderOption, setSelectedMinOrderOption] = useState<IOption | null>(null)
@@ -78,6 +78,8 @@ export const FormTenderSaleNew:FC<FormTenderSaleNewProps> = ({className}) => {
         if (!formRef.current) return
         
         const formData = getFormDataFromForm(formRef.current)
+
+        
         
         const apiData: IPropsTenderSale = {
             name: formData.name,
@@ -133,8 +135,8 @@ export const FormTenderSaleNew:FC<FormTenderSaleNewProps> = ({className}) => {
                             setFileList={setUploadedFileList} setResponseFileList={setUploadedResponseFileList}
                             variant={EInputVariants.RECTANGULAR}  />
             </WrapperRectangleInput>
-            <WrapperRectangleInput labelText='Поделиться контактами' labelPosition={ELabelPosition.RIGHT}>
-                <Input.Checkbox isChecked={userShareContact} setIsChecked={setUserShareContact} setChecked={setUserShareContact}/>
+            <WrapperRectangleInput labelText='Поделиться контактами' labelPosition={ELabelPosition.RIGHT} isRequired={true}>
+                <Input.Checkbox isChecked={userShareContact} setIsChecked={setUserShareContact} setChecked={setUserShareContact} required={true}/>
             </WrapperRectangleInput>
 
             <Button variant={ButtonVariant.FILL} color={ButtonColor.Primary} size={ButtonSize.Big} 
