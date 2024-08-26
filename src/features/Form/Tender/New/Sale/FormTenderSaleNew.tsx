@@ -105,21 +105,21 @@ export const FormTenderSaleNew:FC<FormTenderSaleNewProps> = ({className}) => {
             <WrapperRectangleInput labelText={"Категория"} isRequired={true}>
                 <Input.TextAndSelect name={'category'} placeholder="Выберите категорию" 
                                     options={categoryOptions} onClickOption={setSelectedCategoryOption}
-                                    titleModal="Категория" required={true} variant={EInputVariants.RECTANGULAR} /> 
+                                    titleModal="Категория" required={true} variant={EInputVariants.RECTANGULAR} isActiveOptionInInput/> 
             </WrapperRectangleInput>
             <WrapperRectangleInput labelText={"Минимальный заказ"} isRequired={true}>
                 <Input.Text name={'minOrder'} placeholder="Введите число"
                             required={true} variant={EInputVariants.RECTANGULAR} />
                 <Input.TextAndSelect name={'selectMinOrder'} placeholder="Измерение" 
                                     options={metricOptions} onClickOption={setSelectedMinOrderOption}
-                                    titleModal="Измерение" required={true} variant={EInputVariants.RECTANGULAR} /> 
+                                    titleModal="Измерение" required={true} variant={EInputVariants.RECTANGULAR} isActiveOptionInInput/> 
             </WrapperRectangleInput>
             <WrapperRectangleInput labelText={"Цена"}>
                 <Input.Text name={'price'} placeholder="Введите число"
                             variant={EInputVariants.RECTANGULAR} />
                 <Input.TextAndSelect name={'currency'} placeholder="Валюта" 
                                     options={currencyOptions} onClickOption={setSelectedCurrencyOption}
-                                    titleModal="Валюта" variant={EInputVariants.RECTANGULAR} /> 
+                                    titleModal="Валюта" variant={EInputVariants.RECTANGULAR} isActiveOptionInInput/> 
             </WrapperRectangleInput>
             <WrapperRectangleInput labelText={"Описание"} isRequired={true}>
                 <Input.Text name={'description'} placeholder="Начните вводить"

@@ -40,6 +40,10 @@
                 
                 .name {
                     font-size: var(--font-size-reg);
+                    transition: 0.3s;
+                    &:hover {
+                        color: var(--red-1);
+                    }
                 }
                 .favourite {
 
@@ -71,12 +75,13 @@
         }
 
         .tableText {
-            white-space: normal;
             display: -webkit-box;
+            overflow: hidden;
             -webkit-box-orient: vertical;
             line-clamp: 3;
             -webkit-line-clamp: 3;
-            line-height: 1.5;
+            text-overflow: ellipsis;
+            white-space: normal !important;
         }
     }
 
