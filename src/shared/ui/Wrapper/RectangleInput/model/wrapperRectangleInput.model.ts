@@ -23,5 +23,6 @@ export enum ELabelPosition{
 
 export enum EInputsContainerDirection{
   ROW = 'row',
-  COLUMN = 'column'
+  COLUMN = 'column',
+  ROW_WRAP = 'row-wrap'
 }

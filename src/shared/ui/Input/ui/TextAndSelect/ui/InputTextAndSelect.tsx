@@ -125,11 +125,9 @@ export function TextAndSelectInput({
             setIsWarning(false)
         }
         if (onClickOption) onClickOption(it)
-        else setActiveOption(it)
 
-        if(isActiveOptionInInput){
-            setActiveOption(it)
-        }
+        if (isActiveOptionInInput || !onClickOption) setActiveOption(it)
+
   
         
         if (!it.options?.length) {

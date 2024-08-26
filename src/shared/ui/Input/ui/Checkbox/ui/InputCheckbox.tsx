@@ -44,12 +44,10 @@ export const InputCheckbox = ({
   // EFFECTS
   useEffect(() => {
     // Обновление checked, если он пришел извне
-    if (checked !== undefined && checked !== isOwnChecked) {
-      setIsOwnChecked(checked);
-    } else if (isChecked !== undefined && isChecked !== isOwnChecked) {
+    if (isChecked !== undefined && isChecked !== isOwnChecked) {
       setIsOwnChecked(isChecked);
     }
-  }, [checked, isChecked]);
+  }, [isChecked]);
 
   useEffect(() => {
     // Обновление состояний success и warning при изменении isOwnChecked

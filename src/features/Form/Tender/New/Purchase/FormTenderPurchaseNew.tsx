@@ -135,7 +135,7 @@ export const FormTenderPurchaseNew:FC<FormTenderPurchaseNewProps> = ({className}
                             variant={EInputVariants.RECTANGULAR}  />
             </WrapperRectangleInput>
             <WrapperRectangleInput labelText='Поделиться контактами' labelPosition={ELabelPosition.RIGHT}>
-                <Input.Checkbox isChecked={userShareContact} setIsChecked={setUserShareContact} setChecked={setUserShareContact}/>
+                <Input.Checkbox isChecked={userShareContact} setIsChecked={setUserShareContact} />
             </WrapperRectangleInput>
 
             <Button variant={ButtonVariant.FILL} color={ButtonColor.Primary} size={ButtonSize.Big} 
