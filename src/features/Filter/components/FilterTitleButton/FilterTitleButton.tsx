@@ -1,23 +1,30 @@
+import { Button, ButtonVariant } from '@/shared/ui/Button'
 import cl from './_FilterTitleButton.module.scss'
-import Image from 'next/image'
+import { Dispatch, SetStateAction } from 'react'
+import { ARROW_WO_ICON } from '@/shared/ui/Icon/data/arrow.data.icon'
+import { Axis } from '@/shared/model/button.model'
 
 interface IFilterTitleButton{
-    isFiltersOpen: boolean,
-    setIsFiltersOpen: (isFiltersOpen: boolean) => void
+    isOpen: boolean
+    setIsOpen: Dispatch<SetStateAction<boolean>>
 }
 
 
 export const FilterTitleButton = ({
-    isFiltersOpen,
-    setIsFiltersOpen
+    isOpen,
+    setIsOpen,
 }: IFilterTitleButton) => {
+
+    // HANDLE
+    const handleOnClick = () => {
+        setIsOpen(prev => !prev)
+    }
+
     return (
-        <button type={'button'} className={cl.button} onClick={() => setIsFiltersOpen(!isFiltersOpen)}>
-            <h3>
-                Фильтры
-            </h3>
-            <Image className={isFiltersOpen ? cl.arrowOpen : cl.arrow} src={'arrow.svg'} alt={'arrow'} width={14} height={12} />
-        </button>
+        <Button variant={ButtonVariant.DEFAULT}
+                title={"Фильтры"} onClick={handleOnClick}
+                afterImage={ARROW_WO_ICON} afterProps={{width: 14, height: 14, alt: 'arrow', axis: isOpen ? Axis.Right : Axis.Left}} 
+                className={cl.button} />
     )
 }
 

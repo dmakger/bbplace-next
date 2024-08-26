@@ -14,12 +14,13 @@ import { IImageSizes } from '@/shared/model/image.model'
 import { IWrapperRectangleInputChildren } from '@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model'
 import { EInputVariants, IInput } from '../../../model/input.model'
 import Input from '../../../Input'
-import SEARCH_ICON from '@/../public/searchGray.svg'
 import { ERecursiveSelectVariant } from '../../RecursiveSelect/model/recursiveSelect.model'
 import { HandleSize } from '@/shared/ui/Handle/Size/HandleSize'
 import { EModalView } from '@/shared/data/modal.data'
 import { Modal } from '@/shared/ui/Modal/ui/Modal/Modal'
 import { WrapperModalBottomDropSearch } from '@/shared/ui/Wrapper/ModalBottom/DropSearch/WrapperModalBottomDropSearch'
+import { ImageSmart } from '@/shared/ui/Image/Smart/ImageSmart'
+import { SEARCH__ICON } from '@/shared/ui/Icon/data/search.data.icon'
 
 interface ITextAndSelectInput extends IWrapperRectangleInputChildren, IInput {
     variantRecursive?: ERecursiveSelectVariant,
@@ -184,7 +185,7 @@ export function TextAndSelectInput({
                                         /> 
                                 ) : (
                                     <div className={cl.inputContainer}>
-                                        <Image src={SEARCH_ICON} alt={"Поиск"} width={19} height={19} className={cl.imageSearch} />
+                                        <ImageSmart icon={SEARCH__ICON} alt={"Поиск"} width={19} height={19} className={cl.imageSearch} />
                                         <input type="text"
                                                 value={searchQuery}
                                                 onClick={e => e.stopPropagation()}

@@ -2,6 +2,8 @@ import { cls } from "@/shared/lib/classes.lib"
 import cl from './_Rating.module.scss'
 import Image from "next/image"
 import { ERatingColor } from "../model/rating.model"
+import { ImageSmart } from "../../Image/Smart/ImageSmart"
+import { STAR__LOW__ICON } from "../../Icon/data/star.data.icon"
 
 interface IRating {
     className?: string,
@@ -28,9 +30,10 @@ export const Rating = ({
 }: IRating) => {
     return (
         <div className={cls(cl.Rating, className)}>
-            {
-                hasStar ? <Image src={'/star.svg'} alt={'star'} width={20} height={20}/> : null
-            }
+            {hasStar ? (
+                <ImageSmart icon={STAR__LOW__ICON} alt={'star'} 
+                    width={20} height={20} />
+            ) : null}
             <p className={cls(cl.mainContainer, classNameMainContainer, color === ERatingColor.DEFAULT ? cl.defaultColor : '')}>
                 <span className={cls(cl.score, classNameScore)}>
                     {`${rating}/${ratingOutOf}`}

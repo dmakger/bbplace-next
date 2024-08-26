@@ -5,6 +5,7 @@ import { Providers } from "./_providers/app-provider";
 import { SITE_NAME } from "@/shared/data/seo.data";
 import { cls } from "@/shared/lib/classes.lib";
 import Script from "next/script";
+import { Html } from "next/document";
 
 const geologica = Geologica({ 
   subsets: ["latin", "cyrillic"], 
@@ -18,7 +19,21 @@ export const metadata: Metadata = {
 		default: SITE_NAME,
 		template: `%s | ${SITE_NAME}`
 	},
-	description: 'Платформа для поиска оптовых поставщиков и покупателей, маркетплейс для бизнеса, B2B площадка'
+	description: 'Платформа для поиска оптовых поставщиков и покупателей, маркетплейс для бизнеса, B2B площадка',
+    icons: {
+        icon: [
+            {
+                media: '(prefers-color-scheme: light)',
+                url: '/logo.png',
+                href: '/logo.png',
+            },
+            {
+                media: '(prefers-color-scheme: dark)',
+                url: '/logo.png',
+                href: '/logo.png',
+            },
+        ]
+    }
 }
 
 export default function RootLayout({
