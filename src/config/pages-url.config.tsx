@@ -49,7 +49,7 @@ class MAIN extends Route {
 
     SUPPLIERS = this.createPath('/suppliers');
 
-    SUPPORT = this.createPath('/support');
+    SUPPORT = this.createPath('/supports');
 
     CHECK_EMAIL = this.createPath('/checkEmail')
     LOGIN = this.createPath('/signIn', false, true)
