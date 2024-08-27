@@ -10,7 +10,7 @@ import { CategoryAPI } from "@/entities/Metrics/api/category.metrics.api";
 import { IOption } from "@/shared/model/option.model";
 import { categoryListToOptionList } from "@/entities/Metrics/lib/option.category.metrics.lib";
 import { MetricsAPI } from "@/entities/Metrics/api/metrics.metrics.api";
-import { metricListToOptionList } from "@/entities/Metrics/lib/option.metric.metrics.lib";
+import { metricListToOptionList, metricToOption } from "@/entities/Metrics/lib/option.metric.metrics.lib";
 import { CurrencyAPI } from "@/entities/Metrics/api/currency.metrics.api";
 import { EInputTextTypeVariants } from "@/shared/ui/Input/Text/model/text.input.model";
 import { IFile } from "@/entities/File/model/file.model";
@@ -21,13 +21,14 @@ import { getFormDataFromForm } from "@/shared/lib/formData.lib";
 import { TenderAPI } from "@/entities/Tender/api/tender.api";
 import { IPropsTenderPurchase } from "@/entities/Tender/model/props.tender.model";
 import { IResponseFile } from "@/entities/File/model/props.file.model";
-import { currencyListToOptionList } from "@/entities/Metrics/lib/currency/option.currency.metrics.lib";
+import { currencyListToOptionList, currencyToOption } from "@/entities/Metrics/lib/currency/option.currency.metrics.lib";
 import { useRouter } from "next/navigation";
 import { DASHBOARD_PAGES } from "@/config/pages-url.config";
 import { useNotify } from "@/features/Notify/lib/hooks";
 import { getFilteredOption } from "@/shared/lib/option/result.option.lib";
 import { listToErrorText } from "@/shared/lib/notify.lib";
 import { ENotifyStatus } from "@/features/Notify/data/notify.data";
+import { EInputTextType } from "@/shared/ui/Input/ui/Text/data/text.input.data";
 
 
 
@@ -73,11 +74,20 @@ export const FormTenderPurchaseNew:FC<FormTenderPurchaseNewProps> = ({className}
     useEffect(() => {
         if (!metricList) return
         setMetricOptions(metricListToOptionList(metricList))
+        setSelectedQuantityUnitsOption(prev => {
+            if (prev || metricList.length === 0) return prev
+            return metricToOption(metricList[0])
+        })
+
     }, [metricList])
     // currency
     useEffect(() => {
         if (!currencyList) return
         setCurrencyOptions(currencyListToOptionList(currencyList))
+        setSelectedCurrencyOption(prev => {
+            if (prev || currencyList.length === 0) return prev
+            return currencyToOption(currencyList.find(it => it.code === 'RUB') ?? currencyList[0])
+        })
     }, [currencyList])
 
     // ==={ HANDLE }===
@@ -127,16 +137,18 @@ export const FormTenderPurchaseNew:FC<FormTenderPurchaseNewProps> = ({className}
                                     titleModal="Категория" required variant={EInputVariants.RECTANGULAR} isActiveOptionInInput/> 
             </WrapperRectangleInput>
             <WrapperRectangleInput labelText={"Количество"} isRequired>
-                <Input.Text name={'quantity'} placeholder="Введите число"
-                            required variant={EInputVariants.RECTANGULAR} />
+                <Input.Text name={'quantity'} placeholder="Введите число" defaultValue={0}
+                            type={EInputTextType.Number} variant={EInputVariants.RECTANGULAR} required={true} />
                 <Input.TextAndSelect name={'quantityUnits'} placeholder="Измерение" 
+                                    defaultOption={selectedQuantityUnitsOption ?? undefined}
                                     options={metricOptions} onClickOption={setSelectedQuantityUnitsOption}
                                     titleModal="Измерение" required variant={EInputVariants.RECTANGULAR} isActiveOptionInInput/> 
             </WrapperRectangleInput>
             <WrapperRectangleInput labelText={"Максимальный бюджет"}>
-                <Input.Text name={'maximumBudget'} placeholder="Введите число"
-                            variant={EInputVariants.RECTANGULAR} />
+                <Input.Text name={'maximumBudget'} placeholder="Введите число" defaultValue={0}
+                            type={EInputTextType.Number} variant={EInputVariants.RECTANGULAR} />
                 <Input.TextAndSelect name={'currency'} placeholder="Валюта" 
+                                    defaultOption={selectedCurrencyOption ?? undefined}
                                     options={currencyOptions} onClickOption={setSelectedCurrencyOption}
                                     titleModal="Валюта" variant={EInputVariants.RECTANGULAR} isActiveOptionInInput/> 
             </WrapperRectangleInput>
