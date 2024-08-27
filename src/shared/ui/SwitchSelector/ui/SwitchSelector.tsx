@@ -8,6 +8,8 @@ import { OptionsTabType } from "@/features/DetailedPageInfo/model/detailedPageIn
 import Image from "next/image"
 import { ESwitchSelectorVariants } from "../model/switchSelector.model"
 import { useRouter } from "next/navigation"
+import { ImageSmart } from "../../Image/Smart/ImageSmart"
+import { ARROW_WLINE_SECONDARY_ICON } from "../../Icon/data/arrow.data.icon"
 
 interface ISwitchSelector {
     variant?: ESwitchSelectorVariants,
@@ -113,9 +115,11 @@ export const SwitchSelector = ({
                     }
                     )}
                 </div>
-                {variant === ESwitchSelectorVariants.DEFAULT && <button className={cl.arrowUp} onClick={scrollToTop}>
-                    <Image src={'/arrowUp.svg'} alt="" width={16} height={16} />
-                </button>}
+                {variant === ESwitchSelectorVariants.DEFAULT && 
+                    <button className={cl.arrowUp} onClick={scrollToTop}>
+                        <ImageSmart icon={ARROW_WLINE_SECONDARY_ICON} width={16} height={16} />
+                    </button>
+                }
             </div>
             {variant === ESwitchSelectorVariants.DEFAULT && options.length > 1 && <span
                 className={cls(cl.choosenLine, isAtTop ? cl.stickyChoosenLine : '')}

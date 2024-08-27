@@ -10,7 +10,7 @@ import { CategoryAPI } from "@/entities/Metrics/api/category.metrics.api";
 import { IOption } from "@/shared/model/option.model";
 import { categoryListToOptionList } from "@/entities/Metrics/lib/option.category.metrics.lib";
 import { MetricsAPI } from "@/entities/Metrics/api/metrics.metrics.api";
-import { metricListToOptionList } from "@/entities/Metrics/lib/option.metric.metrics.lib";
+import { metricListToOptionList, metricToOption } from "@/entities/Metrics/lib/option.metric.metrics.lib";
 import { CurrencyAPI } from "@/entities/Metrics/api/currency.metrics.api";
 import { EInputTextTypeVariants } from "@/shared/ui/Input/Text/model/text.input.model";
 import { IFile } from "@/entities/File/model/file.model";
@@ -21,9 +21,14 @@ import { getFormDataFromForm } from "@/shared/lib/formData.lib";
 import { TenderAPI } from "@/entities/Tender/api/tender.api";
 import { IPropsTenderPurchase } from "@/entities/Tender/model/props.tender.model";
 import { IResponseFile } from "@/entities/File/model/props.file.model";
-import { currencyListToOptionList } from "@/entities/Metrics/lib/currency/option.currency.metrics.lib";
+import { currencyListToOptionList, currencyToOption } from "@/entities/Metrics/lib/currency/option.currency.metrics.lib";
 import { useRouter } from "next/navigation";
 import { DASHBOARD_PAGES } from "@/config/pages-url.config";
+import { useNotify } from "@/features/Notify/lib/hooks";
+import { getFilteredOption } from "@/shared/lib/option/result.option.lib";
+import { listToErrorText } from "@/shared/lib/notify.lib";
+import { ENotifyStatus } from "@/features/Notify/data/notify.data";
+import { EInputTextType } from "@/shared/ui/Input/ui/Text/data/text.input.data";
 
 
 
@@ -56,6 +61,9 @@ export const FormTenderPurchaseNew:FC<FormTenderPurchaseNewProps> = ({className}
     // REF
     const formRef = useRef<HTMLFormElement>(null)
 
+    // NOTIFY
+    const {notify} = useNotify();
+
     // EFFECT
     // category
     useEffect(() => {
@@ -66,11 +74,20 @@ export const FormTenderPurchaseNew:FC<FormTenderPurchaseNewProps> = ({className}
     useEffect(() => {
         if (!metricList) return
         setMetricOptions(metricListToOptionList(metricList))
+        setSelectedQuantityUnitsOption(prev => {
+            if (prev || metricList.length === 0) return prev
+            return metricToOption(metricList[0])
+        })
+
     }, [metricList])
     // currency
     useEffect(() => {
         if (!currencyList) return
         setCurrencyOptions(currencyListToOptionList(currencyList))
+        setSelectedCurrencyOption(prev => {
+            if (prev || currencyList.length === 0) return prev
+            return currencyToOption(currencyList.find(it => it.code === 'RUB') ?? currencyList[0])
+        })
     }, [currencyList])
 
     // ==={ HANDLE }===
@@ -81,6 +98,17 @@ export const FormTenderPurchaseNew:FC<FormTenderPurchaseNewProps> = ({className}
         
         const formData = getFormDataFromForm(formRef.current)
         
+        const filteredRequiredFormData = getFilteredOption([
+            { name: 'Категория', option: selectedCategoryOption ?? undefined},
+            { name: 'Количество', option: selectedQuantityUnitsOption ?? undefined},
+        ])
+
+        if (filteredRequiredFormData.errors.length > 0) {
+            const notifyText = listToErrorText(filteredRequiredFormData.errors)
+            notify({text: notifyText, status: ENotifyStatus.Error})
+            return
+        }
+
         const apiData: IPropsTenderPurchase = {
             name: formData.name,
             categoryId: selectedCategoryOption!.id,
@@ -89,7 +117,7 @@ export const FormTenderPurchaseNew:FC<FormTenderPurchaseNewProps> = ({className}
             maximumBudget: formData.maximumBudget,
             currency: `${selectedCurrencyOption!.params!.code}`,
             description: formData.description,
-            shareContacts: true,
+            shareContacts: userShareContact,
             attachments: JSON.stringify(uploadedResponseFileList),
         }
         createPurchaseTender(apiData).then(res => {
@@ -99,32 +127,34 @@ export const FormTenderPurchaseNew:FC<FormTenderPurchaseNewProps> = ({className}
     
     return (
         <form onSubmit={handleOnSubmit} ref={formRef} className={cls(cl.form, className)}>
-            <WrapperRectangleInput labelText={"Наименование"} isRequired={true}>
+            <WrapperRectangleInput labelText={"Наименование"} isRequired>
                 <Input.Text name={'name'} placeholder="До 50 символов"
-                            required={true} variant={EInputVariants.RECTANGULAR} />
+                            required variant={EInputVariants.RECTANGULAR} />
             </WrapperRectangleInput>
-            <WrapperRectangleInput labelText={"Категория"} isRequired={true}>
+            <WrapperRectangleInput labelText={"Категория"} isRequired>
                 <Input.TextAndSelect name={'category'} placeholder="Выберите категорию" 
                                     options={categoryOptions} onClickOption={setSelectedCategoryOption}
-                                    titleModal="Категория" required={true} variant={EInputVariants.RECTANGULAR} isActiveOptionInInput/> 
+                                    titleModal="Категория" required variant={EInputVariants.RECTANGULAR} isActiveOptionInInput/> 
             </WrapperRectangleInput>
-            <WrapperRectangleInput labelText={"Количество"} isRequired={true}>
-                <Input.Text name={'quantity'} placeholder="Введите число"
-                            required={true} variant={EInputVariants.RECTANGULAR} />
+            <WrapperRectangleInput labelText={"Количество"} isRequired>
+                <Input.Text name={'quantity'} placeholder="Введите число" defaultValue={0}
+                            type={EInputTextType.Number} variant={EInputVariants.RECTANGULAR} required={true} />
                 <Input.TextAndSelect name={'quantityUnits'} placeholder="Измерение" 
+                                    defaultOption={selectedQuantityUnitsOption ?? undefined}
                                     options={metricOptions} onClickOption={setSelectedQuantityUnitsOption}
-                                    titleModal="Измерение" required={true} variant={EInputVariants.RECTANGULAR} isActiveOptionInInput/> 
+                                    titleModal="Измерение" required variant={EInputVariants.RECTANGULAR} isActiveOptionInInput/> 
             </WrapperRectangleInput>
             <WrapperRectangleInput labelText={"Максимальный бюджет"}>
-                <Input.Text name={'maximumBudget'} placeholder="Введите число"
-                            variant={EInputVariants.RECTANGULAR} />
+                <Input.Text name={'maximumBudget'} placeholder="Введите число" defaultValue={0}
+                            type={EInputTextType.Number} variant={EInputVariants.RECTANGULAR} />
                 <Input.TextAndSelect name={'currency'} placeholder="Валюта" 
+                                    defaultOption={selectedCurrencyOption ?? undefined}
                                     options={currencyOptions} onClickOption={setSelectedCurrencyOption}
                                     titleModal="Валюта" variant={EInputVariants.RECTANGULAR} isActiveOptionInInput/> 
             </WrapperRectangleInput>
-            <WrapperRectangleInput labelText={"Описание"} isRequired={true}>
+            <WrapperRectangleInput labelText={"Описание"} isRequired>
                 <Input.Text name={'description'} placeholder="Начните вводить"
-                            required={true} variant={EInputVariants.RECTANGULAR} 
+                            required variant={EInputVariants.RECTANGULAR} 
                             inputTypeVariant={EInputTextTypeVariants.TEXTAREA} />
             </WrapperRectangleInput>
             <WrapperRectangleInput labelText={"Файлы"} 
@@ -135,11 +165,11 @@ export const FormTenderPurchaseNew:FC<FormTenderPurchaseNewProps> = ({className}
                             variant={EInputVariants.RECTANGULAR}  />
             </WrapperRectangleInput>
             <WrapperRectangleInput labelText='Поделиться контактами' labelPosition={ELabelPosition.RIGHT}>
-                <Input.Checkbox isChecked={userShareContact} setIsChecked={setUserShareContact} />
+                <Input.Checkbox isChecked={userShareContact} setIsChecked={setUserShareContact} setChecked={setUserShareContact} />
             </WrapperRectangleInput>
 
             <Button variant={ButtonVariant.FILL} color={ButtonColor.Primary} size={ButtonSize.Big} 
-                    type={ButtonType.Submit} disabled={!userShareContact} 
+                    type={ButtonType.Submit} 
                     title="Опубликовать тендер" />
         </form>
     )

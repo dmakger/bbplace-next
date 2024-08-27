@@ -55,8 +55,8 @@ export const Filter = ({variant, filter, setFilter, categories, countries }: IFi
     return (
         <article className={cls(cl.Filter, isFiltersOpen ? cl.overflowVisible : '')}>
             <FilterTitleButton
-                isFiltersOpen={isFiltersOpen}
-                setIsFiltersOpen={setIsFiltersOpen}
+                isOpen={isFiltersOpen}
+                setIsOpen={setIsFiltersOpen}
             />
             {variant === ECatalogVariants.PRODUCTS && 
                 <FilterProductsCatalog

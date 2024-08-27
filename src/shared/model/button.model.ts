@@ -15,6 +15,7 @@ export interface IIconProps {
     isSuccess?: boolean,
     isDisabled?: boolean,
     isLoading?: boolean,
+    alt?: string
     width?: number
     height?: number
     isHovered?: boolean

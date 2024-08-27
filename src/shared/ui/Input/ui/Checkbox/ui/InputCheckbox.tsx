@@ -38,16 +38,22 @@ export const InputCheckbox = ({
   checkboxId
 }: IInputCheckbox) => {
   // STATE
-  const [isOwnChecked, setIsOwnChecked] = useState<boolean>(checked || isChecked || false);
+  const [isOwnChecked, setIsOwnChecked] = useState<boolean>(isChecked || checked || false);
   const [isInitialRender, setIsInitialRender] = useState<boolean>(true); // Состояние для отслеживания первичной отрисовки
 
   // EFFECTS
   useEffect(() => {
+    if (checked !== undefined && checked !== isOwnChecked) {
+      setIsOwnChecked(checked)
+      setIsChecked && setIsChecked(checked);
+      return;
+    }
     // Обновление checked, если он пришел извне
     if (isChecked !== undefined && isChecked !== isOwnChecked) {
-      setIsOwnChecked(isChecked);
+      return setIsOwnChecked(isChecked);
     }
-  }, [isChecked]);
+    
+  }, [isChecked, checked]);
 
   useEffect(() => {
     // Обновление состояний success и warning при изменении isOwnChecked

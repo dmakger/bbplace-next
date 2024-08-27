@@ -12,6 +12,8 @@ import { useEffect, useState } from 'react';
 import { IWrapperRectangleInputChildren } from '@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model';
 import { IImageSizes } from '@/shared/model/image.model';
 import { ERadioVariant } from '../model/radio.model';
+import { ImageSmart } from '@/shared/ui/Image/Smart/ImageSmart';
+import { CHECK_MARK__DARK__ICON } from '@/shared/ui/Icon/data/checkMark.data.icon';
 
 interface InputRadioProps extends IInput, IWrapperRectangleInputChildren {
     option: IOption;
@@ -128,7 +130,11 @@ export function InputRadio({
                 />
             )}
             <span className={cl.text}>{option.name}</span>
-            {variant === EInputVariants.ROUNDED && <Image src={'check-mark.svg'} alt={'check'} width={8} height={8} className={cl.checkMark} />}
+            {variant === EInputVariants.ROUNDED && 
+                <ImageSmart icon={CHECK_MARK__DARK__ICON} alt={'check'} 
+                            width={8} height={8} 
+                            className={cl.checkMark} />
+            }
         </label>
     );
 }

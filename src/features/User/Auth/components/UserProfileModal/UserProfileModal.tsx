@@ -1,3 +1,5 @@
+'use client'
+
 import { User } from '@/entities/User'
 import cl from './UserProfileModal.module.scss'
 import { useActionCreators, useAppSelector } from '@/storage/hooks'
@@ -13,7 +15,7 @@ interface IUserProfileModal {
 export const UserProfileModal = ({ isShowProfileModal }: IUserProfileModal) => {
 
   // RTK
-  const {fullName, photoId} = useAppSelector(state => state.user)
+  const {fullName, photoId, role} = useAppSelector(state => state.user)
   const actionCreators = useActionCreators();
 
   // HANDLE

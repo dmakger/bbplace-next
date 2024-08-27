@@ -1,18 +1,18 @@
 .header {
     width: 100vw;
     background-color: var(--background-2);
-}
-
-.headerTop {
-    position: fixed;
+    z-index: 90;
+    position: sticky;
     top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 99;
 }
 
 .headerBottom{
-    @media (max-width: 768px) {
+    margin-top: -20px;
+}
+
+
+@media (max-width: 768px) {
+    .headerBottom {
         display: none !important;
     }
 }

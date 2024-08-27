@@ -13,7 +13,7 @@ interface ImageSmartProps extends IIconProps, Omit<IIconProps, 'icon'> {
 
 export const ImageSmart: FC<ImageSmartProps> = ({ 
     icon, axis = Axis.Default, 
-    width, height,
+    width, height, alt='',
     isActive = false, isSuccess = false, isHovered = false, isPressed = false, isDisabled = false, isLoading = false,
     className, classNameImage 
 }) => {
@@ -33,12 +33,12 @@ export const ImageSmart: FC<ImageSmartProps> = ({
                     cl.wrapper
                     )}
                 >
-                    <Image src={icon.default} alt={'default'} style={style} className={cls(isActive ? "" : cl.static, cl.image, cl[axis], icon.defaultHovered ? cl.visible : '', classNameImage)} />
+                    <Image src={icon.default} alt={`${alt} default`} style={style} className={cls(isActive ? "" : cl.static, cl.image, cl[axis], icon.defaultHovered ? cl.visible : '', classNameImage)} />
                     {icon.defaultHovered &&
-                        <Image src={icon.defaultHovered} alt={'defaultHovered'} style={style} className={cls(cl.image, cl.hover, cl[axis], classNameImage)} />
+                        <Image src={icon.defaultHovered} alt={`${alt} defaultHovered`} style={style} className={cls(cl.image, cl.hover, cl[axis], classNameImage)} />
                     }
                     {icon.defaultPressed &&
-                        <Image src={icon.defaultPressed} alt={'defaultPressed'} style={style} className={cls(cl.image, cl.pressed, cl[axis], classNameImage)} />
+                        <Image src={icon.defaultPressed} alt={`${alt} defaultPressed`} style={style} className={cls(cl.image, cl.pressed, cl[axis], classNameImage)} />
                     }
                 </div>
             }
@@ -52,33 +52,33 @@ export const ImageSmart: FC<ImageSmartProps> = ({
                     cl.wrapper
                     )}
                 >
-                    <Image src={icon.active} alt={'active'} style={style} className={cls(isActive ? cl.static : "", cl.image, cl[axis], icon.activeHovered ? cl.visible : '', classNameImage)} />
+                    <Image src={icon.active} alt={`${alt} active`} style={style} className={cls(isActive ? cl.static : "", cl.image, cl[axis], icon.activeHovered ? cl.visible : '', classNameImage)} />
                     {icon.activeHovered &&
-                        <Image src={icon.activeHovered} alt={'activeHovered'} style={style} className={cls(cl.image, cl.hover, cl[axis], classNameImage)} />
+                        <Image src={icon.activeHovered} alt={`${alt} activeHovered`} style={style} className={cls(cl.image, cl.hover, cl[axis], classNameImage)} />
                     }
                     {icon.activePressed &&
-                        <Image src={icon.activePressed} alt={'activePressed'} style={style} className={cls(cl.image, cl.pressed, cl[axis], classNameImage)} />
+                        <Image src={icon.activePressed} alt={`${alt} activePressed`} style={style} className={cls(cl.image, cl.pressed, cl[axis], classNameImage)} />
                     }
                 </div>
             }
             {/* positive */}
             {icon.positive && isSuccess &&
                 <div style={style} >
-                    <Image src={icon.positive} alt={'positive'} style={style} className={cls(isSuccess ? cl.static : "", cl.image, cl[axis], classNameImage)} />
+                    <Image src={icon.positive} alt={`${alt} positive`} style={style} className={cls(isSuccess ? cl.static : "", cl.image, cl[axis], classNameImage)} />
                 </div>
             }
 
             {/* disabled */}
             {icon.disabled && 
                 <div style={style} >
-                    <Image src={icon.disabled} alt={'disabled'} style={style} className={cls(isDisabled ? cl.static : '', cl.image, cl[axis], classNameImage)} />
+                    <Image src={icon.disabled} alt={`${alt} disabled`} style={style} className={cls(isDisabled ? cl.static : '', cl.image, cl[axis], classNameImage)} />
                 </div>
             }
 
             {/* loading */}
             {icon.loading && 
                 <div style={style}>
-                    <Image src={icon.loading} alt={'loading'} style={style} className={cls(isLoading ? cl.static : '', cl.image, cl[axis], classNameImage)} />
+                    <Image src={icon.loading} alt={`${alt} loading`} style={style} className={cls(isLoading ? cl.static : '', cl.image, cl[axis], classNameImage)} />
                 </div>
             }
         </div>
