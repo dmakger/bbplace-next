@@ -9,9 +9,11 @@ interface HeaderProps {
 
 export const Header = ({className}: HeaderProps) => {
     return (
-        <header className={cls(cl.header, className)}>
-            <HeaderTop className={cl.headerTop} />
-            <HeaderBottom className={cl.headerBottom}/>
-        </header>
+        <>
+            <header className={cls(cl.header, className)}>
+                <HeaderTop className={cl.headerTop} />
+            </header>
+            <HeaderBottom className={cl.headerBottom} />
+        </>
     )
 }
