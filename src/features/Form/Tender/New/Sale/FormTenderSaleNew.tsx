@@ -88,7 +88,7 @@ export const FormTenderSaleNew:FC<FormTenderSaleNewProps> = ({className}) => {
             minOrderUnits: `${selectedMinOrderOption!.params!.shortName}`,
             bulkDiscounts: false,
             description: formData.description,
-            shareContacts: true,
+            shareContacts: userShareContact,
             attachments: JSON.stringify(uploadedResponseFileList),
         }
         createSaleTender(apiData).then(() => {
@@ -133,12 +133,12 @@ export const FormTenderSaleNew:FC<FormTenderSaleNewProps> = ({className}) => {
                             setFileList={setUploadedFileList} setResponseFileList={setUploadedResponseFileList}
                             variant={EInputVariants.RECTANGULAR}  />
             </WrapperRectangleInput>
-            <WrapperRectangleInput labelText='Поделиться контактами' labelPosition={ELabelPosition.RIGHT} isRequired>
-                <Input.Checkbox isChecked={userShareContact} setIsChecked={setUserShareContact} setChecked={setUserShareContact} required/>
+            <WrapperRectangleInput labelText='Поделиться контактами' labelPosition={ELabelPosition.RIGHT}>
+                <Input.Checkbox isChecked={userShareContact} setIsChecked={setUserShareContact} setChecked={setUserShareContact}/>
             </WrapperRectangleInput>
 
             <Button variant={ButtonVariant.FILL} color={ButtonColor.Primary} size={ButtonSize.Big} 
-                    type={ButtonType.Submit} disabled={!userShareContact} 
+                    type={ButtonType.Submit}
                     title="Опубликовать тендер" />
         </form>
     )
