@@ -41,7 +41,7 @@ export const FormTenderSaleNew:FC<FormTenderSaleNewProps> = ({className}) => {
     const [categoryOptions, setCategoryOptions] = useState<IOption[]>([])
     const [metricOptions, setMetricOptions] = useState<IOption[]>([])
     const [currencyOptions, setCurrencyOptions] = useState<IOption[]>([])
-    const [userShareContact, setUserShareContact] = useState(true)
+    const [userShareContact, setUserShareContact] = useState(false)
 
     const [selectedCategoryOption, setSelectedCategoryOption] = useState<IOption | null>(null)
     const [selectedMinOrderOption, setSelectedMinOrderOption] = useState<IOption | null>(null)
@@ -106,7 +106,7 @@ export const FormTenderSaleNew:FC<FormTenderSaleNewProps> = ({className}) => {
             minOrderUnits: `${selectedMinOrderOption!.params!.shortName}`,
             bulkDiscounts: false,
             description: formData.description,
-            shareContacts: true,
+            shareContacts: userShareContact,
             attachments: JSON.stringify(uploadedResponseFileList),
         }
         createSaleTender(apiData).then(() => {
@@ -116,21 +116,21 @@ export const FormTenderSaleNew:FC<FormTenderSaleNewProps> = ({className}) => {
     
     return (
         <form onSubmit={handleOnSubmit} ref={formRef} className={cls(cl.form, className)}>
-            <WrapperRectangleInput labelText={"Наименование"} isRequired={true}>
+            <WrapperRectangleInput labelText={"Наименование"} isRequired>
                 <Input.Text name={'name'} placeholder="До 50 символов"
-                            required={true} variant={EInputVariants.RECTANGULAR} />
+                            required variant={EInputVariants.RECTANGULAR} />
             </WrapperRectangleInput>
-            <WrapperRectangleInput labelText={"Категория"} isRequired={true}>
+            <WrapperRectangleInput labelText={"Категория"} isRequired>
                 <Input.TextAndSelect name={'category'} placeholder="Выберите категорию" 
                                     options={categoryOptions} onClickOption={setSelectedCategoryOption}
-                                    titleModal="Категория" required={true} variant={EInputVariants.RECTANGULAR} isActiveOptionInInput/> 
+                                    titleModal="Категория" required variant={EInputVariants.RECTANGULAR} isActiveOptionInInput/> 
             </WrapperRectangleInput>
-            <WrapperRectangleInput labelText={"Минимальный заказ"} isRequired={true}>
+            <WrapperRectangleInput labelText={"Минимальный заказ"} isRequired>
                 <Input.Text name={'minOrder'} placeholder="Введите число"
-                            required={true} variant={EInputVariants.RECTANGULAR} />
+                            required variant={EInputVariants.RECTANGULAR} />
                 <Input.TextAndSelect name={'selectMinOrder'} placeholder="Измерение" 
                                     options={metricOptions} onClickOption={setSelectedMinOrderOption}
-                                    titleModal="Измерение" required={true} variant={EInputVariants.RECTANGULAR} isActiveOptionInInput/> 
+                                    titleModal="Измерение" required variant={EInputVariants.RECTANGULAR} isActiveOptionInInput/> 
             </WrapperRectangleInput>
             <WrapperRectangleInput labelText={"Цена"}>
                 <Input.Text name={'price'} placeholder="Введите число"
@@ -139,9 +139,9 @@ export const FormTenderSaleNew:FC<FormTenderSaleNewProps> = ({className}) => {
                                     options={currencyOptions} onClickOption={setSelectedCurrencyOption}
                                     titleModal="Валюта" variant={EInputVariants.RECTANGULAR} isActiveOptionInInput/> 
             </WrapperRectangleInput>
-            <WrapperRectangleInput labelText={"Описание"} isRequired={true}>
+            <WrapperRectangleInput labelText={"Описание"} isRequired>
                 <Input.Text name={'description'} placeholder="Начните вводить"
-                            required={true} variant={EInputVariants.RECTANGULAR} 
+                            required variant={EInputVariants.RECTANGULAR} 
                             inputTypeVariant={EInputTextTypeVariants.TEXTAREA} />
             </WrapperRectangleInput>
             <WrapperRectangleInput labelText={"Файлы"} 
@@ -151,12 +151,12 @@ export const FormTenderSaleNew:FC<FormTenderSaleNewProps> = ({className}) => {
                             setFileList={setUploadedFileList} setResponseFileList={setUploadedResponseFileList}
                             variant={EInputVariants.RECTANGULAR}  />
             </WrapperRectangleInput>
-            <WrapperRectangleInput labelText='Поделиться контактами' labelPosition={ELabelPosition.RIGHT} isRequired={true}>
-                <Input.Checkbox isChecked={userShareContact} setIsChecked={setUserShareContact} setChecked={setUserShareContact} required={true}/>
+            <WrapperRectangleInput labelText='Поделиться контактами' labelPosition={ELabelPosition.RIGHT}>
+                <Input.Checkbox isChecked={userShareContact} setIsChecked={setUserShareContact} setChecked={setUserShareContact}/>
             </WrapperRectangleInput>
 
             <Button variant={ButtonVariant.FILL} color={ButtonColor.Primary} size={ButtonSize.Big} 
-                    type={ButtonType.Submit} disabled={!userShareContact} 
+                    type={ButtonType.Submit}
                     title="Опубликовать тендер" />
         </form>
     )

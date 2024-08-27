@@ -196,9 +196,9 @@ export const WrapperRectangleInput = ({
   return (
     <>
       <div className={cls(cl.WrapperRectangleInput, className, cl[labelPosition])}>
-        <div className={cls(cl.labelNInputsContainer, linkText ? cl.columnStyle : '')} onClick={labelPosition === ELabelPosition.RIGHT ? handleLabelClick : () => { }}>
+        <div className={cls(cl.labelNInputsContainer, linkText ? cl.columnStyle : '')} onClick={labelPosition === ELabelPosition.RIGHT && !linkHref ? handleLabelClick : () => {}}>
           <div className={cl.labelNTooltipContainer}>
-            <label className={cls(cl.label, classNameLabel)} onClick={labelPosition === ELabelPosition.RIGHT ? handleLabelClick : () => { }}htmlFor={labelPosition === ELabelPosition.RIGHT ? uniqueId : undefined}
+            <label className={cls(cl.label, classNameLabel)} onClick={labelPosition === ELabelPosition.RIGHT ? handleLabelClick : () => { }} htmlFor={labelPosition === ELabelPosition.RIGHT ? uniqueId : undefined}
 >
               {labelText}
             </label>
