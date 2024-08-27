@@ -3,8 +3,11 @@ import { TParams } from "./params.model"
 /**
  * @param type - необходим для памяти из какой сущности было переведено в [Option] 
  */
-export interface IOption {
+export interface IOption extends IOptionWOId {
     id: number
+}
+
+export interface IOptionWOId {
     name: string
     value?: string | number
     params?: TParams
@@ -12,7 +15,6 @@ export interface IOption {
     type?: OptionType,
     caption?: string
 }
-
 
 export enum OptionType {
     Any,

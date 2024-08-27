@@ -1,3 +1,5 @@
-export const getErrorNotify = (data: Record<string, any>, ) => {
+import { IOption } from "../model/option.model";
 
+export const getErrorNotify = (data: IOption[]) => {
+    
 }
