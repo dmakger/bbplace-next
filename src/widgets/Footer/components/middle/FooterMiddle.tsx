@@ -34,7 +34,7 @@ export const FooterMiddle = ({
     const leftButtons = [
         { title: 'Поддержка', beforeImage: SUPPORT_SECONDARY_ICON, beforeProps: { width: 18, height: 18 }, className: cl.button, href: MAIN_PAGES.SUPPORT.path },
         { title: 'О компании', className: cl.button, link: MAIN_PAGES.CURRENT_DOCUMENT(BBP_PRESENTATION_DOCUMENT).path },
-        { className: cls(cl.button, cl.roundedButton), beforeImage: AT_SIGN_ICON, beforeProps: { width: 18, height: 18 }, onClick: () => handleCopyLink(notify) }
+        { className: cls(cl.button, cl.roundedButton), beforeImage: AT_SIGN_ICON, beforeProps: { width: 18, height: 18 }, onClick: () => handleCopyLink(notify, '', 'Почта info@bbplace.ru успешно скопирована') }
     ];
 
     const socialButtons = [
