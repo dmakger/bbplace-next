@@ -24,6 +24,10 @@ import { IResponseFile } from "@/entities/File/model/props.file.model";
 import { currencyListToOptionList } from "@/entities/Metrics/lib/currency/option.currency.metrics.lib";
 import { useRouter } from "next/navigation";
 import { DASHBOARD_PAGES } from "@/config/pages-url.config";
+import { getFilteredOption } from "@/shared/lib/option/result.option.lib";
+import { listToErrorText } from "@/shared/lib/notify.lib";
+import { useNotify } from "@/features/Notify/lib/hooks";
+import { ENotifyStatus } from "@/features/Notify/data/notify.data";
 
 interface FormTenderSaleNewProps{
     className?: string,
@@ -54,6 +58,9 @@ export const FormTenderSaleNew:FC<FormTenderSaleNewProps> = ({className}) => {
     // REF
     const formRef = useRef<HTMLFormElement>(null)
 
+    // NOTIFY
+    const {notify} = useNotify();
+
     // EFFECT
     // category
     useEffect(() => {
@@ -78,8 +85,17 @@ export const FormTenderSaleNew:FC<FormTenderSaleNewProps> = ({className}) => {
         if (!formRef.current) return
         
         const formData = getFormDataFromForm(formRef.current)
-
         
+        const filteredRequiredFormData = getFilteredOption([
+            { name: 'Категория', option: selectedCategoryOption ?? undefined},
+            { name: 'Минимальный заказ', option: selectedMinOrderOption ?? undefined},
+        ])
+
+        if (filteredRequiredFormData.errors.length > 0) {
+            const notifyText = listToErrorText(filteredRequiredFormData.errors)
+            notify({text: notifyText, status: ENotifyStatus.Error})
+            return
+        }
         
         const apiData: IPropsTenderSale = {
             name: formData.name,

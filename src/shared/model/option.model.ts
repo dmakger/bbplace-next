@@ -8,8 +8,10 @@ export interface IOption extends IOptionWOId {
 }
 
 export interface IOptionWOId {
+    id?: number
     name: string
     value?: string | number
+    option?: IOption
     params?: TParams
     options?: IOption[]
     type?: OptionType,
@@ -21,3 +23,6 @@ export enum OptionType {
     File,
     Currency
 }
+
+
+// export interface IOption
