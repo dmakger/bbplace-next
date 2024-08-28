@@ -1,5 +1,3 @@
-'use client'
-
 import { WrapperColumnNoGap } from '@/shared/ui/Wrapper/ColumnNoGap'
 import cl from './_DropDownCatalog.module.scss'
 import { Dropdown } from '@/shared/ui/Dropdown'
@@ -57,14 +55,22 @@ export const DropDownCatalog = ({
     secondDropDownListData,
 
     onClickXMark
-}: IDropDownCatalog) => {    
+}: IDropDownCatalog) => {
     return (
-        <Modal view={modalView} isOpen={isOpenModal} buttonNode onClickOverlay={setIsOpenModal} classNameSidebar={cls(cl.modalSidebar, classNameModal)}>
+        <Modal
+            view={modalView}
+            isOpen={isOpenModal}
+            buttonNode
+            onClickOverlay={onClickXMark}
+            classNameSidebar={classNameModal}
+        >
             <div className={cls(cl.DropDownCatalog, className)}>
                 <WrapperColumnNoGap>
+
                     {title && !firstDropDownButtonChildren && <div className={cl.titleContainer}>
                         <h5 className={cl.title}>{title}</h5>
                     </div>}
+                    
                     {firstDropDownButtonChildren && firstDropDownListData && <Dropdown
                         classNameWrapperDropdownList={cls(cl.dropdownProfileButtons, classNameFirstDropDownWrapper)}
                         classNameWrapperDropdownListVisible={cls(cl.dropdownProfileButtonsVisible, classNameFirstDropDownWrapperVisible)}
@@ -83,7 +89,11 @@ export const DropDownCatalog = ({
                         setIsOpenModal={setIsOpenModal} />
                 </WrapperColumnNoGap>
 
-                <MenuItem title="Закрыть" onClick={onClickXMark} className={cl.closeButton} beforeImage={MARK_MENU_ITEM_ICON} />
+                <MenuItem title="Закрыть"
+                    className={cl.closeButton}
+                    onClick={onClickXMark}
+                    beforeImage={MARK_MENU_ITEM_ICON}
+                />
             </div>
         </Modal>
     )

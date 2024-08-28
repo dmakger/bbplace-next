@@ -140,9 +140,7 @@
     }
 
     .disabled {
-        &:hover {
             background-color: var(--disabled) !important;
-        }
     }
 
     //ERROR

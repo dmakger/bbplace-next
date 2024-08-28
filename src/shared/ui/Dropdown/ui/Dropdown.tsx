@@ -86,7 +86,7 @@ export const Dropdown = ({
                             {index < array.length - 1 && list.length > 0 && <hr className={cl.border} />}
                         </div>
                     ))
-                    : <DropdownList listData={dropDownListData as IMenuItem[]} dropDownListPosition={dropDownListPosition} isLastList setShowList={setShowList} />
+                    : <DropdownList listData={dropDownListData as IMenuItem[]} dropDownListPosition={dropDownListPosition} isLastList setShowList={setShowList} setIsOpenModal={setIsOpenModal}/>
                 }
 
             </WrapperDropdownList>

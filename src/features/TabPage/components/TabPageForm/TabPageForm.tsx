@@ -20,6 +20,7 @@ import { isEqual } from "lodash";
 import { IResponseFile } from "@/entities/File/model/props.file.model";
 import { OptionsAttachmentItem } from "@/shared/ui/Form/OptionsAttachment/ui/Item/OptionsAttachmentItem";
 import { EOptionsAttachmentVariants } from "@/shared/ui/Form/OptionsAttachment/data/optionsAttachment.data";
+import { EInputsContainerDirection } from "@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model";
 
 interface ITabPageForm {
     className?: string,
@@ -141,6 +142,7 @@ export const TabPageForm = ({
                 classNameLabel={cl.label}
                 isCanDisabledBellowButton={!selectedFiles.length}
                 onClickBellowButton={handleDownloadSheet}
+                direction={EInputsContainerDirection.COLUMN}
             >
                     <Input.File
                         variant={EInputVariants.RECTANGULAR}

@@ -1,13 +1,11 @@
 'use client'
 
-import React, { useEffect, useState } from 'react';
-import cl from './_MobileNavbar.module.scss'
+import { useEffect, useState } from 'react';
+import cl from './_MobileNavbar.module.scss';
 import { FAVOURITES_ITEM_MOBILE_MENU_DATA, MOBILE_MENU_DATA, SUPPORT_PAGE_MOBILE_DATA } from '@/shared/data/menu/mobile.menu.data';
 import { usePathname, useRouter } from 'next/navigation';
 import { IIconVariants } from '@/shared/model/icon.model';
 import { IIcon } from '@/shared/ui/Icon/model/icon.model';
-import { Modal } from '@/shared/ui/Modal/ui/Modal/Modal';
-import { EModalView } from '@/shared/data/modal.data';
 import { MobileNavbarMenu } from '@/widgets/Menu/MobileNavbar';
 import { MenuItem } from '@/shared/ui/Button/data/MenuItem/MenuItem';
 import { HandleSize } from '@/shared/ui/Handle/Size/HandleSize';
@@ -35,7 +33,7 @@ export const MobileNavbar = ({
 		if (pathname === FAVOURITES_ITEM_MOBILE_MENU_DATA?.link && is420) {
 			setFilteredMenuData(menuData.filter(it => it.link !== FAVOURITES_ITEM_MOBILE_MENU_DATA.link))
 		}
-		if(pathname.includes(MAIN_PAGES.SUPPORT.path)){			
+		if (pathname.includes(MAIN_PAGES.SUPPORT.path)) {
 			setFilteredMenuData(SUPPORT_PAGE_MOBILE_DATA)
 		}
 	}, [pathname, menuData, is420])
@@ -64,7 +62,7 @@ export const MobileNavbar = ({
 					})}
 				</div>
 			</nav>
-				<MobileNavbarMenu showSidebarMenu={showSidebarMenu} setShowSidebarMenu={setShowSidebarMenu} is420={is420}/>
+			<MobileNavbarMenu showSidebarMenu={showSidebarMenu} setShowSidebarMenu={setShowSidebarMenu} is420={is420} />
 			<HandleSize width={420} set={setIs420} />
 		</>
 

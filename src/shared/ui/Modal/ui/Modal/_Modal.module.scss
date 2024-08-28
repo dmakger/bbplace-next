@@ -66,6 +66,7 @@
         height: 100%;
         
         z-index: -1;
+        visibility: hidden;
         opacity: 0;
         transition: .3s;
     }
@@ -80,6 +81,7 @@
 .openOverlay {
     z-index: 100 !important;
     opacity: 1 !important;
+    visibility: visible !important;
 }
 
 .openSidebar {

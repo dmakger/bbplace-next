@@ -38,7 +38,7 @@ export const SmartSidebar: FC<SmartSidebarProps> = ({
 
     return (
         <div className={cls(cl.SmartSidebar, className)}>
-            <CategoryButton onClick={(prevState: boolean) => setIsShowCategories(!prevState)} isMobile={isMobile} />
+            <CategoryButton onClick={(prevState: boolean) => setIsShowCategories(!prevState)} isMobile />
             {!isMobile && <CategorySidebar isShowCategories={isShowCategories} toggleShowCategories={setIsShowCategories} />}
 
             {isMobile && !isLoadingCategoriesParent &&
