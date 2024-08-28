@@ -11,6 +11,7 @@ import { EModalView } from '@/shared/data/modal.data';
 import { MobileNavbarMenu } from '@/widgets/Menu/MobileNavbar';
 import { MenuItem } from '@/shared/ui/Button/data/MenuItem/MenuItem';
 import { HandleSize } from '@/shared/ui/Handle/Size/HandleSize';
+import { MAIN_PAGES } from '@/config/pages-url.config';
 
 interface IMobileNavbar {
 	menuData?: IIconVariants[]
@@ -34,12 +35,10 @@ export const MobileNavbar = ({
 		if (pathname === FAVOURITES_ITEM_MOBILE_MENU_DATA?.link && is420) {
 			setFilteredMenuData(menuData.filter(it => it.link !== FAVOURITES_ITEM_MOBILE_MENU_DATA.link))
 		}
-		if(pathname.includes('support')){			
+		if(pathname.includes(MAIN_PAGES.SUPPORT.path)){			
 			setFilteredMenuData(SUPPORT_PAGE_MOBILE_DATA)
 		}
 	}, [pathname, menuData, is420])
-
-	
 
 
 	//FUNCTIONS
@@ -65,10 +64,7 @@ export const MobileNavbar = ({
 					})}
 				</div>
 			</nav>
-			<Modal view={EModalView.RIGHT} isOpen={showSidebarMenu} buttonNode onClickOverlay={() => setShowSidebarMenu(false)}
-				classNameSidebar={cl.modalSidebar} >
-				<MobileNavbarMenu setShowSidebarMenu={setShowSidebarMenu} is420={is420} />
-			</Modal>
+				<MobileNavbarMenu showSidebarMenu={showSidebarMenu} setShowSidebarMenu={setShowSidebarMenu} is420={is420}/>
 			<HandleSize width={420} set={setIs420} />
 		</>
 

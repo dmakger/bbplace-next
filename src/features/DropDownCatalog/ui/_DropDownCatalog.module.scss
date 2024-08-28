@@ -1,0 +1,42 @@
+.DropDownCatalog {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    width: 250px;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-radius: 16px 0 0 20px;
+
+    .titleContainer {
+        display: flex;
+        justify-content: center;
+        padding: 22px 20px;
+        background-color: var(--tertiary-surface-low);
+
+        .title {
+            text-align: center;
+            font-size: var(--font-size-s);
+            font-weight: var(--font-weight-med);
+        }
+    }
+
+    .dropdownProfileButtons {
+        height: 0px;
+        overflow-y: hidden;
+    }
+
+    .dropdownProfileButtonsVisible {
+        height: 53px;
+        background: linear-gradient(180deg, #e6e6ea 0%, #f4f4f6 100%);
+    }
+
+    .closeButton {
+        width: 100%;
+        position: sticky;
+        bottom: 0;
+        z-index: 15;
+        flex-grow: 0
+    }
+}

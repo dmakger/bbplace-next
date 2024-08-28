@@ -40,7 +40,7 @@ export const UserNotAuth: React.FC<IUserNotAuthProps> = ({ className }) => {
         actionCreators.setAuthOptional({
             prevPath: pathname
         })
-        router.push(MAIN_PAGES.LOGIN.path)
+        router.push(MAIN_PAGES.CHECK_EMAIL.path)
     }
 
     return (

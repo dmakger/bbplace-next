@@ -12,6 +12,7 @@ import { DASHBOARD_PAGES, MAIN_PAGES } from "@/config/pages-url.config"
 import { Logo } from "@/shared/ui/Logo"
 import { useAppSelector } from "@/storage/hooks"
 import { LK_ICON } from "@/shared/ui/Icon/data/lk.data.icon"
+import { IImageSizes } from "@/shared/model/image.model"
 
 interface IWrapperForLogInNSupportPages {
     className?: string,
@@ -38,7 +39,10 @@ export const WrapperForLogInNSupportPages = ({
     const pathname = usePathname()
 
     //RTK
-    const { isAuth } = useAppSelector(state => state.user)    
+    const { isAuth } = useAppSelector(state => state.user)  
+
+    //VARIABLE
+    const iconSizes: IImageSizes = { width: 18, height: 18 }; 
 
     //FUNCTION
     const navigateToTheSupport = () => router.push(MAIN_PAGES.SUPPORT.path);
@@ -78,7 +82,7 @@ export const WrapperForLogInNSupportPages = ({
                     color={ButtonColor.Tertiary}
                     size={ButtonSize.Medium}
                     beforeImage={ARROW_WLINE_TERTIARY_ICON}
-                    beforeProps={{ width: 18, height: 18 }}
+                    beforeProps={iconSizes}
                     title="Назад"
                     onClick={goBack}
                 />
@@ -86,7 +90,7 @@ export const WrapperForLogInNSupportPages = ({
                     <Button variant={ButtonVariant.CONTENT}
                         color={ButtonColor.Tertiary}
                         beforeImage={LK_ICON}
-                        beforeProps={{ width: 18, height: 18 }}
+                        beforeProps={iconSizes}
                         size={ButtonSize.Medium}
                         title="Мой профиль"
                         onClick={navigateToTheLK} />
@@ -94,7 +98,7 @@ export const WrapperForLogInNSupportPages = ({
                     <Button variant={ButtonVariant.CONTENT}
                         color={ButtonColor.Tertiary}
                         beforeImage={SUPPORT_ICON}
-                        beforeProps={{ width: 18, height: 18 }}
+                        beforeProps={iconSizes}
                         size={ButtonSize.Medium}
                         title="Поддержка"
                         onClick={navigateToTheSupport} />}

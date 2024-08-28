@@ -19,8 +19,9 @@ interface IDropdown {
     labelTitle?: string,
     buttonChildren?: ReactNode,
     dropDownListData: IMenuItem[] | IMenuItem[][] | IMenuButton[] | IMenuButton[][]
-    showListData?: boolean,
+    showListData: boolean,
     setShowListData?: Function,
+    setIsOpenModal?: Function,
     dropDownListPosition?: EWrapperDropdownListPosition,
     dropDownListVariant?: EWrapperDropdownListVariant
 }
@@ -33,6 +34,7 @@ export const Dropdown = ({
     buttonChildren,
     dropDownListData,
     showListData,
+    setIsOpenModal,
     dropDownListPosition = EWrapperDropdownListPosition.LEFT,
     dropDownListVariant = EWrapperDropdownListVariant.DESKTOP
 
@@ -67,7 +69,7 @@ export const Dropdown = ({
             )}
 
             <WrapperDropdownList
-                isVisible={showList}
+                isVisible={showListData}
                 dropDownListPosition={dropDownListPosition}
                 variant={dropDownListVariant}
                 className={classNameWrapperDropdownList}
@@ -76,14 +78,15 @@ export const Dropdown = ({
                 {Array.isArray(dropDownListData[0])
                     ? (dropDownListData as IMenuItem[][] as IMenuButton[][]).map((list, index, array) => (
                         <div key={index}>
-                            
+
                             <DropdownList listData={list} dropDownListPosition={dropDownListPosition} classNameButton={cls(index === 0 && dropDownListVariant !== EWrapperDropdownListVariant.MOBILE ? cl.firstEl : '')}
                                 isLastList={index === array.length - 1 && dropDownListVariant !== EWrapperDropdownListVariant.MOBILE}
+                                setIsOpenModal={setIsOpenModal}
                             />
                             {index < array.length - 1 && list.length > 0 && <hr className={cl.border} />}
                         </div>
                     ))
-                    : <DropdownList listData={dropDownListData as IMenuItem[]} dropDownListPosition={dropDownListPosition} isLastList setShowList={setShowList}/>
+                    : <DropdownList listData={dropDownListData as IMenuItem[]} dropDownListPosition={dropDownListPosition} isLastList setShowList={setShowList} />
                 }
 
             </WrapperDropdownList>
