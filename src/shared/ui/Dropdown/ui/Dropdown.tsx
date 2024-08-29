@@ -19,7 +19,7 @@ interface IDropdown {
     labelTitle?: string,
     buttonChildren?: ReactNode,
     dropDownListData: IMenuItem[] | IMenuItem[][] | IMenuButton[] | IMenuButton[][]
-    showListData: boolean,
+    showListData?: boolean,
     setShowListData?: Function,
     setIsOpenModal?: Function,
     dropDownListPosition?: EWrapperDropdownListPosition,
@@ -69,7 +69,7 @@ export const Dropdown = ({
             )}
 
             <WrapperDropdownList
-                isVisible={showListData}
+                isVisible={showListData ?? showList}
                 dropDownListPosition={dropDownListPosition}
                 variant={dropDownListVariant}
                 className={classNameWrapperDropdownList}
