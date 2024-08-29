@@ -15,22 +15,15 @@ export const LKButtonRightMarginBlock = () => {
 
   //EFFECT
   useEffect(() => {
-    const isMyTendersPage = pathname.includes(DASHBOARD_PAGES.PRODUCTS.path);
-    const isMyProductsPage = pathname.includes(DASHBOARD_PAGES.TENDERS.path);
-    const isProfileEditPage = pathname.includes(DASHBOARD_PAGES.PROFILE_EDIT.path);
-    
-    const BUTTON_RIGHT_PAGES: boolean[] = [
-      isMyTendersPage,
-      isMyProductsPage,
-      isProfileEditPage
-    ]
-    if (BUTTON_RIGHT_PAGES.find(it => it)) {
-      setHasButtonRight(true)
-    }
-    else {
-      setHasButtonRight(false)
-    }
-  }, [pathname])
+    const pagesToCheck = [
+      DASHBOARD_PAGES.PRODUCTS.path,
+      DASHBOARD_PAGES.TENDERS.path,
+      DASHBOARD_PAGES.PROFILE_EDIT.path,
+    ];
+
+    const shouldShowButtonRight = pagesToCheck.some(page => pathname.includes(page));
+    setHasButtonRight(shouldShowButtonRight);
+  }, [pathname]);
 
 
   return (

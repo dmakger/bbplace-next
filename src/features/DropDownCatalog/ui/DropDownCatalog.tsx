@@ -25,6 +25,7 @@ interface IDropDownCatalog {
     classNameFirstDropDownWrapperVisible?: string,
     firstDropDownListData?: IMenuItem[] | IMenuItem[][] | IMenuButton[] | IMenuButton[][]
     showFirstListData?: boolean,
+    setShowFirstListData?: Function,
     firstDropDownButtonChildren?: ReactNode,
 
     dropDownListVariant?: EWrapperDropdownListVariant
@@ -48,6 +49,7 @@ export const DropDownCatalog = ({
     classNameFirstDropDownWrapperVisible,
     firstDropDownListData,
     showFirstListData,
+    setShowFirstListData,
     firstDropDownButtonChildren,
     dropDownListVariant,
     dropDownListPosition,
@@ -76,12 +78,14 @@ export const DropDownCatalog = ({
                         classNameWrapperDropdownListVisible={cls(cl.dropdownProfileButtonsVisible, classNameFirstDropDownWrapperVisible)}
                         dropDownListData={firstDropDownListData}
                         showListData={showFirstListData ?? false}
+                        setShowListData={setShowFirstListData}
                         buttonChildren={firstDropDownButtonChildren}
                         dropDownListVariant={dropDownListVariant}
                         dropDownListPosition={dropDownListPosition}
                         setIsOpenModal={setIsOpenModal} />}
 
                     <Dropdown
+                        classNameWrapperDropdownList={cl.visible}
                         dropDownListData={secondDropDownListData}
                         showListData
                         dropDownListVariant={dropDownListVariant}

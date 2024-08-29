@@ -34,6 +34,7 @@ export const Dropdown = ({
     buttonChildren,
     dropDownListData,
     showListData,
+    setShowListData,
     setIsOpenModal,
     dropDownListPosition = EWrapperDropdownListPosition.LEFT,
     dropDownListVariant = EWrapperDropdownListVariant.DESKTOP
@@ -48,13 +49,21 @@ export const Dropdown = ({
     //EFFECT
     useEffect(() => {
         if (showListData !== undefined) setShowList(showListData)
-    }, [showListData])
-
+    }, [showListData])    
+    
     //FUNCTIONS
-    const showDropdownList = () => setShowList(prevState => !prevState)
+    const toggleDropdownList = () => {
+        setShowList(!showList);
+        if (setShowListData) setShowListData(!showList);
+    };
+
+    const closeDropdownList = () => {
+        setShowList(false);
+        if (setShowListData) setShowListData(false);
+    };
 
     return (
-        <WrapperClickOutside className={cls(cl.Dropdown, cl[dropDownListPosition], className)} isShow={showList} _ref={ref} handle={setShowList}>
+        <WrapperClickOutside className={cls(cl.Dropdown, cl[dropDownListPosition], className)} isShow={showList} _ref={ref} handle={closeDropdownList}>
             {labelTitle && !buttonChildren ? (
                 <Button
                     title={labelTitle}
@@ -62,14 +71,14 @@ export const Dropdown = ({
                     variant={ButtonVariant.CLEAR}
                     afterImage={ARROW_TERTIARY_WO_FULL_ICON}
                     afterProps={{ width: 16, height: 9 }}
-                    onClick={showDropdownList}
+                    onClick={toggleDropdownList}
                 />
             ) : (
                 buttonChildren
             )}
 
             <WrapperDropdownList
-                isVisible={showListData ?? showList}
+                isVisible={showList ?? showListData}
                 dropDownListPosition={dropDownListPosition}
                 variant={dropDownListVariant}
                 className={classNameWrapperDropdownList}

@@ -43,3 +43,10 @@
         flex-grow: 0
     }
 }
+
+.visible{
+    opacity: 1 !important;
+    visibility: visible !important;
+    z-index: 20 !important;
+    transition: .3s;
+}

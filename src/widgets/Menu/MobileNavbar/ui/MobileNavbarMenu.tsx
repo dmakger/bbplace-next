@@ -63,7 +63,7 @@ export const MobileNavbarMenu = ({
                 firstDropDownListData={[PROFILE_BUTTONS_LK_ITEM_MENU_DATA]}
                 firstDropDownButtonChildren={<UserProfileBadge variant={EUserProfileBadgeVariants.MOBILE} showProfileMenu={showProfileButtonsDropdown} setShowProfileMenu={setShowProfileButtonsDropdown} />}
                 showFirstListData={showProfileButtonsDropdown}
-
+                setShowFirstListData={setShowProfileButtonsDropdown}
                 secondDropDownListData={dropDownListData}
 
                 dropDownListVariant={EWrapperDropdownListVariant.MOBILE}

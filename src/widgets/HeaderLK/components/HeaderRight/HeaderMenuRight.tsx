@@ -36,9 +36,9 @@ export const HeaderMenuRight = ({ className }: IHeaderMenuRight) => {
     return (
         <div className={cls(cl.HeaderMenuRight, className)}>
             <Button variant={ButtonVariant.DEFAULT}
-                    beforeImage={CHAT_HEADER_ICON} beforeProps={{ width: 20, height: 20 }}
-                    href={DASHBOARD_PAGES.CHATS('').path}
-                    className={cl.button}
+                beforeImage={CHAT_HEADER_ICON} beforeProps={{ width: 20, height: 20 }}
+                href={DASHBOARD_PAGES.CHATS('').path}
+                className={cl.button}
             />
             <Button
                 className={cl.button}
@@ -51,8 +51,11 @@ export const HeaderMenuRight = ({ className }: IHeaderMenuRight) => {
             <Dropdown
                 dropDownListData={dropDownListData}
                 showListData={showProfileMenu}
+                setShowListData={setShowProfileMenu}
                 buttonChildren={
-                    <UserProfileBadge showProfileMenu={showProfileMenu} setShowProfileMenu={setShowProfileMenu} />} dropDownListPosition={EWrapperDropdownListPosition.RIGHT}
+                    <UserProfileBadge showProfileMenu={showProfileMenu} setShowProfileMenu={setShowProfileMenu} />
+                }
+                dropDownListPosition={EWrapperDropdownListPosition.RIGHT}
             />
 
         </div>
