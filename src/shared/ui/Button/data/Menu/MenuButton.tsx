@@ -28,7 +28,7 @@ export const MenuButton = ({
     //FUNCTIONS
     const logOut = () => {
         actionCreators.setNotAuth();
-        router.replace(MAIN_PAGES.LOGIN.path);
+        router.push(MAIN_PAGES.CHECK_EMAIL.path);
     }
 
     const editProfile = () => router.push(DASHBOARD_PAGES.PROFILE_EDIT.path);

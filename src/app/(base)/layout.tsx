@@ -6,7 +6,7 @@ import { TopBar } from '@/features/TopBar';
 import { Footer } from '@/widgets/Footer';
 import { UpdateAuth } from '@/entities/Auth/ui/update/UpdateAuth';
 import { NotifyList } from '@/features/Notify/ui/List/NotifyList';
-import { LKButtonAddMarginBlock } from '@/features/LKButtonAddMarginBlock';
+import { LKButtonRightMarginBlock } from '@/features/LKButtonAddMarginBlock';
 
 export default function Layout({ children }: PropsWithChildren<unknown>) {
     return (
@@ -17,7 +17,7 @@ export default function Layout({ children }: PropsWithChildren<unknown>) {
                 {children}
                 <Footer/>
             </div>
-            <LKButtonAddMarginBlock/>
+            <LKButtonRightMarginBlock/>
             <MobileNavbar/>
             <NotifyList />
         </WrapperGap>

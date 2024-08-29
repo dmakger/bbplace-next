@@ -6,7 +6,7 @@ import { cls } from "@/shared/lib/classes.lib"
 import cl from './_UserAuth.module.scss'
 import { User } from "@/entities/User"
 import WrapperClickOutside from "@/shared/ui/Wrapper/ClickOutside/WrapperClickOutside"
-import UserProfileModal from "../UserProfileModal/UserProfileModal"
+import {UserProfileModal} from "../UserProfileModal/UserProfileModal"
 import { useAppSelector } from "@/storage/hooks"
 
 interface IUserAuth {

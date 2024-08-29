@@ -15,13 +15,11 @@ interface IUserProfileModal {
 export const UserProfileModal = ({ isShowProfileModal }: IUserProfileModal) => {
 
   // RTK
-  const {fullName, photoId, role} = useAppSelector(state => state.user)
+  const { fullName, photoId, role } = useAppSelector(state => state.user)
   const actionCreators = useActionCreators();
 
   // HANDLE
-  const logOut = () => {
-    actionCreators.setNotAuth();
-  };
+  const logOut = () => actionCreators.setNotAuth();
 
   // HTML
   return (
@@ -36,13 +34,11 @@ export const UserProfileModal = ({ isShowProfileModal }: IUserProfileModal) => {
       <div className={cl.bottomContainer}>
         {LK_OLD_MODAL_MENU_DATA.map(it => (
           <Button variant={ButtonVariant.ALMOST_RECTANGULAR}
-                  title={it.title} href={it.link}
-                  className={cls(cl.menuButtons, it.link === MAIN_PAGES.HOME.path ? cl.logOutButton : '')}
-                  onClick={it.link === MAIN_PAGES.HOME.path ? logOut : () => {}} key={it.link} />
+            title={it.title} href={it.link}
+            className={cls(cl.menuButtons, it.link === MAIN_PAGES.HOME.path ? cl.logOutButton : '')}
+            onClick={it.link === MAIN_PAGES.CHECK_EMAIL.path ? logOut : () => { }} key={it.link} />
         ))}
       </div>
     </section>
   )
 }
-
-export default UserProfileModal

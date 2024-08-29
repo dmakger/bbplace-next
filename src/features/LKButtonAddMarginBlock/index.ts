@@ -1,1 +1,1 @@
-export {LKButtonAddMarginBlock} from './ui/LKButtonAddMarginBlock'
+export {LKButtonRightMarginBlock} from './ui/LKButtonRightMarginBlock'
