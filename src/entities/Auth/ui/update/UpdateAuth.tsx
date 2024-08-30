@@ -4,9 +4,10 @@ import { FC, useEffect } from "react"
 
 import { UserAPI } from '@/entities/Auth/api/auth.api';
 import { useActionCreators } from '@/storage/hooks';
-import { getAccessToken, getRefreshToken, isAuth, removeFromStorage } from '@/entities/Auth/lib/auth-token.lib';
+import { getAccessToken, isAuth, removeFromStorage } from '@/entities/Auth/lib/auth-token.lib';
 import { ILoginResponseDecoded, IUser } from '@/entities/Auth/model/auth.model';
 import { supplierApiToSupplier } from "@/entities/Supplier/lib/process.supplier.lib";
+import { getCurrentLKToken } from "@/entities/User/lib/user-token.lib";
 
 
 interface UpdateAuthProps{}
@@ -32,6 +33,9 @@ export const UpdateAuth:FC<UpdateAuthProps> = () => {
             const data = await refreshToken().unwrap();
             if (data) {
                 actionCreators.setAuth(data);
+                actionCreators.setAuthOptional({
+                    currentLK: getCurrentLKToken()
+                })
             } else {
                 removeFromStorage();
             }

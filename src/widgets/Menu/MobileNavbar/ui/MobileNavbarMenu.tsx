@@ -13,6 +13,7 @@ import { useState } from "react"
 import { usePathname } from "next/navigation"
 import { FAVORITES_LK_MENU_DATA } from "@/features/User/Auth/data/userAuth.data"
 import { DropDownCatalog } from "@/features/DropDownCatalog"
+import { ECurrentLK } from "@/entities/User/model/user.model"
 
 interface IMobileNavbarMenu {
     className?: string,
@@ -32,7 +33,7 @@ export const MobileNavbarMenu = ({
     const [showProfileButtonsDropdown, setShowProfileButtonsDropdown] = useState<boolean>(false)
 
     //RTK
-    const { role } = useAppSelector(state => state.user)
+    const { currentLK } = useAppSelector(state => state.user)
 
     //FUNCTIONS
     const closeSidebar = () => setShowSidebarMenu((prevState: boolean) => !prevState);
@@ -43,12 +44,12 @@ export const MobileNavbarMenu = ({
     //DROPDOWN_LIST_DATA
     const dropDownListData: IMenuItem[][] | IMenuButton[][] = [
         [
-            role !== 'Buyer' ? BUYER_HOME_LK_MENU_DATA : SELLER_HOME_LK_MENU_DATA,
+            currentLK == ECurrentLK.SELLER ? BUYER_HOME_LK_MENU_DATA : SELLER_HOME_LK_MENU_DATA,
             LANG_EN_LK_ITEM_MENU_DATA,
             SUPPORT_LK_ITEM_MENU_DATA,
         ],
         pathname === FAVORITES_LK_MENU_DATA.link && is420 ? [FAVORITES_LK_MENU_DATA] : [],
-        role !== 'Buyer' ? PRODUCT_DROPDOWN_MENU_DATA : [],
+        currentLK !== ECurrentLK.BUYER ? PRODUCT_DROPDOWN_MENU_DATA : [],
         TENDER_DROPDOWN_MENU_DATA,
         [REVIEWS_LK_MENU_DATA]
     ]

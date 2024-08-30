@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Button, ButtonVariant } from '@/shared/ui/Button';
-import { useActionCreators } from '@/storage/hooks';
+import { useActionCreators, useAppSelector } from '@/storage/hooks';
 import { UserAPI } from '@/entities/Auth/api/auth.api';
 import { MAIN_PAGES } from '@/config/pages-url.config';
 import { usePathname, useRouter } from 'next/navigation';
@@ -17,6 +17,7 @@ export const UserNotAuth: React.FC<IUserNotAuthProps> = ({ className }) => {
     const pathname = usePathname()
     
     // RTK
+    const {currentLK} = useAppSelector(state => state.user);
     const actionCreators = useActionCreators();
 
     // API
@@ -38,7 +39,8 @@ export const UserNotAuth: React.FC<IUserNotAuthProps> = ({ className }) => {
 
     const handleOnClickLogin = () => {
         actionCreators.setAuthOptional({
-            prevPath: pathname
+            prevPath: pathname,
+            currentLK: currentLK
         })
         router.push(MAIN_PAGES.CHECK_EMAIL.path)
     }

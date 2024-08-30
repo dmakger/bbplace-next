@@ -14,6 +14,8 @@ import { BUYER_HOME_LK_MENU_DATA, LK_MENU_DATA, SELLER_HOME_LK_MENU_DATA } from 
 import { IMenuButton } from "@/shared/ui/Button/model/button.model"
 import { CHAT_HEADER_ICON } from "@/shared/ui/Icon/data/chat.data.icon"
 import { DASHBOARD_PAGES } from "@/config/pages-url.config"
+import { ECurrentLK } from "@/entities/User/model/user.model"
+import { getCurrentLKToken } from "@/entities/User/lib/user-token.lib"
 
 interface IHeaderMenuRight {
     className?: string,
@@ -25,10 +27,10 @@ export const HeaderMenuRight = ({ className }: IHeaderMenuRight) => {
     const [showProfileMenu, setShowProfileMenu] = useState<boolean>(false)
 
     //RTK
-    const { role } = useAppSelector(state => state.user)
+    const { currentLK } = useAppSelector(state => state.user)
 
     const dropDownListData: IMenuItem[][] | IMenuButton[][] = [
-        role !== 'Buyer' ? [SELLER_HOME_LK_MENU_DATA] : [BUYER_HOME_LK_MENU_DATA],
+        currentLK !== ECurrentLK.BUYER ? [BUYER_HOME_LK_MENU_DATA] : [SELLER_HOME_LK_MENU_DATA],
         LK_MENU_DATA,
     ]
 

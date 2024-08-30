@@ -6,14 +6,14 @@ import { User } from "@/entities/User"
 import { EUserVariants } from "@/entities/User/model/user.model"
 import { EUserProfileBadgeVariants } from "../model/userProfileBadge.model"
 import { useAppSelector } from "@/storage/hooks"
-import { getRoleName } from "@/shared/lib/roles.lib"
+import { getCurrentLKRoleName } from "@/shared/lib/roles.lib"
+import { getCurrentLKToken } from "@/entities/User/lib/user-token.lib"
 
 interface IUserProfileBadge {
     className?: string,
     variant?: EUserProfileBadgeVariants,
     showProfileMenu?: boolean,
     setShowProfileMenu?: Function
-
 }
 
 export const UserProfileBadge = ({
@@ -23,10 +23,10 @@ export const UserProfileBadge = ({
     setShowProfileMenu
 }: IUserProfileBadge) => {
     //RTK
-    const { role, fullName, photoId } = useAppSelector(state => state.user)
+    const { fullName, photoId, currentLK } = useAppSelector(state => state.user)
 
     //VARIABLE
-    const userRole = getRoleName(role);
+    const userRole = getCurrentLKRoleName(currentLK!);    
 
     return (
         <button className={cls(

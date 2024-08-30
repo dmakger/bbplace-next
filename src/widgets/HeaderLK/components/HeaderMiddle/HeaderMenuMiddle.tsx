@@ -5,6 +5,7 @@ import cl from './_HeaderMenuMiddle.module.scss'
 import { useAppSelector } from "@/storage/hooks"
 import { Dropdown } from "@/shared/ui/Dropdown"
 import { PRODUCT_DROPDOWN_MENU_DATA, TENDER_DROPDOWN_MENU_DATA } from "../../data/headerLK.data"
+import { ECurrentLK } from "@/entities/User/model/user.model"
 
 interface IHeaderMenuMiddle {
     className?: string,
@@ -13,11 +14,11 @@ interface IHeaderMenuMiddle {
 export const HeaderMenuMiddle = ({ className }: IHeaderMenuMiddle) => {
 
     //RTK
-    const {role} = useAppSelector(state => state.user)
+    const {currentLK} = useAppSelector(state => state.user)
      
     return (
         <div className={cls(cl.HeaderMenuMiddle, className)}>
-            {role !== 'Buyer' && <Dropdown labelTitle="Товары" dropDownListData={PRODUCT_DROPDOWN_MENU_DATA}/>}
+            {currentLK === ECurrentLK.SELLER && <Dropdown labelTitle="Товары" dropDownListData={PRODUCT_DROPDOWN_MENU_DATA}/>}
             <Dropdown labelTitle="Тендеры" dropDownListData={TENDER_DROPDOWN_MENU_DATA}/>
             {/* <ButtonLink title="Отзывы" /> */}
         </div>

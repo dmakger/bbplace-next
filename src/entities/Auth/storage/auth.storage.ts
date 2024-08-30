@@ -2,6 +2,8 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import { ILoginResponseDecoded, IUser, IUserOptionalProps } from "../model/auth.model";
 import { isAuth, removeFromStorage } from "../lib/auth-token.lib";
+import { getCurrentLKToken } from "@/entities/User/lib/user-token.lib";
+import { ECurrentLK } from "@/entities/User/model/user.model";
 
 
 const initialState: IUser = {
@@ -16,6 +18,7 @@ const initialState: IUser = {
     unreadMessages: 0,
     email: "",
     prevPath: '',
+    currentLK: getCurrentLKToken() || ECurrentLK.BUYER
 }
 
 export const UserSlice = createSlice({
@@ -41,6 +44,7 @@ export const UserSlice = createSlice({
             const data = action.payload
             state.photoId = data.photoId
             state.prevPath = data.prevPath
+            state.currentLK = data.currentLK
         },
 
         setNotAuth(state){
