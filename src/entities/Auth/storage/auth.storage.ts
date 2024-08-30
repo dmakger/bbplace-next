@@ -18,7 +18,7 @@ const initialState: IUser = {
     unreadMessages: 0,
     email: "",
     prevPath: '',
-    currentLK: getCurrentLKToken() || ECurrentLK.BUYER
+    currentLK: getCurrentLKToken()
 }
 
 export const UserSlice = createSlice({

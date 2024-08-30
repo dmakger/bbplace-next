@@ -14,6 +14,7 @@ import { usePathname } from "next/navigation"
 import { FAVORITES_LK_MENU_DATA } from "@/features/User/Auth/data/userAuth.data"
 import { DropDownCatalog } from "@/features/DropDownCatalog"
 import { ECurrentLK } from "@/entities/User/model/user.model"
+import { WrapperMount } from "@/shared/ui/Wrapper/Mount"
 
 interface IMobileNavbarMenu {
     className?: string,
@@ -55,22 +56,24 @@ export const MobileNavbarMenu = ({
     ]
 
     return (
-        <div className={cls(cl.MobileNavbarMenu, className)}>
-            <DropDownCatalog
-                isOpenModal={showSidebarMenu}
-                setIsOpenModal={setShowSidebarMenu}
-                classNameModal={cl.modalSidebar}
+        <WrapperMount>
+            <div className={cls(cl.MobileNavbarMenu, className)}>
+                <DropDownCatalog
+                    isOpenModal={showSidebarMenu}
+                    setIsOpenModal={setShowSidebarMenu}
+                    classNameModal={cl.modalSidebar}
 
-                firstDropDownListData={[PROFILE_BUTTONS_LK_ITEM_MENU_DATA]}
-                firstDropDownButtonChildren={<UserProfileBadge variant={EUserProfileBadgeVariants.MOBILE} showProfileMenu={showProfileButtonsDropdown} setShowProfileMenu={setShowProfileButtonsDropdown} />}
-                showFirstListData={showProfileButtonsDropdown}
-                setShowFirstListData={setShowProfileButtonsDropdown}
-                secondDropDownListData={dropDownListData}
+                    firstDropDownListData={[PROFILE_BUTTONS_LK_ITEM_MENU_DATA]}
+                    firstDropDownButtonChildren={<UserProfileBadge variant={EUserProfileBadgeVariants.MOBILE} showProfileMenu={showProfileButtonsDropdown} setShowProfileMenu={setShowProfileButtonsDropdown} />}
+                    showFirstListData={showProfileButtonsDropdown}
+                    setShowFirstListData={setShowProfileButtonsDropdown}
+                    secondDropDownListData={dropDownListData}
 
-                dropDownListVariant={EWrapperDropdownListVariant.MOBILE}
-                dropDownListPosition={EWrapperDropdownListPosition.RIGHT}
-                onClickXMark={closeSidebar}
-            />
-        </div>
+                    dropDownListVariant={EWrapperDropdownListVariant.MOBILE}
+                    dropDownListPosition={EWrapperDropdownListPosition.RIGHT}
+                    onClickXMark={closeSidebar}
+                />
+            </div>
+        </WrapperMount>
     )
 }

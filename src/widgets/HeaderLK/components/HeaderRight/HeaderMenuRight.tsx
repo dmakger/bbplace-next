@@ -15,7 +15,7 @@ import { IMenuButton } from "@/shared/ui/Button/model/button.model"
 import { CHAT_HEADER_ICON } from "@/shared/ui/Icon/data/chat.data.icon"
 import { DASHBOARD_PAGES } from "@/config/pages-url.config"
 import { ECurrentLK } from "@/entities/User/model/user.model"
-import { getCurrentLKToken } from "@/entities/User/lib/user-token.lib"
+import { WrapperMount } from "@/shared/ui/Wrapper/Mount"
 
 interface IHeaderMenuRight {
     className?: string,
@@ -36,30 +36,32 @@ export const HeaderMenuRight = ({ className }: IHeaderMenuRight) => {
 
 
     return (
-        <div className={cls(cl.HeaderMenuRight, className)}>
-            <Button variant={ButtonVariant.DEFAULT}
-                beforeImage={CHAT_HEADER_ICON} beforeProps={{ width: 20, height: 20 }}
-                href={DASHBOARD_PAGES.CHATS('').path}
-                className={cl.button}
-            />
-            <Button
-                className={cl.button}
-                variant={ButtonVariant.DEFAULT}
-                beforeImage={FAVOURITE_TERTIARY_ICON}
-                beforeProps={{ width: 20, height: 20 }}
-                href={DASHBOARD_PAGES.FAVOURITES.path}
-            />
+        <WrapperMount>
+            <div className={cls(cl.HeaderMenuRight, className)}>
+                <Button variant={ButtonVariant.DEFAULT}
+                    beforeImage={CHAT_HEADER_ICON} beforeProps={{ width: 20, height: 20 }}
+                    href={DASHBOARD_PAGES.CHATS('').path}
+                    className={cl.button}
+                />
+                <Button
+                    className={cl.button}
+                    variant={ButtonVariant.DEFAULT}
+                    beforeImage={FAVOURITE_TERTIARY_ICON}
+                    beforeProps={{ width: 20, height: 20 }}
+                    href={DASHBOARD_PAGES.FAVOURITES.path}
+                />
 
-            <Dropdown
-                dropDownListData={dropDownListData}
-                showListData={showProfileMenu}
-                setShowListData={setShowProfileMenu}
-                buttonChildren={
-                    <UserProfileBadge showProfileMenu={showProfileMenu} setShowProfileMenu={setShowProfileMenu} />
-                }
-                dropDownListPosition={EWrapperDropdownListPosition.RIGHT}
-            />
+                <Dropdown
+                    dropDownListData={dropDownListData}
+                    showListData={showProfileMenu}
+                    setShowListData={setShowProfileMenu}
+                    buttonChildren={
+                        <UserProfileBadge showProfileMenu={showProfileMenu} setShowProfileMenu={setShowProfileMenu} />
+                    }
+                    dropDownListPosition={EWrapperDropdownListPosition.RIGHT}
+                />
 
-        </div>
+            </div>
+        </WrapperMount>
     )
 }

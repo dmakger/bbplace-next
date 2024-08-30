@@ -33,9 +33,6 @@ export const UpdateAuth:FC<UpdateAuthProps> = () => {
             const data = await refreshToken().unwrap();
             if (data) {
                 actionCreators.setAuth(data);
-                actionCreators.setAuthOptional({
-                    currentLK: getCurrentLKToken()
-                })
             } else {
                 removeFromStorage();
             }
@@ -52,7 +49,8 @@ export const UpdateAuth:FC<UpdateAuthProps> = () => {
             if (supplier === undefined) return
 
             actionCreators.setAuthOptional({
-                photoId: supplier.photoId   
+                photoId: supplier.photoId,
+                currentLK: getCurrentLKToken()
             })
         })
     }

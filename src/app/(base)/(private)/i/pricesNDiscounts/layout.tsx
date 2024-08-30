@@ -1,4 +1,4 @@
-import { WrapperRole } from "@/shared/ui/Wrapper/1280/Role";
+import { WrapperRole } from "@/shared/ui/Wrapper/Role";
 
 export default function PricesNDiscountsLayout({
     children,

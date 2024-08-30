@@ -9,7 +9,7 @@ import cl from './_WrapperAuth.module.scss'
 import { UserAPI } from "@/entities/Auth/api/auth.api";
 import { MAIN_PAGES } from "@/config/pages-url.config";
 import { usePathname, useRouter } from "next/navigation";
-import { getCurrentLKToken } from "@/entities/User/lib/user-token.lib";
+import { WrapperMount } from "../Mount";
 
 interface WrapperAuthProps{
     children: ReactNode
@@ -46,8 +46,7 @@ export const WrapperAuth: FC<WrapperAuthProps> = ({ children }) => {
                     Country: ""
                 })
                 actionCreators.setAuthOptional({
-                    prevPath: pathname,
-                    currentLK: getCurrentLKToken()
+                    prevPath: pathname
                 })
             }
 
@@ -61,7 +60,7 @@ export const WrapperAuth: FC<WrapperAuthProps> = ({ children }) => {
     }
 
     return (
-        <>
+        <WrapperMount>
             {isAuth ? (
                 <>{children}</>
             ) : (
@@ -84,6 +83,6 @@ export const WrapperAuth: FC<WrapperAuthProps> = ({ children }) => {
                         />
                 </>
             )}
-        </>
+        </WrapperMount>
     );
 }

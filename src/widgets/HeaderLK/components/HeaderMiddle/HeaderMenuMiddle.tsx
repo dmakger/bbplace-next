@@ -6,6 +6,7 @@ import { useAppSelector } from "@/storage/hooks"
 import { Dropdown } from "@/shared/ui/Dropdown"
 import { PRODUCT_DROPDOWN_MENU_DATA, TENDER_DROPDOWN_MENU_DATA } from "../../data/headerLK.data"
 import { ECurrentLK } from "@/entities/User/model/user.model"
+import { WrapperMount } from "@/shared/ui/Wrapper/Mount"
 
 interface IHeaderMenuMiddle {
     className?: string,
@@ -14,13 +15,14 @@ interface IHeaderMenuMiddle {
 export const HeaderMenuMiddle = ({ className }: IHeaderMenuMiddle) => {
 
     //RTK
-    const {currentLK} = useAppSelector(state => state.user)
-     
+    const { currentLK } = useAppSelector(state => state.user)
     return (
-        <div className={cls(cl.HeaderMenuMiddle, className)}>
-            {currentLK === ECurrentLK.SELLER && <Dropdown labelTitle="Товары" dropDownListData={PRODUCT_DROPDOWN_MENU_DATA}/>}
-            <Dropdown labelTitle="Тендеры" dropDownListData={TENDER_DROPDOWN_MENU_DATA}/>
-            {/* <ButtonLink title="Отзывы" /> */}
-        </div>
+        <WrapperMount>
+            <div className={cls(cl.HeaderMenuMiddle, className)}>
+                {currentLK === ECurrentLK.SELLER && <Dropdown labelTitle="Товары" dropDownListData={PRODUCT_DROPDOWN_MENU_DATA} />}
+                <Dropdown labelTitle="Тендеры" dropDownListData={TENDER_DROPDOWN_MENU_DATA} />
+                {/* <ButtonLink title="Отзывы" /> */}
+            </div>
+        </WrapperMount>
     )
 }
