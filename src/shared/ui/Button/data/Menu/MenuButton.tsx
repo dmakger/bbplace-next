@@ -25,7 +25,7 @@ export const MenuButton = ({
     const router = useRouter();
 
     //RTK
-    const {currentLK} = useAppSelector(state => state.user)
+    const {currentLK , photoId} = useAppSelector(state => state.user)
     const actionCreators = useActionCreators();
 
     //FUNCTIONS
@@ -39,6 +39,7 @@ export const MenuButton = ({
         if(variant === EMenuButtonVariant.SWITCH_LK){
             const actualCurrentLK = currentLK === ECurrentLK.BUYER ? ECurrentLK.SELLER : ECurrentLK.BUYER
             actionCreators.setAuthOptional({
+                photoId: photoId,
                 currentLK: actualCurrentLK
             })
             saveCurrentLKTokenStorage(actualCurrentLK)
