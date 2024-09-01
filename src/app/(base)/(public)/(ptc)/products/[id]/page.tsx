@@ -26,8 +26,6 @@ import { SupplierWNav } from "@/entities/Supplier/ui/WNav/SupplierWNav";
 import { ESupplierSubscribeViewItem } from "@/entities/Supplier/data/view.supplier.data";
 import { DetailedPageSupplier } from "@/shared/ui/DetailedPage/ui/DetailedPageSupplier/DetailedPageSupplier";
 import { UserAPI } from "@/entities/Auth/api/auth.api";
-import { ISupplier } from "@/entities/Supplier/model/supplier.model";
-import { supplierApiToSupplier } from "@/entities/Supplier/lib/process.supplier.lib";
 import { IOption } from "@/shared/model/option.model";
 import { getDiapason } from "@/entities/Metrics/lib/metrics/diapason.metrics.metrics.lib";
 import { cls } from "@/shared/lib/classes.lib";
@@ -124,7 +122,7 @@ export default function ProductDetailPage() {
 
     return (
         <Wrapper1280>
-            <div className={cls(cl.wrapper, !inView ? cl.paddingBottom : '')}>
+            <div className={cls(cl.wrapper)}>
                 <div className={cl.left}>
                     <DetailedPageHeader
                         id={product.id}
