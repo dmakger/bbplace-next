@@ -21,13 +21,13 @@
 		max-width: 450px;
 		border-radius: 100px;
 		background-color: transparent;
-		margin-left: 7px;
 
 		@media (max-width: 1024px) {
 			padding: 0px !important;
 		}
 
-		@media (max-width:768px) {
+		@media (max-width: 768px) {
+			padding-left: 10px !important;
 			text-align: center;
 		}
 	}
@@ -40,7 +40,6 @@
 
 		@media (max-width: 1024px) {
 			gap: 6px;
-
 		}
 
 	}

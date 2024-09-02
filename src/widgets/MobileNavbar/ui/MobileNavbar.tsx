@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import cl from './_MobileNavbar.module.scss';
-import { FAVOURITES_ITEM_MOBILE_MENU_DATA, LK_MOBILE_DATA, MOBILE_MENU_DATA, SUPPORT_PAGE_MOBILE_DATA } from '@/shared/data/menu/mobile.menu.data';
+import { FAVOURITES_ITEM_MOBILE_MENU_DATA, LK_MOBILE_DATA, MOBILE_MENU_DATA, NOT_AUTH_MOBILE_DATA, SUPPORT_PAGE_MOBILE_DATA } from '@/shared/data/menu/mobile.menu.data';
 import { usePathname, useRouter } from 'next/navigation';
 import { IIconVariants } from '@/shared/model/icon.model';
 import { IIcon } from '@/shared/ui/Icon/model/icon.model';
@@ -35,6 +35,10 @@ export const MobileNavbar = ({
 		
 		//LK_PAGES
 		if (pathname.includes(DASHBOARD_PAGES.HOME.path)) setFilteredMenuData(LK_MOBILE_DATA);
+
+		//AUTH_PAGES
+		if (pathname.includes(MAIN_PAGES.REGISTRATION.path || MAIN_PAGES.LOGIN.path || MAIN_PAGES.CHECK_EMAIL.path || MAIN_PAGES.FORGOT_PASSWORD.path)) setFilteredMenuData(NOT_AUTH_MOBILE_DATA);
+
 		
 	}, [pathname, filteredMenuData, is420])
 

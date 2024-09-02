@@ -26,6 +26,7 @@ export const ListOption: FC<IListOptionProps> =({
     return (
         <List items={items} direction={direction}
               component={ListItemOption} 
+              onClickItem={onClickItem}
               componentProps={{
                 ...componentProps,
                 onClick: handleOnClickOption,
