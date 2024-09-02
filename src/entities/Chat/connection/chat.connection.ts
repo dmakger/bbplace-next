@@ -31,6 +31,13 @@ export const ChatSlice = createSlice({
                 };
                 state.chatDataList.splice(chatIndex, 1);
                 state.chatDataList.unshift(updatedChatData);
+            } else if (state.currentChat && state.currentChat.id === newMessage.chatId) {
+                // Если текущий чат соответствует новому сообщению, добавляем его в начало списка
+                const newChatData: IChatData = {
+                    chat: state.currentChat,
+                    message: newMessage,
+                };
+                state.chatDataList.unshift(newChatData);
             }
       	},
         messagesReceived: (state, action: PayloadAction<IMessage[]>) => {

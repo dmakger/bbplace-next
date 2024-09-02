@@ -52,9 +52,7 @@ export interface IPropsInvokeAddMessage {
 
 export interface IPropsChatConnection {
     propsChats?: IPropsInvokeChats, 
-    propsGetChatById?: IPropsInvokeGetChatById
     propsAddChat?: IPropsInvokeAddChat
 
-    propsMessages?: IPropsInvokeMessages, 
     propsAddMessage?: IPropsInvokeAddMessage, 
 }
