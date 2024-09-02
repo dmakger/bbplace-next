@@ -6,6 +6,7 @@ import { Footer } from '@/widgets/Footer';
 import { UpdateAuth } from '@/entities/Auth/ui/update/UpdateAuth';
 import { NotifyList } from '@/features/Notify/ui/List/NotifyList';
 import { LKButtonRightMarginBlock } from '@/features/LKButtonAddMarginBlock';
+import { MobileNavbar } from '@/widgets/MobileNavbar';
 
 export default function Layout({ children }: PropsWithChildren<unknown>) {
     return (

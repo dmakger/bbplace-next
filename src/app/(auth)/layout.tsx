@@ -12,7 +12,8 @@ export default function NotAuthLayout({ children }: PropsWithChildren<unknown>) 
             <div>
                 {children}
             </div>
-            <MobileNavbar menuData={NOT_AUTH_MOBILE_DATA}/>
+            {/* <MobileNavbar menuData={NOT_AUTH_MOBILE_DATA}/> */}
+            <MobileNavbar />
         </WrapperGap>
     )
 }
