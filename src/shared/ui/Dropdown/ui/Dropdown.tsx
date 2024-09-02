@@ -21,6 +21,7 @@ interface IDropdown {
     dropDownListData: IMenuItem[] | IMenuItem[][] | IMenuButton[] | IMenuButton[][]
     showListData?: boolean,
     setShowListData?: Function,
+    setIsOpenModal?: Function,
     dropDownListPosition?: EWrapperDropdownListPosition,
     dropDownListVariant?: EWrapperDropdownListVariant
 }
@@ -33,6 +34,8 @@ export const Dropdown = ({
     buttonChildren,
     dropDownListData,
     showListData,
+    setShowListData,
+    setIsOpenModal,
     dropDownListPosition = EWrapperDropdownListPosition.LEFT,
     dropDownListVariant = EWrapperDropdownListVariant.DESKTOP
 
@@ -46,13 +49,21 @@ export const Dropdown = ({
     //EFFECT
     useEffect(() => {
         if (showListData !== undefined) setShowList(showListData)
-    }, [showListData])
-
+    }, [showListData])    
+    
     //FUNCTIONS
-    const showDropdownList = () => setShowList(prevState => !prevState)
+    const toggleDropdownList = () => {
+        setShowList(!showList);
+        if (setShowListData) setShowListData(!showList);
+    };
+
+    const closeDropdownList = () => {
+        setShowList(false);
+        if (setShowListData) setShowListData(false);
+    };
 
     return (
-        <WrapperClickOutside className={cls(cl.Dropdown, cl[dropDownListPosition], className)} isShow={showList} _ref={ref} handle={setShowList}>
+        <WrapperClickOutside className={cls(cl.Dropdown, cl[dropDownListPosition], className)} isShow={showList} _ref={ref} handle={closeDropdownList}>
             {labelTitle && !buttonChildren ? (
                 <Button
                     title={labelTitle}
@@ -60,14 +71,14 @@ export const Dropdown = ({
                     variant={ButtonVariant.CLEAR}
                     afterImage={ARROW_TERTIARY_WO_FULL_ICON}
                     afterProps={{ width: 16, height: 9 }}
-                    onClick={showDropdownList}
+                    onClick={toggleDropdownList}
                 />
             ) : (
                 buttonChildren
             )}
 
             <WrapperDropdownList
-                isVisible={showList}
+                isVisible={showList ?? showListData}
                 dropDownListPosition={dropDownListPosition}
                 variant={dropDownListVariant}
                 className={classNameWrapperDropdownList}
@@ -76,14 +87,15 @@ export const Dropdown = ({
                 {Array.isArray(dropDownListData[0])
                     ? (dropDownListData as IMenuItem[][] as IMenuButton[][]).map((list, index, array) => (
                         <div key={index}>
-                            
+
                             <DropdownList listData={list} dropDownListPosition={dropDownListPosition} classNameButton={cls(index === 0 && dropDownListVariant !== EWrapperDropdownListVariant.MOBILE ? cl.firstEl : '')}
                                 isLastList={index === array.length - 1 && dropDownListVariant !== EWrapperDropdownListVariant.MOBILE}
+                                setIsOpenModal={setIsOpenModal}
                             />
                             {index < array.length - 1 && list.length > 0 && <hr className={cl.border} />}
                         </div>
                     ))
-                    : <DropdownList listData={dropDownListData as IMenuItem[]} dropDownListPosition={dropDownListPosition} isLastList setShowList={setShowList}/>
+                    : <DropdownList listData={dropDownListData as IMenuItem[]} dropDownListPosition={dropDownListPosition} isLastList setShowList={setShowList} setIsOpenModal={setIsOpenModal}/>
                 }
 
             </WrapperDropdownList>

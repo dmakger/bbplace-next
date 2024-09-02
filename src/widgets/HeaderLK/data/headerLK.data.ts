@@ -18,14 +18,16 @@ export const SUPPORT_LK_ITEM_MENU_DATA: IMenuItem = {
     title: "Поддержка",
 }
 
-export const BUYER_HOME_LK_MENU_DATA:  IMenuItem = {
+export const BUYER_HOME_LK_MENU_DATA: IMenuButton = {
     link: DASHBOARD_PAGES.HOME.path,
     title: "В профиль покупателя",
+    variant: EMenuButtonVariant.SWITCH_LK
 }
 
-export const SELLER_HOME_LK_MENU_DATA: IMenuItem = {
+export const SELLER_HOME_LK_MENU_DATA: IMenuButton = {
     link: DASHBOARD_PAGES.HOME.path,
     title: "В профиль продавца",
+    variant: EMenuButtonVariant.SWITCH_LK
 }
 
 export const REVIEWS_LK_MENU_DATA: IMenuItem = {

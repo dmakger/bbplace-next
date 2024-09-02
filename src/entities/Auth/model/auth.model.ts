@@ -1,3 +1,4 @@
+import { ECurrentLK } from "@/entities/User/model/user.model"
 import { IImage } from "@/shared/model/image.model"
 
 export interface IAuthForm {
@@ -25,12 +26,13 @@ export interface IUser extends IUserOptionalProps {
 }
 
 /**
- * Не обязательные поля пользователя.  
+ * Необязательные поля пользователя.  
  * Например поля которые получаем не из `JWT токена` (`photoId`)
  */
 export interface IUserOptionalProps  {
     photoId?: IImage
-    prevPath?: string
+    prevPath?: string,
+    currentLK?: ECurrentLK
 }
 
 export interface ILoginResponseDecoded {

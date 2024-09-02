@@ -6,7 +6,7 @@
     flex-direction: column;
     gap: 5px;
     width: 238px;
-    z-index: -1;
+    visibility: hidden;
     opacity: 0;
     padding: 6px;
     background-color: var(--white);
@@ -62,8 +62,8 @@
 }
 
 .visible{
-    z-index: 999;
     opacity: 1;
+    visibility: visible;
     transition-duration:  0.3s;
 }
 

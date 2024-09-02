@@ -1,10 +1,10 @@
 'use client'
 
-import Image from 'next/image'
-
 import { cls } from '@/shared/lib/classes.lib'
 import cl from './_CategoryButton.module.scss'
-import CategorySVG from '@/shared/assets/img/category.svg'
+
+import { Button, ButtonVariant } from '@/shared/ui/Button'
+import { CATEGORY_ICON } from '@/shared/ui/Icon/data/category.data.icon'
 
 interface CategoryButtonProps {
     onClick?: Function
@@ -12,20 +12,21 @@ interface CategoryButtonProps {
     isMobile?: boolean
 }
 
-export const CategoryButton = ({onClick, className, isMobile = false}: CategoryButtonProps) => {
+export const CategoryButton = ({ onClick, className, isMobile = false }: CategoryButtonProps) => {
     // HANDLE
     const handleOnClick = () => {
         if (onClick) onClick()
     }
 
     return (
-        <button onClick={handleOnClick} className={cls(cl.button, className)}>
-            <Image src={CategorySVG} alt='category' width={31} height={31} />
-            {!isMobile ?
-                <span className={cl.title}>
-                    Категории
-                </span>
-                : null}
-        </button>
+        <Button
+            className={cls(cl.button, isMobile ? cl.mobileButton : '', className)}
+            variant={ButtonVariant.DEFAULT}
+            title={isMobile ? '' : 'Категории'}
+            classNameText={cl.title}
+            beforeImage={CATEGORY_ICON}
+            beforeProps={{ width: 31, height: 31 }}
+            onClick={handleOnClick}
+        />
     )
 }
