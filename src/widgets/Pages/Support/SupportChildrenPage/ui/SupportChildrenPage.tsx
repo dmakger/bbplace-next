@@ -23,6 +23,7 @@ import { isTelEmailValid } from '@/entities/Auth/data/telNEmail.data'
 import { OptionsAttachmentItem } from '@/shared/ui/Form/OptionsAttachment/ui/Item/OptionsAttachmentItem'
 import { EOptionsAttachmentSize, EOptionsAttachmentVariants } from '@/shared/ui/Form/OptionsAttachment/data/optionsAttachment.data'
 import { EInputTextType } from '@/shared/ui/Input/ui/Text/data/text.input.data'
+import { EInputsContainerDirection } from '@/shared/ui/Wrapper/RectangleInput/model/wrapperRectangleInput.model'
 
 export const SupportChildrenPage = () => {
 
@@ -152,7 +153,7 @@ export const SupportChildrenPage = () => {
             <Input.Text variant={EInputVariants.RECTANGULAR} name="Message" value={message} setValue={setMessage} required inputTypeVariant={EInputTextTypeVariants.TEXTAREA} placeholder="Начните вводить"  warning={!!errors.Message} error={!!errors.Message} />
         </WrapperRectangleInput>
 
-        <WrapperRectangleInput labelText="Файлы" bellowButtonText="Отправить" bellowButtonType={ButtonType.Submit} isDescriptionTooltip descriptionTooltipText='При необходимости прикрепите файлы, связанные с вашим запросом.'>
+        <WrapperRectangleInput labelText="Файлы" bellowButtonText="Отправить" bellowButtonType={ButtonType.Submit} isDescriptionTooltip descriptionTooltipText='При необходимости прикрепите файлы, связанные с вашим запросом.' direction={EInputsContainerDirection.COLUMN}>
             <Input.File variant={EInputVariants.RECTANGULAR} name='Files' setFileList={setSelectedFiles} setResponseFileList={setSelectedResponseFiles} classNameField={cl.inputFile} />
             {selectedFiles.length > 0 && (
                 <div className={cl.optionsContainer}>

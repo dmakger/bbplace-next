@@ -8,6 +8,10 @@
     
     .text {
         margin-left: 16px;
+
+        @media (max-width: 420px) {
+            margin-left: 0px;
+        }
     }
 
     .heading {

@@ -57,6 +57,7 @@ export const ProductH:FC<ProductHProps> = ({product, className}) => {
                                   axis={is768 ? ESupplierAxis.VERTICAL : ESupplierAxis.HORIZONTAL}
                                   subscribeView={ESupplierSubscribeViewItem.SMALL}
                                   className={cl.supplier}
+                                  classNameNavs={cl.supplierNavs}
                                   navs={[
                                     getViewByIsList([
                                         {view: ESupplierToChatViewItem.LARGE, _is: is768},

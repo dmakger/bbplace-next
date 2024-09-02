@@ -75,6 +75,10 @@ export const ARROW_WLINE_SECONDARY_ICON: IIcon = {
     defaultPressed: ArrowWLineSecondaryHoveredIcon,
 }
 
+export const ARROW_WLINE_DEFAULT_SECONDARY_ICON: IIcon = {
+    default: ArrowWLineSecondaryIcon
+}
+
 export const ARROW_WLINE_TERTIARY_ICON: IIcon = {
     default: ARROW_WLINE_TERTIARY_DEFAULT_ICON.default,
     defaultHovered: ArrowWLineOnTertiaryIcon,

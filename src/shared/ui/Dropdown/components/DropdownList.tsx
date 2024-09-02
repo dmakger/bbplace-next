@@ -11,6 +11,7 @@ interface IDropdownList {
     listData: IMenuItem[] | IMenuButton[],
     isLastList?: boolean,
     dropDownListPosition?: EWrapperDropdownListPosition,
+    setIsOpenModal?: Function,
     setShowList?: Function
 }
 
@@ -21,6 +22,7 @@ export const DropdownList = ({
     isLastList,
     listData,
     dropDownListPosition = EWrapperDropdownListPosition.LEFT,
+    setIsOpenModal,
     setShowList
 }: IDropdownList) => {
 
@@ -30,6 +32,7 @@ export const DropdownList = ({
 
     const handleClick = () => {
         setShowList && setShowList(false);
+        setIsOpenModal && setIsOpenModal(false)
     }
     
     return (
@@ -43,6 +46,7 @@ export const DropdownList = ({
                             title={it.title}
                             link={it.link}
                             className={cls(
+                                cl.menuButton,
                                 isLastList && isLastEl ? cl.lastEl : '',
                                 noBorderBottomClass ? cl.noBorderBottom : '',
                                 classNameButton)}

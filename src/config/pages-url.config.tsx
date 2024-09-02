@@ -70,7 +70,7 @@ export const MAIN_PAGES = new MAIN('')
 
 
 class DASHBOARD extends Route {
-    HOME = this.createPath('/', true);
+    HOME = this.createPath('', true);
     PROFILE_EDIT = this.createPath('/edit', true);
     FAVOURITES = this.createPath('/favourites', true);
     
