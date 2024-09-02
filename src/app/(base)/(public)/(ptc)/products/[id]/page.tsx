@@ -69,6 +69,8 @@ export default function ProductDetailPage() {
         }
     }, [productAPI, currencyList, metrics, countries]);
 
+    console.log('qwe ', product)
+
     useEffect(() => {
         if (productAPIListGroup) {
             setProductListGroup(productApiListToProductList(productAPIListGroup, metrics, currencyList, countries));

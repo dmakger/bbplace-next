@@ -31,15 +31,15 @@ export const setupChatConnection = ({
             name: 'AddChat',
             props: [propsAddChat],
         } : undefined,
-        propsGetChatById ? {
-            name: 'FindChatById',
-            props: [propsGetChatById?.chatId],
-        } : undefined,
+        // propsGetChatById ? {
+        //     name: 'FindChatById',
+        //     props: [propsGetChatById?.chatId],
+        // } : undefined,
 
-        propsMessages ? {
-            name: 'GetMessages',
-            props: [propsMessages.chatId, propsMessages.limit, propsMessages.page],
-        } : undefined,
+        // propsMessages ? {
+        //     name: 'GetMessages',
+        //     props: [propsMessages.chatId, propsMessages.limit, propsMessages.page],
+        // } : undefined,
         propsAddMessage ? {
             name: 'AddMessage',
             props: [propsAddMessage],

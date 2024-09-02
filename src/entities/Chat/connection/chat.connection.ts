@@ -4,7 +4,7 @@ import { IChat, IChatData, IMessage } from '@/entities/Chat/model/chat.model';
 interface ChatState {
 	messages: IMessage[];
     chatDataList: IChatData[];
-    currentChat?: IChat;
+    currentChat?: IChat | null;
 }
   
 const initialState: ChatState = {
