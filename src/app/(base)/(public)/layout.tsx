@@ -1,3 +1,4 @@
+import { TopBar } from "@/features/TopBar";
 import { Header } from "@/widgets/Header";
 import { MobileNavbar } from "@/widgets/MobileNavbar";
 import { PropsWithChildren } from "react";
