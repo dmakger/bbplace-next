@@ -65,7 +65,7 @@ export const WrapperAuth: FC<WrapperAuthProps> = ({ children }) => {
             ) : (
                 <>
                     <div className={cl.fill}>
-                        <h2 className={cl.title}>Этот блок доступен только для зарегистрированных пользователей</h2>
+                        <h2 className={cl.title}>{"Этот блок доступен только для зарегистрированных пользователей"}</h2>
                     </div>
                     <ModalAction 
                         title={"Зарегистрируйтесь или войдите в профиль"} 

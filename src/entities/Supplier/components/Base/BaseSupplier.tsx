@@ -11,6 +11,7 @@ import { SubscribeAutoToSupplierButton } from "../Button/Subscribe/Auto/Subscrib
 import Link from "next/link";
 import { MAIN_PAGES } from "@/config/pages-url.config";
 import { IImageSizes } from "@/shared/model/image.model";
+import { getSupplierImage } from "../../lib/image.supplier.lib";
 
 interface BaseSupplierProps {
     supplier: ISupplier,
@@ -46,7 +47,7 @@ export const BaseSupplier: FC<BaseSupplierProps> = ({
     const html = (
         <>
             {hasImage &&
-                <ImageAPI src={supplier.photoId?.key} alt={supplier.photoId?.name} className={cl.image} width={imageSizes?.width} height={imageSizes?.height} />
+                <ImageAPI src={getSupplierImage(supplier.photoId?.key)} alt={supplier.photoId?.name} className={cl.image} width={imageSizes?.width} height={imageSizes?.height} />
             }
             <div className={cls(cl.content, isForDescPage ? cl.DescPageContent : '')}>
                 <span className={cls(cl.name, isForDescPage ? cl.bigName : '', classNameName)}>{getNameSupplier(supplier)}</span>
