@@ -8,6 +8,7 @@ import { getAccessToken, isAuth, removeFromStorage } from '@/entities/Auth/lib/a
 import { ILoginResponseDecoded, IUser } from '@/entities/Auth/model/auth.model';
 import { supplierApiToSupplier } from "@/entities/Supplier/lib/process.supplier.lib";
 import { getCurrentLKToken } from "@/entities/User/lib/user-token.lib";
+import { ECurrentLK } from "@/entities/User/model/user.model";
 
 
 interface UpdateAuthProps{}
@@ -50,7 +51,7 @@ export const UpdateAuth:FC<UpdateAuthProps> = () => {
 
             actionCreators.setAuthOptional({
                 photoId: supplier.photoId,
-                currentLK: getCurrentLKToken()
+                currentLK: getCurrentLKToken() ?? ECurrentLK.BUYER
             })
         })
     }

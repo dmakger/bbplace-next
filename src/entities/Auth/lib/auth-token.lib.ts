@@ -1,6 +1,8 @@
 import Cookies from 'js-cookie';
 import { jwtDecode } from 'jwt-decode';
 import { ILoginResponseDecoded } from '../model/auth.model';
+import { ECurrentLK } from '@/entities/User/model/user.model';
+import { EUserTokens } from '@/entities/User/lib/user-token.lib';
 
 export interface IAuthResponse {
     accessToken: string;
@@ -75,4 +77,5 @@ export const saveRefreshTokenStorage = (refreshToken: string): void => {
 export const removeFromStorage = (): void => {
     Cookies.remove(ETokens.ACCESS_TOKEN);
     Cookies.remove(ETokens.REFRESH_TOKEN);
+    Cookies.remove(EUserTokens.CURRENT_LK);
 };
