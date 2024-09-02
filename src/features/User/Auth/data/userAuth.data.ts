@@ -17,7 +17,7 @@ export const SUPPORT_LK_MENU_DATA: IMenuItem = {
 }
 
 export const LOGOUT_LK_MENU_DATA: IMenuItem = {
-    link: MAIN_PAGES.HOME.path,
+    link: MAIN_PAGES.CHECK_EMAIL.path,
     title: "Выйти из аккаунта",
 }
 

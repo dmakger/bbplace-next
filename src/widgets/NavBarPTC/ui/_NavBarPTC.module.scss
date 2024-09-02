@@ -26,6 +26,10 @@
         justify-content: space-between;
         border-bottom: 1px solid var(--gray-7);
     }
+    @media (max-width: 370px) {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
 }
 
 .navBarPTCItemContainer {
@@ -34,6 +38,9 @@
 
     @media (max-width: 768px) {
         gap: 30px;
+    }
+    @media (max-width: 370px) {
+        gap: 15px;
     }
 }
 

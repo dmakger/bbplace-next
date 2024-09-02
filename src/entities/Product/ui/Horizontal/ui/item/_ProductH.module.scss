@@ -5,6 +5,11 @@
     width: 100%;
     max-width: var(--max-width-2);
 
+    @media (max-width: 390px) {
+        gap: 15px;
+        padding: 10px;
+    }
+
     .left {
         .image {
             width: 271px;
@@ -87,5 +92,11 @@
 
     .supplier {
         margin-top: auto;
+    }
+
+    .supplierNavs{
+        & button{
+            padding: 8px 30px;
+        }
     }
 }

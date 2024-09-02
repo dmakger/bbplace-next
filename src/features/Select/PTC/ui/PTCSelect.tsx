@@ -54,7 +54,7 @@ export const PTCSelect = ({
         <div className={cl.selectContainer} >
             <Input.Select defaultOption={activeOption} options={PTC_LIST_DATA}
                 classNameTitle={cls(cl.select, classNameTitle)}
-                classNameOptions={classNameOptions}
+                classNameOptions={cls(cl.options, classNameOptions)}
                 className={className}
                 classNameButton={classNameButton}
                 onClickOption={getActivePTC} />

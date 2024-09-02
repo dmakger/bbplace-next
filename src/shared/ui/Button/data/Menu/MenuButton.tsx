@@ -5,9 +5,11 @@ import { cls } from '@/shared/lib/classes.lib'
 import { Button } from '../..'
 import { ButtonColor, ButtonSize, ButtonVariant, EMenuButtonVariant, IMenuButton } from '../../model/button.model'
 import { usePathname, useRouter } from 'next/navigation'
-import { useActionCreators } from '@/storage/hooks'
+import { useActionCreators, useAppSelector } from '@/storage/hooks'
 import { DASHBOARD_PAGES, MAIN_PAGES } from '@/config/pages-url.config'
 import { GLOBE_ICON } from '@/shared/ui/Icon/data/globe.data.icon';
+import { ECurrentLK } from '@/entities/User/model/user.model'
+import { saveCurrentLKTokenStorage } from '@/entities/User/lib/user-token.lib'
 
 export const MenuButton = ({
     className,
@@ -23,17 +25,30 @@ export const MenuButton = ({
     const router = useRouter();
 
     //RTK
+    const {currentLK , photoId} = useAppSelector(state => state.user)
     const actionCreators = useActionCreators();
 
     //FUNCTIONS
     const logOut = () => {
         actionCreators.setNotAuth();
-        router.replace(MAIN_PAGES.LOGIN.path);
+        router.push(MAIN_PAGES.CHECK_EMAIL.path);
+    }
+
+    const handleOnClick = () => {
+        onClick && onClick();
+        if(variant === EMenuButtonVariant.SWITCH_LK){
+            const actualCurrentLK = currentLK === ECurrentLK.BUYER ? ECurrentLK.SELLER : ECurrentLK.BUYER
+            actionCreators.setAuthOptional({
+                photoId: photoId,
+                currentLK: actualCurrentLK
+            })
+            saveCurrentLKTokenStorage(actualCurrentLK)
+        }
     }
 
     const editProfile = () => router.push(DASHBOARD_PAGES.PROFILE_EDIT.path);
 
-    const isActive = pathname === link;
+    const isActive = pathname === link && variant !== EMenuButtonVariant.SWITCH_LK;
         
     const renderButton = () => (
         <Button
@@ -41,7 +56,7 @@ export const MenuButton = ({
             href={link}
             className={cls(
                 className,
-                cl.MenuButton,
+            cl.MenuButton,
                 cl[variant],
                 (variant === EMenuButtonVariant.LINK && pathname === link) ? cl.activeLink
                     // : (variant === EMenuButtonVariant.LOCALIZATION && true) ? cl.activeLang 
@@ -55,7 +70,7 @@ export const MenuButton = ({
             disabled={isActive}
             classNameAfterText={cl.notificationCounter}
             color={variant === EMenuButtonVariant.LINK ? ButtonColor.Secondary : ButtonColor.Tertiary}
-            onClick={onClick}
+            onClick={handleOnClick}
         />
     );
 

@@ -1,19 +1,15 @@
 'use client'
 
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react"
-import cl from './_Filter.module.scss'
-import { IOption } from "@/shared/model/option.model"
-import { FilterCompaniesCatalog, FilterProductsCatalog, FilterTendersCatalog, FilterTitleButton } from "../components"
-import { ECatalogVariants } from "@/widgets/SortFilterSidebar"
-import { getCountriesAsOption, updateCategoriesAsOptions } from "../lib/filter.lib"
-import { cls } from "@/shared/lib/classes.lib"
-import { useAppSelector } from "@/storage/hooks"
-import { CountrySlice } from "@/entities/Metrics/storage/country.metrics.storage"
-import { ISortFilter } from "@/widgets/SortFilterSidebar/model/sortFilterSidebar.model"
-import { CategoryAPI } from "@/entities/Metrics/api/category.metrics.api"
-import { CountryAPI } from "@/entities/Metrics/api/country.metrics.api"
 import { ICategory } from "@/entities/Metrics/model/category.metrics.model"
 import { ICountry } from "@/entities/Metrics/model/country.metrics.model"
+import { cls } from "@/shared/lib/classes.lib"
+import { IOption } from "@/shared/model/option.model"
+import { ECatalogVariants } from "@/widgets/SortFilterSidebar"
+import { ISortFilter } from "@/widgets/SortFilterSidebar/model/sortFilterSidebar.model"
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react"
+import { FilterCompaniesCatalog, FilterProductsCatalog, FilterTendersCatalog, FilterTitleButton } from "../components"
+import { getCountriesAsOption, updateCategoriesAsOptions } from "../lib/filter.lib"
+import cl from './_Filter.module.scss'
 // import { useCategoryForFilter } from "@/entities/Product/hooks/useProduct.hooks"
 
 interface IFilter{

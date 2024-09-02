@@ -1,0 +1,13 @@
+.LKButtonAddMarginBlock{
+    display: none;
+}
+
+.LKWButtonAddPage{
+    @media (max-width: 1024px) {
+        display: block; 
+        margin-bottom: 40px;
+    }
+    @media (max-width: 768px) {
+        margin-bottom: 25px;
+    }
+}
