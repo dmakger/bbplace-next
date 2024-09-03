@@ -37,6 +37,7 @@
             padding-top: 10px;
             padding-bottom: 4px;
             z-index: 2;
+
             .pageTitle {
 
                 z-index: 2;
@@ -64,6 +65,45 @@
             }
         }
 
+    }
+
+    .additionalBlock {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        width: 100%;
+        max-width: 610px;
+        padding: 20px;
+        background-color: var(--background-2);
+        border-radius: 20px;
+
+        @media(max-width: 1280px){
+            max-width: 582px;
+        }
+        @media(max-width: 1024px){
+            max-width: 541px;
+        }
+        @media(max-width: 768px){
+            max-width: 425px;
+        }
+
+        .homeButton{
+            display: flex;
+            @media (max-width: 768px){
+                display: none;
+            }
+        }
+
+        .additionalBlockTitle {
+            font-weight: var(--font-weight-med);
+        }
+
+        .additionalBlockButtons {
+            display: flex;
+            gap: 10px;
+        }
     }
 
     .buttonsContainer {

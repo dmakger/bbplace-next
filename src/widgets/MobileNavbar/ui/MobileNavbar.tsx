@@ -11,10 +11,12 @@ import { MenuItem } from '@/shared/ui/Button/data/MenuItem/MenuItem';
 import { HandleSize } from '@/shared/ui/Handle/Size/HandleSize';
 import { DASHBOARD_PAGES, MAIN_PAGES } from '@/config/pages-url.config';
 
-interface IMobileNavbar {}
-
+interface IMobileNavbar {
+	menuData?: IIconVariants[]
+}
 
 export const MobileNavbar = ({
+	menuData
 }: IMobileNavbar) => {
 	//STATE
 	const [showSidebarMenu, setShowSidebarMenu] = useState<boolean>(false)
@@ -37,6 +39,11 @@ export const MobileNavbar = ({
 		if (pathname.includes(DASHBOARD_PAGES.HOME.path)) setFilteredMenuData(LK_MOBILE_DATA);
 		
 	}, [pathname, filteredMenuData, is420])
+
+
+	useEffect(() => {
+		if(menuData) setFilteredMenuData(menuData)
+	}, [menuData, filteredMenuData])
 
 
 	//FUNCTIONS
