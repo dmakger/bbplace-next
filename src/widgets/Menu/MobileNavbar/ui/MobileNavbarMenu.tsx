@@ -45,7 +45,7 @@ export const MobileNavbarMenu = ({
     //DROPDOWN_LIST_DATA
     const dropDownListData: IMenuItem[][] | IMenuButton[][] = [
         [
-            currentLK == ECurrentLK.SELLER ? BUYER_HOME_LK_MENU_DATA : SELLER_HOME_LK_MENU_DATA,
+            currentLK !== ECurrentLK.BUYER ? BUYER_HOME_LK_MENU_DATA : SELLER_HOME_LK_MENU_DATA,
             LANG_EN_LK_ITEM_MENU_DATA,
             SUPPORT_LK_ITEM_MENU_DATA,
         ],
