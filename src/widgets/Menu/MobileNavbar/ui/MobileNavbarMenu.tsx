@@ -52,7 +52,7 @@ export const MobileNavbarMenu = ({
         pathname === FAVORITES_LK_MENU_DATA.link && is420 ? [FAVORITES_LK_MENU_DATA] : [],
         currentLK !== ECurrentLK.BUYER ? PRODUCT_DROPDOWN_MENU_DATA : [],
         TENDER_DROPDOWN_MENU_DATA,
-        [REVIEWS_LK_MENU_DATA]
+        // [REVIEWS_LK_MENU_DATA]
     ]
 
     return (
