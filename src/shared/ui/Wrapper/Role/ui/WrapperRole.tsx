@@ -1,12 +1,11 @@
 'use client'
 
-import { ReactNode } from 'react'
-import cl from './_WrapperRole.module.scss'
+import { ReactNode, useEffect } from 'react'
 import { useAppSelector } from '@/storage/hooks'
-import { ModalAction } from '@/shared/ui/Modal/ui/Action/ModalAction'
-import { EModalView } from '@/shared/data/modal.data'
 import { useRouter } from 'next/navigation'
 import { ECurrentLK } from '@/entities/User/model/user.model'
+import OnlyForSellersPage from '@/app/(auth)/onlyForSellers/page'
+import { MAIN_PAGES } from '@/config/pages-url.config'
 
 interface IWrapperRole {
     children: ReactNode
@@ -22,26 +21,19 @@ export const WrapperRole = ({
     //ROUTER
     const router = useRouter()
 
-    //HANDLE
-    const handleOnCloseModal = () => router.back();
-    
+    useEffect(() => {
+        if (currentLK !== ECurrentLK.SELLER) {
+            router.push(MAIN_PAGES.ONLY_FOR_SELLERS.path)
+        }
+    }, [currentLK, router])
+
+    if (currentLK !== ECurrentLK.SELLER) {
+        return <OnlyForSellersPage/>
+    }
+
     return (
         <>
-            {currentLK === ECurrentLK.SELLER ? <>{children}</>
-                : <>
-                    <div className={cl.fill}>
-                        <h2 className={cl.title}>Этот блок доступен только для Продавцов</h2>
-                    </div>
-                    <ModalAction
-                        title={"Смените роль на Продавца в личном кабинете"}
-                        isOpen={true} view={EModalView.BOTTOM}
-                        hasBackground={true}
-
-                        hasClose={true}
-                        onClickOverlay={handleOnCloseModal}
-                    />
-                </>
-            }
+            {children}
         </>
     )
 }
