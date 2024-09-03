@@ -70,7 +70,8 @@ export const TTCellButtonItem = ({
                         variant={variant === ETTVariants.DEMO ? ButtonVariant.CONTENT : ButtonVariant.FILL}
                         color={variant === ETTVariants.DEMO ? ButtonColor.Tertiary : ButtonColor.Primary}
                         size={is1024 ? ButtonSize.Medium : ButtonSize.Big}
-                        title={buttonTitle} />}
+                        title={buttonTitle}
+                        disabled />}
                 </div>
 
                 <ButtonArrowWLine isSecondary={false} onClick={onNext} sizes={{ width: 20, height: 20 }}
