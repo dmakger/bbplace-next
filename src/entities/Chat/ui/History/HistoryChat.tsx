@@ -36,7 +36,9 @@ export const HistoryChat: FC<HistoryChatProps> = ({ className }) => {
         if (chatRef.current) {
             chatRef.current.scrollTop = chatRef.current.scrollHeight;
         }
-    }, [messages]);    
+    }, [messages])
+
+    console.log('qwe m', messages.slice(-1)[0])
 
     return (
         <div ref={chatRef} className={cls(cl.history, className)}>

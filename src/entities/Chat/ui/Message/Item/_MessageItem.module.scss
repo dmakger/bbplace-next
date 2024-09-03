@@ -4,7 +4,7 @@
 
     &.me {
         margin-left: auto;
-        .text {
+        .body {
             border-radius: 20px 0 5px 20px;
         }
         .date {
@@ -13,7 +13,7 @@
     }
     &.other {
         margin-right: auto;
-        .text {
+        .body {
             border-radius: 0 20px 20px 5px;
         }
     }
@@ -32,11 +32,13 @@
             font-size: var(--font-size-s);
         }
     }
-    .text {
+    .body {
         max-width: 600px;
         min-width: 80px;
         width: 100%;
         padding: 20px;
         background-color: var(--tertiary-surface-low);
+
+        .text {}
     }
 }

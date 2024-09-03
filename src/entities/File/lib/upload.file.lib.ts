@@ -1,4 +1,3 @@
-import { FileAPI } from "../api/file.api";
 import { IFile } from "../model/file.model";
 import { IResponseFile } from "../model/props.file.model";
 import { TUploadFile } from "../model/typeHook.file.model";

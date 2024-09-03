@@ -11,7 +11,6 @@ import { SEND__ON_PRIMARY__ICON } from "@/shared/ui/Icon/data/send.data.icon";
 import { FileWrapList } from "@/entities/File/ui/Wrap/FileWrapList";
 import { IFile } from "@/entities/File/model/file.model";
 import { IResponseFile } from "@/entities/File/model/props.file.model";
-import { getFormDataFromForm } from "@/shared/lib/formData.lib";
 import { IPropsInvokeAddMessage } from "@/entities/Chat/model/connection.chat.model";
 import { useAppDispatch, useAppSelector } from "@/storage/hooks";
 import { addMessageToChat } from "@/entities/Chat/connection/invoke/message.invoke.chat.connection";

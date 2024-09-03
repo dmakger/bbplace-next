@@ -9,14 +9,16 @@ import { FileListItem } from "../List/FileListItem";
 import { IFile } from "../../model/file.model";
 import { Button, ButtonVariant } from "@/shared/ui/Button";
 import { ButtonColor } from "@/shared/ui/Button/model/button.model";
+import { FileBlockView } from "../../data/view.file.data";
 
 interface FileBlockProps {
     files: IFile[]
     isRow?: boolean
+    view?: FileBlockView
     className?: string,
 }
 
-export const FileBlock: FC<FileBlockProps> = ({ files, isRow = true, className }) => {
+export const FileBlock: FC<FileBlockProps> = ({ files, isRow = true, view=FileBlockView.Default, className }) => {
     // REF
     const contentRef = useRef<HTMLDivElement>(null);
 
@@ -65,7 +67,7 @@ export const FileBlock: FC<FileBlockProps> = ({ files, isRow = true, className }
     };
 
     return (
-        <WrapperBlock className={cls(cl.block, isRow ? cl.row : cl.column, className)}>
+        <WrapperBlock className={cls(cl.block, isRow ? cl.row : cl.column, cl[view], className)}>
             <div className={cl.top}>
                 <div className={cl.topLeft}>
                     <h2 className={cl.title}>Файлы</h2>
