@@ -84,6 +84,7 @@ export const InputFile:FC<InputFileProps> = ({
 
         setIsUploading(true)
         const fileArray = fileListToIFileList(Array.from(e.target.files))
+        console.log('qwe fileArray', fileArray)
         uploadFileList(multiple ? fileArray : [fileArray[0]], uploadFile).then(
             uploadedFileList => {
                 getFileList(uploadedFileList).then(r => {

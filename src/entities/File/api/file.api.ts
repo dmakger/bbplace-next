@@ -11,13 +11,14 @@ export const FileAPI = createApi({
 	}),
 	endpoints: (build) => ({
 		getFile: build.mutation<File | IFile, IFileProps>({
-            query: ({fileId, toFile=false}) => ({
+            query: ({fileId, toFile=false, name}) => ({
                 url: `/GetFile/${fileId}`,
                 method: 'GET',
                 responseHandler: async (response) => {
                     const data = await response.arrayBuffer()
                     const blob = new Blob([data])
-                    const file = new File([blob], 'image')
+                    const file = new File([blob], name ?? 'image')
+                    console.log('qwe file', data, blob, file)
                     if (!toFile) return file
                     const format = getFormatFile(fileId)
                     return {
