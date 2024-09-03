@@ -60,9 +60,9 @@ export const ChatChildrenPage: FC<ChatChildrenPageProps> = ({ className }) => {
 
         checkAndInitiateConnection();
 
-        return () => {
-            stopConnection();
-        };
+        // return () => {
+        //     stopConnection();
+        // };
     }, []);
 
     useEffect(() => {

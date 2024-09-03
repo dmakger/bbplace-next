@@ -44,7 +44,8 @@ export default function RootLayout({
     return (
         <html lang="ru">
         <link rel="icon" href="/favicon.ico" />
-        <body className={cls(geologica.className, inter.className)}>
+        {/* <body className={cls(geologica.className, inter.className)}> */}
+        <body className={cls(inter.className)}>
 
             {/* Yandex.Metrika counter */}
             <Script id="yandex-metrika-init" strategy="afterInteractive">
