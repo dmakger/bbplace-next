@@ -33,12 +33,14 @@
         }
     }
     .body {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        
         max-width: 600px;
         min-width: 80px;
         width: 100%;
         padding: 20px;
         background-color: var(--tertiary-surface-low);
-
-        .text {}
     }
 }

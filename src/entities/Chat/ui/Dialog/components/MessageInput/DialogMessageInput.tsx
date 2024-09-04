@@ -59,14 +59,14 @@ export const DialogMessageInput: FC<DialogMessageInputProps> = ({ className }) =
         // if (!formRef.current) return; // Блокировка, если уже идет отправка
         if (!formRef.current || isSubmitting) return; // Блокировка, если уже идет отправка
         
-        if (!textAreaRef.current || !textAreaRef.current.value.trim() || !currentChat)
+        if (!currentChat || uploadedResponseFileList.length === 0 && (!textAreaRef.current || !textAreaRef.current.value.trim()))
             return;
 
         setIsSubmitting(true); // Блокировка повторного вызова
         
         const newMessage: IPropsInvokeAddMessage = {
             chatId: currentChat.id,
-            text: textAreaRef.current.value.trim(),
+            text: textAreaRef.current ? textAreaRef.current.value.trim() : '',
             attachments: JSON.stringify(uploadedResponseFileList),
         }
 
@@ -77,7 +77,8 @@ export const DialogMessageInput: FC<DialogMessageInputProps> = ({ className }) =
         }
 
         // Очищаем форму после отправки
-        textAreaRef.current.value = "";
+        if (textAreaRef.current)
+            textAreaRef.current.value = "";
         setUploadedFileList([]);
         setUploadedResponseFileList([]);
     }

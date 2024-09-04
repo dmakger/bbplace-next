@@ -104,7 +104,6 @@ export const InputFile:FC<InputFileProps> = ({
         })
     }
     
-
     const handleOnClickButton = () => {
         inputRef.current?.click()
     }

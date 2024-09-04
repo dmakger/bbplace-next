@@ -1,4 +1,4 @@
-export enum FileBlockView {
+export enum FileView {
     Default = 'default',
     Chat = 'chat',
 }

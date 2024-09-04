@@ -14,6 +14,7 @@ import { IFile } from "@/entities/File/model/file.model";
 import { FileAPI } from "@/entities/File/api/file.api";
 import { responseFileListToFileList } from "@/entities/File/lib/getter.file.lib";
 import { FileWrapList } from "@/entities/File/ui/Wrap/FileWrapList";
+import { FileView } from "@/entities/File/data/view.file.data";
 
 interface MessageItemProps extends IListItem<IMessage> {
     myId?: IUser['id'];
@@ -109,7 +110,7 @@ export const MessageItem: FC<MessageItemProps> = ({
                     ))
                 }</div>
                 {fileList.length > 0 && (
-                    <FileBlock files={fileList} isRow={false} className={cl.fileList}/>
+                    <FileBlock files={fileList} isRow={false} view={FileView.Chat} className={cl.fileList}/>
                 )}
             </div>
         </div>

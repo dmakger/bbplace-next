@@ -68,6 +68,18 @@
 
 // >>> ========={ / VIEW \ }========= >>>
 
+.chat {
+    background-color: var(--empty);
+    padding: 0;
+    gap: 10px;
 
+    .files {
+        margin: 0 !important;
+    }
+
+    .bottom {
+        padding: 0;
+    }
+}
 
 // <<< ========={ \ VIEW / }========= <<<
