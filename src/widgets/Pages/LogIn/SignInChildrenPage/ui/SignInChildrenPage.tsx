@@ -14,7 +14,8 @@ import { EMAIL_VALID_RULES, isEmailValid } from "@/entities/Auth/data/telNEmail.
 import { FILL_THE_FIELD, LOGIN_ERROR } from "@/entities/Auth/data/errorMessages.data"
 import { ButtonType } from "@/shared/ui/Button/model/button.model"
 import { EInputTextType } from "@/shared/ui/Input/ui/Text/data/text.input.data"
-import { getCurrentLKToken } from "@/entities/User/lib/user-token.lib"
+import { saveCurrentLKTokenStorage } from "@/entities/User/lib/user-token.lib"
+import { ECurrentLK } from "@/entities/User/model/user.model"
 
 
 export const SignInChildrenPage = () => {
@@ -60,9 +61,10 @@ export const SignInChildrenPage = () => {
             if (data) {
                 actionCreators.setAuth(data);
                 actionCreators.setAuthOptional({
-                    currentLK: getCurrentLKToken()
+                    currentLK: ECurrentLK.BUYER
                 })
                 router.replace(prevPath ?? MAIN_PAGES.HOME.path)
+                saveCurrentLKTokenStorage(ECurrentLK.BUYER)
             }
         }
         catch (e: any) {
