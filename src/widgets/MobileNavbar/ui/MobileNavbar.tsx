@@ -39,7 +39,7 @@ export const MobileNavbar = ({
 		if (pathname.includes(DASHBOARD_PAGES.HOME.path)) setFilteredMenuData(LK_MOBILE_DATA);
 
 		//AUTH_PAGES
-		if (pathname.includes(MAIN_PAGES.REGISTRATION.path || MAIN_PAGES.LOGIN.path || MAIN_PAGES.CHECK_EMAIL.path || MAIN_PAGES.FORGOT_PASSWORD.path)) setFilteredMenuData(NOT_AUTH_MOBILE_DATA);
+		if (pathname.includes(MAIN_PAGES.REGISTRATION.path || MAIN_PAGES.LOGIN.path || MAIN_PAGES.CHECK_EMAIL.path || MAIN_PAGES.FORGOT_PASSWORD.path || MAIN_PAGES.ONLY_FOR_SELLERS.path)) setFilteredMenuData(NOT_AUTH_MOBILE_DATA);
 
 		
 	}, [pathname, filteredMenuData, is420])

@@ -15,6 +15,7 @@ import { LK_ICON } from "@/shared/ui/Icon/data/lk.data.icon"
 import { IImageSizes } from "@/shared/model/image.model"
 import { ECurrentLK } from "@/entities/User/model/user.model"
 import { saveCurrentLKTokenStorage } from "@/entities/User/lib/user-token.lib"
+import { ONLY_FOR_SELLERS_PAGES_ARRAY } from "@/widgets/Pages/OnlyForSellers/data/onlyForSellers.data"
 
 interface IWrapperForLogInNSupportPages {
     className?: string,
@@ -49,33 +50,32 @@ export const WrapperForLogInNSupportPages = ({
     const pathname = usePathname()
 
     //RTK
-    const { isAuth, currentLK, photoId } = useAppSelector(state => state.user)
+    const { isAuth, currentLK, photoId, prevPath } = useAppSelector(state => state.user)
     const actionCreators = useActionCreators();
-
-    //VARIABLE
-    const iconSizes: IImageSizes = { width: 18, height: 18 };
-
-    const isOnlyForSellers = pathname === MAIN_PAGES.ONLY_FOR_SELLERS.path;
-
-    const additionalDefaultButtons: ReactNode[] = [
-        <Button title='Главная' variant={ButtonVariant.TONAL} size={ButtonSize.Medium} href={MAIN_PAGES.HOME.path} className={cl.homeButton}/>,
-        <Button title='Профиль' variant={ButtonVariant.TONAL} size={ButtonSize.Medium} href={DASHBOARD_PAGES.HOME.path} />,
-        isOnlyForSellers ?  <Button title='Сменить роль' variant={ButtonVariant.FILL} size={ButtonSize.Medium} onClick={() => switchLK} /> : 
-        <Button title='Каталог' variant={ButtonVariant.FILL} size={ButtonSize.Medium} href={MAIN_PAGES.PRODUCTS.path} />
-    ]
 
     //FUNCTION
 
-    const switchLK = () => {
-        const actualCurrentLK = currentLK === ECurrentLK.BUYER ? ECurrentLK.SELLER : ECurrentLK.BUYER
-            actionCreators.setAuthOptional({
-                photoId: photoId,
-                currentLK: actualCurrentLK
-            })
-            saveCurrentLKTokenStorage(actualCurrentLK)
-            router.back()
+    const goBackByCurrentLK = () => {
+        if (ONLY_FOR_SELLERS_PAGES_ARRAY.find(it => it === prevPath) && currentLK === ECurrentLK.BUYER) {            
+            return router.back();
+        }
+        if (prevPath) return router.replace(prevPath);
     }
 
+    const goBack = () => {
+        goBackByCurrentLK()
+        router.back();
+    }
+
+    const switchLK = () => {
+        const actualCurrentLK = currentLK === ECurrentLK.BUYER ? ECurrentLK.SELLER : ECurrentLK.BUYER
+        actionCreators.setAuthOptional({
+            photoId: photoId,
+            currentLK: actualCurrentLK
+        })
+        saveCurrentLKTokenStorage(actualCurrentLK)
+        goBackByCurrentLK();
+    }
 
     const navigateToTheSupport = () => router.push(MAIN_PAGES.SUPPORT.path);
 
@@ -86,9 +86,20 @@ export const WrapperForLogInNSupportPages = ({
         router.push(DASHBOARD_PAGES.HOME.path);
     }
 
-    const goBack = () => router.back();
 
     const navigateToTheForgotPassword = () => router.push(MAIN_PAGES.FORGOT_PASSWORD.path)
+
+    //VARIABLE
+    const iconSizes: IImageSizes = { width: 18, height: 18 };
+
+    const isOnlyForSellers = pathname === MAIN_PAGES.ONLY_FOR_SELLERS.path;
+
+    const additionalDefaultButtons: ReactNode[] = [
+        <Button title='Главная' variant={ButtonVariant.TONAL} size={ButtonSize.Medium} href={MAIN_PAGES.HOME.path} className={cl.homeButton} />,
+        <Button title='Профиль' variant={ButtonVariant.TONAL} size={ButtonSize.Medium} href={DASHBOARD_PAGES.HOME.path} />,
+        isOnlyForSellers ? <Button title='Сменить роль' variant={ButtonVariant.FILL} size={ButtonSize.Medium} onClick={switchLK} /> :
+            <Button title='Каталог' variant={ButtonVariant.FILL} size={ButtonSize.Medium} href={MAIN_PAGES.PRODUCTS.path} />
+    ]
 
     return (
         <main className={cls(cl.WrapperForLogInNSupportPages, className)}>
