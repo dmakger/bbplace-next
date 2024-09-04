@@ -47,23 +47,23 @@ export const DialogMessageInput: FC<DialogMessageInputProps> = ({ className }) =
     };
 
     // NEW: Обработка нажатия клавиш
-    // const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-    //     if (e.key === 'Enter' && !e.shiftKey) {
-    //         e.preventDefault(); // Предотвратить перенос строки
-    //         handleOnSubmit(e as any); // Вызов функции отправки сообщения
-    //     }
-    // };
+    const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault(); // Предотвратить перенос строки
+            handleOnSubmit(e as any); // Вызов функции отправки сообщения
+        }
+    };
 
     const handleOnSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         
-        if (!formRef.current) return; // Блокировка, если уже идет отправка
-        // if (!formRef.current || isSubmitting) return; // Блокировка, если уже идет отправка
+        // if (!formRef.current) return; // Блокировка, если уже идет отправка
+        if (!formRef.current || isSubmitting) return; // Блокировка, если уже идет отправка
         
         if (!textAreaRef.current || !textAreaRef.current.value.trim() || !currentChat)
             return;
 
-        // setIsSubmitting(true); // Блокировка повторного вызова
+        setIsSubmitting(true); // Блокировка повторного вызова
         
         const newMessage: IPropsInvokeAddMessage = {
             chatId: currentChat.id,
@@ -100,8 +100,8 @@ export const DialogMessageInput: FC<DialogMessageInputProps> = ({ className }) =
                     </div>
                     <Input.Text inputTypeVariant={EInputTextTypeVariants.TEXTAREA} variant={EInputVariants.RECTANGULAR}
                                 placeholder="Введите сообщение"
-                                onChange={handleTextAreaChange}
-                                // onKeyDown={handleKeyDown} // NEW: Обработчик события клавиатуры
+                                // onChange={handleTextAreaChange}
+                                onKeyDown={handleKeyDown} // NEW: Обработчик события клавиатуры
                                 refTextArea={textAreaRef}
                                 rows={1}
                                 classNameTextArea={cl.text} />

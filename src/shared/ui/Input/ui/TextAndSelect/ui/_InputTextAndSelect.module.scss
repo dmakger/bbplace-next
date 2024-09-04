@@ -328,7 +328,10 @@
     }
 }
 
-
+.modal{
+    max-height: 60vh !important;
+    padding-bottom: 50px !important;
+}
 .modalBottomChild {
-    padding: 0 !important;
+    padding: 0px !important;
 }

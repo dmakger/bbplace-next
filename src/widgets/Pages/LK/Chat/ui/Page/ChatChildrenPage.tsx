@@ -13,6 +13,9 @@ import { useSearchParams } from "next/navigation";
 import connection from "@/api/connection/lib/connection.lib";
 import { INVOKE_CHATS__PROPS_DEFAULT, INVOKE_MESSAGES__PROPS_DEFAULT } from "@/entities/Chat/data/default.chat.data";
 import { HandleSize } from "@/shared/ui/Handle/Size/HandleSize";
+import { isNumeric } from "@/shared/lib/number.lib";
+import { findChatByUserId, findChatByChatId, addChatByUserId } from "@/entities/Chat/connection/invoke/chat.invoke.chat.connection";
+import { getMessages } from "@/entities/Chat/connection/invoke/message.invoke.chat.connection";
 
 interface ChatChildrenPageProps {
     className?: string,
@@ -24,7 +27,7 @@ export const ChatChildrenPage: FC<ChatChildrenPageProps> = ({ className }) => {
     const chatId = searchParams.get('id') ?? undefined
 
     // RTK
-    const { chatDataList } = useAppSelector((state) => state.chat);
+    const { chatDataList, currentChat } = useAppSelector((state) => state.chat);
     const dispatch = useAppDispatch();
 
     // STATE
@@ -34,12 +37,8 @@ export const ChatChildrenPage: FC<ChatChildrenPageProps> = ({ className }) => {
     useEffect(() => {
         const initiateConnection = async () => {
             if (connection.state === HubConnectionState.Disconnected) {
-                const propsMessages = chatId ? { ...INVOKE_MESSAGES__PROPS_DEFAULT, chatId: +chatId } : undefined;
-                const propsGetChatById = chatId ? {chatId: +chatId} : undefined
                 await dispatch(setupChatConnection({
                     propsChats: INVOKE_CHATS__PROPS_DEFAULT,
-                    propsMessages,
-                    propsGetChatById,
                 }));
             }
         };
@@ -64,7 +63,25 @@ export const ChatChildrenPage: FC<ChatChildrenPageProps> = ({ className }) => {
         return () => {
             stopConnection();
         };
-    }, [chatId]);
+    }, []);
+
+    useEffect(() => {
+        if (chatId === undefined) return
+        if (isNumeric(chatId)) {
+            dispatch(findChatByChatId(+chatId))
+        } else {
+            dispatch(findChatByUserId(chatId))
+        }
+    }, [chatId, connection.state])
+
+    useEffect(() => {
+        if (!chatId) return
+        if (!currentChat) {
+            dispatch(addChatByUserId(chatId))
+        } else {
+            dispatch(getMessages({...INVOKE_MESSAGES__PROPS_DEFAULT, chatId: currentChat.id }))
+        }
+    }, [currentChat, connection.state])
 
     return (
         <div className={cls(cl.page, is1024 ? cl.inRow : '', className)}>

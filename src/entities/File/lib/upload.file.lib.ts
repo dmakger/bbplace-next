@@ -24,13 +24,14 @@ export const uploadFileItem = async (file: IFile | File, uploadFile: TUploadFile
     if (!updatedFile) return null
 
     const formData = new FormData()
-    formData.append('file', updatedFile)
+    formData.append('file', updatedFile, updatedFile.name)
 
     try {
         const fileData = await uploadFile(formData).unwrap()
         return {
             key: fileData.key,
-            name: fileData.name ? fileData.name : file.name
+            // name: fileData.name ? fileData.name : file.name
+            name: file.name ?? fileData.name
         } as IResponseFile
     } catch {
         return null

@@ -251,7 +251,8 @@ export function TextAndSelectInput({
                     <Modal view={EModalView.BOTTOM}
                         buttonNode
                         isOpen={showOptions}
-                        onClickOverlay={toggleShowOptions}>
+                        onClickOverlay={toggleShowOptions}
+                        classNameSidebar={cl.modal}> 
                         <WrapperModalBottomDropSearch 
                             title={titleModal}
                             searchQuery={searchQuery} 

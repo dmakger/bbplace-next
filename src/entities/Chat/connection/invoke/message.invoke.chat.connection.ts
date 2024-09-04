@@ -1,6 +1,6 @@
 import { AppThunk } from "@/storage";
 import connection from "@/api/connection/lib/connection.lib";
-import { IPropsInvokeAddMessage } from "@/entities/Chat/model/connection.chat.model";
+import { IPropsInvokeAddMessage, IPropsInvokeMessages } from "@/entities/Chat/model/connection.chat.model";
 import { IMessage } from "../../model/chat.model";
 
 /**
@@ -23,5 +23,17 @@ export const markMessageAsRead = (messageId: IMessage['id']): AppThunk => async 
         await connection.invoke("MarkMessageAsRead", messageId);
     } catch (error) {
         console.error("Ошибка при прочитывании сообщения:", error);
+    }
+};
+
+
+/**
+ * Получение сообщений по `IPropsInvokeMessages`
+ */
+export const getMessages = ({chatId, limit, page}: IPropsInvokeMessages): AppThunk => async (dispatch) => {
+    try {
+        await connection.invoke("GetMessages", chatId, limit, page);
+    } catch (error) {
+        console.error("Ошибка при получении сообщений:", error);
     }
 };

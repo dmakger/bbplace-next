@@ -39,5 +39,6 @@ export interface IFileName {
 export interface IFileProps {
     fileId: string
     toFile?: boolean
+    name?: string
 }
 
