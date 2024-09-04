@@ -27,10 +27,6 @@ export const WrapperRole = ({
         }
     }, [currentLK, router])
 
-    if (currentLK !== ECurrentLK.SELLER) {
-        return <OnlyForSellersPage/>
-    }
-
     return (
         <>
             {children}

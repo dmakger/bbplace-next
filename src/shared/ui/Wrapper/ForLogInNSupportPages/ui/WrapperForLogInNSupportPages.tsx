@@ -10,9 +10,11 @@ import { FormEventHandler, ReactNode, RefObject } from "react"
 import { usePathname, useRouter } from "next/navigation"
 import { DASHBOARD_PAGES, MAIN_PAGES } from "@/config/pages-url.config"
 import { Logo } from "@/shared/ui/Logo"
-import { useAppSelector } from "@/storage/hooks"
+import { useActionCreators, useAppSelector } from "@/storage/hooks"
 import { LK_ICON } from "@/shared/ui/Icon/data/lk.data.icon"
 import { IImageSizes } from "@/shared/model/image.model"
+import { ECurrentLK } from "@/entities/User/model/user.model"
+import { saveCurrentLKTokenStorage } from "@/entities/User/lib/user-token.lib"
 
 interface IWrapperForLogInNSupportPages {
     className?: string,
@@ -47,18 +49,34 @@ export const WrapperForLogInNSupportPages = ({
     const pathname = usePathname()
 
     //RTK
-    const { isAuth } = useAppSelector(state => state.user)
+    const { isAuth, currentLK, photoId } = useAppSelector(state => state.user)
+    const actionCreators = useActionCreators();
 
     //VARIABLE
     const iconSizes: IImageSizes = { width: 18, height: 18 };
 
+    const isOnlyForSellers = pathname === MAIN_PAGES.ONLY_FOR_SELLERS.path;
+
     const additionalDefaultButtons: ReactNode[] = [
         <Button title='Главная' variant={ButtonVariant.TONAL} size={ButtonSize.Medium} href={MAIN_PAGES.HOME.path} className={cl.homeButton}/>,
         <Button title='Профиль' variant={ButtonVariant.TONAL} size={ButtonSize.Medium} href={DASHBOARD_PAGES.HOME.path} />,
+        isOnlyForSellers ?  <Button title='Сменить роль' variant={ButtonVariant.FILL} size={ButtonSize.Medium} onClick={() => switchLK} /> : 
         <Button title='Каталог' variant={ButtonVariant.FILL} size={ButtonSize.Medium} href={MAIN_PAGES.PRODUCTS.path} />
     ]
 
     //FUNCTION
+
+    const switchLK = () => {
+        const actualCurrentLK = currentLK === ECurrentLK.BUYER ? ECurrentLK.SELLER : ECurrentLK.BUYER
+            actionCreators.setAuthOptional({
+                photoId: photoId,
+                currentLK: actualCurrentLK
+            })
+            saveCurrentLKTokenStorage(actualCurrentLK)
+            router.back()
+    }
+
+
     const navigateToTheSupport = () => router.push(MAIN_PAGES.SUPPORT.path);
 
     const navigateToTheLK = () => {
