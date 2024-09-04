@@ -36,7 +36,7 @@ class BackendParams {
         },
         STATUS: {
             DEFAULT: 'Любой',
-            IN_STOCK: 'В наличие',
+            IN_STOCK: 'В наличии',
             READY_TO_SEND: 'Готово к отправке',
             BY_ORDER: 'Под заказ',
         },
