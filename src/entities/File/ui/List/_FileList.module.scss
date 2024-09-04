@@ -2,3 +2,19 @@
     display: flex;
     gap: 10px;
 }
+
+
+// >>> ========={ / VIEW \ }========= >>>
+
+.default {
+
+}
+
+.chat {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+// <<< ========={ \ VIEW / }========= <<<
+

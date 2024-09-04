@@ -73,3 +73,22 @@
         margin-left: 0;
     }
 }
+
+
+// >>> ========={ / VIEW \ }========= >>>
+
+.default {
+
+}
+
+.chat {
+    border-radius: 5px !important;
+    padding: 10px 15px;
+
+    .name {
+        font-weight: var(--font-weight-med);
+    }
+}
+
+// <<< ========={ \ VIEW / }========= <<<
+

@@ -9,14 +9,16 @@ import { FileListItem } from "../List/FileListItem";
 import { IFile } from "../../model/file.model";
 import { Button, ButtonVariant } from "@/shared/ui/Button";
 import { ButtonColor } from "@/shared/ui/Button/model/button.model";
+import { FileView } from "../../data/view.file.data";
 
 interface FileBlockProps {
     files: IFile[]
     isRow?: boolean
+    view?: FileView
     className?: string,
 }
 
-export const FileBlock: FC<FileBlockProps> = ({ files, isRow = true, className }) => {
+export const FileBlock: FC<FileBlockProps> = ({ files, isRow = true, view=FileView.Default, className }) => {
     // REF
     const contentRef = useRef<HTMLDivElement>(null);
 
@@ -65,22 +67,24 @@ export const FileBlock: FC<FileBlockProps> = ({ files, isRow = true, className }
     };
 
     return (
-        <WrapperBlock className={cls(cl.block, isRow ? cl.row : cl.column, className)}>
-            <div className={cl.top}>
-                <div className={cl.topLeft}>
-                    <h2 className={cl.title}>Файлы</h2>
-                    <span className={cl.length}>{files.length}</span>
+        <WrapperBlock className={cls(cl.block, isRow ? cl.row : cl.column, cl[view], className)}>
+            {view === FileView.Default && (
+                <div className={cl.top}>
+                    <div className={cl.topLeft}>
+                        <h2 className={cl.title}>Файлы</h2>
+                        <span className={cl.length}>{files.length}</span>
+                    </div>
+                    {isRow && (
+                        <Button variant={ButtonVariant.TONAL} color={ButtonColor.Secondary} title="Скачать всё" onClick={downloadAllFiles} className={cl.download} />
+                    )}
                 </div>
-                {isRow && (
-                    <Button variant={ButtonVariant.TONAL} color={ButtonColor.Secondary} title="Скачать все" onClick={downloadAllFiles} className={cl.download} />
-                )}
-            </div>
+            )}
             <div ref={contentRef} className={cl.content}>
-                <FileListItem files={files} isRow={isRow} className={cl.files} />
+                <FileListItem files={files} view={view} isRow={isRow} className={cl.files} />
             </div>
             {!isRow && (
                 <div className={cl.bottom}>
-                    <Button variant={ButtonVariant.TONAL} color={ButtonColor.Secondary} title="Скачать все" onClick={downloadAllFiles} className={cl.download} />
+                    <Button variant={ButtonVariant.TONAL} color={ButtonColor.Secondary} title="Скачать всё" onClick={downloadAllFiles} className={cl.download} />
                 </div>
             )}
         </WrapperBlock>
