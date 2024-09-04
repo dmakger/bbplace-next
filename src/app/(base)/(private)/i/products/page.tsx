@@ -37,8 +37,7 @@ export default function LKProductPage() {
                     <WrapperLKPT pageTitle="Мои товары" 
                                 options={PRODUCT_PAGE_OPTIONS_ARRAY} optionsTab={MY_PRODUCTS_OPTIONS_TAB}
                                 startPage={PRODUCT_PAGE_OPTIONS_ARRAY.find(it => it.value === typeProduct) ?? SWITCH_SELECTOR_CREATED_PRODUCTS_OPTION} 
-                                isButtonRight={true}
-                                buttonRightProps={{href: DASHBOARD_PAGES.NEW_PRODUCT.path}} />
+                                isButtonRight={true} buttonRightProps={{href: DASHBOARD_PAGES.NEW_PRODUCT.path}} />
                 </SuspenseL.Any>
             </Suspense>
         </Wrapper1280>
