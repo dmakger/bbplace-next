@@ -1,5 +1,5 @@
 import { IFile } from "../model/file.model"
-import { filesToFormatObject, getFormatFile } from "./file.lib"
+import { getFormatFile } from "./file.lib"
 
 /**
  * Перевод списка файлов в список {IFile}
@@ -29,7 +29,14 @@ export const fileToIFile = (file: File) => {
  */
 export const getFileOfIFile = (file: IFile | File): File | null => {
     if (file instanceof File) 
-        return file
-    // f?.name = file.name ?? ""
-    return file.file === undefined ? null : {...file.file, name: file.name} as File
+        return file;
+    
+    if (!file.file) return null;
+
+    // Создаем новый объект File с новым именем
+    const updatedFile = new File([file.file], file.name || file.file.name, {
+        lastModified: file.file.lastModified,
+    });
+
+    return updatedFile;
 }

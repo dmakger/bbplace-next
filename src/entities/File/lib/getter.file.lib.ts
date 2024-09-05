@@ -25,8 +25,36 @@ export const getFileListOfServer = async (fileList: IResponseFile[], getFile: TG
  */
 export const getFileItemOfServer = async (file: IResponseFile, getFile: TGetFile, toFile: boolean=false) => {
     try {
-        return await getFile({fileId: file.key, toFile}).unwrap()
+        return await getFile({fileId: file.key, toFile, name: file.name}).unwrap()
     } catch {
         return null
+    }
+}
+
+/**
+ * 
+ * @param uploadedFileList 
+ * @param getFile 
+ * @returns 
+ */
+export const responseFileListToFileList = async (uploadedFileList: (IResponseFile | null)[], getFile: TGetFile) => {
+    const newFileList: IFile[] = []
+    const newResponseFileList: IResponseFile[] = []
+
+    const filePromises = uploadedFileList.map(async it => {
+        if (it === null) return
+
+        const result = await getFileItemOfServer(it, getFile, true)
+        if (result !== null) {
+            newFileList.push(result as IFile)
+            newResponseFileList.push(it)
+        }
+    })
+
+    await Promise.all(filePromises)
+
+    return {
+        newFileList,
+        newResponseFileList
     }
 }

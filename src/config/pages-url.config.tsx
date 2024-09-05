@@ -51,6 +51,8 @@ class MAIN extends Route {
 
     SUPPORT = this.createPath('/supports');
 
+    TARIFFS = this.createPath('/tariffs');
+
     CHECK_EMAIL = this.createPath('/checkEmail')
     LOGIN = this.createPath('/signIn', false, true)
     REGISTRATION = this.createPath('/signUp')

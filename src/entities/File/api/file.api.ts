@@ -18,7 +18,6 @@ export const FileAPI = createApi({
                     const data = await response.arrayBuffer()
                     const blob = new Blob([data])
                     const file = new File([blob], name ?? 'image')
-                    console.log('qwe file', data, blob, file)
                     if (!toFile) return file
                     const format = getFormatFile(fileId)
                     return {

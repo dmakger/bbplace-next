@@ -13,9 +13,9 @@ import { fileListToIFileList } from "@/entities/File/lib/to.file.lib";
 import { FileAPI } from "@/entities/File/api/file.api";
 import { uploadFileList } from "@/entities/File/lib/upload.file.lib";
 import { IResponseFile } from "@/entities/File/model/props.file.model";
-import { getFileItemOfServer } from "@/entities/File/lib/getter.file.lib";
+import { getFileItemOfServer, responseFileListToFileList } from "@/entities/File/lib/getter.file.lib";
 import { FileInputView } from "../data/file.input.data";
-import { FILE_ADD__DISABLED__ICON, FILE_ADD__TERTIARY_BORDER__ICON, FILE_ADD__TERTIARY__ICON } from "@/shared/ui/Icon/data/File/Add/add.file.data.icon";
+import { FILE_ADD__TERTIARY_BORDER__ICON, FILE_ADD__TERTIARY__ICON } from "@/shared/ui/Icon/data/File/Add/add.file.data.icon";
 import { ButtonColor, ButtonSize } from "@/shared/ui/Button/model/button.model";
 
 interface InputFileProps extends IWrapperRectangleInputChildren, IInput {
@@ -84,10 +84,9 @@ export const InputFile:FC<InputFileProps> = ({
 
         setIsUploading(true)
         const fileArray = fileListToIFileList(Array.from(e.target.files))
-        console.log('qwe fileArray', fileArray)
         uploadFileList(multiple ? fileArray : [fileArray[0]], uploadFile).then(
             uploadedFileList => {
-                getFileList(uploadedFileList).then(r => {
+                responseFileListToFileList(uploadedFileList, getFile).then(r => {
                     const {newFileList, newResponseFileList} = r
                     if (newFileList.length === 0 || newResponseFileList.length === 0) return
                     if (multiple) {
@@ -104,31 +103,7 @@ export const InputFile:FC<InputFileProps> = ({
             setIsUploading(false)
         })
     }
-
-    // Получение загруженных файлов
-    const getFileList = async (uploadedFileList: (IResponseFile | null)[]) => {
-        const newFileList: IFile[] = []
-        const newResponseFileList: IResponseFile[] = []
     
-        const filePromises = uploadedFileList.map(async it => {
-            if (it === null) return
-    
-            const result = await getFileItemOfServer(it, getFile, true)
-            if (result !== null) {
-                newFileList.push(result as IFile)
-                newResponseFileList.push(it)
-            }
-        })
-    
-        await Promise.all(filePromises)
-    
-        return {
-            newFileList,
-            newResponseFileList
-        }
-    }
-    
-
     const handleOnClickButton = () => {
         inputRef.current?.click()
     }

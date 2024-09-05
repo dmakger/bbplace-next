@@ -1,0 +1,131 @@
+.TTCellItem{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 250px;
+    height: 100px;
+    min-width: 210px;
+    border-bottom: 1px solid var(--block-border);
+
+    @media (max-width: 1024px){
+        min-width: 158px;
+    }
+    @media (max-width: 768px){
+        border: 1px solid var(--background-1);
+        border-top: none;
+        border-right: none;
+    }
+    @media (max-width: 425px) {
+        min-width: 139px;
+    }
+
+    .title{
+        text-align: center;
+    }
+
+    .subtitle{
+        color: var(--font-caption);
+    }
+
+    .title, .subtitle{
+        @media (max-width: 768px) {
+            font-size: var(--font-size-s);
+        }
+    }
+}
+
+.default{    
+    align-items: flex-start;
+    min-width: 350px;
+    max-width: 100%;
+    padding: 40px 30px;
+    background-color: var(--background-2);
+    // border-left: 1px solid var(--block-border);
+    border-bottom: 1px solid var(--background-1);
+
+    @media (max-width: 1024px){
+        min-width: 250px;
+    }
+    @media (max-width: 768px){
+        border: 1px solid var(--background-1);
+        border-top: none;
+        border-right: none;
+    }
+    @media (max-width: 425px) {
+        min-width: 180px;
+    }
+
+    .title{
+        text-align: left;
+        font-weight: var(--font-weight-med);
+    }
+}
+
+.demo{
+    background: linear-gradient(90deg, #f7f4f0 0%, #fbfafa 25%, #fbfafa 75%, #f7f4f0 100%);
+    @media (max-width: 768px) {
+        background: var(--block-border);
+    }
+}
+
+.business{
+    background: linear-gradient(90deg, #e6e6e2 0%, #ecece9 25%, #ecece9 75%, #e6e6e2 100%);
+    @media (max-width: 768px) {
+        background: var(--block-border);
+    }
+}
+
+.premium{
+    background: linear-gradient(90deg, #eddfc5 0%, #f0e7ca 25%, #f0e7ca 75%, #eddfc5 100%);
+    @media (max-width: 768px) {
+        background: var(--block-border);
+    }
+}
+
+.firstDefaultItem{
+    min-width: 350px;
+    max-width: 100%;
+    height: 110px;
+    padding: 40px 30px;
+    position: sticky;
+    top: 20px;
+    background-color: var(--background-1);
+    border: none;
+}
+
+.secondDefaultItem{
+    border-radius: 20px 0px 0px 0px;
+    border-left: 1px solid var(--block-border);
+}
+
+.rowCell{
+    align-items: center !important;
+    & h6{
+        text-align: center !important;
+    }
+    text-align: center;
+}
+
+.firstLeftEl{
+    border-radius: 20px 0 0 0;
+}
+
+.firstRightEl{
+    @media (max-width: 768px) {
+        border-radius: 0 20px 0 0;
+    }
+}
+
+.lastLeftEl{
+    @media (min-width: 768px) {
+        border-radius: 0 0 0 20px !important;
+    }
+}
+
+.lastRightEl{
+    @media (min-width: 768px) {
+        border-radius: 0 0 20px 0 !important;
+    }
+}

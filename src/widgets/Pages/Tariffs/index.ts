@@ -1,0 +1,1 @@
+export {TariffsChildrenPage} from './ui/TariffsChildrenPage'

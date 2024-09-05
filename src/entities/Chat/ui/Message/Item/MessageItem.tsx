@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_MessageItem.module.scss';
 import { IListItem } from "@/shared/model/list.model";
@@ -9,6 +9,12 @@ import { ImageAPI } from "@/shared/ui/Image/API/ImageAPI";
 import { MESSAGE_STATUS_READ__ICON, MESSAGE_STATUS_SENT__ICON } from "@/shared/ui/Icon/data/messageStatus.data";
 import { useAppDispatch } from "@/storage/hooks";
 import { markMessageAsRead } from "@/entities/Chat/connection/invoke/message.invoke.chat.connection";
+import { FileBlock } from "@/entities/File/ui/Block/FileBlock";
+import { IFile } from "@/entities/File/model/file.model";
+import { FileAPI } from "@/entities/File/api/file.api";
+import { responseFileListToFileList } from "@/entities/File/lib/getter.file.lib";
+import { FileWrapList } from "@/entities/File/ui/Wrap/FileWrapList";
+import { FileView } from "@/entities/File/data/view.file.data";
 
 interface MessageItemProps extends IListItem<IMessage> {
     myId?: IUser['id'];
@@ -22,9 +28,19 @@ export const MessageItem: FC<MessageItemProps> = ({
     className,
     ...rest
 }) => {
+    // RTK
     const dispatch = useAppDispatch();
+    
+    // REF
     const messageRef = useRef<HTMLDivElement>(null);
 
+    // API
+    const [getFile] = FileAPI.useGetFileMutation()
+
+    // STATE
+    const [fileList, setFileList] = useState<IFile[]>([])
+
+    // EFFECT
     useEffect(() => {
         messageRefs.current[message.id] = messageRef.current;
 
@@ -65,6 +81,15 @@ export const MessageItem: FC<MessageItemProps> = ({
         };
     }, [dispatch, message.id, message.isRead, message.sender, myId, messageRefs]);
 
+    useEffect(() => {
+        if (message.attachments === null) return
+        responseFileListToFileList(JSON.parse(message.attachments), getFile).then(r => {
+            setFileList(r.newFileList)
+        }, e => {
+            console.error(e)
+        })
+    }, [message.attachments])
+
     return (
         <div ref={messageRef} className={cls(cl.message, myId === message.sender ? cl.me : cl.other, className)}>
             <div className={cl.date}>
@@ -78,7 +103,16 @@ export const MessageItem: FC<MessageItemProps> = ({
                 )}
                 <div className={cl.dateText}>{getTime(message.createdAt)}</div>
             </div>
-            <span className={cl.text}>{message.text}</span>
+            <div className={cl.body}>
+                <div className={cl.text}>{
+                    message.text.split('\n').map((it, index) => (
+                        <p key={index}>{it}</p>
+                    ))
+                }</div>
+                {fileList.length > 0 && (
+                    <FileBlock files={fileList} isRow={false} view={FileView.Chat} className={cl.fileList}/>
+                )}
+            </div>
         </div>
     );
 };
