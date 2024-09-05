@@ -6,6 +6,7 @@ export interface ISliderTTop<T> extends IListTopLevel<T> {
     pagingVariant?: SliderPagingVariant
     pagingAmount?: number
     slideWidth?: number
+    isFull?: boolean
     classNameWrapper?: string,
     hasGalleryCounter?: boolean
 }
