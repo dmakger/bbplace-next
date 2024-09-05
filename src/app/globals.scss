@@ -42,6 +42,8 @@
 
   // new
   --n-black-1: #1D1D1F;
+  --n-black-5: rgb(0, 0, 0, 5%); 
+  --n-black-10: rgb(0, 0, 0, 10%);
 
   --n-red-1: #E54348;
   --n-red-2: #D71E23;
@@ -169,6 +171,8 @@
   --linkedin: var(--blue-4);
   --whatsapp: var(--n-green-5);
 
+  --modal-hovered: var(--n-black-10);
+
   // ===={ FONT }====
 
   //FONT-FAMILY
@@ -200,6 +204,8 @@
   --font-size-sm: 1.13rem;
   // 20px
   --font-size-m: 1.25rem;
+  // 22px
+  --font-size-msl: 1.38rem;
   // 24px
   --font-size-ml: 1.5rem;
   // 26px

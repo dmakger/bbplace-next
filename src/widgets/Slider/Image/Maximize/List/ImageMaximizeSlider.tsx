@@ -10,7 +10,7 @@ import { ImageMaximizeSlide } from "../Item/ImageMaximizeSlide";
 import { Modal } from "@/shared/ui/Modal/ui/Modal/Modal";
 import { EModalView } from "@/shared/data/modal.data";
 import { CatalogImage } from "@/widgets/CatalogImage/CatalogImage";
-import { MARK_MENU_ITEM_ICON, XMARK__TERTIARY_TO_WHITE__ICON } from "@/shared/ui/Icon/data/xmark.data.icon";
+import { XMARK__TERTIARY_TO_WHITE__ICON } from "@/shared/ui/Icon/data/xmark.data.icon";
 import { ButtonVariant } from "@/shared/ui/Button";
 import { ButtonColor, ButtonSize } from "@/shared/ui/Button/model/button.model";
 

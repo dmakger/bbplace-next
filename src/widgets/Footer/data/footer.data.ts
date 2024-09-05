@@ -49,7 +49,7 @@ export const FIND_CLIENTS_LINK_ITEM: IMenuItem = {
 }
 
 export const TARIFFS_LINK_ITEM: IMenuItem = {
-    link: MAIN_PAGES.SUPPLIERS.path,
+    link: MAIN_PAGES.TARIFFS.path,
     title: "Тарифы",
 }
 
@@ -58,7 +58,7 @@ export const SELLERS_LINK_ITEM_ARRAY: IMenuItem[] = [
     // BANNER_ADS_LINK_ITEM,
     SELLING_PRODUCTS_ITEM,
     FIND_CLIENTS_LINK_ITEM,
-    // TARIFFS_LINK_ITEM
+    TARIFFS_LINK_ITEM
 ]
 
 //DOCUMENTS

@@ -2,7 +2,7 @@ import { WrapperColumnNoGap } from '@/shared/ui/Wrapper/ColumnNoGap'
 import cl from './_DropDownCatalog.module.scss'
 import { Dropdown } from '@/shared/ui/Dropdown'
 import { MenuItem } from '@/shared/ui/Button/data/MenuItem/MenuItem'
-import { MARK_MENU_ITEM_ICON } from '@/shared/ui/Icon/data/xmark.data.icon'
+import { XMARK_MENU_ITEM_ICON } from '@/shared/ui/Icon/data/xmark.data.icon'
 import { IMenuItem } from '@/shared/model/menu.model'
 import { IMenuButton } from '@/shared/ui/Button/model/button.model'
 import { ReactNode } from 'react'
@@ -96,7 +96,7 @@ export const DropDownCatalog = ({
                 <MenuItem title="Закрыть"
                     className={cl.closeButton}
                     onClick={onClickXMark}
-                    beforeImage={MARK_MENU_ITEM_ICON}
+                    beforeImage={XMARK_MENU_ITEM_ICON}
                 />
             </div>
         </Modal>

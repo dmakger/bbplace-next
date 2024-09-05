@@ -38,7 +38,7 @@ export const FooterMiddle = ({
     ];
 
     const socialButtons = [
-        { className: cls(cl.button, cl.socialButton, cl.instagram), beforeImage: INSTAGRAM_ICON, link: INSTAGRAM_LINK },
+        // { className: cls(cl.button, cl.socialButton, cl.instagram), beforeImage: INSTAGRAM_ICON, link: INSTAGRAM_LINK },
         { className: cls(cl.button, cl.socialButton, cl.linkedIn), beforeImage: LINKED_IN_ICON, link: LINKED_IN_LINK },
         { className: cls(cl.button, cl.socialButton, cl.telegram), beforeImage: TELEGRAM_ICON, link: TELEGRAM_LINK },
         { className: cls(cl.button, cl.socialButton, cl.vk), beforeImage: VK_ICON, link: VK_LINK },

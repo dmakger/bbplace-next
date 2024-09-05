@@ -1,0 +1,21 @@
+.TariffsChildrenPage {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    background-color: var(--background-1);
+    border-top: none;
+    border-radius: 20px;
+
+    .firstPart, .secondPart{
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        width: 100%;
+        
+
+        .tariffsColumns{
+            display: flex;
+        }
+    }
+}
+
