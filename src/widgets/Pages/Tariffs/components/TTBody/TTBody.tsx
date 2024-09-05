@@ -1,3 +1,4 @@
+import cl from './_TTBody.module.scss';
 import { ETTVariants, ITTBodyRowData, ITTCellButtonItem } from '../../model/tariffs.model'
 import { TTBodyRow } from '../TTBodyRow/TTBodyRow'
 import { TTCellButtonItem } from '../TTCellButtonItem/TTCellButtonItem'
@@ -30,7 +31,7 @@ export const TTBody = ({
 
     return (
         <tbody className={className}>
-            <tr>
+            <tr className={cl.bodyHeader}>
                 {buttonInfo && <TTCellButtonItem
                     title={buttonInfo.title}
                     buttonTitle={buttonInfo.buttonTitle}
