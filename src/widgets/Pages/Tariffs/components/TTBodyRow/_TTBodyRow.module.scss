@@ -1,0 +1,16 @@
+.TTBodyRow{
+    display: flex;
+    width: 100%;
+}
+
+.demo {
+    background: linear-gradient(90deg, #f7f4f0 0%, #fbfafa 25%, #fbfafa 75%, #f7f4f0 100%);
+}
+
+.business {
+    background: linear-gradient(90deg, #e6e6e2 0%, #ecece9 25%, #ecece9 75%, #e6e6e2 100%);
+}
+
+.premium {
+    background: linear-gradient(90deg, #eddfc5 0%, #f0e7ca 25%, #f0e7ca 75%, #eddfc5 100%);
+}
