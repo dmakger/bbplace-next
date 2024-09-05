@@ -99,6 +99,9 @@
         .additionalBlockButtons {
             display: flex;
             gap: 10px;
+            .changeRole{
+                white-space: nowrap;
+            }
         }
     }
 

@@ -97,7 +97,7 @@ export const WrapperForLogInNSupportPages = ({
     const additionalDefaultButtons: ReactNode[] = [
         <Button title='Главная' variant={ButtonVariant.TONAL} size={ButtonSize.Medium} href={MAIN_PAGES.HOME.path} className={cl.homeButton} />,
         <Button title='Профиль' variant={ButtonVariant.TONAL} size={ButtonSize.Medium} href={DASHBOARD_PAGES.HOME.path} />,
-        isOnlyForSellers ? <Button title='Сменить роль' variant={ButtonVariant.FILL} size={ButtonSize.Medium} onClick={switchLK} /> :
+        isOnlyForSellers ? <Button title='Сменить роль' className={cl.changeRole} variant={ButtonVariant.FILL} size={ButtonSize.Medium} onClick={switchLK} /> :
             <Button title='Каталог' variant={ButtonVariant.FILL} size={ButtonSize.Medium} href={MAIN_PAGES.PRODUCTS.path} />
     ]
 

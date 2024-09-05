@@ -13,6 +13,7 @@ export const OnlyForSellersChildrenPage = () => {
             childrenImage={
                 <Image src={OnlyForSuppliersIcon}
                     alt=''
+                    className={cl.image}
                 />}
         />
     )
