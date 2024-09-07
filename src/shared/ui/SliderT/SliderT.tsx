@@ -22,9 +22,10 @@ interface SliderTProps<T> extends ISliderT<T> {}
  */
 export const SliderT = <T extends any>({
     pagingVariant = SliderPagingVariant.Amount,
-    pagingAmount = 1,
+    pagingAmount: pagingOutAmount = 1,
     slideWidth: slideWidthOut,
     isFull = false,
+    isIndexChangeOnClick = false,
     classNameWrapper,
     className,
     classNameItem,
@@ -49,18 +50,30 @@ export const SliderT = <T extends any>({
     const [canScrollPrev, setCanScrollPrev] = useState(false);
     const [canScrollNext, setCanScrollNext] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(activeIndex);
+    const [visibleIndex, setVisibleIndex] = useState(activeIndex);
+    const [pagingAmount, setPagingAmount] = useState(pagingOutAmount);
 
+    // EFFECT
+    // out-in 
     useEffect(() => {
         setActiveIndex(currentIndex)
-    }, [currentIndex, setActiveIndex])
+        setVisibleIndex(currentIndex)
+    }, [currentIndex])
 
     useEffect(() => {
         setCurrentIndex(prevIndex => {
-            return prevIndex === activeIndex ? prevIndex : activeIndex
+            const newIndex = prevIndex === activeIndex ? prevIndex : activeIndex
+            setVisibleIndex(newIndex)
+            return newIndex
         })
     }, [activeIndex])
 
-    // EFFECT
+    // pagingAmount
+    useEffect(() => {
+        if (pagingVariant === SliderPagingVariant.Amount) return
+        setPagingAmount(() => Math.floor(sliderSize / slideSize) ?? 1)
+    }, [pagingVariant, sliderSize, slideSize])
+
     // Calculate sizes on resize and mount
     useEffect(() => {
         const handleResize = () => {
@@ -109,14 +122,15 @@ export const SliderT = <T extends any>({
     useEffect(() => {
         if (!sliderRef.current || !listRef.current) return;
 
-        const newScrollPosition = currentIndex * (slideSize + gap);
+        // const newScrollPosition = currentIndex * (slideSize + gap);
+        const newScrollPosition = visibleIndex * (slideSize + gap);
 
         if (direction === ListDirection.Row) {
             sliderRef.current.scrollLeft = newScrollPosition;
         } else {
             sliderRef.current.scrollTop = newScrollPosition;
         }
-    }, [currentIndex, slideSize, gap, direction]);
+    }, [visibleIndex, slideSize, gap, direction]);
 
     // Update scroll state
     useEffect(() => {
@@ -153,11 +167,22 @@ export const SliderT = <T extends any>({
 
     // NAVIGATION
     const onPrev = () => {
-        setCurrentIndex(prev => Math.max(0, prev-1))
+        setVisibleIndex(prev => {
+            const newIndex = Math.max(0, prev - pagingAmount)
+            if (isIndexChangeOnClick)
+                setCurrentIndex(newIndex)
+            return newIndex
+        })
     };
 
     const onNext = () => {
-        setCurrentIndex(prev => Math.min(items.length-1, prev+1))
+        setVisibleIndex(prev => {
+            const newIndex = Math.min(items.length-1, prev + pagingAmount)
+            if (isIndexChangeOnClick){
+                setCurrentIndex(newIndex)
+            }
+            return newIndex
+        })
     };
 
     return (

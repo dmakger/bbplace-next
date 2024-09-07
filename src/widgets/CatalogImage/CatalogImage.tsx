@@ -37,7 +37,7 @@ export const CatalogImage:FC<CatalogImageProps> = ({imageList=[], hasMaximize=fa
                 <ImageProductionSliderT 
                     items={imageList} direction={ListDirection.Column}
                     gap={10} pagingAmount={3} 
-                    activeIndex={activeIndex} setActiveIndex={setActiveIndex}
+                    activeIndex={activeIndex}
                     onClickItem={handleOnClick}
                     componentProps={{width: 80, height: 80}}
                     className={cl.slider} />
