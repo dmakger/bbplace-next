@@ -15,13 +15,6 @@
     }
   }
 
-  // Если isFull=false, ширина слайдов зависит от общего количества элементов
-  &.normalWidth {
-    .slide {
-      flex: 0 0 auto;
-    }
-  }
-
   @media (max-width: 768px) {
     border-radius: 0px;
   }

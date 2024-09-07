@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_SliderT.module.scss'
@@ -34,6 +34,7 @@ export const SliderT = <T extends any>({
     items,
     direction = ListDirection.Row,
     activeIndex = 0,
+    setActiveIndex=()=>{},
     gap = 0,
     ...rest
 }: SliderTProps<T>) => {
@@ -43,43 +44,46 @@ export const SliderT = <T extends any>({
     const listRef = useRef<HTMLDivElement>(null);
 
     // STATE
-    const [slideSize, setSlideSize] = useState(0)
-    const [sliderSize, setSliderSize] = useState(0)
-    const [pagingWidth, setPagingWidth] = useState(0)
-    const [currentScrollSize, setCurrentScrollSize] = useState(0)
-    const [canScrollPrev, setCanScrollPrev] = useState(false)
-    const [canScrollNext, setCanScrollNext] = useState(false)
-    const [currentIndex, setCurrentIndex] = useState(activeIndex); 
+    const [slideSize, setSlideSize] = useState(0);
+    const [sliderSize, setSliderSize] = useState(0);
+    const [canScrollPrev, setCanScrollPrev] = useState(false);
+    const [canScrollNext, setCanScrollNext] = useState(false);
+    const [currentIndex, setCurrentIndex] = useState(activeIndex);
 
-    
+    useEffect(() => {
+        setActiveIndex(currentIndex)
+    }, [currentIndex, setActiveIndex])
+
+    useEffect(() => {
+        setCurrentIndex(prevIndex => {
+            return prevIndex === activeIndex ? prevIndex : activeIndex
+        })
+    }, [activeIndex])
 
     // EFFECT
-    // slider width
-        useEffect(() => {
+    // Calculate sizes on resize and mount
+    useEffect(() => {
         const handleResize = () => {
-            let offsetSize = sliderRef.current?.offsetWidth;
-            let scrollSize = listRef.current?.scrollWidth;
+            let offsetSize = sliderRef.current?.offsetWidth || 0;
+            let scrollSize = listRef.current?.scrollWidth || 0;
             
             if (direction === ListDirection.Column) {
-                offsetSize = sliderRef.current?.offsetHeight;
-                scrollSize = listRef.current?.scrollHeight;
-            }
-    
-            if (offsetSize) {
-                setSliderSize(offsetSize);
-            }
-            
-            // Если isFull=true, слайд занимает всю ширину контейнера
-            if (offsetSize && scrollSize && isFull) {
-                setSlideSize(offsetSize);  // ширина слайда = ширина контейнера
-            } else if (scrollSize) {
-                const calculatedSlideWidth = (scrollSize - gap * (items.length - 1)) / items.length;
-                setSlideSize(slideWidthOut === undefined ? calculatedSlideWidth : slideWidthOut);
+                offsetSize = sliderRef.current?.offsetHeight || 0;
+                scrollSize = listRef.current?.scrollHeight || 0;
             }
 
-            console.log('qwe size', offsetSize, scrollSize, isFull)
+            setSliderSize(offsetSize);
+
+            if (isFull) {
+                setSlideSize(offsetSize); // ширина слайда = ширина контейнера
+            } else {
+                const calculatedSlideWidth = (scrollSize - gap * (items.length - 1)) / items.length;
+                setSlideSize(slideWidthOut || calculatedSlideWidth);
+            }
         };
     
+        handleResize();
+
         const resizeObserver = new ResizeObserver(handleResize);
         if (sliderRef.current) {
             resizeObserver.observe(sliderRef.current);
@@ -87,7 +91,7 @@ export const SliderT = <T extends any>({
         if (listRef.current) {
             resizeObserver.observe(listRef.current);
         }
-    
+
         window.addEventListener('resize', handleResize);
     
         return () => {
@@ -100,38 +104,38 @@ export const SliderT = <T extends any>({
             }
         };
     }, [sliderRef, listRef, slideWidthOut, gap, items.length, direction, isFull]);
-    
 
-    // paging width
+    // Sync scroll position with activeIndex
     useEffect(() => {
-        if (slideSize === 0) return
+        if (!sliderRef.current || !listRef.current) return;
 
-        setPagingWidth(() => {
-            if (pagingVariant === SliderPagingVariant.Full)
-                return sliderSize
-            return slideSize * pagingAmount + gap * pagingAmount
-        })
-    }, [slideSize, pagingVariant, pagingAmount, gap, sliderSize])
+        const newScrollPosition = currentIndex * (slideSize + gap);
 
+        if (direction === ListDirection.Row) {
+            sliderRef.current.scrollLeft = newScrollPosition;
+        } else {
+            sliderRef.current.scrollTop = newScrollPosition;
+        }
+    }, [currentIndex, slideSize, gap, direction]);
+
+    // Update scroll state
     useEffect(() => {
         const updateScrollState = () => {
             if (!sliderRef.current) return;
 
-            let sliderScrollSize = sliderRef.current.scrollWidth
-            let sliderClientSize = sliderRef.current.clientWidth
-            let sliderScrollPosition = sliderRef.current.scrollLeft
+            let scrollSize = sliderRef.current.scrollWidth;
+            let clientSize = sliderRef.current.clientWidth;
+            let scrollPosition = sliderRef.current.scrollLeft;
+
             if (direction === ListDirection.Column) {
-                sliderScrollSize = sliderRef.current.scrollHeight
-                sliderClientSize = sliderRef.current.clientHeight
-                sliderScrollPosition = sliderRef.current.scrollTop
+                scrollSize = sliderRef.current.scrollHeight;
+                clientSize = sliderRef.current.clientHeight;
+                scrollPosition = sliderRef.current.scrollTop;
             }
 
-            const maxScrollLeft = sliderScrollSize - sliderClientSize;
-            setCanScrollPrev(sliderScrollPosition > 0);
-            setCanScrollNext(sliderScrollPosition < maxScrollLeft);
-
-            const newCurrentIndex = Math.round(sliderScrollPosition / (slideSize + gap));
-            setCurrentIndex(newCurrentIndex + 1);
+            const maxScroll = scrollSize - clientSize;
+            setCanScrollPrev(scrollPosition > 0);
+            setCanScrollNext(scrollPosition < maxScroll);
         };
 
         updateScrollState();
@@ -145,44 +149,15 @@ export const SliderT = <T extends any>({
         return () => {
             sliderRef.current?.removeEventListener('scroll', handleScroll);
         };
-    }, [currentScrollSize, sliderSize, slideSize, gap, items.length, direction]);
+    }, [sliderSize, slideSize, gap, items.length, direction]);
 
-    useEffect(() => {
-        if (!sliderRef.current) return
-
-        if (direction === ListDirection.Row) {
-            sliderRef.current.scrollLeft = currentScrollSize;
-        } else {
-            sliderRef.current.scrollTop = currentScrollSize;
-        }
-    }, [currentScrollSize, direction])
-
-    useEffect(() => {
-        if (!sliderRef.current || !listRef.current || activeIndex === undefined) return;
-
-        const targetIndex = Math.max(Math.min(activeIndex, items.length - 1), 0);
-        const newScrollPosition = targetIndex * (slideSize + gap);
-        setCurrentScrollSize(newScrollPosition);
-    }, [activeIndex, items.length, slideSize, gap]);
-
-    // HANDLE
-    const getValidScrollSize = (prev: number, newValue: number) => {
-        if (!sliderRef.current) return prev
-        let scrollSize = sliderRef.current.scrollWidth
-        let clientSize = sliderRef.current.clientWidth
-        if (direction === ListDirection.Column) {
-            scrollSize = sliderRef.current.scrollHeight
-            clientSize = sliderRef.current.clientHeight
-        }
-        return Math.min(Math.max(newValue, 0), scrollSize - clientSize);
-    }
-
+    // NAVIGATION
     const onPrev = () => {
-        setCurrentScrollSize(prev => getValidScrollSize(prev, prev - pagingWidth));
+        setCurrentIndex(prev => Math.max(0, prev-1))
     };
 
     const onNext = () => {
-        setCurrentScrollSize(prev => getValidScrollSize(prev, prev + pagingWidth));
+        setCurrentIndex(prev => Math.min(items.length-1, prev+1))
     };
 
     return (
@@ -194,7 +169,7 @@ export const SliderT = <T extends any>({
                 className={cls(cl.prevButton, canScrollPrev ? cl.visible : '')} />
             <div ref={sliderRef} className={cls(cl.slider)}>
                 <List listRef={listRef} items={items} direction={direction}
-                      activeIndex={activeIndex}
+                      activeIndex={currentIndex}
                       gap={gap}
                       className={cls(cl.slideContainer, className)}
                       classNameItem={cls(cl.slide, classNameItem)}
@@ -208,5 +183,5 @@ export const SliderT = <T extends any>({
                 onClick={onNext} sizes={{ width: 20, height: 20 }}
                 className={cls(cl.nextButton, canScrollNext ? cl.visible : '')} />
         </div>
-    )
+    );
 }

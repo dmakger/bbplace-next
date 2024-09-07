@@ -39,7 +39,7 @@ export const ImageMaximizeSlider:FC<ImageMaximizeSliderProps> = ({
     // HTML
     const sliderHTML = (
         <div className={cls(cl.wrapper, isOpen || isFullWindow ? cl.fullWrapper : '')}>
-            <SliderT items={items} component={ImageMaximizeSlide} isFull={true}
+            <SliderT items={items} component={ImageMaximizeSlide} isFull={true} gap={0}
                     className={cls(cl.slider, className)} 
                     // className={cls(cl.slider, isOpen || isFullWindow ? cl.fullWindow : '', className)} 
                     // slideProps={hasMaximize ? {...slideProps, onClickMaximize: handleOnClickMaximize} : {...slideProps}}
