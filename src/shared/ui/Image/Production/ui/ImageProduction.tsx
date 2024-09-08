@@ -10,6 +10,8 @@ interface ImageProductionProps {
     src: string
     variant?: ImageProductionVariant
     color?: ImageProductionColor
+    width?: number
+    height?: number
     isActive?: boolean
     onClick?: Function
     className?: string,
@@ -19,6 +21,7 @@ interface ImageProductionProps {
 export const ImageProduction:FC<ImageProductionProps> = ({
     src, 
     variant=ImageProductionVariant.GrayToImage, color=ImageProductionColor.Empty,
+    width, height,
     isActive=false, 
     onClick, 
     className, classNameImage
@@ -26,7 +29,7 @@ export const ImageProduction:FC<ImageProductionProps> = ({
     const html = (
         <div className={cls(cl.wrapper, cl[variant], cl[color], isActive ? cl.active : '', className)}>
             <div className={cl.foreground} />
-            <ImageAPI src={src} className={cls(cl.image, classNameImage)} />
+            <ImageAPI src={src} width={width} height={height} className={cls(cl.image, classNameImage)} />
         </div>
     )
     if (!onClick)
