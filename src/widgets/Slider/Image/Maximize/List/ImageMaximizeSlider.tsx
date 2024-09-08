@@ -38,9 +38,15 @@ export const ImageMaximizeSlider:FC<ImageMaximizeSliderProps> = ({
 
     // HTML
     const sliderHTML = (
-        <div className={cls(cl.wrapper, isOpen || isFullWindow ? cl.fullWrapper : '')}>
-            <SliderT items={items} component={ImageMaximizeSlide} isFull={true} gap={0}
-                    className={cls(cl.slider, className)} 
+        <div className={cls(cl.wrapper, isFullWindow ? cl.fullWrapper : '')}>
+            <SliderT items={items} isFull={true} gap={0}
+                    onClickItem={handleOnClickMaximize}
+                    component={ImageMaximizeSlide} className={cls(cl.slider, className)} 
+                    classNameItem={cl.sliderItem}
+                    componentProps={isFullWindow ? {
+                        classNameImage: cl.leftModalBodyItem,
+                        hasMaximize: false,
+                    } : {hasMaximize: true}}
                     {...rest}/>
             {rest.activeIndex !== undefined &&
                 <div className={cl.hint}>
@@ -69,7 +75,15 @@ export const ImageMaximizeSlider:FC<ImageMaximizeSliderProps> = ({
                         className: cl.close,
                     }}
                     buttonNode={undefined}>
-                <CatalogImage imageList={items} isFullWindow={isOpen} className={isOpen || isFullWindow ? cl.fullWindow : ''}/>
+                <CatalogImage 
+                    imageList={items} isFullWindow={isOpen} hasMaximize={false}
+                    className={cls(cl.modalBody, isOpen || isFullWindow ? cl.fullWindow : '')}
+                    propsLeftSlider={{
+                        items: [],
+                        classNameWrapper: cl.leftModalBodyWrapper,
+                        classNameSlider: cl.leftModalBodySlider,
+                        className: cl.leftModalBody,
+                    }}/>
             </Modal>
         </>
     )

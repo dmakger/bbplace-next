@@ -14,11 +14,17 @@ import { GalleryCounter } from '../GalleryCounter';
 interface SliderTProps<T> extends ISliderT<T> {}
 
 /**
- * Если `pagingVariant`:  
+ * `pagingVariant`:  
  * 1. `SliderPagingVariant.Full` - перелистование на всю страницу  
  * 2. `SliderPagingVariant.Amount` - перелистование по `pagingAmount`
- * 
- * `isFull = true`, то `item` заполняет всю область, если нет, то по ширине блока
+ * ---
+ * `isFull`:  
+ * - 1. `true`, то ширина`item` равна **ВСЕЙ ВИДИМОСТИ** области. (Только один `item` помещается на экран)
+ * - 2. `false`, то ширина `item` равна **САМОЙ СЕБЕ**. (Может вмещаться разное кол-во `item`-ов) 
+ * ---
+ * `isIndexChangeOnClick`:  
+ * - 1. `true`, то при прожатии кнопок `onPrev` и `onNext`, то происходит **МЕНЯЕТСЯ** `activeIndex`
+ * - 2. `false`, то при прожатии кнопок `onPrev` и `onNext`, то происходит **НЕ МЕНЯЕТСЯ** `activeIndex`
  */
 export const SliderT = <T extends any>({
     pagingVariant = SliderPagingVariant.Amount,
@@ -29,6 +35,7 @@ export const SliderT = <T extends any>({
     classNameWrapper,
     className,
     classNameItem,
+    classNameSlider,
 
     hasGalleryCounter = false,
 
@@ -192,7 +199,7 @@ export const SliderT = <T extends any>({
                 axis={direction === ListDirection.Row ? Axis.Bottom : Axis.Left}
                 onClick={onPrev} sizes={{ width: 20, height: 20 }}
                 className={cls(cl.prevButton, canScrollPrev ? cl.visible : '')} />
-            <div ref={sliderRef} className={cls(cl.slider)}>
+            <div ref={sliderRef} className={cls(cl.slider, classNameSlider)}>
                 <List listRef={listRef} items={items} direction={direction}
                       activeIndex={currentIndex}
                       gap={gap}

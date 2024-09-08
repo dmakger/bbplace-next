@@ -14,26 +14,29 @@ interface ImageMaximizeSlideProps extends IListItem<string>{
     isFullWindow?: boolean
     width?: number
     height?: number
+    hasMaximize?: boolean
+    classNameImage?: string
 }
 
 export const ImageMaximizeSlide:FC<ImageMaximizeSlideProps> = React.memo(({
     item, 
     onClick, 
     isFullWindow,
+    hasMaximize=false,
     width=350, height=350, 
     className, 
-    classNameSlide
+    classNameImage
 }) => {
     const handleOnClickMaximize = useCallback(() => {
         if (onClick) onClick()
     }, [])
     
     return (
-        <div className={cls(cl.wrapper, isFullWindow ? cl.fullWindow : '', className, classNameSlide)}>
-            {onClick && 
+        <div className={cls(cl.wrapper, isFullWindow ? cl.fullWindow : '', className)}>
+            {hasMaximize && 
                 <ButtonMaximize onClick={handleOnClickMaximize} className={cl.maximize} />
             }
-            <ImageAPI src={item} width={width} height={height} className={cls(cl.image)} />
+            <ImageAPI src={item} width={width} height={height} className={cls(cl.image, classNameImage)} />
         </div>
     )
 })
