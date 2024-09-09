@@ -3,11 +3,12 @@ import cl from './_FooterTopColumn.module.scss'
 import { MenuButton } from '@/shared/ui/Button/data/Menu/MenuButton'
 import { IMenuItem } from '@/shared/model/menu.model'
 import { Subblock } from '@/shared/ui/Subblock'
+import { IMenuButton } from '@/shared/ui/Button/model/button.model'
 
 interface IFooterTopColumn {
     className?: string,
     title: string,
-    columnLinkData: IMenuItem[]
+    columnLinkData: IMenuItem[] | IMenuButton[]
 }
 
 export const FooterTopColumn = ({
@@ -19,7 +20,7 @@ export const FooterTopColumn = ({
     const renderMenuButtons = () => (
         <nav className={cl.linksContainer}>
             {columnLinkData.map((it, index) => (
-                <MenuButton key={index} title={it.title} link={it.link} className={cl.menuLink} />
+                <MenuButton key={index} title={it.title} link={it.link} className={cl.menuLink} variant={(it as IMenuButton).variant}/>
             ))}
         </nav>
     );

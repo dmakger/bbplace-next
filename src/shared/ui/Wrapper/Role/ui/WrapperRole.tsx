@@ -1,12 +1,10 @@
 'use client'
 
-import { ReactNode } from 'react'
-import cl from './_WrapperRole.module.scss'
-import { useAppSelector } from '@/storage/hooks'
-import { ModalAction } from '@/shared/ui/Modal/ui/Action/ModalAction'
-import { EModalView } from '@/shared/data/modal.data'
-import { useRouter } from 'next/navigation'
+import { ReactNode, useEffect } from 'react'
+import { useActionCreators, useAppSelector } from '@/storage/hooks'
+import { usePathname, useRouter } from 'next/navigation'
 import { ECurrentLK } from '@/entities/User/model/user.model'
+import { MAIN_PAGES } from '@/config/pages-url.config'
 
 interface IWrapperRole {
     children: ReactNode
@@ -16,32 +14,32 @@ export const WrapperRole = ({
     children
 }: IWrapperRole) => {
 
+    //PATHNAME
+    const pathname = usePathname();
+
     //RTK
-    const { currentLK } = useAppSelector(state => state.user)
+    const { currentLK, photoId } = useAppSelector(state => state.user)
+    const actionCreators = useActionCreators()
 
     //ROUTER
     const router = useRouter()
 
-    //HANDLE
-    const handleOnCloseModal = () => router.back();
-    
+    useEffect(() => {
+        if (currentLK !== ECurrentLK.SELLER) { 
+             router.replace(MAIN_PAGES.ONLY_FOR_SELLERS.path);
+        }
+        if (currentLK === ECurrentLK.SELLER) { 
+            actionCreators.setAuthOptional({
+                prevPath: pathname,
+                photoId,
+                currentLK
+            })
+       }
+    }, [currentLK])    
+
     return (
         <>
-            {currentLK === ECurrentLK.SELLER ? <>{children}</>
-                : <>
-                    <div className={cl.fill}>
-                        <h2 className={cl.title}>Этот блок доступен только для Продавцов</h2>
-                    </div>
-                    <ModalAction
-                        title={"Смените роль на Продавца в личном кабинете"}
-                        isOpen={true} view={EModalView.BOTTOM}
-                        hasBackground={true}
-
-                        hasClose={true}
-                        onClickOverlay={handleOnCloseModal}
-                    />
-                </>
-            }
+            {currentLK === ECurrentLK.SELLER ? children : null} 
         </>
     )
 }
