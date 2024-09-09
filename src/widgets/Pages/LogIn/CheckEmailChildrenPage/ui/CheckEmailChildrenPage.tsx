@@ -87,8 +87,8 @@ export const CheckEmailChildrenPage = () => {
             pageTitle="Вход или регистрация профиля"
             onSubmitFunc={CheckEmail}
             formRef={formRef}
-            additionalBlockTitle="Через сторонние сервисы:"
-            additionalBlockButtons={additionalBlockButtons}
+            // additionalBlockTitle="Через сторонние сервисы:"
+            // additionalBlockButtons={additionalBlockButtons}
         >
             <WrapperRectangleInput
                 labelText="Электронная почта"
