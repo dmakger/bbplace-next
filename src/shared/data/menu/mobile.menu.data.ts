@@ -10,6 +10,7 @@ import { CHAT_ICON, CHAT_LK_ICON } from "@/shared/ui/Icon/data/chat.data.icon";
 import { FAVOURITE_ICON_MENU } from "@/shared/ui/Icon/data/favourite.data.icon";
 import { OFFICE_ICON } from "@/shared/ui/Icon/data/office.data.icon";
 import { MENU_ICON } from "@/shared/ui/Icon/data/menu.data.icon";
+import { isAuth } from "@/entities/Auth/lib/auth-token.lib";
 
 
 // ===={ MOBILE MENU DATA }====
@@ -44,7 +45,7 @@ export const FAVOURITES_ITEM_MOBILE_MENU_DATA: IIconVariants = {
 
 export const LK_ITEM_MOBILE_MENU_DATA: IIconVariants = {
   id: 5,
-  link: DASHBOARD_PAGES.HOME.path,
+  link: isAuth() ? DASHBOARD_PAGES.HOME.path : MAIN_PAGES.CHECK_EMAIL.path,
   title: "ЛК",
   image: LK_MENU_ICON
 }

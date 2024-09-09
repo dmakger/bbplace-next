@@ -32,6 +32,7 @@ import { cls } from "@/shared/lib/classes.lib";
 import { useInView } from "react-intersection-observer";
 import { MainInfoProduct } from "@/features/Block/Info/Product";
 import { CountryAPI } from "@/entities/Metrics/api/country.metrics.api";
+import { useAppSelector } from "@/storage/hooks";
 
 export default function ProductDetailPage() {
     // ROUTER
@@ -47,6 +48,9 @@ export default function ProductDetailPage() {
     const { ref, inView } = useInView({
         threshold: 0,
     });
+
+    //RTK
+    const {id: userId} = useAppSelector(state => state.user)
 
     // API
     const { data: currencyList } = CurrencyAPI.useGetCurrenciesQuery()
@@ -127,6 +131,8 @@ export default function ProductDetailPage() {
             <div className={cls(cl.wrapper)}>
                 <div className={cl.left}>
                     <DetailedPageHeader
+                        ownerId={product.ownerId ?? ''}
+                        userId={userId}
                         id={product.id}
                         name={product.name ?? ''}
                         tableData={getDataHeadingToTextProductTable({ product, isDetailedPageHeader: true, itemRating: itemScore, itemReviews: itemReviews?.length })}

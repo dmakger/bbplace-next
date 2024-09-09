@@ -73,9 +73,11 @@
     flex-grow: 1;
 }
 
+//SUPPLIER
+
 .supplierItem {
     min-width: 910px;
-    background-color: var(--background-gray);
+    background-color: var(--background-1) !important;
     border-bottom: none;
 
     @media (max-width: 768px) {

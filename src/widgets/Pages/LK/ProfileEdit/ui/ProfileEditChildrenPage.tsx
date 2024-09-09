@@ -13,10 +13,11 @@ import { ISupplier } from "@/entities/Supplier/model/supplier.model";
 import { useRouter } from "next/navigation";
 import { DASHBOARD_PAGES } from "@/config/pages-url.config";
 import { ILoginResponseDecoded, IUser } from "@/entities/Auth/model/auth.model";
+import { ECurrentLK } from "@/entities/User/model/user.model";
 
 export const ProfileEditChildrenPage = () => {
     //RTK
-    const { id, role } = useAppSelector(state => state.user);
+    const { id, currentLK } = useAppSelector(state => state.user);
     const actionCreators = useActionCreators()
     const currentAuthData: ILoginResponseDecoded | IUser = useAppSelector(state => state.user);
 
@@ -92,7 +93,7 @@ export const ProfileEditChildrenPage = () => {
                     LegalName: companyInfoData.legalName ?? '',
                     MobilePhone: personalInfoData.phoneNumber ?? '',
                 })
-                const redirectPath = role.includes('Seller') ? DASHBOARD_PAGES.PRODUCTS.path : DASHBOARD_PAGES.CHATS('').path;
+                const redirectPath = currentLK === ECurrentLK.SELLER ? DASHBOARD_PAGES.PRODUCTS.path : DASHBOARD_PAGES.CHATS('').path;
                 router.push(redirectPath);
 
             }
