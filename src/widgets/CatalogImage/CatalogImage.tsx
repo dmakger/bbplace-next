@@ -5,11 +5,11 @@ import { FC, useEffect, useState } from "react"
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_CatalogImage.module.scss'
 import { ImageMaximizeSlider } from "../Slider/Image/Maximize/List/ImageMaximizeSlider";
-import { ImageProductionSliderT } from "@/features/SliderT/ImageProduction/ui/ImageProductionSliderT";
 import { ListDirection } from "@/shared/data/list.data";
 import { IListTopLevel, TListItemOnClick } from "@/shared/model/list.model";
 import { HandleSize } from "@/shared/ui/Handle/Size/HandleSize";
 import { SliderPagingVariant } from "@/shared/data/sliderT.data";
+import { ImageProductionSliderT } from "@/features/SliderT/ImageProduction/ImageProductionSliderT";
 
 interface CatalogImageProps{
     imageList?: string[]
