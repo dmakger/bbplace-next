@@ -20,6 +20,7 @@ import { useParams } from "next/navigation";
 import { toTenderType } from "@/entities/Tender/lib/tender.lib";
 import { skipToken } from "@reduxjs/toolkit/query";
 import { isEqual } from "lodash";
+import { MAIN_PAGES } from "@/config/pages-url.config";
 
 interface LKTenderTableProps {
     tenderType?: ETenderType,
@@ -117,7 +118,7 @@ export const LKTenderTable: FC<LKTenderTableProps> = ({ tenderType, defaultTende
             tenders.map(it => {
                 return {
                     row: [
-                        { cell: <TableCell.Option text={it.name} /> },
+                        { cell: <TableCell.Option text={it.name} href={MAIN_PAGES.CURRENT_TENDER({id: it.id, type: it.type}).path}/> },
                         { cell: <TableCell.Text text={it.category ? it.category.name : ''} />, className: cl.cell },
                         { cell: <TableCell.Text text={`${it.attachments.length}`} />, className: cl.cell },
                         { cell: <LKTenderTableCellTrash onClick={() => onClickDelete(it, it.type)} />, className: cl.cell },

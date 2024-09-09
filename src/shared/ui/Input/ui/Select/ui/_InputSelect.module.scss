@@ -130,6 +130,7 @@
 .options {
     position: absolute;
     z-index: -1;
+    visibility: hidden;
     // top: 40px;
     top: auto;
     left: 0;
@@ -153,12 +154,13 @@
         rotate: 180deg;
         transition: rotate 0.3s;
     }
-}
+} 
 
 .show {
     .options {
         z-index: 1;
         opacity: 1;
+        visibility: visible;
     }
 }
 
