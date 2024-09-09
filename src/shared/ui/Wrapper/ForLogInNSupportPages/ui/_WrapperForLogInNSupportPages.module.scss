@@ -7,6 +7,7 @@
     width: 100%;
 
     @media (max-width: 768px) {
+        gap: 5px;
         max-width: 100%;
         padding-bottom: 60px;
     }
@@ -81,7 +82,6 @@
 
         @media(max-width: 768px){
             max-width: 100% !important;
-            margin: 0px;
             border-radius: 0px;
         }
 
@@ -94,11 +94,22 @@
 
         .additionalBlockTitle {
             font-weight: var(--font-weight-med);
+            @media(max-width: 768px){
+                font-size: var(--font-size-s);
+            }
         }
 
         .additionalBlockButtons {
             display: flex;
             gap: 10px;
+
+            @media (max-width: 425px) {
+                overflow-x: auto;
+                width: 100%;
+                &::-webkit-scrollbar {
+                    display: none;
+                }
+            }
             .changeRole{
                 white-space: nowrap;
             }
