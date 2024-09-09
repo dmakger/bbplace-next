@@ -5,7 +5,6 @@
     justify-content: center;
     align-items: center;
     background-color: var(--n-gray-5);
-    // width: 690px;
     border-radius: 15px;
 
     &:hover {
@@ -27,6 +26,8 @@
 
     .image {
         object-fit: contain;
+        // width: 100%;
+        // max-width: 690px;
     }
 }
 
