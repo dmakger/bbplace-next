@@ -1,31 +1,39 @@
 .wrapper {
     position: relative;
+    width: 100%;
+
+    .slider {
+        max-width: 690px;
+        // max-width: calc(100% - 140px);
+        // max-width: calc(100vw - 140px);
+        width: 100%;
+    }
+    .sliderItem {
+        width: inherit !important;
+    }
+
+    .hint {
+        display: flex;
+        background-color: var(--background-2);
+        border-radius: 20px;
+        color: var(--font-caption);
+        border: 1px solid var(--background-1);
+        padding: 5px 10px;
+    
+        position: absolute;
+        z-index: -1;
+        bottom: 20px;
+        left: 20px;
+    
+        .current {
+            color: var(--font);
+        }
+    }
 }
 
 .fullWrapper {
-    width: 100vw !important;
-}
-
-.slider {
-    width: calc(100vw - 600px);
-    max-width: 690px;
-}
-
-.hint {
-    display: flex;
-    background-color: var(--background-2);
-    border-radius: 20px;
-    color: var(--font-caption);
-    border: 1px solid var(--background-1);
-    padding: 5px 10px;
-
-    position: absolute;
-    z-index: -1;
-    bottom: 20px;
-    left: 20px;
-
-    .current {
-        color: var(--font);
+    .slider {
+        max-width: calc(100vw - 140px);
     }
 }
 
@@ -36,26 +44,49 @@
 
 .fullWindow {
     width: 100vw !important;
-    // width: calc(100vw - 131px) !important;
-    max-width: max-content !important;
+}
+
+// MODAL STYLE
+.modalBody {
+    max-height: none !important;
+    gap: 20px;
+
+    &.slider {
+        max-width: none;
+    }
+}
+
+.leftModalBodyWrapper {
+    width: fit-content !important;
+    max-height: 100% !important;
+}
+
+.leftModalBodySlider {
+    max-height: calc(100vh - 40px) !important;
+}
+
+
+.leftModalBody {
+    max-height: none !important;
+    height: 100% !important;
+}
+
+.leftModalBodyItem {
+    width: 100% !important;
+    height: calc(100vh - 40px) !important;
 }
 
 
 @media (max-width: 1024px) { 
     .slider {
-        width: calc(100vw - 165px) !important;
-        max-width: max-content;
+        width: calc(100vw - 180px) !important;
     }
-
-    // .hint {
-    //     z-index: 20;
-    // }
 }
 
 @media (max-width: 768px) { 
     .slider {
         width: 100vw !important;
-        max-width: max-content;
+        max-width: max-content !important;
     }
 
     .hint {

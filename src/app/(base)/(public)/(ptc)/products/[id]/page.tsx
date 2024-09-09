@@ -69,7 +69,7 @@ export default function ProductDetailPage() {
         }
     }, [productAPI, currencyList, metrics, countries]);
 
-    console.log('qwe ', product)
+    // console.log('qwe ', product)
 
     useEffect(() => {
         if (productAPIListGroup) {
@@ -131,7 +131,12 @@ export default function ProductDetailPage() {
                         name={product.name ?? ''}
                         tableData={getDataHeadingToTextProductTable({ product, isDetailedPageHeader: true, itemRating: itemScore, itemReviews: itemReviews?.length })}
                     />
-                    <CatalogImage imageList={product?.media.attachments} hasMaximize={true} className={cl.slider}/>
+                    {/* <CatalogImage imageList={product?.media.attachments} hasMaximize={true} className={cl.slider}/> */}
+                    <CatalogImage 
+                        // imageList={[...product?.media.attachments, ...product?.media.attachments, ...product?.media.attachments, ...product?.media.attachments, ...product?.media.attachments]} 
+                        imageList={product?.media.attachments} 
+                        hasMaximize={true} isFullWindow={false} 
+                        className={cl.slider}/>
                     <div className={cl.mainInfoProduct} ref={ref}>
                         <MainInfoProduct
                             className={cl.mobileInfo}

@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from "react";
 import { ListDirection } from "../data/list.data";
 import { TAnyParams } from "./params.model";
 
@@ -9,6 +10,7 @@ export interface IListTopLevel<T> extends TAnyParams {
     items: T[];
     activeId?: number | string
     activeIndex?: number
+    setActiveIndex?: Dispatch<SetStateAction<number>>
     listRef?: React.RefObject<HTMLDivElement>
     componentProps?: TAnyParams;
     onClickItem?: TListItemOnClick<T>

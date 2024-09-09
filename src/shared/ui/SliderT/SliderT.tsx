@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_SliderT.module.scss'
@@ -14,22 +14,35 @@ import { GalleryCounter } from '../GalleryCounter';
 interface SliderTProps<T> extends ISliderT<T> {}
 
 /**
- * Если `pagingVariant`:  
+ * `pagingVariant`:  
  * 1. `SliderPagingVariant.Full` - перелистование на всю страницу  
  * 2. `SliderPagingVariant.Amount` - перелистование по `pagingAmount`
+ * ---
+ * `isFull`:  
+ * - 1. `true`, то ширина`item` равна **ВСЕЙ ВИДИМОСТИ** области. (Только один `item` помещается на экран)
+ * - 2. `false`, то ширина `item` равна **САМОЙ СЕБЕ**. (Может вмещаться разное кол-во `item`-ов) 
+ * ---
+ * `isIndexChangeOnClick`:  
+ * - 1. `true`, то при прожатии кнопок `onPrev` и `onNext`, то происходит **МЕНЯЕТСЯ** `activeIndex`
+ * - 2. `false`, то при прожатии кнопок `onPrev` и `onNext`, то происходит **НЕ МЕНЯЕТСЯ** `activeIndex`
  */
 export const SliderT = <T extends any>({
     pagingVariant = SliderPagingVariant.Amount,
-    pagingAmount = 1,
+    pagingAmount: pagingOutAmount = 1,
     slideWidth: slideWidthOut,
+    isFull = false,
+    isIndexChangeOnClick = false,
     classNameWrapper,
     className,
+    classNameItem,
+    classNameSlider,
 
     hasGalleryCounter = false,
 
     items,
     direction = ListDirection.Row,
     activeIndex = 0,
+    setActiveIndex=()=>{},
     gap = 0,
     ...rest
 }: SliderTProps<T>) => {
@@ -39,29 +52,57 @@ export const SliderT = <T extends any>({
     const listRef = useRef<HTMLDivElement>(null);
 
     // STATE
-    const [slideWidth, setSlideWidth] = useState(0)
-    const [sliderWidth, setSliderWidth] = useState(0)
-    const [pagingWidth, setPagingWidth] = useState(0)
-    const [currentScrollSize, setCurrentScrollSize] = useState(0)
-    const [canScrollPrev, setCanScrollPrev] = useState(false)
-    const [canScrollNext, setCanScrollNext] = useState(false)
-    const [currentIndex, setCurrentIndex] = useState(activeIndex); 
-
-    
+    const [slideSize, setSlideSize] = useState(0);
+    const [sliderSize, setSliderSize] = useState(0);
+    const [canScrollPrev, setCanScrollPrev] = useState(false);
+    const [canScrollNext, setCanScrollNext] = useState(false);
+    const [currentIndex, setCurrentIndex] = useState(activeIndex);
+    const [visibleIndex, setVisibleIndex] = useState(activeIndex);
+    const [pagingAmount, setPagingAmount] = useState(pagingOutAmount);
 
     // EFFECT
-    // slider width
+    // out-in 
+    useEffect(() => {
+        setActiveIndex(currentIndex)
+        setVisibleIndex(currentIndex)
+    }, [currentIndex])
+
+    useEffect(() => {
+        setCurrentIndex(prevIndex => {
+            const newIndex = prevIndex === activeIndex ? prevIndex : activeIndex
+            setVisibleIndex(newIndex)
+            return newIndex
+        })
+    }, [activeIndex])
+
+    // pagingAmount
+    useEffect(() => {
+        if (pagingVariant === SliderPagingVariant.Amount) return
+        setPagingAmount(() => Math.floor(sliderSize / slideSize) ?? 1)
+    }, [pagingVariant, sliderSize, slideSize])
+
+    // Calculate sizes on resize and mount
     useEffect(() => {
         const handleResize = () => {
-            if (sliderRef.current) {
-                setSliderWidth(sliderRef.current.offsetWidth);
+            let offsetSize = sliderRef.current?.offsetWidth || 0;
+            let scrollSize = listRef.current?.scrollWidth || 0;
+            
+            if (direction === ListDirection.Column) {
+                offsetSize = sliderRef.current?.offsetHeight || 0;
+                scrollSize = listRef.current?.scrollHeight || 0;
             }
-            if (listRef.current) {
-                const listWidth = listRef.current.scrollWidth;
-                const calculatedSlideWidth = (listWidth - gap * (items.length - 1)) / items.length;
-                setSlideWidth(slideWidthOut === undefined ? calculatedSlideWidth : slideWidthOut);
+
+            setSliderSize(offsetSize);
+
+            if (isFull) {
+                setSlideSize(offsetSize); // ширина слайда = ширина контейнера
+            } else {
+                const calculatedSlideWidth = (scrollSize - gap * (items.length - 1)) / items.length;
+                setSlideSize(slideWidthOut || calculatedSlideWidth);
             }
         };
+    
+        handleResize();
 
         const resizeObserver = new ResizeObserver(handleResize);
         if (sliderRef.current) {
@@ -72,7 +113,7 @@ export const SliderT = <T extends any>({
         }
 
         window.addEventListener('resize', handleResize);
-
+    
         return () => {
             window.removeEventListener('resize', handleResize);
             if (sliderRef.current) {
@@ -82,30 +123,40 @@ export const SliderT = <T extends any>({
                 resizeObserver.unobserve(listRef.current);
             }
         };
-    }, [sliderRef, listRef, slideWidthOut, gap, items.length]);
+    }, [sliderRef, listRef, slideWidthOut, gap, items.length, direction, isFull]);
 
-    // paging width
+    // Sync scroll position with activeIndex
     useEffect(() => {
-        if (slideWidth === 0) return
+        if (!sliderRef.current || !listRef.current) return;
 
-        setPagingWidth(() => {
-            if (pagingVariant === SliderPagingVariant.Full)
-                return sliderWidth
-            return slideWidth * pagingAmount + gap * pagingAmount
-        })
-    }, [slideWidth, pagingVariant, pagingAmount, gap, sliderWidth])
+        // const newScrollPosition = currentIndex * (slideSize + gap);
+        const newScrollPosition = visibleIndex * (slideSize + gap);
 
+        if (direction === ListDirection.Row) {
+            sliderRef.current.scrollLeft = newScrollPosition;
+        } else {
+            sliderRef.current.scrollTop = newScrollPosition;
+        }
+    }, [visibleIndex, slideSize, gap, direction]);
+
+    // Update scroll state
     useEffect(() => {
         const updateScrollState = () => {
             if (!sliderRef.current) return;
 
-            const maxScrollLeft = sliderRef.current.scrollWidth - sliderRef.current.clientWidth;
+            let scrollSize = sliderRef.current.scrollWidth;
+            let clientSize = sliderRef.current.clientWidth;
+            let scrollPosition = sliderRef.current.scrollLeft;
 
-            setCanScrollPrev(sliderRef.current.scrollLeft > 0);
-            setCanScrollNext(sliderRef.current.scrollLeft < maxScrollLeft);
+            if (direction === ListDirection.Column) {
+                scrollSize = sliderRef.current.scrollHeight;
+                clientSize = sliderRef.current.clientHeight;
+                scrollPosition = sliderRef.current.scrollTop;
+            }
 
-            const newCurrentIndex = Math.round(sliderRef.current!.scrollLeft / (slideWidth + gap));
-            setCurrentIndex(newCurrentIndex + 1);
+            const maxScroll = scrollSize - clientSize;
+            setCanScrollPrev(scrollPosition > 0);
+            setCanScrollNext(scrollPosition < maxScroll);
         };
 
         updateScrollState();
@@ -119,53 +170,50 @@ export const SliderT = <T extends any>({
         return () => {
             sliderRef.current?.removeEventListener('scroll', handleScroll);
         };
-    }, [currentScrollSize, sliderWidth, slideWidth, gap, items.length]);
+    }, [sliderSize, slideSize, gap, items.length, direction]);
 
-    useEffect(() => {
-        if (!sliderRef.current) return
-
-        if (direction === ListDirection.Row) {
-            sliderRef.current.scrollLeft = currentScrollSize;
-        }
-    }, [currentScrollSize, direction])
-
-    useEffect(() => {
-        if (!sliderRef.current || !listRef.current || activeIndex === undefined) return;
-
-        const targetIndex = Math.max(Math.min(activeIndex, items.length - 1), 0);
-        const newScrollPosition = targetIndex * (slideWidth + gap);
-        setCurrentScrollSize(newScrollPosition);
-    }, [activeIndex, items.length, slideWidth, gap]);
-
-    // HANDLE
-    const getValidScrollSize = (prev: number, newValue: number) => {
-        if (!sliderRef.current) return prev
-        return Math.min(Math.max(newValue, 0), sliderRef.current.scrollWidth - sliderRef.current.clientWidth);
-    }
-
+    // NAVIGATION
     const onPrev = () => {
-        setCurrentScrollSize(prev => getValidScrollSize(prev, prev - pagingWidth));
+        setVisibleIndex(prev => {
+            const newIndex = Math.max(0, prev - pagingAmount)
+            if (isIndexChangeOnClick)
+                setCurrentIndex(newIndex)
+            return newIndex
+        })
     };
 
     const onNext = () => {
-        setCurrentScrollSize(prev => getValidScrollSize(prev, prev + pagingWidth));
+        setVisibleIndex(prev => {
+            const newIndex = Math.min(items.length-1, prev + pagingAmount)
+            if (isIndexChangeOnClick){
+                setCurrentIndex(newIndex)
+            }
+            return newIndex
+        })
     };
 
     return (
-        <div className={cls(cl.sliderWrapper, classNameWrapper)}>
-            <ButtonArrowWLine isSecondary={false} onClick={onPrev} sizes={{ width: 20, height: 20 }}
+        <div className={cls(cl.sliderWrapper, cl[direction], isFull ? cl.fullWidth : cl.normalWidth, classNameWrapper)}>
+            <ButtonArrowWLine 
+                isSecondary={false} direction={direction}
+                axis={direction === ListDirection.Row ? Axis.Bottom : Axis.Left}
+                onClick={onPrev} sizes={{ width: 20, height: 20 }}
                 className={cls(cl.prevButton, canScrollPrev ? cl.visible : '')} />
-            <div ref={sliderRef} className={cls(cl.slider)}>
+            <div ref={sliderRef} className={cls(cl.slider, classNameSlider)}>
                 <List listRef={listRef} items={items} direction={direction}
-                      activeIndex={activeIndex}
+                      activeIndex={currentIndex}
                       gap={gap}
                       className={cls(cl.slideContainer, className)}
+                      classNameItem={cls(cl.slide, classNameItem)}
                       {...rest} />
             </div>
             {hasGalleryCounter && items.length > 1 && <GalleryCounter activeIndex={currentIndex} listLength={items.length}/>}
             
-            <ButtonArrowWLine isSecondary={false} axis={Axis.Top} onClick={onNext} sizes={{ width: 20, height: 20 }}
+            <ButtonArrowWLine 
+                isSecondary={false} direction={direction}
+                axis={direction === ListDirection.Row ? Axis.Top : Axis.Right} 
+                onClick={onNext} sizes={{ width: 20, height: 20 }}
                 className={cls(cl.nextButton, canScrollNext ? cl.visible : '')} />
         </div>
-    )
+    );
 }
