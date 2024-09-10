@@ -10,17 +10,24 @@ import { FormEventHandler, ReactNode, RefObject } from "react"
 import { usePathname, useRouter } from "next/navigation"
 import { DASHBOARD_PAGES, MAIN_PAGES } from "@/config/pages-url.config"
 import { Logo } from "@/shared/ui/Logo"
-import { useAppSelector } from "@/storage/hooks"
+import { useActionCreators, useAppSelector } from "@/storage/hooks"
 import { LK_ICON } from "@/shared/ui/Icon/data/lk.data.icon"
 import { IImageSizes } from "@/shared/model/image.model"
+import { ECurrentLK } from "@/entities/User/model/user.model"
+import { saveCurrentLKTokenStorage } from "@/entities/User/lib/user-token.lib"
+import { ONLY_FOR_SELLERS_PAGES_ARRAY } from "@/widgets/Pages/OnlyForSellers/data/onlyForSellers.data"
 
 interface IWrapperForLogInNSupportPages {
     className?: string,
-    pageTitle: string,
-    children: ReactNode,
-    formRef: RefObject<HTMLFormElement>
-    onSubmitFunc: FormEventHandler<HTMLFormElement>,
-    forgotPasswordButton?: boolean
+    pageTitle?: string,
+    children?: ReactNode,
+    formRef?: RefObject<HTMLFormElement>
+    onSubmitFunc?: FormEventHandler<HTMLFormElement>,
+    forgotPasswordButton?: boolean,
+    hasForm?: boolean,
+    additionalBlockTitle?: string,
+    childrenImage?: ReactNode,
+    additionalBlockButtons?: ReactNode[]
 }
 
 export const WrapperForLogInNSupportPages = ({
@@ -29,7 +36,11 @@ export const WrapperForLogInNSupportPages = ({
     children,
     formRef,
     onSubmitFunc,
-    forgotPasswordButton = false
+    forgotPasswordButton = false,
+    hasForm = true,
+    additionalBlockTitle,
+    childrenImage,
+    additionalBlockButtons
 }: IWrapperForLogInNSupportPages) => {
 
     //ROUTER
@@ -39,30 +50,63 @@ export const WrapperForLogInNSupportPages = ({
     const pathname = usePathname()
 
     //RTK
-    const { isAuth } = useAppSelector(state => state.user)  
-
-    //VARIABLE
-    const iconSizes: IImageSizes = { width: 18, height: 18 }; 
+    const { isAuth, currentLK, photoId, prevPath } = useAppSelector(state => state.user)
+    const actionCreators = useActionCreators();
 
     //FUNCTION
+
+    const goBackByCurrentLK = () => {
+        if (ONLY_FOR_SELLERS_PAGES_ARRAY.find(it => it === prevPath) && currentLK === ECurrentLK.BUYER) {            
+            return router.back();
+        }
+        if (prevPath) return router.replace(prevPath);
+    }
+
+    const goBack = () => {
+        goBackByCurrentLK()
+        router.back();
+    }
+
+    const switchLK = () => {
+        const actualCurrentLK = currentLK === ECurrentLK.BUYER ? ECurrentLK.SELLER : ECurrentLK.BUYER
+        actionCreators.setAuthOptional({
+            photoId: photoId,
+            currentLK: actualCurrentLK
+        })
+        saveCurrentLKTokenStorage(actualCurrentLK)
+        goBackByCurrentLK();
+    }
+
     const navigateToTheSupport = () => router.push(MAIN_PAGES.SUPPORT.path);
 
     const navigateToTheLK = () => {
-        if(!isAuth){
+        if (!isAuth) {
             return router.push(MAIN_PAGES.LOGIN.path)
         }
         router.push(DASHBOARD_PAGES.HOME.path);
     }
 
-    const goBack = () => router.back();
 
     const navigateToTheForgotPassword = () => router.push(MAIN_PAGES.FORGOT_PASSWORD.path)
 
+    //VARIABLE
+    const iconSizes: IImageSizes = { width: 18, height: 18 };
+
+    const isOnlyForSellers = pathname === MAIN_PAGES.ONLY_FOR_SELLERS.path;
+
+    const additionalDefaultButtons: ReactNode[] = [
+        <Button title='Главная' variant={ButtonVariant.TONAL} size={ButtonSize.Medium} href={MAIN_PAGES.HOME.path} className={cl.homeButton} />,
+        <Button title='Профиль' variant={ButtonVariant.TONAL} size={ButtonSize.Medium} href={DASHBOARD_PAGES.HOME.path} />,
+        isOnlyForSellers ? <Button title='Сменить роль' className={cl.changeRole} variant={ButtonVariant.FILL} size={ButtonSize.Medium} onClick={switchLK} /> :
+            <Button title='Каталог' variant={ButtonVariant.FILL} size={ButtonSize.Medium} href={MAIN_PAGES.PRODUCTS.path} />
+    ]
+
     return (
         <main className={cls(cl.WrapperForLogInNSupportPages, className)}>
-            <Logo sizes={{ width: 120, height: 120 }}
-                className={cl.logoButton} />
-            <form className={cl.formContainer} onSubmit={onSubmitFunc} ref={formRef}>
+            {childrenImage ? childrenImage : <Logo sizes={{ width: 120, height: 120 }}
+                className={cl.logoButton} />}
+
+            {hasForm && <form className={cl.formContainer} onSubmit={onSubmitFunc} ref={formRef}>
                 <div className={cl.pageTitleContainer}>
                     <h4 className={cl.pageTitle}>{pageTitle}</h4>
                 </div>
@@ -75,7 +119,16 @@ export const WrapperForLogInNSupportPages = ({
                     color={ButtonColor.Secondary}
                     onClick={navigateToTheForgotPassword}
                 />}
-            </form>
+            </form>}
+
+            {additionalBlockTitle && <div className={cl.additionalBlock}>
+                <h5 className={cl.additionalBlockTitle}>
+                    {additionalBlockTitle}
+                </h5>
+                <div className={cl.additionalBlockButtons}>
+                    {(additionalBlockButtons ?? additionalDefaultButtons).map(it => it)}
+                </div>
+            </div>}
 
             <div className={cl.buttonsContainer}>
                 <Button variant={ButtonVariant.CONTENT}

@@ -66,6 +66,9 @@ class MAIN extends Route {
         true
     );
     CURRENT_DOCUMENT = this.createDynamicPath((documentName: string) => `/documents/${documentName}`)
+
+    ONLY_FOR_SELLERS = this.createPath('/onlyForSellers')
+
 }
 
 export const MAIN_PAGES = new MAIN('')

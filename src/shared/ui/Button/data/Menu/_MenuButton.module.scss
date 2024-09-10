@@ -8,6 +8,11 @@
     border-radius: 0px !important;
     border-bottom: 1px solid var(--tertiary-surface) !important;
 
+    &:active {
+        background-color: var(--secondary-surface) !important;
+        color: var(--secondary-pressed);
+    }
+
     .notificationCounter {
         font-size: var(--font-size-reg);
         color: var(--primary);

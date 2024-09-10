@@ -15,9 +15,9 @@ import { ButtonColor, ButtonSize } from "@/shared/ui/Button/model/button.model";
 import { ImageProduction } from "@/shared/ui/Image/Production/ui/ImageProduction";
 import { ImageProductionColor, ImageProductionVariant } from "@/shared/ui/Image/Production/data/production.image.data";
 import { getIndexBeforeDelete, getNextIndex, getPrevIndex } from "@/shared/lib/list.lib";
-import { InputImageSliderT } from "../components/SliderT/InputImageSliderT";
 import { TListItemOnClick } from "@/shared/model/list.model";
 import { ControlPanel } from "@/shared/ui/Control/ui/Panel/ControlPanel";
+import { ImageProductionSliderT } from "@/features/SliderT/ImageProduction/ImageProductionSliderT";
 
 
 interface InputImageProps extends IWrapperRectangleInputChildren, IInput {
@@ -176,7 +176,8 @@ export const InputImage:FC<InputImageProps> = ({
             {/* image list */}
             {imageList.length > 0 && multiple &&  (
                 <div className={cl.bottom}>
-                    <InputImageSliderT items={imageList} gap={10} 
+                    <ImageProductionSliderT 
+                        items={imageList} gap={10} 
                         pagingAmount={3}
                         activeIndex={activeIndexImage}
                         componentProps={{

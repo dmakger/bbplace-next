@@ -1,0 +1,19 @@
+.notFoundPage {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    margin: auto;
+}
+
+.errorImage {
+    margin-bottom: 40px;
+    width: 80%; 
+    max-width: 610px;
+    @media(max-width: 768px) {
+        margin-bottom: 20px;
+    }
+    @media(max-width: 425px) {
+        margin-bottom: 0px;
+    }
+}

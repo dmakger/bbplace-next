@@ -1,6 +1,7 @@
 import { DASHBOARD_PAGES, MAIN_PAGES } from "@/config/pages-url.config";
 import { BBP_PRESENTATION_DOCUMENT, DATA_PROCESSING_DOCUMENT, DATA_PROCESSING_POLICY_DOCUMENT, OFFERT_DOCUMENT } from "@/shared/data/documents.data";
 import { IMenuItem } from "@/shared/model/menu.model";
+import { EMenuButtonVariant, IMenuButton } from "@/shared/ui/Button/model/button.model";
 
 //FOOTER_TOP
 
@@ -38,9 +39,10 @@ export const BANNER_ADS_LINK_ITEM: IMenuItem = {
     title: "Баннерная реклама",
 }
 
-export const SELLING_PRODUCTS_ITEM: IMenuItem = {
+export const SELLING_PRODUCTS_ITEM: IMenuButton = {
     link: DASHBOARD_PAGES.PRODUCTS.path,
     title: "Продавать товары",
+    variant: EMenuButtonVariant.ONLY_FOR_SELLERS
 }
 
 export const FIND_CLIENTS_LINK_ITEM: IMenuItem = {
@@ -53,7 +55,7 @@ export const TARIFFS_LINK_ITEM: IMenuItem = {
     title: "Тарифы",
 }
 
-export const SELLERS_LINK_ITEM_ARRAY: IMenuItem[] = [
+export const SELLERS_LINK_ITEM_ARRAY: IMenuItem[] | IMenuButton[] = [
     // TRY_DEMO_MODE_LINK_ITEM,
     // BANNER_ADS_LINK_ITEM,
     SELLING_PRODUCTS_ITEM,
