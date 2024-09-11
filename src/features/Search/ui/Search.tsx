@@ -10,6 +10,7 @@ import { getFormDataFromForm } from "@/shared/lib/formData.lib";
 import SuspenseL from "@/shared/ui/Wrapper/SuspenseL/SuspenseL";
 import { Button, ButtonVariant } from "@/shared/ui/Button";
 import { SEARCH__ICON } from "@/shared/ui/Icon/data/search.data.icon";
+import { ButtonType } from "@/shared/ui/Button/model/button.model";
 
 
 export const Search = () => {
@@ -51,6 +52,7 @@ const SearchChild = () => {
             <PTCSelect classNameTitle={cl.select} classNameButton={cl.buttonSelect}/>
             <Input.Text name={'search'} placeholder="Поиск..." className={cl.text}/>
             <Button variant={ButtonVariant.DEFAULT} 
+                    type={ButtonType.Submit}
                     afterImage={SEARCH__ICON} afterProps={{width: 19, height: 19}} 
                     className={cl.button} />
         </form>

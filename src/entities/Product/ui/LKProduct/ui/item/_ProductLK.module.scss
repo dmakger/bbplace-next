@@ -32,6 +32,9 @@
             position: absolute;
             top: 5px;
             left: 7px;
+            & img{
+                width: 100%;
+            }
         }
 
         & img {
