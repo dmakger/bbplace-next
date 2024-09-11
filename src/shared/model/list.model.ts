@@ -10,7 +10,7 @@ export interface IListTopLevel<T> extends TAnyParams {
     items: T[];
     activeId?: number | string
     activeIndex?: number
-    setActiveIndex?: Dispatch<SetStateAction<number>>
+    setActiveIndex?: Dispatch<SetStateAction<number>> | Dispatch<SetStateAction<number | undefined>>
     listRef?: React.RefObject<HTMLDivElement>
     componentProps?: TAnyParams;
     onClickItem?: TListItemOnClick<T>

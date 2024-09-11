@@ -63,7 +63,7 @@ export const ProductForm = forwardRef(({ data, loadData, isEdit = false, classNa
 
     return (
         <div className={cls(cl.block, className)}>
-            <MainInfoProductForm
+            {/* <MainInfoProductForm
                 data={mainInfoData}
                 setData={setMainInfoData}
                 triggerSubmit={submitFn => { mainFormSubmitRef.current = submitFn; }} 
@@ -72,7 +72,7 @@ export const ProductForm = forwardRef(({ data, loadData, isEdit = false, classNa
                 data={additionalInfoData}
                 setData={setAdditionalInfoData}
                 triggerSubmit={submitFn => { additionalFormSubmitRef.current = submitFn; }}
-                isOpenForm={!isEdit} />
+                isOpenForm={!isEdit} /> */}
             <VariationInfoProductForm
                 data={variationInfoData}
                 setData={setVariationInfoData}
