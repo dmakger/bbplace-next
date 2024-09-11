@@ -127,6 +127,20 @@ export const InputImage:FC<InputImageProps> = ({
             setActiveIndexImage(index)
     }
 
+    const handleOnClickMakeFirst = () => {
+        if (setImageList === undefined || activeIndexImage === undefined) 
+            return;
+        
+        setImageList(prevList => {
+            const newList = [...prevList]; // Создаем новый массив
+            const element = newList[activeIndexImage];
+            newList.splice(activeIndexImage, 1);
+            newList.unshift(element);
+            return newList;
+        });
+    
+        setActiveIndexImage(0);
+    }
     const handleOnPrevControlPanel = () => {
         setActiveIndexImage(prevIndex => getPrevIndex(imageList.length, prevIndex))
     }
@@ -150,9 +164,12 @@ export const InputImage:FC<InputImageProps> = ({
                         <Button variant={ButtonVariant.CONTENT} color={ButtonColor.Negative} size={ButtonSize.Medium}
                                 beforeImage={TRASH_NEGATIVE_TO_WHITE_ICON} 
                                 onClick={handleOnDeleteByIndex}/>
-                        {multiple && <ControlPanel current={activeIndexImage+1} 
-                                      onClickPrev={handleOnPrevControlPanel} 
-                                      onClickNext={handleOnNextControlPanel} />}
+                        {multiple && 
+                            <ControlPanel current={activeIndexImage+1}
+                                    onClickMakeFirst={handleOnClickMakeFirst}
+                                    onClickPrev={handleOnPrevControlPanel} 
+                                    onClickNext={handleOnNextControlPanel} />
+                        }
                     </div>
                     <ImageProduction src={getImage(imageList[activeIndexImage])} 
                                      variant={ImageProductionVariant.Color} 
