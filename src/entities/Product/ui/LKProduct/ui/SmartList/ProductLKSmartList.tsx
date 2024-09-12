@@ -23,12 +23,12 @@ import { EProductLKVariants } from "../../model/productLK.model";
 import { ProductsTypeLK } from "@/shared/ui/SwitchSelector/data/switchSelector.data";
 import { skipToken } from "@reduxjs/toolkit/query";
 
-interface ProductLKSmartListProps{
+interface ProductLKSmartListProps {
     typeProduct: ProductsTypeLK
     className?: string,
 }
 
-export const ProductLKSmartList:FC<ProductLKSmartListProps> = ({typeProduct, className}) => {
+export const ProductLKSmartList: FC<ProductLKSmartListProps> = ({ typeProduct, className }) => {
 
     //STATE
     const [isOpenSettings, setIsOpenSettings] = useState<boolean>(false);
@@ -66,61 +66,64 @@ export const ProductLKSmartList:FC<ProductLKSmartListProps> = ({typeProduct, cla
     }, [isOpenSettings, isOpenGroup]);
 
     return (
-        <SuspenseL>
-            <LKSubheader
-                checkedItemsNumber={checkedProductsId.length}
-                className={checkedProductsId.length ? cl.showSubheader : ''}
-                checkedProductsId={checkedProductsId}
-                setсheckedProductsId={setсheckedProductsId} />
-
-            {products.length > 0 && (
-                <ProductLKList products={products}
-                    setIsOpenSettings={setIsOpenSettings}
-                    isOpenGroup={isOpenGroup}
-                    setIsOpenGroup={setIsOpenGroup}
-                    choosenProduct={choosenProduct}
-                    setChoosenProduct={setChoosenProduct}
-                    setGroupProducts={setGroupProducts}
+        <div className={cl.ProductLKSmartList}>
+            <SuspenseL>
+                <LKSubheader
+                    checkedItemsNumber={checkedProductsId.length}
+                    className={checkedProductsId.length ? cl.showSubheader : ''}
                     checkedProductsId={checkedProductsId}
-                    setсheckedProducts={setсheckedProductsId}
-                    variant={EProductLKVariants.DEFAULT} />
-            )}
+                    setсheckedProductsId={setсheckedProductsId} />
 
-            <Modal view={EModalView.BOTTOM}
-                buttonNode
-                isOpen={isOpenSettings || isOpenGroup}
-                onClickOverlay={closeTheModal}>
-                <WrapperModalBottom
-                    setIsOpen={closeTheModal}
-                    title={isOpenSettings ? "Выбор действия" : isOpenGroup && !checkedProductsId.length ? 'Варианты товара' : ''}
-                    className={checkedProductsId.length ? cl.noPadding : ''}
-                    classNameTitle={!checkedProductsId.length && isOpenGroup ? cl.showTitle : ''}
-                    classNameTopChild={isOpenGroup ? cl.noMarginTop : ''}
-                    topChildren={isOpenGroup && (
-                        <LKSubheader
-                            checkedItemsNumber={checkedProductsId.length}
-                            className={cls(cl.subHeaderModal, checkedProductsId.length ? cl.showSubheader : '')}
-                            checkedProductsId={checkedProductsId}
-                            setсheckedProductsId={setсheckedProductsId} />
-                    )}
-                    bottomChildren={isOpenSettings ? (products.length > 0 && (
-                        <BottomInfoModal
-                            variant={EBottomInfoVariant.SETTINGS}
-                            product={choosenProduct!}
-                            setIsOpen={setIsOpenSettings}
-                        />
-                    )) : (isOpenGroup && groupProducts.length > 0 && (
-                        <ProductLKList
-                            products={groupProducts}
-                            variant={EProductLKVariants.GROUP_ITEM}
-                            checkedProductsId={checkedProductsId}
-                            setсheckedProducts={setсheckedProductsId}
-                        />
-                    ))}
-                    classNameBottomChild={isOpenGroup ? cl.paddingTop : ''}
-                    isBorderTopOnBottomChild={isOpenGroup && groupProducts.length > 2}
-                />
-            </Modal>
-        </SuspenseL>
+                {products.length > 0 && (
+                    <ProductLKList products={products}
+                        setIsOpenSettings={setIsOpenSettings}
+                        isOpenGroup={isOpenGroup}
+                        setIsOpenGroup={setIsOpenGroup}
+                        choosenProduct={choosenProduct}
+                        setChoosenProduct={setChoosenProduct}
+                        setGroupProducts={setGroupProducts}
+                        checkedProductsId={checkedProductsId}
+                        setсheckedProducts={setсheckedProductsId}
+                        variant={EProductLKVariants.DEFAULT} />
+                )}
+
+                <Modal view={EModalView.BOTTOM}
+                    buttonNode
+                    isOpen={isOpenSettings || isOpenGroup}
+                    onClickOverlay={closeTheModal}>
+                    <WrapperModalBottom
+                        setIsOpen={closeTheModal}
+                        title={isOpenSettings ? "Выбор действия" : isOpenGroup && !checkedProductsId.length ? 'Варианты товара' : ''}
+                        className={checkedProductsId.length ? cl.noPadding : ''}
+                        classNameTitle={!checkedProductsId.length && isOpenGroup ? cl.showTitle : ''}
+                        classNameTopChild={isOpenGroup ? cl.noMarginTop : ''}
+                        topChildren={isOpenGroup && (
+                            <LKSubheader
+                                checkedItemsNumber={checkedProductsId.length}
+                                className={cls(cl.subHeaderModal, checkedProductsId.length ? cl.showSubheader : '')}
+                                checkedProductsId={checkedProductsId}
+                                setсheckedProductsId={setсheckedProductsId} />
+                        )}
+                        bottomChildren={isOpenSettings ? (products.length > 0 && (
+                            <BottomInfoModal
+                                variant={EBottomInfoVariant.SETTINGS}
+                                product={choosenProduct!}
+                                setIsOpen={setIsOpenSettings}
+                            />
+                        )) : (isOpenGroup && groupProducts.length > 0 && (
+                            <ProductLKList
+                                products={groupProducts}
+                                variant={EProductLKVariants.GROUP_ITEM}
+                                checkedProductsId={checkedProductsId}
+                                setсheckedProducts={setсheckedProductsId}
+                            />
+                        ))}
+                        classNameBottomChild={isOpenGroup ? cl.paddingTop : ''}
+                        isBorderTopOnBottomChild={isOpenGroup && groupProducts.length > 2}
+                    />
+                </Modal>
+            </SuspenseL>
+        </div>
+
     )
 }

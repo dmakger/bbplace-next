@@ -1,4 +1,12 @@
-.showSubheader{
+.ProductLKSmartList {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+}
+
+.showSubheader {
         visibility: visible;
         opacity: 1;
         transition: 0.3s;

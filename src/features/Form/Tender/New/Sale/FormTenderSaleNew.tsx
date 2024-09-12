@@ -136,7 +136,7 @@ export const FormTenderSaleNew:FC<FormTenderSaleNewProps> = ({className}) => {
                                     options={categoryOptions} onClickOption={setSelectedCategoryOption}
                                     titleModal="Категория" required variant={EInputVariants.RECTANGULAR} isActiveOptionInInput/> 
             </WrapperRectangleInput>
-            <WrapperRectangleInput labelText={"Минимальный заказ"} isRequired>
+            <WrapperRectangleInput labelText={"Минимальный заказ"} isRequired classNameInputsContainer={cl.inputsContainer}>
                 <Input.Text name={'minOrder'} placeholder="Введите число" defaultValue={0}
                             type={EInputTextType.Number} variant={EInputVariants.RECTANGULAR} required={true} />
                 <Input.TextAndSelect name={'selectMinOrder'} placeholder="Измерение" 
@@ -144,7 +144,7 @@ export const FormTenderSaleNew:FC<FormTenderSaleNewProps> = ({className}) => {
                                     options={metricOptions} onClickOption={setSelectedMinOrderOption}
                                     titleModal="Измерение" required variant={EInputVariants.RECTANGULAR} isActiveOptionInInput/> 
             </WrapperRectangleInput>
-            <WrapperRectangleInput labelText={"Цена"}>
+            <WrapperRectangleInput labelText={"Цена"} classNameInputsContainer={cl.inputsContainer}>
                 <Input.Text name={'price'} placeholder="Введите число" defaultValue={0}
                             type={EInputTextType.Number} variant={EInputVariants.RECTANGULAR} />
                 <Input.TextAndSelect name={'currency'} placeholder="Валюта" 

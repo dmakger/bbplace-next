@@ -7,7 +7,6 @@ import { ImageAPI } from '@/shared/ui/Image/API/ImageAPI'
 import { CategoryAPI } from '@/entities/Metrics/api/category.metrics.api'
 import { GEAR_ICON } from '@/shared/ui/Icon/data/gear.data.icon'
 import { Button, ButtonVariant } from '@/shared/ui/Button'
-import { InputCheckbox } from '@/shared/ui/Input/ui/Checkbox'
 import { ProductAPI } from '@/entities/Product/api/product.api'
 import { skipToken } from '@reduxjs/toolkit/query'
 import { EProductLKVariants } from '../../model/productLK.model'
@@ -22,6 +21,7 @@ import { ButtonArrowWOLine } from '@/shared/ui/Button/data/Arrow/WOLine/ButtonAr
 import { Axis } from '@/shared/model/button.model'
 import { BottomInfoModal } from '@/features/Modal/BottomInfo'
 import { EBottomInfoVariant } from '@/features/Modal/BottomInfo/model/bottomInfoModal.model'
+import Input from '@/shared/ui/Input/Input'
 
 interface IProductLK extends IProductProps {
   className?: string,
@@ -102,16 +102,16 @@ export const ProductLK = ({
       </span>}
       <div className={cl.imageContainer}>
         <ImageAPI src={product.media.attachments[0]} />
-        <InputCheckbox className={cl.checkbox}
+        <Input.Checkbox className={cl.checkbox}
           setIsChecked={setIsChecked}
           isChecked={isChecked}
-
         />
         <div className={cl.settings}>
           {variant === EProductLKVariants.DEFAULT
             ? <Button variant={ButtonVariant.DEFAULT}
               className={cl.iconWrapper}
               beforeImage={GEAR_ICON}
+              beforeProps={{width: 20, height: 20}}
               onClick={() => showSettingsModal(product)}
             /> :
             <BottomInfoModal
