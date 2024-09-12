@@ -51,8 +51,7 @@ const SearchChild = () => {
         <form className={cl.search} onSubmit={handleOnSubmit} ref={formRef}>
             <PTCSelect classNameTitle={cl.select} classNameButton={cl.buttonSelect}/>
             <Input.Text name={'search'} placeholder="Поиск..." className={cl.text}/>
-            <Button variant={ButtonVariant.DEFAULT} 
-                    type={ButtonType.Submit}
+            <Button variant={ButtonVariant.DEFAULT} type={ButtonType.Submit}
                     afterImage={SEARCH__ICON} afterProps={{width: 19, height: 19}} 
                     className={cl.button} />
         </form>
