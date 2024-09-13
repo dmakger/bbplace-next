@@ -4,3 +4,10 @@ export interface IFavouriteRequest {
     objectId: number
     objectType: FavouriteType
 }
+
+
+export interface IFavouriteListRequest {
+    objectIds: number[]
+    objectType: FavouriteType
+}
+

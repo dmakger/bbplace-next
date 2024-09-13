@@ -28,9 +28,9 @@ export const useFavourite = ({body, onlyFavourite=false}: FavouriteLibProps) => 
     }] = FavouriteAPI.useDeleteFavouriteMutation()
 
     const {data: isInFavourite} = FavouriteAPI.useIsInFavouriteQuery(body ? body : skipToken)
-    const {data: favouritePurchases} = FavouriteAPI.useGetFavouritePurchasesQuery(onlyFavourite ? '' : skipToken)
-    const {data: favouriteSales} = FavouriteAPI.useGetFavouriteSalesQuery(onlyFavourite ? '' : skipToken)
-    const {data: favouriteProducts} = FavouriteAPI.useGetFavouriteProductsQuery(onlyFavourite ? '' : skipToken)
+    const {data: favouritePurchases} = FavouriteAPI.useGetFavouritePurchasesQuery(onlyFavourite ? undefined : skipToken)
+    const {data: favouriteSales} = FavouriteAPI.useGetFavouriteSalesQuery(onlyFavourite ? undefined : skipToken)
+    const {data: favouriteProducts} = FavouriteAPI.useGetFavouriteProductsQuery(onlyFavourite ? undefined : skipToken)
     
     // RETURN
     return {

@@ -19,25 +19,27 @@ import { HeadingToTextTable } from "@/shared/ui/Text"
 import { EHeadingToTextVariants } from "@/shared/model/text.model"
 import { CategoryItem } from "@/entities/Metrics/ui/Category"
 import { FavouriteAutoToTenderButton } from "../../components/Buttons/Favourite/Auto/FavouriteAutoToTenderButton"
-import { ETenderFavouriteViewItem } from "../../data/view.product.data"
+import { ETenderColor, ETenderFavouriteViewItem } from "../../data/view.product.data"
 import { ARROW_ICON } from "@/shared/ui/Icon/data/arrow.data.icon"
 import { getDataTenderInfo } from "@/shared/ui/Text/lib/htt.tender.lib"
 import Link from "next/link"
 import { MAIN_PAGES } from "@/config/pages-url.config"
+import { IListItem } from "@/shared/model/list.model"
 
-interface ITenderItem {
-    tender: ICommonTender,
+interface ITenderItem extends IListItem<ICommonTender> {
+    color?: ETenderColor
     classNameLine?: string,
     classNameBlockSupplier?: string,
-    className?: string
 }
 
 export const TenderItem = ({
-    tender,
+    color=ETenderColor.White, 
     classNameLine,
     classNameBlockSupplier,
-    tender: { id, categoryId, ownerId, createdAt },
+
+    item: tender,
     className,
+    ...rest
 }: ITenderItem) => {
 
     //STATE
@@ -50,7 +52,7 @@ export const TenderItem = ({
 
     //EFFECT
     useEffect(() => {
-        categories && setTenderCategory(categories.find(category => category.id === categoryId))
+        categories && setTenderCategory(categories.find(category => category.id === tender.categoryId))
     }, [categories])
 
     useEffect(() => {
@@ -77,7 +79,7 @@ export const TenderItem = ({
 
     return (
         <>
-            <section className={cls(cl.TenderCard, className)} onClick={goToTheTenderMobile}>
+            <section className={cls(cl.TenderCard, cl[color], className)} onClick={goToTheTenderMobile}>
                 <div className={cl.topContainer} onClick={handleInfoClick}>
                     <div className={cl.info}>
                         {tenderType && <TenderType tenderType={tenderType} />}
@@ -108,12 +110,12 @@ export const TenderItem = ({
                             className={cls(cl.blockSupplier, classNameBlockSupplier)}
                             classNameSupplier={cl.supplier}
                             classNameSmallSupplier={cl.smallSupplier}
-                            id={ownerId}
+                            id={tender.ownerId}
                             view={is768 ? ESupplierView.SMALL : ESupplierView.LARGE_GRAY}
                             subscribeView={ESupplierSubscribeViewItem.SMALL}
                             />
                     </div>
-                    <CreatedAt createdAt={createdAt} />
+                    <CreatedAt createdAt={tender.createdAt} />
                     <div className={cl.buttonToTender} onClick={handleInfoClick}>
                         <Button variant={ButtonVariant.W_ARROW_RED} onClick={goToTheTenderDesktop}
                                 title="В тендер" 

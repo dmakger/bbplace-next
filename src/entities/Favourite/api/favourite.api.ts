@@ -1,9 +1,9 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import { options } from "@/api/interceptors";
-import { getHeaderAuthorizationIfExists } from "@/entities/Auth/lib/auth-token.lib";
+import { getHeaderAuthorization, getHeaderAuthorizationIfExists } from "@/entities/Auth/lib/auth-token.lib";
 import { IProductAPI } from "@/entities/Product/model/product.model";
 import { IPurchaseTender, ISaleTender } from "@/entities/Tender/model/tender.model";
-import { IFavouriteRequest } from "../model/favourite.model";
+import { IFavouriteListRequest, IFavouriteRequest } from "../model/favourite.model";
 
 export const FavouriteAPI = createApi({
 	reducerPath: 'favouriteAPI',
@@ -31,21 +31,21 @@ export const FavouriteAPI = createApi({
         }),
 
         // ======={ GETTERS }=======
-        getFavouriteProducts: build.query<IProductAPI[], void | any>({
+        getFavouriteProducts: build.query<IProductAPI[], void>({
             query: () => ({
                 url: `/GetFavorites/Items`,
                 method: 'GET',
                 headers: getHeaderAuthorizationIfExists(),
             }),
         }),
-        getFavouritePurchases: build.query<IPurchaseTender[], void | any>({
+        getFavouritePurchases: build.query<IPurchaseTender[], void>({
             query: () => ({
                 url: `/GetFavorites/TendersPurchaseRequests`,
                 method: 'GET',
                 headers: getHeaderAuthorizationIfExists(),
             }),
         }),
-        getFavouriteSales: build.query<ISaleTender[], void | any>({
+        getFavouriteSales: build.query<ISaleTender[], void>({
             query: () => ({
                 url: `/GetFavorites/TendersSaleRequests`,
                 method: 'GET',
@@ -63,6 +63,15 @@ export const FavouriteAPI = createApi({
                     const data = await response.json() as boolean[];
                     return data[0]
                 }
+            }),
+        }),
+
+        areInFavorites: build.query<boolean, IFavouriteListRequest>({
+            query: (body) => ({
+                url: `/areInFavorites/`,
+                method: 'POST',
+                body,
+                headers: getHeaderAuthorization(),
             }),
         }),
     })

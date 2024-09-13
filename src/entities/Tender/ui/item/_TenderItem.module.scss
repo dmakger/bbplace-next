@@ -1,3 +1,15 @@
+// >>> ========={ / COLOR \ }========= >>>
+.white {
+    --tender-color: var(--background-2);
+}
+
+.gray {
+    --tender-color: var(--background-1);
+}
+
+// <<< ========={ \ COLOR / }========= <<<
+
+
 //VARIABLE
 $mobile-dimension: 768px;
 
@@ -23,7 +35,7 @@ $mobile-dimension: 768px;
     flex-direction: column;
     gap: 36px;
     max-width: var(--max-width-2);
-    background-color: var(--background-2);
+    background-color: var(--tender-color);
     border-radius: 15px 15px 0 0;
     border-bottom: 1px solid var(--gray-5);
     padding: 16px;
@@ -123,7 +135,7 @@ $mobile-dimension: 768px;
                 word-break: break-all;
             }
             .blockSupplier{
-                background-color: var(--background-2);
+                background-color: var(--tender-color);
             }
 
             .supplier {

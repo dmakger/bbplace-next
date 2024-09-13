@@ -109,7 +109,7 @@ export const TenderList = () => {
                                 set={setPageNumber}>
                 <div className={cl.TenderList}>
                     {tenderList.map(it => (
-                        <TenderItem tender={it} key={it.id} />
+                        <TenderItem item={it} key={it.id} />
                     ))}
                 </div>
             </WrapperPagination>
