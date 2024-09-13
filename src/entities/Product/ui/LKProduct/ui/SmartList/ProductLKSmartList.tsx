@@ -1,15 +1,14 @@
 "use client"
 
-import { FC, useCallback, useEffect, useState } from "react"
+import { FC, useCallback, useEffect, useState } from "react";
 
 import { cls } from '@/shared/lib/classes.lib';
-import cl from './_ProductLKSmartList.module.scss'
+import cl from './_ProductLKSmartList.module.scss';
 import { IProduct } from "@/entities/Product/model/product.model";
 import { ProductAPI } from "@/entities/Product/api/product.api";
 import { CurrencyAPI } from "@/entities/Metrics/api/currency.metrics.api";
 import { MetricsAPI } from "@/entities/Metrics/api/metrics.metrics.api";
-import { UserAPI } from "@/entities/Auth/api/auth.api";
-import { useActionCreators, useAppSelector } from "@/storage/hooks";
+import { useAppSelector } from "@/storage/hooks";
 import { productApiListToProductList } from "@/entities/Product/lib/product.lib";
 import SuspenseL from "@/shared/ui/Wrapper/SuspenseL/SuspenseL";
 import { LKSubheader } from "@/features/LKSubheader";
@@ -83,8 +82,7 @@ export const ProductLKSmartList: FC<ProductLKSmartListProps> = ({ typeProduct, c
                         setChoosenProduct={setChoosenProduct}
                         setGroupProducts={setGroupProducts}
                         checkedProductsId={checkedProductsId}
-                        setсheckedProducts={setсheckedProductsId}
-                        variant={EProductLKVariants.DEFAULT} />
+                        setсheckedProducts={setсheckedProductsId} />
                 )}
 
                 <Modal view={EModalView.BOTTOM}

@@ -98,14 +98,15 @@ export const ProductLK = ({
   return (
     <div className={cls(cl.LKProduct, className)}>
       {variant === EProductLKVariants.DEFAULT && category && <span className={cl.category}>
-        {category.name}
+        {category[0].name}
       </span>}
-      <div className={cl.imageContainer}>
-        <ImageAPI src={product.media.attachments[0]} />
-        <Input.Checkbox className={cl.checkbox}
+      <Input.Checkbox className={cl.checkbox}
           setIsChecked={setIsChecked}
           isChecked={isChecked}
         />
+      <div className={cl.imageContainer}>
+        <ImageAPI src={product.media.attachments[0]} />
+        
         <div className={cl.settings}>
           {variant === EProductLKVariants.DEFAULT
             ? <Button variant={ButtonVariant.DEFAULT}
