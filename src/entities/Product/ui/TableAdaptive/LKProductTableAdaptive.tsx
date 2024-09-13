@@ -1,24 +1,18 @@
 "use client"
 
-import { FC, SetStateAction, useEffect, useMemo, useState } from "react"
+import { FC, useEffect, useState } from "react";
 
-import { cls } from '@/shared/lib/classes.lib';
-import cl from './_LKProductTableAdaptive.module.scss'
 import { HandleSize } from "@/shared/ui/Handle/Size/HandleSize";
 import { LKProductTable } from "@/features/Table/ui/Product/LK/ui/LKProductTable";
 import { FetchProduct } from "../FetchProduct/FetchProduct";
 import { IProduct } from "../../model/product.model";
-import { ProductLK, ProductLKList } from "../LKProduct";
-import { EProductLKVariants } from "../LKProduct/model/productLK.model";
 import { ProductLKSmartList } from "../LKProduct/ui/SmartList/ProductLKSmartList";
 import { ProductsTypeLK } from "@/shared/ui/SwitchSelector/data/switchSelector.data";
-import { ProductAPI } from "../../api/product.api";
-import { skipToken } from "@reduxjs/toolkit/query";
 import { useAppSelector } from "@/storage/hooks";
 import { FetchProductTypes } from "../../data/fetch.product.data";
 
 interface LKProductTableAdaptiveProps{
-    typeProduct: ProductsTypeLK
+    typeProduct: ProductsTypeLK,
     className?: string,
 }
 
@@ -44,23 +38,16 @@ export const LKProductTableAdaptive:FC<LKProductTableAdaptiveProps> = ({typeProd
         }
     }, [typeProduct, userId])
 
-    // const productProps = useMemo(() => {
-    //     if (typeProduct === ProductsTypeLK.Active)
-    // }, [typeProduct, userId])
-
-
     return (
         <>
             {typeFetchProduct && (
                 <FetchProduct set={setProducts} type={typeFetchProduct} propsProduct={propsFetchProduct} hasCategory={true} />
             )}
             {is768 ? (
-                // <ProductLKList products={products} variant={EProductLKVariants.DEFAULT} />
-                <ProductLKSmartList typeProduct={typeProduct} />
+                <ProductLKSmartList typeProduct={typeProduct}/>
             ) : (
                 <LKProductTable products={products} type={typeProduct} />
             )}
-            {/* <ProductLKSmartList typeProduct={typeProduct} /> */}
             <HandleSize set={setIs768} width={768} />
         </>
     )

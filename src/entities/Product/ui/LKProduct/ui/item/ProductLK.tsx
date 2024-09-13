@@ -33,7 +33,7 @@ interface IProductLK extends IProductProps {
   isOpenGroup?: boolean,
   setIsOpenGroup?: Function,
   checkedProductsId?: number[],
-  setсheckedProducts?: Function
+  setCheckedProductsId?: Function
 }
 
 export const ProductLK = ({
@@ -47,7 +47,7 @@ export const ProductLK = ({
   isOpenGroup,
   setIsOpenGroup,
   checkedProductsId,
-  setсheckedProducts
+  setCheckedProductsId
 }: IProductLK) => {
 
   //STATE
@@ -56,12 +56,11 @@ export const ProductLK = ({
 
   //API
   const { data: category } = CategoryAPI.useGetCategoryByIdQuery(product?.categoryId)
-  const { data: productAPIListGroup } = ProductAPI.useGetProductsByGroupQuery(product.groupId ? product.groupId : skipToken, { refetchOnMountOrArgChange: true })
+  const { data: productAPIListGroup } = ProductAPI.useGetProductsByGroupQuery(product.groupId ?? skipToken, { refetchOnMountOrArgChange: true })
   const { data: currencyList } = CurrencyAPI.useGetCurrenciesQuery()
   const { data: metrics } = MetricsAPI.useGetMetricsQuery()
 
   //EFFECT
-
   useEffect(() => {
     if (checkedProductsId) setIsChecked(checkedProductsId.includes(product.id));
   }, [checkedProductsId]);
@@ -74,8 +73,8 @@ export const ProductLK = ({
   }, [productAPIListGroup, currencyList, metrics])
 
   useEffect(() => {
-    if (checkedProductsId && setсheckedProducts && isChecked && !checkedProductsId.includes(product.id)) setсheckedProducts([...checkedProductsId, product.id])
-    else if (!isChecked && setсheckedProducts) setсheckedProducts(checkedProductsId?.filter(it => it !== product.id))
+    if (checkedProductsId && setCheckedProductsId && isChecked && !checkedProductsId.includes(product.id)) setCheckedProductsId([...checkedProductsId, product.id])
+    else if (!isChecked && setCheckedProductsId) setCheckedProductsId(checkedProductsId?.filter(it => it !== product.id))
   }, [isChecked])
 
   //FUNCTION
@@ -144,7 +143,6 @@ export const ProductLK = ({
               +{groupProductsLength}
             </p>
             <ButtonArrowWOLine
-              // onClick={showGroupModal}
               axis={choosenProduct && choosenProduct.id === product.id && isOpenGroup ? Axis.Top : Axis.Default}
               onClick={() => showGroupModal(product)} />
           </div>}

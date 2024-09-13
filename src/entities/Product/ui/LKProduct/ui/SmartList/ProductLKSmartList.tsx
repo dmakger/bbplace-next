@@ -23,8 +23,8 @@ import { ProductsTypeLK } from "@/shared/ui/SwitchSelector/data/switchSelector.d
 import { skipToken } from "@reduxjs/toolkit/query";
 
 interface ProductLKSmartListProps {
-    typeProduct: ProductsTypeLK
-    className?: string,
+    typeProduct: ProductsTypeLK,
+    className?: string
 }
 
 export const ProductLKSmartList: FC<ProductLKSmartListProps> = ({ typeProduct, className }) => {
@@ -35,7 +35,7 @@ export const ProductLKSmartList: FC<ProductLKSmartListProps> = ({ typeProduct, c
     const [products, setProducts] = useState<IProduct[]>([])
     const [choosenProduct, setChoosenProduct] = useState<IProduct>()
     const [groupProducts, setGroupProducts] = useState<IProduct[]>([])
-    const [checkedProductsId, setсheckedProductsId] = useState<number[]>([])
+    const [checkedProductsId, setCheckedProductsId] = useState<number[]>([])
 
     // RTK
     const { id: userId } = useAppSelector(state => state.user)
@@ -69,9 +69,9 @@ export const ProductLKSmartList: FC<ProductLKSmartListProps> = ({ typeProduct, c
             <SuspenseL>
                 <LKSubheader
                     checkedItemsNumber={checkedProductsId.length}
-                    className={checkedProductsId.length ? cl.showSubheader : ''}
+                    className={cls(cl.subHeader, checkedProductsId.length ? cl.showSubheader : '')}
                     checkedProductsId={checkedProductsId}
-                    setсheckedProductsId={setсheckedProductsId} />
+                    setCheckedProductsId={setCheckedProductsId} />
 
                 {products.length > 0 && (
                     <ProductLKList products={products}
@@ -82,7 +82,7 @@ export const ProductLKSmartList: FC<ProductLKSmartListProps> = ({ typeProduct, c
                         setChoosenProduct={setChoosenProduct}
                         setGroupProducts={setGroupProducts}
                         checkedProductsId={checkedProductsId}
-                        setсheckedProducts={setсheckedProductsId} />
+                        setCheckedProductsId={setCheckedProductsId} />
                 )}
 
                 <Modal view={EModalView.BOTTOM}
@@ -95,12 +95,12 @@ export const ProductLKSmartList: FC<ProductLKSmartListProps> = ({ typeProduct, c
                         className={checkedProductsId.length ? cl.noPadding : ''}
                         classNameTitle={!checkedProductsId.length && isOpenGroup ? cl.showTitle : ''}
                         classNameTopChild={isOpenGroup ? cl.noMarginTop : ''}
-                        topChildren={isOpenGroup && (
+                        topChildren={isOpenGroup && checkedProductsId.length > 0 && (
                             <LKSubheader
                                 checkedItemsNumber={checkedProductsId.length}
                                 className={cls(cl.subHeaderModal, checkedProductsId.length ? cl.showSubheader : '')}
                                 checkedProductsId={checkedProductsId}
-                                setсheckedProductsId={setсheckedProductsId} />
+                                setCheckedProductsId={setCheckedProductsId} />
                         )}
                         bottomChildren={isOpenSettings ? (products.length > 0 && (
                             <BottomInfoModal
@@ -113,7 +113,7 @@ export const ProductLKSmartList: FC<ProductLKSmartListProps> = ({ typeProduct, c
                                 products={groupProducts}
                                 variant={EProductLKVariants.GROUP_ITEM}
                                 checkedProductsId={checkedProductsId}
-                                setсheckedProducts={setсheckedProductsId}
+                                setCheckedProductsId={setCheckedProductsId}
                             />
                         ))}
                         classNameBottomChild={isOpenGroup ? cl.paddingTop : ''}

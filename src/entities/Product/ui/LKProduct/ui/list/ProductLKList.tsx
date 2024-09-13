@@ -15,7 +15,7 @@ interface IProductLKList{
     isOpenGroup?: boolean,
     setIsOpenGroup?: Function,
     checkedProductsId?: number[],
-    setсheckedProducts?: Function
+    setCheckedProductsId?: Function
 }
 
 export const ProductLKList = ({
@@ -29,7 +29,7 @@ export const ProductLKList = ({
     isOpenGroup,
     setIsOpenGroup,
     checkedProductsId,
-    setсheckedProducts
+    setCheckedProductsId
 }:IProductLKList) => {
   return (
       <div className={cls(cl.LKProductList, className)}>
@@ -44,7 +44,7 @@ export const ProductLKList = ({
                   choosenProduct={choosenProduct}
                   setChoosenProduct={setChoosenProduct}
                   checkedProductsId={checkedProductsId}
-                  setсheckedProducts={setсheckedProducts} />
+                  setCheckedProductsId={setCheckedProductsId} />
           ))}
       </div>
   )

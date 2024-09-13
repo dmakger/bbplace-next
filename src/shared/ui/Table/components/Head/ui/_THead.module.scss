@@ -1,6 +1,9 @@
 .head {
-    position: relative;
-
+    position: sticky;
+    top: 66px;
+    z-index: 5;
+    background-color: var(--background-2);
+    border-radius: 20px;
 }
 
 .headTop {
@@ -14,7 +17,7 @@
     align-items: center;
 
     border-radius: 20px;
-    background-color: #fff;
+    background-color: var(--background-2);
     transition: .2s;
 }
 

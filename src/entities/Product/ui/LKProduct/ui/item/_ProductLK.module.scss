@@ -84,6 +84,10 @@
     }
 
     .infoContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        flex: 1;
         font-size: var(--font-size-s);
         font-weight: var(--font-weight-med);
 
@@ -148,6 +152,7 @@
                     position: absolute;
                     top: -2px;
                     left: 50%;
+                    z-index: 2;
                     border: 1px solid var(--background-1);
                     border-radius: 27px;
                     transform: translate(-50%, -50%);
