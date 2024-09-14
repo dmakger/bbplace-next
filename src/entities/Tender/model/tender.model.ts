@@ -32,6 +32,9 @@ export interface ITenderAPI extends IBaseTender{
     attachments: string,
     minOrderUnits?: string,
     quantityUnits?: string
+
+    // added on the frontend
+    isFavorite?: boolean
 }
 
 
@@ -58,7 +61,6 @@ export interface IPurchaseTender extends Omit<ITender, 'minOrderUnits'> {
 }
 
 export interface ICommonTender extends ITender {
-    currency: ICurrency,
     quantity?: number
     maximumBudget?: number
     price?: number

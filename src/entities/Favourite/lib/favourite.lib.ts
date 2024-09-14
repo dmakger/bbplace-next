@@ -52,10 +52,10 @@ export const useFavourite = ({body, onlyFavourite=false}: FavouriteLibProps) => 
             deleteIsSuccess,
             deleteIsError,
             isInFavourite,
-            get favouritePurchaseTenders(): IPurchaseTender[] | undefined {
+            get favouritePurchaseTenders(): IPurchaseTenderAPI[] | undefined {
                 return onlyFavourite ? favouritePurchases : undefined
             },
-            get favouriteSaleTenders(): ISaleTender[] | undefined{
+            get favouriteSaleTenders(): ISaleTenderAPI[] | undefined{
                 return onlyFavourite ? favouriteSales : undefined
             },
             get favouriteProducts(): IProductAPI[] | undefined {
@@ -70,7 +70,16 @@ export const useFavourite = ({body, onlyFavourite=false}: FavouriteLibProps) => 
  * @returns количество актуальных элементов
  */
 
+export const getFavouriteArray = (array: IProductAPI[] | IPurchaseTenderAPI[] | ISaleTenderAPI[]) => {
+    return array.filter(it => it.id !== 0);
+}
+
+
+/**
+ * Убирает пустые элементы из переданного массива
+ * @returns количество актуальных элементов
+ */
+
 export const getFavouriteArrayLength = (array: IProductAPI[] | IPurchaseTenderAPI[] | ISaleTenderAPI[]) => {
-    if(!array) return;
-    return array.filter(it => it.id !== 0).length;
+    return getFavouriteArray(array).length;
 }

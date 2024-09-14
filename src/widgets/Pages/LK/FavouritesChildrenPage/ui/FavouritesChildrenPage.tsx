@@ -7,28 +7,61 @@ import SuspenseL from "@/shared/ui/Wrapper/SuspenseL/SuspenseL"
 import { WrapperLKPT } from "@/shared/ui/Wrapper/LKPT"
 import { IOptionTabFavourites } from "@/features/DetailedPageInfo/model/detailedPageInfo.model"
 import { FavouriteAPI } from "@/entities/Favourite/api/favourite.api"
-import { IProductAPI } from "@/entities/Product/model/product.model"
-import { getFavouriteArrayLength } from "@/entities/Favourite/lib/favourite.lib"
+import { IProduct, IProductAPI } from "@/entities/Product/model/product.model"
+import { getFavouriteArray, getFavouriteArrayLength } from "@/entities/Favourite/lib/favourite.lib"
 import { TenderFavouriteList } from "@/entities/Tender/ui/Favourite/TenderFavouriteList"
 import { SuspenseLAny } from "@/shared/ui/Wrapper/SuspenseL/Any/SuspenseLAny"
-import { useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { SWITCH_SELECTOR__FAVOURITE__OPTIONS, SWITCH_SELECTOR__PRODUCT_FAVOURITE__OPTION, SWITCH_SELECTOR__PURCHASE_TENDER_FAVOURITE__OPTION, SWITCH_SELECTOR__SALE_TENDER_FAVOURITE__OPTION, SwitchSelectorFavourite } from "@/shared/ui/SwitchSelector/data/favourite.switchSelector.data"
+import { CurrencyAPI } from '@/entities/Metrics/api/currency.metrics.api'
+import { MetricsAPI } from '@/entities/Metrics/api/metrics.metrics.api'
+import { IPurchaseTender, ISaleTender } from '@/entities/Tender/model/tender.model'
+import { productApiListToProductList } from '@/entities/Product/lib/product.lib'
+import { tenderAPIListToTenderList } from '@/entities/Tender/lib/process.tender.lib'
+import { ProductFavouriteList } from '@/entities/Product/ui/Favourite/ProductFavouriteList'
 
 
 export const FavouritesChildrenPage = () => {
     // STATE
     const [typeFavourite, setTypeFavourite] = useState<string | undefined>()
+    const [favouriteProducts, setFavouriteProducts] = useState<IProduct[]>([])
+    const [favouritePurchaseTenders, setFavouritePurchaseTenders] = useState<IPurchaseTender[]>([])
+    const [favouriteSaleTenders, setFavouriteSaleTenders] = useState<ISaleTender[]>([])
 
     //API
-    const {data: favouriteProducts} = FavouriteAPI.useGetFavouriteProductsQuery()
-    const {data: favouritePurchaseTenders} = FavouriteAPI.useGetFavouritePurchasesQuery()
-    const {data: favouriteSaleTenders} = FavouriteAPI.useGetFavouriteSalesQuery()
+    const {data: favouriteProductsAPI} = FavouriteAPI.useGetFavouriteProductsQuery()
+    const {data: favouritePurchaseTendersAPI} = FavouriteAPI.useGetFavouritePurchasesQuery()
+    const {data: favouriteSaleTendersAPI} = FavouriteAPI.useGetFavouriteSalesQuery()
+
+    const {data: currencyList} = CurrencyAPI.useGetCurrenciesQuery()          
+    const {data: metrics} = MetricsAPI.useGetMetricsQuery()  
+
+    // EFFECT
+    useEffect(() => {
+        if (currencyList === undefined || metrics === undefined)
+            return
+
+        if (favouriteProductsAPI !== undefined) {
+            setFavouriteProducts(productApiListToProductList(getFavouriteArray(favouriteProductsAPI) as IProductAPI[], metrics, currencyList))
+        }
+
+        if (favouritePurchaseTendersAPI !== undefined) {
+            setFavouritePurchaseTenders(tenderAPIListToTenderList(favouritePurchaseTendersAPI, metrics, currencyList) as IPurchaseTender[])
+        }
+
+        if (favouriteSaleTendersAPI !== undefined) {
+            setFavouriteSaleTenders(tenderAPIListToTenderList(favouriteSaleTendersAPI, metrics, currencyList) as ISaleTender[])
+        }
+    }, [currencyList, metrics, favouriteProductsAPI, favouritePurchaseTendersAPI, favouriteSaleTendersAPI])
     
     // OPTIONS
-    const LK_FAVOURITES_OPTIONS_TAB: IOptionTabFavourites = {
+    const LK_FAVOURITES_OPTIONS_TAB: IOptionTabFavourites = useMemo(() => ({
         [SwitchSelectorFavourite.Product]: {
-            optionTab: null,
-            optionQuantity: getFavouriteArrayLength(favouriteProducts as IProductAPI[]),
+            optionTab: (
+                <ProductFavouriteList items={favouriteProducts} className={cl.list} classNameItem={cl.item} />
+            ),
+            optionQuantity: favouriteProducts.length,
+            // optionQuantity: getFavouriteArrayLength(favouriteProducts as IProductAPI[]),
             optionValue: String(SWITCH_SELECTOR__PRODUCT_FAVOURITE__OPTION.value),
         },
         [SwitchSelectorFavourite.Sale]: {
@@ -45,7 +78,7 @@ export const FavouritesChildrenPage = () => {
             optionQuantity: favouritePurchaseTenders?.length,
             optionValue: String(SWITCH_SELECTOR__PURCHASE_TENDER_FAVOURITE__OPTION.value),
         },
-    }
+    }), [favouriteProducts, favouriteSaleTenders, favouritePurchaseTenders])
 
     // HTML
     return (

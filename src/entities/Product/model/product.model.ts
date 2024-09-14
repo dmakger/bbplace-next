@@ -21,6 +21,9 @@ export interface IBaseProduct {
     isHasTestProbe:	boolean
     status: string | null
     warehouses:	string[] | null
+    
+    // added on the frontend
+    isFavorite?: boolean
 }
 
 export interface IBaseWCategoryProduct extends IBaseProduct {

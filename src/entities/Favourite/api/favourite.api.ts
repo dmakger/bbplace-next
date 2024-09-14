@@ -2,8 +2,10 @@ import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import { options } from "@/api/interceptors";
 import { getHeaderAuthorization, getHeaderAuthorizationIfExists } from "@/entities/Auth/lib/auth-token.lib";
 import { IProductAPI } from "@/entities/Product/model/product.model";
-import { IPurchaseTender, ISaleTender } from "@/entities/Tender/model/tender.model";
+import { IPurchaseTender, IPurchaseTenderAPI, ISaleTender, ISaleTenderAPI } from "@/entities/Tender/model/tender.model";
 import { IFavouriteListRequest, IFavouriteRequest } from "../model/favourite.model";
+import { it } from "node:test";
+import { isFavouriteViewSupplier } from "@/entities/Supplier/lib/boolean.supplier.lib";
 
 export const FavouriteAPI = createApi({
 	reducerPath: 'favouriteAPI',
@@ -36,20 +38,32 @@ export const FavouriteAPI = createApi({
                 url: `/GetFavorites/Items`,
                 method: 'GET',
                 headers: getHeaderAuthorizationIfExists(),
+                responseHandler: async (response) => {
+                    const data = await response.json() as IProductAPI[];
+                    return data.map(it => ({...it, isFavorite: true}))
+                }
             }),
         }),
-        getFavouritePurchases: build.query<IPurchaseTender[], void>({
+        getFavouritePurchases: build.query<IPurchaseTenderAPI[], void>({
             query: () => ({
                 url: `/GetFavorites/TendersPurchaseRequests`,
                 method: 'GET',
                 headers: getHeaderAuthorizationIfExists(),
+                responseHandler: async (response) => {
+                    const data = await response.json() as IPurchaseTender[];
+                    return data.map(it => ({...it, isFavorite: true}))
+                }
             }),
         }),
-        getFavouriteSales: build.query<ISaleTender[], void>({
+        getFavouriteSales: build.query<ISaleTenderAPI[], void>({
             query: () => ({
                 url: `/GetFavorites/TendersSaleRequests`,
                 method: 'GET',
                 headers: getHeaderAuthorizationIfExists(),
+                responseHandler: async (response) => {
+                    const data = await response.json() as ISaleTender[];
+                    return data.map(it => ({...it, isFavorite: true}))
+                }
             }),
         }),
 

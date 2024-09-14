@@ -12,6 +12,9 @@ interface FavouriteToTenderButtonProps extends ButtonFavouriteProps {
 
 export const FavouriteToTenderButton:FC<FavouriteToTenderButtonProps> = ({tenderId, tenderType, ...props}) => {
     return (
-        <ButtonFavourite {...props} body={{objectId: tenderId, objectType: tenderType === tenderTypeToEn(ETenderType.SALE) ? FavouriteType.TenderSale : FavouriteType.TenderPurchase}} />
+        <ButtonFavourite 
+            {...props} 
+            body={{objectId: tenderId, objectType: tenderType === tenderTypeToEn(ETenderType.SALE) ? FavouriteType.TenderSale : FavouriteType.TenderPurchase}} 
+            />
     )
 }

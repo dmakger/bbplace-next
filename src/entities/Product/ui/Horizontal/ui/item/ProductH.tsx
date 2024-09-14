@@ -19,10 +19,16 @@ import { EProductFavouriteViewItem } from '@/entities/Product/data/view.product.
 import { FavouriteAutoToProductButton } from '@/entities/Product/components/Buttons/Favourite/Auto/FavouriteAutoToProductButton'
 import Link from 'next/link'
 import { MAIN_PAGES } from '@/config/pages-url.config'
+import { IListItem } from '@/shared/model/list.model'
+import { IProduct } from '@/entities/Product/model/product.model'
 
-interface ProductHProps extends IProductProps {}
+interface ProductHProps extends IListItem<IProduct> {}
 
-export const ProductH:FC<ProductHProps> = ({product, className}) => {    
+export const ProductH:FC<ProductHProps> = ({
+    item: product,
+    className,
+    ...rest
+}) => {    
     // VARS
     const [minWholesale, maxWholesale] = getDiapason(product.media.wholesalePrices, product.media.sizes)
 
