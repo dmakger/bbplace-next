@@ -4,15 +4,21 @@ import {skipToken} from "@reduxjs/toolkit/query";
 import { IFavouriteRequest } from "../model/favourite.model";
 import { FavouriteAction } from "../data/favourite.data"
 import { FavouriteAPI } from "../api/favourite.api"
-import { IPurchaseTender, IPurchaseTenderAPI, ISaleTender, ISaleTenderAPI } from "@/entities/Tender/model/tender.model";
+import { IPurchaseTenderAPI, ISaleTenderAPI } from "@/entities/Tender/model/tender.model";
 import { IProductAPI } from "@/entities/Product/model/product.model";
+import { isAuth } from "@/entities/Auth/lib/auth-token.lib";
 
 interface FavouriteLibProps {
     body?: IFavouriteRequest,
+    mountIsInFavourite: boolean
     onlyFavourite?: boolean
 }
 
-export const useFavourite = ({body, onlyFavourite=false}: FavouriteLibProps) => {
+export const useFavourite = ({
+    body, 
+    mountIsInFavourite=false,
+    onlyFavourite=false
+}: FavouriteLibProps) => {
     // STATE
     const [action, setAction] = useState<FavouriteAction>(FavouriteAction.Add)
 
@@ -26,11 +32,11 @@ export const useFavourite = ({body, onlyFavourite=false}: FavouriteLibProps) => 
         isSuccess: deleteIsSuccess,
         isError: deleteIsError
     }] = FavouriteAPI.useDeleteFavouriteMutation()
-
-    const {data: isInFavourite} = FavouriteAPI.useIsInFavouriteQuery(body ? body : skipToken)
-    const {data: favouritePurchases} = FavouriteAPI.useGetFavouritePurchasesQuery(onlyFavourite ? undefined : skipToken)
-    const {data: favouriteSales} = FavouriteAPI.useGetFavouriteSalesQuery(onlyFavourite ? undefined : skipToken)
-    const {data: favouriteProducts} = FavouriteAPI.useGetFavouriteProductsQuery(onlyFavourite ? undefined : skipToken)
+    const _isAuth = isAuth()
+    const {data: isInFavourite} = FavouriteAPI.useIsInFavouriteQuery(_isAuth && mountIsInFavourite && body ? body : skipToken)
+    const {data: favouritePurchases} = FavouriteAPI.useGetFavouritePurchasesQuery(_isAuth && onlyFavourite ? undefined : skipToken)
+    const {data: favouriteSales} = FavouriteAPI.useGetFavouriteSalesQuery(_isAuth && onlyFavourite ? undefined : skipToken)
+    const {data: favouriteProducts} = FavouriteAPI.useGetFavouriteProductsQuery(_isAuth && onlyFavourite ? undefined : skipToken)
     
     // RETURN
     return {

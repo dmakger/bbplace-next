@@ -15,9 +15,10 @@ import { HandleSize } from '@/shared/ui/Handle/Size/HandleSize';
 import Link from 'next/link';
 import { MAIN_PAGES } from '@/config/pages-url.config';
 import { FavouriteAutoToProductButton } from '@/entities/Product/components/Buttons/Favourite/Auto/FavouriteAutoToProductButton';
-import { EProductFavouriteViewItem } from '@/entities/Product/data/view.product.data';
 import { IListItem } from '@/shared/model/list.model';
 import { IProduct } from '@/entities/Product/model/product.model';
+import { ButtonFavourite } from '@/shared/ui/Button/data/Favourite/ButtonFavourite';
+import { FavouriteType } from '@/entities/Favourite/data/favourite.data';
 
 interface ProductVProps extends IListItem<IProduct> {}
 
@@ -38,7 +39,12 @@ export const ProductV: FC<ProductVProps> = ({
 			{/* <Link href={MAIN_PAGES.CURRENT_PRODUCT(product.id)}> */}
 			<div className={cl.top}>
 				<ImageAPI src={product.media.attachments[0]} width={271} height={271} className={cl.image} />
-				<FavouriteAutoToProductButton productId={product.id} view={EProductFavouriteViewItem.SMALL_FILL} className={cl.favourite} />
+				{/* <FavouriteAutoToProductButton productId={product.id} view={EProductFavouriteViewItem.SMALL_FILL} className={cl.favourite} /> */}
+				<ButtonFavourite 
+					isFavourited={product.isFavorite}
+					isFill={true}
+					body={{objectId: product.id, objectType: FavouriteType.Product}} 
+					className={cl.favourite} />
 			</div>
 			<div className={cl.content}>
 				<div className={cl.middle}>

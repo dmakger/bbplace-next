@@ -19,6 +19,10 @@ import { CORE_PARAMS } from '@/config/params/core.params.config'
 import { tenderAPIListToTenderList } from '../../lib/process.tender.lib'
 import { CurrencyAPI } from '@/entities/Metrics/api/currency.metrics.api'
 import { MetricsAPI } from '@/entities/Metrics/api/metrics.metrics.api'
+import { FavouriteAPI } from '@/entities/Favourite/api/favourite.api'
+import { isAuth } from '@/entities/Auth/lib/auth-token.lib'
+import { FavouriteType } from '@/entities/Favourite/data/favourite.data'
+import { skipToken } from '@reduxjs/toolkit/query'
 
 export const TenderList = () => {
     // ROUTER
@@ -33,9 +37,27 @@ export const TenderList = () => {
     const [application, setApplication] = useState<string>(applicationValues.DEFAULT)
 
     //API
-    const { data: allTendersApi, isLoading: isTendersLoading } = TenderAPI.useGetAllTendersQuery({limit: TENDER_ARGS_REQUEST.limit, page: pageNumber-1, params: newParams});
-    const { data: saleTendersApi, isLoading: isSaleTendersLoading } = TenderAPI.useGetSaleTendersQuery({limit: TENDER_ARGS_REQUEST.limit, page: pageNumber-1, params: newParams});
-    const { data: purchaseTendersApi, isLoading: isPurchaseTendersLoading } = TenderAPI.useGetPurchaseTendersQuery({limit: TENDER_ARGS_REQUEST.limit, page: pageNumber-1, params: newParams});
+    const { data: allTendersAPI, isLoading: isTendersLoading } = TenderAPI.useGetAllTendersQuery(
+        (application === null || application === applicationValues.DEFAULT 
+            ? {limit: TENDER_ARGS_REQUEST.limit, page: pageNumber-1, params: newParams} 
+            : skipToken
+        ), 
+        // { refetchOnMountOrArgChange: true }
+    );
+    const { data: saleTendersAPI, isLoading: isSaleTendersLoading } = TenderAPI.useGetSaleTendersQuery(
+        (application === applicationValues.SELL 
+            ? {limit: TENDER_ARGS_REQUEST.limit, page: pageNumber-1, params: newParams} 
+            : skipToken
+        ), 
+        // { refetchOnMountOrArgChange: true }
+    );
+    const { data: purchaseTendersAPI, isLoading: isPurchaseTendersLoading } = TenderAPI.useGetPurchaseTendersQuery(
+        (application === applicationValues.PURCHASE 
+            ? {limit: TENDER_ARGS_REQUEST.limit, page: pageNumber-1, params: newParams} 
+            : skipToken
+        ), 
+        // { refetchOnMountOrArgChange: true }
+    );
 
     //COUNT
     const { data: countTenders, isLoading: isCountTendersLoading } = TenderAPI.useGetCountAllTendersQuery({limit: TENDER_ARGS_REQUEST.limit, params: newParams}, { refetchOnMountOrArgChange: true });
@@ -46,6 +68,16 @@ export const TenderList = () => {
     const { data: countAllPurchaseTenders, isLoading: isCountAllPurchaseTendersLoading } = TenderAPI.useGetCountPurchaseTendersQuery({limit: 1, params: newParams}, { refetchOnMountOrArgChange: true });
     const {data: currencyList} = CurrencyAPI.useGetCurrenciesQuery()          
     const {data: metrics} = MetricsAPI.useGetMetricsQuery()  
+
+    const { data: tenderSaleFavorite } = FavouriteAPI.useAreInFavoritesQuery(
+        isAuth() && saleTendersAPI ? {objectIds: saleTendersAPI.map(it => it.id), objectType: FavouriteType.TenderSale} : skipToken,
+        { refetchOnMountOrArgChange: true }
+    )
+    const { data: tenderPurchaseFavorite } = FavouriteAPI.useAreInFavoritesQuery(
+        isAuth() && purchaseTendersAPI ? {objectIds: purchaseTendersAPI.map(it => it.id), objectType: FavouriteType.TenderSale} : skipToken,
+        { refetchOnMountOrArgChange: true }
+    )
+
 
     //VARIABLES
     const conditionAllTenders = isTendersLoading && isCountTendersLoading;
@@ -65,21 +97,22 @@ export const TenderList = () => {
     // tender list
     useEffect(() => {
         if(metrics && currencyList){
-            if ((application === null || application === applicationValues.DEFAULT) && allTendersApi && countTenders !== undefined ) {
-                setTenderList(tenderAPIListToTenderList(allTendersApi, metrics, currencyList))
+            if ((application === null || application === applicationValues.DEFAULT) && allTendersAPI && countTenders !== undefined ) {
+                console.log('qwe allTendersAPI', allTendersAPI)
+                setTenderList(tenderAPIListToTenderList(allTendersAPI, metrics, currencyList))
                 setCountPages(countTenders + 1)
             }
-            else if (application === applicationValues.SELL && saleTendersApi && countSaleTenders !== undefined) {
-                setTenderList(tenderAPIListToTenderList(saleTendersApi, metrics, currencyList))
+            else if (application === applicationValues.SELL && saleTendersAPI && countSaleTenders !== undefined) {
+                setTenderList(tenderAPIListToTenderList(saleTendersAPI, metrics, currencyList))
                 setCountPages(countSaleTenders + 1)
             }
-            else if (application === applicationValues.PURCHASE && purchaseTendersApi && countPurchaseTenders !== undefined) {
-                setTenderList(tenderAPIListToTenderList(purchaseTendersApi, metrics, currencyList))
+            else if (application === applicationValues.PURCHASE && purchaseTendersAPI && countPurchaseTenders !== undefined) {
+                setTenderList(tenderAPIListToTenderList(purchaseTendersAPI, metrics, currencyList))
                 setCountPages(countPurchaseTenders + 1)
             }
         }
         
-    }, [allTendersApi, saleTendersApi, purchaseTendersApi, application, countTenders, countSaleTenders, countPurchaseTenders])
+    }, [allTendersAPI, saleTendersAPI, purchaseTendersAPI, application, countTenders, countSaleTenders, countPurchaseTenders])
 
     // set count tenders
     useEffect(() => {

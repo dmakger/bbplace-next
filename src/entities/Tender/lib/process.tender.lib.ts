@@ -1,5 +1,5 @@
 import { IMetrics } from "@/entities/Metrics/model/metric.metrics.model";
-import { ETenderType, IProcessTender, IPurchaseTender, ISaleTender, ITender, ITenderAPI } from "../model/tender.model";
+import { ETenderType, ETenderTypeEn, IProcessTender, IPurchaseTender, ISaleTender, ITender, ITenderAPI } from "../model/tender.model";
 import { ICurrency } from "@/entities/Metrics/model/currency.metrics.model";
 import { metricsTenderToObject } from "@/entities/Metrics/lib/metrics/base.metrics.metrics.lib";
 import { currencyTenderToObject } from "@/entities/Metrics/lib/currency/currency.metrics.lib";
@@ -7,8 +7,11 @@ import { getTenderType } from "./tender.lib";
 import { IWholesale } from "@/entities/Metrics/model/wholesale.metrics.model";
 
 
-export const tenderAPIListToTenderList = (tenderListAPI: ITenderAPI[], metrics?: IMetrics[], currencyList?: ICurrency[]): ITender[] => {
-    return tenderListAPI.map(it => tenderAPIToTender({ tenderAPI: it, metrics, currencyList }))
+export const tenderAPIListToTenderList = (tenderListAPI: ITenderAPI[], metrics?: IMetrics[], currencyList?: ICurrency[], type?: ETenderTypeEn): ITender[] => {
+    return tenderListAPI.map(it => {
+        const r = tenderAPIToTender({ tenderAPI: it, metrics, currencyList })
+        return {...r, type: r.type ?? type}
+    })
 }
 
 

@@ -21,6 +21,8 @@ import Link from 'next/link'
 import { MAIN_PAGES } from '@/config/pages-url.config'
 import { IListItem } from '@/shared/model/list.model'
 import { IProduct } from '@/entities/Product/model/product.model'
+import { ButtonFavourite } from '@/shared/ui/Button/data/Favourite/ButtonFavourite'
+import { FavouriteType } from '@/entities/Favourite/data/favourite.data'
 
 interface ProductHProps extends IListItem<IProduct> {}
 
@@ -46,7 +48,12 @@ export const ProductH:FC<ProductHProps> = ({
                     <div className={cl.main}>
                         <div className={cl.top}>
                             <Link href={MAIN_PAGES.CURRENT_PRODUCT(product.id).path} className={cl.name}>{product.name}</Link>
-                            <FavouriteAutoToProductButton productId={product.id} view={EProductFavouriteViewItem.SMALL} className={cl.favourite} />
+                            <ButtonFavourite 
+                                isFavourited={product.isFavorite}
+                                isFill={false}
+                                body={{objectId: product.id, objectType: FavouriteType.Product}} 
+                                className={cl.favourite} />
+
                         </div>
                         <div className={cl.middle}>
                             <WholesaleDiapason minWholesale={minWholesale} maxWholesale={maxWholesale}

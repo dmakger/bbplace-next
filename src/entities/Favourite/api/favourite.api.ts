@@ -80,6 +80,18 @@ export const FavouriteAPI = createApi({
             }),
         }),
 
+        isInFavouriteM: build.mutation<boolean, IFavouriteRequest>({
+            query: ({objectId, objectType}) => ({
+                url: `/IsInFavorites/${objectType}/${objectId}`,
+                method: 'GET',
+                headers: getHeaderAuthorizationIfExists(),
+                responseHandler: async (response) => {
+                    const data = await response.json() as boolean[];
+                    return data[0]
+                }
+            }),
+        }),
+
         areInFavorites: build.query<Record<string, boolean>, IFavouriteListRequest>({
             query: (body) => ({
                 url: `/areInFavorites/`,

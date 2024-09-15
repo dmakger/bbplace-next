@@ -25,6 +25,7 @@ import { FavouriteAPI } from "@/entities/Favourite/api/favourite.api";
 import { FavouriteType } from "@/entities/Favourite/data/favourite.data";
 import { isAuth } from "@/entities/Auth/lib/auth-token.lib";
 import { skipToken } from "@reduxjs/toolkit/query";
+import { integrateFavoriteInList } from "@/entities/Favourite/lib/list.favourite.lib";
 
 interface ProductListProps {
     view?: EViewProduct;
@@ -89,16 +90,7 @@ export const ProductListChild: FC<ProductListProps> = ({ view, className }) => {
         if (productsAPI === undefined)
             return 
         const newProducts = productApiListToProductList(productsAPI, metrics, currencyList)
-        if (!isAuth()) {
-            setProductList(newProducts)
-        } else if (favorites) {
-            setProductList(() => {
-                return newProducts.map(it => ({
-                    ...it, 
-                    isFavorite: favorites[`${it.id}`] ?? false
-                } as IProduct))
-            })
-        }
+        setProductList(integrateFavoriteInList<IProduct>(newProducts, favorites))
     }, [favorites, productsAPI, metrics, currencyList]);
 
     useEffect(() => {
