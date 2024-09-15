@@ -21,6 +21,10 @@ import { paramsToBack } from "@/config/params/backend.params.config";
 import SuspenseL from "@/shared/ui/Wrapper/SuspenseL/SuspenseL";
 import { getViewProductByParam } from "@/entities/Product/lib/params.product.lib";
 import { isEqual } from "lodash";
+import { FavouriteAPI } from "@/entities/Favourite/api/favourite.api";
+import { FavouriteType } from "@/entities/Favourite/data/favourite.data";
+import { isAuth } from "@/entities/Auth/lib/auth-token.lib";
+import { skipToken } from "@reduxjs/toolkit/query";
 
 interface ProductListProps {
     view?: EViewProduct;
@@ -61,6 +65,10 @@ export const ProductListChild: FC<ProductListProps> = ({ view, className }) => {
         { limit: 1, params: backParams },
         { refetchOnMountOrArgChange: true }
     );
+    const { data: favorites } = FavouriteAPI.useAreInFavoritesQuery(
+        isAuth() && productsAPI ? {objectIds: productsAPI.map(it => it.id), objectType: FavouriteType.Product} : skipToken,
+        { refetchOnMountOrArgChange: true }
+    )
 
     // RTK
     const dispatch = useDispatch();
@@ -76,9 +84,22 @@ export const ProductListChild: FC<ProductListProps> = ({ view, className }) => {
         setViewProductList(getViewProductByParam(productView));
     }, [view, searchParams]);
 
+
     useEffect(() => {
-        if (productsAPI) setProductList(productApiListToProductList(productsAPI, metrics, currencyList));
-    }, [productsAPI, metrics, currencyList]);
+        if (productsAPI === undefined)
+            return 
+        const newProducts = productApiListToProductList(productsAPI, metrics, currencyList)
+        if (!isAuth()) {
+            setProductList(newProducts)
+        } else if (favorites) {
+            setProductList(() => {
+                return newProducts.map(it => ({
+                    ...it, 
+                    isFavorite: favorites[`${it.id}`] ?? false
+                } as IProduct))
+            })
+        }
+    }, [favorites, productsAPI, metrics, currencyList]);
 
     useEffect(() => {
         if (!isEqual(backParams, prevBackParams)) {

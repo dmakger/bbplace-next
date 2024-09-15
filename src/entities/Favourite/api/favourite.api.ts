@@ -80,7 +80,7 @@ export const FavouriteAPI = createApi({
             }),
         }),
 
-        areInFavorites: build.query<boolean, IFavouriteListRequest>({
+        areInFavorites: build.query<Record<string, boolean>, IFavouriteListRequest>({
             query: (body) => ({
                 url: `/areInFavorites/`,
                 method: 'POST',

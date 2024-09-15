@@ -13,10 +13,10 @@ interface ProductProps extends IProductProps{
 
 export const Product:FC<ProductProps> = ({view=DEFAULT_VIEW_PRODUCT, product, ...rest}) => {
     if (view === EViewProduct.HORIZONTAL)
-        return <ProductH product={product} {...rest} />
+        return <ProductH item={product} {...rest} />
     if(view === EViewProduct.AT_SUPPLIER_CARD)
         return <ProductASC product={product} {...rest}/>
     if(view === EViewProduct.LK_PRODUCT)
         return <ProductLK product={product} {...rest} />
-    return <ProductV product={product} {...rest} />
+    return <ProductV item={product} {...rest} />
 }

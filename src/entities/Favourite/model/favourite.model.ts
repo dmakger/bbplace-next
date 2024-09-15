@@ -1,3 +1,4 @@
+import { FavouriteAPI } from "../api/favourite.api"
 import { FavouriteType } from "../data/favourite.data"
 
 export interface IFavouriteRequest {
@@ -11,3 +12,4 @@ export interface IFavouriteListRequest {
     objectType: FavouriteType
 }
 
+// export type TAreInFavorites = ReturnType<typeof FavouriteAPI.useAreInFavoritesMutation>[0]
