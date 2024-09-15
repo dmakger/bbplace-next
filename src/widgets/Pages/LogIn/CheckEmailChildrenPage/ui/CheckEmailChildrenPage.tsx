@@ -101,7 +101,7 @@ export const CheckEmailChildrenPage = () => {
                 onClickBellowButton={CheckEmail}
                 isLoadingBellowButton={isLoading}
             >
-                <Input.Text type={EInputTextType.Email} variant={EInputVariants.RECTANGULAR} placeholder="Введите email" name="email" error={!!errorMessage} setError={setErrorMessage} />
+                <Input.Text type={EInputTextType.Email} variant={EInputVariants.RECTANGULAR} placeholder="Введите email" name="email" error={!!errorMessage} setError={setErrorMessage} required/>
             </WrapperRectangleInput>
         </WrapperForLogInNSupportPages>
     )

@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 import { FC, useCallback, useEffect, useState } from "react";
 
@@ -6,10 +6,7 @@ import { cls } from '@/shared/lib/classes.lib';
 import cl from './_ProductLKSmartList.module.scss';
 import { IProduct } from "@/entities/Product/model/product.model";
 import { ProductAPI } from "@/entities/Product/api/product.api";
-import { CurrencyAPI } from "@/entities/Metrics/api/currency.metrics.api";
-import { MetricsAPI } from "@/entities/Metrics/api/metrics.metrics.api";
-import { useAppSelector } from "@/storage/hooks";
-import { productApiListToProductList } from "@/entities/Product/lib/product.lib";
+import { productApiToProduct } from "@/entities/Product/lib/product.lib";
 import SuspenseL from "@/shared/ui/Wrapper/SuspenseL/SuspenseL";
 import { LKSubheader } from "@/features/LKSubheader";
 import { ProductLKList } from "../list/ProductLKList";
@@ -19,49 +16,92 @@ import { EBottomInfoVariant } from "@/features/Modal/BottomInfo/model/bottomInfo
 import { EModalView } from "@/shared/data/modal.data";
 import { WrapperModalBottom } from "@/shared/ui/Wrapper/ModalBottom";
 import { EProductLKVariants } from "../../model/productLK.model";
-import { ProductsTypeLK } from "@/shared/ui/SwitchSelector/data/switchSelector.data";
 import { skipToken } from "@reduxjs/toolkit/query";
+import { createGroupProducts } from "@/entities/Product/lib/group.product.lib";
+import { IGroupProducts } from "@/entities/Product/model/group.product.model";
+import { ICategory } from "@/entities/Metrics/model/category.metrics.model";
+import { CategoryAPI } from "@/entities/Metrics/api/category.metrics.api";
 
 interface ProductLKSmartListProps {
-    typeProduct: ProductsTypeLK,
+    products: IProduct[],
     className?: string
 }
 
-export const ProductLKSmartList: FC<ProductLKSmartListProps> = ({ typeProduct, className }) => {
+export const ProductLKSmartList: FC<ProductLKSmartListProps> = ({ className, products: _products }) => {
 
     //STATE
     const [isOpenSettings, setIsOpenSettings] = useState<boolean>(false);
     const [isOpenGroup, setIsOpenGroup] = useState<boolean>(false);
-    const [products, setProducts] = useState<IProduct[]>([])
-    const [choosenProduct, setChoosenProduct] = useState<IProduct>()
+    const [choosenProduct, setChoosenProduct] = useState<IGroupProducts>()
     const [groupProducts, setGroupProducts] = useState<IProduct[]>([])
+    const [products, setProducts] = useState<IProduct[]>([]);
     const [checkedProductsId, setCheckedProductsId] = useState<number[]>([])
-
-    // RTK
-    const { id: userId } = useAppSelector(state => state.user)
+    const [groupsProducts, setGroupsProducts] = useState<IGroupProducts[]>([]);
+    const [categoryList, setCategoryList] = useState<ICategory[]>([])
 
     //API
-    // const { data: activeProductsAPI } = ProductAPI.useGetProductsByUserQuery({ userId: `55736903-ec19-4ea8-a591-fb03369910b0`, limit: 100000000, page: 0 }, { refetchOnMountOrArgChange: true })
-    const { data: activeProductsAPI } = ProductAPI.useGetProductsByUserQuery(typeProduct === ProductsTypeLK.Active ? { userId, limit: 100000000, page: 0 } : skipToken, { refetchOnMountOrArgChange: true })
-    // const { data: draftsProductsAPI } = ProductAPI.useGetDraftsByUserQuery({ limit: 100000000, page: 0 }, { refetchOnMountOrArgChange: true })
-    const { data: draftsProductsAPI } = ProductAPI.useGetDraftsByUserQuery(typeProduct === ProductsTypeLK.Draft ? { limit: 100000000, page: 0 } : skipToken, { refetchOnMountOrArgChange: true })
-    const { data: currencyList } = CurrencyAPI.useGetCurrenciesQuery()
-    const { data: metrics } = MetricsAPI.useGetMetricsQuery()
+    const [getCategory] = CategoryAPI.useGetCategoryMutation();
+    const { data: productsAPI, isLoading: isProductLoading } = ProductAPI.useGetProductsQuery(
+        _products === undefined ? { limit: 24, page: 11 } : skipToken,
+        { refetchOnMountOrArgChange: true }
+    );
 
     //EFFECT
     useEffect(() => {
-        if (activeProductsAPI && metrics && currencyList) {
-            setProducts(productApiListToProductList(activeProductsAPI, metrics, currencyList));
+        if (productsAPI && categoryList && _products === undefined) {
+            setProducts(() => {
+                return productsAPI.map((it, index) => (
+                    { ...productApiToProduct({ productAPI: it }), category: categoryList[index] }
+                ))
+            })
         }
-        if (draftsProductsAPI && metrics && currencyList) {
-            setProducts(productApiListToProductList(draftsProductsAPI, metrics, currencyList));
+    }, [productsAPI, categoryList])
+
+    useEffect(() => {
+        if (_products !== undefined)
+            setProducts(_products)
+    }, [_products])
+
+    // SET CATEGORIES
+    useEffect(() => {
+        if (!productsAPI || _products !== undefined) return;
+
+        const fetchCategories = async () => {
+            try {
+                await Promise.all(
+                    productsAPI.map(async (it) => {
+                        const categoryResponse = await getCategory(it.categoryId).unwrap();
+                        return categoryResponse[0]; // Assuming the response is an array and we need the first element
+                    })
+                ).then(categories => {
+                    setCategoryList(categories)
+                })
+            } catch (error) {
+                console.error("Failed to fetch categories", error);
+            }
+        };
+
+        fetchCategories();
+    }, [_products, productsAPI, getCategory]);
+
+    useEffect(() => {
+        if (!products) return;
+        setGroupsProducts(createGroupProducts(products))
+    }, [products])
+
+    useEffect(() => {
+        if (choosenProduct) {
+            const filteredGroupProducts = groupsProducts.filter(it => it.main.id === choosenProduct.main.id);
+            setGroupProducts(filteredGroupProducts.map(it => it.rest).flat())
         }
-    }, [activeProductsAPI, draftsProductsAPI, metrics, currencyList]);
+    }, [choosenProduct, groupsProducts])
+
 
     //FUNCTIONS
     const closeTheModal = useCallback(() => {
         if (isOpenSettings) setIsOpenSettings(false)
         if (isOpenGroup) setIsOpenGroup(false)
+        setChoosenProduct(undefined)
     }, [isOpenSettings, isOpenGroup]);
 
     return (
@@ -74,13 +114,12 @@ export const ProductLKSmartList: FC<ProductLKSmartListProps> = ({ typeProduct, c
                     setCheckedProductsId={setCheckedProductsId} />
 
                 {products.length > 0 && (
-                    <ProductLKList products={products}
+                    <ProductLKList products={groupsProducts}
                         setIsOpenSettings={setIsOpenSettings}
                         isOpenGroup={isOpenGroup}
                         setIsOpenGroup={setIsOpenGroup}
                         choosenProduct={choosenProduct}
                         setChoosenProduct={setChoosenProduct}
-                        setGroupProducts={setGroupProducts}
                         checkedProductsId={checkedProductsId}
                         setCheckedProductsId={setCheckedProductsId} />
                 )}
@@ -105,7 +144,7 @@ export const ProductLKSmartList: FC<ProductLKSmartListProps> = ({ typeProduct, c
                         bottomChildren={isOpenSettings ? (products.length > 0 && (
                             <BottomInfoModal
                                 variant={EBottomInfoVariant.SETTINGS}
-                                product={choosenProduct!}
+                                product={choosenProduct?.main}
                                 setIsOpen={setIsOpenSettings}
                             />
                         )) : (isOpenGroup && groupProducts.length > 0 && (
@@ -116,7 +155,6 @@ export const ProductLKSmartList: FC<ProductLKSmartListProps> = ({ typeProduct, c
                                 setCheckedProductsId={setCheckedProductsId}
                             />
                         ))}
-                        classNameBottomChild={isOpenGroup ? cl.paddingTop : ''}
                         isBorderTopOnBottomChild={isOpenGroup && groupProducts.length > 2}
                     />
                 </Modal>

@@ -60,6 +60,7 @@ export const WrapperForLogInNSupportPages = ({
             return router.back();
         }
         if (prevPath) return router.replace(prevPath);
+        router.replace(DASHBOARD_PAGES.HOME.path)
     }
 
     const goBack = () => {
@@ -139,7 +140,7 @@ export const WrapperForLogInNSupportPages = ({
                     title="Назад"
                     onClick={goBack}
                 />
-                {pathname.includes('support') ?
+                {pathname.includes(MAIN_PAGES.SUPPORT.path) ?
                     <Button variant={ButtonVariant.CONTENT}
                         color={ButtonColor.Tertiary}
                         beforeImage={LK_ICON}

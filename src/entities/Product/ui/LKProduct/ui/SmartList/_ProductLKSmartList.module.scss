@@ -6,12 +6,16 @@
         width: 100%;
 }
 
-.subHeader{
-        top: 107px;
+.subHeader {
+        top: 108px;
 }
 
 .showSubheader {
-        visibility: visible;
-        opacity: 1;
+        visibility: visible !important;
+        opacity: 1 !important;
         transition: 0.3s;
+}
+
+.paddingTop {
+        padding-bottom: 20px !important;
 }
