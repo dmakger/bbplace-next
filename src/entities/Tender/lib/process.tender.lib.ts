@@ -34,14 +34,14 @@ export const tenderAPIToTender = ({ tenderAPI, metrics, currencyList }: IProcess
 }
 
 
-export const getTenderWholesalePrices = (tender: ISaleTender | IPurchaseTender, tenderType: ETenderType) => {
+export const getTenderWholesalePrices = (tender: ISaleTender | IPurchaseTender, tenderType: ETenderTypeEn) => {
 
     const currency = tender.currency
     let price;
     let quantity;
     let metrics;
 
-    if (tenderType === ETenderType.SALE) {
+    if (tenderType === ETenderTypeEn.SALE) {
         const _tender = tender as ISaleTender
 
         price = _tender.price

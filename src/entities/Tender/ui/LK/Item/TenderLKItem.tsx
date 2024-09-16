@@ -2,7 +2,7 @@ import { FC } from "react"
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_TenderLKItem.module.scss'
-import { ETenderType, ITender } from "@/entities/Tender/model/tender.model";
+import { ETenderType, ETenderTypeEn, ITender } from "@/entities/Tender/model/tender.model";
 import { Button, ButtonVariant } from "@/shared/ui/Button";
 import { ButtonColor, ButtonSize } from "@/shared/ui/Button/model/button.model";
 import { TRASH_NEGATIVE_TO_WHITE_ICON } from "@/shared/ui/Icon/data/trash.data.icon";
@@ -12,7 +12,7 @@ import { OptionVariant } from "@/shared/data/option/option.data";
 
 
 interface TenderLKItemProps extends IListItem<ITender> {
-    onClickDelete?: (tender: ITender, type?: ETenderType) => void
+    onClickDelete?: (tender: ITender, type?: ETenderTypeEn) => void
 }
 
 export const TenderLKItem: FC<TenderLKItemProps> = ({

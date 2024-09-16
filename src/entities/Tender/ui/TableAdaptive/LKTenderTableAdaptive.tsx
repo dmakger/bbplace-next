@@ -3,7 +3,7 @@
 import { FC, useState, useEffect } from "react"
 
 import cl from './_LKTenderTableAdaptive.module.scss'
-import { ETenderType, ITender } from "../../model/tender.model";
+import { ETenderType, ETenderTypeEn, ITender } from "../../model/tender.model";
 import { TenderLKList } from "../LK/List/TenderLKList";
 import { LKTenderTable } from "@/features/Table/ui/Tender/LK/ui/LKTenderTable";
 
@@ -27,14 +27,14 @@ import { ButtonColor, ButtonSize, ButtonVariant } from "@/shared/ui/Button/model
 
 interface LKTenderTableAdaptiveProps{
     // tenderType: ETenderType
-    tenderType?: ETenderType
+    tenderType?: ETenderTypeEn
     className?: string,
 }
 
 export const LKTenderTableAdaptive:FC<LKTenderTableAdaptiveProps> = ({tenderType, className}) => {
     // PARAMS
     const params = useParams()
-    const tenderTypeSuccess = tenderType ? tenderType : toTenderType(params.type as string) as ETenderType
+    const tenderTypeSuccess = tenderType ? tenderType : toTenderType(params.type as string) as ETenderTypeEn
 
     // STATE
     const [is768, setIs768] = useState(false)
@@ -42,7 +42,7 @@ export const LKTenderTableAdaptive:FC<LKTenderTableAdaptiveProps> = ({tenderType
     const [categoryList, setCategoryList] = useState<ICategory[]>([])
     const [showModal, setShowModal] = useState<boolean>(false)
     const [tenderForDeleting, setTenderForDeleting] = useState<ITender | undefined>()
-    const [tenderTypeForDeleting, setTenderTypeForDeleting] = useState<ETenderType | undefined>()
+    const [tenderTypeForDeleting, setTenderTypeForDeleting] = useState<ETenderTypeEn | undefined>()
     
     // RTK
     const { id: userId } = useAppSelector(state => state.user)
@@ -90,7 +90,7 @@ export const LKTenderTableAdaptive:FC<LKTenderTableAdaptiveProps> = ({tenderType
 
 
     // ======={ HANDLE }=======
-    const onClickDelete = (tender: ITender, type?: ETenderType) => {
+    const onClickDelete = (tender: ITender, type?: ETenderTypeEn) => {
         if (type === undefined || tenders === undefined) return
         setTenderForDeleting(tender)
         setTenderTypeForDeleting(type)
