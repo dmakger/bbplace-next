@@ -148,7 +148,6 @@ export const LKTenderTable: FC<LKTenderTableProps> = ({ tenderType, defaultTende
                 head={['Наименование', 'Категория', 'Файлы', '']} data={rowsTable} unions={unionsColumn} 
                 defaultBody={
                     <WrapperDefaultTenderNotFound />
-                // } showDefaultBody={true} 
                 } showDefaultBody={!tenders || tenders.length === 0} 
                 {...rest} />
             <HandleSize width={1024} set={setIs1024} />

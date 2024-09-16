@@ -8,8 +8,7 @@ import { IProduct } from "@/entities/Product/model/product.model";
 import { ProductAPI } from "@/entities/Product/api/product.api";
 import { CurrencyAPI } from "@/entities/Metrics/api/currency.metrics.api";
 import { MetricsAPI } from "@/entities/Metrics/api/metrics.metrics.api";
-import { UserAPI } from "@/entities/Auth/api/auth.api";
-import { useActionCreators, useAppSelector } from "@/storage/hooks";
+import { useAppSelector } from "@/storage/hooks";
 import { productApiListToProductList } from "@/entities/Product/lib/product.lib";
 import SuspenseL from "@/shared/ui/Wrapper/SuspenseL/SuspenseL";
 import { LKSubheader } from "@/features/LKSubheader";
@@ -22,6 +21,7 @@ import { WrapperModalBottom } from "@/shared/ui/Wrapper/ModalBottom";
 import { EProductLKVariants } from "../../model/productLK.model";
 import { ProductsTypeLK } from "@/shared/ui/SwitchSelector/data/switchSelector.data";
 import { skipToken } from "@reduxjs/toolkit/query";
+import { WrapperDefaultProductNotFound } from "@/shared/ui/Wrapper/Default/ui/Product/NotFound/WrapperDefaultProductNotFound";
 
 interface ProductLKSmartListProps{
     typeProduct: ProductsTypeLK
@@ -67,13 +67,13 @@ export const ProductLKSmartList:FC<ProductLKSmartListProps> = ({typeProduct, cla
 
     return (
         <SuspenseL>
-            <LKSubheader
+            {/* <LKSubheader
                 checkedItemsNumber={checkedProductsId.length}
                 className={checkedProductsId.length ? cl.showSubheader : ''}
                 checkedProductsId={checkedProductsId}
-                setсheckedProductsId={setсheckedProductsId} />
+                setсheckedProductsId={setсheckedProductsId} /> */}
 
-            {products.length > 0 && (
+            <WrapperDefaultProductNotFound showDefault={products.length === 0}>
                 <ProductLKList products={products}
                     setIsOpenSettings={setIsOpenSettings}
                     isOpenGroup={isOpenGroup}
@@ -84,8 +84,7 @@ export const ProductLKSmartList:FC<ProductLKSmartListProps> = ({typeProduct, cla
                     checkedProductsId={checkedProductsId}
                     setсheckedProducts={setсheckedProductsId}
                     variant={EProductLKVariants.DEFAULT} />
-            )}
-
+            </WrapperDefaultProductNotFound>
             <Modal view={EModalView.BOTTOM}
                 buttonNode
                 isOpen={isOpenSettings || isOpenGroup}
