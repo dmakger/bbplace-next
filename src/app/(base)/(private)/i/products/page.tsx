@@ -1,5 +1,5 @@
 "use client"
-
+import cl from './_LKProductPage.module.scss'
 import { DASHBOARD_PAGES } from "@/config/pages-url.config";
 import { LKProductTableAdaptive } from "@/entities/Product/ui/TableAdaptive/LKProductTableAdaptive";
 import { IUserProductsTab } from "@/features/DetailedPageInfo/model/detailedPageInfo.model";
@@ -37,6 +37,7 @@ export default function LKProductPage() {
                     <WrapperLKPT pageTitle="Мои товары" 
                                 options={PRODUCT_PAGE_OPTIONS_ARRAY} optionsTab={MY_PRODUCTS_OPTIONS_TAB}
                                 startPage={PRODUCT_PAGE_OPTIONS_ARRAY.find(it => it.value === typeProduct) ?? SWITCH_SELECTOR_CREATED_PRODUCTS_OPTION} 
+                                classNamePage={cl.LKProductPage}
                                 isButtonRight={true} buttonRightProps={{href: DASHBOARD_PAGES.NEW_PRODUCT.path}} />
                 </SuspenseL.Any>
             </Suspense>

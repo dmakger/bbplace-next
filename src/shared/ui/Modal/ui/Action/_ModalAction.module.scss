@@ -29,6 +29,9 @@
                 max-width: 240px;
                 font-size: var(--font-size-sm);
                 padding: 30px 40px 15px 40px;
+                @media (max-width: 768px) {
+                    max-width: 100%;
+                }
             }
             .wrapperInput {
                 padding: 15px;

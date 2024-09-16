@@ -130,7 +130,7 @@ export const Button = ({
                             width={beforeProps && beforeProps.width ? beforeProps.width: sizeImage} 
                             height={beforeProps && beforeProps.height ? beforeProps.height: sizeImage} 
                             isActive={active} isHovered={isHovered} isSuccess={success} isPressed={isPressed} isDisabled={disabled} isLoading={loading}
-                            className={cls(cl.image, afterProps?.className)} />
+                            className={cls(cl.image, beforeProps?.className)} />
 
             }
             {title && 

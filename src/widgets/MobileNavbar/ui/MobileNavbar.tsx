@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import cl from './_MobileNavbar.module.scss';
-import { FAVOURITES_ITEM_MOBILE_MENU_DATA, LK_MOBILE_DATA, MOBILE_MENU_DATA, NOT_AUTH_MOBILE_DATA, NOT_AUTH_PAGES_ARRAY, SUPPORT_PAGE_MOBILE_DATA } from '@/shared/data/menu/mobile.menu.data';
+import { FAVOURITES_ITEM_MOBILE_MENU_DATA, LK_ITEM_MOBILE_MENU_DATA, LK_MOBILE_DATA, MOBILE_MENU_DATA, NOT_AUTH_MOBILE_DATA, NOT_AUTH_PAGES_ARRAY, SUPPORT_PAGE_MOBILE_DATA } from '@/shared/data/menu/mobile.menu.data';
 import { usePathname, useRouter } from 'next/navigation';
 import { IIconVariants } from '@/shared/model/icon.model';
 import { IIcon } from '@/shared/ui/Icon/model/icon.model';
@@ -13,6 +13,7 @@ import { DASHBOARD_PAGES, MAIN_PAGES } from '@/config/pages-url.config';
 import { ONLY_FOR_SELLERS_PAGES_ARRAY } from '@/widgets/Pages/OnlyForSellers/data/onlyForSellers.data';
 import { useAppSelector } from '@/storage/hooks';
 import { ECurrentLK } from '@/entities/User/model/user.model';
+import { isAuth } from '@/entities/Auth/lib/auth-token.lib';
 
 interface IMobileNavbar {
 	menuData?: IIconVariants[]
@@ -35,6 +36,9 @@ export const MobileNavbar = ({
 
 	//EFFECT
 	useEffect(() => {
+		//MAIN_PAGE
+		if (pathname === MAIN_PAGES.HOME.path) setFilteredMenuData(MOBILE_MENU_DATA)
+
 		//FAVOURITE_PAGE
 		if (pathname === FAVOURITES_ITEM_MOBILE_MENU_DATA?.link && is420) setFilteredMenuData(filteredMenuData.filter(it => it.link !== FAVOURITES_ITEM_MOBILE_MENU_DATA.link));
 
@@ -61,12 +65,21 @@ export const MobileNavbar = ({
 			return router.back();
 		}
 		if (prevPath) return router.replace(prevPath);
+		router.replace(DASHBOARD_PAGES.HOME.path)
 	}
 
 	const goBack = () => {
 		goBackByCurrentLK()
 		router.back();
 	}
+
+	const getLink = (el: IIconVariants) => {
+		if (el.title === LK_ITEM_MOBILE_MENU_DATA.title) {
+			return isAuth() ? DASHBOARD_PAGES.HOME.path : MAIN_PAGES.CHECK_EMAIL.path
+		}
+		return el.link
+	}
+
 
 	return (
 		<>
@@ -76,14 +89,16 @@ export const MobileNavbar = ({
 						const isThisPage = pathname === el.link;
 						return (
 							<MenuItem
-								href={el.link ?? ''}
+								href={getLink(el)}
 								key={el.id}
 								active={isThisPage}
 								disabled={isThisPage}
 								className={cl.mobileNavbarButton}
 								title={el.title}
 								beforeImage={el.image as IIcon}
-								onClick={el.title === 'Меню' ? () => setShowSidebarMenu(true) : el.title === 'Назад' ? goBack : () => { }} />
+								onClick={el.title === 'Меню' ? () => setShowSidebarMenu(true)
+									: el.title === 'Назад' ? goBack
+										: () => { }} />
 						)
 					})}
 				</div>
