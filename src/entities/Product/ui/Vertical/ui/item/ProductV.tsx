@@ -51,6 +51,7 @@ export const ProductV: FC<ProductVProps> = ({ product, className }) => {
           <SupplierWNav id={product.ownerId}
                         view={is768 ? ESupplierView.SMALL : ESupplierView.LARGE_WHITE}
                         hasCountry
+                        hasImage
                         hasVerifiedStatus
                         axis={ESupplierAxis.VERTICAL}
                         className={cl.supplier}
