@@ -45,16 +45,11 @@
     .success{
         border: 1px solid var(--positive-border) !important;
     }
-
-    
-
-    
 }
 
 .secondary{
     .checkbox{
         border: 1px solid var(--secondary-border);
-
 
         &:hover{
             background-color: var(--secondary-surface-sub);
@@ -68,7 +63,6 @@
     .checked{
         background-color: var(--secondary) !important;
         border: 1px solid transparent;
-        
     }
 }
 

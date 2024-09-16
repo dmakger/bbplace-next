@@ -17,7 +17,7 @@ interface TableCellToggleProps{
 export const TableCellToggle:FC<TableCellToggleProps> = ({isShow, amount, onClick, className}) => {
     return (
         <div className={cls(cl.wrapper, className)}>
-            <span className={cl.text}>{amount}</span>
+            <span className={cl.text}>+{amount}</span>
             <div className={cl.many}>
                 <Button variant={ButtonVariant.CONTENT} color={ButtonColor.Secondary} size={ButtonSize.Medium} 
                         afterImage={CHEVRON_SECONDARY__ICON} afterProps={{axis: isShow ? Axis.Top : Axis.Bottom}}

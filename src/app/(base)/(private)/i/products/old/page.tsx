@@ -29,7 +29,7 @@ export default function LKProductPage() {
     const [draftsProducts, setDraftsProducts] = useState<IProduct[]>([])
     const [choosenProduct, setChoosenProduct] = useState<IProduct>()
     const [groupProducts, setGroupProducts] = useState<IProduct[]>([])
-    const [checkedProductsId, setсheckedProductsId] = useState<number[]>([])
+    const [checkedProductsId, setCheckedProductsId] = useState<number[]>([])
 
     //API
     // const { data: activeProductsAPI } = ProductAPI.useGetProductsByUserQuery({ userId: `55736903-ec19-4ea8-a591-fb03369910b0`, limit: 100000000, page: 0 }, { refetchOnMountOrArgChange: true })
@@ -63,7 +63,7 @@ export default function LKProductPage() {
                     checkedItemsNumber={checkedProductsId.length}
                     className={checkedProductsId.length ? cl.showSubheader : ''}
                     checkedProductsId={checkedProductsId}
-                    setсheckedProductsId={setсheckedProductsId} />
+                    setCheckedProductsId={setCheckedProductsId} />
 
                 {activeProducts.length > 0 && (
                     <ProductLKList products={activeProducts}
@@ -74,7 +74,7 @@ export default function LKProductPage() {
                         setChoosenProduct={setChoosenProduct}
                         setGroupProducts={setGroupProducts}
                         checkedProductsId={checkedProductsId}
-                        setсheckedProducts={setсheckedProductsId}
+                        setCheckedProductsId={setCheckedProductsId}
                         variant={EProductLKVariants.DEFAULT} />
                 )}
 
@@ -93,7 +93,7 @@ export default function LKProductPage() {
                                 checkedItemsNumber={checkedProductsId.length}
                                 className={cls(cl.subHeaderModal, checkedProductsId.length ? cl.showSubheader : '')}
                                 checkedProductsId={checkedProductsId}
-                                setсheckedProductsId={setсheckedProductsId} />
+                                setCheckedProductsId={setCheckedProductsId} />
                         )}
                         bottomChildren={isOpenSettings ? (
                             activeProducts.length > 0 && (
@@ -109,7 +109,7 @@ export default function LKProductPage() {
                                     products={groupProducts}
                                     variant={EProductLKVariants.GROUP_ITEM}
                                     checkedProductsId={checkedProductsId}
-                                    setсheckedProducts={setсheckedProductsId}
+                                    setCheckedProductsId={setCheckedProductsId}
                                 />
                             )
                         )}

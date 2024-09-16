@@ -16,11 +16,12 @@ interface THeadProps {
 export const THead:FC<THeadProps> = ({head, variant=TableVariant.WHITE, headTop, isVisibleHeadTop, className}) => {
     return (
         <thead className={cls(cl.head, className)}>
-            <tr>
+            <tr className={cls(cl.headRow, !isVisibleHeadTop ? cl.visibleHeadTable : '')}>
                 {head.map((it, index) => (
-                    <th scope="col" key={index}>{it === undefined ? '' : it}</th>
+                    <th scope="col" key={index} >{it === undefined ? '' : it}</th>
                 ))}
             </tr>
+            <tr className={cls(cl.leftRoundedEl, !isVisibleHeadTop ? cl.visibleHeadTable : '')}/>
             {headTop && (
                 <div className={cls(isVisibleHeadTop ? cl.visible : '', cl.headTop)}>
                     {headTop}
