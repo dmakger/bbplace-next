@@ -1,0 +1,26 @@
+.socialButton{
+    background-color: var(--secondary-surface-sub) !important;
+
+    &:hover {
+        background-color: var(--secondary-surface) !important;
+        color: var(--secondary-hovered);
+    }
+    &:active{
+        color: var(--on-tertiary);
+    }
+}
+
+
+.vk:active{
+        background-color: var(--vk) !important;
+}
+
+.yandex:active{
+    background-color: var(--yandex) !important;
+
+}
+
+.google:active{
+    background-color: var(--google) !important;
+
+}

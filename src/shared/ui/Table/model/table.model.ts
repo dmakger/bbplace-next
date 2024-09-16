@@ -38,4 +38,7 @@ export interface ITable {
 
     headTop?: ReactNode
     isVisibleHeadTop?: boolean
+
+    showDefaultBody?: boolean
+    defaultBody?: ReactNode
 }

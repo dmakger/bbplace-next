@@ -101,6 +101,14 @@ export const NOT_AUTH_MOBILE_DATA: IIconVariants[] = [
   SUPPORT_ITEM_MENU_DATA
 ]
 
+export const NOT_AUTH_PAGES_ARRAY: string[] = [
+  MAIN_PAGES.REGISTRATION.path,
+  MAIN_PAGES.LOGIN.path,
+  MAIN_PAGES.CHECK_EMAIL.path,
+  MAIN_PAGES.FORGOT_PASSWORD.path,
+  MAIN_PAGES.ONLY_FOR_SELLERS.path
+]
+
 //LK_DATA
 export const LK_MOBILE_DATA: IIconVariants[] = [
   MAIN_ITEM_MOBILE_MENU_DATA,

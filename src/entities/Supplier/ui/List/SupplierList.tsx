@@ -17,6 +17,7 @@ import { useSearchParams } from "next/navigation"
 import { paramsToBack } from "@/config/params/backend.params.config"
 import { SUPPLIER_PARAMS } from "@/config/params/supplier.params.config"
 import SuspenseL from '@/shared/ui/Wrapper/SuspenseL/SuspenseL'
+import { Loader } from '@/shared/ui/Loader'
 
 export const SupplierList = () => {
     return (
@@ -62,13 +63,14 @@ export const SupplierListChild = () => {
 
 
     if (isSupplierLoading && isCountSuppliersLoading)
-        return <div>Loading...</div>
+        return <Loader />
 
     return (
         <WrapperSortFilter variant={ECatalogVariants.COMPANIES} pageNumberKey={SUPPLIER_PARAMS.NUMBER_PAGE__KEY}>
-            <WrapperPagination amount={countSuppliers ? countSuppliers : 1}
+            <WrapperPagination amount={countSuppliers || 1}
                 active={pageNumber}
-                set={setPageNumber} keyPageParam={SUPPLIER_PARAMS.NUMBER_PAGE__KEY}
+                set={setPageNumber}
+                keyPageParam={SUPPLIER_PARAMS.NUMBER_PAGE__KEY}
                 className={cl.wrapperPagination}>
                 {supplierList.map(it => (
                     <SupplierItem supplier={it} key={it.id}/>

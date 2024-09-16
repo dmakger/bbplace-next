@@ -19,6 +19,15 @@
         color: var(--font-caption);
     }
 
+    .checkbox{
+        width: 30px;
+        margin-bottom: -30px;
+        z-index: 2;
+        & input{
+            opacity: 0;
+        }
+    }
+
     .imageContainer {
         width: 100%;
         position: relative;
@@ -27,12 +36,6 @@
         border-right: 2px solid var(--background);
         border-radius: 10px;
         height: 200px;
-
-        .checkbox{
-            position: absolute;
-            top: 5px;
-            left: 7px;
-        }
 
         & img {
             border-radius: inherit;
@@ -55,6 +58,10 @@
                 width: 40px;
                 height: 40px;
                 padding: 0px;
+                & img{
+                    width: 20px;
+                    height: 20px;
+                }
             }
 
             .groupSettings{
@@ -74,14 +81,15 @@
                 }
             }
         }
-
-
     }
 
     .infoContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        flex: 1;
         font-size: var(--font-size-s);
         font-weight: var(--font-weight-med);
-
 
         .productName {
             display: flex;
@@ -105,7 +113,6 @@
                 background-color: var(--secondary-pressed);
                 transition: 0.3s;
             }
-
         }
 
         .bottomContainer {
@@ -145,6 +152,7 @@
                     position: absolute;
                     top: -2px;
                     left: 50%;
+                    z-index: 2;
                     border: 1px solid var(--background-1);
                     border-radius: 27px;
                     transform: translate(-50%, -50%);
@@ -154,8 +162,6 @@
 
             }
         }
-
-
     }
 }
 

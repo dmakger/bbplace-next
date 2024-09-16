@@ -1,6 +1,7 @@
 'use client';
 
 import { MAIN_PAGES } from "@/config/pages-url.config";
+import { Loader } from "@/shared/ui/Loader";
 import { useAppSelector } from "@/storage/hooks";
 import { useRouter } from "next/navigation";
 import { ReactNode, useEffect, useState } from "react";
@@ -43,7 +44,7 @@ export const WrapperNoEmail = ({ children }: IWrapperNoEmail) => {
             {email ? (
                 <>{children}</>
             ) : (
-                <h2>Loading...</h2>
+                <Loader />
             )}
         </>
     );

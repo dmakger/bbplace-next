@@ -11,7 +11,8 @@ import { SWITCH_SELECTOR_PRODUCT_PAGE_SINGLE } from '@/shared/ui/SwitchSelector/
 import { useEffect, useState } from "react"
 
 interface IWrapperLKPT {
-    startPage: IOption,
+    startPage?: IOption,
+    currentKey?: string
     pageTitle: string,
     optionsTab: OptionsTabType,
     options: IOption[],
@@ -24,7 +25,8 @@ interface IWrapperLKPT {
 }
 
 export const WrapperLKPT = ({
-    startPage = SWITCH_SELECTOR_PRODUCT_PAGE_SINGLE,
+    startPage,
+    currentKey,
     pageTitle = 'Новый товар',
     optionsTab, options,
     buttonBackProps,
@@ -34,14 +36,19 @@ export const WrapperLKPT = ({
 }: IWrapperLKPT) => {
 
     //STATE
-    const [selectedPage, setSelectedPage] = useState<IOption>(startPage)
+    const [selectedPage, setSelectedPage] = useState<IOption | undefined>(startPage)
     const [optionsTabArray, setOptionsTabArray] = useState<IOptionTab[]>([])
 
     //EFFECT
     useEffect(() => {
-        if (selectedPage.id !== startPage.id)
+        if (currentKey && currentKey !== selectedPage?.value) {
+            setSelectedPage(prev => options.find(opt => opt.value === currentKey) ?? prev)
+        } else if (startPage && startPage.id !== selectedPage?.id) {
             setSelectedPage(startPage)
-    }, [startPage])
+        } else if (options.length > 0 && selectedPage === undefined) {
+            setSelectedPage(options[0])
+        }
+    }, [currentKey, startPage])
 
     useEffect(() => {
         const convertToArray = (optionsTab: OptionsTabType): IOptionTab[] => {
@@ -63,8 +70,10 @@ export const WrapperLKPT = ({
                 isButtonRight={isButtonRight} 
                 buttonRightProps={buttonRightProps}
             />
-            <LKPTPage optionsTab={optionsTabArray} selectedOption={selectedPage} 
-            className={classNamePage}/>
+            {selectedPage && (
+                <LKPTPage optionsTab={optionsTabArray} selectedOption={selectedPage} 
+                            className={classNamePage}/>
+            )}
         </div>
     )
 }

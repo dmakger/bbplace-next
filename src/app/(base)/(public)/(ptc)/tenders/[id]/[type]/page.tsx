@@ -9,7 +9,7 @@ import { SupplierWNav } from "@/entities/Supplier/ui/WNav/SupplierWNav";
 import { TenderAPI } from "@/entities/Tender/api/tender.api";
 import { SWITCH_SELECTOR_TENDER_OPTIONS } from "@/entities/Tender/data/tender.data";
 import { getTenderWholesalePrices, tenderAPIToTender } from "@/entities/Tender/lib/process.tender.lib";
-import { ETenderType, IPurchaseTender, ISaleTender, ITenderAttachments } from "@/entities/Tender/model/tender.model";
+import { ETenderType, ETenderTypeEn, IPurchaseTender, ISaleTender, ITenderAttachments } from "@/entities/Tender/model/tender.model";
 import { DetailedPageHeader } from "@/features/DetailedPageHeader";
 import { DetailedPageInfo } from "@/features/DetailedPageInfo";
 import { IDetailedProductOptionsTab, IOptionTab } from "@/features/DetailedPageInfo/model/detailedPageInfo.model";
@@ -29,6 +29,7 @@ import { IAttachment } from '@/shared/model/attachment.model';
 import { FileBlock } from '@/entities/File/ui/Block/FileBlock';
 import { tenderTypeToEn, toTenderType } from '@/entities/Tender/lib/tender.lib';
 import { skipToken } from '@reduxjs/toolkit/query';
+import { useAppSelector } from '@/storage/hooks';
 
 
 export default function TenderPage() {
@@ -36,7 +37,7 @@ export default function TenderPage() {
     //PARAMS
     const params = useParams()
     const tenderId = params.id as string
-    const tenderTypeParams = toTenderType(params.type as string) as ETenderType
+    const tenderTypeParams = toTenderType(params.type as string) as ETenderTypeEn
 
     //STATE
     const [is768, setIs768] = useState<boolean>(false)
@@ -47,10 +48,13 @@ export default function TenderPage() {
 
     //API
     // const { data: tenderAPI } = TenderAPI.useGetTenderQuery({tenderId: +tenderId, type: tenderTypeParams as ETenderType});
-    const { data: tenderAPI } = TenderAPI.useGetTenderQuery({tenderId: +tenderId, type: tenderTypeParams});
+    const { data: tenderAPI } = TenderAPI.useGetTenderQuery({ tenderId: +tenderId, type: tenderTypeParams });
     const { data: currencyList } = CurrencyAPI.useGetCurrenciesQuery()
     const { data: metrics } = MetricsAPI.useGetMetricsQuery()
     const [getFile] = FileAPI.useGetFileMutation()
+
+    //RTK
+    const {id: userId} = useAppSelector(state => state.user)
 
     // console.log('tender type', tenderTypeParams, tenderTypeToEn(tenderTypeParams), tender)
 
@@ -71,7 +75,7 @@ export default function TenderPage() {
 
     useEffect(() => {
         if (!tender) return;
-    
+
         const filesAsString = tender.attachments.map((it: ITenderAttachments) => it.key);
         setImages(filterFilesByFormat(filesAsString, FileFormat.IMAGE) as string[]);
 
@@ -80,13 +84,13 @@ export default function TenderPage() {
             const filePromises = _files.map(async it => {
                 if (it.url === undefined) return it;
                 const f = await getFile({ fileId: it.url, toFile: true }).unwrap() as IFile;
-                return {...f, name: it.name};
+                return { ...f, name: it.name };
             });
-    
+
             const fetchedFiles = await Promise.all(filePromises);
             setFiles(fetchedFiles.filter(f => f !== null) as IFile[]);
         };
-    
+
         fetchFiles();
     }, [tender]);
 
@@ -100,8 +104,8 @@ export default function TenderPage() {
 
     // console.log('tender qw', wholesalePrices, tenderType)
 
-    
-    if(!tender) return;    
+
+    if (!tender) return;
 
     //OPTIONS
     const TENDER_PAGE_OPTIONS_TABLE: IDetailedProductOptionsTab = {
@@ -112,10 +116,12 @@ export default function TenderPage() {
         <Wrapper1280>
             <section className={cl.TenderDetailedPage}>
                 <DetailedPageHeader
+                    ownerId={tender.ownerId ?? ''}
+                    userId={userId}
                     id={tender.id}
                     type={tenderTypeParams}
                     name={tender.name}
-                    tableData={getDataTenderInfo({tender, isCreatedAt: true})}
+                    tableData={getDataTenderInfo({ tender, isCreatedAt: true })}
                     wholesalePrices={wholesalePrices}
                     isRightContainer
                     supplierId={tender.ownerId}
@@ -132,7 +138,7 @@ export default function TenderPage() {
                                 is768 ? ESupplierToChatViewItem.SMALL_WIDE : ESupplierToChatViewItem.NONE
                             ]}
                         />
-                        
+
                         {images.length > 1 && (
                             <ScrollSlider
                                 className={cl.slider}

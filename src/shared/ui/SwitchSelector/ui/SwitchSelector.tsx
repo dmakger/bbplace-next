@@ -14,7 +14,7 @@ interface ISwitchSelector {
     variant?: ESwitchSelectorVariants,
     className?: string,
     options: IOption[],
-    selectedOption: IOption,
+    selectedOption?: IOption,
     setSelectedOption: Function
     optionsTab?: OptionsTabType
 }
@@ -73,8 +73,8 @@ export const SwitchSelector = ({
         }
     }
 
-    const isChecked = useCallback((selectOption: IOption, mapItem: IOption) => {
-        return selectOption.id === mapItem.id;
+    const isChecked = useCallback((selectOption: IOption | undefined, mapItem: IOption) => {
+        return selectOption?.id === mapItem.id;
     }, [selectedOption]);
 
 

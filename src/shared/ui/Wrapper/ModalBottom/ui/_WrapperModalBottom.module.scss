@@ -2,15 +2,14 @@
     display: flex;
     flex-direction: column;
     gap: 18px;
-    position: relative;
+    width: 100vw;
     max-height: 70vh;
+    position: relative;
     background-color: var(--background-1);
-    border-radius: 20px 20px 0 0; 
+    border-radius: 20px 20px 0 0;
     // width: 425px;
     // max-width: 768px;
     // width: 100%;
-    width: 100vw;
-    max-height: 70vh;
 
     @media (max-width: 425px) {
         width: 320px;
@@ -31,17 +30,18 @@
         }
     }
 
-    .wBorder{
+    .wBorder {
         border-top: 1px solid var(--block-border);
     }
 
-    .bottomChildren{
-        padding: 20px;
+    .bottomChildren {
+        display: flex;
+        justify-content: center;
         background-color: var(--background-2);
         padding: 20px;
         border-radius: 20px 20px 0 0;
         overflow-y: auto;
-        
+
         @media (max-width: 768px) {
             font-size: var(--font-size-s);
         }
@@ -51,10 +51,10 @@
         position: absolute;
         top: -45px;
         left: 50%;
-        transform: translate(0%,0%);
+        transform: translate(-50%, 0%);
 
         &:active {
-            transform: scale(0.9);
+            transform: translate(-50%, 0%) scale(0.9);
         }
     }
 }

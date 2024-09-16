@@ -9,6 +9,6 @@ export const CardsProductSliderItem = ({
     className    
 }: ICardsProductSliderItem) => {
     return (
-       <ProductV product={product} className={className}/>
+       <ProductV item={product} className={className}/>
     )
 }

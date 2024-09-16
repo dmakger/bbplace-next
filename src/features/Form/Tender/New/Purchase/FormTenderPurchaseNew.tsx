@@ -136,7 +136,7 @@ export const FormTenderPurchaseNew:FC<FormTenderPurchaseNewProps> = ({className}
                                     options={categoryOptions} onClickOption={setSelectedCategoryOption}
                                     titleModal="Категория" required variant={EInputVariants.RECTANGULAR} isActiveOptionInInput/> 
             </WrapperRectangleInput>
-            <WrapperRectangleInput labelText={"Количество"} isRequired>
+            <WrapperRectangleInput labelText={"Количество"} isRequired classNameInputsContainer={cl.inputsContainer}>
                 <Input.Text name={'quantity'} placeholder="Введите число" defaultValue={0}
                             type={EInputTextType.Number} variant={EInputVariants.RECTANGULAR} required={true} />
                 <Input.TextAndSelect name={'quantityUnits'} placeholder="Измерение" 
@@ -144,7 +144,7 @@ export const FormTenderPurchaseNew:FC<FormTenderPurchaseNewProps> = ({className}
                                     options={metricOptions} onClickOption={setSelectedQuantityUnitsOption}
                                     titleModal="Измерение" required variant={EInputVariants.RECTANGULAR} isActiveOptionInInput/> 
             </WrapperRectangleInput>
-            <WrapperRectangleInput labelText={"Максимальный бюджет"}>
+            <WrapperRectangleInput labelText={"Максимальный бюджет"} classNameInputsContainer={cl.inputsContainer}>
                 <Input.Text name={'maximumBudget'} placeholder="Введите число" defaultValue={0}
                             type={EInputTextType.Number} variant={EInputVariants.RECTANGULAR} />
                 <Input.TextAndSelect name={'currency'} placeholder="Валюта" 

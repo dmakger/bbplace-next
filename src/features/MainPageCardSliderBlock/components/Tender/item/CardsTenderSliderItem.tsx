@@ -14,6 +14,6 @@ export const CardsTenderSliderItem = ({
     classNameBlockSupplier    
 }: ICardsTenderSliderItem) => {
     return (
-       <TenderItem tender={tender} className={className} classNameLine={classNameLine} classNameBlockSupplier={classNameBlockSupplier}/>
+       <TenderItem item={tender} className={className} classNameLine={classNameLine} classNameBlockSupplier={classNameBlockSupplier}/>
     )
 }

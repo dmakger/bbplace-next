@@ -1,0 +1,151 @@
+.Loader {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: fit-content;
+    margin: auto;
+    position: relative;
+
+    .loaderSquare {
+        display: inline-block;
+        height: 60px;
+        width: 60px;
+        overflow: hidden;
+        position: relative;
+
+        .background {
+            fill: var(--n-black-10);
+        }
+
+        .part {
+            position: absolute;
+            height: 30px;
+            width: 30px;
+        }
+
+        .bottomLeftPart {
+            animation: bottomLeftPartDrop 2s linear infinite;
+            left: 0px;
+            top: 30px;
+        }
+
+        .bottomRightPart {
+            animation: bottomRightPartDrop 2s linear infinite;
+            left: 30px;
+            top: 30px;
+        }
+
+        .topLeftPart {
+            animation: topLeftPartDrop 2s linear infinite;
+            left: 0px;
+            top: 0px;
+        }
+
+        .topRightPart {
+            animation: topRightPartDrop 2s linear infinite;
+            left: 30px;
+            top: 0px;
+        }
+
+        .logotypeBean {
+            fill: var(--primary);
+        }
+
+        .logotypeLetters {
+            fill: var(--background-2);
+        }
+    }
+}
+
+@keyframes bottomLeftPartDrop {
+    0% {
+        transform: translateY(-80px);
+    }
+
+    15% {
+        transform: translate(0);
+    }
+
+    85% {
+        transform: translate(0);
+    }
+
+    95% {
+        transform: translateY(80px);
+    }
+
+    100% {
+        transform: translateY(80px);
+    }
+}
+
+
+@keyframes bottomRightPartDrop {
+    0% {
+        transform: translateY(-160px);
+    }
+
+    30% {
+        transform: translate(0);
+    }
+
+    85% {
+        transform: translate(0);
+    }
+
+    95% {
+        transform: translateY(80px);
+    }
+
+    100% {
+        transform: translateY(80px);
+    }
+}
+
+
+@keyframes topLeftPartDrop {
+    0% {
+        transform: translateY(-240px);
+    }
+
+    45% {
+        transform: translate(0);
+    }
+
+    85% {
+        transform: translate(0);
+    }
+
+    95% {
+        transform: translateY(80px);
+    }
+
+    100% {
+        transform: translateY(80px);
+    }
+}
+
+
+@keyframes topRightPartDrop {
+    0% {
+        transform: translateY(-300px);
+    }
+
+    60% {
+        transform: translate(0);
+    }
+
+    85% {
+        transform: translate(0);
+    }
+
+    95% {
+        transform: translateY(80px);
+    }
+
+    100% {
+        transform: translateY(80px);
+    }
+}

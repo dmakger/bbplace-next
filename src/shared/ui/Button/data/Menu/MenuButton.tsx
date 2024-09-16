@@ -34,16 +34,24 @@ export const MenuButton = ({
         router.push(MAIN_PAGES.CHECK_EMAIL.path);
     }
 
+    const setAuthOptionalActionCreators = (prevPath?: string, currentLKValue?: ECurrentLK) => {
+        actionCreators.setAuthOptional({
+            prevPath: pathname ?? prevPath,
+            photoId,
+            currentLK: currentLKValue ?? currentLK 
+        })
+    }
+
     const handleOnClick = () => {
         onClick && onClick();
         if(variant === EMenuButtonVariant.SWITCH_LK){
             const actualCurrentLK = currentLK === ECurrentLK.BUYER ? ECurrentLK.SELLER : ECurrentLK.BUYER
-            actionCreators.setAuthOptional({
-                photoId: photoId,
-                currentLK: actualCurrentLK
-            })
+            setAuthOptionalActionCreators('', actualCurrentLK)
             saveCurrentLKTokenStorage(actualCurrentLK)
         }
+        if(variant === EMenuButtonVariant.ONLY_FOR_SELLERS){
+            setAuthOptionalActionCreators()
+        }        
     }
 
     const editProfile = () => router.push(DASHBOARD_PAGES.PROFILE_EDIT.path);
@@ -58,7 +66,7 @@ export const MenuButton = ({
                 className,
             cl.MenuButton,
                 cl[variant],
-                (variant === EMenuButtonVariant.LINK && pathname === link) ? cl.activeLink
+                ((variant === EMenuButtonVariant.LINK || variant === EMenuButtonVariant.ONLY_FOR_SELLERS) && pathname === link) ? cl.activeLink
                     // : (variant === EMenuButtonVariant.LOCALIZATION && true) ? cl.activeLang 
                     : ''
             )}

@@ -1,16 +1,12 @@
-"use client"
+'use client'
 
-import { FC, useCallback, useEffect, useState } from "react"
+import { FC, useCallback, useEffect, useState } from "react";
 
 import { cls } from '@/shared/lib/classes.lib';
-import cl from './_ProductLKSmartList.module.scss'
+import cl from './_ProductLKSmartList.module.scss';
 import { IProduct } from "@/entities/Product/model/product.model";
 import { ProductAPI } from "@/entities/Product/api/product.api";
-import { CurrencyAPI } from "@/entities/Metrics/api/currency.metrics.api";
-import { MetricsAPI } from "@/entities/Metrics/api/metrics.metrics.api";
-import { UserAPI } from "@/entities/Auth/api/auth.api";
-import { useActionCreators, useAppSelector } from "@/storage/hooks";
-import { productApiListToProductList } from "@/entities/Product/lib/product.lib";
+import { productApiToProduct } from "@/entities/Product/lib/product.lib";
 import SuspenseL from "@/shared/ui/Wrapper/SuspenseL/SuspenseL";
 import { LKSubheader } from "@/features/LKSubheader";
 import { ProductLKList } from "../list/ProductLKList";
@@ -20,107 +16,150 @@ import { EBottomInfoVariant } from "@/features/Modal/BottomInfo/model/bottomInfo
 import { EModalView } from "@/shared/data/modal.data";
 import { WrapperModalBottom } from "@/shared/ui/Wrapper/ModalBottom";
 import { EProductLKVariants } from "../../model/productLK.model";
-import { ProductsTypeLK } from "@/shared/ui/SwitchSelector/data/switchSelector.data";
 import { skipToken } from "@reduxjs/toolkit/query";
+import { WrapperDefaultProductNotFound } from "@/shared/ui/Wrapper/Default/ui/Product/NotFound/WrapperDefaultProductNotFound";
+import { createGroupProducts } from "@/entities/Product/lib/group.product.lib";
+import { IGroupProducts } from "@/entities/Product/model/group.product.model";
+import { ICategory } from "@/entities/Metrics/model/category.metrics.model";
+import { CategoryAPI } from "@/entities/Metrics/api/category.metrics.api";
 
-interface ProductLKSmartListProps{
-    typeProduct: ProductsTypeLK
-    className?: string,
+interface ProductLKSmartListProps {
+    products: IProduct[],
+    className?: string
 }
 
-export const ProductLKSmartList:FC<ProductLKSmartListProps> = ({typeProduct, className}) => {
+export const ProductLKSmartList: FC<ProductLKSmartListProps> = ({ className, products: _products }) => {
 
     //STATE
     const [isOpenSettings, setIsOpenSettings] = useState<boolean>(false);
     const [isOpenGroup, setIsOpenGroup] = useState<boolean>(false);
-    const [products, setProducts] = useState<IProduct[]>([])
-    const [choosenProduct, setChoosenProduct] = useState<IProduct>()
+    const [choosenProduct, setChoosenProduct] = useState<IGroupProducts>()
     const [groupProducts, setGroupProducts] = useState<IProduct[]>([])
-    const [checkedProductsId, setсheckedProductsId] = useState<number[]>([])
-
-    // RTK
-    const { id: userId } = useAppSelector(state => state.user)
+    const [products, setProducts] = useState<IProduct[]>([]);
+    const [checkedProductsId, setCheckedProductsId] = useState<number[]>([])
+    const [groupsProducts, setGroupsProducts] = useState<IGroupProducts[]>([]);
+    const [categoryList, setCategoryList] = useState<ICategory[]>([])
 
     //API
-    // const { data: activeProductsAPI } = ProductAPI.useGetProductsByUserQuery({ userId: `55736903-ec19-4ea8-a591-fb03369910b0`, limit: 100000000, page: 0 }, { refetchOnMountOrArgChange: true })
-    const { data: activeProductsAPI } = ProductAPI.useGetProductsByUserQuery(typeProduct === ProductsTypeLK.Active ? { userId, limit: 100000000, page: 0 } : skipToken, { refetchOnMountOrArgChange: true })
-    // const { data: draftsProductsAPI } = ProductAPI.useGetDraftsByUserQuery({ limit: 100000000, page: 0 }, { refetchOnMountOrArgChange: true })
-    const { data: draftsProductsAPI } = ProductAPI.useGetDraftsByUserQuery(typeProduct === ProductsTypeLK.Draft ? { limit: 100000000, page: 0 } : skipToken, { refetchOnMountOrArgChange: true })
-    const { data: currencyList } = CurrencyAPI.useGetCurrenciesQuery()
-    const { data: metrics } = MetricsAPI.useGetMetricsQuery()
+    const [getCategory] = CategoryAPI.useGetCategoryMutation();
+    const { data: productsAPI, isLoading: isProductLoading } = ProductAPI.useGetProductsQuery(
+        _products === undefined ? { limit: 24, page: 11 } : skipToken,
+        { refetchOnMountOrArgChange: true }
+    );
 
     //EFFECT
     useEffect(() => {
-        if (activeProductsAPI && metrics && currencyList) {
-            setProducts(productApiListToProductList(activeProductsAPI, metrics, currencyList));
+        if (productsAPI && categoryList && _products === undefined) {
+            setProducts(() => {
+                return productsAPI.map((it, index) => (
+                    { ...productApiToProduct({ productAPI: it }), category: categoryList[index] }
+                ))
+            })
         }
-        if (draftsProductsAPI && metrics && currencyList) {
-            setProducts(productApiListToProductList(draftsProductsAPI, metrics, currencyList));
+    }, [productsAPI, categoryList])
+
+    useEffect(() => {
+        if (_products !== undefined)
+            setProducts(_products)
+    }, [_products])
+
+    // SET CATEGORIES
+    useEffect(() => {
+        if (!productsAPI || _products !== undefined) return;
+
+        const fetchCategories = async () => {
+            try {
+                await Promise.all(
+                    productsAPI.map(async (it) => {
+                        const categoryResponse = await getCategory(it.categoryId).unwrap();
+                        return categoryResponse[0]; // Assuming the response is an array and we need the first element
+                    })
+                ).then(categories => {
+                    setCategoryList(categories)
+                })
+            } catch (error) {
+                console.error("Failed to fetch categories", error);
+            }
+        };
+
+        fetchCategories();
+    }, [_products, productsAPI, getCategory]);
+
+    useEffect(() => {
+        if (!products) return;
+        setGroupsProducts(createGroupProducts(products))
+    }, [products])
+
+    useEffect(() => {
+        if (choosenProduct) {
+            const filteredGroupProducts = groupsProducts.filter(it => it.main.id === choosenProduct.main.id);
+            setGroupProducts(filteredGroupProducts.map(it => it.rest).flat())
         }
-    }, [activeProductsAPI, draftsProductsAPI, metrics, currencyList]);
+    }, [choosenProduct, groupsProducts])
+
 
     //FUNCTIONS
     const closeTheModal = useCallback(() => {
         if (isOpenSettings) setIsOpenSettings(false)
         if (isOpenGroup) setIsOpenGroup(false)
+        setChoosenProduct(undefined)
     }, [isOpenSettings, isOpenGroup]);
 
     return (
-        <SuspenseL>
-            <LKSubheader
-                checkedItemsNumber={checkedProductsId.length}
-                className={checkedProductsId.length ? cl.showSubheader : ''}
-                checkedProductsId={checkedProductsId}
-                setсheckedProductsId={setсheckedProductsId} />
-
-            {products.length > 0 && (
-                <ProductLKList products={products}
-                    setIsOpenSettings={setIsOpenSettings}
-                    isOpenGroup={isOpenGroup}
-                    setIsOpenGroup={setIsOpenGroup}
-                    choosenProduct={choosenProduct}
-                    setChoosenProduct={setChoosenProduct}
-                    setGroupProducts={setGroupProducts}
+        <div className={cl.ProductLKSmartList}>
+            <SuspenseL>
+                <LKSubheader
+                    checkedItemsNumber={checkedProductsId.length}
+                    className={cls(cl.subHeader, checkedProductsId.length ? cl.showSubheader : '')}
                     checkedProductsId={checkedProductsId}
-                    setсheckedProducts={setсheckedProductsId}
-                    variant={EProductLKVariants.DEFAULT} />
-            )}
+                    setCheckedProductsId={setCheckedProductsId} />
 
-            <Modal view={EModalView.BOTTOM}
-                buttonNode
-                isOpen={isOpenSettings || isOpenGroup}
-                onClickOverlay={closeTheModal}>
-                <WrapperModalBottom
-                    setIsOpen={closeTheModal}
-                    title={isOpenSettings ? "Выбор действия" : isOpenGroup && !checkedProductsId.length ? 'Варианты товара' : ''}
-                    className={checkedProductsId.length ? cl.noPadding : ''}
-                    classNameTitle={!checkedProductsId.length && isOpenGroup ? cl.showTitle : ''}
-                    classNameTopChild={isOpenGroup ? cl.noMarginTop : ''}
-                    topChildren={isOpenGroup && (
-                        <LKSubheader
-                            checkedItemsNumber={checkedProductsId.length}
-                            className={cls(cl.subHeaderModal, checkedProductsId.length ? cl.showSubheader : '')}
-                            checkedProductsId={checkedProductsId}
-                            setсheckedProductsId={setсheckedProductsId} />
-                    )}
-                    bottomChildren={isOpenSettings ? (products.length > 0 && (
-                        <BottomInfoModal
-                            variant={EBottomInfoVariant.SETTINGS}
-                            product={choosenProduct!}
-                            setIsOpen={setIsOpenSettings}
-                        />
-                    )) : (isOpenGroup && groupProducts.length > 0 && (
-                        <ProductLKList
-                            products={groupProducts}
-                            variant={EProductLKVariants.GROUP_ITEM}
-                            checkedProductsId={checkedProductsId}
-                            setсheckedProducts={setсheckedProductsId}
-                        />
-                    ))}
-                    classNameBottomChild={isOpenGroup ? cl.paddingTop : ''}
-                    isBorderTopOnBottomChild={isOpenGroup && groupProducts.length > 2}
-                />
-            </Modal>
-        </SuspenseL>
+                <WrapperDefaultProductNotFound showDefault={products.length === 0}>
+                    <ProductLKList products={groupsProducts}
+                        setIsOpenSettings={setIsOpenSettings}
+                        isOpenGroup={isOpenGroup}
+                        setIsOpenGroup={setIsOpenGroup}
+                        choosenProduct={choosenProduct}
+                        setChoosenProduct={setChoosenProduct}
+                        checkedProductsId={checkedProductsId}
+                        setCheckedProductsId={setCheckedProductsId} />
+                </WrapperDefaultProductNotFound>
+
+                <Modal view={EModalView.BOTTOM}
+                    buttonNode
+                    isOpen={isOpenSettings || isOpenGroup}
+                    onClickOverlay={closeTheModal}>
+                    <WrapperModalBottom
+                        setIsOpen={closeTheModal}
+                        title={isOpenSettings ? "Выбор действия" : isOpenGroup && !checkedProductsId.length ? 'Варианты товара' : ''}
+                        className={checkedProductsId.length ? cl.noPadding : ''}
+                        classNameTitle={!checkedProductsId.length && isOpenGroup ? cl.showTitle : ''}
+                        classNameTopChild={isOpenGroup ? cl.noMarginTop : ''}
+                        topChildren={isOpenGroup && checkedProductsId.length > 0 && (
+                            <LKSubheader
+                                checkedItemsNumber={checkedProductsId.length}
+                                className={cls(cl.subHeaderModal, checkedProductsId.length ? cl.showSubheader : '')}
+                                checkedProductsId={checkedProductsId}
+                                setCheckedProductsId={setCheckedProductsId} />
+                        )}
+                        bottomChildren={isOpenSettings ? (products.length > 0 && (
+                            <BottomInfoModal
+                                variant={EBottomInfoVariant.SETTINGS}
+                                product={choosenProduct?.main}
+                                setIsOpen={setIsOpenSettings}
+                            />
+                        )) : (isOpenGroup && groupProducts.length > 0 && (
+                            <ProductLKList
+                                products={groupProducts}
+                                variant={EProductLKVariants.GROUP_ITEM}
+                                checkedProductsId={checkedProductsId}
+                                setCheckedProductsId={setCheckedProductsId}
+                            />
+                        ))}
+                        isBorderTopOnBottomChild={isOpenGroup && groupProducts.length > 2}
+                    />
+                </Modal>
+            </SuspenseL>
+        </div>
     )
 }

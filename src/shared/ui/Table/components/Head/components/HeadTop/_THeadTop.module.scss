@@ -8,6 +8,29 @@
     justify-content: center;
     align-items: center;
 
+    &::before,
+    &::after {
+        content: '';
+        position: absolute;
+        pointer-events: none;
+        right: 0px;
+        width: 20px;
+        height: 20px;
+        top: 0px;
+    }
+
+    &::before {
+        background: var(--dialog-surface) !important;
+        border-radius: 0 20px 0 0;
+        z-index: 12 !important;
+    }
+
+    &::after {
+        content: '';
+        background-color: var(--background-1);
+        z-index: 11 !important;
+    }
+
     .content {
         background-color: var(--background-2);
         border-radius: 100px;
@@ -15,9 +38,31 @@
         gap: 10px;
         align-items: center;
 
+        &::before,
+        &::after {
+            content: '';
+            position: absolute;
+            pointer-events: none;
+            left: 0px;
+            width: 20px;
+            height: 20px;
+            top: 0px;
+        }
+
+        &::before {
+            background: var(--dialog-surface) !important;
+            border-radius: 20px 0 0 0;
+            z-index: 12 !important;
+        }
+
+        &::after {
+            content: '';
+            background-color: var(--background-1);
+            z-index: 11 !important;
+        }
+
         .blockAmount {
             font-size: var(--font-size-s);
-            
         }
     }
 }

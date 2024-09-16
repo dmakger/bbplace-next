@@ -11,6 +11,8 @@ import { useInView } from "react-intersection-observer"
 
 interface IDetailedPageHeader {
     className?: string,
+    ownerId?: string,
+    userId?: string,
     id: number,
     name: string,
     type?: string,
@@ -26,6 +28,8 @@ interface IDetailedPageHeader {
 
 export const DetailedPageHeader = ({
     className,
+    ownerId,
+    userId,
     id,
     name,
     type,
@@ -42,6 +46,7 @@ export const DetailedPageHeader = ({
     const { ref, inView, } = useInView({
         threshold: 0,
     });
+
 
     return (
         <div className={cls(cl.DetailedPageHeader, className)}>
@@ -62,7 +67,7 @@ export const DetailedPageHeader = ({
                     />
                 </div>
             </div>
-            {isRightContainer && 
+            {isRightContainer && ownerId !== userId && 
                 <div className={cl.rightContainer} ref={ref}>
                     <MobileOrderFooter className={cl.topMobileOrderFooter}
                         supplierId={supplierId ?? ''}
