@@ -4,7 +4,7 @@ import { cls } from "@/shared/lib/classes.lib"
 import cl from './_TenderItem.module.scss'
 import { Button, ButtonVariant } from "@/shared/ui/Button"
 import { TenderType } from "../../components/TenderType/TenderType"
-import { ETenderType, ICommonTender } from "../../model/tender.model"
+import { ETenderType, ETenderTypeEn, ICommonTender } from "../../model/tender.model"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { ICategory } from "@/entities/Metrics/model/category.metrics.model"
@@ -19,25 +19,29 @@ import { HeadingToTextTable } from "@/shared/ui/Text"
 import { EHeadingToTextVariants } from "@/shared/model/text.model"
 import { CategoryItem } from "@/entities/Metrics/ui/Category"
 import { FavouriteAutoToTenderButton } from "../../components/Buttons/Favourite/Auto/FavouriteAutoToTenderButton"
-import { ETenderFavouriteViewItem } from "../../data/view.product.data"
+import { ETenderColor, ETenderFavouriteViewItem } from "../../data/view.product.data"
 import { ARROW_ICON } from "@/shared/ui/Icon/data/arrow.data.icon"
 import { getDataTenderInfo } from "@/shared/ui/Text/lib/htt.tender.lib"
 import Link from "next/link"
 import { MAIN_PAGES } from "@/config/pages-url.config"
+import { IListItem } from "@/shared/model/list.model"
+import { ButtonFavourite } from "@/shared/ui/Button/data/Favourite/ButtonFavourite"
+import { FavouriteType } from "@/entities/Favourite/data/favourite.data"
 
-interface ITenderItem {
-    tender: ICommonTender,
+interface ITenderItem extends IListItem<ICommonTender> {
+    color?: ETenderColor
     classNameLine?: string,
     classNameBlockSupplier?: string,
-    className?: string
 }
 
 export const TenderItem = ({
-    tender,
+    color=ETenderColor.White, 
     classNameLine,
     classNameBlockSupplier,
-    tender: { id, categoryId, ownerId, createdAt },
+
+    item: tender,
     className,
+    ...rest
 }: ITenderItem) => {
 
     //STATE
@@ -50,7 +54,7 @@ export const TenderItem = ({
 
     //EFFECT
     useEffect(() => {
-        categories && setTenderCategory(categories.find(category => category.id === categoryId))
+        categories && setTenderCategory(categories.find(category => category.id === tender.categoryId))
     }, [categories])
 
     useEffect(() => {
@@ -74,16 +78,22 @@ export const TenderItem = ({
         e.stopPropagation();
     };
     
+    console.log('qwe tender', tender)
 
     return (
         <>
-            <section className={cls(cl.TenderCard, className)} onClick={goToTheTenderMobile}>
+            <section className={cls(cl.TenderCard, cl[color], className)} onClick={goToTheTenderMobile}>
                 <div className={cl.topContainer} onClick={handleInfoClick}>
                     <div className={cl.info}>
                         {tenderType && <TenderType tenderType={tenderType} />}
                         {tenderCategory && <CategoryItem category={tenderCategory} />}
                     </div>
-                    <FavouriteAutoToTenderButton tenderId={tender.id} view={ETenderFavouriteViewItem.SMALL_FILL} tenderType={tender.type ?? ''}/>
+                    {/* <FavouriteAutoToTenderButton tenderId={tender.id} view={ETenderFavouriteViewItem.SMALL_FILL} tenderType={tender.type ?? ''}/> */}
+                    <ButtonFavourite 
+                        isFavourited={tender.isFavorite}
+                        isFill={true}
+                        body={{objectId: tender.id, objectType: tender.type === ETenderTypeEn.PURCHASE ? FavouriteType.TenderPurchase : FavouriteType.TenderSale}} 
+                        className={cl.favourite} />
                 </div>
 
                 <div className={cl.middleContainer} >
@@ -109,12 +119,12 @@ export const TenderItem = ({
                             className={cls(cl.blockSupplier, classNameBlockSupplier)}
                             classNameSupplier={cl.supplier}
                             classNameSmallSupplier={cl.smallSupplier}
-                            id={ownerId}
+                            id={tender.ownerId}
                             view={is768 ? ESupplierView.SMALL : ESupplierView.LARGE_GRAY}
                             subscribeView={ESupplierSubscribeViewItem.SMALL}
                             />
                     </div>
-                    <CreatedAt createdAt={createdAt} />
+                    <CreatedAt createdAt={tender.createdAt} />
                     <div className={cl.buttonToTender} onClick={handleInfoClick}>
                         <Button variant={ButtonVariant.W_ARROW_RED} onClick={goToTheTenderDesktop}
                                 title="В тендер" 

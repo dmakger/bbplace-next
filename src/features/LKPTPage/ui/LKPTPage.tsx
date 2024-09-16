@@ -15,10 +15,13 @@ export const LKPTPage = ({
     selectedOption,
 }: ILKPTPage) => {
 
+    console.log('qwe optionsTab', optionsTab, selectedOption)
+
     return (
         <div className={cls(cl.LKPTPage, className)}>
             {optionsTab.map((option, index) => (
                 <div key={index} className={option.optionValue === selectedOption.value ? cl.visible : cl.hidden}>
+                    {option.optionValue === selectedOption.value}
                     {option.optionTab}
                 </div>
             ))}

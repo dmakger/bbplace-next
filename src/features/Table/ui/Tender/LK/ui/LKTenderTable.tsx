@@ -5,7 +5,7 @@ import { FC, useEffect, useState } from "react"
 import cl from './_TenderTable.module.scss'
 import { Table } from "@/shared/ui/Table/ui/Table";
 import { TenderAPI } from "@/entities/Tender/api/tender.api";
-import { ETenderType, ITender } from "@/entities/Tender/model/tender.model";
+import { ETenderType, ETenderTypeEn, ITender } from "@/entities/Tender/model/tender.model";
 import { tenderAPIToTender } from "@/entities/Tender/lib/process.tender.lib";
 import { CurrencyAPI } from "@/entities/Metrics/api/currency.metrics.api";
 import { MetricsAPI } from "@/entities/Metrics/api/metrics.metrics.api";
@@ -21,18 +21,19 @@ import { toTenderType } from "@/entities/Tender/lib/tender.lib";
 import { skipToken } from "@reduxjs/toolkit/query";
 import { isEqual } from "lodash";
 import { MAIN_PAGES } from "@/config/pages-url.config";
+import { WrapperDefaultTenderNotFound } from "@/shared/ui/Wrapper/Default/ui/Tender/NotFound/WrapperDefaultTenderNotFound";
 
 interface LKTenderTableProps {
-    tenderType?: ETenderType,
+    tenderType?: ETenderTypeEn,
     defaultTenders?: ITender[]
-    onClickDeleteTender?: (tender: ITender, type?: ETenderType) => void
+    onClickDeleteTender?: (tender: ITender, type?: ETenderTypeEn) => void
     className?: string,
 }
 
 export const LKTenderTable: FC<LKTenderTableProps> = ({ tenderType, defaultTenders, onClickDeleteTender, ...rest }) => {
     //PARAMS
     const params = useParams()
-    const tenderTypeSuccess = tenderType ? tenderType : toTenderType(params.type as string) as ETenderType
+    const tenderTypeSuccess = tenderType ? tenderType : toTenderType(params.type as string) as ETenderTypeEn
 
     // STATE
     const [tenders, setTenders] = useState<ITender[] | undefined>(undefined)
@@ -52,7 +53,7 @@ export const LKTenderTable: FC<LKTenderTableProps> = ({ tenderType, defaultTende
     const [deleteTender] = TenderAPI.useDeleteTenderMutation()
 
     // HANDLE
-    const onClickDelete = async (tender: ITender, type?: ETenderType) => {
+    const onClickDelete = async (tender: ITender, type?: ETenderTypeEn) => {
         if (onClickDeleteTender) {
             onClickDeleteTender(tender, type)
             return
@@ -143,9 +144,12 @@ export const LKTenderTable: FC<LKTenderTableProps> = ({ tenderType, defaultTende
 
     return (
         <>
-            {rowsTable.length > 0 &&
-                <Table head={['Наименование', 'Категория', 'Файлы', '']} data={rowsTable} unions={unionsColumn} {...rest} />
-            }
+            <Table 
+                head={['Наименование', 'Категория', 'Файлы', '']} data={rowsTable} unions={unionsColumn} 
+                defaultBody={
+                    <WrapperDefaultTenderNotFound />
+                } showDefaultBody={!tenders || tenders.length === 0} 
+                {...rest} />
             <HandleSize width={1024} set={setIs1024} />
         </>
     )

@@ -8,6 +8,11 @@ export enum ETenderType {
     SALE = 'Продажа'
 }
 
+export enum ETenderTypeEn {
+    PURCHASE = 'Purchase',
+    SALE = 'Sale'
+}
+
 export interface ITenderByTwoObjectsAPI{
     purchaseRequests: IPurchaseTender[],
     saleRequests: ISaleTender[]
@@ -22,7 +27,10 @@ export interface IBaseTender {
     description: string
     shareContacts: boolean
     createdAt: string
-    type?: ETenderType
+    type?: ETenderTypeEn
+
+    // added on the frontend
+    isFavorite?: boolean
 }
 
 export interface ITenderAttachments extends IAttachment { }
@@ -58,7 +66,6 @@ export interface IPurchaseTender extends Omit<ITender, 'minOrderUnits'> {
 }
 
 export interface ICommonTender extends ITender {
-    currency: ICurrency,
     quantity?: number
     maximumBudget?: number
     price?: number

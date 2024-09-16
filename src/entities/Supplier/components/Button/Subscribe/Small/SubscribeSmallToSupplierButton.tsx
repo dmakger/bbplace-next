@@ -9,19 +9,29 @@ import cl from './_SubscribeSmallToSupplierButton.module.scss'
 import { cls } from "@/shared/lib/classes.lib";
 
 interface SubscribeSmallToSupplierButtonProps{
-    supplierId: ISupplier['id']
+    supplierId?: ISupplier['id']
+    mountIsInFavourite?: boolean
     isSubscribed?: boolean
     isWide?: boolean
     className?: string,
     classNameIcon?: string,
 }
 
-export const SubscribeSmallToSupplierButton:FC<SubscribeSmallToSupplierButtonProps> = ({supplierId, isSubscribed=false, isWide=false, className, classNameIcon}) => {
+export const SubscribeSmallToSupplierButton:FC<SubscribeSmallToSupplierButtonProps> = ({
+    supplierId, 
+    mountIsInFavourite=false, 
+    isSubscribed=false, isWide=false, 
+    className, classNameIcon
+}) => {
     //HOOKS
-    const {addFavourite, deleteFavourite, data: {isInFavourite}} = useFavourite({body: {
-        objectId: +supplierId,
-        objectType: FavouriteType.Supplier
-    }})
+    const {addFavourite, deleteFavourite, data: {isInFavourite}} = useFavourite({
+        mountIsInFavourite, 
+        body: supplierId ? {
+            objectId: +supplierId,
+            objectType: FavouriteType.Supplier
+        } : undefined
+    })  
+
     
     // STATE
     const [isActive, setIsActive] = useState(isInFavourite === undefined ? false : isInFavourite)

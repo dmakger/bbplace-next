@@ -16,6 +16,7 @@ import { HandleSize } from "@/shared/ui/Handle/Size/HandleSize";
 import { isNumeric } from "@/shared/lib/number.lib";
 import { findChatByUserId, findChatByChatId, addChatByUserId } from "@/entities/Chat/connection/invoke/chat.invoke.chat.connection";
 import { getMessages } from "@/entities/Chat/connection/invoke/message.invoke.chat.connection";
+import { WrapperDefaultChatNotFound } from "@/shared/ui/Wrapper/Default/ui/Chat/NotFound/WrapperDefaultChatNotFound";
 
 interface ChatChildrenPageProps {
     className?: string,
@@ -84,11 +85,14 @@ export const ChatChildrenPage: FC<ChatChildrenPageProps> = ({ className }) => {
     }, [currentChat, connection.state])
 
     return (
-        <div className={cls(cl.page, is1024 ? cl.inRow : '', className)}>
+        <WrapperDefaultChatNotFound 
+            showDefault={chatDataList.length === 0} 
+            className={cls(cl.page, is1024 ? cl.inRow : '', className)}
+        >
             <ChatDataList items={chatDataList} activeId={chatId ? +chatId : chatId} 
-                          className={cls(cl.chats, !is1024 || is1024 && !chatId ? cl.visible : cl.hidden)} />
+                        className={cls(cl.chats, !is1024 || is1024 && !chatId ? cl.visible : cl.hidden)} />
             <DialogChat className={cls(cl.dialog, chatId ? cl.visible : cl.hidden)} />
             <HandleSize width={1024} set={setIs1024} />
-        </div>
+        </WrapperDefaultChatNotFound>
     )
 }

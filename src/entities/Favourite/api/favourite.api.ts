@@ -1,9 +1,11 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import { options } from "@/api/interceptors";
-import { getHeaderAuthorizationIfExists } from "@/entities/Auth/lib/auth-token.lib";
+import { getHeaderAuthorization, getHeaderAuthorizationIfExists } from "@/entities/Auth/lib/auth-token.lib";
 import { IProductAPI } from "@/entities/Product/model/product.model";
-import { IPurchaseTender, ISaleTender } from "@/entities/Tender/model/tender.model";
-import { IFavouriteRequest } from "../model/favourite.model";
+import { IPurchaseTender, IPurchaseTenderAPI, ISaleTender, ISaleTenderAPI } from "@/entities/Tender/model/tender.model";
+import { IFavouriteListRequest, IFavouriteRequest } from "../model/favourite.model";
+import { it } from "node:test";
+import { isFavouriteViewSupplier } from "@/entities/Supplier/lib/boolean.supplier.lib";
 
 export const FavouriteAPI = createApi({
 	reducerPath: 'favouriteAPI',
@@ -31,25 +33,37 @@ export const FavouriteAPI = createApi({
         }),
 
         // ======={ GETTERS }=======
-        getFavouriteProducts: build.query<IProductAPI[], void | any>({
+        getFavouriteProducts: build.query<IProductAPI[], void>({
             query: () => ({
                 url: `/GetFavorites/Items`,
                 method: 'GET',
                 headers: getHeaderAuthorizationIfExists(),
+                responseHandler: async (response) => {
+                    const data = await response.json() as IProductAPI[];
+                    return data.map(it => ({...it, isFavorite: true}))
+                }
             }),
         }),
-        getFavouritePurchases: build.query<IPurchaseTender[], void | any>({
+        getFavouritePurchases: build.query<IPurchaseTenderAPI[], void>({
             query: () => ({
                 url: `/GetFavorites/TendersPurchaseRequests`,
                 method: 'GET',
                 headers: getHeaderAuthorizationIfExists(),
+                responseHandler: async (response) => {
+                    const data = await response.json() as IPurchaseTender[];
+                    return data.map(it => ({...it, isFavorite: true}))
+                }
             }),
         }),
-        getFavouriteSales: build.query<ISaleTender[], void | any>({
+        getFavouriteSales: build.query<ISaleTenderAPI[], void>({
             query: () => ({
                 url: `/GetFavorites/TendersSaleRequests`,
                 method: 'GET',
                 headers: getHeaderAuthorizationIfExists(),
+                responseHandler: async (response) => {
+                    const data = await response.json() as ISaleTender[];
+                    return data.map(it => ({...it, isFavorite: true}))
+                }
             }),
         }),
 
@@ -63,6 +77,35 @@ export const FavouriteAPI = createApi({
                     const data = await response.json() as boolean[];
                     return data[0]
                 }
+            }),
+        }),
+
+        isInFavouriteM: build.mutation<boolean, IFavouriteRequest>({
+            query: ({objectId, objectType}) => ({
+                url: `/IsInFavorites/${objectType}/${objectId}`,
+                method: 'GET',
+                headers: getHeaderAuthorizationIfExists(),
+                responseHandler: async (response) => {
+                    const data = await response.json() as boolean[];
+                    return data[0]
+                }
+            }),
+        }),
+
+        areInFavorites: build.query<Record<string, boolean>, IFavouriteListRequest>({
+            query: (body) => ({
+                url: `/areInFavorites/`,
+                method: 'POST',
+                body,
+                headers: getHeaderAuthorization(),
+            }),
+        }),
+        areInFavoritesM: build.mutation<Record<string, boolean>, IFavouriteListRequest>({
+            query: (body) => ({
+                url: `/areInFavorites/`,
+                method: 'POST',
+                body,
+                headers: getHeaderAuthorization(),
             }),
         }),
     })

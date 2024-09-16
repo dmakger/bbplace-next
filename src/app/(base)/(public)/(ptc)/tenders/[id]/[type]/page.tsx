@@ -9,7 +9,7 @@ import { SupplierWNav } from "@/entities/Supplier/ui/WNav/SupplierWNav";
 import { TenderAPI } from "@/entities/Tender/api/tender.api";
 import { SWITCH_SELECTOR_TENDER_OPTIONS } from "@/entities/Tender/data/tender.data";
 import { getTenderWholesalePrices, tenderAPIToTender } from "@/entities/Tender/lib/process.tender.lib";
-import { ETenderType, IPurchaseTender, ISaleTender, ITenderAttachments } from "@/entities/Tender/model/tender.model";
+import { ETenderType, ETenderTypeEn, IPurchaseTender, ISaleTender, ITenderAttachments } from "@/entities/Tender/model/tender.model";
 import { DetailedPageHeader } from "@/features/DetailedPageHeader";
 import { DetailedPageInfo } from "@/features/DetailedPageInfo";
 import { IDetailedProductOptionsTab, IOptionTab } from "@/features/DetailedPageInfo/model/detailedPageInfo.model";
@@ -37,7 +37,7 @@ export default function TenderPage() {
     //PARAMS
     const params = useParams()
     const tenderId = params.id as string
-    const tenderTypeParams = toTenderType(params.type as string) as ETenderType
+    const tenderTypeParams = toTenderType(params.type as string) as ETenderTypeEn
 
     //STATE
     const [is768, setIs768] = useState<boolean>(false)

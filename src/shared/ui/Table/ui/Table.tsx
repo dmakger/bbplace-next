@@ -16,7 +16,16 @@ interface TableProps extends ITable {
     className?: string,
 }
 
-export const Table: FC<TableProps> = ({ head, data, unions, unionsRest, wrapperForUnions = WrapperForUnions, variant = TableVariant.WHITE, headTop, isVisibleHeadTop, className }) => {
+export const Table: FC<TableProps> = ({ 
+    head, data, 
+    unions, unionsRest, 
+    wrapperForUnions = WrapperForUnions, 
+    variant = TableVariant.WHITE, 
+    
+    headTop, isVisibleHeadTop, 
+    showDefaultBody=false, defaultBody,
+    className 
+}) => {
     // STATE
     const [currentHead, setCurrentHead] = useState<ITable['head']>([])
     const [currentData, setCurrentData] = useState<ITable['data']>([])
@@ -36,10 +45,22 @@ export const Table: FC<TableProps> = ({ head, data, unions, unionsRest, wrapperF
         setCurrentData(prevData => unionDataTable(prevData, unions, unionsRest, wrapperForUnions))
     }, [unions])
 
+    const colSpan = currentHead.length;
+
     return (
         <table className={cls(cl.table, cl[variant], className)}>
             <THead head={currentHead} variant={variant} headTop={headTop} isVisibleHeadTop={isVisibleHeadTop}/>
-            <TBody data={currentData} variant={variant} />
+            {showDefaultBody && defaultBody ? (
+                <tbody>
+                    <tr>
+                        <td colSpan={colSpan}>
+                            {defaultBody}
+                        </td>
+                    </tr>
+                </tbody>
+            ) : (
+                <TBody data={currentData} variant={variant} />
+            )}
         </table>
     )
 }

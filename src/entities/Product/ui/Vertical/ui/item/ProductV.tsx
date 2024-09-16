@@ -10,21 +10,26 @@ import { ESupplierAxis, ESupplierView } from '@/entities/Supplier/data/supplier.
 import { SupplierWNav } from '@/entities/Supplier/ui/WNav/SupplierWNav';
 import { WholesaleDiapason } from '@/entities/Metrics/ui/Wholesale/Diapason/WholesaleDiapason';
 import { QuantityMetrics } from '@/shared/ui/QuantityMetrics/QuantityMetrics';
-import { IProductProps } from '@/entities/Product/model/props.product.model';
 import { HandleSize } from '@/shared/ui/Handle/Size/HandleSize';
 import Link from 'next/link';
 import { MAIN_PAGES } from '@/config/pages-url.config';
-import { FavouriteAutoToProductButton } from '@/entities/Product/components/Buttons/Favourite/Auto/FavouriteAutoToProductButton';
-import { EProductFavouriteViewItem } from '@/entities/Product/data/view.product.data';
+import { IListItem } from '@/shared/model/list.model';
+import { IProduct } from '@/entities/Product/model/product.model';
+import { ButtonFavourite } from '@/shared/ui/Button/data/Favourite/ButtonFavourite';
+import { FavouriteType } from '@/entities/Favourite/data/favourite.data';
 
-interface ProductVProps extends IProductProps {}
+interface ProductVProps extends IListItem<IProduct> {}
 
-export const ProductV: FC<ProductVProps> = ({ product, className }) => {
-  // VARS  
-  const [minWholesale, maxWholesale] = getMinMax(product.media.wholesalePrices, product.media.sizes);
+export const ProductV: FC<ProductVProps> = ({
+	item: product,
+	className,
+	...rest
+}) => {
+	// VARS  
+	const [minWholesale, maxWholesale] = getMinMax(product.media.wholesalePrices, product.media.sizes);
 
-  // STATE
-  const [is768, setIs768] = useState(false);
+	// STATE
+	const [is768, setIs768] = useState(false);
 
   return (
     <>
@@ -32,7 +37,12 @@ export const ProductV: FC<ProductVProps> = ({ product, className }) => {
         {/* <Link href={MAIN_PAGES.CURRENT_PRODUCT(product.id)}> */}
         <div className={cl.top}>
           <ImageAPI src={product.media.attachments[0]} width={271} height={271} className={cl.image} />
-          <FavouriteAutoToProductButton productId={product.id} view={EProductFavouriteViewItem.SMALL_FILL} className={cl.favourite} />
+          {/* <FavouriteAutoToProductButton productId={product.id} view={EProductFavouriteViewItem.SMALL_FILL} className={cl.favourite} /> */}
+          <ButtonFavourite 
+            isFavourited={product.isFavorite}
+            isFill={true}
+            body={{objectId: product.id, objectType: FavouriteType.Product}} 
+            className={cl.favourite} />
         </div>
         <div className={cl.content}>
           <div className={cl.middle}>
@@ -51,7 +61,6 @@ export const ProductV: FC<ProductVProps> = ({ product, className }) => {
           <SupplierWNav id={product.ownerId}
                         view={is768 ? ESupplierView.SMALL : ESupplierView.LARGE_WHITE}
                         hasCountry
-                        hasImage
                         hasVerifiedStatus
                         axis={ESupplierAxis.VERTICAL}
                         className={cl.supplier}

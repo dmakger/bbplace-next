@@ -3,7 +3,7 @@ import {fetchBaseQuery} from "@reduxjs/toolkit/query";
 import { options } from "@/api/interceptors";
 import { IArgsRequest } from "@/api/api/model/request.model.api"
 import { getURL } from "@/api/request";
-import { ETenderType, IPurchaseTender, ISaleTender, ITender, ITenderAPI, ITenderByTwoObjectsAPI } from "../model/tender.model";
+import { ETenderType, ETenderTypeEn, ITender, ITenderAPI, ITenderByTwoObjectsAPI } from "../model/tender.model";
 import { getArgsTender } from "../lib/args.tender.lib";
 import { tenderTypeToEn } from "../lib/tender.lib";
 import { getHeaderAuthorization } from "@/entities/Auth/lib/auth-token.lib";
@@ -38,13 +38,13 @@ export const TenderAPI = createApi({
         }),
 
         // TENDERS BY [USER] AND [TYPE]
-        getUserTenders: build.query<ITenderAPI[], {userId: string, type?: ETenderType}>({
+        getUserTenders: build.query<ITenderAPI[], {userId: string, type?: ETenderTypeEn}>({
             query: ({userId, type}) => ({
-                url: `/GetUserTenders/${userId}` + (type ? `?type=${tenderTypeToEn(type)}` : '')
+                url: `/GetUserTenders/${userId}` + (type ? `?type=${type}` : '')
             }),
         }),
 
-        deleteTender: build.mutation<void, {tenderId: ITender['id'], type?: ETenderType}>({
+        deleteTender: build.mutation<void, {tenderId: ITender['id'], type?: ETenderTypeEn}>({
             query: ({tenderId, type}) => ({
                 url: `/DeleteTender/${type}/${tenderId}`,
                 method: 'DELETE',
@@ -55,9 +55,9 @@ export const TenderAPI = createApi({
 
 
         // TENDER BY TYPE
-        getTender: build.query<ITenderAPI, {tenderId: number, type: ETenderType}>({
+        getTender: build.query<ITenderAPI, {tenderId: number, type: ETenderTypeEn}>({
             query: ({tenderId, type}) => ({
-                url: `/GetTender/?id=${tenderId}&type=${tenderTypeToEn(type)}`
+                url: `/GetTender/?id=${tenderId}&type=${type}`
             })
         }),
 

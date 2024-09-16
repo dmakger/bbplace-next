@@ -17,6 +17,7 @@ import { EModalView } from "@/shared/data/modal.data";
 import { WrapperModalBottom } from "@/shared/ui/Wrapper/ModalBottom";
 import { EProductLKVariants } from "../../model/productLK.model";
 import { skipToken } from "@reduxjs/toolkit/query";
+import { WrapperDefaultProductNotFound } from "@/shared/ui/Wrapper/Default/ui/Product/NotFound/WrapperDefaultProductNotFound";
 import { createGroupProducts } from "@/entities/Product/lib/group.product.lib";
 import { IGroupProducts } from "@/entities/Product/model/group.product.model";
 import { ICategory } from "@/entities/Metrics/model/category.metrics.model";
@@ -113,7 +114,7 @@ export const ProductLKSmartList: FC<ProductLKSmartListProps> = ({ className, pro
                     checkedProductsId={checkedProductsId}
                     setCheckedProductsId={setCheckedProductsId} />
 
-                {products.length > 0 && (
+                <WrapperDefaultProductNotFound showDefault={products.length === 0}>
                     <ProductLKList products={groupsProducts}
                         setIsOpenSettings={setIsOpenSettings}
                         isOpenGroup={isOpenGroup}
@@ -122,7 +123,7 @@ export const ProductLKSmartList: FC<ProductLKSmartListProps> = ({ className, pro
                         setChoosenProduct={setChoosenProduct}
                         checkedProductsId={checkedProductsId}
                         setCheckedProductsId={setCheckedProductsId} />
-                )}
+                </WrapperDefaultProductNotFound>
 
                 <Modal view={EModalView.BOTTOM}
                     buttonNode
@@ -160,6 +161,5 @@ export const ProductLKSmartList: FC<ProductLKSmartListProps> = ({ className, pro
                 </Modal>
             </SuspenseL>
         </div>
-
     )
 }
