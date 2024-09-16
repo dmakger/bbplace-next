@@ -10,7 +10,6 @@ export const wrapperConnection = (onList: IOnConnection[], invokeList: IInvokeCo
     try {
         if (connection.state === HubConnectionState.Disconnected) {
             await connection.start();
-            console.log('SignalR Connected.');
         }
 
         onList.map(on => {

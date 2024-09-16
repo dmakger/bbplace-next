@@ -89,7 +89,7 @@ export default function RootLayout({
             {/* YANDEX && GOOGLE Metrika noscript */}
             <noscript>
                 <div>
-                    <img src="https://mc.yandex.ru/watch/XXXXX" style={{ position: 'absolute', left: '-9999px' }} alt="" />\
+                    <img src="https://mc.yandex.ru/watch/93744111" style={{ position: 'absolute', left: '-9999px' }} alt="" />\
                     <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5665HK79" height="0" width="0" style={{ display: "none", visibility: "hidden"}}></iframe>
                 </div>
             </noscript>

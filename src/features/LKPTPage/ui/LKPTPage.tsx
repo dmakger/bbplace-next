@@ -15,8 +15,6 @@ export const LKPTPage = ({
     selectedOption,
 }: ILKPTPage) => {
 
-    console.log('qwe optionsTab', optionsTab, selectedOption)
-
     return (
         <div className={cls(cl.LKPTPage, className)}>
             {optionsTab.map((option, index) => (

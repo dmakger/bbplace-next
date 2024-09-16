@@ -27,6 +27,8 @@ import { processSizeOptionInProductForm, processWholesaleOptionInProductForm } f
 import { WrapperWOSubmit } from "@/shared/ui/Wrapper/WOSubmit/ui/WrapperWOSubmit";
 import { IFormInfo } from "../../model/product.form.model";
 import { getEmptyFormInfo } from "../../lib/product.form.lib";
+import { ENotifyStatus } from "@/features/Notify/data/notify.data";
+import { useNotify } from "@/features/Notify/lib/hooks";
 
 interface VariationInfoProductFormProps {
     data?: IPropsVariationInfoProductForm
@@ -39,6 +41,9 @@ interface VariationInfoProductFormProps {
 export const VariationInfoProductForm: FC<VariationInfoProductFormProps> = ({data, setData, triggerSubmit, isOpenForm, className}) => {
     // REF
     const formRef = useRef<HTMLFormElement>(null);
+
+    // NOTIFY
+    const {notify} = useNotify();
 
     // STATE
     const [metricOptions, setMetricOptions] = useState<IOption[]>([]);
@@ -113,6 +118,7 @@ export const VariationInfoProductForm: FC<VariationInfoProductFormProps> = ({dat
             } as ISize
         }).filter(it => it !== undefined) as ISize[]
         if (!formRef.current.checkValidity() || sizes.length === 0) {
+            notify({text: "Вы не заполнили поле «Размеры» в разделе «Вариация товара»", status: ENotifyStatus.Error})
             e.preventDefault();
             formRef.current.reportValidity();  // Вызывает встроенные сообщения браузера
             return defaultFormInfo
@@ -160,10 +166,7 @@ export const VariationInfoProductForm: FC<VariationInfoProductFormProps> = ({dat
     return (
         <WrapperWOSubmit 
             triggerSubmit={(submitFn) => triggerSubmit?.(() => {
-                const form = formRef.current;
-                if (form) {
-                    form.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
-                }
+                // Убираем лишний вызов form.dispatchEvent
                 return Promise.resolve(handleOnSubmit(new Event("submit") as unknown as FormEvent<HTMLFormElement>));
             })} 
             formRef={formRef}
