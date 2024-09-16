@@ -100,5 +100,13 @@ export const FavouriteAPI = createApi({
                 headers: getHeaderAuthorization(),
             }),
         }),
+        areInFavoritesM: build.mutation<Record<string, boolean>, IFavouriteListRequest>({
+            query: (body) => ({
+                url: `/areInFavorites/`,
+                method: 'POST',
+                body,
+                headers: getHeaderAuthorization(),
+            }),
+        }),
     })
 })

@@ -2,7 +2,7 @@
 
 import cl from './_TenderList.module.scss'
 import { useEffect, useState } from "react"
-import { ITender } from "../../model/tender.model"
+import { ETenderTypeEn, ITender } from "../../model/tender.model"
 import { TenderAPI } from "../../api/tender.api"
 import { TENDER_ARGS_REQUEST } from "../../data/tender.data"
 import { TenderItem } from "../.."
@@ -69,14 +69,15 @@ export const TenderList = () => {
     const {data: currencyList} = CurrencyAPI.useGetCurrenciesQuery()          
     const {data: metrics} = MetricsAPI.useGetMetricsQuery()  
 
-    const { data: tenderSaleFavorite } = FavouriteAPI.useAreInFavoritesQuery(
-        isAuth() && saleTendersAPI ? {objectIds: saleTendersAPI.map(it => it.id), objectType: FavouriteType.TenderSale} : skipToken,
-        { refetchOnMountOrArgChange: true }
-    )
-    const { data: tenderPurchaseFavorite } = FavouriteAPI.useAreInFavoritesQuery(
-        isAuth() && purchaseTendersAPI ? {objectIds: purchaseTendersAPI.map(it => it.id), objectType: FavouriteType.TenderSale} : skipToken,
-        { refetchOnMountOrArgChange: true }
-    )
+    // const { data: tenderSaleFavorite } = FavouriteAPI.useAreInFavoritesQuery(
+    //     isAuth() && (saleTendersAPI || allTendersAPI) ? {objectIds: saleTendersAPI ? saleTendersAPI.map(it => it.id), objectType: FavouriteType.TenderSale} : skipToken,
+    //     { refetchOnMountOrArgChange: true }
+    // )
+    // const { data: tenderPurchaseFavorite } = FavouriteAPI.useAreInFavoritesQuery(
+    //     isAuth() && (purchaseTendersAPI || allTendersAPI) ? {objectIds: purchaseTendersAPI.map(it => it.id), objectType: FavouriteType.TenderSale} : skipToken,
+    //     { refetchOnMountOrArgChange: true }
+    // )
+    const [areInFavorites] = FavouriteAPI.useAreInFavoritesMMutation()
 
 
     //VARIABLES
@@ -98,21 +99,74 @@ export const TenderList = () => {
     useEffect(() => {
         if(metrics && currencyList){
             if ((application === null || application === applicationValues.DEFAULT) && allTendersAPI && countTenders !== undefined ) {
-                console.log('qwe allTendersAPI', allTendersAPI)
                 setTenderList(tenderAPIListToTenderList(allTendersAPI, metrics, currencyList))
                 setCountPages(countTenders + 1)
             }
             else if (application === applicationValues.SELL && saleTendersAPI && countSaleTenders !== undefined) {
-                setTenderList(tenderAPIListToTenderList(saleTendersAPI, metrics, currencyList))
+                setTenderList(tenderAPIListToTenderList(saleTendersAPI, metrics, currencyList, ETenderTypeEn.SALE))
                 setCountPages(countSaleTenders + 1)
             }
             else if (application === applicationValues.PURCHASE && purchaseTendersAPI && countPurchaseTenders !== undefined) {
-                setTenderList(tenderAPIListToTenderList(purchaseTendersAPI, metrics, currencyList))
+                setTenderList(tenderAPIListToTenderList(purchaseTendersAPI, metrics, currencyList, ETenderTypeEn.PURCHASE))
                 setCountPages(countPurchaseTenders + 1)
             }
         }
         
     }, [allTendersAPI, saleTendersAPI, purchaseTendersAPI, application, countTenders, countSaleTenders, countPurchaseTenders])
+
+    useEffect(() => {
+        const fetchFavorites = async () => {
+            if (tenderList.length === 0)
+                return
+            
+            const saleTenderIds: number[] = [];
+            const purchaseTenderIds: number[] = [];
+    
+            // Разбиваем тендеры на два массива: продажа и покупка
+            tenderList.forEach(it => {
+                if (it.type === ETenderTypeEn.SALE) {
+                    saleTenderIds.push(it.id);
+                } else if (it.type === ETenderTypeEn.PURCHASE) {
+                    purchaseTenderIds.push(it.id);
+                }
+            });
+    
+            try {
+                // Выполняем запросы параллельно
+                const [saleResponse, purchaseResponse] = await Promise.all([
+                    saleTenderIds.length > 0
+                        ? areInFavorites({
+                              objectIds: saleTenderIds,
+                              objectType: FavouriteType.TenderSale
+                          }).unwrap()
+                        : Promise.resolve({} as Record<string, boolean>), // Если массив пустой, возвращаем пустой объект
+                    purchaseTenderIds.length > 0
+                        ? areInFavorites({
+                              objectIds: purchaseTenderIds,
+                              objectType: FavouriteType.TenderPurchase
+                          }).unwrap()
+                        : Promise.resolve({} as Record<string, boolean>) // Если массив пустой, возвращаем пустой объект
+                ]);
+    
+                // Обновляем список тендеров одним вызовом setTenderList
+                setTenderList(prevTenderList =>
+                    prevTenderList.map(it => {
+                        if (it.type === ETenderTypeEn.SALE) {
+                            return { ...it, isFavorite: saleResponse[`${it.id}`] ?? false };
+                        } else if (it.type === ETenderTypeEn.PURCHASE) {
+                            return { ...it, isFavorite: purchaseResponse[`${it.id}`] ?? false };
+                        }
+                        return it;
+                    })
+                );
+            } catch (error) {
+                console.error("Error fetching favorite tenders:", error);
+            }
+        };
+    
+        fetchFavorites();
+    }, [tenderList, areInFavorites, setTenderList]);
+    
 
     // set count tenders
     useEffect(() => {
