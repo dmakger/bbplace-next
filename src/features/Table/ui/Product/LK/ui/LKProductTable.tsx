@@ -29,6 +29,7 @@ import { EProductType } from "@/entities/Product/data/type.product.data";
 import { ModalAction } from "@/shared/ui/Modal/ui/Action/ModalAction";
 import { EModalView } from "@/shared/data/modal.data";
 import { ButtonColor, ButtonSize, ButtonVariant } from "@/shared/ui/Button/model/button.model";
+import { WrapperDefaultProductNotFound } from "@/shared/ui/Wrapper/Default/ui/Product/NotFound/WrapperDefaultProductNotFound";
 
 interface LKProductTableProps {
     products?: IProduct[]
@@ -228,17 +229,18 @@ export const LKProductTable:FC<LKProductTableProps> = ({products: _products, typ
 
     return (
         <>
-            {rowsTable.length > 0 &&
-                <Table head={['', 'Категория, Наименование', 'Тип', 'Артикул', '']} 
-                        data={rowsTable} 
-                        unions={unionsColumn} unionsRest={unionsRestColumn}
-                        isVisibleHeadTop={selectedProducts.length > 0}
-                        headTop={
-                            <THeadTop amount={selectedProducts.length} 
-                                      onClickCancel={onClickCancel} onClickDelete={() => onClickDelete()} />
-                        }
-                        {...rest} />
-            }
+            <Table head={['', 'Категория, Наименование', 'Тип', 'Артикул', '']} 
+                    data={rowsTable} 
+                    unions={unionsColumn} unionsRest={unionsRestColumn}
+                    isVisibleHeadTop={selectedProducts.length > 0}
+                    headTop={
+                        <THeadTop amount={selectedProducts.length} 
+                                    onClickCancel={onClickCancel} onClickDelete={() => onClickDelete()} />
+                    }
+                    defaultBody={
+                        <WrapperDefaultProductNotFound />
+                    } showDefaultBody={rowsTable.length === 0} 
+                    {...rest} />
             <HandleSize width={1024} set={setIs1024} />
             <ModalAction 
                 isOpen={showModal} view={EModalView.CENTER}
