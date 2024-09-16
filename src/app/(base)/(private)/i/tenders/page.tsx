@@ -25,6 +25,8 @@ export default function LKTenderPage() {
             optionValue: String(SWITCH_SELECTOR__PURCHASE_TENDER__OPTION.value),
         },
     }
+
+    console.log('qwe tenderType', tenderType)
     return (
         <Wrapper1280>
             <SuspenseL.Tender searchKey={'type'} set={setTenderType}>

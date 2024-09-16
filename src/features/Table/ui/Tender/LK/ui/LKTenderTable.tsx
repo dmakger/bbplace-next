@@ -21,6 +21,7 @@ import { toTenderType } from "@/entities/Tender/lib/tender.lib";
 import { skipToken } from "@reduxjs/toolkit/query";
 import { isEqual } from "lodash";
 import { MAIN_PAGES } from "@/config/pages-url.config";
+import { WrapperDefaultTenderNotFound } from "@/shared/ui/Wrapper/Default/ui/Tender/NotFound/WrapperDefaultTenderNotFound";
 
 interface LKTenderTableProps {
     tenderType?: ETenderTypeEn,
@@ -143,9 +144,13 @@ export const LKTenderTable: FC<LKTenderTableProps> = ({ tenderType, defaultTende
 
     return (
         <>
-            {rowsTable.length > 0 &&
-                <Table head={['Наименование', 'Категория', 'Файлы', '']} data={rowsTable} unions={unionsColumn} {...rest} />
-            }
+            <Table 
+                head={['Наименование', 'Категория', 'Файлы', '']} data={rowsTable} unions={unionsColumn} 
+                defaultBody={
+                    <WrapperDefaultTenderNotFound />
+                // } showDefaultBody={true} 
+                } showDefaultBody={!tenders || tenders.length === 0} 
+                {...rest} />
             <HandleSize width={1024} set={setIs1024} />
         </>
     )

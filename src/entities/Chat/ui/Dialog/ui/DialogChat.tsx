@@ -22,7 +22,7 @@ export const DialogChat:FC<DialogChatProps> = ({className}) => {
     // STATE
     const [is1028, setIs1028] = useState(false)
 
-    console.log('qwe is1028', is1028)
+    // HTML
     return (
         <>
             <HandleSize width={1028} set={setIs1028} />

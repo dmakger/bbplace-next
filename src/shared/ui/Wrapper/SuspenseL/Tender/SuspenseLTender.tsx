@@ -14,7 +14,7 @@ interface SuspenseLTenderProps{
 export const SuspenseLTender:FC<SuspenseLTenderProps> = ({searchKey='type', set, children}) => {
     const searchParams = useSearchParams();
     
-    set(toTenderType(searchParams.get(searchKey) as string))
+    set(toTenderType(searchParams.get(searchKey) as string)?.toLocaleLowerCase())
 
     return children
 }
