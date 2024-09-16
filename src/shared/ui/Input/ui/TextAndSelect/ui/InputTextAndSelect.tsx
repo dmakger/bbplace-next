@@ -257,7 +257,6 @@ export function TextAndSelectInput({
                             title={titleModal}
                             searchQuery={searchQuery} 
                             handleInputChange={handleInputChange}
-
                             options={filteredOptions}
                             setIsOpen={toggleShowOptions}
                             onClickOption={handleOnItem}

@@ -48,6 +48,7 @@ export function InputText({
     title,
     value,
     setValue,
+    autoFocus,
     name, placeholder,
     required = false,
     className,
@@ -228,6 +229,7 @@ export function InputText({
                         maxLength={maxLength}
                         required={required}
                         placeholder={placeholder}
+                        autoFocus={autoFocus}
                         defaultValue={defaultValue}
                         onChange={handleOnChange}
                         onBlur={(e) => checkValue(e.target.value)}
@@ -251,6 +253,7 @@ export function InputText({
                     defaultValue={defaultValue}
                     required={required}
                     placeholder={placeholder}
+                    autoFocus={autoFocus}
                     rows={rows}
                     onChange={handleOnChange}
                     onBlur={(e) => checkValue(e.target.value)}

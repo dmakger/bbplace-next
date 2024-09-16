@@ -26,7 +26,7 @@
     padding: 10px 10px 10px 15px;
     border-radius: 40px;
     border: 1px var(--gray-5) solid;
-    font-size: var(--font-size-s);
+    // font-size: var(--font-size-s);
 
     &:hover {
         background-color: var(--gray-4);
@@ -97,7 +97,7 @@
     @media(max-width: 768px) {
         .title {
             padding: 13px 15px;
-            font-size: var(--font-size-s);
+            // font-size: var(--font-size-s);
         }
 
         .arrowContainer {

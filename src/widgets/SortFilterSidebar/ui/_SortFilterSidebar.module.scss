@@ -3,7 +3,9 @@
     flex-direction: column;
     gap: 35px;
     // max-height: 705px;
-    height: fit-content;
+    height: 100vh;
+    overflow-y: auto;
+
     max-width: 255px;
     width: 100%;
     background-color: var(--white);

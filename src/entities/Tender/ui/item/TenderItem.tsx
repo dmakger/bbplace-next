@@ -78,8 +78,6 @@ export const TenderItem = ({
         e.stopPropagation();
     };
     
-    console.log('qwe tender', tender)
-
     return (
         <>
             <section className={cls(cl.TenderCard, cl[color], className)} onClick={goToTheTenderMobile}>
