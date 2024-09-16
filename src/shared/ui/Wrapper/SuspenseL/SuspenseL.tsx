@@ -1,7 +1,7 @@
-import { FC, ReactNode, Suspense } from "react"
-import { Loading } from "../../Loading/Loading";
+import { ReactNode, Suspense } from "react"
 import { SuspenseLTender } from "./Tender/SuspenseLTender";
 import { SuspenseLAny } from "./Any/SuspenseLAny";
+import { Loader } from "../../Loader";
 
 interface SuspenseLProps{
     children: ReactNode,
@@ -9,7 +9,7 @@ interface SuspenseLProps{
 
 export default function SuspenseL({children}: SuspenseLProps) {
     return (
-        <Suspense fallback={<Loading />}>
+        <Suspense fallback={<Loader />}>
             {children}
         </Suspense>
     )
