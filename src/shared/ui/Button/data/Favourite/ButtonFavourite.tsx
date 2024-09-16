@@ -7,6 +7,7 @@ import { ButtonVariant } from "../../model/button.model";
 import { FAVOURITE_ICON, FAVOURITE_NEW_ICON } from "../../../Icon/data/favourite.data.icon";
 import { IFavouriteRequest } from "@/entities/Favourite/model/favourite.model";
 import { useFavourite } from "@/entities/Favourite/lib/favourite.lib";
+import { isAuth } from "@/entities/Auth/lib/auth-token.lib";
 
 export enum ButtonFavouriteVariant {
     Default = 'default',
@@ -23,12 +24,21 @@ export interface ButtonFavouriteProps{
 }
 
 export interface ButtonFavouriteWBodyProps extends ButtonFavouriteProps {
-    body: IFavouriteRequest
+    mountIsInFavourite?: boolean
+    body?: IFavouriteRequest
 }
 
-export const ButtonFavourite:FC<ButtonFavouriteWBodyProps> = ({body, isFill=false, isFavourited=false, variantFavourite=ButtonFavouriteVariant.Default, className, classNameIcon}) => {
+export const ButtonFavourite:FC<ButtonFavouriteWBodyProps> = ({
+    mountIsInFavourite=false, 
+    body, 
+    
+    isFill=false, 
+    isFavourited=false, 
+    variantFavourite=ButtonFavouriteVariant.Default, 
+    className, classNameIcon
+}) => {
     //HOOKS
-    const {addFavourite, deleteFavourite, data: {isInFavourite}} = useFavourite({body})    
+    const {addFavourite, deleteFavourite, data: {isInFavourite}} = useFavourite({mountIsInFavourite, body})  
     
     // STATE
     const [isActive, setIsActive] = useState(isInFavourite === undefined ? false : isInFavourite)
@@ -43,6 +53,8 @@ export const ButtonFavourite:FC<ButtonFavouriteWBodyProps> = ({body, isFill=fals
 
     // HANDLE
     const handleOnClick = useCallback(() => {
+        if (!isAuth())
+            return
         isActive ? deleteFavourite() : addFavourite()
         setIsActive(prevState => !prevState)
     }, [isActive])

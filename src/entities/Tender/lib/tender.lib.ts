@@ -1,4 +1,4 @@
-import { ETenderType, ITender, ITenderAPI } from "../model/tender.model";
+import { ETenderType, ETenderTypeEn, ITender, ITenderAPI } from "../model/tender.model";
 
 export const getTenderType = (tender: ITender | ITenderAPI) => tender?.hasOwnProperty('minOrderUnits') ?  ETenderType.SALE : ETenderType.PURCHASE;
 
@@ -8,10 +8,10 @@ export const toTenderType = (tenderType?: string) => {
 
     const tenderTypeLower = tenderType.toLocaleLowerCase()
     if (tenderTypeLower === 'sale' || tenderTypeLower === 'продажа')
-        return ETenderType.SALE
+        return ETenderTypeEn.SALE
     
     if (tenderTypeLower === 'purchase' || tenderTypeLower === 'покупка')
-        return ETenderType.PURCHASE
+        return ETenderTypeEn.PURCHASE
 }
 
 export const tenderTypeToEn = (tenderType: ETenderType) => {

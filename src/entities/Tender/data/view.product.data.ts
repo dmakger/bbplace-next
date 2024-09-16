@@ -1,3 +1,10 @@
+
+export enum ETenderColor {
+    White = `white`,
+    Gray = `gray`,
+}
+
+
 // Favourite
 export const PREFIX_FAVOURITE_VIEW_TENDER = "favourite"
 

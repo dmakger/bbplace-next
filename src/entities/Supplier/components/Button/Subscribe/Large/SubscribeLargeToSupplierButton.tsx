@@ -11,20 +11,27 @@ import { ButtonColor, ButtonSize } from "@/shared/ui/Button/model/button.model";
 
 interface SubscribeLargeToSupplierButtonProps {
     supplierId: ISupplier['id']
+    mountIsInFavourite?: boolean
     isSubscribed?: boolean
     isOutline?: boolean
     className?: string,
     classNameIcon?: string,
 }
 
-export const SubscribeLargeToSupplierButton: FC<SubscribeLargeToSupplierButtonProps> = ({ supplierId, isSubscribed = false, isOutline = false, className, classNameIcon }) => {
+export const SubscribeLargeToSupplierButton: FC<SubscribeLargeToSupplierButtonProps> = ({ 
+    supplierId, 
+    mountIsInFavourite=false, 
+    isSubscribed = false, isOutline = false, 
+    className, classNameIcon 
+}) => {
     //HOOKS
-    const { addFavourite, deleteFavourite, data: { isInFavourite } } = useFavourite({
-        body: {
+    const {addFavourite, deleteFavourite, data: {isInFavourite}} = useFavourite({
+        mountIsInFavourite, 
+        body: supplierId ? {
             objectId: +supplierId,
             objectType: FavouriteType.Supplier
-        }
-    })
+        } : undefined
+    })  
 
     // STATE
     const [isActive, setIsActive] = useState(isInFavourite === undefined ? false : isInFavourite)

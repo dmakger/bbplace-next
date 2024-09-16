@@ -20,7 +20,7 @@ interface IHeaderPT {
     isButtonRight?: boolean,
     buttonRightTitle?: string
     buttonRightProps?: IButton,
-    selectedOption: IOption,
+    selectedOption?: IOption,
     setSelectedOption: Function
     options: IOption[],
     optionsTab: OptionsTabType

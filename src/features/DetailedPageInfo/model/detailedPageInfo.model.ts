@@ -1,4 +1,6 @@
+import { SwitchSelectorFavourite } from "@/shared/ui/SwitchSelector/data/favourite.switchSelector.data";
 import { ProductsTypeLK } from "@/shared/ui/SwitchSelector/data/switchSelector.data";
+import { SwitchSelectorTender } from "@/shared/ui/SwitchSelector/data/tender.switchSelector.data";
 import { ReactNode } from "react";
 
 
@@ -42,16 +44,16 @@ export interface IPricesNDiscountsTab extends IOptionTabParent{
 
 // ====={ TENDER }=====
 export interface IOptionTabTender extends IOptionTabParent {
-    sale: IOptionTab
-    purchase: IOptionTab
+    [SwitchSelectorTender.Sale]: IOptionTab
+    [SwitchSelectorTender.Purchase]: IOptionTab
 }
 
 // ====={ FAVOURITES }=====
 export interface IOptionTabFavourites extends IOptionTabParent {
-    products: IOptionTab
-    tenderPurchase: IOptionTab,
-    tenderSale: IOptionTab,
-    suppliers: IOptionTab
+    [SwitchSelectorFavourite.Product]: IOptionTab
+    [SwitchSelectorFavourite.Purchase]: IOptionTab
+    [SwitchSelectorFavourite.Sale]: IOptionTab
+    // [SwitchSelectorFavourite.Supplier]: IOptionTab
 }
 
 
@@ -62,9 +64,12 @@ export interface IOptionTabChat extends IOptionTabParent {
 
 // ============================
 export type OptionsTabType = (
-    IUserProductsTab | IDetailedProductOptionsTab 
-    | ICreateNewProductsTab | IPricesNDiscountsTab
-    | IOptionTabTender | IOptionTabFavourites
+    IUserProductsTab 
+    | IDetailedProductOptionsTab 
+    | ICreateNewProductsTab 
+    | IPricesNDiscountsTab
+    | IOptionTabTender 
+    | IOptionTabFavourites
     | IOptionTabChat
 );
 

@@ -20,6 +20,7 @@ export const productApiListToProductList = (productListAPI: IProductAPI[], metri
 // Из {IProductAPI} ===> {IProduct}
 export const productApiToProduct = ({productAPI, metrics, currencyList, countries}: IProcessProductProps): IProduct => {
     const media = JSON.parse(productAPI.media) as IMediaProduct
+    console.log('qwe productAPI', productAPI)
     const characteristics = processProductCharacteristic(productAPI.characteristics, metrics, currencyList, countries)
     return processProduct({
         ...productAPI,
@@ -62,7 +63,7 @@ const processProductCharacteristic = (characteristics: IProductAPI['characterist
     const characteristicsAPI = JSON.parse(characteristics) as ICharacteristicAPI
     // console.log('qwe characteristicsAPI', characteristicsAPI)
     const country = countries?.find(it => `${it.id}` === characteristicsAPI.country || it.name === characteristicsAPI.country || it.fullName === characteristicsAPI.country || isEqual(it, characteristicsAPI.country))
-    // console.log('qwe country', country, characteristicsAPI.country)
+    console.log('qwe characteristicsAPI',characteristicsAPI)
     const weightUnits = metrics?.find(it => `${it.id}` === `${characteristicsAPI.weightUnits}` || it.name === characteristicsAPI.weightUnits || it.shortName === characteristicsAPI.weightUnits)
     return {
         ...characteristicsAPI,
