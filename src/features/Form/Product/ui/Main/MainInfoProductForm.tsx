@@ -1,5 +1,6 @@
+"use client"
+
 import { Dispatch, FC, FormEvent, SetStateAction, useEffect, useRef, useState } from "react";
-import { cls } from '@/shared/lib/classes.lib';
 import cl from './_MainInfoProductForm.module.scss';
 import { WrapperSubblockForm } from "@/shared/ui/Wrapper/SubblockForm/ui/WrapperSubblockForm";
 import { SubblockFormVariant } from "@/shared/ui/Wrapper/SubblockForm/data/subblockForm.data";
@@ -62,13 +63,16 @@ export const MainInfoProductForm: FC<MainInfoProductFormProps> = ({ data, setDat
     // HANDLE
     const handleOnSubmit = (e: FormEvent<HTMLFormElement>): IFormInfo<IPropsMainInfoProductForm> => {
         const defaultFormInfo = getEmptyFormInfo<IPropsMainInfoProductForm>()
-        if (!formRef.current) return defaultFormInfo
+        if (!formRef.current) 
+            return defaultFormInfo
 
         if (!formRef.current.checkValidity() || selectedCategoryIds.length === 0 || !selectedCountryOption) {
             e.preventDefault();
             formRef.current.reportValidity();  // Вызывает встроенные сообщения браузера
             return defaultFormInfo
         }
+        
+        console.log('qwe main', 2)
         e.preventDefault();
 
         const formData = getFormDataFromForm(formRef.current);
@@ -113,7 +117,7 @@ export const MainInfoProductForm: FC<MainInfoProductFormProps> = ({ data, setDat
                         descriptionTooltipText='Выберите категорию из списка'
                         setSelectedCategoriesId={setSelectedCategoryIds}
                         defaultCategoriesId={defaultCategoriesId}
-                        variant={ERecursiveSelectVariant.MULTIPLE}
+                        variant={ERecursiveSelectVariant.SINGLE}
                          />
                     <WrapperRectangleInput labelText={"Статус товара"} isRequired={true}>
                         <Input.TextAndSelect name={'statusProduct'} placeholder="Выберите статус" defaultOption={selectedStatusOption}

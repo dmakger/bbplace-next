@@ -50,7 +50,6 @@ export function InputRadio({
 
     // EFFECT
     useEffect(() => {
-        // console.log('qwe selectedOption', selectedOption?.id !== option.id)
         if (selectedOption?.id !== option.id) {
             setIsOwnChecked(false); 
         } 

@@ -112,7 +112,7 @@ export const SupportChildrenPage = () => {
             setSelectedResponseFiles([]);
             setErrors(INITIAL_ERRORS);
         } catch (e: any) {
-            console.log(e);
+            console.error(e);
         }
     };
 

@@ -26,6 +26,8 @@ import { EModalView } from "@/shared/data/modal.data"
 import { ButtonVariant } from "@/shared/ui/Button"
 import { ButtonColor, ButtonSize } from "@/shared/ui/Button/model/button.model"
 import { IButton } from "@/shared/ui/Button/ui/Button"
+import { useNotify } from "@/features/Notify/lib/hooks"
+import { ENotifyStatus } from "@/features/Notify/data/notify.data"
 
 interface IProductSingleCreationPage {
     groupId?: string | null
@@ -41,6 +43,9 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
     // RTK
     const { id: userId } = useAppSelector(state => state.user)
     
+    // NOTIFY
+    const {notify} = useNotify();
+
     // REF
     const productFormRef = useRef<{getUpdatedData: () => Promise<IPropsProductForm>} | null>(null)
 
@@ -128,8 +133,8 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
                     bodyCurrentModalProps = {
                         title: "Отсутствует цена",
                         text: ["Рекомендуем указать цены для улучшения рейтинга товара."],
-                        buttonFirst: {...propsButtonFirst, title: "Улучшить"},
-                        buttonSecond: {...propsButtonSecond, title: "Добавить так"},
+                        buttonFirst: {...propsButtonSecond, title: "Улучшить"},
+                        buttonSecond: {...propsButtonFirst, title: "Добавить так"},
                     }
                 } 
                 if (attachments.length === 0) {
@@ -163,7 +168,7 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
             }
             
         }, e => {
-            console.log('qwe error updatedData', e)
+            console.error('qwe error updatedData', e)
         })
     }
 
@@ -283,6 +288,7 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
                     })
                 }).finally(() => {
                     cancelAdd()
+                    notify({text: "Товар добавлен в «Черновики»", status: ENotifyStatus.Success})
                 })
             } else {
                 const createdProductId = await createProduct(serializerData).unwrap()

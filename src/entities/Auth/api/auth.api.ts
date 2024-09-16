@@ -54,10 +54,6 @@ export const UserAPI = createApi({
                 url: `/Authenticate/GetUserInfo?userId=${userId}`,
                 method: 'POST',
             }),
-            // transformResponse: (response: ISupplierAPI) => {
-            //     console.log('qwe response', response)
-            //     return supplierApiToSupplier(response)!
-            // }
         }),
         updateUserInfo: builder.mutation<any, IUpdateUserInfo>({
             query: (data) => ({

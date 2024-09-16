@@ -4,7 +4,7 @@ import { useState } from "react";
 import cl from './_LKTenderPage.module.scss'
 import Wrapper1280 from '@/shared/ui/Wrapper/1280/Wrapper1280';
 import SuspenseL from "@/shared/ui/Wrapper/SuspenseL/SuspenseL";
-import { ETenderType, ETenderTypeEn } from "@/entities/Tender/model/tender.model";
+import { ETenderTypeEn } from "@/entities/Tender/model/tender.model";
 import { IOptionTabTender } from "@/features/DetailedPageInfo/model/detailedPageInfo.model";
 import { LKTenderTableAdaptive } from "@/entities/Tender/ui/TableAdaptive/LKTenderTableAdaptive";
 import { DASHBOARD_PAGES } from "@/config/pages-url.config";
@@ -25,8 +25,6 @@ export default function LKTenderPage() {
             optionValue: String(SWITCH_SELECTOR__PURCHASE_TENDER__OPTION.value),
         },
     }
-
-    console.log('qwe tenderType', tenderType)
     return (
         <Wrapper1280>
             <SuspenseL.Tender searchKey={'type'} set={setTenderType}>
