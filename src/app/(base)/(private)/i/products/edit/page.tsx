@@ -26,7 +26,7 @@ export default function ProductEditPage() {
     }
     return (
         <Wrapper1280>
-            <Suspense fallback={<div>Loading...</div>}>
+            <SuspenseL>
                 <SuspenseL.Any data={[
                     { searchKey: "groupId", set: setGroupId },
                     { searchKey: "id", set: setProductId },
@@ -39,7 +39,7 @@ export default function ProductEditPage() {
                         optionsTab={PRODUCT_EDIT_OPTIONS_TAB}
                         isButtonRight={false} />
                 </SuspenseL.Any>
-            </Suspense>
+            </SuspenseL>
         </Wrapper1280>
     )
 }

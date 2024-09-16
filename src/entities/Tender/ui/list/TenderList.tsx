@@ -23,6 +23,7 @@ import { FavouriteAPI } from '@/entities/Favourite/api/favourite.api'
 import { isAuth } from '@/entities/Auth/lib/auth-token.lib'
 import { FavouriteType } from '@/entities/Favourite/data/favourite.data'
 import { skipToken } from '@reduxjs/toolkit/query'
+import { Loader } from '@/shared/ui/Loader'
 
 export const TenderList = () => {
     // ROUTER
@@ -187,7 +188,7 @@ export const TenderList = () => {
 
 
     if (conditionAllTenders || conditionSaleTenders || conditionPurchaseTenders)
-        return <div>Loading...</div>
+        return <Loader />
 
     return (
         <WrapperSortFilter variant={ECatalogVariants.TENDERS} pageNumberKey={TENDER_PARAMS.NUMBER_PAGE__KEY}>

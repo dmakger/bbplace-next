@@ -30,7 +30,7 @@ export default function LKProductPage() {
 
     return (
         <Wrapper1280>
-            <Suspense fallback={<div>Loading...</div>}>
+            <SuspenseL>
                 <SuspenseL.Any data={[
                     { searchKey: "type", set: setTypeProduct },
                 ]}>
@@ -40,7 +40,7 @@ export default function LKProductPage() {
                                 classNamePage={cl.LKProductPage}
                                 isButtonRight={true} buttonRightProps={{href: DASHBOARD_PAGES.NEW_PRODUCT.path}} />
                 </SuspenseL.Any>
-            </Suspense>
+            </SuspenseL>
         </Wrapper1280>
     )
 }

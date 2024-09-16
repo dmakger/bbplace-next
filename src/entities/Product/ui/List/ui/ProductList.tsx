@@ -28,6 +28,7 @@ import { FavouriteType } from "@/entities/Favourite/data/favourite.data";
 import { isAuth } from "@/entities/Auth/lib/auth-token.lib";
 import { skipToken } from "@reduxjs/toolkit/query";
 import { integrateFavoriteInList } from "@/entities/Favourite/lib/list.favourite.lib";
+import { Loader } from "@/shared/ui/Loader";
 
 interface ProductListProps {
     view?: EViewProduct;
@@ -122,7 +123,8 @@ export const ProductListChild: FC<ProductListProps> = ({ view, className }) => {
         }
     }, [searchParams]);
 
-    if (isProductLoading && isCountProductsLoading) return <div>Loading...</div>;
+    if (isProductLoading && isCountProductsLoading) 
+        return <Loader />
 
     return (
         <WrapperSortFilter variant={ECatalogVariants.PRODUCTS} pageNumberKey={PRODUCT_PARAMS.NUMBER_PAGE__KEY}>

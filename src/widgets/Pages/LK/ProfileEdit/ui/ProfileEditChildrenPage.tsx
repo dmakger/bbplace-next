@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import { DASHBOARD_PAGES } from "@/config/pages-url.config";
 import { ILoginResponseDecoded, IUser } from "@/entities/Auth/model/auth.model";
 import { ECurrentLK } from "@/entities/User/model/user.model";
+import { Loader } from "@/shared/ui/Loader";
 
 export const ProfileEditChildrenPage = () => {
     //RTK
@@ -62,7 +63,7 @@ export const ProfileEditChildrenPage = () => {
                     setCompanyInfoData={setCompanyInfoData}
                     userData={userData}
                 />
-            ) : <div>Loading...</div>,
+            ) : <Loader />,
             optionValue: String(SWITCH_SELECTOR_PROFILE_EDIT.value)
         }
     }
