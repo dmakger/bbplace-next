@@ -115,6 +115,7 @@ export const TenderItem = ({
                         <SupplierWNav
                             hasVerifiedStatus
                             hasCountry
+                            hasImage
                             className={cls(cl.blockSupplier, classNameBlockSupplier)}
                             classNameSupplier={cl.supplier}
                             classNameSmallSupplier={cl.smallSupplier}

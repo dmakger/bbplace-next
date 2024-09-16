@@ -62,6 +62,7 @@ export const SupplierItem = ({
       <section className={cls(cl.SupplierItem, className)}>
         <div className={cl.infoContainer}>
           <SupplierWNav
+            hasImage
             className={cls(cl.supplierWNav, classNameSupplierWNav)}
             classNameName={cl.supplierName}
             classNameSupplier={cls(cl.baseSupplier, classNameBaseSupplier)}

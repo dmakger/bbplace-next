@@ -1,5 +1,5 @@
 'use client'
-import { Loading } from "@/shared/ui/Loading/Loading";
+import { Loader } from "@/shared/ui/Loader";
 import { WrapperGap } from "@/shared/ui/Wrapper/Gap/WrapperGap";
 import { NavBarPTC } from "@/widgets/NavBarPTC";
 import { useParams } from "next/navigation";
@@ -9,7 +9,7 @@ export default function Layout({ children }: PropsWithChildren<unknown>) {
     const params = useParams()
     
     return (
-        <Suspense fallback={<Loading />}>
+        <Suspense fallback={<Loader />}>
             <WrapperGap>
                 {!params.id && <NavBarPTC/>}
                 {children}
