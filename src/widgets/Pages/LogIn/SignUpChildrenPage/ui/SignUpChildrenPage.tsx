@@ -23,6 +23,10 @@ import { MAIN_PAGES } from '@/config/pages-url.config'
 import { useActionCreators, useAppSelector } from '@/storage/hooks'
 import { EInputTextType } from '@/shared/ui/Input/ui/Text/data/text.input.data'
 import { OFFERT_DOCUMENT } from '@/shared/data/documents.data'
+import { ECurrentLK } from '@/entities/User/model/user.model'
+import { saveCurrentLKTokenStorage } from '@/entities/User/lib/user-token.lib'
+import { jwtDecode } from 'jwt-decode'
+import { ILoginResponseDecoded } from '@/entities/Auth/model/auth.model'
 
 
 export const SignUpChildrenPage = () => {
@@ -49,6 +53,7 @@ export const SignUpChildrenPage = () => {
 
     //API
     const [userRegistration, { isLoading }] = UserAPI.useUserRegistrationMutation();
+    const [sendEmailConfirmation] = UserAPI.useSendEmailConfirmationMutation();
     const { data: countries } = CountryAPI.useGetCountriesQuery()
 
     //EFFECT
@@ -129,10 +134,27 @@ export const SignUpChildrenPage = () => {
 
         try {
             const regData = await userRegistration(requestData).unwrap();
-
+            console.log(regData);
+            
             if (regData) {
-                actionCreators.setAuth(regData);
+                const userId = (jwtDecode(regData.accessToken) as ILoginResponseDecoded).UserId
+                actionCreators.setAuth({
+                    Country: selectedCountryName,
+                    FullName: fullName,
+                    UserName: fullName,
+                    Role: role,
+                    UserId: userId
+                });
+                actionCreators.setAuthOptional({
+                    currentLK: ECurrentLK.BUYER
+                })
+                await sendEmailConfirmation(userId)
+                console.log(userId);
+                
+                saveCurrentLKTokenStorage(ECurrentLK.BUYER)    
+                            
                 router.replace(prevPath ?? MAIN_PAGES.HOME.path)
+
             }
         } catch (e: any) {
             e.data.message === 'User already exists!' && setErrorEmail('Пользователь с такой почтой уже зарегистрирован')
