@@ -18,13 +18,13 @@
 		font-size: var(--font-size-reg);
 	}
 
-	@media (max-width: 768px) {
-		font-size: var(--font-size-s);
+	// @media (max-width: 768px) {
+	// 	font-size: var(--font-size-s);
 
-		&::placeholder {
-			font-size: var(--font-size-s);
-		}
-	}
+	// 	&::placeholder {
+	// 		font-size: var(--font-size-s);
+	// 	}
+	// }
 }
 
 .input {
@@ -60,15 +60,13 @@
 
 	&:hover {
 		.input {
-			background-color: var(--gray-4);
+			background-color: var(--gray-4) !important;
 		}
 	}
 
 	@media (max-width: 768px) {
-
 		.input{
 			background-color: var(--gray-3) !important;
-
 		}
 	}
 }

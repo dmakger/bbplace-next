@@ -15,6 +15,7 @@ export const LKPTPage = ({
     selectedOption,
 }: ILKPTPage) => {
 
+
     return (
         <div className={cls(cl.LKPTPage, className)}>
             {optionsTab.map((option, index) => (

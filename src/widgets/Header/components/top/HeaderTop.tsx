@@ -14,7 +14,7 @@ interface HeaderTopProps {
 export default function HeaderTop({ className }: HeaderTopProps) {
     return (
         <Wrapper1280 classNameWrapper={cls(cl.wrapper, className)} classNameContent={cl.block}>
-            <div className={cl.left} autoFocus>
+            <div className={cl.left}>
                 <div className={cl.logo}>
                     <Logo />
                 </div>

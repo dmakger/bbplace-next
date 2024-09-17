@@ -1,7 +1,7 @@
 import { createApi, BaseQueryFn, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { AxiosRequestConfig, AxiosError } from 'axios';
 import apiClient from './interceptor.auth.api';
-import { IAuthForm, ILoginResponseDecoded, ICheckEmailExists, IRegistrationRequest, IResetPassword, ISendResetPassword, IUpdateUserInfo } from '../model/auth.model';
+import { IAuthForm, ILoginResponseDecoded, ICheckEmailExists, IRegistrationRequest, IResetPassword, ISendResetPassword, IUpdateUserInfo, IRegistrationResponse } from '../model/auth.model';
 import { saveTokensStorage, getAccessToken, getRefreshToken, getHeaderAuthorizationIfExists, getHeaderAuthorization } from '../lib/auth-token.lib';
 import { options } from '@/api/interceptors';
 import { ISupplier, ISupplierAPI } from '@/entities/Supplier/model/supplier.model';
@@ -81,7 +81,7 @@ export const UserAPI = createApi({
                 return jwtDecode(response.accessToken);
             }
         }),
-        userRegistration: builder.mutation<ILoginResponseDecoded, IRegistrationRequest>({
+        userRegistration: builder.mutation<IRegistrationResponse, IRegistrationRequest>({
             query: (body) => ({
                 url: `/Authenticate/register`,
                 method: 'POST',
@@ -113,6 +113,13 @@ export const UserAPI = createApi({
                 headers: getHeaderAuthorizationIfExists(),
             }),
             transformResponse: (response: ICheckEmailExists) => response.exists,
+        }),
+        sendEmailConfirmation: builder.mutation<any, string>({
+            query: (userId: string) => ({
+                url: `Authenticate/SendEmailConfirmationLink?userId=${userId}`,
+                method: 'POST',
+                headers: getHeaderAuthorizationIfExists(),
+            })
         }),
         //PASSWORD RESET
         sendResetPasswordLink: builder.mutation<any, ISendResetPassword>({

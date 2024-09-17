@@ -105,6 +105,8 @@ export const FormTenderSaleNew:FC<FormTenderSaleNewProps> = ({className}) => {
             notify({text: notifyText, status: ENotifyStatus.Error})
             return
         }
+
+        console.log('qwe category minOrder', selectedCategoryOption, selectedMinOrderOption)
         
         const apiData: IPropsTenderSale = {
             name: formData.name,

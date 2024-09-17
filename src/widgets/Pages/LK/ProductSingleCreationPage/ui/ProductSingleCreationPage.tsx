@@ -160,7 +160,6 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
                 onClick: cancelAdd,
             }
             let bodyCurrentModalProps: IModalActionProps | undefined
-            console.log('qwe r', r)
             if (r.variation && r.variation.form) {
                 const {attachments, wholesalePrices} = r.variation.form.media
                 const hasPrice = wholesalePrices.length > 0
@@ -238,14 +237,10 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
     // load
     // TODO: Сделать разделение по компонентам. update.product.form.ts
     const handleLoadProduct = async (formData: IPropsProductForm) => {
-        console.log('qwe load data', formData, currentPropsProduct)
         if (!isValidPropsProductForm(formData)) return
-        console.log('qwe load isValid')
         // IS EDIT
         if (isEditForm && productId) {
-            console.log('qwe IS EDIT')
             const serializerData = productFormToCreateOrEditProduct(formData, userId, true) as (IPropsUpdateProduct | undefined)
-            console.log('qwe serializerData', serializerData)
             if (serializerData === undefined) return
 
             if (isDraftByPropsCreateUpdateProduct(serializerData)) {
@@ -310,7 +305,6 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
         }
         // IS CREATE
         else {
-            console.log('qwe IS CREATE')
             // ПЕРЕВОД ДАННЫХ ИЗ ФОРМЫ В ДАННЫЕ ДЛЯ ОТПРАВКИ НА БЭК
             const serializerData = productFormToCreateOrEditProduct(formData, userId, false) as (IPropsCreateProduct | undefined)
             if (serializerData === undefined) return

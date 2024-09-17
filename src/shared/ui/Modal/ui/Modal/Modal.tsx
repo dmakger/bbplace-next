@@ -48,7 +48,7 @@ export const Modal:FC<ModalProps> = ({
     return (
         <>
             {buttonNode}
-            <div className={cls(isOpen ? cl.open : '', cl.modal, className)}>
+            <div className={cls(isOpen ? cl.open : '', cl.modal, className)} autoFocus>
                 <div onClick={()=>onClickOverlay()} className={cls(isOpen ? cl.openOverlay : '', cl.overlay, hasBlack ? cl.black : '', className)} />
                 <div className={cls(isOpen ? cl.openSidebar : '', views[view], cl.sidebar, classNameSidebar)}>
                     {hasClose && 

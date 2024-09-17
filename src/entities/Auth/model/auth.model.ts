@@ -44,6 +44,13 @@ export interface ILoginResponseDecoded {
     Role: string
     MobilePhone: string,
     Country: string
+    
+}
+
+export interface IRegistrationResponse{
+    accessToken: string,
+    refreshToken: string,
+    expiration: string
 }
 
 export interface IUpdateUserInfo {
