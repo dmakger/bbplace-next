@@ -34,7 +34,7 @@ export default function ProductEditPage() {
                 ]}>
                     <WrapperLKPT options={LK_PRODUCT_PAGE_EDIT}
                         pageTitle="Новый товар"
-                        buttonBackProps={{href: DASHBOARD_PAGES.PRODUCTS.path}}
+                        buttonBackProps={{href: DASHBOARD_PAGES.PRODUCTS(false).path}}
                         startPage={SWITCH_SELECTOR_PRODUCT_EDIT_PAGE_SINGLE}
                         optionsTab={PRODUCT_EDIT_OPTIONS_TAB}
                         isButtonRight={false} />

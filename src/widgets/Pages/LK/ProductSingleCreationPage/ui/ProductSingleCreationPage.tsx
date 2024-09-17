@@ -14,7 +14,7 @@ import { productApiListToProductList } from "@/entities/Product/lib/product.lib"
 import { ProductTypeArticleBlock } from "@/entities/Product/ui/TypeArticle/Block/ProductTypeArticleBlock"
 import { TListItemOnClick } from "@/shared/model/list.model"
 import { CountryAPI } from "@/entities/Metrics/api/country.metrics.api"
-import { isValidPropsProductForm, productToPropsProductForm } from "@/features/Form/Product/lib/product.form.lib"
+import { isValidPropsProductForm, productToNewPropsProductForm, productToPropsProductForm } from "@/features/Form/Product/lib/product.form.lib"
 import { IPropsProductForm } from "@/features/Form/Product/model/product.form.model"
 import { useRouter } from "next/navigation"
 import { DASHBOARD_PAGES } from "@/config/pages-url.config"
@@ -25,9 +25,14 @@ import { IModalActionProps, ModalAction } from "@/shared/ui/Modal/ui/Action/Moda
 import { EModalView } from "@/shared/data/modal.data"
 import { ButtonVariant } from "@/shared/ui/Button"
 import { ButtonColor, ButtonSize } from "@/shared/ui/Button/model/button.model"
-import { IButton } from "@/shared/ui/Button/ui/Button"
+import { Button, IButton } from "@/shared/ui/Button/ui/Button"
 import { useNotify } from "@/features/Notify/lib/hooks"
 import { ENotifyStatus } from "@/features/Notify/data/notify.data"
+import { HandleSize } from "@/shared/ui/Handle/Size/HandleSize"
+import { Modal } from "@/shared/ui/Modal/ui/Modal/Modal"
+import { WrapperModalBottom } from "@/shared/ui/Wrapper/ModalBottom"
+import { List } from "@/shared/ui/List/Default/List"
+import { ProductTypeArticleItem } from "@/entities/Product/ui/TypeArticle/Item/ProductTypeArticleItem"
 
 interface IProductSingleCreationPage {
     groupId?: string | null
@@ -47,7 +52,10 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
     const {notify} = useNotify();
 
     // REF
-    const productFormRef = useRef<{getUpdatedData: () => Promise<IPropsProductForm>} | null>(null)
+    const productFormRef = useRef<{
+        getUpdatedData: () => Promise<IPropsProductForm>,
+        writeFormDataToParent: () => void,
+    } | null>(null)
 
     // STATE
     // const [isEdit, setIsEdit] = useState(!!productId)
@@ -55,6 +63,7 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
     const [currentProduct, setCurrentProduct] = useState<IProduct | undefined>()
     const [currentPropsProduct, setCurrentPropsProduct] = useState<IPropsProductForm | undefined>()
     const [showModal, setShowModal] = useState<boolean>(false)
+    const [showBottomModal, setShowBottomModal] = useState<boolean>(false)
     const [currentModalProps, setCurrentModalProps] = useState<IModalActionProps | undefined>()
 
     // API
@@ -78,17 +87,54 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
     const [ createDraftGroup ] = ProductAPI.useCreateDraftGroupMutation()
     const [ addProductToDraftGroup ] = ProductAPI.useAddProductToDraftGroupMutation()
 
+    const [is768, setIs768] = useState(false)
 
-    // EFFECT
+
+    // MEMO
     const typeProduct = useMemo(() => isDraft ? EProductType.Draft : EProductType.Public, [isDraft])
     const isEditForm = useMemo(() => !!productId, [productId])
 
+    // EFFECT
     useEffect(() => {
         if ((!currencies || !metrics || !countries) || !(productsAPI || draftsAPI)) return
         const productsAPILoaded = (isDraft ? draftsAPI : productsAPI) as IProductAPI[]
         addProducts(productsAPILoaded)
     }, [productsAPI, draftsAPI, currencies, metrics, countries])
 
+    useEffect(() => {
+        if (products.length === 0) return 
+        const _currentProduct = productId ? products.find(it => it.id === +productId) : undefined
+        if (_currentProduct) {
+            setCurrentProduct(_currentProduct)
+            setCurrentPropsProduct(productToPropsProductForm(_currentProduct))
+        }
+        else {
+            console.log('qwe products', products)
+            setCurrentPropsProduct(productToNewPropsProductForm(products[0].categoryId))
+        }  
+        // if (_currentProduct) {
+        //     setCurrentProduct(_currentProduct)
+        //     setCurrentPropsProduct(productToPropsProductForm(_currentProduct))
+        // }
+    }, [productId, products])
+
+    // useEffect(() => {
+    //     console.log('qwe bbbb', !productId, products.length === 0)
+
+    //     if (!productId || products.length === 0) return
+
+    //     const _currentProduct = products.find(it => it.id === +productId)
+    //     console.log('qwe _currentProduct', _currentProduct, products)
+    //     if (_currentProduct) {
+    //         setCurrentProduct(_currentProduct)
+    //         setCurrentPropsProduct(productToPropsProductForm(_currentProduct))
+    //     }
+    //     else {
+    //         setCurrentPropsProduct(productToNewPropsProductForm(products[0].category))
+    //     }  
+    // }, [productId, products])
+
+    // HANDLE
     const addProducts = (_productsAPI: IProductAPI[]) => {
         setProducts(prevProducts => {
             const newProducts = productApiListToProductList(_productsAPI, metrics, currencies, countries);
@@ -96,17 +142,6 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
         })
     }
 
-    useEffect(() => {
-        if (!productId || products.length === 0) return
-
-        const _currentProduct = products.find(it => it.id === +productId)
-        if (_currentProduct) {
-            setCurrentProduct(_currentProduct)
-            setCurrentPropsProduct(productToPropsProductForm(_currentProduct))
-        }
-    }, [productId, products])
-
-    // HANDLE
     // сбор данных из формы
     const handleGetFormData = (data?: Promise<IPropsProductForm>) => {
         if (!productFormRef.current) return
@@ -178,13 +213,16 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
         setCurrentProduct(undefined)
         setCurrentPropsProduct(undefined)
         // await handleGetFormData()
-        router.push(DASHBOARD_PAGES.EDIT_PRODUCT({groupId: +groupId}).path);
+        const _typeProduct = isDraft ? EProductType.Draft : EProductType.Public
+        router.push(DASHBOARD_PAGES.EDIT_PRODUCT({groupId: +groupId, type: _typeProduct}).path);
     }
     // on product
     const handleOnProduct: TListItemOnClick<IProduct> = (it, _) => {
         if (currentProduct && it.id === currentProduct.id) return
-        if (currentProduct) handleGetFormData()
-        router.push(DASHBOARD_PAGES.EDIT_PRODUCT({groupId: it.groupId!, id: it.id}).path);
+        if (currentProduct) 
+            handleGetFormData()
+        const _typeProduct = isDraft ? EProductType.Draft : EProductType.Public
+        router.push(DASHBOARD_PAGES.EDIT_PRODUCT({type: _typeProduct, groupId: it.groupId!, id: it.id}).path);
     }
     // on delete
     const handleOnDelete: TListItemOnClick<IProduct> = async (it, _) => {
@@ -289,6 +327,7 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
                 }).finally(() => {
                     cancelAdd()
                     notify({text: "Товар добавлен в «Черновики»", status: ENotifyStatus.Success})
+                    router.push(DASHBOARD_PAGES.PRODUCTS(true).path);
                 })
             } else {
                 const createdProductId = await createProduct(serializerData).unwrap()
@@ -309,27 +348,91 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
         setShowModal(false)
     }
 
+    const toggleBottomModal = () => {
+        setShowBottomModal(prev => !prev)
+    }
+
+    // HANDLE
+    const handleOnClickBottomSave = () => {
+        if (productFormRef.current) {
+            productFormRef.current.writeFormDataToParent();  // Вызов метода из дочернего компонента
+        }
+    }
+
+    console.log('qwe currentPropsProduct', currentPropsProduct)
+
 
     return (
-        <div className={cls(cl.page, className)}> 
-            <div className={cl.left}>
-                <ProductTypeArticleBlock items={products} 
-                    onCreateProduct={handleOnCreateProduct}
-                    onClickItem={handleOnProduct}
-                    onDeleteItem={handleOnDelete}
-                    componentProps={{ onClickDelete: handleOnDelete }}
-                    activeId={currentProduct ? currentProduct.id : undefined} 
-                    className={cl.typeArticleBlock} />
-            </div>
-            <ProductForm ref={productFormRef} data={currentPropsProduct} loadData={handleGetFormData} isEdit={isEditForm} />
-            <ModalAction 
-                isOpen={currentModalProps && showModal} view={EModalView.CENTER}
-                title={currentModalProps ? currentModalProps.title : ''}
-                text={currentModalProps?.text}
-                buttonSecond={currentModalProps?.buttonSecond} 
-                buttonFirst={currentModalProps?.buttonFirst} 
-                onClickOverlay={cancelAdd}
-                />
-        </div> 
+        <>
+            <div className={cls(cl.page, className)}> 
+                {!is768 && (
+                    <div className={cl.left}>
+                        <ProductTypeArticleBlock items={products} 
+                            onCreateProduct={handleOnCreateProduct}
+                            onClickItem={handleOnProduct}
+                            onDeleteItem={handleOnDelete}
+                            componentProps={{ onClickDelete: handleOnDelete }}
+                            activeId={currentProduct ? currentProduct.id : undefined} 
+                            className={cl.typeArticleBlock} />
+                    </div>
+                )}
+                <ProductForm ref={productFormRef} data={currentPropsProduct} loadData={handleGetFormData} isEdit={isEditForm} />
+                {is768 && (
+                    <div className={cl.bottom}>
+                        <Button color={ButtonColor.Secondary} variant={ButtonVariant.TONAL} size={ButtonSize.Medium} 
+                                title={`Варианты ${products.length}`} className={cl.button} 
+                                onClick={toggleBottomModal} />
+                        <Button color={ButtonColor.Primary} variant={ButtonVariant.FILL} size={ButtonSize.Medium} 
+                                title={"Обновить"} className={cl.button}
+                                onClick={handleOnClickBottomSave} />
+                    </div>
+                )}
+            </div> 
+            <HandleSize width={768} set={setIs768} />
+
+            {/* MODAL */}
+            <ModalAction isOpen={currentModalProps && showModal} view={EModalView.CENTER}
+                        title={currentModalProps ? currentModalProps.title : ''}
+                        text={currentModalProps?.text}
+                        buttonSecond={currentModalProps?.buttonSecond} 
+                        buttonFirst={currentModalProps?.buttonFirst} 
+                        onClickOverlay={cancelAdd} />
+            <Modal view={EModalView.BOTTOM}
+                    buttonNode
+                    isOpen={showBottomModal}
+                    onClickOverlay={toggleBottomModal}
+            >
+                <WrapperModalBottom
+                        setIsOpen={toggleBottomModal}
+                        title={`Варианты ${products.length}`}
+                        middleChildren={(
+                            <List items={products} activeId={currentProduct ? currentProduct.id : undefined} 
+                                    component={ProductTypeArticleItem} 
+                                    onClickItem={handleOnProduct}
+                                    onDeleteItem={handleOnDelete}
+                                    componentProps={{ onClickDelete: handleOnDelete }}
+                                    classNameItem={cl.bottomModalItem} />
+
+                            // <LKSubheader
+                            //     checkedItemsNumber={checkedProductsId.length}
+                            //     className={cls(cl.subHeaderModal, checkedProductsId.length ? cl.showSubheader : '')}
+                            //     checkedProductsId={checkedProductsId}
+                            //     setCheckedProductsId={setCheckedProductsId} />
+                        )}
+                        bottomChildren={(
+                            <Button color={ButtonColor.Secondary} variant={ButtonVariant.TONAL} size={ButtonSize.Medium} 
+                                    title={"Добавить вариант"} 
+                                    onClick={handleOnCreateProduct} className={cl.button} />
+
+                            // <BottomInfoModal
+                            //     variant={EBottomInfoVariant.SETTINGS}
+                            //     product={choosenProduct?.main}
+                            //     setIsOpen={setIsOpenSettings}
+                            // />
+                        )}
+                        // isBorderTopOnBottomChild={isOpenGroup && groupProducts.length > 2}
+                    />
+            </Modal>
+        </>
     )
 }

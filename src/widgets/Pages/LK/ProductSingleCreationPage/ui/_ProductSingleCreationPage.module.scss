@@ -2,6 +2,7 @@
     width: 100%;
     display: flex;
     gap: 20px;
+    position: relative;
 
     .left {
         .typeArticleBlock {
@@ -9,4 +10,27 @@
             top: 68px;    
         }
     }
+
+    .bottom {
+        position: fixed;
+        z-index: 2;
+        width: 100vw;
+        bottom: 50px;
+        left: 0;
+        display: flex;
+        justify-content: space-between; /* Равномерно распределяет блоки с пробелами между ними */
+        align-items: stretch; /* Растягивает блоки по высоте */
+        gap: 10px;
+        padding: 10px 20px;
+        background-color: var(--background-2);
+
+        
+    }
+}
+
+.bottomModalItem {
+    padding: 10px;
+}
+.button {
+    width: 100% !important;
 }
