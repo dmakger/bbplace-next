@@ -3,6 +3,9 @@ import { toProductType } from "@/entities/Product/lib/type.product.lib"
 import { IProduct } from "@/entities/Product/model/product.model"
 import { ISupplier } from "@/entities/Supplier/model/supplier.model"
 import { ETenderType, IBaseTender, ITender } from "@/entities/Tender/model/tender.model"
+import { getCurrentLKToken } from "@/entities/User/lib/user-token.lib"
+import { ECurrentLK } from "@/entities/User/model/user.model"
+import { ProductsTypeLK } from "@/shared/ui/SwitchSelector/data/switchSelector.data"
 
 interface IRoot {
     path: string
@@ -75,14 +78,20 @@ export const MAIN_PAGES = new MAIN('')
 
 
 class DASHBOARD extends Route {
-    HOME = this.createPath('', true);
+    HOME = this.createPath(
+        getCurrentLKToken() === ECurrentLK.SELLER 
+        ? '/products' : '/chat'
+    , true);
     PROFILE_EDIT = this.createPath('/edit', true);
     FAVOURITES = this.createPath('/favourites', true);
     
     CHATS = this.createDynamicPath((id?: ISupplier['id'] | number ) => (
         `/chat` + ( id ? `?id=${id}` : '')
     ), true);
-    PRODUCTS = this.createPath('/products', true);
+    PRODUCTS = this.createDynamicPath(
+        (isDraft:boolean = false) => `/products?type=${isDraft ? ProductsTypeLK.Draft : ProductsTypeLK.Active}`
+        , true
+    );
     NEW_PRODUCT = this.createPath('/products/new', true);
     EDIT_PRODUCT = this.createDynamicPath<{ groupId: number, type?: string | EProductType, id?: IProduct['id'] }>(
         ({type, groupId, id}) => {

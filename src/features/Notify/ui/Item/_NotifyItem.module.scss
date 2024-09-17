@@ -11,7 +11,10 @@
         align-items: center;
         width: 100%;
         border-radius: 20px;
+        border: 1px solid var(--background-2);
+        background-color: var(--background-2);
         padding: 20px;
+        color: var(--font);
 
         .text {
             font-size: var(--font-size-reg);
@@ -26,11 +29,11 @@
 
 // >>> ========={ STATUS }========= >>>
 .success {
-    background-color: var(--positive);
-    color: var(--on-positive);
+    border-color: var(--positive-border) !important;
+    // color: var(--on-positive);
 }
 .error {
-    background-color: var(--negative);
-    color: var(--on-negative);
+    border-color: var(--negative-border) !important;
+    // color: var(--on-negative);
 }
 // <<< ========={ STATUS }========= <<<

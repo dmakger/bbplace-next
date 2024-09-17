@@ -94,12 +94,12 @@ export const ProfileEditChildrenPage = () => {
                     LegalName: companyInfoData.legalName ?? '',
                     MobilePhone: personalInfoData.phoneNumber ?? '',
                 })
-                const redirectPath = currentLK === ECurrentLK.SELLER ? DASHBOARD_PAGES.PRODUCTS.path : DASHBOARD_PAGES.CHATS('').path;
+                const redirectPath = currentLK === ECurrentLK.SELLER ? DASHBOARD_PAGES.PRODUCTS(false).path : DASHBOARD_PAGES.CHATS('').path;
                 router.push(redirectPath);
 
             }
         } catch (e) {
-            console.log(e);
+            console.error(e);
         }
     }
 

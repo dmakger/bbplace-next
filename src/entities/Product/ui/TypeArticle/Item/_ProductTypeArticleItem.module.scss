@@ -35,6 +35,9 @@
         }
     }
 
+    .buttonDelete {
+        padding: 10px;
+    }
     .buttonDelete + .wrapperImage + .text {
         width: calc(100% - 110px);
     }

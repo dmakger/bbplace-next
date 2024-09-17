@@ -10,6 +10,7 @@ import { CategoryAPI } from '@/entities/Metrics/api/category.metrics.api'
 import { createInputArray } from '@/shared/ui/Input/ui/RecursiveSelect'
 import { ICategoriesWithSubcategories } from '@/entities/Metrics/model/category.metrics.model'
 import { categoryListToOptionWithSubcategoriesList, findOptionsWSubcategoriesByIds, findOptionsByIds } from '@/shared/lib/option/option.lib'
+import { isEqual } from 'lodash'
 
 interface ICategoryRecursiveSelect {
     className?: string,
@@ -92,21 +93,31 @@ export const CategoryRecursiveSelect = ({
 
     useEffect(() => {
         if (updatedCategories && defaultCategoriesId) {
-            let foundOptions: IOption[] | undefined = []
+            let foundOptions: IOption[] | undefined = [];
             if (inputsLevel > 1) {
-                foundOptions = findOptionsWSubcategoriesByIds(updatedCategories, defaultCategoriesId)
+                foundOptions = findOptionsWSubcategoriesByIds(updatedCategories, defaultCategoriesId);
+            } else {
+                foundOptions = findOptionsByIds(updatedCategories, defaultCategoriesId);
             }
-            else {
-                foundOptions = findOptionsByIds(updatedCategories, defaultCategoriesId)
+    
+            // Обновляем состояние только если найденные опции отличаются от текущих
+            if (!isEqual(foundOptions, selectedOptions)) {
+                setSelectedOptions(foundOptions ?? []);
             }
-            setSelectedOptions(foundOptions ?? []);
         }
-    }, [updatedCategories, defaultCategoriesId])
-
-
+        // Этот эффект будет выполнен только при изменении updatedCategories или defaultCategoriesId
+    }, [updatedCategories, defaultCategoriesId, inputsLevel]);
+    
     useEffect(() => {
-        setSelectedCategoriesAsOption && setSelectedCategoriesAsOption(selectedOptions.map(it => it))
-    }, [selectedOptions])
+        // Проверяем, если переданы функции обратного вызова, и вызываем их только если selectedOptions изменились
+        if (setSelectedCategoriesAsOption) {
+            setSelectedCategoriesAsOption(selectedOptions);
+        }
+        if (setSelectedCategoriesId) {
+            const newIds = selectedOptions.map(it => it.id);
+            setSelectedCategoriesId(newIds);
+        }
+    }, [setSelectedCategoriesAsOption, setSelectedCategoriesId, selectedOptions]);
 
 
     //INPUTS_ARRAY

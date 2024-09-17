@@ -34,7 +34,7 @@ export const WrapperAuth: FC<WrapperAuthProps> = ({ children }) => {
             const isExists = await triggerCheckEmailExists(emailValue).unwrap()
 
             if (isExists) {
-                isExists && router.push(MAIN_PAGES.LOGIN.path)
+                router.push(MAIN_PAGES.LOGIN.path)
                 actionCreators.setAuth({
                     UserName: emailValue,
                     UserId: "",
@@ -48,10 +48,9 @@ export const WrapperAuth: FC<WrapperAuthProps> = ({ children }) => {
                 actionCreators.setAuthOptional({
                     prevPath: pathname
                 })
+            } else {
+                router.push(MAIN_PAGES.REGISTRATION.path)
             }
-
-            !isExists && router.push(MAIN_PAGES.REGISTRATION.path)
-
         } catch (error) {
         }
     }

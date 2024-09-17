@@ -11,29 +11,36 @@ import { ProductAPI } from "@/entities/Product/api/product.api"
 import { DASHBOARD_PAGES } from "@/config/pages-url.config"
 import { IProduct } from "@/entities/Product/model/product.model"
 import { useRouter } from "next/navigation"
+import { ProductsTypeLK } from "@/shared/ui/SwitchSelector/data/switchSelector.data"
+import { EProductType } from "@/entities/Product/data/type.product.data"
 
 interface IBottomInfo {
-    className?: string,
-    classNameText?: string,
-    classNameButton?: string,
-    classNameButtonContainer?: string,
+    type: ProductsTypeLK
     variant?: EBottomInfoVariant
     text?: string,
     product?: IProduct,
     isTitle?: boolean,
     setIsOpen?: Function
+
+    className?: string,
+    classNameText?: string,
+    classNameButton?: string,
+    classNameButtonContainer?: string,
 }
 
 export const BottomInfoModal = ({
-    className,
-    classNameText,
-    classNameButton,
-    classNameButtonContainer,
+    type,
     variant = EBottomInfoVariant.TEXT,
     text,
     product,
     isTitle = true,
-    setIsOpen
+    setIsOpen,
+
+    className,
+    classNameText,
+    classNameButton,
+    classNameButtonContainer,
+
 }: IBottomInfo) => {
 
     //API
@@ -56,7 +63,10 @@ export const BottomInfoModal = ({
 
     const navigateToEditProduct = () => {
         if (!product || product.groupId === null) return
-        router.push(DASHBOARD_PAGES.EDIT_PRODUCT({groupId: product.groupId, id: product.id}).path);
+        const {groupId, id} = product
+        const typeProduct = type === ProductsTypeLK.Active ? EProductType.Public : EProductType.Draft
+        router.push(DASHBOARD_PAGES.EDIT_PRODUCT({type: typeProduct, groupId, id}).path);
+
     }
      
     return (

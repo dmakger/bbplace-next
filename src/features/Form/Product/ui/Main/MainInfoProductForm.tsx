@@ -1,5 +1,6 @@
+"use client"
+
 import { Dispatch, FC, FormEvent, SetStateAction, useEffect, useRef, useState } from "react";
-import { cls } from '@/shared/lib/classes.lib';
 import cl from './_MainInfoProductForm.module.scss';
 import { WrapperSubblockForm } from "@/shared/ui/Wrapper/SubblockForm/ui/WrapperSubblockForm";
 import { SubblockFormVariant } from "@/shared/ui/Wrapper/SubblockForm/data/subblockForm.data";
@@ -26,12 +27,17 @@ interface MainInfoProductFormProps {
     data?: IPropsMainInfoProductForm;
     setData?: Dispatch<SetStateAction<IPropsMainInfoProductForm | undefined>>;
     triggerSubmit?: (submitFn: () => Promise<IFormInfo<IPropsMainInfoProductForm>>) => void;
+    isEditedCategory?: boolean 
 
     isOpenForm?: boolean;
     className?: string;
 }
 
-export const MainInfoProductForm: FC<MainInfoProductFormProps> = ({ data, setData, triggerSubmit, isOpenForm, className }) => {
+export const MainInfoProductForm: FC<MainInfoProductFormProps> = ({ 
+    data, setData, triggerSubmit, 
+    isEditedCategory, 
+    isOpenForm, className 
+}) => {
     // REF
     const formRef = useRef<HTMLFormElement>(null);
 
@@ -43,12 +49,15 @@ export const MainInfoProductForm: FC<MainInfoProductFormProps> = ({ data, setDat
     // const [defaultCategoriesId, setDefaultCategoriesId] = useState<number[]>([335, 2413, 1655])
     const [defaultCategoriesId, setDefaultCategoriesId] = useState<number[]>([])
 
+    console.log('qwe data', data, selectedCategoryIds)
+
     // API
     const { data: countryList } = CountryAPI.useGetCountriesQuery();
 
     // EFFECT
     useEffect(() => {
         setSelectedCategoryIds(data?.categoryId ? [data.categoryId] : []);
+        setDefaultCategoriesId(data?.categoryId ? [data.categoryId] : [])
         setSelectedStatusOption(data?.status ?? READY_STATUS__PRODUCT_FORM__DATA);
         setSelectedCountryOption(data?.country ?? undefined);
     }, [data]);
@@ -62,13 +71,16 @@ export const MainInfoProductForm: FC<MainInfoProductFormProps> = ({ data, setDat
     // HANDLE
     const handleOnSubmit = (e: FormEvent<HTMLFormElement>): IFormInfo<IPropsMainInfoProductForm> => {
         const defaultFormInfo = getEmptyFormInfo<IPropsMainInfoProductForm>()
-        if (!formRef.current) return defaultFormInfo
+        if (!formRef.current) 
+            return defaultFormInfo
 
         if (!formRef.current.checkValidity() || selectedCategoryIds.length === 0 || !selectedCountryOption) {
             e.preventDefault();
             formRef.current.reportValidity();  // Вызывает встроенные сообщения браузера
             return defaultFormInfo
         }
+        
+        console.log('qwe main', 2)
         e.preventDefault();
 
         const formData = getFormDataFromForm(formRef.current);
@@ -113,7 +125,7 @@ export const MainInfoProductForm: FC<MainInfoProductFormProps> = ({ data, setDat
                         descriptionTooltipText='Выберите категорию из списка'
                         setSelectedCategoriesId={setSelectedCategoryIds}
                         defaultCategoriesId={defaultCategoriesId}
-                        variant={ERecursiveSelectVariant.MULTIPLE}
+                        variant={ERecursiveSelectVariant.SINGLE}
                          />
                     <WrapperRectangleInput labelText={"Статус товара"} isRequired={true}>
                         <Input.TextAndSelect name={'statusProduct'} placeholder="Выберите статус" defaultOption={selectedStatusOption}

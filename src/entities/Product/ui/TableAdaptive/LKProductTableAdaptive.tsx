@@ -44,7 +44,7 @@ export const LKProductTableAdaptive:FC<LKProductTableAdaptiveProps> = ({typeProd
                 <FetchProduct set={setProducts} type={typeFetchProduct} propsProduct={propsFetchProduct} hasCategory={true} />
             )}
             {is768 ? (
-                <ProductLKSmartList products={products} />
+                <ProductLKSmartList products={products} type={typeProduct} />
             ) : (
                 <LKProductTable products={products} type={typeProduct} />
             )}

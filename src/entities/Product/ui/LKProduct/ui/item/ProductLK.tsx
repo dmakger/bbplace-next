@@ -18,117 +18,120 @@ import Input from '@/shared/ui/Input/Input'
 import { IGroupProducts } from '@/entities/Product/model/group.product.model'
 
 interface IProductLK {
-  product: IGroupProducts | IProduct,
-  className?: string,
-  variant?: EProductLKVariants,
-  choosenProduct?: IGroupProducts,
-  setChoosenProduct?: Function,
-  setIsOpenSettings?: Function,
-  isOpenGroup?: boolean,
-  setIsOpenGroup?: Function,
-  checkedProductsId?: number[],
-  setCheckedProductsId?: Function
+	product: IGroupProducts | IProduct,
+	className?: string,
+	variant?: EProductLKVariants,
+	choosenProduct?: IGroupProducts,
+	setChoosenProduct?: Function,
+	setIsOpenSettings?: Function,
+	isOpenGroup?: boolean,
+	setIsOpenGroup?: Function,
+	checkedProductsId?: number[],
+	setCheckedProductsId?: Function
 }
 
 export const ProductLK = ({
-  className,
-  variant = EProductLKVariants.DEFAULT,
-  product,
-  choosenProduct,
-  setChoosenProduct,
-  setIsOpenSettings,
-  isOpenGroup,
-  setIsOpenGroup,
-  checkedProductsId,
-  setCheckedProductsId
+	className,
+	variant = EProductLKVariants.DEFAULT,
+	product,
+	choosenProduct,
+	setChoosenProduct,
+	setIsOpenSettings,
+	isOpenGroup,
+	setIsOpenGroup,
+	checkedProductsId,
+	setCheckedProductsId
 }: IProductLK) => {
+	//STATE
+	const [isChecked, setIsChecked] = useState<boolean>(false)
 
-  //STATE
-  const [isChecked, setIsChecked] = useState<boolean>(false)
+	//EFFECT
+	useEffect(() => {
+		if (checkedProductsId) setIsChecked(checkedProductsId.includes(product.id));
+	}, [checkedProductsId]);
 
-  //EFFECT
-  useEffect(() => {
-    if (checkedProductsId) setIsChecked(checkedProductsId.includes(product.id));
-  }, [checkedProductsId]);
+	useEffect(() => {
+		if (checkedProductsId && setCheckedProductsId && isChecked && !checkedProductsId.includes(product.id)) setCheckedProductsId([...checkedProductsId, product.id])
+		else if (!isChecked && setCheckedProductsId) setCheckedProductsId(checkedProductsId?.filter(it => it !== product.id))
+	}, [isChecked])
 
-  useEffect(() => {
-    if (checkedProductsId && setCheckedProductsId && isChecked && !checkedProductsId.includes(product.id)) setCheckedProductsId([...checkedProductsId, product.id])
-    else if (!isChecked && setCheckedProductsId) setCheckedProductsId(checkedProductsId?.filter(it => it !== product.id))
-  }, [isChecked])
+	//FUNCTION
+	const showSettingsModal = (product: IProduct) => {
+		if (setChoosenProduct)
+		setChoosenProduct(product)
+		if (setIsOpenSettings)
+		setIsOpenSettings(true)
+	}
 
-  //FUNCTION
-  const showSettingsModal = (product: IProduct) => {
-    if (setChoosenProduct)
-      setChoosenProduct(product)
-    if (setIsOpenSettings)
-      setIsOpenSettings(true)
-  }
+	const showGroupModal = (product: IProduct) => {
+		if (setChoosenProduct)
+		setChoosenProduct(product)
+		if (setIsOpenGroup)
+		setIsOpenGroup(true)
+	}
 
-  const showGroupModal = (product: IProduct) => {
-    if (setChoosenProduct)
-      setChoosenProduct(product)
-    if (setIsOpenGroup)
-      setIsOpenGroup(true)
-  }
+	const mediaProduct = (product as IGroupProducts).main?.media ?? (product as IProduct)?.media
 
-  const isDraft = !(product as IGroupProducts).main?.media?.attachments.length || !(product as IProduct)?.media?.attachments.length
+	const isDraft = !(product as IGroupProducts).main?.media?.attachments.length || !(product as IProduct)?.media?.attachments.length
 
-  if (!product) return null;
+	if (!product) return null;
 
-  return (
-    <div className={cls(cl.LKProduct, className)}>
-      {variant === EProductLKVariants.DEFAULT && (product as IGroupProducts).main.category && <span className={cl.category}>
-        {(product as IGroupProducts).main.category?.name}
-      </span>}
-      <Input.Checkbox className={cl.checkbox}
-        setIsChecked={setIsChecked}
-        isChecked={isChecked}
-      />
-      <div className={cl.imageContainer}>
-        <ImageAPI src={(product as IGroupProducts).main?.media?.attachments[0] ?? (product as IProduct)?.media?.attachments[0] ?? ''} />
+	return (
+		<div className={cls(cl.LKProduct, className)}>
+			{variant === EProductLKVariants.DEFAULT && (product as IGroupProducts).main.category && (
+				<span className={cl.category}>
+					{(product as IGroupProducts).main.category?.name}
+				</span>
+			)}
+			<Input.Checkbox isChecked={isChecked} setIsChecked={setIsChecked} className={cl.checkbox} />
+			<div className={cl.imageContainer}>
+				{mediaProduct.attachments.length > 0 && (
+					<ImageAPI src={mediaProduct.attachments[0]} />
+				)}
 
-        <div className={cl.settings}>
-          {variant === EProductLKVariants.DEFAULT
-            ? <Button variant={ButtonVariant.DEFAULT}
-              className={cl.iconWrapper}
-              beforeImage={GEAR_ICON}
-              beforeProps={{ width: 20, height: 20 }}
-              onClick={() => showSettingsModal((product as IProduct) ?? (product as IGroupProducts).main)}
-            /> :
-            <BottomInfoModal
-              variant={EBottomInfoVariant.SETTINGS}
-              classNameButtonContainer={cl.groupSettings}
-              product={(product as IProduct) ?? (product as IGroupProducts).main}
-              setIsOpen={setIsOpenGroup ? setIsOpenGroup : () => { }}
-              isTitle={false}
-            />}
-        </div>
+				<div className={cl.settings}>
+					{variant === EProductLKVariants.DEFAULT ? (
+						<Button variant={ButtonVariant.DEFAULT}
+							beforeImage={GEAR_ICON} beforeProps={{ width: 20, height: 20 }}
+							onClick={() => showSettingsModal((product as IProduct) ?? (product as IGroupProducts).main)}
+							className={cl.iconWrapper} />
+					) : (
+						<BottomInfoModal
+							variant={EBottomInfoVariant.SETTINGS}
+							classNameButtonContainer={cl.groupSettings}
+							product={(product as IProduct) ?? (product as IGroupProducts).main}
+							setIsOpen={setIsOpenGroup ? setIsOpenGroup : () => { }}
+							isTitle={false} />
+					)}
+				</div>
 
-      </div>
-      <div className={cl.infoContainer}>
-        <Button variant={ButtonVariant.DEFAULT}
-          className={cl.productName}
-          title={(product as IProduct).name ?? (product as IGroupProducts).main.name ?? ''}
-          href={!isDraft ? MAIN_PAGES.CURRENT_PRODUCT('main' in product ? product.main.id : product.id).path : ''} />
-        <div className={cl.bottomContainer}>
-          <div className={cl.productRestInfo}>
-            <p className={cl.productColor}>
-              {(product as IGroupProducts).main?.media.color ?? (product as IProduct).media.color}
-            </p>
-            <span className={cl.productArticle}>
-              {(product as IGroupProducts).main?.media.article ?? (product as IProduct).media.article}
-            </span>
-          </div>
-          {variant === EProductLKVariants.DEFAULT && (product as IGroupProducts).rest?.length > 1 && <div className={cl.groupNavigate}>
-            <p className={cl.groupLength}>
-              +{(product as IGroupProducts).rest.length}
-            </p>
-            <ButtonArrowWOLine
-              axis={choosenProduct && choosenProduct.id === product.id && isOpenGroup ? Axis.Top : Axis.Default}
-              onClick={() => showGroupModal(product as IProduct ?? (product as IGroupProducts).main)} />
-          </div>}
-        </div>
-      </div>
-    </div>
-  )
+			</div>
+			<div className={cl.infoContainer}>
+				<Button variant={ButtonVariant.DEFAULT}
+					className={cl.productName}
+					title={(product as IProduct).name ?? (product as IGroupProducts).main.name ?? ''}
+					href={!isDraft ? MAIN_PAGES.CURRENT_PRODUCT('main' in product ? product.main.id : product.id).path : ''} />
+				<div className={cl.bottomContainer}>
+					<div className={cl.productRestInfo}>
+						<p className={cl.productColor}>
+							{(product as IGroupProducts).main?.media.color ?? (product as IProduct).media.color}
+						</p>
+						<span className={cl.productArticle}>
+							{(product as IGroupProducts).main?.media.article ?? (product as IProduct).media.article}
+						</span>
+					</div>
+					{variant === EProductLKVariants.DEFAULT && (product as IGroupProducts).rest?.length > 1 && (
+						<div className={cl.groupNavigate}>
+							<p className={cl.groupLength}>
+								+{(product as IGroupProducts).rest.length}
+							</p>
+							<ButtonArrowWOLine
+								axis={choosenProduct && choosenProduct.id === product.id && isOpenGroup ? Axis.Top : Axis.Default}
+								onClick={() => showGroupModal(product as IProduct ?? (product as IGroupProducts).main)} />
+						</div>
+					)}
+				</div>
+			</div>
+		</div>
+	)
 }
