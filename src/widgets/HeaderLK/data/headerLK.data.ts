@@ -83,7 +83,7 @@ export const TENDER_DROPDOWN_MENU_DATA: IMenuItem[] = [
 
 //PRODUCT
 export const MY_PRODUCTS_ITEM_MENU_DATA: IMenuItem = {
-    link: DASHBOARD_PAGES.PRODUCTS.path,
+    link: DASHBOARD_PAGES.PRODUCTS(false).path,
     title: "Мои товары",
 }
 

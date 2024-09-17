@@ -26,7 +26,8 @@ import { OFFERT_DOCUMENT } from '@/shared/data/documents.data'
 import { ECurrentLK } from '@/entities/User/model/user.model'
 import { saveCurrentLKTokenStorage } from '@/entities/User/lib/user-token.lib'
 import { jwtDecode } from 'jwt-decode'
-import { ILoginResponseDecoded } from '@/entities/Auth/model/auth.model'
+import { IErrorResponse, ILoginResponseDecoded } from '@/entities/Auth/model/auth.model'
+import { saveTokensStorage } from '@/entities/Auth/lib/auth-token.lib'
 
 
 export const SignUpChildrenPage = () => {
@@ -133,8 +134,9 @@ export const SignUpChildrenPage = () => {
 
 
         try {
-            const regData = await userRegistration(requestData).unwrap();
-            console.log(regData);
+            const regData = await userRegistration(requestData).unwrap()
+            saveTokensStorage(regData)
+            console.log('qwe', regData);
             
             if (regData) {
                 const userId = (jwtDecode(regData.accessToken) as ILoginResponseDecoded).UserId
@@ -149,12 +151,13 @@ export const SignUpChildrenPage = () => {
                     currentLK: ECurrentLK.BUYER
                 })
                 await sendEmailConfirmation(userId)
-                console.log(userId);
                 
-                saveCurrentLKTokenStorage(ECurrentLK.BUYER)    
-                            
-                router.replace(prevPath ?? MAIN_PAGES.HOME.path)
-
+                saveCurrentLKTokenStorage(ECurrentLK.BUYER)
+                if (!!prevPath) {
+                    router.replace(prevPath)
+                } else {
+                    router.replace(MAIN_PAGES.HOME.path)
+                }
             }
         } catch (e: any) {
             e.data.message === 'User already exists!' && setErrorEmail('Пользователь с такой почтой уже зарегистрирован')
@@ -169,7 +172,7 @@ export const SignUpChildrenPage = () => {
                 isRequired
                 errorInputMessage={errorEmail}
             >
-                <Input.Text type={EInputTextType.Email} variant={EInputVariants.RECTANGULAR} placeholder="Введите email" name="email" error={!!errorEmail} warning={!!errorEmail} />
+                <Input.Text defaultValue={'dmakger14@yandex.ru'} type={EInputTextType.Email} variant={EInputVariants.RECTANGULAR} placeholder="Введите email" name="email" error={!!errorEmail} warning={!!errorEmail} />
             </WrapperRectangleInput>
             <WrapperRectangleInput
                 labelText="Страна"
@@ -178,32 +181,32 @@ export const SignUpChildrenPage = () => {
                 descriptionTooltipText={SELECT_THE_COUNTRIES}
                 errorInputMessage={errorCountry}
             >
-                <Input.TextAndSelect placeholder="Выберите страну" options={countriesAsOption} variant={EInputVariants.RECTANGULAR} name="country" required warning={error && !!errorCountry} error={error && !!errorCountry} arrowSizes={{ width: 16, height: 14 }} />
+                <Input.TextAndSelect defaultOption={countriesAsOption[0]} placeholder="Выберите страну" options={countriesAsOption} variant={EInputVariants.RECTANGULAR} name="country" required warning={error && !!errorCountry} error={error && !!errorCountry} arrowSizes={{ width: 16, height: 14 }} />
             </WrapperRectangleInput>
             <WrapperRectangleInput
                 labelText="Пароль"
                 isRequired
                 errorInputMessage={errorPassword}
             >
-                <Input.Text type={EInputTextType.Password} variant={EInputVariants.RECTANGULAR} placeholder="Введите пароль" name="password" required error={error && !!errorPassword} warning={error && !!errorPassword} />
+                <Input.Text defaultValue={'1DFsfl;hjlk;jsadfl;kjasdfljk;'} type={EInputTextType.Password} variant={EInputVariants.RECTANGULAR} placeholder="Введите пароль" name="password" required error={error && !!errorPassword} warning={error && !!errorPassword} />
             </WrapperRectangleInput>
             <WrapperRectangleInput
                 labelText="Подтверждение пароля"
                 isRequired
                 errorInputMessage={errorPassword}
             >
-                <Input.Text type={EInputTextType.Password} variant={EInputVariants.RECTANGULAR} placeholder="Введите пароль еще раз" name="confirmPassword" required warning={error && !!errorPassword} error={error && !!errorPassword} />
+                <Input.Text defaultValue={'1DFsfl;hjlk;jsadfl;kjasdfljk;'} type={EInputTextType.Password} variant={EInputVariants.RECTANGULAR} placeholder="Введите пароль еще раз" name="confirmPassword" required warning={error && !!errorPassword} error={error && !!errorPassword} />
             </WrapperRectangleInput>
 
             <WrapperRectangleInput
                 labelText="ФИО"
                 isRequired
             >
-                <Input.Text variant={EInputVariants.RECTANGULAR} placeholder="Введите ваше ФИО" name="fullName" error={!!errorFullName} warning={!!errorFullName} />
+                <Input.Text defaultValue={"qwe qwe qwe"} variant={EInputVariants.RECTANGULAR} placeholder="Введите ваше ФИО" name="fullName" error={!!errorFullName} warning={!!errorFullName} />
             </WrapperRectangleInput>
 
             <WrapperRectangleInput labelText="Роль" descriptionTooltipText="Укажите, какую роль вы будете выполнять на платформе." isRequired direction={EInputsContainerDirection.ROW_WRAP}>
-                <Input.Radio option={SUPPLIER_ROLE_ITEM_DATA} variant={EInputVariants.RECTANGULAR} name='role' required variantRadio={ERadioVariant.SINGLE} warning={!!error} error={!!error} />
+                <Input.Radio isActive={true} option={SUPPLIER_ROLE_ITEM_DATA} variant={EInputVariants.RECTANGULAR} name='role' required variantRadio={ERadioVariant.SINGLE} warning={!!error} error={!!error} />
                 <Input.Radio option={SELLER_ROLE_ITEM_DATA} variant={EInputVariants.RECTANGULAR} name='role' variantRadio={ERadioVariant.SINGLE} warning={!!error} error={!!error} />
                 <Input.Radio option={SELLER_N_SUPPLIER_ROLE_ITEM_DATA} variant={EInputVariants.RECTANGULAR} name='role' variantRadio={ERadioVariant.SINGLE} warning={!!error} error={!!error} />
             </WrapperRectangleInput>
@@ -227,7 +230,7 @@ export const SignUpChildrenPage = () => {
                 linkText='Оферта'
                 linkHref={MAIN_PAGES.CURRENT_DOCUMENT(OFFERT_DOCUMENT).path}
             >
-                <Input.Checkbox variant={EInputVariants.RECTANGULAR} name="offert" error={!!errorOffert && error} required />
+                <Input.Checkbox checked={true} isChecked={true} variant={EInputVariants.RECTANGULAR} name="offert" error={!!errorOffert && error} required />
             </WrapperRectangleInput>
         </WrapperForLogInNSupportPages>
     )

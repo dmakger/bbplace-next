@@ -93,3 +93,11 @@ export interface IResetPassword {
 
 
 // export type TypeUserForm = Omit<IUser, 'id'> & { password?: string }
+
+export interface IErrorResponse {
+    status: number | string;  // HTTP-код ошибки или строковое описание статуса
+    data?: {
+        message?: string;  // Сообщение об ошибке, если оно есть в ответе сервера
+        [key: string]: any;  // Любые другие данные, возвращённые сервером
+    };
+}

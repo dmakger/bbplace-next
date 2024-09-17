@@ -30,12 +30,15 @@ export const UpdateAuth:FC<UpdateAuthProps> = () => {
                     actionCreators.setAuth(userData);
                     processUserData(userData.UserId)
                 }
-            }
-            const data = await refreshToken().unwrap();
-            if (data) {
-                actionCreators.setAuth(data);
             } else {
-                removeFromStorage();
+                await refreshToken().unwrap().then(
+                    data => {
+                        actionCreators.setAuth(data)
+                    }, e => {
+                        // actionCreators.setNotAuth()
+                        console.error(e)
+                    }
+                );
             }
         }
         initialRefresh();

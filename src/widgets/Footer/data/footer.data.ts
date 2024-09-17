@@ -40,7 +40,7 @@ export const BANNER_ADS_LINK_ITEM: IMenuItem = {
 }
 
 export const SELLING_PRODUCTS_ITEM: IMenuButton = {
-    link: DASHBOARD_PAGES.PRODUCTS.path,
+    link: DASHBOARD_PAGES.PRODUCTS(false).path,
     title: "Продавать товары",
     variant: EMenuButtonVariant.ONLY_FOR_SELLERS
 }

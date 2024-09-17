@@ -5,7 +5,7 @@ import cl from './_ProductTypeArticleItem.module.scss'
 import { IListItem, TListItemOnClick } from "@/shared/model/list.model";
 import { IProduct } from "@/entities/Product/model/product.model";
 import { Button, ButtonVariant } from "@/shared/ui/Button";
-import { ButtonColor } from "@/shared/ui/Button/model/button.model";
+import { ButtonColor, ButtonSize } from "@/shared/ui/Button/model/button.model";
 import { TRASH_NEGATIVE_TO_WHITE_ICON } from "@/shared/ui/Icon/data/trash.data.icon";
 import { ImageAPI } from "@/shared/ui/Image/API/ImageAPI";
 import { getImage } from "@/shared/lib/image.lib";
@@ -39,7 +39,7 @@ export const ProductTypeArticleItem:FC<ProductTypeArticleItemProps> = ({
     return (
         <div onClick={handleOnClick} className={cls(cl.block, isActive ? cl.active : '', className)}>
             {onClickDelete && (
-                <Button variant={ButtonVariant.CONTENT} color={ButtonColor.Negative} 
+                <Button variant={ButtonVariant.CONTENT} color={ButtonColor.Negative} size={ButtonSize.Medium}
                         beforeImage={TRASH_NEGATIVE_TO_WHITE_ICON} 
                         onClick={handleOnDelete} className={cl.buttonDelete} />
             )}

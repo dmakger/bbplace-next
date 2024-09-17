@@ -20,15 +20,19 @@ export interface IWrapperModalBottom {
 
 interface _IWrapperModalBottom extends IWrapperModalBottom {
     topChildren?: ReactNode,
+    middleChildren?: ReactNode,
     bottomChildren?: ReactNode,
 }
 
 export const WrapperModalBottom = ({
     setIsOpen,
     title,
+    
     topChildren,
     isBorderTopOnBottomChild = false,
+    middleChildren,
     bottomChildren,
+
     className,
     classNameTitle,
     classNameTopChild,
@@ -49,6 +53,7 @@ export const WrapperModalBottom = ({
                     }
                 </div>
             }
+            {middleChildren}
             <div className={cls(cl.bottomChildren, isBorderTopOnBottomChild ? cl.wBorder : '', classNameBottomChild)}>
                 {bottomChildren}
             </div>

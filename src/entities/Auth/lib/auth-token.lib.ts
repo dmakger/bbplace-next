@@ -42,6 +42,7 @@ export const isAuth = (): boolean => {
 };
 
 export const saveTokensStorage = (data: IAuthResponse): void => {    
+    console.log('qwe saveTokensStorage')
     saveAccessTokenStorage(data.accessToken);
     saveRefreshTokenStorage(data.refreshToken);
 };
@@ -73,6 +74,7 @@ export const saveRefreshTokenStorage = (refreshToken: string): void => {
 };
 
 export const removeFromStorage = (): void => {
+    console.log('qwe removeFromStorage')
     Cookies.remove(ETokens.ACCESS_TOKEN);
     Cookies.remove(ETokens.REFRESH_TOKEN);
     // Cookies.remove(EUserTokens.CURRENT_LK);

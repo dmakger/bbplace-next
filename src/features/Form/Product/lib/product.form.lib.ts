@@ -10,6 +10,7 @@ import { IPropsVariationInfoProductForm } from "../model/variationInfo.product.f
 import { IFormInfo, IPropsProductForm } from "../model/product.form.model";
 import { processDeliveryOption, processEquipmentOption, processFeaturesOption, processWarehousesOption } from "./process.additionalInfo.product.form.lib";
 import { IOption } from "@/shared/model/option.model";
+import { ICategory } from "@/entities/Metrics/model/category.metrics.model";
 
 export const isValidPropsProductForm = (formData: IPropsProductForm) => {
     const {main, additional, variation} = formData
@@ -26,6 +27,20 @@ export const getEmptyFormInfo = <T>(): IFormInfo<T> => {
         form: undefined
     }
 }
+
+export const productToNewPropsProductForm = (categoryId: ICategory['id']): IPropsProductForm => {
+    return {
+        main: {
+            isValid: false,
+            form: {
+                categoryId,
+            },
+        } as IFormInfo<IPropsMainInfoProductForm>,
+        additional: getEmptyFormInfo<IPropsAdditionalInfoProductForm>(),
+        variation: getEmptyFormInfo<IPropsVariationInfoProductForm>(),
+    }
+}
+
 
 
 export const productToPropsProductForm = (product: IProduct): IPropsProductForm => {

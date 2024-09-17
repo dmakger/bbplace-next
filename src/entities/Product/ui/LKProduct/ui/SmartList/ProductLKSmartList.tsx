@@ -22,13 +22,15 @@ import { createGroupProducts } from "@/entities/Product/lib/group.product.lib";
 import { IGroupProducts } from "@/entities/Product/model/group.product.model";
 import { ICategory } from "@/entities/Metrics/model/category.metrics.model";
 import { CategoryAPI } from "@/entities/Metrics/api/category.metrics.api";
+import { ProductsTypeLK } from "@/shared/ui/SwitchSelector/data/switchSelector.data";
 
 interface ProductLKSmartListProps {
     products: IProduct[],
+    type: ProductsTypeLK
     className?: string
 }
 
-export const ProductLKSmartList: FC<ProductLKSmartListProps> = ({ className, products: _products }) => {
+export const ProductLKSmartList: FC<ProductLKSmartListProps> = ({ type, products: _products, className }) => {
 
     //STATE
     const [isOpenSettings, setIsOpenSettings] = useState<boolean>(false);
@@ -146,6 +148,7 @@ export const ProductLKSmartList: FC<ProductLKSmartListProps> = ({ className, pro
                             <BottomInfoModal
                                 variant={EBottomInfoVariant.SETTINGS}
                                 product={choosenProduct?.main}
+                                type={type}
                                 setIsOpen={setIsOpenSettings}
                             />
                         )) : (isOpenGroup && groupProducts.length > 0 && (
