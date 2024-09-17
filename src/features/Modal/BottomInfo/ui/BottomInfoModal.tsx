@@ -15,7 +15,7 @@ import { ProductsTypeLK } from "@/shared/ui/SwitchSelector/data/switchSelector.d
 import { EProductType } from "@/entities/Product/data/type.product.data"
 
 interface IBottomInfo {
-    type: ProductsTypeLK
+    type?: ProductsTypeLK
     variant?: EBottomInfoVariant
     text?: string,
     product?: IProduct,

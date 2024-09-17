@@ -16,9 +16,11 @@ import { BottomInfoModal } from '@/features/Modal/BottomInfo'
 import { EBottomInfoVariant } from '@/features/Modal/BottomInfo/model/bottomInfoModal.model'
 import Input from '@/shared/ui/Input/Input'
 import { IGroupProducts } from '@/entities/Product/model/group.product.model'
+import { ProductsTypeLK } from '@/shared/ui/SwitchSelector/data/switchSelector.data'
 
 interface IProductLK {
 	product: IGroupProducts | IProduct,
+	type: ProductsTypeLK,
 	className?: string,
 	variant?: EProductLKVariants,
 	choosenProduct?: IGroupProducts,
@@ -33,6 +35,7 @@ interface IProductLK {
 export const ProductLK = ({
 	className,
 	variant = EProductLKVariants.DEFAULT,
+	type,
 	product,
 	choosenProduct,
 	setChoosenProduct,
@@ -97,6 +100,7 @@ export const ProductLK = ({
 							className={cl.iconWrapper} />
 					) : (
 						<BottomInfoModal
+							type={type}
 							variant={EBottomInfoVariant.SETTINGS}
 							classNameButtonContainer={cl.groupSettings}
 							product={(product as IProduct) ?? (product as IGroupProducts).main}

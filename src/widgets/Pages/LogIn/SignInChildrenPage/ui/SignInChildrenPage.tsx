@@ -94,7 +94,7 @@ export const SignInChildrenPage = () => {
                 bellowButtonType={ButtonType.Submit}
                 errorInputMessage={errorPassword}
                 isLoadingBellowButton={isLoading}
-                onClickBellowButton={LogIn}
+                // onClickBellowButton={LogIn}
             >
                 <Input.Text type={EInputTextType.Password} variant={EInputVariants.RECTANGULAR} placeholder="Введите пароль" name="password" error={error && !!errorPassword} warning={error && !!errorPassword} />
             </WrapperRectangleInput>
