@@ -56,8 +56,6 @@ export default function TenderPage() {
     //RTK
     const {id: userId} = useAppSelector(state => state.user)
 
-    // console.log('tender type', tenderTypeParams, tenderTypeToEn(tenderTypeParams), tender)
-
     // EFFECT
     useEffect(() => {
         if (tenderAPI && metrics && currencyList) {
@@ -101,9 +99,6 @@ export default function TenderPage() {
         }
         return [];
     }, [tender, tenderTypeParams]);
-
-    // console.log('tender qw', wholesalePrices, tenderType)
-
 
     if (!tender) return;
 

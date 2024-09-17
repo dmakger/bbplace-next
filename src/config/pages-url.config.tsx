@@ -3,6 +3,8 @@ import { toProductType } from "@/entities/Product/lib/type.product.lib"
 import { IProduct } from "@/entities/Product/model/product.model"
 import { ISupplier } from "@/entities/Supplier/model/supplier.model"
 import { ETenderType, IBaseTender, ITender } from "@/entities/Tender/model/tender.model"
+import { getCurrentLKToken } from "@/entities/User/lib/user-token.lib"
+import { ECurrentLK } from "@/entities/User/model/user.model"
 
 interface IRoot {
     path: string
@@ -75,7 +77,10 @@ export const MAIN_PAGES = new MAIN('')
 
 
 class DASHBOARD extends Route {
-    HOME = this.createPath('', true);
+    HOME = this.createPath(
+        getCurrentLKToken() === ECurrentLK.SELLER 
+        ? '/products' : '/chat'
+    , true);
     PROFILE_EDIT = this.createPath('/edit', true);
     FAVOURITES = this.createPath('/favourites', true);
     

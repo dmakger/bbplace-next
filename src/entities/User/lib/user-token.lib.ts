@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 import { ECurrentLK } from '../model/user.model';
 
 export enum EUserTokens {
-    'CURRENT_LK' = 'currentLK',
+    CURRENT_LK = 'currentLK',
 }
 
 export const saveCurrentLKTokenStorage = (currentLK: ECurrentLK): void => {
@@ -14,7 +14,5 @@ export const saveCurrentLKTokenStorage = (currentLK: ECurrentLK): void => {
 };
 
 export const getCurrentLKToken = (): ECurrentLK | undefined => {
-    const currentLK = Cookies.get(EUserTokens.CURRENT_LK);    
-    if(currentLK === ECurrentLK.BUYER) return ECurrentLK.BUYER
-    else if(currentLK === ECurrentLK.SELLER) return ECurrentLK.SELLER;
+    return Cookies.get(EUserTokens.CURRENT_LK) as (ECurrentLK | undefined);    
 };

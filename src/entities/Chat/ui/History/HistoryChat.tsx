@@ -38,8 +38,6 @@ export const HistoryChat: FC<HistoryChatProps> = ({ className }) => {
         }
     }, [messages])
 
-    console.log('qwe m', messages.slice(-1)[0])
-
     return (
         <div ref={chatRef} className={cls(cl.history, className)}>
             {messages.map((msg, index) => (
