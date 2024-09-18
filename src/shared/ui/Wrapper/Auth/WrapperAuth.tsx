@@ -10,12 +10,22 @@ import { UserAPI } from "@/entities/Auth/api/auth.api";
 import { MAIN_PAGES } from "@/config/pages-url.config";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { WrapperMount } from "../Mount";
+import SuspenseL from "../SuspenseL/SuspenseL";
 
 interface WrapperAuthProps{
     children: ReactNode
 }
 
-export const WrapperAuth: FC<WrapperAuthProps> = ({ children }) => {
+export const WrapperAuth: FC<WrapperAuthProps> = ({...rest}) => {
+    return (
+        <SuspenseL>
+            <WrapperAuthChild {...rest} />
+        </SuspenseL>
+    );
+}
+
+
+const WrapperAuthChild: FC<WrapperAuthProps> = ({ children }) => {
     // ROUTER
     const router = useRouter()
     const pathname = usePathname()
