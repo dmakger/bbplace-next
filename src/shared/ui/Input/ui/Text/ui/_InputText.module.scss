@@ -160,5 +160,8 @@
 
 	&:hover {
 		background-color: var(--gray-4);
+		& input{
+			background-color: var(--gray-4) !important;
+		}
 	}
 }

@@ -87,6 +87,10 @@
         width: 100%;
         padding: 20px;
 
+        @media (max-width: 425px) {
+            flex-direction: column;
+        }
+
         button {
             flex-grow: 1;
         }

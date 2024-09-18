@@ -8,6 +8,8 @@ import { metricsToObject } from "@/entities/Metrics/lib/metrics/base.metrics.met
 import { IProcessProductProps } from "../model/props.product.model";
 import { ICountry } from "@/entities/Metrics/model/country.metrics.model";
 import { isEqual } from "lodash";
+import { EProductLKVariants } from "../ui/LKProduct/model/productLK.model";
+import { IGroupProducts } from "../model/group.product.model";
 
 
 export const productApiListToProductList = (productListAPI: IProductAPI[], metrics?: IMetrics[], currencyList?: ICurrency[], countries?: ICountry[]): IProduct[] => {
@@ -99,4 +101,14 @@ const processProductWholesalePrices = (product: IProduct, metrics?: IMetrics[], 
             wholesalePrices: wholesalePricesWMetrics,
         }
     }
+}
+
+/**
+ * Получение id продукта в зависомости от его варианта (тип IGroupProducts)
+ * @param product - продукт
+ * @param variant - вариант продукта
+ * @returns id продукта
+ */
+export const getIdFromVariant = (product: IGroupProducts, variant: EProductLKVariants) => {
+    return variant === EProductLKVariants.DEFAULT ? product.main.id : product.id;
 }

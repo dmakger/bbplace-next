@@ -45,7 +45,7 @@ export const SignUpChildrenPage = () => {
 
     //RTK
     const actionCreators = useActionCreators();
-    const { prevPath } = useAppSelector(state => state.user)
+    const { prevPath, email } = useAppSelector(state => state.user)
 
     //REF
     const formRef = useRef<HTMLFormElement>(null)
@@ -167,7 +167,7 @@ export const SignUpChildrenPage = () => {
                 isRequired
                 errorInputMessage={errorEmail}
             >
-                <Input.Text type={EInputTextType.Email} required variant={EInputVariants.RECTANGULAR} placeholder="Введите email" name="email" error={!!errorEmail} warning={!!errorEmail} />
+                <Input.Text type={EInputTextType.Email} defaultValue={email} required variant={EInputVariants.RECTANGULAR} placeholder="Введите email" name="email" error={!!errorEmail} warning={!!errorEmail} />
             </WrapperRectangleInput>
             <WrapperRectangleInput
                 labelText="Страна"
