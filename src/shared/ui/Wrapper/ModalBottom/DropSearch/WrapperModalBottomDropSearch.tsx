@@ -21,6 +21,7 @@ interface WrapperModalBottomDropSearchProps extends IWrapperModalBottom {
 export const WrapperModalBottomDropSearch:FC<WrapperModalBottomDropSearchProps> = ({title, searchQuery, handleInputChange, options, onClickOption, ...rest}) => {
     return (
         <WrapperModalBottom 
+            className={cl.modalBellow}
             topChildren={
                 <div className={cl.searchWrapper}>
                     <Input.Text inputTypeVariant={EInputTextTypeVariants.TEXT} 
@@ -33,7 +34,7 @@ export const WrapperModalBottomDropSearch:FC<WrapperModalBottomDropSearchProps> 
                 </div>
             }
             bottomChildren={
-                <ListOption items={options} onClickItem={onClickOption} />
+                <ListOption items={options} onClickItem={onClickOption} className={cl.listOption} />
             } 
             {...rest} />
     )

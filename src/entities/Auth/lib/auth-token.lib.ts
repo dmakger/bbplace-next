@@ -42,7 +42,6 @@ export const isAuth = (): boolean => {
 };
 
 export const saveTokensStorage = (data: IAuthResponse): void => {    
-    console.log('qwe saveTokensStorage')
     saveAccessTokenStorage(data.accessToken);
     saveRefreshTokenStorage(data.refreshToken);
 };

@@ -183,8 +183,8 @@ export const PARTNERSHIP_FOR_6_M_TT_BODY_ROW_DATA: ITTBodyRowData = {
     premium: { title: '19 140₽', subtitle: '3 190₽/месяц', variant: ETTVariants.PREMIUM }
 }
 
-export const PARTNERSHIP_FOR_9_M_TT_BODY_ROW_DATA: ITTBodyRowData = {
-    default: { title: 'Партнёрство на 9 месяцев', classNameData: 'lastLeftEl' },
+export const PARTNERSHIP_FOR_12_M_TT_BODY_ROW_DATA: ITTBodyRowData = {
+    default: { title: 'Партнёрство на 12 месяцев', classNameData: 'lastLeftEl' },
     demo: { iconSrc: MINUS_CAPTION_ICON.default, variant: ETTVariants.DEMO, classNameData: 'noForDemo' },
     business: { title: '25 080₽', subtitle: '2 090₽/месяц', variant: ETTVariants.BUSINESS },
     premium: { title: '34 680₽', subtitle: '2 890₽/месяц', variant: ETTVariants.PREMIUM, classNameData: 'lastRightEl' }
@@ -209,5 +209,5 @@ export const TT_BODY_ROW_DATA_ARRAY: ITTBodyRowData[] = [
 
     PARTNERSHIP_FOR_3_M_TT_BODY_ROW_DATA,
     PARTNERSHIP_FOR_6_M_TT_BODY_ROW_DATA,
-    PARTNERSHIP_FOR_9_M_TT_BODY_ROW_DATA
+    PARTNERSHIP_FOR_12_M_TT_BODY_ROW_DATA
 ]

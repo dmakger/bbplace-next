@@ -9,6 +9,7 @@ import { ProductsTypeLK } from '@/shared/ui/SwitchSelector/data/switchSelector.d
 interface IProductLKList {
     className?: string,
     variant?: EProductLKVariants
+    type: ProductsTypeLK,
     products: IGroupProducts[] | IProduct[],
     choosenProduct?: IGroupProducts,
     setChoosenProduct?: Function,

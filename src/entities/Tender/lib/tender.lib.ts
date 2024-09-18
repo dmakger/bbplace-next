@@ -19,3 +19,9 @@ export const tenderTypeToEn = (tenderType: ETenderType) => {
         return 'Purchase'
     return 'Sale'
 }
+
+export const tenderTypeToRu = (tenderType: ETenderType | string) => {
+    if (tenderType === ETenderType.PURCHASE || tenderType === 'Purchase')
+        return 'Покупка'
+    return 'Продажа'
+}

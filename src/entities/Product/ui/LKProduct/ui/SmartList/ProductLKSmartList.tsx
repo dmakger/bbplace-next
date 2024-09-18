@@ -118,6 +118,7 @@ export const ProductLKSmartList: FC<ProductLKSmartListProps> = ({ type, products
 
                 <WrapperDefaultProductNotFound showDefault={products.length === 0}>
                     <ProductLKList products={groupsProducts}
+                        type={type}
                         setIsOpenSettings={setIsOpenSettings}
                         isOpenGroup={isOpenGroup}
                         setIsOpenGroup={setIsOpenGroup}
@@ -154,6 +155,7 @@ export const ProductLKSmartList: FC<ProductLKSmartListProps> = ({ type, products
                             />
                         )) : (isOpenGroup && groupProducts.length > 0 && (
                             <ProductLKList
+                                type={type}
                                 products={groupProducts}
                                 variant={EProductLKVariants.GROUP_ITEM}
                                 checkedProductsId={checkedProductsId}

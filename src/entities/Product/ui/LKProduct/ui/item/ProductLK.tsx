@@ -20,6 +20,7 @@ import { ProductsTypeLK } from '@/shared/ui/SwitchSelector/data/switchSelector.d
 
 interface IProductLK {
 	product: IGroupProducts | IProduct,
+	type: ProductsTypeLK,
 	className?: string,
 	variant?: EProductLKVariants,
 	choosenProduct?: IGroupProducts,
@@ -35,6 +36,7 @@ interface IProductLK {
 export const ProductLK = ({
 	className,
 	variant = EProductLKVariants.DEFAULT,
+	type,
 	product,
 	choosenProduct,
 	setChoosenProduct,
@@ -100,6 +102,7 @@ export const ProductLK = ({
 							className={cl.iconWrapper} />
 					) : (
 						<BottomInfoModal
+							type={type}
 							variant={EBottomInfoVariant.SETTINGS}
 							classNameButtonContainer={cl.groupSettings}
 							product={(product as IProduct) ?? (product as IGroupProducts).main}

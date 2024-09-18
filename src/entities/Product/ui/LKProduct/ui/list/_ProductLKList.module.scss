@@ -1,6 +1,7 @@
 .LKProductList {
     padding: 20px;
     display: grid;
+    justify-items: center;
     grid-template-columns: repeat(auto-fit, minmax(182px, 1fr));
     gap: 20px;
 }

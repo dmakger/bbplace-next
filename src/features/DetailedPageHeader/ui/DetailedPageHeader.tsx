@@ -8,6 +8,7 @@ import { EProductFavouriteViewItem } from "@/entities/Product/data/view.product.
 import { ButtonFavouriteVariant } from "@/shared/ui/Button/data/Favourite/ButtonFavourite"
 import { MobileOrderFooter } from "@/shared/ui/DetailedPage"
 import { useInView } from "react-intersection-observer"
+import { tenderTypeToRu } from "@/entities/Tender/lib/tender.lib"
 
 interface IDetailedPageHeader {
     className?: string,
@@ -52,7 +53,7 @@ export const DetailedPageHeader = ({
         <div className={cls(cl.DetailedPageHeader, className)}>
             <div className={cl.leftContainer} >
                 <div className={cl.topContainer} >
-                    {type && <span className={cl.type}>{type}</span>}
+                    {type && <span className={cl.type}>{tenderTypeToRu(type)}</span>}
                     <p className={cl.name}>{name}</p>
                 </div>
                 <div className={cl.restInfo} >

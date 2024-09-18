@@ -50,11 +50,11 @@
 
 	.input {
 		background-color: var(--gray-3);
-		font-size: var(--font-size-s);
+		font-size: var(--font-size-reg);
 
 		&::placeholder {
 			color: var(--n-gray-1);
-			font-size: var(--font-size-s);
+			font-size: var(--font-size-reg);
 		}
 	}
 
