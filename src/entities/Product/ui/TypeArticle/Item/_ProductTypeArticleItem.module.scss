@@ -66,6 +66,9 @@
         }
         .article {
             color: var(--font-caption);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
             transition: inherit;
         }
     }

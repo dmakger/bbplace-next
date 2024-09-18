@@ -16,6 +16,7 @@ import { BottomInfoModal } from '@/features/Modal/BottomInfo'
 import { EBottomInfoVariant } from '@/features/Modal/BottomInfo/model/bottomInfoModal.model'
 import Input from '@/shared/ui/Input/Input'
 import { IGroupProducts } from '@/entities/Product/model/group.product.model'
+import { ProductsTypeLK } from '@/shared/ui/SwitchSelector/data/switchSelector.data'
 
 interface IProductLK {
 	product: IGroupProducts | IProduct,
@@ -28,6 +29,7 @@ interface IProductLK {
 	setIsOpenGroup?: Function,
 	checkedProductsId?: number[],
 	setCheckedProductsId?: Function
+	type: ProductsTypeLK,
 }
 
 export const ProductLK = ({
@@ -40,7 +42,8 @@ export const ProductLK = ({
 	isOpenGroup,
 	setIsOpenGroup,
 	checkedProductsId,
-	setCheckedProductsId
+	setCheckedProductsId,
+	type
 }: IProductLK) => {
 	//STATE
 	const [isChecked, setIsChecked] = useState<boolean>(false)
@@ -101,7 +104,7 @@ export const ProductLK = ({
 							classNameButtonContainer={cl.groupSettings}
 							product={(product as IProduct) ?? (product as IGroupProducts).main}
 							setIsOpen={setIsOpenGroup ? setIsOpenGroup : () => { }}
-							isTitle={false} />
+							isTitle={false} type={type} />
 					)}
 				</div>
 

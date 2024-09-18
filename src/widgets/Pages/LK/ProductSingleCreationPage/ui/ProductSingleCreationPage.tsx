@@ -353,9 +353,6 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
         }
     }
 
-    console.log('qwe currentPropsProduct', currentPropsProduct)
-
-
     return (
         <>
             <div className={cls(cl.page, className)}> 

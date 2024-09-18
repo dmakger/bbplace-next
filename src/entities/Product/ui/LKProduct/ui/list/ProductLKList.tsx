@@ -4,6 +4,7 @@ import { cls } from '@/shared/lib/classes.lib'
 import { ProductLK } from '../..'
 import { EProductLKVariants } from '../../model/productLK.model'
 import { IGroupProducts } from '@/entities/Product/model/group.product.model'
+import { ProductsTypeLK } from '@/shared/ui/SwitchSelector/data/switchSelector.data'
 
 interface IProductLKList {
     className?: string,
@@ -16,6 +17,7 @@ interface IProductLKList {
     setIsOpenGroup?: Function,
     checkedProductsId?: number[],
     setCheckedProductsId?: Function
+    type: ProductsTypeLK,
 }
 
 export const ProductLKList = ({

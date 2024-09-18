@@ -15,7 +15,7 @@ import { ProductsTypeLK } from "@/shared/ui/SwitchSelector/data/switchSelector.d
 import { EProductType } from "@/entities/Product/data/type.product.data"
 
 interface IBottomInfo {
-    type: ProductsTypeLK
+    type?: ProductsTypeLK
     variant?: EBottomInfoVariant
     text?: string,
     product?: IProduct,
@@ -29,7 +29,7 @@ interface IBottomInfo {
 }
 
 export const BottomInfoModal = ({
-    type,
+    type = ProductsTypeLK.Active,
     variant = EBottomInfoVariant.TEXT,
     text,
     product,
