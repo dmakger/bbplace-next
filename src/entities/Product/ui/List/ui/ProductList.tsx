@@ -85,6 +85,7 @@ export const ProductListChild: FC<ProductListProps> = ({ view, className }) => {
         }
 
         const productView = PRODUCT_PARAMS.getView(searchParams.get(PRODUCT_PARAMS.VIEW__KEY));
+        console.log('qwe productView', productView)
         setViewProductList(getViewProductByParam(productView));
     }, [view, searchParams]);
 
