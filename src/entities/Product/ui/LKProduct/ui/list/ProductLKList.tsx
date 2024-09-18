@@ -18,7 +18,6 @@ interface IProductLKList {
     setIsOpenGroup?: Function,
     checkedProductsId?: number[],
     setCheckedProductsId?: Function
-    type: ProductsTypeLK,
 }
 
 export const ProductLKList = ({

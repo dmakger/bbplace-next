@@ -30,14 +30,13 @@ interface IProductLK {
 	setIsOpenGroup?: Function,
 	checkedProductsId?: number[],
 	setCheckedProductsId?: Function
-	type: ProductsTypeLK,
 }
 
 export const ProductLK = ({
 	className,
 	variant = EProductLKVariants.DEFAULT,
-	type,
 	product,
+	type,
 	choosenProduct,
 	setChoosenProduct,
 	setIsOpenSettings,
@@ -45,7 +44,6 @@ export const ProductLK = ({
 	setIsOpenGroup,
 	checkedProductsId,
 	setCheckedProductsId,
-	type
 }: IProductLK) => {
 	//STATE
 	const [isChecked, setIsChecked] = useState<boolean>(false)
@@ -107,7 +105,7 @@ export const ProductLK = ({
 							classNameButtonContainer={cl.groupSettings}
 							product={(product as IProduct) ?? (product as IGroupProducts).main}
 							setIsOpen={setIsOpenGroup ? setIsOpenGroup : () => { }}
-							isTitle={false} type={type} />
+							isTitle={false} />
 					)}
 				</div>
 
