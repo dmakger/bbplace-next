@@ -15,7 +15,7 @@ import { EInputVariants, IInput } from '../../../model/input.model'
 import { Modal } from '@/shared/ui/Modal/ui/Modal/Modal'
 import { EModalView } from '@/shared/data/modal.data'
 import { HandleSize } from '@/shared/ui/Handle/Size/HandleSize'
-import { WrapperModalBottomDropList } from '@/shared/ui/Wrapper/ModalBottom/DropList/WrapperModalBottomDropSearch'
+import { WrapperModalBottomDropList } from '@/shared/ui/Wrapper/ModalBottom/DropList/WrapperModalBottomDropList'
 // import { Button } from '@/shared/ui/Button/ui/Button'
 // import { ButtonVariant } from '@/shared/ui/Button'
 
