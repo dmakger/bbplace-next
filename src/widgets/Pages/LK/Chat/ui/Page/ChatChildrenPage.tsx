@@ -86,7 +86,7 @@ export const ChatChildrenPage: FC<ChatChildrenPageProps> = ({ className }) => {
 
     return (
         <WrapperDefaultChatNotFound 
-            showDefault={chatDataList.length === 0} 
+            showDefault={chatDataList.length === 0 && !currentChat} 
             className={cls(cl.page, is1024 ? cl.inRow : '', className)}
         >
             <ChatDataList items={chatDataList} activeId={chatId ? +chatId : chatId} 
