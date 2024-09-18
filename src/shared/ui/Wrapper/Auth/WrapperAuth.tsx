@@ -8,7 +8,7 @@ import { EInputTextType } from "../../Input/ui/Text/data/text.input.data";
 import cl from './_WrapperAuth.module.scss'
 import { UserAPI } from "@/entities/Auth/api/auth.api";
 import { MAIN_PAGES } from "@/config/pages-url.config";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { WrapperMount } from "../Mount";
 
 interface WrapperAuthProps{
@@ -19,6 +19,7 @@ export const WrapperAuth: FC<WrapperAuthProps> = ({ children }) => {
     // ROUTER
     const router = useRouter()
     const pathname = usePathname()
+    const searchParams = useSearchParams();
 
     // RTK
     const { isAuth } = useAppSelector(state => state.user);
@@ -46,7 +47,7 @@ export const WrapperAuth: FC<WrapperAuthProps> = ({ children }) => {
                     Country: ""
                 })
                 actionCreators.setAuthOptional({
-                    prevPath: pathname
+                    prevPath: `${pathname}?${searchParams.toString()}`
                 })
             } else {
                 router.push(MAIN_PAGES.REGISTRATION.path)
