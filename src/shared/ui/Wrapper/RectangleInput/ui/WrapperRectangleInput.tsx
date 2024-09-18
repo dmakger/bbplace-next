@@ -198,25 +198,26 @@ export const WrapperRectangleInput = ({
       <div className={cls(cl.WrapperRectangleInput, className, cl[labelPosition])}>
         <div className={cls(cl.labelNInputsContainer, linkText ? cl.columnStyle : '')} onClick={labelPosition === ELabelPosition.RIGHT && !linkHref ? handleLabelClick : () => {}}>
           <div className={cl.labelNTooltipContainer}>
-            <label className={cls(cl.label, classNameLabel)} onClick={labelPosition === ELabelPosition.RIGHT ? handleLabelClick : () => { }} htmlFor={labelPosition === ELabelPosition.RIGHT ? uniqueId : undefined}
->
+            <label className={cls(cl.label, classNameLabel)} 
+                   onClick={labelPosition === ELabelPosition.RIGHT ? handleLabelClick : () => { }} 
+                   htmlFor={labelPosition === ELabelPosition.RIGHT ? uniqueId : undefined}
+            >
               {labelText}
             </label>
 
             <div className={cl.tooltipsNLinkContainer}>
-
-              {linkText && <Button title={linkText}
-                linkTarget='_blank'
-                href={linkHref}
-                variant={ButtonVariant.DEFAULT}
-                className={cl.buttonLink}
-                afterImage={ARROW_IN_CIRCLE}
-                afterProps={{ width: 14, height: 14 }} />}
+              {linkText && (
+                <Button variant={ButtonVariant.DEFAULT}
+                        title={linkText}
+                        linkTarget='_blank' href={linkHref}
+                        afterImage={ARROW_IN_CIRCLE} afterProps={{ width: 14, height: 14 }} 
+                        className={cl.buttonLink} />
+              )}
 
               {fileList && fileList.length > 0 && (
                 <FileWrapList fileList={fileList} setFileList={setFileList} 
-                        responseFileList={responseFileList} setResponseFileList={setResponseFileList} 
-                      className={cl.fileList}/>
+                              responseFileList={responseFileList} setResponseFileList={setResponseFileList} 
+                              className={cl.fileList}/>
               )}
 
               <div className={cl.tooltipsContainer}>
@@ -301,8 +302,11 @@ export const WrapperRectangleInput = ({
           onClickOverlay={closeTheModal}
         >
           <WrapperModalBottom title={labelText}
-            bottomChildren={<BottomInfoModal
-              text={isDescriptionActive && descriptionTooltipText ? descriptionTooltipText : isWarningActive ? warningTooltipText : ''} />}
+            bottomChildren={(
+              <BottomInfoModal
+                  text={isDescriptionActive && descriptionTooltipText ? descriptionTooltipText : isWarningActive ? warningTooltipText : ''} 
+              />
+            )}
             setIsOpen={closeTheModal} />
         </Modal>
       </div>

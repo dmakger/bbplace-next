@@ -29,7 +29,7 @@ interface IBottomInfo {
 }
 
 export const BottomInfoModal = ({
-    type,
+    type = ProductsTypeLK.Active,
     variant = EBottomInfoVariant.TEXT,
     text,
     product,

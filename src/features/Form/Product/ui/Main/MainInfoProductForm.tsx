@@ -125,8 +125,7 @@ export const MainInfoProductForm: FC<MainInfoProductFormProps> = ({
                         descriptionTooltipText='Выберите категорию из списка'
                         setSelectedCategoriesId={setSelectedCategoryIds}
                         defaultCategoriesId={defaultCategoriesId}
-                        variant={ERecursiveSelectVariant.SINGLE}
-                         />
+                        variant={ERecursiveSelectVariant.SINGLE} />
                     <WrapperRectangleInput labelText={"Статус товара"} isRequired={true}>
                         <Input.TextAndSelect name={'statusProduct'} placeholder="Выберите статус" defaultOption={selectedStatusOption}
                             options={STATUS__PRODUCT_FORM__DATA} onClickOption={setSelectedStatusOption}

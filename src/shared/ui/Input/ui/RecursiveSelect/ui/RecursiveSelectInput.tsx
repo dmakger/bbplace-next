@@ -23,6 +23,7 @@ interface IRecursiveSelectInput extends IWrapperRectangleInputChildren {
     setSelectedOptionsCommonArray: Function,
     selectedOptions: IOption[],
     setSelectedOptions: Function
+    disabled?: boolean
 }
 
 export const RecursiveSelectInput = ({
@@ -38,6 +39,8 @@ export const RecursiveSelectInput = ({
     setSelectedOptionsCommonArray,
     selectedOptions,
     setSelectedOptions,
+    disabled=false,
+
     inputsProps,
     setWarning,
     success,
@@ -106,7 +109,7 @@ export const RecursiveSelectInput = ({
             variant={variant}
             arrowSizes={arrowSizes}
             classNameMainInput={className}
-            disabled={!options.length}
+            disabled={!options.length || disabled}
             onClickOption={(option: IOption) => addSelectedOption(option, level)}
             key={level}
             success={success}

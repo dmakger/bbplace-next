@@ -125,7 +125,8 @@ export const ProductLKSmartList: FC<ProductLKSmartListProps> = ({ type, products
                         choosenProduct={choosenProduct}
                         setChoosenProduct={setChoosenProduct}
                         checkedProductsId={checkedProductsId}
-                        setCheckedProductsId={setCheckedProductsId} />
+                        setCheckedProductsId={setCheckedProductsId}
+                        type={type} />
                 </WrapperDefaultProductNotFound>
 
                 <Modal view={EModalView.BOTTOM}
@@ -158,7 +159,8 @@ export const ProductLKSmartList: FC<ProductLKSmartListProps> = ({ type, products
                                 products={groupProducts}
                                 variant={EProductLKVariants.GROUP_ITEM}
                                 checkedProductsId={checkedProductsId}
-                                setCheckedProductsId={setCheckedProductsId}
+                                setCheckedProductsId={setCheckedProductsId} 
+                                type={type}
                             />
                         ))}
                         isBorderTopOnBottomChild={isOpenGroup && groupProducts.length > 2}

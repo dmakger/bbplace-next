@@ -37,6 +37,8 @@ interface ICategoryRecursiveSelect {
     warningTooltipText?: string,
     classNameWarningWindow?: string,
     errorInputMessage?: string
+
+    disabled?: boolean
 }
 
 
@@ -68,7 +70,8 @@ export const CategoryRecursiveSelect = ({
     classNameDescriptionWindow,
     warningTooltipText = 'Обязательно для заполнения',
     classNameWarningWindow,
-    errorInputMessage
+    errorInputMessage,
+    disabled,
 }: ICategoryRecursiveSelect) => {
 
     //STATE
@@ -143,7 +146,7 @@ export const CategoryRecursiveSelect = ({
             classNameWarningWindow={classNameWarningWindow}
             onClickBellowButton={onClickBellowButton}
             errorInputMessage={errorInputMessage}
-            isCanDisabledBellowButton
+            isCanDisabledBellowButton={true}
         // isCanDisabledBellowButton={!selectedOptions.length}
         >
             <Input.RecursiveSelect
@@ -155,7 +158,7 @@ export const CategoryRecursiveSelect = ({
                 setSelectedOptionsCommonArray={setSelectedOptionsCommonArray}
                 inputsProps={inputsArray}
                 arrowSizes={{ width: 16, height: 15 }}
-
+                disabled={disabled}
             />
         </WrapperRectangleInput>
     )
