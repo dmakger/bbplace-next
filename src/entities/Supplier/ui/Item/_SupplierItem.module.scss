@@ -8,6 +8,10 @@
     border-radius: 20px;
     border-bottom: 1px solid var(--gray-5);
 
+    @media (max-width: 768px) {
+        border-radius: 0px;
+    }
+
     .infoContainer {
         display: flex;
         flex-direction: column;
