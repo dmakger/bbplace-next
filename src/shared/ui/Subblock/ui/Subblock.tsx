@@ -28,6 +28,8 @@ interface ISubblock {
 
     mobileButtonTitle?: string,
     wModal?: boolean,
+    isOpen?: boolean,
+    setIsOpen?: Function,
     modalTitle?: string,
     topModalChildren?: ReactNode,
     bottomModalChildren?: ReactNode
@@ -41,12 +43,16 @@ export const Subblock = ({
     classNameBottomChild,
     variant = ESubblockVariants.DEFAULT,
     title,
+
     textChildren,
     children,
     childrenButton,
+    
     mobileButtonTitle,
     wModal = false,
     modalTitle,
+    isOpen,
+    setIsOpen,
     topModalChildren,
     bottomModalChildren
 }: ISubblock) => {
@@ -61,8 +67,20 @@ export const Subblock = ({
             setIsVisibleContainer(true);
     }, [isVisibleContainer])
 
+    useEffect(() => {
+        isOpen !== undefined && setIsModalOpen(isOpen)
+    }, [isOpen])
+
     // FUNCTIONS
-    const closeTheModal = () => setIsModalOpen(false);
+    const openTheModal = () => {
+        setIsModalOpen(true);
+        setIsOpen && setIsOpen(true)
+    }
+
+    const closeTheModal = () => {
+        setIsModalOpen(false);
+        setIsOpen && setIsOpen(false)
+    };
 
     return (
         <div className={cls(cl.Subblock, className)}>
@@ -107,7 +125,7 @@ export const Subblock = ({
                     color={ButtonColor.Secondary}
                     title={mobileButtonTitle}
                     className={cls(cl.mobileSubblock, classNameMobileButtonTitle)}
-                    onClick={() => setIsModalOpen(!isModalOpen)}
+                    onClick={openTheModal}
                 />
                 <Modal isOpen={isModalOpen}
                     view={EModalView.BOTTOM}
