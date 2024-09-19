@@ -117,8 +117,8 @@ export const VariationInfoProductForm: FC<VariationInfoProductFormProps> = ({dat
                 sizeUnit: optionToMetric(_optionsSizes[0]),
             } as ISize
         }).filter(it => it !== undefined) as ISize[]
-        if (!formRef.current.checkValidity() || sizes.length === 0) {
-            notify({text: "Вы не заполнили поле «Размеры» в разделе «Вариация товара»", status: ENotifyStatus.Error})
+        if (!formRef.current.checkValidity()) {
+            // notify({text: "Вы не заполнили поле «Размеры» в разделе «Вариация товара»", status: ENotifyStatus.Error})
             e.preventDefault();
             formRef.current.reportValidity();  // Вызывает встроенные сообщения браузера
             return defaultFormInfo
@@ -203,7 +203,7 @@ export const VariationInfoProductForm: FC<VariationInfoProductFormProps> = ({dat
                         </Input.Addition>
                     </WrapperRectangleInput>
 
-                    <WrapperRectangleInput labelText={"Размеры"} isRequired={true}>
+                    <WrapperRectangleInput labelText={"Размеры"}>
                         <Input.Addition options={addedSizesOption} setOptions={setAddedSizesOption} process={processSizeOption}>
                             <Direction direction={ListDirection.Row}>
                                 <Input.Text name={'sizeValue'} placeholder="Значение" 
