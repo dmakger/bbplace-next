@@ -29,6 +29,7 @@ import { isAuth } from "@/entities/Auth/lib/auth-token.lib";
 import { skipToken } from "@reduxjs/toolkit/query";
 import { integrateFavoriteInList } from "@/entities/Favourite/lib/list.favourite.lib";
 import { Loader } from "@/shared/ui/Loader";
+import { WrapperDefaultProductNotFound } from "@/shared/ui/Wrapper/Default/ui/Product/NotFound/WrapperDefaultProductNotFound";
 
 interface ProductListProps {
     view?: EViewProduct;
@@ -136,7 +137,9 @@ export const ProductListChild: FC<ProductListProps> = ({ view, className }) => {
                 set={setPageNumber}
                 className={cl.block}
             >
-                <ProductAutoList products={productList} view={viewProductList} className={className} />
+                <WrapperDefaultProductNotFound showDefault={productList.length === 0}>
+                    <ProductAutoList products={productList} view={viewProductList} className={className} />
+                </WrapperDefaultProductNotFound>
             </WrapperPagination>
         </WrapperSortFilter>
     );
