@@ -23,6 +23,7 @@ import { FavouriteAPI } from '@/entities/Favourite/api/favourite.api'
 import { FavouriteType } from '@/entities/Favourite/data/favourite.data'
 import { skipToken } from '@reduxjs/toolkit/query'
 import { Loader } from '@/shared/ui/Loader'
+import { WrapperDefaultTenderNotFound } from '@/shared/ui/Wrapper/Default/ui/Tender/NotFound/WrapperDefaultTenderNotFound'
 
 export const TenderList = () => {
     // ROUTER
@@ -194,11 +195,12 @@ export const TenderList = () => {
             <WrapperPagination amount={countPages} 
                                 active={pageNumber} keyPageParam={TENDER_PARAMS.NUMBER_PAGE__KEY} 
                                 set={setPageNumber}>
-                <div className={cl.TenderList}>
+                
+                <WrapperDefaultTenderNotFound showDefault={tenderList.length === 0} className={cl.TenderList}>
                     {tenderList.map(it => (
                         <TenderItem item={it} key={it.id} />
                     ))}
-                </div>
+                </WrapperDefaultTenderNotFound>
             </WrapperPagination>
         </WrapperSortFilter>
     )

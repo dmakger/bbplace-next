@@ -18,9 +18,9 @@ class ProductParams {
     NUMBER_PAGE__KEY = CORE_PARAMS.NUMBER_PAGE + this.KEY
 
     getView = (view?: string | null) => {
-        if (view === this.HORIZONTAL_VIEW__VALUE)
-            return this.HORIZONTAL_VIEW__VALUE
-        return this.VERTICAL_VIEW__VALUE
+        if (view === this.VERTICAL_VIEW__VALUE)
+            return this.VERTICAL_VIEW__VALUE
+        return this.HORIZONTAL_VIEW__VALUE
     }
 
     // SORT

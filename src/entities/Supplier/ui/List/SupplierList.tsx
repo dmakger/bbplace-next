@@ -18,6 +18,7 @@ import { paramsToBack } from "@/config/params/backend.params.config"
 import { SUPPLIER_PARAMS } from "@/config/params/supplier.params.config"
 import SuspenseL from '@/shared/ui/Wrapper/SuspenseL/SuspenseL'
 import { Loader } from '@/shared/ui/Loader'
+import { WrapperDefaultSupplierNotFound } from '@/shared/ui/Wrapper/Default/ui/Supplier/NotFound/WrapperDefaultSupplierNotFound'
 
 export const SupplierList = () => {
     return (
@@ -72,9 +73,11 @@ export const SupplierListChild = () => {
                 set={setPageNumber}
                 keyPageParam={SUPPLIER_PARAMS.NUMBER_PAGE__KEY}
                 className={cl.wrapperPagination}>
-                {supplierList.map(it => (
-                    <SupplierItem supplier={it} key={it.id}/>
-                ))}
+                <WrapperDefaultSupplierNotFound showDefault={supplierList.length === 0}>
+                    {supplierList.map(it => (
+                        <SupplierItem supplier={it} key={it.id}/>
+                    ))}
+                </WrapperDefaultSupplierNotFound>
             </WrapperPagination>
         </WrapperSortFilter>
     )
