@@ -17,6 +17,8 @@ export const expirationDateAndMetricToExpirationDate = (expirationDate: string, 
  * Необходим для перевода данных из `IProduct` в `IPropsAdditionalInfoProductForm`
  */
 export const expirationDateToExpirationDateAndMetric = (expirationDate: string, sep=' ') => {
+    if (!expirationDate) return ''
+
     const _expirationDate = expirationDate.split(sep)
     return {
         expirationDate: _expirationDate[0],
