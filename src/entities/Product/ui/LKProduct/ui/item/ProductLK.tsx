@@ -17,6 +17,7 @@ import { EBottomInfoVariant } from '@/features/Modal/BottomInfo/model/bottomInfo
 import Input from '@/shared/ui/Input/Input'
 import { IGroupProducts } from '@/entities/Product/model/group.product.model'
 import { ProductsTypeLK } from '@/shared/ui/SwitchSelector/data/switchSelector.data'
+import { getIdFromVariant } from '@/entities/Product/lib/product.lib'
 
 interface IProductLK {
 	product: IGroupProducts | IProduct,
@@ -29,7 +30,8 @@ interface IProductLK {
 	isOpenGroup?: boolean,
 	setIsOpenGroup?: Function,
 	checkedProductsId?: number[],
-	setCheckedProductsId?: Function
+	setCheckedProductsId?: Function,
+	setIsOpenDelModal?: Function
 }
 
 export const ProductLK = ({
@@ -44,19 +46,29 @@ export const ProductLK = ({
 	setIsOpenGroup,
 	checkedProductsId,
 	setCheckedProductsId,
+	setIsOpenDelModal
 }: IProductLK) => {
 	//STATE
 	const [isChecked, setIsChecked] = useState<boolean>(false)
 
+	//VARIABLE
+	const productId = getIdFromVariant(product as IGroupProducts, variant);
+
 	//EFFECT
 	useEffect(() => {
-		if (checkedProductsId) setIsChecked(checkedProductsId.includes(product.id));
+		if (checkedProductsId) setIsChecked(checkedProductsId.includes(productId))
 	}, [checkedProductsId]);
 
 	useEffect(() => {
-		if (checkedProductsId && setCheckedProductsId && isChecked && !checkedProductsId.includes(product.id)) setCheckedProductsId([...checkedProductsId, product.id])
-		else if (!isChecked && setCheckedProductsId) setCheckedProductsId(checkedProductsId?.filter(it => it !== product.id))
-	}, [isChecked])
+		if(checkedProductsId && setCheckedProductsId){
+			if (isChecked && !checkedProductsId.includes(productId)) {
+				setCheckedProductsId((prevIds: number[]) => [...prevIds, productId]);
+			} 
+			else if (!isChecked && checkedProductsId.includes(productId)) {
+				setCheckedProductsId((prevIds: number[]) => prevIds.filter(it => it !== productId));
+			}
+		}
+	}, [isChecked]);
 
 	//FUNCTION
 	const showSettingsModal = (product: IProduct) => {
@@ -73,9 +85,9 @@ export const ProductLK = ({
 		setIsOpenGroup(true)
 	}
 
-	const mediaProduct = (product as IGroupProducts).main?.media ?? (product as IProduct)?.media
-
-	const isDraft = !(product as IGroupProducts).main?.media?.attachments.length || !(product as IProduct)?.media?.attachments.length
+	// VARIABLES
+	const mediaProduct = (product as IGroupProducts).main?.media ?? (product as IProduct)?.media;
+	const isDraft = !mediaProduct?.attachments?.length;
 
 	if (!product) return null;
 
@@ -101,6 +113,7 @@ export const ProductLK = ({
 					) : (
 						<BottomInfoModal
 							type={type}
+							setIsOpenDelModal={setIsOpenDelModal}
 							variant={EBottomInfoVariant.SETTINGS}
 							classNameButtonContainer={cl.groupSettings}
 							product={(product as IProduct) ?? (product as IGroupProducts).main}

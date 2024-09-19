@@ -85,7 +85,7 @@ export const SignInChildrenPage = () => {
                 errorInputMessage={errorEmail}
 
             >
-                <Input.Text type={EInputTextType.Email} variant={EInputVariants.RECTANGULAR} placeholder="Введите email" name="email" defaultValue={email} success={!!email} error={error && !!errorEmail} warning={error && !!errorEmail} />
+                <Input.Text type={EInputTextType.Email} variant={EInputVariants.RECTANGULAR} required placeholder="Введите email" name="email" defaultValue={email} success={!!email} error={error && !!errorEmail} warning={error && !!errorEmail} />
             </WrapperRectangleInput>
             <WrapperRectangleInput
                 labelText="Пароль"
@@ -96,7 +96,7 @@ export const SignInChildrenPage = () => {
                 isLoadingBellowButton={isLoading}
                 // onClickBellowButton={LogIn}
             >
-                <Input.Text type={EInputTextType.Password} variant={EInputVariants.RECTANGULAR} placeholder="Введите пароль" name="password" error={error && !!errorPassword} warning={error && !!errorPassword} />
+                <Input.Text type={EInputTextType.Password} variant={EInputVariants.RECTANGULAR} required placeholder="Введите пароль" name="password" error={error && !!errorPassword} warning={error && !!errorPassword} />
             </WrapperRectangleInput>
         </WrapperForLogInNSupportPages>
     )

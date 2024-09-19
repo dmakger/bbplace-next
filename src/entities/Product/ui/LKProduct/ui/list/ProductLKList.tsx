@@ -11,13 +11,15 @@ interface IProductLKList {
     variant?: EProductLKVariants
     type: ProductsTypeLK,
     products: IGroupProducts[] | IProduct[],
+    setProducts?: Function
     choosenProduct?: IGroupProducts,
     setChoosenProduct?: Function,
     setIsOpenSettings?: Function,
     isOpenGroup?: boolean,
     setIsOpenGroup?: Function,
     checkedProductsId?: number[],
-    setCheckedProductsId?: Function
+    setCheckedProductsId?: Function,
+    setIsOpenDelModal?: Function
 }
 
 export const ProductLKList = ({

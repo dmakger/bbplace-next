@@ -54,21 +54,19 @@ export const CheckEmailChildrenPage = () => {
 
         try {
             const isExists = await triggerCheckEmailExists(email).unwrap()
-
-            if (isExists) {
-                isExists && router.push(MAIN_PAGES.LOGIN.path)
-                actionCreators.setAuth({
-                    UserName: email,
-                    UserId: "",
-                    FullName: "",
-                    LegalName: "",
-                    BrandName: "",
-                    Role: "",
-                    MobilePhone: "",
-                    Country: ""
-                })
-            }
-
+            actionCreators.setAuth({
+                UserName: email,
+                UserId: "",
+                FullName: "",
+                LegalName: "",
+                BrandName: "",
+                Role: "",
+                MobilePhone: "",
+                Country: ""
+            })
+            
+            isExists && router.push(MAIN_PAGES.LOGIN.path)
+            
             !isExists && router.push(MAIN_PAGES.REGISTRATION.path)
 
         } catch (error) {

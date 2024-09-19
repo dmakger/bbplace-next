@@ -17,7 +17,8 @@ export const LKButtonRightMarginBlock = () => {
   useEffect(() => {
     const pagesToCheck = [
       // DASHBOARD_PAGES.PRODUCTS(false).path,
-      'i/products?type',
+      DASHBOARD_PAGES.NEW_PRODUCT.path,
+      'i/products',
       DASHBOARD_PAGES.TENDERS.path,
       DASHBOARD_PAGES.PROFILE_EDIT.path,
       MAIN_PAGES.TENDERS.path + '/',

@@ -41,10 +41,11 @@ export const SignUpChildrenPage = () => {
     const [errorOffert, setErrorOffert] = useState<string>('')
 
     const [countriesAsOption, setCountriesAsOption] = useState<IOption[]>([])
+    const [selectedCountryAsOption, setSelectedCountryAsOption] = useState<IOption>();    
 
     //RTK
     const actionCreators = useActionCreators();
-    const { prevPath } = useAppSelector(state => state.user)
+    const { prevPath, email } = useAppSelector(state => state.user)
 
     //REF
     const formRef = useRef<HTMLFormElement>(null)
@@ -76,10 +77,9 @@ export const SignUpChildrenPage = () => {
 
         if (!formRef.current) return;
 
-        const { email: emailValue, country, password, confirmPassword, fullName, role, emailSubscription, offert } = getFormDataFromForm(formRef?.current);
+        const { email: emailValue, password, confirmPassword, fullName, role, emailSubscription, offert } = getFormDataFromForm(formRef?.current);
 
-        const selectedCountryName: string = countriesAsOption.find(it => it.id == country)?.name ?? '';
-
+        const selectedCountryName: string = countriesAsOption.find(it => it.id == (selectedCountryAsOption)?.id)?.name ?? '';
         let hasError = false;
 
         //EMAIL
@@ -92,7 +92,7 @@ export const SignUpChildrenPage = () => {
         }
 
         //COUNTRY
-        if (!country) {
+        if (!selectedCountryAsOption) {
             setErrorCountry(SELECT_THE_COUNTRIES);
             hasError = true;
         }
@@ -167,7 +167,7 @@ export const SignUpChildrenPage = () => {
                 isRequired
                 errorInputMessage={errorEmail}
             >
-                <Input.Text type={EInputTextType.Email} variant={EInputVariants.RECTANGULAR} placeholder="Введите email" name="email" error={!!errorEmail} warning={!!errorEmail} />
+                <Input.Text type={EInputTextType.Email} defaultValue={email} required variant={EInputVariants.RECTANGULAR} placeholder="Введите email" name="email" error={!!errorEmail} warning={!!errorEmail} />
             </WrapperRectangleInput>
             <WrapperRectangleInput
                 labelText="Страна"
@@ -176,7 +176,8 @@ export const SignUpChildrenPage = () => {
                 descriptionTooltipText={SELECT_THE_COUNTRIES}
                 errorInputMessage={errorCountry}
             >
-                <Input.TextAndSelect placeholder="Выберите страну" options={countriesAsOption} variant={EInputVariants.RECTANGULAR} name="country" required warning={error && !!errorCountry} error={error && !!errorCountry} arrowSizes={{ width: 16, height: 14 }} />
+                <Input.TextAndSelect placeholder="Выберите страну" options={countriesAsOption} variant={EInputVariants.RECTANGULAR} required warning={error && !!errorCountry} error={error && !!errorCountry} arrowSizes={{ width: 16, height: 14 }} onClickOption={setSelectedCountryAsOption} isActiveOptionInInput
+/>
             </WrapperRectangleInput>
             <WrapperRectangleInput
                 labelText="Пароль"
@@ -197,7 +198,7 @@ export const SignUpChildrenPage = () => {
                 labelText="ФИО"
                 isRequired
             >
-                <Input.Text variant={EInputVariants.RECTANGULAR} placeholder="Введите ваше ФИО" name="fullName" error={!!errorFullName} warning={!!errorFullName} />
+                <Input.Text variant={EInputVariants.RECTANGULAR} required placeholder="Введите ваше ФИО" name="fullName" error={!!errorFullName} warning={!!errorFullName} />
             </WrapperRectangleInput>
 
             <WrapperRectangleInput labelText="Роль" descriptionTooltipText="Укажите, какую роль вы будете выполнять на платформе." isRequired direction={EInputsContainerDirection.ROW_WRAP}>
