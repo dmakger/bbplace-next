@@ -7,46 +7,26 @@ import { TRASH_ICON } from "@/shared/ui/Icon/data/trash.data.icon"
 import { ButtonColor, ButtonSize } from "@/shared/ui/Button/model/button.model"
 import { HandleSize } from "@/shared/ui/Handle/Size/HandleSize"
 import { useState } from "react"
-import { ProductAPI } from "@/entities/Product/api/product.api"
-import { useSearchParams } from "next/navigation"
 
 interface ILKSubheader {
     className?: string,
     checkedItemsNumber: number,
-    checkedProductsId: number[]
-    setCheckedProductsId: Function
+    setCheckedProductsId: Function,
+    setIsOpenDelModal?: Function
 }
 
 export const LKSubheader = ({
     className,
     checkedItemsNumber,
-    checkedProductsId,
-    setCheckedProductsId
+    setCheckedProductsId,
+    setIsOpenDelModal
 }: ILKSubheader) => {
 
     //STATE
     const [is425, setIs425] = useState<boolean>(false)
 
-    //URL
-    const params = useSearchParams()
-
-    //API
-    const [deleteProduct] = ProductAPI.useDeleteProductMutation()
-    const [deleteDraft] = ProductAPI.useDeleteDraftMutation()
-    const [deleteGroupItems] = ProductAPI.useDeleteProductsMutation()
-    const [deleteGroupDrafts] = ProductAPI.useDeleteProductsDraftsMutation()
-
-    const isDraftPage = params.get('type') === 'draft';
-    const isActivePage = params.get('type') === 'active';
-
     //FUNCTION
-    const delProduct = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-        e.stopPropagation()
-        // isDraftPage && deleteGroupDrafts(checkedProductsId)
-        // isActivePage && deleteGroupItems(checkedProductsId)
-        setCheckedProductsId([])
-    }
-
+    const openDelModal = () => setIsOpenDelModal && setIsOpenDelModal(true);
     const handleCancel = () => setCheckedProductsId([]);
 
     return (
@@ -70,7 +50,7 @@ export const LKSubheader = ({
                         beforeProps={{ width: 20, height: 20 }}
                         title={is425 ? '' : 'Удалить'}
                         className={cl.delButton}
-                        onClick={delProduct} />
+                        onClick={openDelModal} />
                 </div>
             </div>
             <HandleSize width={425} set={setIs425} />

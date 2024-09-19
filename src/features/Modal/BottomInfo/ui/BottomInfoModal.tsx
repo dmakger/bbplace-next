@@ -7,7 +7,6 @@ import { Button, ButtonVariant } from "@/shared/ui/Button"
 import { ButtonColor, ButtonSize } from "@/shared/ui/Button/model/button.model"
 import { EDIT_ICON } from "@/shared/ui/Icon/data/edit.data.icon"
 import { TRASH_ICON } from "@/shared/ui/Icon/data/trash.data.icon"
-import { ProductAPI } from "@/entities/Product/api/product.api"
 import { DASHBOARD_PAGES } from "@/config/pages-url.config"
 import { IProduct } from "@/entities/Product/model/product.model"
 import { useRouter } from "next/navigation"
@@ -20,8 +19,10 @@ interface IBottomInfo {
     text?: string,
     product?: IProduct,
     isTitle?: boolean,
-    setIsOpen?: Function
-
+    setIsOpen?: Function,
+    setProducts?: Function,
+    setIsOpenDelModal?: Function
+    
     className?: string,
     classNameText?: string,
     classNameButton?: string,
@@ -34,7 +35,7 @@ export const BottomInfoModal = ({
     text,
     product,
     isTitle = true,
-    setIsOpen,
+    setIsOpenDelModal,
 
     className,
     classNameText,
@@ -43,30 +44,17 @@ export const BottomInfoModal = ({
 
 }: IBottomInfo) => {
 
-    //API
-    const [deleteProduct] = ProductAPI.useDeleteProductMutation()
-    const [deleteDraft] = ProductAPI.useDeleteDraftMutation()
-
     //ROUTER
     const router = useRouter()
 
     //FUNCTION
-    const delProduct = async (id: number) => {
-        if (product?.media.attachments.length) {
-            await deleteProduct(id)
-        }
-        else {
-            await deleteDraft(id)
-        }
-        setIsOpen && setIsOpen(false)
-    }
+    const openDelModal = () => setIsOpenDelModal && setIsOpenDelModal(true);
 
     const navigateToEditProduct = () => {
         if (!product || product.groupId === null) return
         const {groupId, id} = product
         const typeProduct = type === ProductsTypeLK.Active ? EProductType.Public : EProductType.Draft
         router.push(DASHBOARD_PAGES.EDIT_PRODUCT({type: typeProduct, groupId, id}).path);
-
     }
      
     return (
@@ -79,7 +67,7 @@ export const BottomInfoModal = ({
                     size={ButtonSize.Medium}
                     beforeImage={TRASH_ICON}
                     beforeProps={{ width: 20, height: 20 }}
-                    onClick={() => delProduct(product ? product.id : 0)}
+                    onClick={openDelModal}
                     className={classNameButton}
                 />
                 <Button title={isTitle ? 'Редактировать' : ''}

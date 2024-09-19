@@ -60,7 +60,7 @@
 
 	&:hover {
 		.input {
-			background-color: var(--gray-4) !important;
+			background-color: var(--gray-4);
 		}
 	}
 
@@ -160,5 +160,8 @@
 
 	&:hover {
 		background-color: var(--gray-4);
+		& input{
+			background-color: var(--gray-4) !important;
+		}
 	}
 }
