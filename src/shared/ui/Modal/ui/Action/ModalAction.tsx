@@ -13,6 +13,7 @@ import { EInputVariants } from "@/shared/ui/Input/model/input.model";
 import { IButton } from "@/shared/ui/Button/ui/Button";
 import Image from "next/image";
 import BBPlaceGrayLeftAndRightBackgroundICON from "@/shared/assets/img/Background/BBPlace/BBPlaceGrayLeftAndRight.svg"
+import { Loader } from "@/shared/ui/Loader";
  
 export interface IModalActionProps extends IModal{
     title: string
@@ -21,6 +22,7 @@ export interface IModalActionProps extends IModal{
     buttonFirst?: IButton
     buttonSecond?: IButton
     hasBackground?: boolean
+    isLoading?: boolean
     className?: string,
 }
 
@@ -31,6 +33,7 @@ export const ModalAction:FC<IModalActionProps> = ({
     inputProps,
     buttonFirst, buttonSecond, 
     hasBackground=false,
+    isLoading,
     className,
     ...modalProps
 }) => {
@@ -69,6 +72,11 @@ export const ModalAction:FC<IModalActionProps> = ({
                                             value={inputValue} setValue={setInputValue}/>
                             </Input.Addition>
                         </WrapperRectangleInput>
+                    )}
+
+                    {/* ====={ LOADING }===== */}
+                    {isLoading && (
+                        <Loader />
                     )}
                     {/* ====={ BUTTONS }===== */}
                     {(buttonFirst || buttonSecond) && (

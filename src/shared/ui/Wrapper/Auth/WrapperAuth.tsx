@@ -1,6 +1,6 @@
 "use client"
 
-import { FC, ReactNode } from "react"
+import { FC, ReactNode, useState } from "react"
 import { useActionCreators, useAppSelector } from "@/storage/hooks";
 import { ModalAction } from "../../Modal/ui/Action/ModalAction";
 import { EModalView } from "@/shared/data/modal.data";
@@ -35,12 +35,16 @@ const WrapperAuthChild: FC<WrapperAuthProps> = ({ children }) => {
     const { isAuth } = useAppSelector(state => state.user);
     const actionCreators = useActionCreators();
 
+    // STATE
+    const [isLoading, setIsLoading] = useState(false)
+
     // API
     const [triggerCheckEmailExists] = UserAPI.useCheckEmailExistsMutation()
 
     // HANDLE
     const handleEmail = async (emailValue: string) => {
         if (!emailValue) return
+        setIsLoading(true)
         try {
             const isExists = await triggerCheckEmailExists(emailValue).unwrap()
 
@@ -63,6 +67,9 @@ const WrapperAuthChild: FC<WrapperAuthProps> = ({ children }) => {
                 router.push(MAIN_PAGES.REGISTRATION.path)
             }
         } catch (error) {
+            router.push(MAIN_PAGES.LOGIN.path)
+        } finally {
+            setIsLoading(false)
         }
     }
     const handleOnCloseModal = () => {
@@ -88,6 +95,7 @@ const WrapperAuthChild: FC<WrapperAuthProps> = ({ children }) => {
                             setText: handleEmail,
                             type: EInputTextType.Email
                         }} 
+                        isLoading={isLoading}
                         hasClose={true}
                         onClickOverlay={handleOnCloseModal} 
                         />
