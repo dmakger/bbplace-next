@@ -104,8 +104,8 @@ export const CategoryRecursiveSelect = ({
             }
     
             // Обновляем состояние только если найденные опции отличаются от текущих
-            if (!isEqual(foundOptions, selectedOptions)) {
-                setSelectedOptions(foundOptions ?? []);
+            if (foundOptions?.length && !isEqual(foundOptions, selectedOptions)) {
+                setSelectedOptions(foundOptions);
             }
         }
         // Этот эффект будет выполнен только при изменении updatedCategories или defaultCategoriesId
@@ -120,7 +120,7 @@ export const CategoryRecursiveSelect = ({
             const newIds = selectedOptions.map(it => it.id);
             setSelectedCategoriesId(newIds);
         }
-    }, [setSelectedCategoriesAsOption, setSelectedCategoriesId, selectedOptions]);
+    }, [selectedOptions]);
 
 
     //INPUTS_ARRAY
