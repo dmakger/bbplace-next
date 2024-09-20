@@ -49,8 +49,6 @@ export const MainInfoProductForm: FC<MainInfoProductFormProps> = ({
     // const [defaultCategoriesId, setDefaultCategoriesId] = useState<number[]>([335, 2413, 1655])
     const [defaultCategoriesId, setDefaultCategoriesId] = useState<number[]>([])
 
-    console.log('qwe data', data, selectedCategoryIds)
-
     // API
     const { data: countryList } = CountryAPI.useGetCountriesQuery();
 
@@ -80,7 +78,6 @@ export const MainInfoProductForm: FC<MainInfoProductFormProps> = ({
             return defaultFormInfo
         }
         
-        console.log('qwe main', 2)
         e.preventDefault();
 
         const formData = getFormDataFromForm(formRef.current);

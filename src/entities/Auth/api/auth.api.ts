@@ -87,7 +87,6 @@ export const UserAPI = createApi({
                 method: 'POST',
                 data: body,
                 transformResponse: (response: any) => {
-                    console.log('qwe userRegistration')
                     saveTokensStorage(response); // Сохранение токенов в куки
                     return jwtDecode(response.accessToken);
                 }

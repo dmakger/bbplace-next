@@ -37,8 +37,6 @@ export const ProductForm = forwardRef(({ data, loadData, isEdit = false, classNa
         setVariationInfoData(prev => isEqual(prev, data?.variation?.form) ? prev : data?.variation?.form);
     }, [data]);
 
-    console.log('qwe mainInfoData', mainInfoData)
-
     // FOR REF
     useImperativeHandle(ref, () => ({
         getUpdatedData,

@@ -73,7 +73,6 @@ export const saveRefreshTokenStorage = (refreshToken: string): void => {
 };
 
 export const removeFromStorage = (): void => {
-    console.log('qwe removeFromStorage')
     Cookies.remove(ETokens.ACCESS_TOKEN);
     Cookies.remove(ETokens.REFRESH_TOKEN);
     // Cookies.remove(EUserTokens.CURRENT_LK);

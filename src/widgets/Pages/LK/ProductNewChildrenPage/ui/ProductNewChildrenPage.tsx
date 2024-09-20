@@ -35,7 +35,7 @@ export const ProductNewChildrenPage = () => {
     }
     return (
         <Wrapper1280>
-            <SuspenseL >
+            <SuspenseL>
                 <WrapperLKPT options={LK_PRODUCT_PAGE_CREATE}
                     pageTitle="Новый товар"
                     startPage={productType === SWITCH_SELECTOR_PRODUCT_PAGE_MULTIPLE.value
