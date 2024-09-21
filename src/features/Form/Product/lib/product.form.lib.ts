@@ -75,7 +75,8 @@ export const productToPropsMainProductForm = (product: IProduct): IPropsMainInfo
 
 
 export const productToPropsAdditionalProductForm = (product: IProduct): IPropsAdditionalInfoProductForm => {
-    const {expirationDate, expirationDateMetric} = expirationDateToExpirationDateAndMetric(product.characteristics.expirationDate)
+    const _expirationDate = expirationDateToExpirationDateAndMetric(product.characteristics.expirationDate)
+    // const {expirationDate, expirationDateMetric} = expirationDateToExpirationDateAndMetric(product.characteristics.expirationDate)
     const delivery = (product.delivery ?? []).map(it => processDeliveryOption({delivery: it})).filter(it => it !== undefined) as IOption[]
     const warehouses = (product.warehouses ?? []).map(it => processWarehousesOption({warehouses: it})).filter(it => it !== undefined) as IOption[]
     const weightUnits = product.characteristics.weightUnits ? metricToOption(product.characteristics.weightUnits) : undefined
@@ -102,8 +103,8 @@ export const productToPropsAdditionalProductForm = (product: IProduct): IPropsAd
         warehouses: warehouses,
         brand: product.characteristics.brand,
         gender: GENDER__PRODUCT_FORM__DATA.find(it => it.name === product.characteristics.gender) ?? UNISEX_GENDER__PRODUCT_FORM__DATA,
-        expirationDate: expirationDate,
-        expirationDateMetric: expirationDateMetric,
+        expirationDate: _expirationDate ? _expirationDate.expirationDate : '',
+        expirationDateMetric: _expirationDate ? _expirationDate.expirationDateMetric : undefined,
         weight: product.characteristics.weight,
         weightMetric: weightUnits,
         features: features,

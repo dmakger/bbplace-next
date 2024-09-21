@@ -21,7 +21,7 @@ export interface IPropsAdditionalInfoProductForm {
     gender: IOption
 
     expirationDate: string
-    expirationDateMetric: IOption
+    expirationDateMetric?: IOption
     weight?: number
     weightMetric?: IOption
     features: IOption[]
