@@ -5,6 +5,7 @@ import { useActionCreators, useAppSelector } from '@/storage/hooks'
 import { usePathname, useRouter } from 'next/navigation'
 import { ECurrentLK } from '@/entities/User/model/user.model'
 import { MAIN_PAGES } from '@/config/pages-url.config'
+import { isAuth } from '@/entities/Auth/lib/auth-token.lib'
 
 interface IWrapperRole {
     children: ReactNode
@@ -18,23 +19,22 @@ export const WrapperRole = ({
     const pathname = usePathname();
 
     //RTK
-    const { currentLK, photoId } = useAppSelector(state => state.user)
+    const { currentLK, photoId, email } = useAppSelector(state => state.user)
     const actionCreators = useActionCreators()
 
     //ROUTER
     const router = useRouter()
 
     useEffect(() => {
-        if (currentLK !== ECurrentLK.SELLER) { 
-             router.replace(MAIN_PAGES.ONLY_FOR_SELLERS.path);
-        }
         if (currentLK === ECurrentLK.SELLER) { 
             actionCreators.setAuthOptional({
                 prevPath: pathname,
                 photoId,
                 currentLK
             })
-       }
+        } else if (isAuth()) { 
+            router.replace(MAIN_PAGES.ONLY_FOR_SELLERS.path);
+        }
     }, [currentLK])    
 
     return (

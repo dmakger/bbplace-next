@@ -38,13 +38,16 @@ export default function SupplierPage() {
 
     return (
         <Wrapper1280 classNameContent={cl.content}>
-            {supplier && <SupplierPageHeader 
-                classNameSupplierWNav={cl.supplierWNav}
-                supplier={supplier}
-                supplierRating={supplierRating ?? 0}
-                supplierReviews = {supplierReviews?.length ?? 0}
-            />}
-            {supplierProducts && <ProductAutoList products={supplierProducts} view={EViewProduct.AT_SUPPLIER_PAGE}/>}
+            {supplier && (
+                <SupplierPageHeader 
+                    supplier={supplier}
+                    supplierRating={supplierRating ?? 0}
+                    supplierReviews = {supplierReviews?.length ?? 0} 
+                    classNameSupplierWNav={cl.supplierWNav} />
+            )}
+            {supplierProducts && (
+                <ProductAutoList products={supplierProducts} view={EViewProduct.AT_SUPPLIER_PAGE}/>
+            )}
         </Wrapper1280>
 
     )

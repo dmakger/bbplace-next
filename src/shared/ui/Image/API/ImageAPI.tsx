@@ -5,7 +5,7 @@ import Image from 'next/image'
 import cl from './_ImageAPI.module.scss'
 import { getImage } from "@/shared/lib/image.lib"
 import { cls } from "@/shared/lib/classes.lib"
-import defaultImageJPG from '@/shared/assets/img/default-image.jpg'
+import defaultImageJPG from '@/shared/assets/img/defaultUserGray.svg'
 
 
 interface ImageAPIProps {

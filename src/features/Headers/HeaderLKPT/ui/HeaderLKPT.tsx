@@ -13,6 +13,7 @@ import { ESwitchSelectorVariants } from "@/shared/ui/SwitchSelector/model/switch
 import { ButtonArrowWLine } from "@/shared/ui/Button/data/Arrow/WLine/ButtonArrowWLine"
 import { ButtonColor, ButtonSize } from "@/shared/ui/Button/model/button.model"
 import { IButton } from "@/shared/ui/Button/ui/Button"
+import { useEffect, useState } from "react"
 
 interface IHeaderPT {
     title: string,
@@ -30,7 +31,7 @@ interface IHeaderPT {
  * LKPT - Личный Кабинет Product Tender
  */
 export const HeaderLKPT = ({
-    title,
+    title: titleOut,
     buttonBackProps,
     buttonRightTitle = 'Добавить',
     isButtonRight = true, buttonRightProps,
@@ -38,11 +39,18 @@ export const HeaderLKPT = ({
     options,optionsTab,
     className,
 }: IHeaderPT) => {
-
-    //ROUTER
+    // ROUTER
     const router = useRouter()
 
-    //FUNCTION
+    // STATE
+    const [title, setTitle] = useState(titleOut)
+
+    // EFFECT
+    useEffect(() => {
+        setTitle(titleOut)
+    }, [titleOut])
+
+    // FUNCTION
     const backNavigation = () => {
         router.push(DASHBOARD_PAGES.HOME.path)
     }

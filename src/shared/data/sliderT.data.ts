@@ -1,4 +1,3 @@
-
 /**
  * Варианты пролистования слайдера:  
  * 1. `Amount` - опирается на количество, минимальное возможное `1`
@@ -8,3 +7,8 @@ export enum SliderPagingVariant {
     Amount = 'amount',
     Full = 'full',
 }
+
+/**
+ * Минимальное расстояние свайпа для переключения слайда
+ */ 
+export const SWIPE_THRESHOLD = 50; 

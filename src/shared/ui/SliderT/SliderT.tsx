@@ -1,18 +1,17 @@
-"use client";
-
 import { cls } from '@/shared/lib/classes.lib';
-import cl from './_SliderT.module.scss'
+import cl from './_SliderT.module.scss';
 import { List } from "../List/Default/List";
 import { useEffect, useRef, useState } from 'react';
 import { ISliderT } from '@/shared/model/sliderT.model';
 import { Axis } from '@/shared/model/button.model';
 import { ButtonArrowWLine } from '../Button/data/Arrow/WLine/ButtonArrowWLine';
 import { ListDirection } from '@/shared/data/list.data';
-import { SliderPagingVariant } from '@/shared/data/sliderT.data';
+import { SliderPagingVariant, SWIPE_THRESHOLD } from '@/shared/data/sliderT.data';
 import { GalleryCounter } from '../GalleryCounter';
 
 interface SliderTProps<T> extends ISliderT<T> {}
 
+// Constants
 /**
  * `pagingVariant`:  
  * 1. `SliderPagingVariant.Full` - перелистование на всю страницу  
@@ -26,6 +25,7 @@ interface SliderTProps<T> extends ISliderT<T> {}
  * - 1. `true`, то при прожатии кнопок `onPrev` и `onNext`, то происходит **МЕНЯЕТСЯ** `activeIndex`
  * - 2. `false`, то при прожатии кнопок `onPrev` и `onNext`, то происходит **НЕ МЕНЯЕТСЯ** `activeIndex`
  */
+
 export const SliderT = <T extends any>({
     pagingVariant = SliderPagingVariant.Amount,
     pagingAmount: pagingOutAmount = 1,
@@ -59,6 +59,10 @@ export const SliderT = <T extends any>({
     const [currentIndex, setCurrentIndex] = useState(activeIndex);
     const [visibleIndex, setVisibleIndex] = useState(activeIndex);
     const [pagingAmount, setPagingAmount] = useState(pagingOutAmount);
+
+    // Swipe State
+    const [startX, setStartX] = useState(0);
+    const [endX, setEndX] = useState(0);
 
     // EFFECT
     // out-in 
@@ -129,7 +133,6 @@ export const SliderT = <T extends any>({
     useEffect(() => {
         if (!sliderRef.current || !listRef.current) return;
 
-        // const newScrollPosition = currentIndex * (slideSize + gap);
         const newScrollPosition = visibleIndex * (slideSize + gap);
 
         if (direction === ListDirection.Row) {
@@ -174,26 +177,56 @@ export const SliderT = <T extends any>({
 
     // NAVIGATION
     const onPrev = () => {
-        setVisibleIndex(prev => {
-            const newIndex = Math.max(0, prev - pagingAmount)
-            if (isIndexChangeOnClick)
-                setCurrentIndex(newIndex)
-            return newIndex
-        })
+        setVisibleIndex((prev) => {
+            const newIndex = Math.max(0, prev - pagingAmount);
+            if (isIndexChangeOnClick) {
+                setCurrentIndex(newIndex);
+            }
+            return newIndex;
+        });
     };
 
     const onNext = () => {
-        setVisibleIndex(prev => {
-            const newIndex = Math.min(items.length-1, prev + pagingAmount)
-            if (isIndexChangeOnClick){
-                setCurrentIndex(newIndex)
+        setVisibleIndex((prev) => {
+            const newIndex = Math.min(items.length - 1, prev + pagingAmount);
+            if (isIndexChangeOnClick) {
+                setCurrentIndex(newIndex);
             }
-            return newIndex
-        })
+            return newIndex;
+        });
+    };
+
+    // Swipe Handlers
+    const handleTouchStart = (e: React.TouchEvent) => {
+        setStartX(e.touches[0].clientX); // фиксируем начальную точку касания
+    };
+
+    const handleTouchMove = (e: React.TouchEvent) => {
+        setEndX(e.touches[0].clientX); // обновляем конечную точку касания
+    };
+
+    const handleTouchEnd = () => {
+        const distance = endX - startX;
+        if (Math.abs(distance) > SWIPE_THRESHOLD) {
+            // Swipe detected, disable buttons temporarily to prevent double actions
+            if (distance > 0) {
+                onPrev(); // свайп вправо
+            } else if (distance < 0) {
+                onNext(); // свайп влево
+            }
+        }
+    
+        setStartX(0);
+        setEndX(0);
     };
 
     return (
-        <div className={cls(cl.sliderWrapper, cl[direction], isFull ? cl.fullWidth : cl.normalWidth, classNameWrapper)}>
+        <div
+            className={cls(cl.sliderWrapper, cl[direction], isFull ? cl.fullWidth : cl.normalWidth, classNameWrapper)}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+        >
             <ButtonArrowWLine 
                 isSecondary={false} direction={direction}
                 axis={direction === ListDirection.Row ? Axis.Bottom : Axis.Left}
@@ -207,10 +240,12 @@ export const SliderT = <T extends any>({
                       classNameItem={cls(cl.slide, classNameItem)}
                       {...rest} />
             </div>
-            {hasGalleryCounter && items.length > 1 && <GalleryCounter activeIndex={currentIndex} listLength={items.length}/>}
+            {hasGalleryCounter && items.length > 1 && (
+                <GalleryCounter activeIndex={currentIndex} listLength={items.length}/>
+            )}
             
             <ButtonArrowWLine 
-                isSecondary={false} direction={direction}
+                isSecondary={false} direction={direction}   
                 axis={direction === ListDirection.Row ? Axis.Top : Axis.Right} 
                 onClick={onNext} sizes={{ width: 20, height: 20 }}
                 className={cls(cl.nextButton, canScrollNext ? cl.visible : '')} />

@@ -14,7 +14,7 @@ import { isEqual } from "lodash"
 
 interface ProductFormProps {
     data?: IPropsProductForm;
-    loadData?: (data: Promise<IPropsProductForm>) => void;
+    loadData?: (data: Promise<IPropsProductForm>, hasModal?: boolean) => void;
     isEdit?: boolean;
     className?: string;
 }
@@ -37,8 +37,6 @@ export const ProductForm = forwardRef(({ data, loadData, isEdit = false, classNa
         setVariationInfoData(prev => isEqual(prev, data?.variation?.form) ? prev : data?.variation?.form);
     }, [data]);
 
-    console.log('qwe mainInfoData', mainInfoData)
-
     // FOR REF
     useImperativeHandle(ref, () => ({
         getUpdatedData,
@@ -48,7 +46,7 @@ export const ProductForm = forwardRef(({ data, loadData, isEdit = false, classNa
     // HANDLE
     const writeFormDataToParent = () => {
         if (loadData) {
-            loadData(getUpdatedData());
+            loadData(getUpdatedData(), true);
         }
     }
 

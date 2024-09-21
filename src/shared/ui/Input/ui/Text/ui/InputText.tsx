@@ -75,6 +75,8 @@ export function InputText({
     ...rest }: InputTextProps) {
 
     //STATE
+    const [localValue, setLocalValue] = useState<string | number>(defaultValue || value || '');
+    
     const [isWarning, setIsWarning] = useState<boolean>(warning ?? false);
     const [isSuccess, setIsSuccess] = useState<boolean>(success ?? false);
     const [isHovered, setIsHovered] = useState<boolean>(false)
@@ -85,6 +87,19 @@ export function InputText({
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
     //EFFECT
+    // для синхронизации defaultValue с внутренним состоянием
+    useEffect(() => {
+        if (defaultValue !== undefined) {
+            setLocalValue(defaultValue);
+        }
+    }, [defaultValue]);
+
+    useEffect(() => {
+        if (value !== undefined) {
+            setLocalValue(value);
+        }
+    }, [value]);
+
     useEffect(() => {
         if (error) {
             // Ошибка обнаружена
@@ -170,6 +185,7 @@ export function InputText({
 
     const handleOnChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const value = e.target.value
+        setLocalValue(value);
         setInputValueLength?.(value.length)
         setValue?.(value)
         checkValue(value)
@@ -225,12 +241,12 @@ export function InputText({
                         name={name}
                         ref={inputRef}
                         type={type}
-                        value={value}
+                        value={localValue}
                         maxLength={maxLength}
                         required={required}
                         placeholder={placeholder}
                         autoFocus={autoFocus}
-                        defaultValue={defaultValue}
+                        // defaultValue={defaultValue}
                         onChange={handleOnChange}
                         onBlur={(e) => checkValue(e.target.value)}
                         disabled={disabled}
