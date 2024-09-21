@@ -42,9 +42,6 @@ export const VariationInfoProductForm: FC<VariationInfoProductFormProps> = ({dat
     // REF
     const formRef = useRef<HTMLFormElement>(null);
 
-    // NOTIFY
-    const {notify} = useNotify();
-
     // STATE
     const [metricOptions, setMetricOptions] = useState<IOption[]>([]);
     const [currencyOptions, setCurrencyOptions] = useState<IOption[]>([]);

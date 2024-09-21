@@ -65,6 +65,8 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
     const [showModal, setShowModal] = useState<boolean>(false)
     const [showBottomModal, setShowBottomModal] = useState<boolean>(false)
     const [currentModalProps, setCurrentModalProps] = useState<IModalActionProps | undefined>()
+    const [pendingNavigation, setPendingNavigation] = useState<IProduct | undefined>(undefined);
+    // const [nextURL, setNextURL] = useState<string | undefined>();
 
     // API
     const { data: productsAPI } = ProductAPI.useGetProductsByGroupQuery(!isDraft && groupId ? groupId : skipToken, {refetchOnMountOrArgChange: true})
@@ -98,7 +100,7 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
     useEffect(() => {
         if ((!currencies || !metrics || !countries) || !(productsAPI || draftsAPI)) return
         const productsAPILoaded = (isDraft ? draftsAPI : productsAPI) as IProductAPI[]
-        addProducts(productsAPILoaded)
+        addProductsInSidebar(productsAPILoaded)
     }, [productsAPI, draftsAPI, currencies, metrics, countries])
 
     useEffect(() => {
@@ -116,19 +118,25 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
     // HANDLE
     // create product
     const handleOnCreateProduct = async () => {
-        if (!groupId || !isEditForm) return
-        setCurrentProduct(undefined)
-        setCurrentPropsProduct(undefined)
-        const _typeProduct = isDraft ? EProductType.Draft : EProductType.Public
-        router.push(DASHBOARD_PAGES.EDIT_PRODUCT({groupId: +groupId, type: _typeProduct}).path);
+        if (!groupId || !isEditForm) {
+            handleGetFormData(undefined, true)
+        } else {
+            setCurrentProduct(undefined)
+            setCurrentPropsProduct(undefined)
+            const _typeProduct = isDraft ? EProductType.Draft : EProductType.Public
+            router.push(DASHBOARD_PAGES.EDIT_PRODUCT({groupId: +groupId, type: _typeProduct}).path);
+        }
     }
     // on product
     const handleOnProduct: TListItemOnClick<IProduct> = (it, _) => {
         if (currentProduct && it.id === currentProduct.id) return
-        if (currentProduct) 
-            handleGetFormData()
         const _typeProduct = isDraft ? EProductType.Draft : EProductType.Public
-        router.push(DASHBOARD_PAGES.EDIT_PRODUCT({type: _typeProduct, groupId: it.groupId!, id: it.id}).path);
+        const touchedProductURL = DASHBOARD_PAGES.EDIT_PRODUCT({type: _typeProduct, groupId: it.groupId!, id: it.id}).path
+        if (currentProduct) {
+            handleGetFormData(undefined, false, touchedProductURL)
+        } else {
+            router.push(touchedProductURL);    
+        }
     }
     // on delete
     const handleOnDelete: TListItemOnClick<IProduct> = async (it, _) => {
@@ -141,7 +149,7 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
         })
     }
 
-    const addProducts = (_productsAPI: IProductAPI[]) => {
+    const addProductsInSidebar = (_productsAPI: IProductAPI[]) => {
         setProducts(prevProducts => {
             // Преобразуем данные продуктов API в формат, нужный вашему приложению
             const newProducts = productApiListToProductList(_productsAPI, metrics, currencies, countries);
@@ -162,8 +170,7 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
     };    
 
     // сбор данных из формы
-    const handleGetFormData = (data?: Promise<IPropsProductForm>) => {
-        console.log('qwe handleGetFormData', data)
+    const handleGetFormData = (data?: Promise<IPropsProductForm>, hasModal?: boolean, nextURL?: string) => {
         if (!productFormRef.current) return
 
         (data ? data : productFormRef.current.getUpdatedData()).then(r => {
@@ -171,7 +178,7 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
                 variant: ButtonVariant.FILL,
                 color: ButtonColor.Primary,
                 size: ButtonSize.Big,
-                onClick: () => handleLoadProduct(r),
+                onClick: () => handleModalConfirm(r, nextURL),
             }
             let propsButtonSecond: IButton = {
                 variant: ButtonVariant.TONAL,
@@ -214,11 +221,12 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
                     }
                 }
             }
-            setCurrentModalProps(bodyCurrentModalProps)
-            if (bodyCurrentModalProps) {
+            if (hasModal)
+                setCurrentModalProps(bodyCurrentModalProps)
+            if (bodyCurrentModalProps && hasModal) {
                 setShowModal(true)
             } else {
-                handleLoadProduct(r)
+                handleLoadProduct(r, nextURL)
             }
             
         }, e => {
@@ -226,107 +234,119 @@ export const ProductSingleCreationPage = ({ groupId, productId, isDraft=false, c
         })
     }
 
+    // Обработчик, который срабатывает после клика на первую кнопку в модалке
+    const handleModalConfirm = (formData: IPropsProductForm, nextURL?: string) => {
+        handleLoadProduct(formData, nextURL); // Обрабатываем данные формы
+        setShowModal(false); // Закрываем модалку
+    };
+
     // load
     // TODO: Сделать разделение по компонентам. update.product.form.ts
-    const handleLoadProduct = async (formData: IPropsProductForm) => {
+    const handleLoadProduct = async (formData: IPropsProductForm, nextURL?: string) => {
         if (!isValidPropsProductForm(formData)) return
-        // IS EDIT
-        if (isEditForm && productId) {
-            const serializerData = productFormToCreateOrEditProduct(formData, userId, true) as (IPropsUpdateProduct | undefined)
-            if (serializerData === undefined) return
+        try {
+            // IS EDIT
+            if (isEditForm && productId) {
+                const serializerData = productFormToCreateOrEditProduct(formData, userId, true) as (IPropsUpdateProduct | undefined)
+                if (serializerData === undefined) return
 
-            if (isDraftByPropsCreateUpdateProduct(serializerData)) {
-                if (isDraft) {
-                    await updateDraftProduct({id: productId, body: serializerData}).then(() => {
-                        setProducts(prev => (
-                            prev.map(it => {
-                                if (it.id !== +productId) return it
-                                return {...it, media: JSON.parse(serializerData.media)}
-                            })
-                        ))
-                    })
+                if (isDraftByPropsCreateUpdateProduct(serializerData)) {
+                    if (isDraft) {
+                        await updateDraftProduct({id: productId, body: serializerData}).then(() => {
+                            setProducts(prev => (
+                                prev.map(it => {
+                                    if (it.id !== +productId) return it
+                                    return {...it, media: JSON.parse(serializerData.media)}
+                                })
+                            ))
+                        })
+                    } else {
+                        const createdPropsFormData = propsUpdateToCreateProduct(serializerData, formData)
+                        if (createdPropsFormData === undefined) return
+
+                        await createDraftProduct(createdPropsFormData).then(async r => {
+                            await deleteProduct(+productId).unwrap()
+                            if ('data' in r && r.data) {
+                                const draftGroupId = await createDraftGroup().unwrap()
+                                await addProductToDraftGroup({groupId: draftGroupId, productId: r.data}).then(() => {
+                                    if (products.length === 1) {
+                                        router.push(DASHBOARD_PAGES.EDIT_PRODUCT({type: EProductType.Draft, groupId: draftGroupId}).path);
+                                    } else {
+                                        setProducts(prev => prev.filter(it => it.id !== +productId))
+                                    }
+                                })
+                            }
+                        }).finally(() => {
+                            cancelAdd()
+                        })
+                    }
                 } else {
-                    const createdPropsFormData = propsUpdateToCreateProduct(serializerData, formData)
-                    if (createdPropsFormData === undefined) return
+                    if (!isDraft) {
+                        await updateProduct({id: productId, body: serializerData}).then(() => {
+                            setProducts(prev => (
+                                prev.map(it => {
+                                    if (it.id !== +productId) return it
+                                    return {...it, media: JSON.parse(serializerData.media)}
+                                })
+                            ))
+                        })
+                    } else {
+                        const createdPropsFormData = propsUpdateToCreateProduct(serializerData, formData)
+                        if (createdPropsFormData === undefined) return
 
-                    await createDraftProduct(createdPropsFormData).then(async r => {
-                        await deleteProduct(+productId).unwrap()
-                        if ('data' in r && r.data) {
-                            const draftGroupId = await createDraftGroup().unwrap()
-                            await addProductToDraftGroup({groupId: draftGroupId, productId: r.data}).then(() => {
-                                if (products.length === 1) {
-                                    router.push(DASHBOARD_PAGES.EDIT_PRODUCT({type: EProductType.Draft, groupId: draftGroupId}).path);
-                                } else {
-                                    setProducts(prev => prev.filter(it => it.id !== +productId))
-                                }
-                            })
-                        }
+                        await createProduct(createdPropsFormData).then(async r => {
+                            await deleteDraftProduct(productId).unwrap()
+                            if ('data' in r && r.data) {
+                                const createdGroupId = await createGroup().unwrap()
+                                await addProductToGroup({groupId: createdGroupId, productId: r.data}).then(() => {
+                                    if (products.length === 1) {
+                                        router.push(DASHBOARD_PAGES.EDIT_PRODUCT({type: EProductType.Draft, groupId: createdGroupId}).path);
+                                    } else {
+                                        setProducts(prev => prev.filter(it => it.id !== +productId))
+                                    }
+                                })
+                            }
+                        })
+                    }
+                }
+            }
+            // IS CREATE
+            else {
+                // ПЕРЕВОД ДАННЫХ ИЗ ФОРМЫ В ДАННЫЕ ДЛЯ ОТПРАВКИ НА БЭК
+                const serializerData = productFormToCreateOrEditProduct(formData, userId, false) as (IPropsCreateProduct | undefined)
+                if (serializerData === undefined) return
+
+                if (isDraftByPropsCreateUpdateProduct(serializerData)) {
+                    const createdProductId = await createDraftProduct(serializerData).unwrap()
+                    const _groupId = isDraft && groupId ? +groupId : await createDraftGroup().unwrap()
+                    await addProductToDraftGroup({groupId: _groupId, productId: createdProductId}).then(async () => {
+                        if (!isDraft) return
+                        await getDraftProductById(createdProductId).then(r => {
+                            if ('data' in r) addProductsInSidebar([r.data as IProductAPI])
+                            router.push(DASHBOARD_PAGES.EDIT_PRODUCT({type: typeProduct, groupId: _groupId, id: createdProductId}).path);
+                        })
                     }).finally(() => {
                         cancelAdd()
-                    })
-                }
-            } else {
-                if (!isDraft) {
-                    await updateProduct({id: productId, body: serializerData}).then(() => {
-                        setProducts(prev => (
-                            prev.map(it => {
-                                if (it.id !== +productId) return it
-                                return {...it, media: JSON.parse(serializerData.media)}
-                            })
-                        ))
+                        notify({text: "Товар добавлен в «Черновики»", status: ENotifyStatus.Success})
+                        router.push(DASHBOARD_PAGES.PRODUCTS(true).path);
                     })
                 } else {
-                    const createdPropsFormData = propsUpdateToCreateProduct(serializerData, formData)
-                    if (createdPropsFormData === undefined) return
-
-                    await createProduct(createdPropsFormData).then(async r => {
-                        await deleteDraftProduct(productId).unwrap()
-                        if ('data' in r && r.data) {
-                            const createdGroupId = await createGroup().unwrap()
-                            await addProductToGroup({groupId: createdGroupId, productId: r.data}).then(() => {
-                                if (products.length === 1) {
-                                    router.push(DASHBOARD_PAGES.EDIT_PRODUCT({type: EProductType.Draft, groupId: createdGroupId}).path);
-                                } else {
-                                    setProducts(prev => prev.filter(it => it.id !== +productId))
-                                }
-                            })
-                        }
+                    const createdProductId = await createProduct(serializerData).unwrap()
+                    const _groupId = !isDraft && groupId ? +groupId : await createGroup().unwrap()
+                    await addProductToGroup({groupId: _groupId, productId: createdProductId}).then(async () => {
+                        if (isDraft) return
+                        await getProductById(createdProductId).then(r => {
+                            if ('data' in r) addProductsInSidebar([r.data as IProductAPI])
+                            router.push(DASHBOARD_PAGES.EDIT_PRODUCT({type: typeProduct, groupId: _groupId, id: createdProductId}).path);
+                        })
                     })
                 }
             }
-        }
-        // IS CREATE
-        else {
-            // ПЕРЕВОД ДАННЫХ ИЗ ФОРМЫ В ДАННЫЕ ДЛЯ ОТПРАВКИ НА БЭК
-            const serializerData = productFormToCreateOrEditProduct(formData, userId, false) as (IPropsCreateProduct | undefined)
-            if (serializerData === undefined) return
-
-            if (isDraftByPropsCreateUpdateProduct(serializerData)) {
-                const createdProductId = await createDraftProduct(serializerData).unwrap()
-                const _groupId = isDraft && groupId ? +groupId : await createDraftGroup().unwrap()
-                await addProductToDraftGroup({groupId: _groupId, productId: createdProductId}).then(async () => {
-                    if (!isDraft) return
-                    await getDraftProductById(createdProductId).then(r => {
-                        if ('data' in r) addProducts([r.data as IProductAPI])
-                        router.push(DASHBOARD_PAGES.EDIT_PRODUCT({type: typeProduct, groupId: _groupId, id: createdProductId}).path);
-                    })
-                }).finally(() => {
-                    cancelAdd()
-                    notify({text: "Товар добавлен в «Черновики»", status: ENotifyStatus.Success})
-                    router.push(DASHBOARD_PAGES.PRODUCTS(true).path);
-                })
-            } else {
-                const createdProductId = await createProduct(serializerData).unwrap()
-                const _groupId = !isDraft && groupId ? +groupId : await createGroup().unwrap()
-                await addProductToGroup({groupId: _groupId, productId: createdProductId}).then(async () => {
-                    if (isDraft) return
-                    await getProductById(createdProductId).then(r => {
-                        if ('data' in r) addProducts([r.data as IProductAPI])
-                        router.push(DASHBOARD_PAGES.EDIT_PRODUCT({type: typeProduct, groupId: _groupId, id: createdProductId}).path);
-                    })
-                })
+        } finally {
+            if (nextURL) {
+                router.push(nextURL)
             }
-        }        
+        }
     }
 
     // MODAL
