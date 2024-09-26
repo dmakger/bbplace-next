@@ -86,11 +86,30 @@ export default function RootLayout({
             </Script>
             {/* /Google.Metrika counter */}
 
-            {/* YANDEX && GOOGLE Metrika noscript */}
+
+            {/* Facebook.Metrika counter */}
+            <Script id="facebook-metrika-init" strategy="afterInteractive">
+                {`
+                    !function(f,b,e,v,n,t,s)
+                    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+                    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+                    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+                    n.queue=[];t=b.createElement(e);t.async=!0;
+                    t.src=v;s=b.getElementsByTagName(e)[0];
+                    s.parentNode.insertBefore(t,s)}(window, document,'script',
+                    'https://connect.facebook.net/en_US/fbevents.js');
+                    fbq('init', '531193806300696');
+                    fbq('track', 'PageView');
+                `}
+            </Script>
+            {/* /Facebook.Metrika counter */}
+
+            {/* YANDEX && GOOGLE && FACEBOOK Metrika noscript */}
             <noscript>
                 <div>
                     <img src="https://mc.yandex.ru/watch/93744111" style={{ position: 'absolute', left: '-9999px' }} alt="" />\
                     <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5665HK79" height="0" width="0" style={{ display: "none", visibility: "hidden"}}></iframe>
+                    <img height="1" width="1" style={{display: 'none'}} src="https://www.facebook.com/tr?id=531193806300696&ev=PageView&noscript=1"/>
                 </div>
             </noscript>
             {/* /YANDEX && GOOGLE Metrika noscript */}
