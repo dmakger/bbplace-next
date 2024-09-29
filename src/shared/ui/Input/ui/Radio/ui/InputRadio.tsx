@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image';
 
 import { cls } from "@/shared/lib/classes.lib";
 import cl from './_InputRadio.module.scss';
