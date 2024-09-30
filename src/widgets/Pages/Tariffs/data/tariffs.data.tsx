@@ -1,8 +1,9 @@
 import { XMARK_CAPTION_ICON } from "@/shared/ui/Icon/data/xmark.data.icon"
-import { ITTCellButtonItem, ITTBodyRowData, ITariffsInfo, ETTVariants, ITTBodyRow, ITTMobileData } from "../model/tariffs.model"
+import { ITTCellButtonItem, ITTBodyRowData, ITariffsInfo, ETTVariants, ITTMobileData } from "../model/tariffs.model"
 import { CHECKBOX_FONT_ICON } from "@/shared/ui/Icon/data/checkbox.data.icon"
 import { INFINITY_FONT_ICON } from "@/shared/ui/Icon/data/infinity.data.icon"
 import { MINUS_CAPTION_ICON } from "@/shared/ui/Icon/data/minus.data.icon"
+import { IOption } from "@/shared/model/option.model"
 
 //TARIFFS_INFO
 
@@ -210,4 +211,66 @@ export const TT_BODY_ROW_DATA_ARRAY: ITTBodyRowData[] = [
     PARTNERSHIP_FOR_3_M_TT_BODY_ROW_DATA,
     PARTNERSHIP_FOR_6_M_TT_BODY_ROW_DATA,
     PARTNERSHIP_FOR_12_M_TT_BODY_ROW_DATA
+]
+
+
+//TARIFFS_OPTIONS
+export const BUSINESS_TYPE_TARIFFS_OPTION: IOption = {
+    id: 1,
+    name: 'Бизнес'
+}
+
+export const PREMIUM_TYPE_TARIFFS_OPTION: IOption = {
+    id: 2,
+    name: 'Премиум'
+}
+
+export const TYPE_TARIFFS_OPTIONS_ARRAY: IOption[] = [
+    BUSINESS_TYPE_TARIFFS_OPTION,
+    PREMIUM_TYPE_TARIFFS_OPTION
+]
+
+//TARIFFS_DURATION_OPTIONS
+
+const BUSINESS_TARIFF_3_MONTH_DURATION_OPTION: IOption = {
+    id: 1,
+    name: '3 месяца по 2 490₽'
+}
+
+const BUSINESS_TARIFF_6_MONTH_DURATION_OPTION: IOption = {
+    id: 2,
+    name: '6 месяцев по 2 290₽'
+}
+
+const BUSINESS_TARIFF_12_MONTH_DURATION_OPTION: IOption = {
+    id: 3,
+    name: '12 месяцев по 2 090₽'
+}
+
+export const BUSINESS_TARIFF_DURATION_OPTIONS_ARRAY: IOption[] = [
+    BUSINESS_TARIFF_3_MONTH_DURATION_OPTION,
+    BUSINESS_TARIFF_6_MONTH_DURATION_OPTION,
+    BUSINESS_TARIFF_12_MONTH_DURATION_OPTION
+]
+
+
+const PREMIUM_TARIFF_3_MONTH_DURATION_OPTION: IOption = {
+    id: 1,
+    name: '3 месяца по 3 490₽'
+}
+
+const PREMIUM_TARIFF_6_MONTH_DURATION_OPTION: IOption = {
+    id: 2,
+    name: '6 месяцев по 3 190₽'
+}
+
+const PREMIUM_TARIFF_12_MONTH_DURATION_OPTION: IOption = {
+    id: 3,
+    name: '12 месяцев по 2 890₽'
+}
+
+export const PREMIUM_TARIFF_DURATION_OPTIONS_ARRAY: IOption[] = [
+    PREMIUM_TARIFF_3_MONTH_DURATION_OPTION,
+    PREMIUM_TARIFF_6_MONTH_DURATION_OPTION,
+    PREMIUM_TARIFF_12_MONTH_DURATION_OPTION
 ]
