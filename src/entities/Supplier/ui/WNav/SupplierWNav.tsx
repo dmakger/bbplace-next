@@ -11,6 +11,7 @@ import { SupplierAuto } from "../this/Auto/SupplierAuto";
 import { ESupplierAxis, ESupplierView } from "../../data/supplier.data";
 import { IImageSizes } from "@/shared/model/image.model";
 import { ReviewAPI } from "@/entities/Review/api/review.api";
+import { skipToken } from "@reduxjs/toolkit/query";
 
 interface SupplierWNavProps {
     id: ISupplier['id'] | null
@@ -33,8 +34,8 @@ interface SupplierWNavProps {
 }
 
 export const SupplierWNav:FC<SupplierWNavProps> = ({id, view=ESupplierView.LARGE_WHITE, subscribeView=ESupplierSubscribeViewItem.NONE, hasImage = false, hasVerifiedStatus = false, hasCountry, navs=[], axis=ESupplierAxis.HORIZONTAL, className, classNameSupplier, classNameSmallSupplier, classNameNavs, classNameNavsItem, classNameName, classNameVerified, imageSizes}) => {
-    const { data: supplier } = UserAPI.useGetUserDataQuery(id ?? '')    
-    const { data: supplierRating } = ReviewAPI.useGetSupplierScoreQuery(id ?? '')
+    const { data: supplier } = UserAPI.useGetUserDataQuery(id ?? skipToken) 
+    const { data: supplierRating } = ReviewAPI.useGetSupplierScoreQuery(id ?? skipToken)
 
     const [supplierState, setSupplierState] = useState<ISupplier>()
 

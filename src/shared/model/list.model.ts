@@ -14,6 +14,7 @@ export interface IListTopLevel<T> extends TAnyParams {
     listRef?: React.RefObject<HTMLDivElement>
     componentProps?: TAnyParams;
     onClickItem?: TListItemOnClick<T>
+    generateKey?: (it: T, index?: number) => number | string
     direction?: ListDirection;
     gap?: number
     className?: string;
