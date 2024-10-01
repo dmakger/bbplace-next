@@ -25,7 +25,7 @@ export const ForgotPasswordChildrenPage = () => {
     //STATE
     const [errorMessage, setErrorMessage] = useState<string>('')
     const [isOpenCheckEmailModal, setIsOpenCheckEmailModal] = useState<boolean>(false);
-    const [isOpenResetPasswordModal, setIsOpenResetPasswordModal] = useState<boolean>(true);
+    const [isOpenResetPasswordModal, setIsOpenResetPasswordModal] = useState<boolean>(false);
 
     //SEARCH_PARAMS
     const token = false;
