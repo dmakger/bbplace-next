@@ -28,7 +28,7 @@ export const ForgotPasswordChildrenPage = () => {
     const [isOpenResetPasswordModal, setIsOpenResetPasswordModal] = useState<boolean>(false);
 
     //SEARCH_PARAMS
-    const token = false;
+    const token = useSearchParams().get('token') || undefined;
     const emailFromUrl = useSearchParams().get('email') || undefined;
 
     //REF
@@ -78,9 +78,10 @@ export const ForgotPasswordChildrenPage = () => {
         }
         resetPassword({
             password: password,
-            token: '',
-            email
+            token: 'CfDJ8ISDb64IsSRInw+8yEpv42E1qEC8EvYKehhpbyUKiQvQOLZjcTVkQw8rSIwBAsNYgdfvP1Ftm7C/7KxeXLb8Hs4kw2ePbcn7hT7dczcfqup4jedHGiqZJ2eNoxpAQGmEmmlfB7oPUyD74XVKvbtXfWHdNchshtCZM9RpfjRSRCAUPNim+TkBOZy0gG4N6Vi4hEhC7TztmYjnX9TSaVnvJTHl9A9gTj+cC2yPf98TbbMH',
+            email: 'yupii2051@gmail.com'
         })
+        setIsOpenResetPasswordModal(true)
     }
 
     const navigateToCheckEmail = () => {
@@ -110,12 +111,12 @@ export const ForgotPasswordChildrenPage = () => {
             <WrapperRectangleInput
                 labelText="Электронная почта"
                 isRequired
-                bellowButtonText={token ? "Восстановить" : 'Продолжить'}
+                bellowButtonText={token ? "" : 'Продолжить'}
                 bellowButtonType={ButtonType.Submit}
                 errorInputMessage={errorMessage}
                 isLoadingBellowButton={isLoadingSendResetLink}
-                onClickBellowButton={token ? resetPasswordFunc : sendResetPasswordRequest}
-            >
+                onClickBellowButton={token ? ()=>{} : sendResetPasswordRequest}
+>
                 <Input.Text type={EInputTextType.Email} variant={EInputVariants.RECTANGULAR} required placeholder="Введите email" name="email" defaultValue={!token ? userEmail : emailFromUrl} warning={isError} error={isError} disabled={!!token} />
             </WrapperRectangleInput>
 
