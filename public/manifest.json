@@ -1,0 +1,23 @@
+{
+    "name": "BBPlace",
+    "short_name": "BBPlace",
+    "icons": [
+        {
+            "src": "/google-touch-icon.png",
+            "sizes": "192x192",
+            "type": "image/png",
+			"purpose": "any"
+        },
+        {
+            "src": "/google-maskable-icon.png",
+            "sizes": "512x512",
+            "type": "image/png",
+			"purpose": "maskable"
+        }
+    ],
+    "theme_color": "#e54348",
+    "background_color": "#e54348",
+    "start_url": "https://bbplace.ru",
+    "display": "standalone",
+    "orientation": "portrait"
+}
