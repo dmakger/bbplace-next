@@ -78,10 +78,7 @@ export const MAIN_PAGES = new MAIN('')
 
 
 class DASHBOARD extends Route {
-    HOME = this.createPath(
-        getCurrentLKToken() === ECurrentLK.SELLER 
-        ? '/products' : '/chat'
-    , true);
+    HOME = this.createPath('/', true);
     PROFILE_EDIT = this.createPath('/edit', true);
     FAVOURITES = this.createPath('/favourites', true);
     

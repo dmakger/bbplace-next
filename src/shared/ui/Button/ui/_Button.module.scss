@@ -164,6 +164,11 @@
 .blank {
     background-color: var(--empty);
     border: none;
+    color: var(--button-color);
+}
+
+.filled{
+    background-color: var(--button-color-surface);
 }
 
 .link{

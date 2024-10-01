@@ -1,0 +1,1 @@
+export {ProfileMainChildrenPage} from './ui/ProfileMainChildrenPage'

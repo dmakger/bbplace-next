@@ -23,6 +23,7 @@ export enum ButtonVariant{
     BORDER = "border new",
     CONTENT = "content new",
     BLANK = "blank new",
+    FILLED = "filled new",
 
     
     LINK = 'link',

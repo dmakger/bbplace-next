@@ -1,11 +1,10 @@
-import { FC } from "react"
+import { FC } from "react";
 
 import { cls } from '@/shared/lib/classes.lib';
-import cl from './_LKTenderTableCellEditDelete.module.scss'
-import { Button, ButtonVariant } from "@/shared/ui/Button";
-import { ButtonColor, ButtonSize } from "@/shared/ui/Button/model/button.model";
-import { TRASH_NEGATIVE_TO_WHITE_ICON } from "@/shared/ui/Icon/data/trash.data.icon";
-import { EDIT_ICON } from "@/shared/ui/Icon/data/edit.data.icon";
+import cl from './_LKTenderTableCellEditDelete.module.scss';
+import { ButtonVariant } from "@/shared/ui/Button";
+import { ButtonEdit } from "@/shared/ui/Button/data/Edit/ButtonEdit";
+import { ButtonDelete } from "@/shared/ui/Button/data/Delete/ButtonDelete";
 
 interface LKTenderTableCellEditDeleteProps {
     onClickDelete: Function
@@ -14,19 +13,16 @@ interface LKTenderTableCellEditDeleteProps {
     className?: string,
 }
 
-export const LKTenderTableCellEditDelete:FC<LKTenderTableCellEditDeleteProps> = ({onClickEdit, onClickDelete, isRow=false, className}) => {
+export const LKTenderTableCellEditDelete: FC<LKTenderTableCellEditDeleteProps> = ({ onClickEdit, onClickDelete, isRow = false, className }) => {
     return (
         <div className={cls(cl.cell, isRow ? cl.row : '', className)}>
-            <Button variant={ButtonVariant.CONTENT} 
-                color={ButtonColor.Secondary} 
-                size={ButtonSize.Medium} 
-                beforeImage={EDIT_ICON} 
-                onClick={onClickEdit}/>
-            <Button variant={ButtonVariant.CONTENT} 
-                color={ButtonColor.Negative} 
-                size={ButtonSize.Medium} 
-                beforeImage={TRASH_NEGATIVE_TO_WHITE_ICON} 
-                onClick={onClickDelete}/>
+            <ButtonEdit
+                variant={ButtonVariant.CONTENT}
+                handleEdit={onClickEdit} />
+
+            <ButtonDelete
+                variant={ButtonVariant.CONTENT}
+                handleDelete={onClickDelete} />
         </div>
     )
 }

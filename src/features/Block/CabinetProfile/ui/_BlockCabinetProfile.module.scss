@@ -1,0 +1,49 @@
+.BlockCabinetProfile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: var(--background-2);
+    padding: 22.5px 20px;
+    border-radius: 20px;
+
+    .leftContainer {
+        display: flex;
+
+        .supplierInfo {
+            display: flex;
+            flex-direction: column;
+
+            .role {
+                color: var(--font-caption);
+            }
+
+            .fullName {
+                font-family: var(--third-family);
+                font-size: var(--font-size-msl);
+                font-weight: var(--font-weight-sb);
+            }
+        }
+    }
+
+    .rightContainer {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+
+
+        .restInfo {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+
+            & p {
+                color: var(--font-caption);
+                font-size: var(--font-size-s);
+            }
+
+
+        }
+    }
+}
