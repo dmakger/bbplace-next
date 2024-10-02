@@ -12,12 +12,13 @@ interface ImageAPIProps {
     src: string
     toImage?: boolean
     alt?: string
-    width?: number
-    height?: number
+    width?: number | string
+    height?: number | string
     fill?: boolean
     priority?: boolean
     quality?: number
     onClick?: Function
+    classNameWrapper?: string,
     className?: string,
 }
 
@@ -27,7 +28,7 @@ export const ImageAPI: FC<ImageAPIProps> = ({
     priority=true, quality=80,
     toImage=true,
     onClick, 
-    className 
+    classNameWrapper, className, 
 }) => {
     // MEMO
     const image = useMemo(() => {
@@ -39,19 +40,28 @@ export const ImageAPI: FC<ImageAPIProps> = ({
         if (onClick) onClick()
     }
 
-    return (
+    const imageHTML = (
         <Image loader={() => src}
             unoptimized={true}
             onClick={handleOnClickImage}
             src={image}
             priority={priority}
             alt={alt ? alt : src}
-            width={fill ? undefined : width ?? 100}
-            height={fill ? undefined : height ?? 'auto'}
+            width={fill ? undefined : +width ?? 100}
+            height={fill ? undefined : +height ?? 'auto'}
             // quality={quality < 1 || quality > 100 ? 80 : quality}
             // layout={layout}
             fill={fill}
             className={cls(cl.image, className)}>
         </Image>
     )
+
+    if (fill && (width || height)) {
+        return (
+            <div style={{width, height}} className={cls(cl.wrapperImage, classNameWrapper)}>
+                {imageHTML}
+            </div>
+        )
+    }
+    return imageHTML
 }
