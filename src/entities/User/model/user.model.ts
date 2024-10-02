@@ -5,5 +5,5 @@ export enum EUserVariants{
 
 export enum ECurrentLK{
     BUYER = 'buyer',
-    SELLER = 'seller'
+    SUPPLIER = 'supplier'
 }

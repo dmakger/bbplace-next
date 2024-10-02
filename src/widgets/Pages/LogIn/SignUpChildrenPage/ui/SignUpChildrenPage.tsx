@@ -2,7 +2,7 @@
 
 import { UserAPI } from '@/entities/Auth/api/auth.api'
 import cl from './_SignUpChildrenPage.module.scss'
-import { SELLER_N_SUPPLIER_ROLE_ITEM_DATA, SELLER_ROLE_ITEM_DATA, SUPPLIER_ROLE_ITEM_DATA } from "@/shared/data/roles.data"
+import { BUYER_N_SUPPLIER_ROLE_ITEM_DATA, SUPPLIER_ROLE_ITEM_DATA } from "@/shared/data/roles.data"
 import { getFormDataFromForm } from '@/shared/lib/formData.lib'
 import Input from "@/shared/ui/Input/Input"
 import { EInputVariants } from "@/shared/ui/Input/model/input.model"
@@ -203,8 +203,8 @@ export const SignUpChildrenPage = () => {
 
             <WrapperRectangleInput labelText="Роль" descriptionTooltipText="Укажите, какую роль вы будете выполнять на платформе." isRequired direction={EInputsContainerDirection.ROW_WRAP}>
                 <Input.Radio option={SUPPLIER_ROLE_ITEM_DATA} variant={EInputVariants.RECTANGULAR} name='role' required variantRadio={ERadioVariant.SINGLE} warning={!!error} error={!!error} />
-                <Input.Radio option={SELLER_ROLE_ITEM_DATA} variant={EInputVariants.RECTANGULAR} name='role' variantRadio={ERadioVariant.SINGLE} warning={!!error} error={!!error} />
-                <Input.Radio option={SELLER_N_SUPPLIER_ROLE_ITEM_DATA} variant={EInputVariants.RECTANGULAR} name='role' variantRadio={ERadioVariant.SINGLE} warning={!!error} error={!!error} />
+                <Input.Radio option={SUPPLIER_ROLE_ITEM_DATA} variant={EInputVariants.RECTANGULAR} name='role' variantRadio={ERadioVariant.SINGLE} warning={!!error} error={!!error} />
+                <Input.Radio option={BUYER_N_SUPPLIER_ROLE_ITEM_DATA} variant={EInputVariants.RECTANGULAR} name='role' variantRadio={ERadioVariant.SINGLE} warning={!!error} error={!!error} />
             </WrapperRectangleInput>
 
             <WrapperRectangleInput

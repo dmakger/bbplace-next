@@ -1,1 +1,1 @@
-export {OnlyForSellersChildrenPage} from './ui/OnlyForSellersChildrenPage'
+export {OnlyForSuppliersChildrenPage} from './ui/OnlyForSuppliersChildrenPage'

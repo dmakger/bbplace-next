@@ -10,10 +10,10 @@ import { MobileNavbarMenu } from '@/widgets/Menu/MobileNavbar';
 import { MenuItem } from '@/shared/ui/Button/data/MenuItem/MenuItem';
 import { HandleSize } from '@/shared/ui/Handle/Size/HandleSize';
 import { DASHBOARD_PAGES, MAIN_PAGES } from '@/config/pages-url.config';
-import { ONLY_FOR_SELLERS_PAGES_ARRAY } from '@/widgets/Pages/OnlyForSellers/data/onlyForSellers.data';
 import { useAppSelector } from '@/storage/hooks';
 import { ECurrentLK } from '@/entities/User/model/user.model';
 import { isAuth } from '@/entities/Auth/lib/auth-token.lib';
+import { ONLY_FOR_SUPPLIERS_PAGES_ARRAY } from '@/widgets/Pages/OnlyForSellers/data/onlyForSuppliers.data';
 
 interface IMobileNavbar {
 	menuData?: IIconVariants[]
@@ -46,7 +46,10 @@ export const MobileNavbar = ({
 		if (pathname.includes(MAIN_PAGES.SUPPORT.path)) setFilteredMenuData(SUPPORT_PAGE_MOBILE_DATA);
 
 		//LK_PAGES
-		if (pathname.includes(DASHBOARD_PAGES.HOME.path)) setFilteredMenuData(LK_MOBILE_DATA);
+		if (pathname.includes(DASHBOARD_PAGES.HOME.path)){
+			setFilteredMenuData(LK_MOBILE_DATA);
+			if(is420) setFilteredMenuData(LK_MOBILE_DATA.filter(it => it.link !== FAVOURITES_ITEM_MOBILE_MENU_DATA.link));
+		} 
 
 		//AUTH_PAGES
 		if (NOT_AUTH_PAGES_ARRAY.find(it => it === pathname)) setFilteredMenuData(NOT_AUTH_MOBILE_DATA);
@@ -61,7 +64,7 @@ export const MobileNavbar = ({
 
 	//FUNCTIONS
 	const goBackByCurrentLK = () => {
-		if (ONLY_FOR_SELLERS_PAGES_ARRAY.find(it => it === prevPath) && currentLK === ECurrentLK.BUYER) {
+		if (ONLY_FOR_SUPPLIERS_PAGES_ARRAY.find(it => it === prevPath) && currentLK === ECurrentLK.BUYER) {
 			return router.back();
 		}
 		if (prevPath) return router.replace(prevPath);

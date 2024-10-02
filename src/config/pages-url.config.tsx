@@ -70,7 +70,7 @@ class MAIN extends Route {
     );
     CURRENT_DOCUMENT = this.createDynamicPath((documentName: string) => `/documents/${documentName}`)
 
-    ONLY_FOR_SELLERS = this.createPath('/onlyForSellers')
+    ONLY_FOR_SUPPLIERS = this.createPath('/onlyForSuppliers')
 
 }
 
@@ -78,7 +78,7 @@ export const MAIN_PAGES = new MAIN('')
 
 
 class DASHBOARD extends Route {
-    HOME = this.createPath('/', true);
+    HOME = this.createPath('', true);
     PROFILE_EDIT = this.createPath('/edit', true);
     FAVOURITES = this.createPath('/favourites', true);
     

@@ -5,5 +5,6 @@ export interface IProfileMain{
     currentLK: ECurrentLK,
     fullName: string,
     email: string,
-    phoneNumber?: string
+    phoneNumber?: string,
+    profileMessageArray?: string[]
 }

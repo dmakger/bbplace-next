@@ -28,7 +28,7 @@ export const BUYERS_LINK_ITEMS_ARRAY: IMenuItem[] = [
 ]
 
 
-//SELLERS
+//SUPPLIERS
 export const TRY_DEMO_MODE_LINK_ITEM: IMenuItem = {
     link: MAIN_PAGES.SUPPLIERS.path,
     title: "Попробовать демо-режим",
@@ -42,7 +42,7 @@ export const BANNER_ADS_LINK_ITEM: IMenuItem = {
 export const SELLING_PRODUCTS_ITEM: IMenuButton = {
     link: DASHBOARD_PAGES.PRODUCTS(false).path,
     title: "Продавать товары",
-    variant: EMenuButtonVariant.ONLY_FOR_SELLERS
+    variant: EMenuButtonVariant.ONLY_FOR_SUPPLIERS
 }
 
 export const FIND_CLIENTS_LINK_ITEM: IMenuItem = {
@@ -55,7 +55,7 @@ export const TARIFFS_LINK_ITEM: IMenuItem = {
     title: "Тарифы",
 }
 
-export const SELLERS_LINK_ITEM_ARRAY: IMenuItem[] | IMenuButton[] = [
+export const SUPPLIERS_LINK_ITEM_ARRAY: IMenuItem[] | IMenuButton[] = [
     // TRY_DEMO_MODE_LINK_ITEM,
     // BANNER_ADS_LINK_ITEM,
     SELLING_PRODUCTS_ITEM,

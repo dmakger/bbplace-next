@@ -3,7 +3,7 @@ import { ISupplierAPI } from "../model/supplier.model"
 
 export enum ESupplierRole {
     BUYER = "buyer",
-    SELLER = "seller",
+    SUPPLIER = "supplier",
 }
 
 export const PREFIX_SUPPLIER_VIEW = "supplier"

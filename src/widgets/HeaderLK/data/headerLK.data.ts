@@ -24,9 +24,9 @@ export const BUYER_HOME_LK_MENU_DATA: IMenuButton = {
     variant: EMenuButtonVariant.SWITCH_LK
 }
 
-export const SELLER_HOME_LK_MENU_DATA: IMenuButton = {
+export const SUPPLIER_HOME_LK_MENU_DATA: IMenuButton = {
     link: DASHBOARD_PAGES.HOME.path,
-    title: "В профиль продавца",
+    title: "В профиль поставщика",
     variant: EMenuButtonVariant.SWITCH_LK
 }
 

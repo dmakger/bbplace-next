@@ -14,8 +14,9 @@ import { useActionCreators, useAppSelector } from "@/storage/hooks"
 import { LK_ICON } from "@/shared/ui/Icon/data/lk.data.icon"
 import { IImageSizes } from "@/shared/model/image.model"
 import { ECurrentLK } from "@/entities/User/model/user.model"
-import { saveCurrentLKTokenStorage } from "@/entities/User/lib/user-token.lib"
-import { ONLY_FOR_SELLERS_PAGES_ARRAY } from "@/widgets/Pages/OnlyForSellers/data/onlyForSellers.data"
+import { ONLY_FOR_SUPPLIERS_PAGES_ARRAY } from "@/widgets/Pages/OnlyForSellers/data/onlyForSuppliers.data"
+import { handleSwitchLK } from "@/widgets/HeaderLK/lib/headerLK.lib"
+
 
 interface IWrapperForLogInNSupportPages {
     className?: string,
@@ -56,7 +57,7 @@ export const WrapperForLogInNSupportPages = ({
     //FUNCTION
 
     const goBackByCurrentLK = () => {
-        if (ONLY_FOR_SELLERS_PAGES_ARRAY.find(it => it === prevPath) && currentLK === ECurrentLK.BUYER) {            
+        if (ONLY_FOR_SUPPLIERS_PAGES_ARRAY.find(it => it === prevPath) && currentLK === ECurrentLK.BUYER) {
             return router.back();
         }
         if (prevPath) return router.replace(prevPath);
@@ -69,12 +70,7 @@ export const WrapperForLogInNSupportPages = ({
     }
 
     const switchLK = () => {
-        const actualCurrentLK = currentLK === ECurrentLK.BUYER ? ECurrentLK.SELLER : ECurrentLK.BUYER
-        actionCreators.setAuthOptional({
-            photoId: photoId,
-            currentLK: actualCurrentLK
-        })
-        saveCurrentLKTokenStorage(actualCurrentLK)
+        handleSwitchLK(actionCreators.setAuthOptional, currentLK, photoId)
         goBackByCurrentLK();
     }
 
@@ -93,12 +89,12 @@ export const WrapperForLogInNSupportPages = ({
     //VARIABLE
     const iconSizes: IImageSizes = { width: 18, height: 18 };
 
-    const isOnlyForSellers = pathname === MAIN_PAGES.ONLY_FOR_SELLERS.path;
+    const isOnlyForSuppliers = pathname === MAIN_PAGES.ONLY_FOR_SUPPLIERS.path;
 
     const additionalDefaultButtons: ReactNode[] = [
         <Button title='Главная' variant={ButtonVariant.TONAL} size={ButtonSize.Medium} href={MAIN_PAGES.HOME.path} className={cl.homeButton} />,
         <Button title='Профиль' variant={ButtonVariant.TONAL} size={ButtonSize.Medium} href={DASHBOARD_PAGES.HOME.path} />,
-        isOnlyForSellers ? <Button title='Сменить роль' className={cl.changeRole} variant={ButtonVariant.FILL} size={ButtonSize.Medium} onClick={switchLK} /> :
+        isOnlyForSuppliers ? <Button title='Сменить роль' className={cl.changeRole} variant={ButtonVariant.FILL} size={ButtonSize.Medium} onClick={switchLK} /> :
             <Button title='Каталог' variant={ButtonVariant.FILL} size={ButtonSize.Medium} href={MAIN_PAGES.PRODUCTS.path} />
     ]
 

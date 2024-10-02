@@ -59,7 +59,7 @@ export const SignInChildrenPage = () => {
         try {
             const data = await userLogin({ username: emailValue, password: password }).unwrap()
             if (data) {
-                const currentLK = getCurrentLKToken() ?? ECurrentLK.SELLER
+                const currentLK = getCurrentLKToken() ?? ECurrentLK.SUPPLIER
                 actionCreators.setAuth(data);
                 actionCreators.setAuthOptional({ currentLK })
                 router.replace(prevPath ?? MAIN_PAGES.HOME.path)

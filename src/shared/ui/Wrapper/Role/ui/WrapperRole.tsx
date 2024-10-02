@@ -26,20 +26,20 @@ export const WrapperRole = ({
     const router = useRouter()
 
     useEffect(() => {
-        if (currentLK === ECurrentLK.SELLER) { 
+        if (currentLK === ECurrentLK.SUPPLIER) { 
             actionCreators.setAuthOptional({
                 prevPath: pathname,
                 photoId,
                 currentLK
             })
         } else if (isAuth()) { 
-            router.replace(MAIN_PAGES.ONLY_FOR_SELLERS.path);
+            router.replace(MAIN_PAGES.ONLY_FOR_SUPPLIERS.path);
         }
     }, [currentLK])    
 
     return (
         <>
-            {currentLK === ECurrentLK.SELLER ? children : null} 
+            {currentLK === ECurrentLK.SUPPLIER ? children : null} 
         </>
     )
 }

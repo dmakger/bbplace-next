@@ -13,8 +13,8 @@ export const ArticleForSuppliersOrBuyers = ({
     const BUYERS_ARTICLE_TEXT: IArticleForSuppliersOrBuyersText[] = [
         { subtitle: '1. Регистрация', text: 'Зарегистрируйтесь на платформе, заполнив форму с вашими контактными данными.' },
         { subtitle: '2. Поиск', text: 'Используйте удобные фильтры и категории для поиска нужных товаров или услуг.' },
-        { subtitle: '3. Связь', text: 'Свяжитесь с продавцами через встроенную систему сообщений для уточнения деталей и условий сделки.' },
-        { subtitle: '4. Заявка', text: 'Если не нашли нужный товар, оставьте заявку, и продавцы сами свяжутся с вами с предложениями.' },
+        { subtitle: '3. Связь', text: 'Свяжитесь с поставщиками через встроенную систему сообщений для уточнения деталей и условий сделки.' },
+        { subtitle: '4. Заявка', text: 'Если не нашли нужный товар, оставьте заявку, и поставщики сами свяжутся с вами с предложениями.' },
     ]
 
     const SUPPLIERS_ARTICLE_TEXT: IArticleForSuppliersOrBuyersText[] = [
@@ -28,7 +28,7 @@ export const ArticleForSuppliersOrBuyers = ({
     return (
         <article className={cl.ArticleForSuppliersOrBuyers}>
             <div className={cl.titleContainer}>
-                <h4 className={cl.title}>{variant === EArticleForSuppliersOrBuyersVariants.BUYERS ? 'Покупателям' : 'Продавцам'}</h4>
+                <h4 className={cl.title}>{variant === EArticleForSuppliersOrBuyersVariants.BUYERS ? 'Покупателям' : 'Поставщикам'}</h4>
             </div>
             <ol>
                 {(variant === EArticleForSuppliersOrBuyersVariants.BUYERS ? BUYERS_ARTICLE_TEXT : SUPPLIERS_ARTICLE_TEXT).map(it => (

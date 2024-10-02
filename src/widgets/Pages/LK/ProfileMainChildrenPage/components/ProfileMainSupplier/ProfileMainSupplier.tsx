@@ -1,21 +1,21 @@
 import { cls } from "@/shared/lib/classes.lib"
-import cl from './_ProfileMainBuyer.module.scss'
+import cl from './_ProfileMainSupplier.module.scss'
 import { BlockCabinetProfile } from "@/features/Block/CabinetProfile"
 import { IProfileMain } from "../../model/profileMain.model"
 
-interface IProfileMainBuyer extends IProfileMain { }
+interface IProfileMainSupplier extends IProfileMain {}
 
 
-export const ProfileMainBuyer = ({
+export const ProfileMainSupplier = ({
     className,
     currentLK,
     fullName,
     email,
     phoneNumber,
     profileMessageArray
-}: IProfileMainBuyer) => {
+}: IProfileMainSupplier) => {
     return (
-        <div className={cls(cl.ProfileMainBuyer, className)}>
+        <div className={cls(cl.ProfileMainSupplier, className)}>
             <BlockCabinetProfile currentLK={currentLK}
                 fullName={fullName}
                 email={email}

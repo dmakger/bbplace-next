@@ -1,0 +1,8 @@
+.CabinetProfileMessage{
+    background-color: var(--primary-surface);
+    padding: 20px;
+    margin-bottom: 1px;
+    @media (max-width: 768px) {
+        font-size: var(--font-size-s);
+    }
+}

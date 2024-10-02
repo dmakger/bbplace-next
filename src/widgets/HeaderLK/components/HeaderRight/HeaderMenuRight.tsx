@@ -10,7 +10,7 @@ import { useState } from "react"
 import { IMenuItem } from "@/shared/model/menu.model"
 import { useAppSelector } from "@/storage/hooks"
 import { EWrapperDropdownListPosition } from "@/shared/ui/Wrapper/DropdownList/model/wrapperDropdownList.model"
-import { BUYER_HOME_LK_MENU_DATA, LK_MENU_DATA, SELLER_HOME_LK_MENU_DATA } from "../../data/headerLK.data"
+import { BUYER_HOME_LK_MENU_DATA, LK_MENU_DATA, SUPPLIER_HOME_LK_MENU_DATA } from "../../data/headerLK.data"
 import { IMenuButton } from "@/shared/ui/Button/model/button.model"
 import { CHAT_HEADER_ICON } from "@/shared/ui/Icon/data/chat.data.icon"
 import { DASHBOARD_PAGES } from "@/config/pages-url.config"
@@ -30,7 +30,7 @@ export const HeaderMenuRight = ({ className }: IHeaderMenuRight) => {
     const { currentLK } = useAppSelector(state => state.user)
 
     const dropDownListData: IMenuItem[][] | IMenuButton[][] = [
-        currentLK !== ECurrentLK.BUYER ? [BUYER_HOME_LK_MENU_DATA] : [SELLER_HOME_LK_MENU_DATA],
+        currentLK !== ECurrentLK.BUYER ? [BUYER_HOME_LK_MENU_DATA] : [SUPPLIER_HOME_LK_MENU_DATA],
         LK_MENU_DATA,
     ]
 

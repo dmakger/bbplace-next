@@ -3,24 +3,25 @@
 import { useAppSelector } from "@/storage/hooks"
 import { ECurrentLK } from "@/entities/User/model/user.model"
 import { ProfileMainBuyer } from "../components/ProfileMainBuyer/ProfileMainBuyer"
-import { ProfileMainSeller } from "../components/ProfileMainSeller/ProfileMainSeller"
+import { ProfileMainSupplier } from "../components/ProfileMainSupplier/ProfileMainSupplier"
+import { PROFILE_CABINET_EMAIL_VERIFICATION_MESSAGE, PROFILE_CABINET_PHONE_NUMBER_VERIFICATION_MESSAGE } from "../data/profileMainChildrenPage.data"
 
 export const ProfileMainChildrenPage = () => {
 
-    const { currentLK, fullName, email, phoneNumber } = useAppSelector(state => state.user)
-    return (
-        <>
-            {currentLK === ECurrentLK.BUYER ?
-                <ProfileMainBuyer currentLK={currentLK}
-                    fullName={fullName}
-                    email={email}
-                    phoneNumber={phoneNumber}
-                /> :
-                <ProfileMainSeller currentLK={currentLK!}
-                    fullName={fullName}
-                    email={email}
-                    phoneNumber={phoneNumber} 
-                    />}
-        </>
-    )
+    //RTK
+    const { currentLK, ...userInfo } = useAppSelector(state => state.user)
+
+
+    //VARIABLES
+    const PROFILE_MESSAGE_ARRAY = [
+        PROFILE_CABINET_EMAIL_VERIFICATION_MESSAGE,
+        PROFILE_CABINET_PHONE_NUMBER_VERIFICATION_MESSAGE
+    ]
+
+    const ProfileComponent = currentLK === ECurrentLK.BUYER ? ProfileMainBuyer : ProfileMainSupplier
+
+    return <ProfileComponent
+        currentLK={currentLK!}
+        profileMessageArray={PROFILE_MESSAGE_ARRAY}
+        {...userInfo} />
 }

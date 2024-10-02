@@ -49,7 +49,7 @@ export enum EMenuButtonVariant{
     LOCALIZATION = 'localization',
     PROFILE_BUTTONS = 'profile-buttons',
     SWITCH_LK = 'switch-lk',
-    ONLY_FOR_SELLERS = 'only-for-sellers'
+    ONLY_FOR_SUPPLIERS = 'only-for-suppliers'
 }
 
 export interface IMenuButton {

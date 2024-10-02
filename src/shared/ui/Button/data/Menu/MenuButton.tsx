@@ -9,7 +9,7 @@ import { useActionCreators, useAppSelector } from '@/storage/hooks'
 import { DASHBOARD_PAGES, MAIN_PAGES } from '@/config/pages-url.config'
 import { GLOBE_ICON } from '@/shared/ui/Icon/data/globe.data.icon';
 import { ECurrentLK } from '@/entities/User/model/user.model'
-import { saveCurrentLKTokenStorage } from '@/entities/User/lib/user-token.lib'
+import { handleSwitchLK } from '@/widgets/HeaderLK/lib/headerLK.lib'
 
 export const MenuButton = ({
     className,
@@ -45,11 +45,9 @@ export const MenuButton = ({
     const handleOnClick = () => {
         onClick && onClick();
         if(variant === EMenuButtonVariant.SWITCH_LK){
-            const actualCurrentLK = currentLK === ECurrentLK.BUYER ? ECurrentLK.SELLER : ECurrentLK.BUYER
-            setAuthOptionalActionCreators('', actualCurrentLK)
-            saveCurrentLKTokenStorage(actualCurrentLK)
+            handleSwitchLK(actionCreators.setAuthOptional, currentLK, photoId)
         }
-        if(variant === EMenuButtonVariant.ONLY_FOR_SELLERS){
+        if(variant === EMenuButtonVariant.ONLY_FOR_SUPPLIERS){
             setAuthOptionalActionCreators()
         }        
     }
@@ -66,7 +64,7 @@ export const MenuButton = ({
                 className,
             cl.MenuButton,
                 cl[variant],
-                ((variant === EMenuButtonVariant.LINK || variant === EMenuButtonVariant.ONLY_FOR_SELLERS) && pathname === link) ? cl.activeLink
+                ((variant === EMenuButtonVariant.LINK || variant === EMenuButtonVariant.ONLY_FOR_SUPPLIERS) && pathname === link) ? cl.activeLink
                     // : (variant === EMenuButtonVariant.LOCALIZATION && true) ? cl.activeLang 
                     : ''
             )}

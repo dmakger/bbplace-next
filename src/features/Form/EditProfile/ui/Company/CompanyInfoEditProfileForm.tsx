@@ -51,7 +51,7 @@ export const CompanyInfoEditProfileForm = ({
             setShortDescription(userData.shortDescription)
             setFullDescription(userData.description)
             setTIN(userData.inn)
-            setDefaultCategoriesId(userData.category.map((it: IOption) => it.id));
+            setDefaultCategoriesId(userData.category?.map((it: IOption) => it.id));
         }
     }, [userData])
 

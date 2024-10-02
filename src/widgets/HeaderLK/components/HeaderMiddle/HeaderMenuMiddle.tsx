@@ -19,7 +19,7 @@ export const HeaderMenuMiddle = ({ className }: IHeaderMenuMiddle) => {
     return (
         <WrapperMount>
             <div className={cls(cl.HeaderMenuMiddle, className)}>
-                {currentLK === ECurrentLK.SELLER && <Dropdown labelTitle="Товары" dropDownListData={PRODUCT_DROPDOWN_MENU_DATA} />}
+                {currentLK === ECurrentLK.SUPPLIER && <Dropdown labelTitle="Товары" dropDownListData={PRODUCT_DROPDOWN_MENU_DATA} />}
                 <Dropdown labelTitle="Тендеры" dropDownListData={TENDER_DROPDOWN_MENU_DATA} />
                 {/* <ButtonLink title="Отзывы" /> */}
             </div>

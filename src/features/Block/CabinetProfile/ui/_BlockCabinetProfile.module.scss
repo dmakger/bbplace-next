@@ -3,12 +3,26 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    position: relative;
     background-color: var(--background-2);
     padding: 22.5px 20px;
     border-radius: 20px;
 
+    @media (max-width: 1280px) {
+        flex-direction: column;
+        gap: 12.5px;
+        align-items: flex-start;
+    }
+
+    @media (max-width: 768px) {
+        padding: 22.5px 15px;
+        border-radius: 0px;
+    }
+
     .leftContainer {
         display: flex;
+        align-items: center;
+        gap: 10px;
 
         .supplierInfo {
             display: flex;
@@ -28,22 +42,65 @@
 
     .rightContainer {
         display: flex;
-        justify-content: space-between;
+        align-items: center;
         gap: 10px;
+        margin-right: 50px;
 
+        @media (max-width: 1280px) {
+            width: 100%;
+            margin-right: 0px;
+        }
+
+        @media (max-width: 768px) {
+            justify-content: flex-start;
+            overflow-x: scroll;
+            &::-webkit-scrollbar{
+                display: none;
+            }
+        }
 
         .restInfo {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-
-            & p {
+            & p{
                 color: var(--font-caption);
                 font-size: var(--font-size-s);
             }
+            @media (max-width: 768px) {
+                order: 1;
+            }
+        }
 
+        .switchLKButton{
+            white-space: nowrap;
+            @media (max-width: 768px) {
+                order: -1;
+            } 
+        }
 
+        .editMobileButton {
+            display: none;
+
+            @media (max-width: 768px) {
+                display: flex;
+                order: 0;
+            }
+        }
+
+    }
+
+    .editButton {
+        position: absolute;
+        right: 20px;
+
+        @media (max-width: 768px) {
+            display: none;
         }
     }
+}
+
+.noBorderBottom{
+    border-radius: 20px 20px 0 0 !important;
+}
+
+.noBorderTop{
+    border-radius: 0 0 20px 20px !important;
 }

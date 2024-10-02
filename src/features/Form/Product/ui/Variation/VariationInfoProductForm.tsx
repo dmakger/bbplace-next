@@ -170,7 +170,7 @@ export const VariationInfoProductForm: FC<VariationInfoProductFormProps> = ({dat
         >
             <WrapperSubblockForm title="Вариация товара" variant={SubblockFormVariant.Toggle} isOpen={isOpenForm} className={className}>
                 <form ref={formRef} onSubmit={handleOnSubmit} className={cl.form}>
-                    <WrapperRectangleInput labelText={"Артикулы продавца"} isRequired={true}>
+                    <WrapperRectangleInput labelText={"Артикулы поставщика"} isRequired={true}>
                         <Input.Text name={'color'} placeholder="Тип" variant={EInputVariants.RECTANGULAR} required={true} defaultValue={data?.media.color} />
                         <Input.Text name={'article'} placeholder="Артикул" variant={EInputVariants.RECTANGULAR} required={true} defaultValue={data?.media.article} />
                     </WrapperRectangleInput>
