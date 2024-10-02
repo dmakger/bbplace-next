@@ -24,7 +24,7 @@ interface ImageAPIProps {
 
 export const ImageAPI: FC<ImageAPIProps> = ({ 
     src, alt, 
-    width=40, height=40, fill=false, 
+    width, height, fill=true, 
     priority=true, quality=80,
     toImage=true,
     onClick, 
@@ -47,8 +47,8 @@ export const ImageAPI: FC<ImageAPIProps> = ({
             src={image}
             priority={priority}
             alt={alt ? alt : src}
-            width={fill ? undefined : +width ?? 100}
-            height={fill ? undefined : +height ?? 'auto'}
+            width={fill ? undefined : (typeof width === 'string' ? parseInt(width) : width) ?? 100}
+            height={fill ? undefined : (typeof height === 'string' ? parseInt(height) : height) ?? undefined}
             // quality={quality < 1 || quality > 100 ? 80 : quality}
             // layout={layout}
             fill={fill}

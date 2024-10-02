@@ -101,18 +101,18 @@ export const MainChildrenPage = () => {
             buttonHref: MAIN_PAGES.PRODUCTS.path,
             children: <CardsProductSlider items={productList} gap={20} className={cl.list} classNameItem={cl.productItem} pagingVariant={SliderPagingVariant.Full} />
         },
-        // {
-        //     title: 'Новые тендеры',
-        //     buttonTitle: 'Все тендеры',
-        //     buttonHref: MAIN_PAGES.TENDERS.path,
-        //     children: <CardsTenderSlider items={tenderList} gap={20} className={cl.list} classNameItem={cl.tenderItem} classNameLine={cl.line} classNameBlockSupplier={cl.blockSupplier} />
-        // },
-        // {
-        //     title: 'Надёжные поставщики',
-        //     buttonTitle: 'Все поставщики',
-        //     buttonHref: MAIN_PAGES.SUPPLIERS.path,
-        //     children: <CardsSupplierSlider items={supplierList} gap={20} className={cl.list} classNameItem={cl.supplierItem} classNameSupplierWNav={cl.supplierWNav} classNameBaseSupplier={cl.baseSupplier} />
-        // }
+        {
+            title: 'Новые тендеры',
+            buttonTitle: 'Все тендеры',
+            buttonHref: MAIN_PAGES.TENDERS.path,
+            children: <CardsTenderSlider items={tenderList} gap={20} className={cl.list} classNameItem={cl.tenderItem} classNameLine={cl.line} classNameBlockSupplier={cl.blockSupplier} />
+        },
+        {
+            title: 'Надёжные поставщики',
+            buttonTitle: 'Все поставщики',
+            buttonHref: MAIN_PAGES.SUPPLIERS.path,
+            children: <CardsSupplierSlider items={supplierList} gap={20} className={cl.list} classNameItem={cl.supplierItem} classNameSupplierWNav={cl.supplierWNav} classNameBaseSupplier={cl.baseSupplier} />
+        }
     ]
 
     const {notify} = useNotify()

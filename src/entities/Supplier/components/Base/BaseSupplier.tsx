@@ -47,7 +47,9 @@ export const BaseSupplier: FC<BaseSupplierProps> = ({
     const html = (
         <>
             {hasImage &&
-                <ImageAPI src={getSupplierImage(supplier.photoId?.key)} alt={supplier.photoId?.name} className={cl.image} width={imageSizes?.width} height={imageSizes?.height} />
+                <ImageAPI src={getSupplierImage(supplier.photoId?.key)} alt={supplier.photoId?.name} 
+                          width={imageSizes?.width ?? 40} height={imageSizes?.height ?? 40} fill={true}
+                          className={cl.image} />
             }
             <div className={cls(cl.content, isForDescPage ? cl.DescPageContent : '')}>
                 <span className={cls(cl.name, isForDescPage ? cl.bigName : '', classNameName)}>{getNameSupplier(supplier)}</span>
