@@ -18,7 +18,7 @@ export default function Layout({ children }: PropsWithChildren<unknown>) {
                 <Footer/>
             </div>
             <LKButtonRightMarginBlock/>
-            {/* <MobileNavbar/> */}
+            <MobileNavbar/>
             <NotifyList />
         </WrapperGap>
     )

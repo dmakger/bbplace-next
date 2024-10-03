@@ -41,7 +41,7 @@ export const LKProductTableCellProduct:FC<LKProductTableCellProductProps> = ({pr
 
                 {!(isMin || is1024) && product.media.attachments.length > 0 &&
                     <div className={cl.wrapperImage}>
-                        <ImageAPI src={getImage(product.media.attachments[0])} className={cl.image} />
+                        <ImageAPI src={getImage(product.media.attachments[0])} width={90} height={90} className={cl.image} />
                     </div>
                 }
                 <div className={cl.right}>

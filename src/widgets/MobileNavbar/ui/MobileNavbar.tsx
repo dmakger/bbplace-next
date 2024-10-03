@@ -26,13 +26,19 @@ export const MobileNavbar = ({
 	const { currentLK, prevPath } = useAppSelector(state => state.user)
 
 	//STATE
+	const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
 	const [showSidebarMenu, setShowSidebarMenu] = useState<boolean>(false)
-	const [is420, setIs420] = useState<boolean>(false)
 	const [filteredMenuData, setFilteredMenuData] = useState<IIconVariants[]>(MOBILE_MENU_DATA);
+
+	const [is420, setIs420] = useState<boolean>(false)
 
 	//ROUTER
 	const pathname = usePathname();
 	const router = useRouter();
+
+	useEffect(() => {
+		setIsAuthenticated(isAuth())
+	}, [])
 
 	//EFFECT
 	useEffect(() => {
@@ -74,12 +80,15 @@ export const MobileNavbar = ({
 	}
 
 	const getLink = (el: IIconVariants) => {
-		if (el.title === LK_ITEM_MOBILE_MENU_DATA.title) {
-			return isAuth() ? DASHBOARD_PAGES.HOME.path : MAIN_PAGES.CHECK_EMAIL.path
+		// Проверка аутентификации только на клиенте
+		if (typeof window === 'undefined') {
+			if (el.title === LK_ITEM_MOBILE_MENU_DATA.title) {
+				return isAuthenticated ? DASHBOARD_PAGES.HOME.path : MAIN_PAGES.CHECK_EMAIL.path;
+			}
 		}
-		return el.link
+		return el.link;
 	}
-
+	
 
 	return (
 		<>
