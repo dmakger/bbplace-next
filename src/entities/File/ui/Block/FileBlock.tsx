@@ -12,15 +12,22 @@ import { ButtonColor } from "@/shared/ui/Button/model/button.model";
 import { FileView } from "../../data/view.file.data";
 
 interface FileBlockProps {
-    files: IFile[]
+    files: IFile[],
+    title?: string,
+    hasFilesQuantity?:boolean,
+    buttonVariant?: ButtonVariant,
     isRow?: boolean
     view?: FileView
     className?: string,
+    classNameTitle?: string
 }
 
-export const FileBlock: FC<FileBlockProps> = ({ files, isRow = true, view=FileView.Default, className }) => {
+export const FileBlock: FC<FileBlockProps> = ({ files, title = 'Файлы', hasFilesQuantity=true, buttonVariant = ButtonVariant.TONAL,  isRow = true, view = FileView.Default, className, classNameTitle }) => {
     // REF
     const contentRef = useRef<HTMLDivElement>(null);
+
+    console.log(isRow);
+    
 
     // EFFECT
     useEffect(() => {
@@ -69,13 +76,13 @@ export const FileBlock: FC<FileBlockProps> = ({ files, isRow = true, view=FileVi
     return (
         <WrapperBlock className={cls(cl.block, isRow ? cl.row : cl.column, cl[view], className)}>
             {view === FileView.Default && (
-                <div className={cl.top}>
+                <div className={cls(cl.top, !isRow ? cl.borderBottom : '')}>
                     <div className={cl.topLeft}>
-                        <h2 className={cl.title}>Файлы</h2>
-                        <span className={cl.length}>{files.length}</span>
+                        <h2 className={cls(cl.title, classNameTitle)}>{title}</h2>
+                        {hasFilesQuantity && <span className={cl.length}>{files.length}</span>}
                     </div>
                     {isRow && (
-                        <Button variant={ButtonVariant.TONAL} color={ButtonColor.Secondary} title="Скачать всё" onClick={downloadAllFiles} className={cl.download} />
+                        <Button variant={buttonVariant} color={ButtonColor.Secondary} title="Скачать всё" onClick={downloadAllFiles} className={cl.download} />
                     )}
                 </div>
             )}
@@ -83,8 +90,13 @@ export const FileBlock: FC<FileBlockProps> = ({ files, isRow = true, view=FileVi
                 <FileListItem files={files} view={view} isRow={isRow} className={cl.files} />
             </div>
             {!isRow && (
-                <div className={cl.bottom}>
-                    <Button variant={ButtonVariant.TONAL} color={ButtonColor.Secondary} title="Скачать всё" onClick={downloadAllFiles} className={cl.download} />
+                <div className={cls(cl.bottom, !isRow ? cl.borderTop : '')}>
+                    <Button
+                        variant={buttonVariant}
+                        color={ButtonColor.Secondary}
+                        title="Скачать всё"
+                        onClick={downloadAllFiles}
+                        className={cl.download} />
                 </div>
             )}
         </WrapperBlock>

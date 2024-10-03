@@ -2,26 +2,154 @@
 
 import { useAppSelector } from "@/storage/hooks"
 import { ECurrentLK } from "@/entities/User/model/user.model"
-import { ProfileMainBuyer } from "../components/ProfileMainBuyer/ProfileMainBuyer"
-import { ProfileMainSupplier } from "../components/ProfileMainSupplier/ProfileMainSupplier"
 import { PROFILE_CABINET_EMAIL_VERIFICATION_MESSAGE, PROFILE_CABINET_PHONE_NUMBER_VERIFICATION_MESSAGE } from "../data/profileMainChildrenPage.data"
+import { IBlockCabinetModule } from "@/features/Block/Cabinet/Module/ui/BlockCabinetModule"
+import { Button, ButtonVariant } from "@/shared/ui/Button"
+import { ButtonColor, ButtonSize } from "@/shared/ui/Button/model/button.model"
+import { PRODUCT_PLUS_SECONDARY_ICON } from "@/shared/ui/Icon/data/product.data.icon"
+import { DASHBOARD_PAGES } from "@/config/pages-url.config"
+import { TENDER_PLUS_SECONDARY_ICON } from "@/shared/ui/Icon/data/tender.data.icon"
+import { ProductAPI } from "@/entities/Product/api/product.api"
+import { TenderAPI } from "@/entities/Tender/api/tender.api"
+import { toTenderType } from "@/entities/Tender/lib/tender.lib"
+import { ETenderType } from "@/entities/Tender/model/tender.model"
+import { FavouriteAPI } from "@/entities/Favourite/api/favourite.api"
+import { IIcon } from "@/shared/ui/Icon/model/icon.model"
+import { ProfileMain } from "../components/ProfileMain/ProfileMain"
 
 export const ProfileMainChildrenPage = () => {
 
     //RTK
-    const { currentLK, ...userInfo } = useAppSelector(state => state.user)
+    const { currentLK, id: userId, ...userInfo } = useAppSelector(state => state.user)
 
+    //API
+    const { data: activeProductsNumber } = ProductAPI.useGetPagesProductsByUserQuery({ userId, limit: 1 })
+    const { data: draftsProductsNumber } = ProductAPI.useGetPagesDraftsByUserQuery({ limit: 1 })
+
+    const { data: tenders } = TenderAPI.useGetUserTendersQuery({ userId })
+    const { data: saleTenders } = TenderAPI.useGetUserTendersQuery({ userId, type: toTenderType(ETenderType.SALE) })
+    const { data: purchaseTenders } = TenderAPI.useGetUserTendersQuery({ userId, type: toTenderType(ETenderType.PURCHASE) })
+
+    const { data: favouriteProducts } = FavouriteAPI.useGetFavouriteProductsQuery()
+    const { data: favouritePurchaseTenders } = FavouriteAPI.useGetFavouritePurchasesQuery()
+    const { data: favouriteSaleTenders } = FavouriteAPI.useGetFavouriteSalesQuery()
+
+    //FUNCTIONS
+    const sumItems = (items: (number | undefined)[]) => items.reduce((acc, curr) => (acc ?? 0) + (curr || 0), 0);
+
+    const getProductsSum = () => String(sumItems([activeProductsNumber ?? 0, draftsProductsNumber ?? 1]))
+    const getFavouritesSum = () => String(sumItems([favouriteProducts?.length, favouritePurchaseTenders?.length, favouriteSaleTenders?.length]))
+
+    const createHeaderButton = (href: string, icon: IIcon) => (
+        <Button
+            variant={ButtonVariant.FILLED}
+            color={ButtonColor.Secondary}
+            size={ButtonSize.Medium}
+            beforeImage={icon}
+            href={href}
+        />
+    )
 
     //VARIABLES
     const PROFILE_MESSAGE_ARRAY = [
         PROFILE_CABINET_EMAIL_VERIFICATION_MESSAGE,
-        PROFILE_CABINET_PHONE_NUMBER_VERIFICATION_MESSAGE
+        // PROFILE_CABINET_PHONE_NUMBER_VERIFICATION_MESSAGE
     ]
 
-    const ProfileComponent = currentLK === ECurrentLK.BUYER ? ProfileMainBuyer : ProfileMainSupplier
+    const CABINET_MODULE_SUPPLIER_ARRAY: IBlockCabinetModule[] = [
+        {
+            title: 'Товары',
+            titleQuantity: getProductsSum(),
+            href: DASHBOARD_PAGES.PRODUCTS(false).path,
+            statisticsTextArray: [
+                { title: 'Созданные', quantity: String(activeProductsNumber) },
+                { title: 'Без цен', quantity: '0' },
+                { title: 'Черновики', quantity: String(draftsProductsNumber) }
+            ],
+            headerButton: createHeaderButton(DASHBOARD_PAGES.NEW_PRODUCT.path, PRODUCT_PLUS_SECONDARY_ICON)
+        },
+        {
+            title: 'Цены и скидки',
+            href: DASHBOARD_PAGES.PRICES_N_DISCOUNTS.path,
+            mainBlockText: 'Массовое обновление цен у товаров'
+        },
+        {
+            title: 'Тендеры',
+            titleQuantity: String(tenders?.length),
+            href: DASHBOARD_PAGES.TENDERS.path,
+            statisticsTextArray: [
+                { title: 'Продажа', quantity: String(saleTenders?.length) },
+                { title: 'Покупка', quantity: String(purchaseTenders?.length) }
+            ],
+            headerButton: createHeaderButton(DASHBOARD_PAGES.NEW_TENDER.path, TENDER_PLUS_SECONDARY_ICON)
+        },
+        {
+            title: 'Отзывы',
+            mainBlockText: 'Вот-вот станут доступны',
+            disabled: true
+        },
+        {
+            title: 'Чат',
+            href: DASHBOARD_PAGES.CHATS('').path,
+            statisticsTextArray: [{ title: 'Непрочитанные', quantity: '' }]
+        },
+        {
+            title: 'Избранное',
+            titleQuantity: getFavouritesSum(),
+            statisticsTextArray: [
+                { title: 'Товары', quantity: String(favouriteProducts?.length) },
+                { title: 'Тендеры', quantity: String(favouritePurchaseTenders?.length) },
+                { title: 'Поставщики', quantity: String(favouriteSaleTenders?.length) }
+            ],
+            headerButton: createHeaderButton(DASHBOARD_PAGES.NEW_PRODUCT.path, PRODUCT_PLUS_SECONDARY_ICON)
+        }
+    ]
 
-    return <ProfileComponent
+    const CABINET_MODULE_BUYER_ARRAY: IBlockCabinetModule[] = [
+        {
+            title: 'Тендеры',
+            titleQuantity: String(tenders?.length),
+            href: DASHBOARD_PAGES.TENDERS.path,
+            statisticsTextArray: [
+                { title: 'Продажа', quantity: String(saleTenders?.length) },
+                { title: 'Покупка', quantity: String(purchaseTenders?.length) }
+            ],
+            headerButton: createHeaderButton(DASHBOARD_PAGES.NEW_TENDER.path, TENDER_PLUS_SECONDARY_ICON)
+        },
+        {
+            title: 'Отзывы',
+            mainBlockText: 'Вот-вот станут доступны',
+            disabled: true
+        },
+        {
+            title: 'Новости',
+            mainBlockText: 'Скоро всё вам расскажем',
+            disabled: true,
+            className: 'newsModule'
+        },
+        {
+            title: 'Чат',
+            href: DASHBOARD_PAGES.CHATS('').path,
+            statisticsTextArray: [{ title: 'Непрочитанные', quantity: '' }]
+        },
+        {
+            title: 'Избранное',
+            href: DASHBOARD_PAGES.FAVOURITES.path,
+            titleQuantity: getFavouritesSum(),
+            statisticsTextArray: [
+                { title: 'Товары', quantity: String(favouriteProducts?.length) },
+                { title: 'Тендеры', quantity: String(favouritePurchaseTenders?.length) },
+                { title: 'Поставщики', quantity: String(favouriteSaleTenders?.length) }
+            ]
+        }
+    ]
+
+    const cabinetModules = currentLK === ECurrentLK.SUPPLIER ? CABINET_MODULE_SUPPLIER_ARRAY : CABINET_MODULE_BUYER_ARRAY
+
+    return <ProfileMain
         currentLK={currentLK!}
         profileMessageArray={PROFILE_MESSAGE_ARRAY}
-        {...userInfo} />
+        cabinetModuleArray={cabinetModules}
+        {...userInfo}
+    />
 }

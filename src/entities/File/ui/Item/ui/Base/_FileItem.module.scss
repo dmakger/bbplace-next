@@ -30,8 +30,18 @@
     width: 100%;
 
     background-color: var(--background-2);
-    border-radius: 0px;
+    border-radius: 0px !important;
     padding: 10px 20px;
+
+    .name {
+        max-width: 180px;
+        text-align: left;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        text-overflow: ellipsis;
+    }
 
     &:hover {
         background-color: var(--secondary-surface-sub);
@@ -77,9 +87,7 @@
 
 // >>> ========={ / VIEW \ }========= >>>
 
-.default {
-
-}
+.default {}
 
 .chat {
     border-radius: 5px !important;
@@ -91,4 +99,3 @@
 }
 
 // <<< ========={ \ VIEW / }========= <<<
-

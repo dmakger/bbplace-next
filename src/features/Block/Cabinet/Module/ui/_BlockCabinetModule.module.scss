@@ -1,0 +1,94 @@
+.BlockCabinetModule {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 250px;
+    padding: 10px 20px 20px 20px;
+    background-color: var(--background-2);
+    border-radius: 20px;
+
+    @media (max-width: 768px) {
+        min-width: 100%;
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 60px;
+
+        .leftContainer {
+            display: flex;
+            gap: 5px;
+            font-family: var(--third-family);
+            font-size: var(--font-size-msl);
+            font-weight: var(--font-weight-sb);
+
+            .buttonTitle {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                color: var(--secondary);
+                font-size: var(--font-size-msl);
+                font-weight: var(--font-weight-sb);
+
+                &:hover {
+                    color: var(--secondary-hovered-low);
+                }
+
+                &:active {
+                    color: var(--secondary-pressed);
+                }
+
+                @media (max-width: 768px) {
+                    font-size: var(--font-size-sm);
+                }
+            }
+
+            .quantity {
+                color: var(--font-caption-low);
+            }
+        }
+    }
+
+    .mainBlock {
+        display: flex;
+        gap: 20px;
+        overflow-x: scroll;
+        
+        @media (max-width: 768px) {
+            font-size: var(--font-size-s);
+        }
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+}
+
+.disabled {
+    background-color: var(--disabled);
+
+    & span {
+        color: var(--background-2);
+    }
+
+    .mainBlock {
+        color: var(--background-2);
+    }
+}
+
+.newsModule {
+    grid-column: 3 / span 2;
+    grid-row: 1 / span 2;
+
+    @media (max-width: 1024px) {
+        grid-column: 1 / span 2;
+        grid-row: 3 / span 2;
+    }
+
+    @media (max-width: 425px) {
+        grid-column: 1 / span 1;  
+        grid-row: 5;    
+    }
+}

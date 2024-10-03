@@ -106,10 +106,11 @@ export const ProductAPI = createApi({
                 headers: getHeaderAuthorization(),
             }),
         }),
-        getPagesDraftsByUser: build.query<number, IGetProductsByUser>({
-            query: ({ limit = PRODUCT_BY_USER_LIMIT, userId }) => ({
-                url: `/GetItemsDrafts/ByUser/${userId}/${limit}/CountPages`,
+        getPagesDraftsByUser: build.query<number, IArgsRequest>({
+            query: ({ limit = PRODUCT_BY_USER_LIMIT }) => ({
+                url: `/GetItemsDrafts/ByUser/${limit}/CountPages`,
                 method: 'GET',
+                headers: getHeaderAuthorization(),
             })
         }),
         getDraftsByGroup: build.query<IProductAPI[], string | number>({

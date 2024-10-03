@@ -1,0 +1,13 @@
+.CabinetModuleStatisticsText {
+    display: flex;
+    gap: 5px;
+    
+    & span{
+        white-space: nowrap;
+    }
+
+    .quantity {
+        color: var(--font-caption);
+        font-weight: var(--font-weight-med);
+    }
+}

@@ -65,6 +65,7 @@
   --n-blue-3: #9294A5;
   --n-blue-4: #CACBD3;
   --n-blue-5: #76788E;
+  --n-blue-6: #8195DB;
 
   --n-blue-light-1: #CFD3E3;
   --n-blue-light-2: #EFF0F5;
@@ -138,6 +139,7 @@
   --secondary: var(--n-blue-1);
   --secondary-border: var(--n-blue-light-1);
   --secondary-hovered: var(--n-blue-1);
+  --secondary-hovered-low: var(--n-blue-6);
   --secondary-pressed: var(--n-blue-2);
   --on-secondary: var(--white);
   --secondary-surface: var(--n-blue-light-2);

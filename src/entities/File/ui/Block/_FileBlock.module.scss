@@ -5,8 +5,7 @@
     .top {
         display: flex;
         justify-content: space-between;
-        padding: 0 20px;
-        margin-bottom: 18px;
+        padding: 0 20px 20px 20px;
 
         .topLeft {
             display: flex;
@@ -21,12 +20,18 @@
             }
         }
     }
+    .borderBottom{
+        border-bottom: 1px solid var(--background-1);
+    }
 
     .content {
         // overflow-x: auto;
+        &::-webkit-scrollbar {
+            display: none;
+        }
 
         .files {
-            margin: 0 20px;
+            // margin: 0 20px;
         }
     }
 }
@@ -57,11 +62,16 @@
 
     .bottom {
         padding: 20px 20px 0 20px;
+        
 
         .download {
             width: 100%;
             padding: 13px 0;
         }
+    }
+
+    .borderTop{
+        border-top: 1px solid var(--background-1);
     }
 }
 

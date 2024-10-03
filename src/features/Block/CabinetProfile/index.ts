@@ -1,1 +1,0 @@
-export {BlockCabinetProfile} from './ui/BlockCabinetProfile'

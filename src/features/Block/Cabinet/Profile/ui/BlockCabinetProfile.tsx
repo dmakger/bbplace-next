@@ -62,7 +62,7 @@ export const BlockCabinetProfile = ({
     ]
 
     return (
-        <>
+        <div className={cl.BlockCabinetProfileMainContainer}>
             <div className={cls(cl.BlockCabinetProfile, textMessage ? cl.noBorderBottom : '', className)}>
                 <div className={cl.leftContainer}>
                     <Image src={currentLK === ECurrentLK.SUPPLIER ?
@@ -118,7 +118,7 @@ export const BlockCabinetProfile = ({
                     className={idx === textMessage.length - 1 ? cl.noBorderTop : ''}
                     text={it} />
             ))}
-        </>
+        </div>
 
     )
 }

@@ -54,7 +54,7 @@ export const MobileNavbar = ({
 		//AUTH_PAGES
 		if (NOT_AUTH_PAGES_ARRAY.find(it => it === pathname)) setFilteredMenuData(NOT_AUTH_MOBILE_DATA);
 
-	}, [pathname, filteredMenuData, is420])
+	}, [pathname, is420])
 
 
 	useEffect(() => {

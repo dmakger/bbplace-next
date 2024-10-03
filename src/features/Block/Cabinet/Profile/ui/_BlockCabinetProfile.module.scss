@@ -1,3 +1,7 @@
+.BlockCabinetProfileMainContainer{
+    display: flex;
+    flex-direction: column;
+}
 .BlockCabinetProfile {
     display: flex;
     justify-content: space-between;
