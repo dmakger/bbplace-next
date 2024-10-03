@@ -27,6 +27,7 @@ export const MobileNavbar = ({
 
 	//STATE
 	const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
+	const [isClientReady, setIsClientReady] = useState<boolean>(false)
 	const [showSidebarMenu, setShowSidebarMenu] = useState<boolean>(false)
 	const [filteredMenuData, setFilteredMenuData] = useState<IIconVariants[]>(MOBILE_MENU_DATA);
 
@@ -36,36 +37,59 @@ export const MobileNavbar = ({
 	const pathname = usePathname();
 	const router = useRouter();
 
-	useEffect(() => {
-		setIsAuthenticated(isAuth())
-	}, [])
-
 	//EFFECT
 	useEffect(() => {
-		//MAIN_PAGE
-		if (pathname === MAIN_PAGES.HOME.path) setFilteredMenuData(MOBILE_MENU_DATA)
+		try {
+			setIsAuthenticated(isAuth())
+		} finally {
+			setIsClientReady(true)
+		}
+	}, [])
 
-		//FAVOURITE_PAGE
-		if (pathname === FAVOURITES_ITEM_MOBILE_MENU_DATA?.link && is420) setFilteredMenuData(filteredMenuData.filter(it => it.link !== FAVOURITES_ITEM_MOBILE_MENU_DATA.link));
-
-		//SUPPORT_PAGE
-		if (pathname.includes(MAIN_PAGES.SUPPORT.path)) setFilteredMenuData(SUPPORT_PAGE_MOBILE_DATA);
-
-		//LK_PAGES
-		if (pathname.includes(DASHBOARD_PAGES.HOME.path)) setFilteredMenuData(LK_MOBILE_DATA);
-
-		//AUTH_PAGES
-		if (NOT_AUTH_PAGES_ARRAY.find(it => it === pathname)) setFilteredMenuData(NOT_AUTH_MOBILE_DATA);
-
-	}, [pathname, filteredMenuData, is420])
+	useEffect(() => {
+		const updatedMenuData = getUpdatedMenuData().map(it => ({...it, link: getLink(it)}))
+		setFilteredMenuData(updatedMenuData)
+	}, [isAuthenticated, isClientReady, pathname, is420])
 
 
 	useEffect(() => {
 		if (menuData) setFilteredMenuData(menuData)
-	}, [menuData, filteredMenuData])
+	}, [menuData])
 
 
 	//FUNCTIONS
+	const getUpdatedMenuData = () => {
+		// MAIN_PAGE
+		if (pathname === MAIN_PAGES.HOME.path) 
+			return MOBILE_MENU_DATA
+
+		// FAVOURITE_PAGE
+		if (pathname === FAVOURITES_ITEM_MOBILE_MENU_DATA?.link && is420) 
+			return filteredMenuData.filter(it => it.link !== FAVOURITES_ITEM_MOBILE_MENU_DATA.link)
+
+		// SUPPORT_PAGE
+		if (pathname.includes(MAIN_PAGES.SUPPORT.path)) 
+			return SUPPORT_PAGE_MOBILE_DATA;
+
+		// LK_PAGES
+		if (pathname.includes(DASHBOARD_PAGES.HOME.path)) 
+			return LK_MOBILE_DATA;
+
+		// AUTH_PAGES
+		if (NOT_AUTH_PAGES_ARRAY.find(it => it === pathname)) 
+			return NOT_AUTH_MOBILE_DATA;
+
+		return []
+	}
+
+	const getLink = (el: IIconVariants) => {
+		if (el.title === LK_ITEM_MOBILE_MENU_DATA.title) {
+			// Ссылку на личный кабинет проверяем только когда клиент готов
+			return isClientReady && isAuthenticated ? DASHBOARD_PAGES.HOME.path : MAIN_PAGES.CHECK_EMAIL.path;
+		}
+		return el.link;
+	}
+
 	const goBackByCurrentLK = () => {
 		if (ONLY_FOR_SELLERS_PAGES_ARRAY.find(it => it === prevPath) && currentLK === ECurrentLK.BUYER) {
 			return router.back();
@@ -79,17 +103,6 @@ export const MobileNavbar = ({
 		router.back();
 	}
 
-	const getLink = (el: IIconVariants) => {
-		// Проверка аутентификации только на клиенте
-		if (typeof window === 'undefined') {
-			if (el.title === LK_ITEM_MOBILE_MENU_DATA.title) {
-				return isAuthenticated ? DASHBOARD_PAGES.HOME.path : MAIN_PAGES.CHECK_EMAIL.path;
-			}
-		}
-		return el.link;
-	}
-	
-
 	return (
 		<>
 			<nav className={cl.MobileNavbar}>
@@ -98,7 +111,7 @@ export const MobileNavbar = ({
 						const isThisPage = pathname === el.link;
 						return (
 							<MenuItem
-								href={getLink(el)}
+								href={el.link ?? ''}
 								key={el.id}
 								active={isThisPage}
 								disabled={isThisPage}
