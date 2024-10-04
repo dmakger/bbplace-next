@@ -13,6 +13,8 @@ import { useNotify } from "@/features/Notify/lib/hooks";
 import { HandleSize } from "@/shared/ui/Handle/Size/HandleSize";
 import { ButtonColor, ButtonSize, ButtonVariant } from "@/shared/ui/Button/model/button.model";
 import { CHECK_MARK_TERTIARY_ICON } from "@/shared/ui/Icon/data/checkMark.data.icon";
+import { MAIN_PAGES } from "@/config/pages-url.config";
+import { COOKIE_POLICY_DOCUMENT } from "@/shared/data/documents.data";
 
 
 interface UpdateAuthProps { }
@@ -32,8 +34,35 @@ export const UpdateAuth: FC<UpdateAuthProps> = () => {
     const actionCreators = useActionCreators();
     const { notifications } = useAppSelector(state => state.notify)
 
-    //FUNCTION
+    //FUNCTIONS
     const setCookiesAgreement = () => sessionStorage.setItem('cookiesAgreement', 'agree');
+
+    const showCookieAgreementNotification = () => {
+
+        if (!sessionStorage.getItem('cookiesAgreement') && !isAuth()) {
+
+            notify({
+                button: [{
+                    className: cl.notifyButton,
+                    color: ButtonColor.Tertiary,
+                    size: is768 ? ButtonSize.Medium : ButtonSize.Big,
+                    variant: ButtonVariant.BORDER,
+                    title: !is768 ? 'Я согласен с использованием cookie' : 'Используются cookie',
+                    beforeImage: CHECK_MARK_TERTIARY_ICON,
+                    onClick: setCookiesAgreement
+                },
+                {   
+                    className: cl.linkButton,
+                    color: ButtonColor.Secondary,
+                    size: is768 ? ButtonSize.Medium : ButtonSize.Big,
+                    variant: ButtonVariant.CONTENT,
+                    title: 'Политика данных',
+                    href: MAIN_PAGES.CURRENT_DOCUMENT(COOKIE_POLICY_DOCUMENT).path,
+                    linkTarget: '_blank' 
+                }]
+            });
+        }
+    };
 
     // EFFECT
     useEffect(() => {
@@ -60,26 +89,10 @@ export const UpdateAuth: FC<UpdateAuthProps> = () => {
                 );
             }
         }
-        const showCookieAgreementNotification = () => {
-            if (!sessionStorage.getItem('cookiesAgreement') && !isAuth()) {
-
-                notify({
-                    button: {
-                        className: cl.notifyButton,
-                        color: ButtonColor.Tertiary,
-                        size: ButtonSize.Big,
-                        variant: ButtonVariant.BORDER,
-                        title: !is768 ? 'Я согласен с использованием cookie' : 'Используются cookie',
-                        beforeImage: CHECK_MARK_TERTIARY_ICON,
-                        onClick: setCookiesAgreement
-                    }
-                });
-            }
-        };
 
         initialRefresh();
         showCookieAgreementNotification();
-    }, [actionCreators, refreshToken, is768]);
+    }, [refreshToken, is768]);
 
     // FUNC
     const processUserData = (userId: IUser['id']) => {

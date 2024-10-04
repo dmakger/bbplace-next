@@ -20,15 +20,13 @@ export const NotifySlice = createSlice({
             const notificationExists = state.notifications.some(notification =>
                 notification.text === text &&
                 notification.status === status &&
-                isEqual(notification.button, button) // Глубокое сравнение объектов button
-            );
+                isEqual(notification.button, button)
+        )
             
             if (!notificationExists) {
                 state.notifications.push({
                     id: generateId(),
-                    text, 
-                    status,
-                    button
+                    ...action.payload
                 });
             }
         },

@@ -29,6 +29,16 @@
     }
 }
 
+.buttonsContainer{
+    display: flex;
+    gap: 10px;
+    white-space: nowrap;
+    
+    @media (max-width: 768px) {
+        flex-direction: column;
+    }
+}
+
 // >>> ========={ STATUS }========= >>>
 .success {
     border-color: var(--positive-border) !important;

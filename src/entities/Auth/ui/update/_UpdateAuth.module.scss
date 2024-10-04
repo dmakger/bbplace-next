@@ -1,3 +1,8 @@
 .notifyButton{
     width: 100% !important;
 }
+.linkButton{
+    @media (max-width: 768px) {
+        width: 100%;
+    }
+}

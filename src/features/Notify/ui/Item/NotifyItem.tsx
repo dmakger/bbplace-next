@@ -8,6 +8,7 @@ import { IListItem } from "@/shared/model/list.model";
 import { INotify } from "../../model/notify.model";
 import { useActionCreators } from "@/storage/hooks";
 import { Button } from "@/shared/ui/Button";
+import { IButton } from "@/shared/ui/Button/ui/Button";
 
 interface NotifyItemProps extends IListItem<INotify> { }
 
@@ -88,15 +89,21 @@ export const NotifyItem: FC<NotifyItemProps> = ({
         hide()
     }
 
-    const handleOnClickButtonHide = () => {
-        hide()
-        notify.button?.onClick && notify.button.onClick();
+    const handleOnClickButtonHide = (button: IButton) => {
+        if (!button.href) {
+            hide()
+        }
+        button.onClick && button.onClick();
     }
 
     return (
-        <div ref={notification} onClick={notify.button ? ()=>{} : handleOnClickNotify} className={cls(cl.notify, className)}>
-            {notify.button ?
-                <Button {...notify.button} onClick={handleOnClickButtonHide}/>
+        <div ref={notification} onClick={notify.button ? () => { } : handleOnClickNotify} className={cls(cl.notify, notify.button ? cl.buttonsContainer : '', className)}>
+            {notify.button ? notify.button.map(it => (
+                <Button key={it.title}
+                    {...it}
+                    onClick={() => handleOnClickButtonHide(it)}
+                />
+            ))
                 : <div className={cls(cl.content, cl[notify.status ?? ''])}>
                     <span className={cl.text}>{notify.text}</span>
                 </div>}

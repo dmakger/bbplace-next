@@ -10,5 +10,5 @@ export interface INotify extends INotifyBody {
 export interface INotifyBody {
     text?: string
     status?: ENotifyStatus,
-    button?: Omit<IButton, 'ref'>
+    button?: Omit<IButton, 'ref'>[]
 }
