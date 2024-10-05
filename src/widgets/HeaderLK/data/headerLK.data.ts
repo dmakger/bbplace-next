@@ -3,11 +3,6 @@ import { IMenuItem } from "@/shared/model/menu.model"
 import { EMenuButtonVariant, IMenuButton } from "@/shared/ui/Button/model/button.model"
 
 //LK
-export const HOME_LK_ITEM_MENU_DATA: IMenuItem = {
-    link: DASHBOARD_PAGES.HOME,
-    title: "В профиль покупателя",
-}
-
 export const NOTIFICATION_ITEM_LK_MENU_DATA: IMenuItem = {
     link: DASHBOARD_PAGES.CHATS(undefined).path,
     title: "Уведомления",
@@ -19,7 +14,7 @@ export const SUPPORT_LK_ITEM_MENU_DATA: IMenuItem = {
 }
 
 export const BUYER_HOME_LK_MENU_DATA: IMenuButton = {
-    link: DASHBOARD_PAGES.HOME,
+    link: DASHBOARD_PAGES.HOME.path,
     title: "В профиль покупателя",
     variant: EMenuButtonVariant.SWITCH_LK
 }
