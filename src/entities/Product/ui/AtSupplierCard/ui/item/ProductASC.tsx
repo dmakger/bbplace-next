@@ -37,7 +37,10 @@ export const ProductASC = ({
     const html = (
         <section className={cls(cl.ProductASC, className, variant === EAtSupplierCardVariant.SMALL ? cl.smallCard : '')}>
             <div className={cl.top}>
-                <ImageAPI src={media.attachments[0]} width={imageSizes.width} height={imageSizes.height} className={cl.image} />
+                <ImageAPI src={media.attachments[0]} 
+                          fill={true} 
+                          width={imageSizes.width} height={imageSizes.height} 
+                          className={cl.image} />
             </div>
             <div className={cl.middle}>
                 <h4 className={cl.name}>{product.name}</h4>

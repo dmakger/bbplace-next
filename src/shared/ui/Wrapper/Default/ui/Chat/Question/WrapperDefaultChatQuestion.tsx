@@ -12,7 +12,10 @@ export const WrapperDefaultChatQuestion:FC<WrapperDefaultChatQuestionProps> = ({
     return (
         <WrapperDefault {...rest} childrenDefault={(
             <div className={cl.content}>
-                <ImageAPI src={CHAT_QUESTION__ICON.default} alt={"Chat question"} className={cl.image} />
+                <ImageAPI 
+                    src={CHAT_QUESTION__ICON.default} alt={"Chat question"} 
+                    width={200} height={200}
+                    className={cl.image} />
                 <span className={cl.text}>{"Выберите собеседника"}</span>
             </div>
         )} />

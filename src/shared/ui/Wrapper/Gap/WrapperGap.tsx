@@ -5,7 +5,7 @@ import cl from './_WrapperGap.module.scss'
 
 interface WrapperGapProps{
     className?: string,
-    children: ReactNode
+    children?: ReactNode
 }
 
 export const WrapperGap:FC<WrapperGapProps> = ({className, children}) => {

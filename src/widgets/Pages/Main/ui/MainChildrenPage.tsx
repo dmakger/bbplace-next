@@ -140,7 +140,7 @@ export const MainChildrenPage = () => {
                     buttonHref={it.buttonHref}
                     children={it.children} />
             ))}
-            <AboutBB />
+            {/* <AboutBB /> */}
         </Wrapper1280>
     )
 }
