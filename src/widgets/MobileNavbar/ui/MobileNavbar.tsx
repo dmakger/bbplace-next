@@ -14,6 +14,7 @@ import { ONLY_FOR_SELLERS_PAGES_ARRAY } from '@/widgets/Pages/OnlyForSellers/dat
 import { useAppSelector } from '@/storage/hooks';
 import { ECurrentLK } from '@/entities/User/model/user.model';
 import { isAuth } from '@/entities/Auth/lib/auth-token.lib';
+import { getCurrentLKToken } from '@/entities/User/lib/user-token.lib';
 
 interface IMobileNavbar {
 	menuData?: IIconVariants[]
@@ -30,6 +31,7 @@ export const MobileNavbar = ({
 	const [isClientReady, setIsClientReady] = useState<boolean>(false)
 	const [showSidebarMenu, setShowSidebarMenu] = useState<boolean>(false)
 	const [filteredMenuData, setFilteredMenuData] = useState<IIconVariants[]>(MOBILE_MENU_DATA);
+	const [urlHomePage, setUrlHomePage] = useState<string>(DASHBOARD_PAGES._HOME__BUYER.path)
 
 	const [is420, setIs420] = useState<boolean>(false)
 
@@ -41,6 +43,9 @@ export const MobileNavbar = ({
 	useEffect(() => {
 		try {
 			setIsAuthenticated(isAuth())
+			if (getCurrentLKToken() === ECurrentLK.SELLER) {
+				setUrlHomePage(DASHBOARD_PAGES._HOME__SELLER.path)
+			}
 		} finally {
 			setIsClientReady(true)
 		}
@@ -72,7 +77,7 @@ export const MobileNavbar = ({
 			return SUPPORT_PAGE_MOBILE_DATA;
 
 		// LK_PAGES
-		if (pathname.includes(DASHBOARD_PAGES.HOME.path)) 
+		if (pathname.includes(DASHBOARD_PAGES._HOME__SELLER.path) || pathname.includes(DASHBOARD_PAGES._HOME__BUYER.path)) 
 			return LK_MOBILE_DATA;
 
 		// AUTH_PAGES
@@ -85,7 +90,7 @@ export const MobileNavbar = ({
 	const getLink = (el: IIconVariants) => {
 		if (el.title === LK_ITEM_MOBILE_MENU_DATA.title) {
 			// Ссылку на личный кабинет проверяем только когда клиент готов
-			return isClientReady && isAuthenticated ? DASHBOARD_PAGES.HOME.path : MAIN_PAGES.CHECK_EMAIL.path;
+			return isClientReady && isAuthenticated ? urlHomePage : MAIN_PAGES.CHECK_EMAIL.path;
 		}
 		return el.link;
 	}
@@ -95,7 +100,7 @@ export const MobileNavbar = ({
 			return router.back();
 		}
 		if (prevPath) return router.replace(prevPath);
-		router.replace(DASHBOARD_PAGES.HOME.path)
+		router.replace(urlHomePage)
 	}
 
 	const goBack = () => {

@@ -80,22 +80,15 @@ export const MAIN_PAGES = new MAIN('')
 class DASHBOARD extends Route {
     constructor() {
         super('/i');
-        
-        // if (typeof window !== 'undefined') {  // Проверка на клиентский рендеринг
-        //     const currentLK = getCurrentLKToken();
-        //     if (currentLK === ECurrentLK.SELLER) {
-        //         this.HOME = this.createPath('/products', true); // Обновляем путь только на клиенте
-        //     }
-        // }
     }
     
-    // HOME = this.createPath('/chat', true); // Дефолтное значение, которое будет использовать сервер
-    HOME = this.createPath(
-        getCurrentLKToken() === ECurrentLK.SELLER 
-            ? '/products' : '/chat', 
-        true
-    ); 
+    _HOME__SELLER = this.createPath('/chat', true)
+    _HOME__BUYER = this.createPath('/products', true)
 
+    // HOME = this.createPath('/chat', true); // Дефолтное значение, которое будет использовать сервер
+    HOME = getCurrentLKToken() === ECurrentLK.SELLER 
+            ? this._HOME__SELLER.path 
+            : this._HOME__BUYER.path
 
     PROFILE_EDIT = this.createPath('/edit', true);
     FAVOURITES = this.createPath('/favourites', true);
