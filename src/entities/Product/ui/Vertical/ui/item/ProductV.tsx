@@ -36,7 +36,11 @@ export const ProductV: FC<ProductVProps> = ({
       <section className={cls(cl.block, className)}>
         {/* <Link href={MAIN_PAGES.CURRENT_PRODUCT(product.id)}> */}
         <div className={cl.top}>
-          <ImageAPI src={product.media.attachments[0]} width={271} height={271} className={cl.image} />
+          <div className={cl.wrapperImage}>
+            <ImageAPI src={product.media.attachments[0]} 
+                      fill={true}
+                      className={cl.image} />
+          </div>
           {/* <FavouriteAutoToProductButton productId={product.id} view={EProductFavouriteViewItem.SMALL_FILL} className={cl.favourite} /> */}
           <ButtonFavourite 
             isFavourited={product.isFavorite}

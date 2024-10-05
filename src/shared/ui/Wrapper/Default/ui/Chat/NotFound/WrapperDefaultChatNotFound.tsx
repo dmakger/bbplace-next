@@ -11,7 +11,10 @@ interface WrapperDefaultChatNotFoundProps extends IWrapperDefaultProps {}
 export const WrapperDefaultChatNotFound:FC<WrapperDefaultChatNotFoundProps> = ({...rest}) => {
     return (
         <WrapperDefault {...rest} childrenDefault={(
-            <ImageAPI src={CHAT_ZERO__ICON.default} alt={"Chat zero"} className={cl.image} />
+            <ImageAPI 
+                src={CHAT_ZERO__ICON.default} alt={"Chat zero"} 
+                width={200} height={200}
+                className={cl.image} />
         )} />
     )
 }

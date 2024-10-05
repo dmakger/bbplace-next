@@ -44,7 +44,8 @@ export const FAVOURITES_ITEM_MOBILE_MENU_DATA: IIconVariants = {
 
 export const LK_ITEM_MOBILE_MENU_DATA: IIconVariants = {
   id: 5,
-  link: DASHBOARD_PAGES.HOME.path,
+  // link: DASHBOARD_PAGES.HOME,
+  link: DASHBOARD_PAGES._HOME__BUYER.path,
   title: "ЛК",
   image: LK_MENU_ICON
 }

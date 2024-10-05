@@ -23,7 +23,8 @@ export const getDataTenderInfo = ({
     const currency = tender.currency?.code ?? '';
 
     const CREATED_AT_TENDER_DATA = {
-        body: <InfoItem body={<p>{dateToString(tender.createdAt)}</p>} heading="От:"/>}
+        body: <InfoItem body={<p>{dateToString(tender.createdAt)}</p>} heading="От:"/>
+    }
 
 
     //PURCHASE

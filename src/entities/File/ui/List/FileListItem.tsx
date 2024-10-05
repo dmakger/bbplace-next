@@ -17,7 +17,7 @@ export const FileListItem:FC<FileListItemProps> = ({files, view=FileView.Default
     return (
         <div className={cls(isRow ? cl.row : cl.column, cl[view], className)}>
             {files.map((file, index) => (
-                <FileItem file={file} view={view} isRow={!isRow} key={index} />
+                <FileItem file={file} view={view} isRowView={!isRow} key={index} />
             ))}
         </div>
     )

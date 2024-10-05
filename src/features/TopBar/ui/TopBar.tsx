@@ -2,7 +2,7 @@
 
 import cl from './_TopBar.module.scss'
 import { HandleSize } from '@/shared/ui/Handle/Size/HandleSize'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Wrapper1280 from '@/shared/ui/Wrapper/1280/Wrapper1280'
 import { ButtonChevron } from '@/shared/ui/Button/data/Chevron/ButtonChevron'
 import { usePathname, useRouter } from 'next/navigation'
@@ -17,18 +17,29 @@ export const TopBar = ({isAuto=true}: TopBarProps) => {
     // RTK
     const { isAuth: isUserAuth } = useAppSelector(state => state.user);
 
-    //STATE
+    // STATE
+    const [isClient, setIsClient] = useState(false);
     const [is768, setIs768] = useState<boolean>(false)
     
-    //ROUTER
+    // ROUTER
     const router = useRouter()
     const pathname = usePathname();
 
-    //FUNCTION
+    // Этот эффект будет запущен только на клиенте, после того как компонент будет отрендерен
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
+
+    // FUNCTION
     const goToRegistration = () => router.push(MAIN_PAGES.REGISTRATION.path);
 
+    // Пока не завершена инициализация на клиенте, возвращаем null
+    if (!isClient) {
+        return null;
+    }
+
     if (isAuto && (pathname !== MAIN_PAGES.HOME.path || isUserAuth)) {
-        return <></>
+        return null
     }
 
     return (

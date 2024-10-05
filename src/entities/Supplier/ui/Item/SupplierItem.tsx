@@ -27,81 +27,89 @@ import { DASHBOARD_PAGES } from '@/config/pages-url.config'
 
 
 interface ISupplierItem {
-  supplier: ISupplier,
-  className?: string,
-  classNameSupplierWNav?: string,
-  classNameBaseSupplier?: string
+	supplier: ISupplier,
+	className?: string,
+	classNameSupplierWNav?: string,
+	classNameBaseSupplier?: string
 }
 
 export const SupplierItem = ({
-  supplier,
-  className,
-  classNameSupplierWNav,
-  classNameBaseSupplier
+	supplier,
+	className,
+	classNameSupplierWNav,
+	classNameBaseSupplier
  }: ISupplierItem) => {
 
-  // STATE
-  const [supplierProducts, setSupplierProducts] = useState<IProduct[]>([])
-  const [is768, setIs768] = useState<boolean>(false)
+	// STATE
+	const [supplierProducts, setSupplierProducts] = useState<IProduct[]>([])
+	const [is768, setIs768] = useState<boolean>(false)
 
-  //API
-  const { data: supplierRating } = ReviewAPI.useGetSupplierScoreQuery(supplier.id)
-  const { data: supplierReviews } = ReviewAPI.useGetSellerReviewsQuery({ supplierId: supplier.id, limit: REVIEW_LIMIT ?? 0, page: REVIEW_START_PAGE })
-  const { data: supplierProductsAPI } = ProductAPI.useGetProductsByUserQuery({ userId: supplier.id })
+	//API
+	const { data: supplierRating } = ReviewAPI.useGetSupplierScoreQuery(supplier.id)
+	const { data: supplierReviews } = ReviewAPI.useGetSellerReviewsQuery({ supplierId: supplier.id, limit: REVIEW_LIMIT ?? 0, page: REVIEW_START_PAGE })
+	const { data: supplierProductsAPI } = ProductAPI.useGetProductsByUserQuery({ userId: supplier.id })
 
-  //EFFECT
-  useEffect(() => {
-    if (supplierProductsAPI)
-      setSupplierProducts(productApiListToProductList(supplierProductsAPI))
-  }, [supplierProductsAPI])
+	//EFFECT
+	useEffect(() => {
+	if (supplierProductsAPI)
+		setSupplierProducts(productApiListToProductList(supplierProductsAPI))
+	}, [supplierProductsAPI])
 
 
+	return (
+		<>
+			<section className={cls(cl.SupplierItem, className)}>
+				<div className={cl.infoContainer}>
+					<SupplierWNav
+						hasImage={true}
+						id={supplier.id}
+						hasVerifiedStatus={true}
+						className={cls(cl.supplierWNav, classNameSupplierWNav)}
+						classNameName={cl.supplierName}
+						classNameSupplier={cls(cl.baseSupplier, classNameBaseSupplier)}
+					/>
+					<div className={cl.subTopContainer}>
+						{supplier.category?.some(it => it !== null) && (
+							<SupplierInfoLabel category={supplier.category} />
+						)}
+					</div>
 
-  return (
-    <>
-      <section className={cls(cl.SupplierItem, className)}>
-        <div className={cl.infoContainer}>
-          <SupplierWNav
-            hasImage
-            className={cls(cl.supplierWNav, classNameSupplierWNav)}
-            classNameName={cl.supplierName}
-            classNameSupplier={cls(cl.baseSupplier, classNameBaseSupplier)}
-            id={supplier.id}
-            hasVerifiedStatus={true}
-          />
-          <div className={cl.subTopContainer}>
-            {supplier.category?.some(it => it !== null) && <SupplierInfoLabel category={supplier.category} />}
-            {/* <SupplierInfoLabel vip /> */}
-          </div>
-
-          <HeadingToTextTable
-            variant={EHeadingToTextVariants.COLUMN}
-            data={getDataHeadingToTextSupplierTable({
-              variant: IGetDataHeadingToTextSupplierTableVariant.SUPPLIER_PAGE,
-              supplier,
-              supplierRating: supplierRating ?? 0,
-              supplierReviews: supplierReviews?.length ?? 0,
-              isCountryNeeded: true
-            })}
-            classNameMain={cl.table}
-            classNameHeadingItem={cl.headingItem}
-            classNameTextItem={cl.textItem}
-            classNameColumn={cl.columnTable}
-          />
-          <div className={cl.buttonsContainer}>
-            <Button variant={ButtonVariant.BORDER} title='Откликнуться' size={ButtonSize.Small} href={DASHBOARD_PAGES.CHATS(supplier.id).path}/>
-            <FavouriteAutoToSupplierButton supplierId={supplier.id} view={ESupplierFavouriteViewItem.SMALL_FILL} />
-            <NavSupplier supplierId={supplier.id} views={[
-              is768 ? ESupplierToProfileViewItem.SMALL : ESupplierToProfileViewItem.NONE
-            ]} />
-          </div>
-        </div>
-        {supplierProducts.length > 0 && <div className={cl.productCardsContainer}>
-          <ProductASC product={supplierProducts[0]} supplierId={supplier.id} supplierName={supplier.brandName} />
-          {supplierProducts[1] && <ProductASC product={supplierProducts[1]} variant={EAtSupplierCardVariant.SMALL} supplierId={supplier.id} supplierName={supplier.brandName} />}
-        </div>}
-      </section>
-      <HandleSize width={768} set={setIs768} />
-    </>
-  )
+					<HeadingToTextTable
+						variant={EHeadingToTextVariants.COLUMN}
+						data={getDataHeadingToTextSupplierTable({
+							variant: IGetDataHeadingToTextSupplierTableVariant.SUPPLIER_PAGE,
+							supplier,
+							supplierRating: supplierRating ?? 0,
+							supplierReviews: supplierReviews?.length ?? 0,
+							isCountryNeeded: true
+						})}
+						classNameMain={cl.table}
+						classNameHeadingItem={cl.headingItem}
+						classNameTextItem={cl.textItem}
+						classNameColumn={cl.columnTable}
+					/>
+					<div className={cl.buttonsContainer}>
+						<Button variant={ButtonVariant.BORDER} title='Откликнуться' size={ButtonSize.Small} href={DASHBOARD_PAGES.CHATS(supplier.id).path}/>
+						<FavouriteAutoToSupplierButton supplierId={supplier.id} view={ESupplierFavouriteViewItem.SMALL_FILL} />
+						<NavSupplier supplierId={supplier.id} 
+							views={[
+								is768 ? ESupplierToProfileViewItem.SMALL : ESupplierToProfileViewItem.NONE
+							]} 
+						/>
+					</div>
+				</div>
+				{supplierProducts.length > 0 && (
+					<div className={cl.productCardsContainer}>
+						<ProductASC product={supplierProducts[0]} supplierId={supplier.id} supplierName={supplier.brandName} />
+						{supplierProducts[1] && (
+							<ProductASC product={supplierProducts[1]} 
+										variant={EAtSupplierCardVariant.SMALL} 
+										supplierId={supplier.id} supplierName={supplier.brandName} />
+						)}
+					</div>
+				)}
+			</section>
+			<HandleSize width={768} set={setIs768} />
+		</>
+	)
 }

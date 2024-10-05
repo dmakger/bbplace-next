@@ -80,10 +80,18 @@ export const MAIN_PAGES = new MAIN('')
 
 
 class DASHBOARD extends Route {
-    HOME = this.createPath(
-        getCurrentLKToken() === ECurrentLK.SELLER 
-        ? '/products' : '/chat'
-    , true);
+    constructor() {
+        super('/i');
+    }
+    
+    _HOME__SELLER = this.createPath('/products', true)
+    _HOME__BUYER = this.createPath('/chat', true)
+
+    // HOME = this.createPath('/chat', true); // Дефолтное значение, которое будет использовать сервер
+    HOME = getCurrentLKToken() === ECurrentLK.SELLER 
+            ? this._HOME__SELLER.path 
+            : this._HOME__BUYER.path
+
     PROFILE_EDIT = this.createPath('/edit', true);
     FAVOURITES = this.createPath('/favourites', true);
     
@@ -110,7 +118,7 @@ class DASHBOARD extends Route {
     REVIEWS = this.createPath('/reviews', true);
 }
 
-export const DASHBOARD_PAGES = new DASHBOARD('/i');
+export const DASHBOARD_PAGES = new DASHBOARD();
 
 
 // ==={ ПРИМЕНЕНИЕ }===

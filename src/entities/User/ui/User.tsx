@@ -33,6 +33,7 @@ export const User = ({
             {variant === EUserVariants.DEFAULT ? (
                 <ImageAPI src={getSupplierImage(image)} 
                         width={45} height={45}
+                        fill={true}
                         onClick={onClick} 
                         className={cls(cl.image, className)} />
             ) : (

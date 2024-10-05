@@ -70,6 +70,12 @@ export function InputText({
     onMouseEnter = () => { }, onMouseLeave = () => { },
     onKeyDown=()=>{},
 
+    checkboxId,
+    setChecked,
+    setSelectedOption,
+    selectedOption,
+    setSelectedOptionsArray,
+
     rows,
     refTextArea: refOutTextArea,
     ...rest }: InputTextProps) {

@@ -52,7 +52,7 @@ export const HeaderLKPT = ({
 
     // FUNCTION
     const backNavigation = () => {
-        router.push(DASHBOARD_PAGES.HOME.path)
+        router.push(DASHBOARD_PAGES.HOME)
     }
 
     return (

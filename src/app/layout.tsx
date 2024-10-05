@@ -13,28 +13,14 @@ import { Html } from "next/document";
 //   variable: '--geologica-font',
 //   weight: ['400', '500', '600', '700'],
 // });
-const inter = Inter({ subsets: ["latin", "cyrillic"], variable: '--inter-font'});
+const inter = Inter({ subsets: ["latin", "cyrillic"], variable: '--inter-font' });
 
 export const metadata: Metadata = {
-	title: {
-		default: SITE_NAME,
-		template: `%s | ${SITE_NAME}`
-	},
-	description: 'Платформа для поиска оптовых поставщиков и покупателей, маркетплейс для бизнеса, B2B площадка',
-    icons: {
-        icon: [
-            {
-                media: '(prefers-color-scheme: light)',
-                url: '/logo.png',
-                href: '/logo.png',
-            },
-            {
-                media: '(prefers-color-scheme: dark)',
-                url: '/logo.png',
-                href: '/logo.png',
-            },
-        ]
-    }
+    title: {
+        default: SITE_NAME,
+        template: `%s | ${SITE_NAME}`
+    },
+    description: 'Платформа для поиска оптовых поставщиков и покупателей, маркетплейс для бизнеса, B2B площадка',
 }
 
 export default function RootLayout({
@@ -44,13 +30,27 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="ru">
-        <link rel="icon" href="/favicon.ico" />
-        {/* <body className={cls(geologica.className, inter.className)}> */}
-        <body className={cls(inter.className)}>
+            <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
+            <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#e54348" />
+            <meta name="apple-mobile-web-app-title" content="BBPlace" />
 
-            {/* Yandex.Metrika counter */}
-            <Script id="yandex-metrika-init" strategy="afterInteractive">
-                {`
+            <link rel="icon" type="image/png" sizes="any" href="/app/favicon.ico" />
+            <link rel="icon" type="image/svg+xml" href="/icons/icon.svg" />
+
+            <link rel="manifest" href="/manifest.json" />
+            <meta name="application-name" content="BBPlace" />
+            <meta name="theme-color" content="#e54348" />
+
+            <meta name="msapplication-TileColor" content="#e54348" />
+            <meta name="msapplication-TileImage" content="/microsoft-tile.png" />
+
+            <link rel="yandex-tableau-widget" href="/tableau.json" />
+            {/* <body className={cls(geologica.className, inter.className)}> */}
+            <body className={cls(inter.className)}>
+
+                {/* Yandex.Metrika counter */}
+                <Script id="yandex-metrika-init" strategy="afterInteractive">
+                    {`
                     (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
                         m[i].l=1*new Date();
                         for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
@@ -64,12 +64,12 @@ export default function RootLayout({
                             webvisor:true
                     });
                 `}
-            </Script>
-            {/* /Yandex.Metrika counter */}
+                </Script>
+                {/* /Yandex.Metrika counter */}
 
-            {/* Google.Metrika counter */}
-            <Script id="google-metrika-init" strategy="afterInteractive">
-                {`
+                {/* Google.Metrika counter */}
+                <Script id="google-metrika-init" strategy="afterInteractive">
+                    {`
                     (function (w, d, s, l, i) {
                         w[l] = w[l] || []; w[l].push({
                             'gtm.start':
@@ -83,13 +83,13 @@ export default function RootLayout({
 
                     })(window, document, 'script', 'dataLayer', 'GTM-5665HK79');
                 `}
-            </Script>
-            {/* /Google.Metrika counter */}
+                </Script>
+                {/* /Google.Metrika counter */}
 
 
-            {/* Facebook.Metrika counter */}
-            <Script id="facebook-metrika-init" strategy="afterInteractive">
-                {`
+                {/* Facebook.Metrika counter */}
+                <Script id="facebook-metrika-init" strategy="afterInteractive">
+                    {`
                     !function(f,b,e,v,n,t,s)
                     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
                     n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -101,23 +101,23 @@ export default function RootLayout({
                     fbq('init', '531193806300696');
                     fbq('track', 'PageView');
                 `}
-            </Script>
-            {/* /Facebook.Metrika counter */}
+                </Script>
+                {/* /Facebook.Metrika counter */}
 
-            {/* YANDEX && GOOGLE && FACEBOOK Metrika noscript */}
-            <noscript>
-                <div>
-                    <img src="https://mc.yandex.ru/watch/93744111" style={{ position: 'absolute', left: '-9999px' }} alt="" />\
-                    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5665HK79" height="0" width="0" style={{ display: "none", visibility: "hidden"}}></iframe>
-                    <img height="1" width="1" style={{display: 'none'}} src="https://www.facebook.com/tr?id=531193806300696&ev=PageView&noscript=1"/>
-                </div>
-            </noscript>
-            {/* /YANDEX && GOOGLE Metrika noscript */}
+                {/* YANDEX && GOOGLE && FACEBOOK Metrika noscript */}
+                <noscript>
+                    <div>
+                        <img src="https://mc.yandex.ru/watch/93744111" style={{ position: 'absolute', left: '-9999px' }} alt="" />\
+                        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5665HK79" height="0" width="0" style={{ display: "none", visibility: "hidden" }}></iframe>
+                        <img height="1" width="1" style={{ display: 'none' }} src="https://www.facebook.com/tr?id=531193806300696&ev=PageView&noscript=1" />
+                    </div>
+                </noscript>
+                {/* /YANDEX && GOOGLE Metrika noscript */}
 
-            <Providers>
-                {children}
-            </Providers>
-        </body>
+                <Providers>
+                    {children}
+                </Providers>
+            </body>
         </html>
-  );
+    );
 }

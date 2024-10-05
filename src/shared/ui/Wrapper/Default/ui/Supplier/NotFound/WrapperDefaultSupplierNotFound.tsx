@@ -11,7 +11,10 @@ interface WrapperDefaultSupplierNotFoundProps extends IWrapperDefaultProps {}
 export const WrapperDefaultSupplierNotFound:FC<WrapperDefaultSupplierNotFoundProps> = ({...rest}) => {
     return (
         <WrapperDefault {...rest} childrenDefault={(
-            <ImageAPI src={SUPPLIER_ZERO__ICON.default} alt={"Supplier zero"} className={cl.image} />
+            <ImageAPI 
+                src={SUPPLIER_ZERO__ICON.default} alt={"Supplier zero"} 
+                width={200} height={200}
+                className={cl.image} />
         )} />
     )
 }

@@ -29,7 +29,7 @@ export default function LKTenderPage() {
         <Wrapper1280>
             <SuspenseL.Tender searchKey={'type'} set={setTenderType}>
                 <WrapperLKPT pageTitle={"Мои тендеры"} 
-                             buttonBackProps={{href: DASHBOARD_PAGES.HOME.path}}
+                             buttonBackProps={{href: DASHBOARD_PAGES.HOME}}
                              options={SWITCH_SELECTOR__TENDER__OPTIONS} optionsTab={OPTIONS_TAB}
                              currentKey={tenderType}  
                              isButtonRight={true} buttonRightProps={{href: DASHBOARD_PAGES.NEW_TENDER.path}}
