@@ -26,9 +26,12 @@ export const MobileNavbar = ({
 	const { currentLK, prevPath } = useAppSelector(state => state.user)
 
 	//STATE
+	const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
+	const [isClientReady, setIsClientReady] = useState<boolean>(false)
 	const [showSidebarMenu, setShowSidebarMenu] = useState<boolean>(false)
 	const [is420, setIs420] = useState<boolean>(false)
 	const [filteredMenuData, setFilteredMenuData] = useState<IIconVariants[]>(MOBILE_MENU_DATA);
+	const [urlHomePage, setUrlHomePage] = useState<string>(DASHBOARD_PAGES.HOME.path)
 
 	//ROUTER
 	const pathname = usePathname();
@@ -36,26 +39,20 @@ export const MobileNavbar = ({
 
 	//EFFECT
 	useEffect(() => {
-		//MAIN_PAGE
-		if (pathname === MAIN_PAGES.HOME.path) setFilteredMenuData(MOBILE_MENU_DATA)
+		try {
+			setIsAuthenticated(isAuth())
+			// if (getCurrentLKToken() === ECurrentLK.SELLER) {
+			// 	setUrlHomePage(DASHBOARD_PAGES._HOME__SELLER.path)
+			// }
+		} finally {
+			setIsClientReady(true)
+		}
+	}, [])
 
-		//FAVOURITE_PAGE
-		if (pathname === FAVOURITES_ITEM_MOBILE_MENU_DATA?.link && is420) setFilteredMenuData(filteredMenuData.filter(it => it.link !== FAVOURITES_ITEM_MOBILE_MENU_DATA.link));
-
-		//SUPPORT_PAGE
-		if (pathname.includes(MAIN_PAGES.SUPPORT.path)) setFilteredMenuData(SUPPORT_PAGE_MOBILE_DATA);
-
-		//LK_PAGES
-		if (pathname.includes(DASHBOARD_PAGES.HOME.path)){
-			setFilteredMenuData(LK_MOBILE_DATA);
-			if(is420) setFilteredMenuData(LK_MOBILE_DATA.filter(it => it.link !== FAVOURITES_ITEM_MOBILE_MENU_DATA.link));
-		} 
-
-		//AUTH_PAGES
-		if (NOT_AUTH_PAGES_ARRAY.find(it => it === pathname)) setFilteredMenuData(NOT_AUTH_MOBILE_DATA);
-
-	}, [pathname, is420])
-
+	useEffect(() => {
+		const updatedMenuData = getUpdatedMenuData().map(it => ({ ...it, link: getLink(it) }))
+		setFilteredMenuData(updatedMenuData)
+	}, [isAuthenticated, isClientReady, pathname, is420])
 
 	useEffect(() => {
 		if (menuData) setFilteredMenuData(menuData)
@@ -63,26 +60,54 @@ export const MobileNavbar = ({
 
 
 	//FUNCTIONS
+	const getUpdatedMenuData = () => {
+		// MAIN_PAGE
+		if (pathname === MAIN_PAGES.HOME.path)
+			return MOBILE_MENU_DATA
+
+		// FAVOURITE_PAGE
+		if (pathname === FAVOURITES_ITEM_MOBILE_MENU_DATA?.link && is420)
+			return filteredMenuData.filter(it => it.link !== FAVOURITES_ITEM_MOBILE_MENU_DATA.link)
+
+		// SUPPORT_PAGE
+		if (pathname.includes(MAIN_PAGES.SUPPORT.path))
+			return SUPPORT_PAGE_MOBILE_DATA;
+
+		// LK_PAGES
+		if (pathname.includes(DASHBOARD_PAGES.HOME.path)) {
+			if (is420) {
+				return LK_MOBILE_DATA.filter(it => it.link !== FAVOURITES_ITEM_MOBILE_MENU_DATA.link)
+			}
+			return LK_MOBILE_DATA;
+		}
+
+		// AUTH_PAGES
+		if (NOT_AUTH_PAGES_ARRAY.find(it => it === pathname))
+			return NOT_AUTH_MOBILE_DATA;
+
+		return []
+	}
+
+	const getLink = (el: IIconVariants) => {
+		if (el.title === LK_ITEM_MOBILE_MENU_DATA.title) {
+			// Ссылку на личный кабинет проверяем только когда клиент готов
+			return isClientReady && isAuthenticated ? urlHomePage : MAIN_PAGES.CHECK_EMAIL.path;
+		}
+		return el.link;
+	}
+
 	const goBackByCurrentLK = () => {
 		if (ONLY_FOR_SUPPLIERS_PAGES_ARRAY.find(it => it === prevPath) && currentLK === ECurrentLK.BUYER) {
 			return router.back();
 		}
 		if (prevPath) return router.replace(prevPath);
-		router.replace(DASHBOARD_PAGES.HOME.path)
+		router.replace(urlHomePage)
 	}
 
 	const goBack = () => {
 		goBackByCurrentLK()
 		router.back();
 	}
-
-	const getLink = (el: IIconVariants) => {
-		if (el.title === LK_ITEM_MOBILE_MENU_DATA.title) {
-			return isAuth() ? DASHBOARD_PAGES.HOME.path : MAIN_PAGES.CHECK_EMAIL.path
-		}
-		return el.link
-	}
-
 
 	return (
 		<>
@@ -92,7 +117,7 @@ export const MobileNavbar = ({
 						const isThisPage = pathname === el.link;
 						return (
 							<MenuItem
-								href={getLink(el)}
+								href={el.link ?? ''}
 								key={el.id}
 								active={isThisPage}
 								disabled={isThisPage}

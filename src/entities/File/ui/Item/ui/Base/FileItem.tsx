@@ -14,11 +14,11 @@ import { getSizeImageByView } from "@/entities/File/lib/image.file.lib";
 interface FileItemProps{
     file: IFile
     view?: FileView
-    isRow?: boolean
+    isRowView?: boolean
     className?: string,
 }
 
-export const FileItem:FC<FileItemProps> = ({file, view=FileView.Default, isRow=true, className}) => {
+export const FileItem:FC<FileItemProps> = ({file, view=FileView.Default, isRowView=true, className}) => {
     // STATE
     const [isHovered, setIsHovered] = useState(false)
 
@@ -30,6 +30,7 @@ export const FileItem:FC<FileItemProps> = ({file, view=FileView.Default, isRow=t
         setIsHovered(false)
     }
 
+    // MEMO
     const sizeImage = useMemo(() => {
         return getSizeImageByView(view)
     }, [view])
@@ -44,7 +45,7 @@ export const FileItem:FC<FileItemProps> = ({file, view=FileView.Default, isRow=t
         }
     }
 
-    if (isRow)
+    if (isRowView)
         return (
             <Button variant={ButtonVariant.DEFAULT} 
                     beforeImage={getImageFile(file.format)} beforeProps={{width: sizeImage, height: sizeImage}} 

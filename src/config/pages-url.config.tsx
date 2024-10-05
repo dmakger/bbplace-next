@@ -78,7 +78,12 @@ export const MAIN_PAGES = new MAIN('')
 
 
 class DASHBOARD extends Route {
+    constructor() {
+        super('/i');
+    }
+    
     HOME = this.createPath('', true);
+    
     PROFILE_EDIT = this.createPath('/edit', true);
     FAVOURITES = this.createPath('/favourites', true);
     
@@ -105,7 +110,7 @@ class DASHBOARD extends Route {
     REVIEWS = this.createPath('/reviews', true);
 }
 
-export const DASHBOARD_PAGES = new DASHBOARD('/i');
+export const DASHBOARD_PAGES = new DASHBOARD();
 
 
 // ==={ ПРИМЕНЕНИЕ }===

@@ -15,7 +15,7 @@ import { useEffect, useMemo, useState } from "react"
 import { SWITCH_SELECTOR__FAVOURITE__OPTIONS, SWITCH_SELECTOR__PRODUCT_FAVOURITE__OPTION, SWITCH_SELECTOR__PURCHASE_TENDER_FAVOURITE__OPTION, SWITCH_SELECTOR__SALE_TENDER_FAVOURITE__OPTION, SwitchSelectorFavourite } from "@/shared/ui/SwitchSelector/data/favourite.switchSelector.data"
 import { CurrencyAPI } from '@/entities/Metrics/api/currency.metrics.api'
 import { MetricsAPI } from '@/entities/Metrics/api/metrics.metrics.api'
-import { IPurchaseTender, ISaleTender } from '@/entities/Tender/model/tender.model'
+import { IPurchaseTender, IPurchaseTenderAPI, ISaleTender, ISaleTenderAPI } from '@/entities/Tender/model/tender.model'
 import { productApiListToProductList } from '@/entities/Product/lib/product.lib'
 import { tenderAPIListToTenderList } from '@/entities/Tender/lib/process.tender.lib'
 import { ProductFavouriteList } from '@/entities/Product/ui/Favourite/ProductFavouriteList'
@@ -46,11 +46,11 @@ export const FavouritesChildrenPage = () => {
         }
 
         if (favouritePurchaseTendersAPI !== undefined) {
-            setFavouritePurchaseTenders(tenderAPIListToTenderList(favouritePurchaseTendersAPI, metrics, currencyList) as IPurchaseTender[])
+            setFavouritePurchaseTenders(tenderAPIListToTenderList(getFavouriteArray(favouritePurchaseTendersAPI) as IPurchaseTenderAPI[], metrics, currencyList) as IPurchaseTender[])
         }
 
         if (favouriteSaleTendersAPI !== undefined) {
-            setFavouriteSaleTenders(tenderAPIListToTenderList(favouriteSaleTendersAPI, metrics, currencyList) as ISaleTender[])
+            setFavouriteSaleTenders(tenderAPIListToTenderList(getFavouriteArray(favouriteSaleTendersAPI) as ISaleTenderAPI[], metrics, currencyList) as ISaleTender[])
         }
     }, [currencyList, metrics, favouriteProductsAPI, favouritePurchaseTendersAPI, favouriteSaleTendersAPI])
     

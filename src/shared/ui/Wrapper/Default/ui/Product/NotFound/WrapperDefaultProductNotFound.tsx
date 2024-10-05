@@ -11,7 +11,10 @@ interface WrapperDefaultProductNotFoundProps extends IWrapperDefaultProps {}
 export const WrapperDefaultProductNotFound:FC<WrapperDefaultProductNotFoundProps> = ({...rest}) => {
     return (
         <WrapperDefault {...rest} childrenDefault={(
-            <ImageAPI src={PRODUCT_ZERO__ICON.default} alt={"Product zero"} className={cl.image} />
+            <ImageAPI 
+                src={PRODUCT_ZERO__ICON.default} alt={"Product zero"} 
+                width={200} height={200}
+                className={cl.image} />
         )} />
     )
 }

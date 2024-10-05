@@ -1,4 +1,3 @@
-import { TopBar } from "@/features/TopBar";
 import { Header } from "@/widgets/Header";
 import { PropsWithChildren } from "react";
 

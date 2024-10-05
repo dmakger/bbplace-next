@@ -11,7 +11,10 @@ interface WrapperDefaultTenderNotFoundProps extends IWrapperDefaultProps {}
 export const WrapperDefaultTenderNotFound:FC<WrapperDefaultTenderNotFoundProps> = ({...rest}) => {
     return (
         <WrapperDefault {...rest} childrenDefault={(
-            <ImageAPI src={TENDER_ZERO__ICON.default} alt={"Tender zero"} className={cl.image} />
+            <ImageAPI 
+                src={TENDER_ZERO__ICON.default} alt={"Tender zero"} 
+                width={200} height={200}
+                className={cl.image} />
         )} />
     )
 }
