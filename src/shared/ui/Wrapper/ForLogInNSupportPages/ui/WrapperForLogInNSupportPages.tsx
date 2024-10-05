@@ -60,7 +60,7 @@ export const WrapperForLogInNSupportPages = ({
             return router.back();
         }
         if (prevPath) return router.replace(prevPath);
-        router.replace(DASHBOARD_PAGES.HOME.path)
+        router.replace(DASHBOARD_PAGES.HOME)
     }
 
     const goBack = () => {
@@ -84,7 +84,7 @@ export const WrapperForLogInNSupportPages = ({
         if (!isAuth) {
             return router.push(MAIN_PAGES.LOGIN.path)
         }
-        router.push(DASHBOARD_PAGES.HOME.path);
+        router.push(DASHBOARD_PAGES.HOME);
     }
 
 
@@ -97,7 +97,7 @@ export const WrapperForLogInNSupportPages = ({
 
     const additionalDefaultButtons: ReactNode[] = [
         <Button title='Главная' variant={ButtonVariant.TONAL} size={ButtonSize.Medium} href={MAIN_PAGES.HOME.path} className={cl.homeButton} />,
-        <Button title='Профиль' variant={ButtonVariant.TONAL} size={ButtonSize.Medium} href={DASHBOARD_PAGES.HOME.path} />,
+        <Button title='Профиль' variant={ButtonVariant.TONAL} size={ButtonSize.Medium} href={DASHBOARD_PAGES.HOME} />,
         isOnlyForSellers ? <Button title='Сменить роль' className={cl.changeRole} variant={ButtonVariant.FILL} size={ButtonSize.Medium} onClick={switchLK} /> :
             <Button title='Каталог' variant={ButtonVariant.FILL} size={ButtonSize.Medium} href={MAIN_PAGES.PRODUCTS.path} />
     ]
