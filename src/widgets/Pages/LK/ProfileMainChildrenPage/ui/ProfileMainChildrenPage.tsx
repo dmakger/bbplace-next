@@ -16,15 +16,28 @@ import { ETenderType } from "@/entities/Tender/model/tender.model"
 import { FavouriteAPI } from "@/entities/Favourite/api/favourite.api"
 import { IIcon } from "@/shared/ui/Icon/model/icon.model"
 import { ProfileMain } from "../components/ProfileMain/ProfileMain"
+import { PRODUCT_ARGS_REQUEST } from "@/entities/Product/data/product.data"
+import { MetricsAPI } from "@/entities/Metrics/api/metrics.metrics.api"
+import { CurrencyAPI } from "@/entities/Metrics/api/currency.metrics.api"
+import { useEffect, useState } from "react"
+import { IProduct } from "@/entities/Product/model/product.model"
+import { productApiListToProductList } from "@/entities/Product/lib/product.lib"
 
 export const ProfileMainChildrenPage = () => {
+
+    //STATE
+    const [productList, setProductList] = useState<IProduct[]>([]);
 
     //RTK
     const { currentLK, id: userId, ...userInfo } = useAppSelector(state => state.user)
 
     //API
+    const { data: productsAPI } = ProductAPI.useGetProductsQuery({ limit: PRODUCT_ARGS_REQUEST.limit, page: 0 }, { refetchOnMountOrArgChange: true });
     const { data: activeProductsNumber } = ProductAPI.useGetPagesProductsByUserQuery({ userId, limit: 1 })
     const { data: draftsProductsNumber } = ProductAPI.useGetPagesDraftsByUserQuery({ limit: 1 })
+
+    const { data: currencyList } = CurrencyAPI.useGetCurrenciesQuery();
+    const { data: metrics } = MetricsAPI.useGetMetricsQuery();
 
     const { data: tenders } = TenderAPI.useGetUserTendersQuery({ userId })
     const { data: saleTenders } = TenderAPI.useGetUserTendersQuery({ userId, type: toTenderType(ETenderType.SALE) })
@@ -33,6 +46,13 @@ export const ProfileMainChildrenPage = () => {
     const { data: favouriteProducts } = FavouriteAPI.useGetFavouriteProductsQuery()
     const { data: favouritePurchaseTenders } = FavouriteAPI.useGetFavouritePurchasesQuery()
     const { data: favouriteSaleTenders } = FavouriteAPI.useGetFavouriteSalesQuery()
+
+    //EFFECT
+    useEffect(() => {
+        if (productsAPI && metrics && currencyList) {
+            setProductList(productApiListToProductList(productsAPI, metrics, currencyList))
+        }
+    }, [productsAPI, metrics, currencyList]);
 
     //FUNCTIONS
     const sumItems = (items: (number | undefined)[]) => items.reduce((acc, curr) => (acc ?? 0) + (curr || 0), 0);
@@ -147,6 +167,7 @@ export const ProfileMainChildrenPage = () => {
     const cabinetModules = currentLK === ECurrentLK.SUPPLIER ? CABINET_MODULE_SUPPLIER_ARRAY : CABINET_MODULE_BUYER_ARRAY
 
     return <ProfileMain
+        productList={productList}
         currentLK={currentLK!}
         profileMessageArray={PROFILE_MESSAGE_ARRAY}
         cabinetModuleArray={cabinetModules}

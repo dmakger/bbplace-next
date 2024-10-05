@@ -1,3 +1,9 @@
+@mixin BoldThirdFamily {
+    font-family: var(--third-family);
+    font-size: var(--font-size-msl);
+    font-weight: var(--font-weight-sb) !important;
+}
+
 .ProfileMain {
     display: flex;
     flex-direction: column;
@@ -7,7 +13,7 @@
     .cabinetModule {
         display: grid;
         grid-template-columns: 1fr;
-        grid-template-rows: repeat(auto-fill, minmax(0, 1fr));  
+        grid-template-rows: repeat(auto-fill, minmax(0, 1fr));
         gap: 10px;
 
         @media (min-width: 425px) {
@@ -22,7 +28,7 @@
 
     .cabinetBuyer {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr; 
+        grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: auto;
 
         @media (max-width: 1024px) {
@@ -33,16 +39,33 @@
             grid-template-columns: 1fr;
         }
     }
-    .fileBlock{
+
+    .fileBlock {
         max-width: 400px;
+
         @media (max-width: 1024px) {
             max-width: 100%;
         }
 
     }
-    .fileBlockTitle{
-        font-family: var(--third-family);
-        font-size: var(--font-size-msl);
-        font-weight: var(--font-weight-sb) !important;
+
+    .fileBlockTitle {
+        @include BoldThirdFamily;
     }
+}
+
+//PRODUCT_SLIDER
+.sliderTitle {
+    @include BoldThirdFamily;
+
+}
+
+.list {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+}
+
+.productItem {
+    flex-grow: 1;
 }

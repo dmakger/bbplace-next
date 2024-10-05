@@ -18,7 +18,7 @@ export const CabinetModuleStatisticsText = ({
                 {title}
             </span>
             <span className={cl.quantity}>
-                {quantity ?? 'dasd'}
+                {quantity}
             </span>
         </p>
     )

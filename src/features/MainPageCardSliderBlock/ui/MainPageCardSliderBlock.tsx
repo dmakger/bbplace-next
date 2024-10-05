@@ -6,6 +6,7 @@ import { ReactNode } from "react"
 
 export interface IMainPageCardSliderBlock {
     className?: string,
+    classNameTitle?: string,
     title: string,
     buttonTitle: string
     buttonHref: string,
@@ -14,15 +15,16 @@ export interface IMainPageCardSliderBlock {
 
 export const MainPageCardSliderBlock = ({
     className,
+    classNameTitle,
     title,
     buttonTitle,
     buttonHref,
     children
 }: IMainPageCardSliderBlock) => {
     return (
-        <div className={cls(cl.MainPageCardSliderBlock)}>
+        <div className={cls(cl.MainPageCardSliderBlock, className)}>
             <div className={cl.topContainer}>
-                <h4 className={cl.title}>
+                <h4 className={cls(cl.title, classNameTitle)}>
                     {title}
                 </h4>
                 <Button

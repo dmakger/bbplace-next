@@ -11,8 +11,11 @@ import { useState } from "react"
 import { HandleSize } from "@/shared/ui/Handle/Size/HandleSize"
 import { IFile } from "@/entities/File/model/file.model"
 import { MAIN_PAGES } from "@/config/pages-url.config"
-import { BBP_PRESENTATION_DOCUMENT } from "@/shared/data/documents.data"
+import { BBP_PRESENTATION_DOCUMENT, MUILTIPLE_ADDING_PRODUCTS_DOCUMENT } from "@/shared/data/documents.data"
 import { FileFormat } from "@/entities/File/data/file.data"
+import { MainPageCardSliderBlock } from "@/features/MainPageCardSliderBlock"
+import { CardsProductSlider } from "@/features/MainPageCardSliderBlock/components/Product/CardsProductSlider"
+import { SliderPagingVariant } from "@/shared/data/sliderT.data"
 
 export const ProfileMain = ({
     className,
@@ -21,7 +24,8 @@ export const ProfileMain = ({
     email,
     phoneNumber,
     profileMessageArray,
-    cabinetModuleArray
+    cabinetModuleArray,
+    productList
 }: IProfileMain) => {
 
     //STATE
@@ -29,8 +33,13 @@ export const ProfileMain = ({
 
     //VARIABLES
     const files: IFile[] = [
-        {name: 'О компании BBPlace.pptx', url: MAIN_PAGES.CURRENT_DOCUMENT(BBP_PRESENTATION_DOCUMENT).path, format: FileFormat.POWER_POINT},
-        {name: 'Инструкция по множественному добавлению товаровdddddddddddddddddddd.pdf', format: FileFormat.PDF}
+        { name: 'О компании BBPlace.pptx', url: MAIN_PAGES.CURRENT_DOCUMENT(BBP_PRESENTATION_DOCUMENT).path, format: FileFormat.POWER_POINT },
+        { name: 'Инструкция по множественному добавлению товаров.pdf', url: MAIN_PAGES.CURRENT_DOCUMENT(MUILTIPLE_ADDING_PRODUCTS_DOCUMENT).path, format: FileFormat.PDF },
+        { name: 'О компании BBPlace.pptx', url: MAIN_PAGES.CURRENT_DOCUMENT(BBP_PRESENTATION_DOCUMENT).path, format: FileFormat.POWER_POINT },
+        { name: 'Инструкция по множественному добавлению товаров.pdf', url: MAIN_PAGES.CURRENT_DOCUMENT(MUILTIPLE_ADDING_PRODUCTS_DOCUMENT).path, format: FileFormat.PDF },
+        { name: 'О компании BBPlace.pptx', url: MAIN_PAGES.CURRENT_DOCUMENT(BBP_PRESENTATION_DOCUMENT).path, format: FileFormat.POWER_POINT },
+        { name: 'Инструкция по множественному добавлению товаров.pdf', url: MAIN_PAGES.CURRENT_DOCUMENT(MUILTIPLE_ADDING_PRODUCTS_DOCUMENT).path, format: FileFormat.PDF },
+
     ]
 
     return (
@@ -58,15 +67,26 @@ export const ProfileMain = ({
                         />
                     ))}
                 </div>
-                <FileBlock
-                    className={cl.fileBlock}
-                    title='Инструкции'
-                    hasFilesQuantity={false}
-                    files={files}
-                    classNameTitle={cl.fileBlockTitle}
-                    buttonVariant={ButtonVariant.CONTENT}
-                    isRow={is1024}
-                />
+                {currentLK === ECurrentLK.SUPPLIER ?
+                    <div className={cl.supplierBlock}>
+                        <FileBlock
+                            className={cl.fileBlock}
+                            title='Инструкции'
+                            hasFilesQuantity={false}
+                            files={files}
+                            classNameTitle={cl.fileBlockTitle}
+                            buttonVariant={ButtonVariant.CONTENT}
+                            isRow={is1024}
+                        />
+                    </div> : <MainPageCardSliderBlock
+                        classNameTitle={cl.sliderTitle}
+                        title={'Рекомендуемые товары'}
+                        buttonTitle={'Все товары'}
+                        buttonHref={MAIN_PAGES.PRODUCTS.path}
+                        children={<CardsProductSlider items={productList} gap={20} className={cl.list} classNameItem={cl.productItem} pagingVariant={SliderPagingVariant.Full} />}
+                    />
+                }
+
             </div>
             <HandleSize width={1024} set={setIs1024} />
         </>

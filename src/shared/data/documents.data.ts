@@ -6,6 +6,9 @@ export const DATA_PROCESSING_POLICY_DOCUMENT: string = 'PersonalDataProcessingPo
 
 export const BBP_PRESENTATION_DOCUMENT: string = 'BBP_Presentation.pdf'
 
+export const MUILTIPLE_ADDING_PRODUCTS_DOCUMENT: string = 'MultipleAddingInstruction.pdf'
+
+
 export const DOCUMENTS_ARRAY: string[] = [
     OFFERT_DOCUMENT,
     DATA_PROCESSING_DOCUMENT,

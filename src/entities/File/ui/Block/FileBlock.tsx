@@ -26,9 +26,6 @@ export const FileBlock: FC<FileBlockProps> = ({ files, title = 'Файлы', has
     // REF
     const contentRef = useRef<HTMLDivElement>(null);
 
-    console.log(isRow);
-    
-
     // EFFECT
     useEffect(() => {
         const content = contentRef.current;

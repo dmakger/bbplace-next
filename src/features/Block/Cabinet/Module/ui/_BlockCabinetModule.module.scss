@@ -53,10 +53,12 @@
 
     .mainBlock {
         display: flex;
+        flex-wrap: wrap;
         gap: 20px;
-        overflow-x: scroll;
         
         @media (max-width: 768px) {
+            flex-wrap: nowrap;
+            overflow-x: scroll;
             font-size: var(--font-size-s);
         }
 
