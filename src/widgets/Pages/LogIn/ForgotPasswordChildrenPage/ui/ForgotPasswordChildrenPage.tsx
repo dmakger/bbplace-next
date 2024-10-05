@@ -66,7 +66,7 @@ export const ForgotPasswordChildrenPage = () => {
         e.preventDefault();
 
         if (!formRef.current) return;
-        const { email, password, confirmPassword } = getFormDataFromForm(formRef.current)
+        const { password, confirmPassword } = getFormDataFromForm(formRef.current)
 
         //PASSWORD        
         if (!password || !confirmPassword) {
@@ -78,8 +78,8 @@ export const ForgotPasswordChildrenPage = () => {
         }
         resetPassword({
             password: password,
-            token: 'CfDJ8ISDb64IsSRInw+8yEpv42E1qEC8EvYKehhpbyUKiQvQOLZjcTVkQw8rSIwBAsNYgdfvP1Ftm7C/7KxeXLb8Hs4kw2ePbcn7hT7dczcfqup4jedHGiqZJ2eNoxpAQGmEmmlfB7oPUyD74XVKvbtXfWHdNchshtCZM9RpfjRSRCAUPNim+TkBOZy0gG4N6Vi4hEhC7TztmYjnX9TSaVnvJTHl9A9gTj+cC2yPf98TbbMH',
-            email: 'yupii2051@gmail.com'
+            token: token?.replaceAll(' ', '+') ?? '',
+            email: emailFromUrl ?? ''
         })
         setIsOpenResetPasswordModal(true)
     }

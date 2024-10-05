@@ -35,6 +35,8 @@ interface IWrapperRectangleInput {
   linkText?: string,
   linkHref?: string,
 
+  infoChildren?: ReactNode,
+
   bellowButtonText?: string,
   bellowButtonType?: ButtonType,
   isCanDisabledBellowButton?: boolean,
@@ -47,10 +49,10 @@ interface IWrapperRectangleInput {
   descriptionTooltipText?: string,
   errorInputMessage?: string,
 
-	fileList?: IFile[]
-	setFileList?: Dispatch<SetStateAction<IFile[]>>
-	responseFileList?: IResponseFile[]
-	setResponseFileList?: Dispatch<SetStateAction<IResponseFile[]>>
+  fileList?: IFile[]
+  setFileList?: Dispatch<SetStateAction<IFile[]>>
+  responseFileList?: IResponseFile[]
+  setResponseFileList?: Dispatch<SetStateAction<IResponseFile[]>>
 }
 
 export const WrapperRectangleInput = ({
@@ -68,6 +70,8 @@ export const WrapperRectangleInput = ({
   linkText,
   linkHref,
 
+  infoChildren,
+
   bellowButtonText,
   bellowButtonType = ButtonType.Button,
   isCanDisabledBellowButton = false,
@@ -81,20 +85,20 @@ export const WrapperRectangleInput = ({
   errorInputMessage = 'Пожалуйста заполните это поле',
   fileList = [],
   setFileList,
-  responseFileList=[],
+  responseFileList = [],
   setResponseFileList,
 }: IWrapperRectangleInput) => {
 
-	// STATE
-	const [uploadedFileList, setUploadedFileList] = useState<IFile[]>([]);
+  // STATE
+  const [uploadedFileList, setUploadedFileList] = useState<IFile[]>([]);
 
   const [isWarningActive, setIsWarningActive] = useState<boolean>(false)
   const [isDescriptionActive, setIsDescriptionActive] = useState<boolean>(false);
   const [is768, setIs768] = useState<boolean>(false)
   const [errorMessageArray, setErrorMessageArray] = useState<string[]>([])
 
-	//Для InputText
-	const [inputValueLength, setInputValueLength] = useState<number>(0)
+  //Для InputText
+  const [inputValueLength, setInputValueLength] = useState<number>(0)
 
   //Для RecursiveSelectInput
   const [selectedOptionsArray, setSelectedOptionsArray] = useState<IOption[]>([])
@@ -107,10 +111,10 @@ export const WrapperRectangleInput = ({
   const uniqueId = `checkbox-${Math.random().toString(36)}`;
 
 
-	const [warnings, setWarnings] = useState<Record<string, boolean>>({});
-	const [successes, setSuccesses] = useState<Record<string, boolean>>({});
-	const [warning, setWarning] = useState<boolean>(false);
-	const [success, setSuccess] = useState<boolean>(false);
+  const [warnings, setWarnings] = useState<Record<string, boolean>>({});
+  const [successes, setSuccesses] = useState<Record<string, boolean>>({});
+  const [warning, setWarning] = useState<boolean>(false);
+  const [success, setSuccess] = useState<boolean>(false);
 
   //EFFECT
   useEffect(() => {
@@ -196,11 +200,11 @@ export const WrapperRectangleInput = ({
   return (
     <>
       <div className={cls(cl.WrapperRectangleInput, className, cl[labelPosition])}>
-        <div className={cls(cl.labelNInputsContainer, linkText ? cl.columnStyle : '')} onClick={labelPosition === ELabelPosition.RIGHT && !linkHref ? handleLabelClick : () => {}}>
+        <div className={cls(cl.labelNInputsContainer, linkText ? cl.columnStyle : '')} onClick={labelPosition === ELabelPosition.RIGHT && !linkHref ? handleLabelClick : () => { }}>
           <div className={cl.labelNTooltipContainer}>
-            <label className={cls(cl.label, classNameLabel)} 
-                   onClick={labelPosition === ELabelPosition.RIGHT ? handleLabelClick : () => { }} 
-                   htmlFor={labelPosition === ELabelPosition.RIGHT ? uniqueId : undefined}
+            <label className={cls(cl.label, classNameLabel)}
+              onClick={labelPosition === ELabelPosition.RIGHT ? handleLabelClick : () => { }}
+              htmlFor={labelPosition === ELabelPosition.RIGHT ? uniqueId : undefined}
             >
               {labelText}
             </label>
@@ -208,16 +212,16 @@ export const WrapperRectangleInput = ({
             <div className={cl.tooltipsNLinkContainer}>
               {linkText && (
                 <Button variant={ButtonVariant.DEFAULT}
-                        title={linkText}
-                        linkTarget='_blank' href={linkHref}
-                        afterImage={ARROW_IN_CIRCLE} afterProps={{ width: 14, height: 14 }} 
-                        className={cl.buttonLink} />
+                  title={linkText}
+                  linkTarget='_blank' href={linkHref}
+                  afterImage={ARROW_IN_CIRCLE} afterProps={{ width: 14, height: 14 }}
+                  className={cl.buttonLink} />
               )}
 
               {fileList && fileList.length > 0 && (
-                <FileWrapList fileList={fileList} setFileList={setFileList} 
-                              responseFileList={responseFileList} setResponseFileList={setResponseFileList} 
-                              className={cl.fileList}/>
+                <FileWrapList fileList={fileList} setFileList={setFileList}
+                  responseFileList={responseFileList} setResponseFileList={setResponseFileList}
+                  className={cl.fileList} />
               )}
 
               <div className={cl.tooltipsContainer}>
@@ -284,6 +288,10 @@ export const WrapperRectangleInput = ({
           </div>
         )}
 
+        {infoChildren && <div className={cl.infoChildren}>
+          {infoChildren}
+        </div>}
+
         {bellowButtonText &&
           <Button variant={ButtonVariant.FILL}
             loading={isLoadingBellowButton}
@@ -304,7 +312,7 @@ export const WrapperRectangleInput = ({
           <WrapperModalBottom title={labelText}
             bottomChildren={(
               <BottomInfoModal
-                  text={isDescriptionActive && descriptionTooltipText ? descriptionTooltipText : isWarningActive ? warningTooltipText : ''} 
+                text={isDescriptionActive && descriptionTooltipText ? descriptionTooltipText : isWarningActive ? warningTooltipText : ''}
               />
             )}
             setIsOpen={closeTheModal} />

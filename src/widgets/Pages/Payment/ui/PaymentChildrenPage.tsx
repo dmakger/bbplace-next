@@ -9,12 +9,13 @@ import {
     BUSINESS_TARIFF_DURATION_OPTIONS_ARRAY,
     BUSINESS_TYPE_TARIFFS_OPTION,
     PREMIUM_TARIFF_DURATION_OPTIONS_ARRAY,
-    PREMIUM_TYPE_TARIFFS_OPTION,
     TYPE_TARIFFS_OPTIONS_ARRAY
 } from "../../Tariffs"
 import { useState } from "react"
 import { IOption } from "@/shared/model/option.model"
 import { PAYMENT_METHOD_OPTIONS_ARRAY } from "../data/payment.data"
+import { PaymentFormInfo } from '@/features/Payment'
+import { ETTVariants } from '../../Tariffs/model/tariffs.model'
 
 
 export const PaymentChildrenPage = () => {
@@ -46,7 +47,7 @@ export const PaymentChildrenPage = () => {
                     className={cl.highWidth}
                     options={tariffsType === BUSINESS_TYPE_TARIFFS_OPTION ?
                         BUSINESS_TARIFF_DURATION_OPTIONS_ARRAY :
-                            PREMIUM_TARIFF_DURATION_OPTIONS_ARRAY}
+                        PREMIUM_TARIFF_DURATION_OPTIONS_ARRAY}
                     disabled={tariffsType === undefined}
                     required
                     placeholder="Длительность"
@@ -59,6 +60,7 @@ export const PaymentChildrenPage = () => {
                 isDescriptionTooltip
                 descriptionTooltipText="Введите адрес электронной почты, на которую был зарегистрирован профиль"
                 bellowButtonText="Оплатить"
+                infoChildren={<PaymentFormInfo title='Лучшее предложение:' mainText='Премиум на 12 месяцев за 34 680₽' footerText='Длительные тарифы выгоднее' tariffsType={ETTVariants.PREMIUM} />}
             >
                 <Input.Select
                     variant={EInputVariants.RECTANGULAR}

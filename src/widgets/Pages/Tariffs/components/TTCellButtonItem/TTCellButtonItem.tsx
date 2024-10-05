@@ -6,10 +6,10 @@ import { Button, ButtonVariant } from '@/shared/ui/Button'
 import { ButtonColor, ButtonSize } from '@/shared/ui/Button/model/button.model'
 import { HandleSize } from '@/shared/ui/Handle/Size/HandleSize'
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { ETTVariants, ITTCellButtonItem } from '../../model/tariffs.model'
 import { ButtonArrowWLine } from '@/shared/ui/Button/data/Arrow/WLine/ButtonArrowWLine'
 import { TARIFFS_INFO_ARRAY } from '../../data/tariffs.data'
+import { MAIN_PAGES } from '@/config/pages-url.config'
 
 
 export const TTCellButtonItem = ({
@@ -20,7 +20,6 @@ export const TTCellButtonItem = ({
     subtitle,
     buttonTitle,
     rowId
-
 }: ITTCellButtonItem) => {
 
     //STATE
@@ -29,9 +28,6 @@ export const TTCellButtonItem = ({
     const [canScrollNext, setCanScrollNext] = useState<boolean>(false)
 
     const buttonHeight: number = 110;
-
-    //ROUTER
-    const router = useRouter();
 
     //EFFECT
     useEffect(() => {
@@ -71,7 +67,8 @@ export const TTCellButtonItem = ({
                         color={variant === ETTVariants.DEMO ? ButtonColor.Tertiary : ButtonColor.Primary}
                         size={is1024 ? ButtonSize.Medium : ButtonSize.Big}
                         title={buttonTitle}
-                        disabled />}
+                        href={MAIN_PAGES.PAYMENT.path}
+                    />}
                 </div>
 
                 <ButtonArrowWLine isSecondary={false} onClick={onNext} sizes={{ width: 20, height: 20 }}
