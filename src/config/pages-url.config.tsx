@@ -82,8 +82,8 @@ class DASHBOARD extends Route {
         super('/i');
     }
     
-    _HOME__SELLER = this.createPath('/chat', true)
-    _HOME__BUYER = this.createPath('/products', true)
+    _HOME__SELLER = this.createPath('/products', true)
+    _HOME__BUYER = this.createPath('/chat', true)
 
     // HOME = this.createPath('/chat', true); // Дефолтное значение, которое будет использовать сервер
     HOME = getCurrentLKToken() === ECurrentLK.SELLER 
