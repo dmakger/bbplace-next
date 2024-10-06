@@ -109,6 +109,7 @@ export const FormTenderPurchaseNew:FC<FormTenderPurchaseNewProps> = ({className}
             return
         }
 
+        console.log('qwe API', formData, selectedCategoryOption, selectedCurrencyOption, selectedQuantityUnitsOption, userShareContact)
         const apiData: IPropsTenderPurchase = {
             name: formData.name,
             categoryId: selectedCategoryOption!.id,
@@ -121,7 +122,7 @@ export const FormTenderPurchaseNew:FC<FormTenderPurchaseNewProps> = ({className}
             attachments: JSON.stringify(uploadedResponseFileList),
         }
         createPurchaseTender(apiData).then(res => {
-            router.push(DASHBOARD_PAGES.TENDERS.path)
+            router.push(DASHBOARD_PAGES.TENDERS(true).path)
         })
     }
     

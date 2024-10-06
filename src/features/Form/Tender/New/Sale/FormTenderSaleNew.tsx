@@ -106,6 +106,9 @@ export const FormTenderSaleNew:FC<FormTenderSaleNewProps> = ({className}) => {
             return
         }
 
+
+        console.log('qwe API', formData, selectedCategoryOption, selectedCurrencyOption, selectedMinOrderOption, userShareContact)
+
         
         const apiData: IPropsTenderSale = {
             name: formData.name,
@@ -120,7 +123,7 @@ export const FormTenderSaleNew:FC<FormTenderSaleNewProps> = ({className}) => {
             attachments: JSON.stringify(uploadedResponseFileList),
         }
         createSaleTender(apiData).then(() => {
-            router.push(DASHBOARD_PAGES.TENDERS.path)
+            router.push(DASHBOARD_PAGES.TENDERS(false).path)
         })
     }
     
