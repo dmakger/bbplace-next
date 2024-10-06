@@ -1,9 +1,10 @@
 import { XMARK_CAPTION_ICON } from "@/shared/ui/Icon/data/xmark.data.icon"
-import { ITTCellButtonItem, ITTBodyRowData, ITariffsInfo, ETTVariants, ITTMobileData } from "../model/tariffs.model"
+import { ITTCellButtonItem, ITTBodyRowData, ITariffsInfo, ETTVariants, ITTMobileData, ITariffsTypeAndDuration } from "../model/tariffs.model"
 import { CHECKBOX_FONT_ICON } from "@/shared/ui/Icon/data/checkbox.data.icon"
 import { INFINITY_FONT_ICON } from "@/shared/ui/Icon/data/infinity.data.icon"
 import { MINUS_CAPTION_ICON } from "@/shared/ui/Icon/data/minus.data.icon"
 import { IOption } from "@/shared/model/option.model"
+import { IPaymentFormInfo } from "@/features/Payment/FormInfo/ui/PaymentFormInfo"
 
 //TARIFFS_INFO
 
@@ -217,12 +218,14 @@ export const TT_BODY_ROW_DATA_ARRAY: ITTBodyRowData[] = [
 //TARIFFS_OPTIONS
 export const BUSINESS_TYPE_TARIFFS_OPTION: IOption = {
     id: 1,
-    name: 'Бизнес'
+    name: 'Бизнес',
+    value: 'business'
 }
 
 export const PREMIUM_TYPE_TARIFFS_OPTION: IOption = {
     id: 2,
-    name: 'Премиум'
+    name: 'Премиум',
+    value: 'premium'
 }
 
 export const TYPE_TARIFFS_OPTIONS_ARRAY: IOption[] = [
@@ -234,17 +237,20 @@ export const TYPE_TARIFFS_OPTIONS_ARRAY: IOption[] = [
 
 const BUSINESS_TARIFF_3_MONTH_DURATION_OPTION: IOption = {
     id: 1,
-    name: '3 месяца по 2 490₽'
+    name: '3 месяца по 2 490₽',
+    value: '3'
 }
 
 const BUSINESS_TARIFF_6_MONTH_DURATION_OPTION: IOption = {
     id: 2,
-    name: '6 месяцев по 2 290₽'
+    name: '6 месяцев по 2 290₽',
+    value: '6'
 }
 
 const BUSINESS_TARIFF_12_MONTH_DURATION_OPTION: IOption = {
     id: 3,
-    name: '12 месяцев по 2 090₽'
+    name: '12 месяцев по 2 090₽',
+    value: '12'
 }
 
 export const BUSINESS_TARIFF_DURATION_OPTIONS_ARRAY: IOption[] = [
@@ -256,17 +262,20 @@ export const BUSINESS_TARIFF_DURATION_OPTIONS_ARRAY: IOption[] = [
 
 const PREMIUM_TARIFF_3_MONTH_DURATION_OPTION: IOption = {
     id: 1,
-    name: '3 месяца по 3 490₽'
+    name: '3 месяца по 3 490₽',
+    value: '3'
 }
 
 const PREMIUM_TARIFF_6_MONTH_DURATION_OPTION: IOption = {
     id: 2,
-    name: '6 месяцев по 3 190₽'
+    name: '6 месяцев по 3 190₽',
+    value: '6'
 }
 
 const PREMIUM_TARIFF_12_MONTH_DURATION_OPTION: IOption = {
     id: 3,
-    name: '12 месяцев по 2 890₽'
+    name: '12 месяцев по 2 890₽',
+    value: '12'
 }
 
 export const PREMIUM_TARIFF_DURATION_OPTIONS_ARRAY: IOption[] = [
@@ -274,3 +283,62 @@ export const PREMIUM_TARIFF_DURATION_OPTIONS_ARRAY: IOption[] = [
     PREMIUM_TARIFF_6_MONTH_DURATION_OPTION,
     PREMIUM_TARIFF_12_MONTH_DURATION_OPTION
 ]
+
+export const TARIFFS_OPTIONS_ARRAY: Partial<Record<ETTVariants, ITariffsTypeAndDuration>> = {
+    [ETTVariants.BUSINESS]: {
+        type: BUSINESS_TYPE_TARIFFS_OPTION,
+        duration: BUSINESS_TARIFF_DURATION_OPTIONS_ARRAY
+    },
+    [ETTVariants.PREMIUM]: {
+        type: PREMIUM_TYPE_TARIFFS_OPTION,
+        duration: PREMIUM_TARIFF_DURATION_OPTIONS_ARRAY
+    },
+}
+
+//TARIFFS_BANNER
+export const BUSINESS_TARIFFS_BANNER_3_MONTH_INFO: IPaymentFormInfo = {
+    mainText: 'Бизнес на 3 месяца за 7 470₽',
+    footerText: 'Длительные тарифы выгоднее'
+}
+
+export const BUSINESS_TARIFFS_BANNER_6_MONTH_INFO: IPaymentFormInfo = {
+    mainText: 'Бизнес на 6 месяцев за 13 740₽',
+    footerText: 'Выгода 8% — почти максимальная'
+}
+
+export const BUSINESS_TARIFFS_BANNER_12_MONTH_INFO: IPaymentFormInfo = {
+    mainText: 'Бизнес на 12 месяцев за 25 080₽',
+    footerText: 'Выгода 16% — Максимальная!'
+}
+
+export const BUSINESS_TARIFFS_BANNER_INFO_ARRAY: IPaymentFormInfo[] = [
+    BUSINESS_TARIFFS_BANNER_3_MONTH_INFO,
+    BUSINESS_TARIFFS_BANNER_6_MONTH_INFO,
+    BUSINESS_TARIFFS_BANNER_12_MONTH_INFO
+]
+
+export const PREMIUM_TARIFFS_BANNER_3_MONTH_INFO: IPaymentFormInfo = {
+    mainText: 'Премиум на 3 месяца за 10 470₽',
+    footerText: 'Длительные тарифы выгоднее'
+}
+
+export const PREMIUM_TARIFFS_BANNER_6_MONTH_INFO: IPaymentFormInfo = {
+    mainText: 'Премиум на 6 месяцев за 19 140₽',
+    footerText: 'Выгода 9% — почти максимальная'
+}
+
+export const PREMIUM_TARIFFS_BANNER_12_MONTH_INFO: IPaymentFormInfo = {
+    mainText: 'Премиум на 12 месяцев за 34 680₽',
+    footerText: 'Выгода 18% — максимальная!'
+}
+
+export const PREMIUM_TARIFFS_BANNER_INFO_ARRAY: IPaymentFormInfo[] = [
+    PREMIUM_TARIFFS_BANNER_3_MONTH_INFO,
+    PREMIUM_TARIFFS_BANNER_6_MONTH_INFO,
+    PREMIUM_TARIFFS_BANNER_12_MONTH_INFO
+]
+
+export const TARIFFS_PAYMENT_INFO_OPTIONS_ARRAY: Partial<Record<ETTVariants, IPaymentFormInfo[]>> = {
+    [ETTVariants.BUSINESS]: BUSINESS_TARIFFS_BANNER_INFO_ARRAY,
+    [ETTVariants.PREMIUM]: PREMIUM_TARIFFS_BANNER_INFO_ARRAY
+}

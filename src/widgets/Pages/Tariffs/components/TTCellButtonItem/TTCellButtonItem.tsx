@@ -10,6 +10,7 @@ import { ETTVariants, ITTCellButtonItem } from '../../model/tariffs.model'
 import { ButtonArrowWLine } from '@/shared/ui/Button/data/Arrow/WLine/ButtonArrowWLine'
 import { TARIFFS_INFO_ARRAY } from '../../data/tariffs.data'
 import { MAIN_PAGES } from '@/config/pages-url.config'
+import { useActionCreators } from '@/storage/hooks'
 
 
 export const TTCellButtonItem = ({
@@ -28,6 +29,9 @@ export const TTCellButtonItem = ({
     const [canScrollNext, setCanScrollNext] = useState<boolean>(false)
 
     const buttonHeight: number = 110;
+
+    //RTK
+    const actionCreators = useActionCreators()
 
     //EFFECT
     useEffect(() => {
@@ -68,6 +72,7 @@ export const TTCellButtonItem = ({
                         size={is1024 ? ButtonSize.Medium : ButtonSize.Big}
                         title={buttonTitle}
                         href={MAIN_PAGES.PAYMENT.path}
+                        onClick={() => actionCreators.setTariffsType(variant)}
                     />}
                 </div>
 

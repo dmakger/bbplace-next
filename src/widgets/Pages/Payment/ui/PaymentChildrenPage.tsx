@@ -1,38 +1,130 @@
 'use client'
 
-import cl from './_PaymentChildrenPage.module.scss'
-import { WrapperForLogInNSupportPages } from "@/shared/ui/Wrapper/ForLogInNSupportPages"
-import { WrapperRectangleInput } from "@/shared/ui/Wrapper/RectangleInput"
+import { PaymentFormInfo } from '@/features/Payment'
+import { IOption } from "@/shared/model/option.model"
+import { ButtonType } from '@/shared/ui/Button/model/button.model'
 import Input from "@/shared/ui/Input/Input"
 import { EInputVariants } from "@/shared/ui/Input/model/input.model"
-import {
-    BUSINESS_TARIFF_DURATION_OPTIONS_ARRAY,
-    BUSINESS_TYPE_TARIFFS_OPTION,
-    PREMIUM_TARIFF_DURATION_OPTIONS_ARRAY,
-    TYPE_TARIFFS_OPTIONS_ARRAY
-} from "../../Tariffs"
-import { useState } from "react"
-import { IOption } from "@/shared/model/option.model"
-import { PAYMENT_METHOD_OPTIONS_ARRAY } from "../data/payment.data"
-import { PaymentFormInfo } from '@/features/Payment'
+import { WrapperForLogInNSupportPages } from "@/shared/ui/Wrapper/ForLogInNSupportPages"
+import { WrapperRectangleInput } from "@/shared/ui/Wrapper/RectangleInput"
+import { useAppSelector } from '@/storage/hooks'
+import { FormEvent, useEffect, useState } from "react"
+import { TYPE_TARIFFS_OPTIONS_ARRAY } from "../../Tariffs"
+import { TARIFFS_OPTIONS_ARRAY } from '../../Tariffs/data/tariffs.data'
 import { ETTVariants } from '../../Tariffs/model/tariffs.model'
+import { PAYMENT_BY_CARD_OPTION, PAYMENT_BY_PAYMENT_ACCOUNT_OPTION, PAYMENT_CURRENCY_ERRORS_MESSAGE, PAYMENT_CURRENCY_OPTIONS_ARRAY, PAYMENT_METHOD_ERRORS_MESSAGE, PAYMENT_METHOD_OPTIONS_ARRAY, TARIFFS_DURATION_ERRORS_MESSAGE, TARIFFS_TYPE_ERRORS_MESSAGE } from "../data/payment.data"
+import { getSelectedTariffsInfo } from '../lib/payment.lib'
+import cl from './_PaymentChildrenPage.module.scss'
 
 
 export const PaymentChildrenPage = () => {
 
+    //RTK
+    const { tariffsType: tariffsVariant } = useAppSelector(state => state.payment)
+
     //STATE
-    const [tariffsType, setTariffsType] = useState<IOption>()
+    const [tariffsState, setTariffsState] = useState<{ type: IOption, duration: IOption }>({
+        type: TARIFFS_OPTIONS_ARRAY[tariffsVariant]?.type ?? {} as IOption,
+        duration: {} as IOption
+    })
+    const [tariffsDurationOptions, setTariffsDurationOptions] = useState<IOption[]>([])
+    const [paymentsState, setPaymentsState] = useState<{ method: IOption, currency: IOption }>({
+        method: {} as IOption,
+        currency: {} as IOption
+    })
+    const [error, setError] = useState<boolean>(false)
+    const [errorTariffsState, setErrorTariffsState] = useState<{ type?: string, duration?: string }>({
+        type: '',
+        duration: ''
+    })
+
+    const [errorPaymentsState, setErrorPaymentsState] = useState<{ method?: string, currency?: string }>({
+        method: '',
+        currency: ''
+    })
+
+    //EFFECT
+    useEffect(() => {
+        const key = tariffsState.type?.value as ETTVariants;
+        setTariffsDurationOptions(TARIFFS_OPTIONS_ARRAY[key]?.duration || [])
+    }, [tariffsState.type])
 
     //FUNCTION
-    const getSelectedType = (it: IOption) => setTariffsType(it);
+
+    const submit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+
+        setError(true);
+        setErrorTariffsState({
+            type: '',
+            duration: ''
+        });
+        setErrorPaymentsState({
+            method: '',
+            currency: ''
+        });
+
+        let hasError = false;
+
+        //TARIFFS
+        if (Object.keys(tariffsState.type).length === 0) {
+            setErrorTariffsState({
+                type: TARIFFS_TYPE_ERRORS_MESSAGE,
+            });
+            hasError = true;
+        }
+        else if (Object.keys(tariffsState.duration).length === 0) {
+            setErrorTariffsState({
+                duration: TARIFFS_DURATION_ERRORS_MESSAGE
+            });
+            hasError = true;
+        }
+        //PAYMENT
+        if (Object.keys(paymentsState.method).length === 0) {
+            setErrorPaymentsState({
+                method: PAYMENT_METHOD_ERRORS_MESSAGE,
+            });
+            hasError = true;
+        }
+        else if (Object.keys(paymentsState.currency).length === 0  && paymentsState.method !== PAYMENT_BY_CARD_OPTION) {
+            setErrorPaymentsState({
+                currency: PAYMENT_CURRENCY_ERRORS_MESSAGE
+            });
+            hasError = true;
+        }
+        if (hasError) return;
+
+
+
+    }
+
+    const getSelectedType = (option: IOption) => {
+        if (option !== tariffsState.type) {
+            setTariffsState({ type: option, duration: {} as IOption });
+            setTariffsDurationOptions([])
+        }
+    }
+
+    const getSelectedTypeDuration = (option: IOption) => {
+        setTariffsState(prev => ({ ...prev, duration: option }));
+    };
+
+    const getSelectedPaymentMethod = (option: IOption) => {
+        if (option.name === PAYMENT_BY_CARD_OPTION.name) {
+            return setPaymentsState({ method: option, currency: {} as IOption })
+        }
+        setPaymentsState({ method: option, currency: {} as IOption })
+    }    
 
     return (
         <WrapperForLogInNSupportPages
             pageTitle="Оформление покупки"
+            onSubmitFunc={submit}
         >
             <WrapperRectangleInput
                 labelText="Тарифный план"
                 isRequired
+                errorInputMessage={errorTariffsState.type || errorTariffsState.duration}
             >
                 <Input.Select
                     variant={EInputVariants.RECTANGULAR}
@@ -40,17 +132,22 @@ export const PaymentChildrenPage = () => {
                     options={TYPE_TARIFFS_OPTIONS_ARRAY}
                     required
                     placeholder="Тип"
+                    defaultOption={tariffsState.type}
                     onClickOption={getSelectedType}
+                    error={error && !!errorTariffsState.type}
+                    warning={error && !!errorTariffsState.type}
                 />
                 <Input.Select
                     variant={EInputVariants.RECTANGULAR}
                     className={cl.highWidth}
-                    options={tariffsType === BUSINESS_TYPE_TARIFFS_OPTION ?
-                        BUSINESS_TARIFF_DURATION_OPTIONS_ARRAY :
-                        PREMIUM_TARIFF_DURATION_OPTIONS_ARRAY}
-                    disabled={tariffsType === undefined}
+                    options={tariffsDurationOptions}
+                    disabled={Object.keys(tariffsState.type).length === 0}
+                    defaultOption={tariffsState.duration}
                     required
                     placeholder="Длительность"
+                    onClickOption={getSelectedTypeDuration}
+                    error={error && !!errorTariffsState.duration}
+                    warning={error && !!errorTariffsState.duration}
                 />
 
             </WrapperRectangleInput>
@@ -58,9 +155,18 @@ export const PaymentChildrenPage = () => {
                 labelText="Перевод платежа"
                 isRequired
                 isDescriptionTooltip
-                descriptionTooltipText="Введите адрес электронной почты, на которую был зарегистрирован профиль"
+                descriptionTooltipText="Реквизиты расчетного счета будут отправлены на электронную почту."
                 bellowButtonText="Оплатить"
-                infoChildren={<PaymentFormInfo title='Лучшее предложение:' mainText='Премиум на 12 месяцев за 34 680₽' footerText='Длительные тарифы выгоднее' tariffsType={ETTVariants.PREMIUM} />}
+                bellowButtonType={ButtonType.Submit}
+                infoChildren={
+                    <PaymentFormInfo
+                        title={!Object.keys(tariffsState.duration).length ? 'Лучшее предложение:' : 'Итого'}
+                        mainText={getSelectedTariffsInfo(tariffsState, 'mainText')}
+                        footerText={getSelectedTariffsInfo(tariffsState, 'footerText')}
+                        tariffsType={tariffsState.type}
+                    />}
+                errorInputMessage={errorPaymentsState.method || errorPaymentsState.currency}
+
             >
                 <Input.Select
                     variant={EInputVariants.RECTANGULAR}
@@ -68,13 +174,19 @@ export const PaymentChildrenPage = () => {
                     options={PAYMENT_METHOD_OPTIONS_ARRAY}
                     required
                     placeholder="Способ оплаты"
+                    onClickOption={getSelectedPaymentMethod}
+                    error={error && !!errorPaymentsState.method}
+                    warning={error && !!errorPaymentsState.method}
                 />
                 <Input.Select
                     variant={EInputVariants.RECTANGULAR}
                     className={cl.lowWidth}
-                    options={[]}
+                    options={PAYMENT_CURRENCY_OPTIONS_ARRAY}
+                    defaultOption={paymentsState.currency}
                     placeholder="Валюта"
-                    disabled
+                    disabled={paymentsState.method !== PAYMENT_BY_PAYMENT_ACCOUNT_OPTION}
+                    error={error && !!errorPaymentsState.currency}
+                    warning={error && !!errorPaymentsState.currency}
                 />
 
             </WrapperRectangleInput>

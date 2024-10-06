@@ -37,10 +37,13 @@ export function InputSelect({
     onClickOption,
     arrowSizes = { width: 10, height: 15 },
     disabled,
+    required,
     title, titleModal,
 
+    error,
+
     className, classNameTitle, classNameOptions, classNameButton,
-    success, setSuccess, warning, setWarning,
+    success, setSuccess, warning, setWarning, 
 }: InputSelectProps) {
 
     // STATE
@@ -60,25 +63,32 @@ export function InputSelect({
     }, [defaultOption])
 
     useEffect(() => {
-        if (disabled && options.length < 1) {
+        if (disabled) {
             setWarning?.(false)
-            setSuccess?.(true)
+            setSuccess?.(true)            
         }
     }, [disabled])
 
     useEffect(() => {
-        if (isMounted.current && activeOption) {
+        if (error) {
+            setWarning && setWarning(true)
+            setSuccess && setSuccess(false)
+        }
+    },[error])
+
+    useEffect(() => {
+        if (isMounted.current && activeOption && !disabled) {
             checkValue()
         } else {
             isMounted.current = true
         }
-    }, [activeOption])
+    }, [activeOption])    
 
 
     //FUNCTIONS
     const checkValue = () => {
-        const isSelected = options.some(it => it.id === activeOption?.id)
-        setWarning?.(!isSelected)
+        const isSelected = options.some(it => it.id === activeOption?.id)        
+        setWarning?.(!isSelected && error || warning)
         setSuccess?.(isSelected)
     }
 
@@ -94,9 +104,14 @@ export function InputSelect({
 
     const handleOnItem = (it: IOption) => {
         setActiveOption(it)
+        setWarning?.(false)
+        setSuccess?.(true)
         if (onClickOption) onClickOption(it)
         setShowOptions(false)
     }
+
+    //VARIABLE
+    const noActiveOption = !activeOption || !Object.keys(activeOption).length;
 
     return (
         <>
@@ -109,8 +124,8 @@ export function InputSelect({
                 )}>
                 <WrapperTitleInput title={title}>
                     <div onClick={!disabled ? handleOnTitle : () => { }} className={cls(cl.button, cl[variant], variant === EInputVariants.RECTANGULAR && showOptions ? cl.activeButton : '', classNameButton, warning ? cl.error : success ? cl.success : '', disabled ? cl.disabled : '',)}>
-                        <span className={cls(cl.title, classNameTitle, !activeOption && placeholder ? cl.placeholder : '')}>
-                            {!activeOption && placeholder ? placeholder : activeOption?.name}
+                        <span className={cls(cl.title, classNameTitle, noActiveOption && placeholder ? cl.placeholder : '')}>
+                            {noActiveOption && placeholder ? placeholder : activeOption?.name}
                         </span>
                         <Button variant={ButtonVariant.DEFAULT}
                             className={cls(cl.arrowContainer, showOptions ? cl.activeArrow : '')}
@@ -129,6 +144,7 @@ export function InputSelect({
                         variant={variant}
                         options={options}
                         defaultOption={activeOption}
+                        required={required}
                         name={name}
                         onClickOption={handleOnItem}
                         className={cls(cl.options, classNameOptions, showOptions ? cl.show : '')} />

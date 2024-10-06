@@ -190,8 +190,12 @@
     background-color: var(--tertiary-surface-low);
     border: 1px solid var(--disabled);
     border-radius: 5px;
-    color: var(--font-caption-sub);
+    color: var(--font-caption-sub) !important;
     font-weight: var(--font-weight-med);
+
+    .title{
+        color: var(--disabled) !important;
+    }
 
     .placeholder {
         color: var(--disabled) !important;
