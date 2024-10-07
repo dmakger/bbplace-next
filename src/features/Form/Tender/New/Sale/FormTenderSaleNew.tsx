@@ -106,21 +106,31 @@ export const FormTenderSaleNew:FC<FormTenderSaleNewProps> = ({className}) => {
             return
         }
 
+        const codeCurrencyOption = selectedCurrencyOption?.params?.code
+        if (!codeCurrencyOption) {
+            notify({text: `Вы не заполнили поле в "Цена"`, status: ENotifyStatus.Error})
+            return
+        }
+        const shortNameMinOrderOption = selectedMinOrderOption?.params?.shortName
+        if (!codeCurrencyOption) {
+            notify({text: `Вы не заполнили поле в "Минимальный заказ"`, status: ENotifyStatus.Error})
+            return
+        }
         
         const apiData: IPropsTenderSale = {
             name: formData.name,
             categoryId: selectedCategoryOption!.id,
             price: formData.price ?? 0,
-            currency: `${selectedCurrencyOption!.params!.code}`,
+            currency: `${codeCurrencyOption}`,
             minOrder: formData.minOrder,
-            minOrderUnits: `${selectedMinOrderOption!.params!.shortName}`,
+            minOrderUnits: `${shortNameMinOrderOption}`,
             bulkDiscounts: false,
             description: formData.description,
             shareContacts: userShareContact,
             attachments: JSON.stringify(uploadedResponseFileList),
         }
         createSaleTender(apiData).then(() => {
-            router.push(DASHBOARD_PAGES.TENDERS.path)
+            router.push(DASHBOARD_PAGES.TENDERS(false).path)
         })
     }
     
