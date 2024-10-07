@@ -5,8 +5,6 @@ import { ISupplier } from "../model/supplier.model";
  * Возращает имя поставщика
  */
 export const getNameSupplier = (supplier: ISupplier) => {
-    console.log('qew supplier', supplier)
-    // const {brandName, legalName, fullName, } = supplier
     const brandName = supplier.brandName.trim()
     if (brandName)
         return brandName
