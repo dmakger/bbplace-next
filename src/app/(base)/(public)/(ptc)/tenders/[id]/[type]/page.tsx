@@ -56,8 +56,6 @@ export default function TenderPage() {
     //RTK
     const {id: userId} = useAppSelector(state => state.user)
 
-    console.log('qwe tender', tender, tenderAPI)
-
     // EFFECT
     useEffect(() => {
         if (tenderAPI && metrics && currencyList) {
