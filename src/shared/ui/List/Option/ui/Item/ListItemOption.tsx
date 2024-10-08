@@ -13,6 +13,7 @@ export const ListItemOption: FC<ListItemOptionProps> = ({
     onClick,
     className,
     classNameText,
+    activeId, isActive,
     ...rest
 }) => {
     // HANDLE

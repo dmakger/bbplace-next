@@ -1,10 +1,18 @@
 import { ICategory } from "@/entities/Metrics/model/category.metrics.model";
 import { ISupplier } from "../model/supplier.model";
 
+/**
+ * Возращает имя поставщика
+ */
 export const getNameSupplier = (supplier: ISupplier) => {
-    if (supplier.brandName.trim())
-        return supplier.brandName
-    return supplier.legalName
+    const brandName = supplier.brandName.trim()
+    if (brandName)
+        return brandName
+
+    const legalName = supplier.legalName?.trim()
+    if (legalName)
+        return legalName
+    return supplier.fullName.trim()
 }
 
 export const getCategoryNameSupplier = (category: ICategory[]) => {

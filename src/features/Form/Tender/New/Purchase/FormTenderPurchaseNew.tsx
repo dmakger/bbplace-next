@@ -109,11 +109,17 @@ export const FormTenderPurchaseNew:FC<FormTenderPurchaseNewProps> = ({className}
             return
         }
 
+        const shortNameQuantityUnitsOption = selectedQuantityUnitsOption?.params?.shortName
+        if (!shortNameQuantityUnitsOption) {
+            notify({text: `Вы не заполнили поле "Количество"`, status: ENotifyStatus.Error})
+            return
+        }
+
         const apiData: IPropsTenderPurchase = {
             name: formData.name,
             categoryId: selectedCategoryOption!.id,
             quantity: formData.quantity,
-            quantityUnits: `${selectedQuantityUnitsOption!.params!.shortname}`,
+            quantityUnits: `${shortNameQuantityUnitsOption}`,
             maximumBudget: formData.maximumBudget,
             currency: `${selectedCurrencyOption!.params!.code}`,
             description: formData.description,
@@ -121,7 +127,7 @@ export const FormTenderPurchaseNew:FC<FormTenderPurchaseNewProps> = ({className}
             attachments: JSON.stringify(uploadedResponseFileList),
         }
         createPurchaseTender(apiData).then(res => {
-            router.push(DASHBOARD_PAGES.TENDERS.path)
+            router.push(DASHBOARD_PAGES.TENDERS(true).path)
         })
     }
     

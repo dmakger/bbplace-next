@@ -19,7 +19,7 @@ export const LKButtonRightMarginBlock = () => {
       // DASHBOARD_PAGES.PRODUCTS(false).path,
       DASHBOARD_PAGES.NEW_PRODUCT.path,
       'i/products',
-      DASHBOARD_PAGES.TENDERS.path,
+      DASHBOARD_PAGES.TENDERS(true).path,
       DASHBOARD_PAGES.PROFILE_EDIT.path,
       MAIN_PAGES.TENDERS.path + '/',
       MAIN_PAGES.PRODUCTS.path + '/'
