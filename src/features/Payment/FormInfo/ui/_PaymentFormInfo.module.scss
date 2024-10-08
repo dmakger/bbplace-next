@@ -1,0 +1,61 @@
+.PaymentFormInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 190px;
+    position: relative;
+    padding: 40px;
+    border-radius: 5px;
+
+    .backgroundImage {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    .info {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        max-width: 320px;
+
+        .title {
+            color: var(--font-caption);
+        }
+
+        .mainText {
+            font-family: var(--third-family);
+            font-weight: var(--font-weight-sb);
+            font-size: var(--font-size-msl);
+        }
+    }
+
+    @media (max-width: 768px) {
+        padding: 30px;
+
+        .backgroundImage {
+            display: none;
+        }
+
+        .info {
+            max-width: 100%;
+            .title,
+            .footerText {
+                font-size: var(--font-size-s);
+            }
+
+            .mainText {
+                font-size: var(--font-size-sm);
+            }
+        }
+    }
+}
+
+//TARIFFS_BACKGROUND
+.business{
+    background: linear-gradient(90deg, #dfdede 0%, #ececeb 25%, #ececeb 75%, #dfdede 100%);
+}
+
+.premium{
+    background: linear-gradient(90deg, #eadbc1 0%, #f2ead2 25%, #f2ead2 75%, #eadbc1 100%);
+}

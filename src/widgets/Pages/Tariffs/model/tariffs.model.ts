@@ -1,8 +1,15 @@
+import { IOption } from "@/shared/model/option.model"
+
 export enum ETTVariants{
     DEFAULT = 'default',
     DEMO = 'demo',
     BUSINESS = 'business',
     PREMIUM = 'premium'
+}
+
+export interface ITariffsTypeAndDuration{
+    type: IOption,
+    duration: IOption[]
 }
 
 export interface ITTCellItem{

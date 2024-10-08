@@ -3,13 +3,13 @@
     "short_name": "BBPlace",
     "icons": [
         {
-            "src": "/google-touch-icon.png",
+            "src": "/icons/google-touch-icon.png",
             "sizes": "192x192",
             "type": "image/png",
 			"purpose": "any"
         },
         {
-            "src": "/google-maskable-icon.png",
+            "src": "/icons/google-maskable-icon.png",
             "sizes": "512x512",
             "type": "image/png",
 			"purpose": "maskable"
