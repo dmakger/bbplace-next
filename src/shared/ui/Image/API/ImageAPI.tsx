@@ -49,7 +49,7 @@ export const ImageAPI: FC<ImageAPIProps> = ({
             alt={alt ? alt : src}
             width={fill ? undefined : (typeof width === 'string' ? parseInt(width) : width) ?? 100}
             height={fill ? undefined : (typeof height === 'string' ? parseInt(height) : height) ?? undefined}
-            // quality={quality < 1 || quality > 100 ? 80 : quality}
+            quality={quality ? quality : 60}
             // layout={layout}
             fill={fill}
             className={cls(cl.image, className)}>

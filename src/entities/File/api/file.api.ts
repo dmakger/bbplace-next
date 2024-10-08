@@ -12,7 +12,7 @@ export const FileAPI = createApi({
 	endpoints: (build) => ({
 		getFile: build.mutation<File | IFile, IFileProps>({
             query: ({fileId, toFile=false, name}) => ({
-                url: `/GetFile/${fileId}`,
+                url: `/GetFileURL/${fileId}`,
                 method: 'GET',
                 responseHandler: async (response) => {
                     const data = await response.arrayBuffer()
