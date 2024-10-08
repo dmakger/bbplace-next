@@ -15,6 +15,8 @@ import { ETTVariants } from '../../Tariffs/model/tariffs.model'
 import { PAYMENT_BY_CARD_OPTION, PAYMENT_BY_PAYMENT_ACCOUNT_OPTION, PAYMENT_CURRENCY_ERRORS_MESSAGE, PAYMENT_CURRENCY_OPTIONS_ARRAY, PAYMENT_METHOD_ERRORS_MESSAGE, PAYMENT_METHOD_OPTIONS_ARRAY, TARIFFS_DURATION_ERRORS_MESSAGE, TARIFFS_TYPE_ERRORS_MESSAGE } from "../data/payment.data"
 import { getSelectedTariffsInfo } from '../lib/payment.lib'
 import cl from './_PaymentChildrenPage.module.scss'
+import { PaymentAPI } from '@/entities/Payment/api/payment.api'
+import { useRouter } from 'next/navigation'
 
 
 export const PaymentChildrenPage = () => {
@@ -27,8 +29,9 @@ export const PaymentChildrenPage = () => {
         type: TARIFFS_OPTIONS_ARRAY[tariffsVariant]?.type ?? {} as IOption,
         duration: {} as IOption
     })
-    const [tariffsDurationOptions, setTariffsDurationOptions] = useState<IOption[]>([])
-    const [paymentsState, setPaymentsState] = useState<{ method: IOption, currency: IOption }>({
+    const [tariffsDurationOptions, setTariffsDurationOptions] = useState<IOption[]>(TARIFFS_OPTIONS_ARRAY[tariffsState.type.value as ETTVariants]?.duration || [])
+
+    const [paymentState, setPaymentState] = useState<{ method: IOption, currency: IOption }>({
         method: {} as IOption,
         currency: {} as IOption
     })
@@ -42,16 +45,26 @@ export const PaymentChildrenPage = () => {
         method: '',
         currency: ''
     })
+    const [selectedTariff, setSelectedTariff] = useState<string>('')
+
+    //API
+    const { data: link, isSuccess } = PaymentAPI.useGetItemsIdQuery(selectedTariff, { skip: !selectedTariff });
+
+    //ROUTER
+    const router = useRouter();
 
     //EFFECT
+
     useEffect(() => {
-        const key = tariffsState.type?.value as ETTVariants;
-        setTariffsDurationOptions(TARIFFS_OPTIONS_ARRAY[key]?.duration || [])
-    }, [tariffsState.type])
+        if(isSuccess && link.link && selectedTariff){
+            router.push(link.link)
+        }
+    },[selectedTariff, isSuccess, link])
+
 
     //FUNCTION
 
-    const submit = (e: FormEvent<HTMLFormElement>) => {
+    const submit = async(e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
         setError(true);
@@ -80,13 +93,13 @@ export const PaymentChildrenPage = () => {
             hasError = true;
         }
         //PAYMENT
-        if (Object.keys(paymentsState.method).length === 0) {
+        if (Object.keys(paymentState.method).length === 0) {
             setErrorPaymentsState({
                 method: PAYMENT_METHOD_ERRORS_MESSAGE,
             });
             hasError = true;
         }
-        else if (Object.keys(paymentsState.currency).length === 0  && paymentsState.method !== PAYMENT_BY_CARD_OPTION) {
+        else if (Object.keys(paymentState.currency).length === 0  && paymentState.method !== PAYMENT_BY_CARD_OPTION) {
             setErrorPaymentsState({
                 currency: PAYMENT_CURRENCY_ERRORS_MESSAGE
             });
@@ -94,6 +107,7 @@ export const PaymentChildrenPage = () => {
         }
         if (hasError) return;
 
+        setSelectedTariff('1')
 
 
     }
@@ -102,6 +116,8 @@ export const PaymentChildrenPage = () => {
         if (option !== tariffsState.type) {
             setTariffsState({ type: option, duration: {} as IOption });
             setTariffsDurationOptions([])
+            const key = option?.value as ETTVariants;
+            setTariffsDurationOptions(TARIFFS_OPTIONS_ARRAY[key]?.duration || [])
         }
     }
 
@@ -111,9 +127,9 @@ export const PaymentChildrenPage = () => {
 
     const getSelectedPaymentMethod = (option: IOption) => {
         if (option.name === PAYMENT_BY_CARD_OPTION.name) {
-            return setPaymentsState({ method: option, currency: {} as IOption })
+            return setPaymentState({ method: option, currency: {} as IOption })
         }
-        setPaymentsState({ method: option, currency: {} as IOption })
+        setPaymentState({ method: option, currency: {} as IOption })
     }    
 
     return (
@@ -182,9 +198,9 @@ export const PaymentChildrenPage = () => {
                     variant={EInputVariants.RECTANGULAR}
                     className={cl.lowWidth}
                     options={PAYMENT_CURRENCY_OPTIONS_ARRAY}
-                    defaultOption={paymentsState.currency}
+                    defaultOption={paymentState.currency}
                     placeholder="Валюта"
-                    disabled={paymentsState.method !== PAYMENT_BY_PAYMENT_ACCOUNT_OPTION}
+                    disabled={paymentState.method !== PAYMENT_BY_PAYMENT_ACCOUNT_OPTION}
                     error={error && !!errorPaymentsState.currency}
                     warning={error && !!errorPaymentsState.currency}
                 />
