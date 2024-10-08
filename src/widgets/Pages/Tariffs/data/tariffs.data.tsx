@@ -1,5 +1,5 @@
 import { XMARK_CAPTION_ICON } from "@/shared/ui/Icon/data/xmark.data.icon"
-import { ITTCellButtonItem, ITTBodyRowData, ITariffsInfo, ETTVariants, ITTBodyRow, ITTMobileData } from "../model/tariffs.model"
+import { ITTCellButtonItem, ITTBodyRowData, ITariffsInfo, ETTVariants, ITTMobileData } from "../model/tariffs.model"
 import { CHECKBOX_FONT_ICON } from "@/shared/ui/Icon/data/checkbox.data.icon"
 import { INFINITY_FONT_ICON } from "@/shared/ui/Icon/data/infinity.data.icon"
 import { MINUS_CAPTION_ICON } from "@/shared/ui/Icon/data/minus.data.icon"
@@ -83,16 +83,16 @@ export const MOBILE_TT_BODY_DATA: ITTMobileData[] = [
 //ROWS_DATA
 export const LIMIT_TT_BODY_ROW_DATA: ITTBodyRowData = {
     default: { title: 'Лимит по предложениям для заказчиков', classNameData: 'firstLeftEl' },
-    demo: { iconSrc: XMARK_CAPTION_ICON.default, variant: ETTVariants.DEMO, classNameData: 'firstRightEl' },
+    demo: { title: '5 в месяц', variant: ETTVariants.DEMO, classNameData: 'firstRightEl' },
     business: { iconSrc: INFINITY_FONT_ICON.default, variant: ETTVariants.BUSINESS, classNameData: 'firstRightEl' },
     premium: { iconSrc: INFINITY_FONT_ICON.default, variant: ETTVariants.PREMIUM, classNameData: 'firstRightEl' },
 }
 
 export const PRIORITY_TT_BODY_ROW_DATA: ITTBodyRowData = {
     default: { title: 'Приоритет при показе в каталоге' },
-    demo: { title: '5 месяцев', variant: ETTVariants.DEMO },
-    business: { iconSrc: INFINITY_FONT_ICON.default, variant: ETTVariants.BUSINESS },
-    premium: { iconSrc: INFINITY_FONT_ICON.default, variant: ETTVariants.PREMIUM }
+    demo: { iconSrc: XMARK_CAPTION_ICON.default, variant: ETTVariants.DEMO },
+    business: { title: 'Высокий', variant: ETTVariants.BUSINESS },
+    premium: { title: 'Максимум', variant: ETTVariants.PREMIUM }
 }
 
 export const PRODUCT_NUMBER_TT_BODY_ROW_DATA: ITTBodyRowData = {
@@ -117,7 +117,7 @@ export const INDEXATION_TT_BODY_ROW_DATA: ITTBodyRowData = {
 }
 
 export const PRODUCTS_W_SEO_TT_BODY_ROW_DATA: ITTBodyRowData = {
-    default: { title: 'Товаров с SEO оптимизацией' },
+    default: { title: 'Товаров с SEO оптимизацией', subtitle: 'Улучшение видимости в поисковых системах для привлечения трафика' },
     demo: { iconSrc: XMARK_CAPTION_ICON.default, variant: ETTVariants.DEMO },
     business: { title: '3', variant: ETTVariants.BUSINESS },
     premium: { title: '10/20/30*', variant: ETTVariants.PREMIUM }
