@@ -1,0 +1,1 @@
+export {PaymentFormInfo} from './FormInfo/ui/PaymentFormInfo'

@@ -10,6 +10,7 @@ import { CountrySlice } from "@/entities/Metrics/storage/country.metrics.storage
 import { UserSlice } from '@/entities/Auth/storage/auth.storage'
 import { ChatSlice } from "@/entities/Chat/connection/chat.connection";
 import { NotifySlice } from "@/features/Notify/lib/notifySlice";
+import { PaymentSlice } from "@/features/Payment/lib/payment.storage";
 
 
 export const useAppDispatch = () => useDispatch<AppDispatch>();
@@ -26,6 +27,7 @@ export const useActionCreators = () => {
             ...CurrencySlice.actions,
             ...CountrySlice.actions,
             ...PTCSlice.actions,
+            ...PaymentSlice.actions,
             ...UserSlice.actions,
             ...ChatSlice.actions,
             ...NotifySlice.actions,

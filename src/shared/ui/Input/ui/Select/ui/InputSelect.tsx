@@ -16,14 +16,13 @@ import { Modal } from '@/shared/ui/Modal/ui/Modal/Modal'
 import { EModalView } from '@/shared/data/modal.data'
 import { HandleSize } from '@/shared/ui/Handle/Size/HandleSize'
 import { WrapperModalBottomDropList } from '@/shared/ui/Wrapper/ModalBottom/DropList/WrapperModalBottomDropList'
-// import { Button } from '@/shared/ui/Button/ui/Button'
-// import { ButtonVariant } from '@/shared/ui/Button'
 
-interface InputSelectProps extends IWrapperRectangleInputChildren, IInput{
+interface InputSelectProps extends IWrapperRectangleInputChildren, IInput {
     options: IOption[]
     defaultOption?: IOption
     onClickOption?: Function,
-    arrowSizes?: IImageSizes
+    arrowSizes?: IImageSizes,
+    disabled?: boolean,
     title?: string
     titleModal?: string
     classNameTitle?: string
@@ -37,10 +36,14 @@ export function InputSelect({
     defaultOption, options,
     onClickOption,
     arrowSizes = { width: 10, height: 15 },
+    disabled,
+    required,
     title, titleModal,
-    
+
+    error,
+
     className, classNameTitle, classNameOptions, classNameButton,
-    success, setSuccess, warning, setWarning,
+    success, setSuccess, warning, setWarning, 
 }: InputSelectProps) {
 
     // STATE
@@ -59,20 +62,34 @@ export function InputSelect({
         setActiveOption(defaultOption)
     }, [defaultOption])
 
+    useEffect(() => {
+        if (disabled) {
+            setWarning?.(false)
+            setSuccess?.(true)            
+        }
+    }, [disabled])
 
-    const checkValue = () => {
-        if (isMounted.current) {
-            const isSelected = activeOption && options.some(it => it.id === activeOption.id)
-            if (isSelected) {
-                setWarning && setWarning(false)
-                setSuccess && setSuccess(true)
-            } else {
-                setWarning && setWarning(true)
-                setSuccess && setSuccess(false)
-            }
+    useEffect(() => {
+        if (error) {
+            setWarning && setWarning(true)
+            setSuccess && setSuccess(false)
+        }
+    },[error])
+
+    useEffect(() => {
+        if (isMounted.current && activeOption && !disabled) {
+            checkValue()
         } else {
             isMounted.current = true
         }
+    }, [activeOption])    
+
+
+    //FUNCTIONS
+    const checkValue = () => {
+        const isSelected = options.some(it => it.id === activeOption?.id)        
+        setWarning?.(!isSelected && error || warning)
+        setSuccess?.(isSelected)
     }
 
 
@@ -87,28 +104,32 @@ export function InputSelect({
 
     const handleOnItem = (it: IOption) => {
         setActiveOption(it)
+        setWarning?.(false)
+        setSuccess?.(true)
         if (onClickOption) onClickOption(it)
         setShowOptions(false)
-        checkValue()
     }
+
+    //VARIABLE
+    const noActiveOption = !activeOption || !Object.keys(activeOption).length;
 
     return (
         <>
             <HandleSize width={768} set={setIs768} />
-            <WrapperClickOutside _ref={inputSelectRef} isShow={showOptions} handle={toggleShowOptions} 
+            <WrapperClickOutside _ref={inputSelectRef} isShow={showOptions} handle={toggleShowOptions}
                 className={cls(
-                    cl.block, 
-                    variant === EInputVariants.ROUNDED && showOptions ? cl.show : variant === EInputVariants.RECTANGULAR && showOptions ? cl.showOptionsRectangular : '', 
+                    cl.block,
+                    variant === EInputVariants.ROUNDED && showOptions ? cl.show : variant === EInputVariants.RECTANGULAR && showOptions ? cl.showOptionsRectangular : '',
                     className
                 )}>
                 <WrapperTitleInput title={title}>
-                    <div onClick={handleOnTitle} className={cls(cl.button, cl[variant],  variant === EInputVariants.RECTANGULAR && showOptions ? cl.activeButton : '', classNameButton, warning ? cl.error : success ? cl.success : '')}>
-                        <span className={cls(cl.title, classNameTitle, !activeOption && placeholder ? cl.placeholder : '')}>
-                            {!activeOption && placeholder ? placeholder : activeOption?.name}
+                    <div onClick={!disabled ? handleOnTitle : () => { }} className={cls(cl.button, cl[variant], variant === EInputVariants.RECTANGULAR && showOptions ? cl.activeButton : '', classNameButton, warning ? cl.error : success ? cl.success : '', disabled ? cl.disabled : '',)}>
+                        <span className={cls(cl.title, classNameTitle, noActiveOption && placeholder ? cl.placeholder : '')}>
+                            {noActiveOption && placeholder ? placeholder : activeOption?.name}
                         </span>
-                        <Button variant={ButtonVariant.DEFAULT} 
-                                className={cls(cl.arrowContainer, showOptions ? cl.activeArrow : '')} 
-                                beforeImage={ARROW_TERTIARY_WO_ICON} beforeProps={{ width: arrowSizes.width, height: arrowSizes.height }} />
+                        <Button variant={ButtonVariant.DEFAULT}
+                            className={cls(cl.arrowContainer, showOptions ? cl.activeArrow : '')}
+                            beforeImage={ARROW_TERTIARY_WO_ICON} beforeProps={{ width: arrowSizes.width, height: arrowSizes.height }} disabled={disabled} />
                     </div>
                     {/* <Button variant={ButtonVariant.DEFAULT} 
                     onClick={handleOnTitle} className={cls(cl.button, cl[variant], cl[size], variant === EInputVariants.RECTANGULAR && showOptions ? cl.activeButton : '', classNameButton, warning ? cl.error : success ? cl.success : '')}
@@ -123,18 +144,19 @@ export function InputSelect({
                         variant={variant}
                         options={options}
                         defaultOption={activeOption}
+                        required={required}
                         name={name}
                         onClickOption={handleOnItem}
-                        className={cls(cl.options, classNameOptions, showOptions && is768 ? cl.show : '')} />
+                        className={cls(cl.options, classNameOptions, showOptions ? cl.show : '')} />
                 ) : (
                     <Modal view={EModalView.BOTTOM}
                         buttonNode
                         isOpen={showOptions}
                         onClickOverlay={toggleShowOptions}>
-                        <WrapperModalBottomDropList 
+                        <WrapperModalBottomDropList
                             title={titleModal}
                             options={options}
-                            setIsOpen={toggleShowOptions} 
+                            setIsOpen={toggleShowOptions}
                             onClickOption={handleOnItem}
                             classNameBottomChild={cl.modalBottomChild} />
                     </Modal>
