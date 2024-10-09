@@ -20,8 +20,11 @@ export const NotifySlice = createSlice({
             const notificationExists = state.notifications.some(notification =>
                 notification.text === text &&
                 notification.status === status &&
-                isEqual(notification.button, button)
-        )
+                notification.button &&
+                notification.button.length === button?.length &&
+                notification.button.every((btn, index) => (
+                    btn.title === button[index].title
+            )))
             
             if (!notificationExists) {
                 state.notifications.push({

@@ -19,7 +19,6 @@ import { TenderAPI } from "@/entities/Tender/api/tender.api";
 import { PTCReducer } from "@/features/storage/PTC/ptc.storage";
 import { ChatReducer } from "@/entities/Chat/connection/chat.connection";
 import { NotifyReducer } from "@/features/Notify/lib/notifySlice";
-import { PaymentReducer } from "@/features/Payment/lib/payment.storage";
 import { PaymentAPI } from "@/entities/Payment/api/payment.api";
 
 
@@ -29,7 +28,6 @@ const rootReducer = combineReducers({
     currencyList: CurrencyReducer,
     countryList: CountryReducer,
     ptc: PTCReducer,
-    payment: PaymentReducer,
     user: UserReducer,
     chat: ChatReducer,
     notify: NotifyReducer,

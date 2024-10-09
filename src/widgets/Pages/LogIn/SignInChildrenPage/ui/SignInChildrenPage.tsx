@@ -76,7 +76,7 @@ export const SignInChildrenPage = () => {
     }
 
     return (
-        <WrapperForLogInNSupportPages pageTitle="Вход в профиль" onSubmitFunc={LogIn} formRef={formRef} forgotPasswordButton>
+        <WrapperForLogInNSupportPages pageTitle="Вход в профиль" onSubmitFunc={LogIn} formRef={formRef}>
             <WrapperRectangleInput
                 labelText="Электронная почта"
                 isRequired

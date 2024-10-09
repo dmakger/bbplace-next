@@ -7,7 +7,6 @@ import Input from "@/shared/ui/Input/Input"
 import { EInputVariants } from "@/shared/ui/Input/model/input.model"
 import { WrapperForLogInNSupportPages } from "@/shared/ui/Wrapper/ForLogInNSupportPages"
 import { WrapperRectangleInput } from "@/shared/ui/Wrapper/RectangleInput"
-import { useAppSelector } from '@/storage/hooks'
 import { FormEvent, useEffect, useState } from "react"
 import { TYPE_TARIFFS_OPTIONS_ARRAY } from "../../Tariffs"
 import { TARIFFS_OPTIONS_ARRAY } from '../../Tariffs/data/tariffs.data'
@@ -21,14 +20,11 @@ import { useRouter } from 'next/navigation'
 
 export const PaymentChildrenPage = () => {
 
-    //RTK
-    const { tariffsType: tariffsVariant } = useAppSelector(state => state.payment)
-
     //STATE
-    const [tariffsState, setTariffsState] = useState<{ type: IOption, duration: IOption }>({
-        type: TARIFFS_OPTIONS_ARRAY[tariffsVariant]?.type ?? {} as IOption,
+    const [tariffsState, setTariffsState] = useState(() => ({
+        type: TARIFFS_OPTIONS_ARRAY[sessionStorage.getItem('selectedTariff') as ETTVariants]?.type ?? {} as IOption,
         duration: {} as IOption
-    })
+    }));
     const [tariffsDurationOptions, setTariffsDurationOptions] = useState<IOption[]>(TARIFFS_OPTIONS_ARRAY[tariffsState.type.value as ETTVariants]?.duration || [])
 
     const [paymentState, setPaymentState] = useState<{ method: IOption, currency: IOption }>({
@@ -108,6 +104,7 @@ export const PaymentChildrenPage = () => {
         if (hasError) return;
 
         setSelectedTariff('1')
+        sessionStorage.removeItem('selectedTariff');
 
 
     }

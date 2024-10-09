@@ -30,8 +30,6 @@ export const TTCellButtonItem = ({
 
     const buttonHeight: number = 110;
 
-    //RTK
-    const actionCreators = useActionCreators()
 
     //EFFECT
     useEffect(() => {
@@ -56,6 +54,9 @@ export const TTCellButtonItem = ({
         }
     };
 
+    const setSelectedTariffAtSS = () => sessionStorage.setItem('selectedTariff', variant);
+
+
     return (
         <>
             <th className={cls(cl.TTCellButtonItem, cl[variant], classNameData ? cl[classNameData] : '', className)}>
@@ -72,7 +73,8 @@ export const TTCellButtonItem = ({
                         size={is1024 ? ButtonSize.Medium : ButtonSize.Big}
                         title={buttonTitle}
                         href={MAIN_PAGES.PAYMENT.path}
-                        onClick={() => actionCreators.setTariffsType(variant)}
+                        onClick={setSelectedTariffAtSS}
+                        disabled
                     />}
                 </div>
 
