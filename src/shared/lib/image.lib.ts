@@ -1,12 +1,30 @@
 import { IIcon, IIconBoolean, IWarningIcon } from "../ui/Icon/model/icon.model"
 
 const START_IMAGE_URL = "https://bbplace.ru/fileservice/api/FilesS3/GetFile"
+const START_IMAGE_ASYNC_URL = "https://bbplace.ru/fileservice/api/FilesS3/GetFileURL"
 
-export const getImage = (image: string) => {
+export const getImage = async (image: string) => {
     try {
         if (image.startsWith('https://'))
             return image
         return `${START_IMAGE_URL}/${image}`
+    } catch (err) {
+        return image
+    }
+}
+
+export const getImageFetch = async (image: string) => {
+    try {
+        const url = `${START_IMAGE_ASYNC_URL}/${image}`
+        const response = await fetch(url);
+        if (!response.ok) {
+            console.error('Failed to fetch image');
+            return image
+        }
+        const data = await response.json();
+        console.log('qwe async', response, data)
+        return data.url;
+        // return `${START_IMAGE_URL}/${image}`
     } catch (err) {
         return image
     }
