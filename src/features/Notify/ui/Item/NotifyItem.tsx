@@ -7,14 +7,16 @@ import cl from './_NotifyItem.module.scss'
 import { IListItem } from "@/shared/model/list.model";
 import { INotify } from "../../model/notify.model";
 import { useActionCreators } from "@/storage/hooks";
+import { Button } from "@/shared/ui/Button";
+import { IButton } from "@/shared/ui/Button/ui/Button";
 
-interface NotifyItemProps extends IListItem<INotify> {}
+interface NotifyItemProps extends IListItem<INotify> { }
 
-export const NotifyItem:FC<NotifyItemProps> = ({
+export const NotifyItem: FC<NotifyItemProps> = ({
     item: notify,
     className,
 }) => {
-    
+
     //STATE
     const [moveSpeed, setMoveSpeed] = useState<number>(2)
     const [timer, setTimer] = useState<number>(0)
@@ -36,7 +38,7 @@ export const NotifyItem:FC<NotifyItemProps> = ({
         let end = 0
 
         const interval = setInterval(() => {
-            if(!notification.current)
+            if (!notification.current)
                 return
 
             current -= moveSpeed
@@ -44,11 +46,11 @@ export const NotifyItem:FC<NotifyItemProps> = ({
             notification.current.style.transform = `translateX(${current}%)`
             notification.current.style.top = `20vh`
 
-            if(current <= end){
+            if (current <= end) {
                 clearInterval(interval)
                 notification.current.style.transform = `translateX(0%)`
 
-                const timeId = window.setTimeout(hide, 2000)
+                const timeId = !notify.button ? window.setTimeout(hide, 2000) : 0;
                 setTimer(timeId)
             }
 
@@ -57,7 +59,7 @@ export const NotifyItem:FC<NotifyItemProps> = ({
 
     const hide = () => {
 
-        if(timer !== 0) {
+        if (timer !== 0) {
             clearTimeout(timer)
             setTimer(0)
         }
@@ -66,15 +68,15 @@ export const NotifyItem:FC<NotifyItemProps> = ({
         let end = 110
 
         const interval = setInterval(() => {
-            if(!notification.current)
+            if (!notification.current)
                 return
 
             current += moveSpeed
             notification.current.style.transform = `translateX(${current}%)`
-            if(current >= end){
+            if (current >= end) {
                 clearTimeout(interval)
                 notification.current.style.transform = `translateX(110%)`
-                if(notify.id){
+                if (notify.id) {
                     actionCreators.deleteNotification(notify.id)
                 }
             }
@@ -87,11 +89,24 @@ export const NotifyItem:FC<NotifyItemProps> = ({
         hide()
     }
 
+    const handleOnClickButtonHide = (button: IButton) => {
+        if (!button.href) {
+            hide()
+        }
+        button.onClick && button.onClick();
+    }
+
     return (
-        <div ref={notification} onClick={handleOnClickNotify} className={cls(cl.notify, className)}>
-            <div className={cls(cl.content, cl[notify.status])}>
-                <span className={cl.text}>{notify.text}</span>
-            </div>
+        <div ref={notification} onClick={notify.button ? () => { } : handleOnClickNotify} className={cls(cl.notify, notify.button ? cl.buttonsContainer : '', className)}>
+            {notify.button ? notify.button.map(it => (
+                <Button key={it.title}
+                    {...it}
+                    onClick={() => handleOnClickButtonHide(it)}
+                />
+            ))
+                : <div className={cls(cl.content, cl[notify.status ?? ''])}>
+                    <span className={cl.text}>{notify.text}</span>
+                </div>}
         </div>
     );
 }

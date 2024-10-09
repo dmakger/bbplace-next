@@ -18,6 +18,7 @@ export const TariffsTable = ({
             
             {MOBILE_TT_BODY_DATA.map(it => (
                 <TTBody
+                    key={it.rowId}
                     {...it}
                     className={cl.mobile}
                     bodyData={bodyData}

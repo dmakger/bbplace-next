@@ -122,11 +122,16 @@ export function InputText({
 
 
     useEffect(() => {
-        if(value?.trim() === ''){
-            setIsSuccess(false)
-            setSuccess?.(false);
-        }  
-    }, [value])
+        const trimmedValue = String(localValue)?.trim();
+        
+        if (!trimmedValue) {
+          setIsSuccess(false);
+          setSuccess?.(false);
+        } else {
+          checkValue(trimmedValue);
+        }
+        
+      }, [value]);
 
     // Функция для проверки значения ввода
     const checkValue = (value: string) => {

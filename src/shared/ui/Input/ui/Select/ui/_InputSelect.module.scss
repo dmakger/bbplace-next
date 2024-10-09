@@ -18,6 +18,10 @@
             transition: .3s;
         }
     }
+
+    @media (max-width: 768px) {
+        gap: 0px;
+    }
 }
 
 .rounded {
@@ -60,8 +64,6 @@
         transition: .3s;
     }
 
-   
-
     .title {
         padding: 20px;
         color: var(--font);
@@ -84,7 +86,6 @@
 
         & img {
             width: 16px;
-            height: 100%;
         }
     }
 
@@ -97,7 +98,7 @@
     @media(max-width: 768px) {
         .title {
             padding: 13px 15px;
-            // font-size: var(--font-size-s);
+            font-size: var(--font-size-s);
         }
 
         .arrowContainer {
@@ -148,20 +149,18 @@
 }
 
 
-.activeArrow{
-    
+.activeArrow {
+
     & img {
         rotate: 180deg;
         transition: rotate 0.3s;
     }
-} 
+}
 
 .show {
-    .options {
-        z-index: 1;
-        opacity: 1;
-        visibility: visible;
-    }
+    z-index: 2 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
 .showOptionsRectangular {
@@ -184,4 +183,39 @@
 
 .modalBottomChild {
     padding: 0 !important;
+}
+
+//DISABLED
+.disabled {
+    background-color: var(--tertiary-surface-low);
+    border: 1px solid var(--disabled);
+    border-radius: 5px;
+    color: var(--font-caption-sub) !important;
+    font-weight: var(--font-weight-med);
+
+    .title{
+        color: var(--disabled) !important;
+    }
+
+    .placeholder {
+        color: var(--disabled) !important;
+    }
+
+    .arrowContainer {
+        background-color: var(--tertiary-surface-low);
+    }
+
+    &:hover {
+        border-color: var(--disabled);
+
+        .placeholder {
+            color: var(--disabled) !important;
+        }
+    }
+
+    &:hover {
+        .arrowContainer {
+            background-color: var(--tertiary-surface-low);
+        }
+    }
 }
