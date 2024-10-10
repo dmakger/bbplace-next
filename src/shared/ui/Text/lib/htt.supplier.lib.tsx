@@ -12,6 +12,15 @@ export const getDataHeadingToTextSupplierTable = ({
     isCountryNeeded = false
 }: IGetDataHeadingToTextSupplierTable) => {
 
+    //DEMO
+    const DEMO_BRAND_NAME_DATA = {heading: 'Бренд', body: supplier?.country ?? ''}
+    const DEMO_TYPE_OF_BUSINESS_DATA = {heading: 'Тип бизнеса', body: supplier?.country ?? ''}
+    const DEMO_ESTABLISHMENT_YEAR_DATA = {heading: 'Год основания', body: supplier?.country ?? ''}
+    const DEMO_TIN_DATA = {heading: 'ИНН', body: supplier?.country ?? ''}
+    const DEMO_ADDRESS_DATA = {heading: 'Адрес Общий', body: supplier?.country ?? ''}
+
+
+
 
     const RATING_SUPPLIER_DATA = {heading: 'Рейтинг', body: <Rating rating={supplierRating} numberOfReviews={supplierReviews} color={ERatingColor.DEFAULT}/>} ;
     const COUNTRY_SUPPLIER_DATA = {heading: 'Страна', body: supplier?.country ?? ''}

@@ -16,6 +16,7 @@ import { FileFormat } from "@/entities/File/data/file.data"
 import { MainPageCardSliderBlock } from "@/features/MainPageCardSliderBlock"
 import { CardsProductSlider } from "@/features/MainPageCardSliderBlock/components/Product/CardsProductSlider"
 import { SliderPagingVariant } from "@/shared/data/sliderT.data"
+import { DetailedPageSupplier } from "@/shared/ui/DetailedPage"
 
 export const ProfileMain = ({
     className,
@@ -25,7 +26,8 @@ export const ProfileMain = ({
     phoneNumber,
     profileMessageArray,
     cabinetModuleArray,
-    productList
+    productList,
+    userAsSupplier
 }: IProfileMain) => {
 
     //STATE
@@ -69,6 +71,7 @@ export const ProfileMain = ({
                 </div>
                 {currentLK === ECurrentLK.SUPPLIER ?
                     <div className={cl.supplierBlock}>
+                        <DetailedPageSupplier id={userAsSupplier?.id} supplier={userAsSupplier} supplierRating={1} supplierReviews={1}/>
                         <FileBlock
                             className={cl.fileBlock}
                             title='Инструкции'
