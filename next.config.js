@@ -8,6 +8,7 @@ module.exports = {
     cpus: 1
   },
   images: {
+    domains: ['hb.bizmrg.com', 'bbplace.ru'],
     remotePatterns: [
       {
         protocol: 'https',
