@@ -10,6 +10,7 @@ import { TRASH_NEGATIVE_TO_WHITE_ICON } from "@/shared/ui/Icon/data/trash.data.i
 import { ImageAPI } from "@/shared/ui/Image/API/ImageAPI";
 import { getImage } from "@/shared/lib/image.lib";
 import { ImageProduction } from "@/shared/ui/Image/Production/ui/ImageProduction";
+import { ImageAPIVariants } from "@/shared/data/image.data";
 
 interface ProductTypeArticleItemProps extends IListItem<IProduct> {
     onClickDelete?: TListItemOnClick<IProduct>
@@ -45,7 +46,9 @@ export const ProductTypeArticleItem:FC<ProductTypeArticleItemProps> = ({
             )}
             {media.attachments.length > 0 && (
                 <div className={cl.wrapperImage}>
-                    <ImageAPI src={getImage(media.attachments[0])} className={cl.image} />
+                    <ImageAPI src={getImage(media.attachments[0])} 
+                              variantDefault={ImageAPIVariants.Product} 
+                              className={cl.image} />
                 </div>
             )}
             <div className={cl.text}>

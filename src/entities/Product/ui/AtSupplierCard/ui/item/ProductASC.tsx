@@ -10,6 +10,7 @@ import { EAtSupplierCardVariant } from '../../model/atSupplierCard.model';
 import { IImageSizes } from '@/shared/model/image.model';
 import { Button, ButtonVariant } from '@/shared/ui/Button';
 import { ARROW_WLINE_DEFAULT_BLACK_ICON } from '@/shared/ui/Icon/data/arrow.data.icon';
+import { ImageAPIVariants } from '@/shared/data/image.data';
 
 interface IProductASC {
     product: IProduct,
@@ -40,6 +41,7 @@ export const ProductASC = ({
                 <ImageAPI src={media.attachments[0]} 
                           fill={true} 
                           width={imageSizes.width} height={imageSizes.height} 
+                          variantDefault={ImageAPIVariants.Product}
                           className={cl.image} />
             </div>
             <div className={cl.middle}>

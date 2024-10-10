@@ -12,6 +12,7 @@ import Link from "next/link";
 import { MAIN_PAGES } from "@/config/pages-url.config";
 import { IImageSizes } from "@/shared/model/image.model";
 import { getSupplierImage } from "../../lib/image.supplier.lib";
+import { ImageAPIVariants } from "@/shared/data/image.data";
 
 interface BaseSupplierProps {
     supplier: ISupplier,
@@ -47,7 +48,8 @@ export const BaseSupplier: FC<BaseSupplierProps> = ({
     const html = (
         <>
             {hasImage &&
-                <ImageAPI src={getSupplierImage(supplier.photoId?.key)} alt={supplier.photoId?.name} 
+                <ImageAPI src={supplier.photoId?.key} alt={supplier.photoId?.name}
+                          variantDefault={ImageAPIVariants.Supplier} 
                           width={imageSizes?.width ?? 40} height={imageSizes?.height ?? 40} fill={true}
                           className={cl.image} />
             }

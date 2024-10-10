@@ -1,11 +1,11 @@
 "use client"
 
-import { FC, useMemo } from "react"
+import { FC, useEffect, useMemo, useState } from "react"
 import Image from 'next/image'
 import cl from './_ImageAPI.module.scss'
-import { getImage } from "@/shared/lib/image.lib"
+import { getDefaultImageAPI, getImage, getImageFetch } from "@/shared/lib/image.lib"
 import { cls } from "@/shared/lib/classes.lib"
-import defaultImageJPG from '@/shared/assets/img/defaultUserGray.svg'
+import { IMAGE_API__DEFAULTS, ImageAPIVariants } from "@/shared/data/image.data"
 
 
 interface ImageAPIProps {
@@ -17,6 +17,7 @@ interface ImageAPIProps {
     fill?: boolean
     priority?: boolean
     quality?: number
+    variantDefault?: ImageAPIVariants
     onClick?: Function
     classNameWrapper?: string,
     className?: string,
@@ -26,14 +27,23 @@ export const ImageAPI: FC<ImageAPIProps> = ({
     src, alt, 
     width, height, fill=true, 
     priority=true, quality=80,
-    toImage=true,
+    toImage=true, 
+    variantDefault,
     onClick, 
     classNameWrapper, className, 
 }) => {
-    // MEMO
-    const image = useMemo(() => {
-        return src ? (toImage ? getImage(src) : src) : defaultImageJPG 
-    }, [src, toImage])
+    // STATE
+    const [image, setImage] = useState<string>(getDefaultImageAPI(variantDefault));
+
+    // EFFECT
+    useEffect(() => {
+        const loadImage = async () => {
+            // const fetchedImage = src ? (toImage ? await getImageFetch(src) : src) : undefined;
+            const fetchedImage = src ? (toImage ? getImage(src) : src) : undefined;
+            setImage(prev => getImage(src) ?? prev);
+        };
+        loadImage();
+    }, [src, toImage, variantDefault]);
 
     // HANDLE
     const handleOnClickImage = () => {
@@ -41,16 +51,16 @@ export const ImageAPI: FC<ImageAPIProps> = ({
     }
 
     const imageHTML = (
-        <Image loader={() => src}
-            unoptimized={true}
+        <Image 
+            // loader={() => src}
             onClick={handleOnClickImage}
             src={image}
+            // src={getImage(src)}
             priority={priority}
             alt={alt ? alt : src}
             width={fill ? undefined : (typeof width === 'string' ? parseInt(width) : width) ?? 100}
             height={fill ? undefined : (typeof height === 'string' ? parseInt(height) : height) ?? undefined}
             quality={quality ? quality : 60}
-            // layout={layout}
             fill={fill}
             className={cls(cl.image, className)}>
         </Image>

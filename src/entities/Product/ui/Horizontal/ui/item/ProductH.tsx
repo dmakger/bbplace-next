@@ -23,6 +23,7 @@ import { IListItem } from '@/shared/model/list.model'
 import { IProduct } from '@/entities/Product/model/product.model'
 import { ButtonFavourite } from '@/shared/ui/Button/data/Favourite/ButtonFavourite'
 import { FavouriteType } from '@/entities/Favourite/data/favourite.data'
+import { ImageAPIVariants } from '@/shared/data/image.data'
 
 interface ProductHProps extends IListItem<IProduct> {}
 
@@ -42,7 +43,10 @@ export const ProductH:FC<ProductHProps> = ({
         <>
             <section className={cls(cl.block, className)}>
                 <div className={cl.left}>
-                    <ImageAPI src={product.media.attachments[0]} width={271} height={271} className={cl.image} />
+                    <ImageAPI src={product.media.attachments[0]} 
+                              width={271} height={271} 
+                              variantDefault={ImageAPIVariants.Product}
+                              className={cl.image} />
                 </div>
                 <div className={cl.right}>
                     <div className={cl.main}>
