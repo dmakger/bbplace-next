@@ -1,53 +1,24 @@
-"use client"
-
-import { FC, useEffect, useState } from "react"
-
-import { cls } from '@/shared/lib/classes.lib';
-import cl from './_TestChildrenPage.module.scss'
-import { IProduct } from "@/entities/Product/model/product.model";
-import { CurrencyAPI } from "@/entities/Metrics/api/currency.metrics.api";
-import { MetricsAPI } from "@/entities/Metrics/api/metrics.metrics.api";
-import { ProductAPI } from "@/entities/Product/api/product.api";
-import { PRODUCT_ARGS_REQUEST } from "@/entities/Product/data/product.data";
-import { FavouriteAPI } from "@/entities/Favourite/api/favourite.api";
-import { FavouriteType } from "@/entities/Favourite/data/favourite.data";
-import { isAuth } from "@/entities/Auth/lib/auth-token.lib";
-import { productApiListToProductList } from "@/entities/Product/lib/product.lib";
-import { integrateFavoriteInList } from "@/entities/Favourite/lib/list.favourite.lib";
-import { skipToken } from "@reduxjs/toolkit/query";
-import { CardsProductSlider } from "@/features/MainPageCardSliderBlock/components/Product/CardsProductSlider";
-import { SliderPagingVariant } from "@/shared/data/sliderT.data";
+import { FC } from "react"
+import { ImageProgressive } from "@/shared/ui/Image/Progressive/ImageProgressive";
 
 interface TestChildrenPageProps{
     className?: string,
 }
 
 export const TestChildrenPage:FC<TestChildrenPageProps> = ({className}) => {
-    //STATE
-    const [productList, setProductList] = useState<IProduct[]>([]);
-
-    //API
-    const { data: currencyList } = CurrencyAPI.useGetCurrenciesQuery();
-    const { data: metrics } = MetricsAPI.useGetMetricsQuery();
-    const { data: productsAPI } = ProductAPI.useGetProductsQuery({ limit: PRODUCT_ARGS_REQUEST.limit, page: 0 }, { refetchOnMountOrArgChange: true });
-    
-    const { data: productsFavorite } = FavouriteAPI.useAreInFavoritesQuery(
-        isAuth() && productsAPI ? {objectIds: productsAPI.map(it => it.id), objectType: FavouriteType.Product} : skipToken,
-        { refetchOnMountOrArgChange: true }
-    )
-    
-    //EFFECT
-    useEffect(() => {
-        if (productsAPI && metrics && currencyList) {
-            const newProducts = productApiListToProductList(productsAPI, metrics, currencyList)
-            setProductList(integrateFavoriteInList<IProduct>(newProducts, productsFavorite));
-        }
-    }, [productsAPI, metrics, currencyList, productsFavorite]);
-    
+    const startImageURL = "https://bbplace.ru/fileservice/api/FilesS3/GetFile/";
+    const imageKey = "040ec9c7-97ad-49e6-ba0a-8764fe5afcc9.JPG";
+    // const imageUrl = "https://bbplace.ru/fileservice/api/FilesS3/GetFile/040ec9c7-97ad-49e6-ba0a-8764fe5afcc9.JPG";
+    const imageUrl = "https://hb.bizmrg.com/image_store/040ec9c7-97ad-49e6-ba0a-8764fe5afcc9.JPG";
+    // const imageUrl = "https://hb.bizmrg.com/image_store/ae4e2223-d0ba-4752-9f2a-f378f1275f19.jpg";
 
     return (
-        <CardsProductSlider 
-            items={productList} 
-            gap={20} pagingVariant={SliderPagingVariant.Full}  />
+        // 2.2 MB
+        // <ImageAPI src={imageKey} 
+        //               variantDefault={ImageAPIVariants.Product}
+        //               fill={true} />
+
+        // 
+        <ImageProgressive src={imageUrl} />
     )
 }

@@ -38,13 +38,12 @@ export const ImageAPI: FC<ImageAPIProps> = ({
     // EFFECT
     useEffect(() => {
         const loadImage = async () => {
-            const fetchedImage = src ? (toImage ? await getImageFetch(src) : src) : undefined;
-            setImage(prev => fetchedImage ?? prev);
+            // const fetchedImage = src ? (toImage ? await getImageFetch(src) : src) : undefined;
+            const fetchedImage = src ? (toImage ? getImage(src) : src) : undefined;
+            setImage(prev => getImage(src) ?? prev);
         };
         loadImage();
     }, [src, toImage, variantDefault]);
-
-    console.log('qwe image', image)
 
     // HANDLE
     const handleOnClickImage = () => {
@@ -52,16 +51,16 @@ export const ImageAPI: FC<ImageAPIProps> = ({
     }
 
     const imageHTML = (
-        <Image loader={() => src}
-            unoptimized={true}
+        <Image 
+            // loader={() => src}
             onClick={handleOnClickImage}
             src={image}
+            // src={getImage(src)}
             priority={priority}
             alt={alt ? alt : src}
             width={fill ? undefined : (typeof width === 'string' ? parseInt(width) : width) ?? 100}
             height={fill ? undefined : (typeof height === 'string' ? parseInt(height) : height) ?? undefined}
             quality={quality ? quality : 60}
-            // layout={layout}
             fill={fill}
             className={cls(cl.image, className)}>
         </Image>

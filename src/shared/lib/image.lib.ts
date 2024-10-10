@@ -3,12 +3,13 @@ import { IIcon, IIconBoolean, IWarningIcon } from "../ui/Icon/model/icon.model"
 
 const START_IMAGE_URL = "https://bbplace.ru/fileservice/api/FilesS3/GetFile"
 const START_IMAGE_ASYNC_URL = "https://bbplace.ru/fileservice/api/FilesS3/GetFileURL"
+const START_IMAGE_GET_FILE_URL = "https://hb.bizmrg.com/image_store"
 
 export const getImage = (image: string) => {
     try {
         if (image.startsWith('https://'))
             return image
-        return `${START_IMAGE_URL}/${image}`
+        return `${START_IMAGE_GET_FILE_URL}/${image}`
     } catch (err) {
         return image
     }
