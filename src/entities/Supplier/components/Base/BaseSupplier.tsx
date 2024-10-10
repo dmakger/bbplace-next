@@ -4,7 +4,7 @@ import { cls } from '@/shared/lib/classes.lib';
 import cl from './_BaseSupplier.module.scss'
 import { ISupplier } from "../../model/supplier.model";
 import { ImageAPI } from "@/shared/ui/Image/API/ImageAPI";
-import { BottomLineSupplier } from "../BottomLine/BottomLineSupplier";
+import { BottomLineSupplier } from "../BottomBlock/BottomBlockSupplier";
 import { getNameSupplier } from "../../lib/getters.supplier.lib";
 import { ESupplierSubscribeViewItem } from "../../data/view.supplier.data";
 import { SubscribeAutoToSupplierButton } from "../Button/Subscribe/Auto/SubscribeAutoToSupplierButton";

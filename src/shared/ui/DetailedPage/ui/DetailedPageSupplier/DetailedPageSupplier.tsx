@@ -14,6 +14,10 @@ import { Button, ButtonVariant } from "@/shared/ui/Button"
 import { ButtonSize } from "@/shared/ui/Button/model/button.model"
 import { useState } from "react"
 import { ARROW_PRIMARY_WO_ICON } from "@/shared/ui/Icon/data/arrow.data.icon"
+import Image from "next/image"
+import { ImageAPI } from "@/shared/ui/Image/API/ImageAPI"
+import { ImageSmart } from "@/shared/ui/Image/Smart/ImageSmart"
+import { SUPPLIER_GRAY_5_ICON } from "@/shared/ui/Icon/data/supplier.data.icon"
 
 interface ISupplierCard {
     className?: string,
@@ -49,7 +53,9 @@ export const DetailedPageSupplier = ({
                         view={ESupplierView.LARGE_WHITE_FOR_DESCRIPTION_PAGE}
                         imageSizes={{ width: 100, height: 100 }}
                         classNameVerified={classNameVerified}
+                        hasCountry
                     />
+                    <ImageSmart icon={SUPPLIER_GRAY_5_ICON} alt="" width={149} height={140} className={cl.supplierRightIcon} />
                 </div>
                 <div className={cl.infoContainer}>
                     {/* <NavSupplier supplierId={supplier.id}

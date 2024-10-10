@@ -1,0 +1,24 @@
+.blockContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    white-space: nowrap;
+
+    .topInfo{
+        color: var(--font-caption);
+    }
+
+    .restInfo{
+        display: flex;
+        gap: 5px;
+    }
+
+    .rating{
+        color: var(--rating);
+    }
+
+    & span{
+        font-size: var(--font-size-s);
+    }
+}

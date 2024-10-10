@@ -2,9 +2,9 @@ import { ECurrentLK } from "@/entities/User/model/user.model";
 
 export const getRoleName = (role: string | string[]) => {
 
-    if (Array.isArray(role) && role.includes('Supplier')) {
+    if (Array.isArray(role) && role.includes('Seller')) {
         return 'Поставщик';
-    } else if (role === 'Supplier') {
+    } else if (role === 'Seller') {
         return 'Поставщик';
     }
     else{

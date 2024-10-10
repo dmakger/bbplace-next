@@ -102,7 +102,7 @@ export const ProfileMainChildrenPage = () => {
         {
             title: 'Тендеры',
             titleQuantity: String(tenders?.length),
-            href: DASHBOARD_PAGES.TENDERS.path,
+            href: DASHBOARD_PAGES.TENDERS(false).path,
             statisticsTextArray: [
                 { title: 'Продажа', quantity: String(saleTenders?.length) },
                 { title: 'Покупка', quantity: String(purchaseTenders?.length) }
@@ -135,7 +135,7 @@ export const ProfileMainChildrenPage = () => {
         {
             title: 'Тендеры',
             titleQuantity: String(tenders?.length),
-            href: DASHBOARD_PAGES.TENDERS.path,
+            href: DASHBOARD_PAGES.TENDERS(false).path,
             statisticsTextArray: [
                 { title: 'Продажа', quantity: String(saleTenders?.length) },
                 { title: 'Покупка', quantity: String(purchaseTenders?.length) }

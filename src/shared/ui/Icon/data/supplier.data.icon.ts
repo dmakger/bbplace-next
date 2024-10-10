@@ -9,6 +9,8 @@ import SupplierWhiteIcon from '@/shared/assets/img/Supplier/SupplierWhiteIcon.sv
 
 import SupplierCaptionIcon from '@/shared/assets/img/Supplier/SupplierCaptionIcon.svg'
 
+import SupplierGray5Icon from '@/shared/assets/img/Supplier/SupplierGray5Icon.svg'
+
 
 export const SUPPLIER_ZERO__ICON: IIcon = {
     default: SupplierZero,
@@ -26,4 +28,8 @@ export const SUPPLIER_ICON: IIcon = {
 
 export const SUPPLIER_DEFAULT_ICON: IIcon = {
     default: SupplierCaptionIcon
+}
+
+export const SUPPLIER_GRAY_5_ICON: IIcon = {
+    default: SupplierGray5Icon
 }

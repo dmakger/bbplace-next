@@ -9,7 +9,7 @@
         padding: 5px;
     }
 
-    .innerContainer{
+    .innerContainer {
         display: flex;
         flex-direction: column;
         gap: 21px;
@@ -23,6 +23,9 @@
         padding-right: 20px;
         padding-left: 20px;
 
+        .supplierRightIcon {
+            
+        }
 
         @media (max-width: 768px) {
             margin-left: 0px;
@@ -35,7 +38,7 @@
         border-left: none;
 
 
-        .tableMainBlock{
+        .tableMainBlock {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
 
@@ -45,51 +48,58 @@
             }
 
             .mainBlockRow {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: flex-start;
-                    padding: 20px;
-                    border: 1px solid var(--background-1);
-                    border-top: none;
-                    border-bottom: none;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 20px;
+                border: 1px solid var(--background-1);
+                border-top: none;
+                border-bottom: none;
 
-                    @media (max-width: 768px) {
-                        border-bottom: 1px solid var(--background-1);;
-                        border-left: none;
-                        border-right: none;
-                    }
+                @media (max-width: 768px) {
+                    border-bottom: 1px solid var(--background-1);
+                    ;
+                    border-left: none;
+                    border-right: none;
+                }
 
-                    .headingItem{
-                        color: var(--font-caption);
-                    }
-                    .textItem{
-                        margin-left: 0px;
-                        font-weight: var(--font-weight-med);
-                    }
+                .headingItem {
+                    color: var(--font-caption);
+                }
+
+                .textItem {
+                    margin-left: 0px;
+                    font-weight: var(--font-weight-med);
+                }
             }
         }
-                
+
     }
 }
+
 //BUTTON_MORE_INFO
-.buttonMoreInfo{
+.buttonMoreInfo {
     margin: 0px 20px 20px 20px;
 }
-.arrow, .arrowOpen{
+
+.arrow,
+.arrowOpen {
     transition: .3s;
 }
 
-.arrowOpen{
+.arrowOpen {
     rotate: 180deg;
 }
 
 //ROLES
-.demo{
+.demo {
     background: linear-gradient(90deg, #e6e9ec 0%, #e6e9ec 25%, #e6e9ec 75%, #e6e9ec 100%);
 }
-.business{
+
+.business {
     background: linear-gradient(90deg, #dfdede 0%, #ececeb 25%, #ececeb 75%, #dfdede 100%);
 }
-.premium{
+
+.premium {
     background: linear-gradient(90deg, #eadbc1 0%, #f2ead2 25%, #f2ead2 75%, #eadbc1 100%);
 }

@@ -3,8 +3,6 @@ import { toProductType } from "@/entities/Product/lib/type.product.lib"
 import { IProduct } from "@/entities/Product/model/product.model"
 import { ISupplier } from "@/entities/Supplier/model/supplier.model"
 import { ETenderType, ETenderTypeEn, IBaseTender, ITender } from "@/entities/Tender/model/tender.model"
-import { getCurrentLKToken } from "@/entities/User/lib/user-token.lib"
-import { ECurrentLK } from "@/entities/User/model/user.model"
 import { ProductsTypeLK } from "@/shared/ui/SwitchSelector/data/switchSelector.data"
 
 interface IRoot {
