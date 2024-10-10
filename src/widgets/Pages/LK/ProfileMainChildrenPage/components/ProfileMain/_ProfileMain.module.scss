@@ -39,18 +39,26 @@
             grid-template-columns: 1fr;
         }
     }
+    .supplierBlock{
+        display: flex;
+        gap: 20px;
 
-    .fileBlock {
-        max-width: 400px;
-
-        @media (max-width: 1024px) {
-            max-width: 100%;
+        @media (max-width: 768px) {
+            flex-direction: column;
         }
 
-    }
-
-    .fileBlockTitle {
-        @include BoldThirdFamily;
+        .fileBlock {
+            max-width: 400px;
+    
+            @media (max-width: 1024px) {
+                max-width: 100%;
+            }
+    
+        }
+    
+        .fileBlockTitle {
+            @include BoldThirdFamily;
+        }
     }
 }
 

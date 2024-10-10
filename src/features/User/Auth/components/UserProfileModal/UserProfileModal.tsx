@@ -29,7 +29,7 @@ export const UserProfileModal = ({ isShowProfileModal }: IUserProfileModal) => {
           <p className={cl.greetings}>Здравствуйте, <span>{fullName}</span></p>
           <User image={photoId?.key} />
         </div>
-        <Button variant={ButtonVariant.BACKGROUND_GRAY} title={"Личный кабинет"} href={DASHBOARD_PAGES.HOME} className={cl.lk} />
+        <Button variant={ButtonVariant.BACKGROUND_GRAY} title={"Личный кабинет"} href={DASHBOARD_PAGES.HOME.path} className={cl.lk} />
       </div>
       <div className={cl.bottomContainer}>
         {LK_OLD_MODAL_MENU_DATA.map(it => (

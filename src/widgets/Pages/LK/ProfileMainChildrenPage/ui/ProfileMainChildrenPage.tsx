@@ -22,6 +22,9 @@ import { CurrencyAPI } from "@/entities/Metrics/api/currency.metrics.api"
 import { useEffect, useState } from "react"
 import { IProduct } from "@/entities/Product/model/product.model"
 import { productApiListToProductList } from "@/entities/Product/lib/product.lib"
+import { UserAPI } from "@/entities/Auth/api/auth.api"
+import { ISupplier } from "@/entities/Supplier/model/supplier.model"
+
 
 export const ProfileMainChildrenPage = () => {
 
@@ -46,6 +49,9 @@ export const ProfileMainChildrenPage = () => {
     const { data: favouriteProducts } = FavouriteAPI.useGetFavouriteProductsQuery()
     const { data: favouritePurchaseTenders } = FavouriteAPI.useGetFavouritePurchasesQuery()
     const { data: favouriteSaleTenders } = FavouriteAPI.useGetFavouriteSalesQuery()
+
+    const { data: userAsSupplier } = UserAPI.useGetUserDataQuery(userId)
+
 
     //EFFECT
     useEffect(() => {
@@ -111,7 +117,7 @@ export const ProfileMainChildrenPage = () => {
         {
             title: 'Чат',
             href: DASHBOARD_PAGES.CHATS('').path,
-            statisticsTextArray: [{ title: 'Непрочитанные', quantity: '' }]
+            statisticsTextArray: [{ title: 'Непрочитанные', quantity: String(userInfo.unreadMessages) }]
         },
         {
             title: 'Избранное',
@@ -171,6 +177,7 @@ export const ProfileMainChildrenPage = () => {
         currentLK={currentLK!}
         profileMessageArray={PROFILE_MESSAGE_ARRAY}
         cabinetModuleArray={cabinetModules}
+        userAsSupplier={userAsSupplier as ISupplier}
         {...userInfo}
     />
 }

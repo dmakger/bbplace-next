@@ -30,6 +30,8 @@ import ArrowWLineTertiaryActiveIcon from '@/shared/assets/img/Arrow/ArrowWLineTe
 import ArrowInCircleIcon from '@/shared/assets/img/Arrow/ArrowInCircleIcon.svg'
 import ArrowInCirclePressed from '@/shared/assets/img/Arrow/ArrowInCirclePressed.svg'
 
+import ArrowWOLinePrimaryIcon from '@/shared/assets/img/Arrow/ArrowWOLinePrimary.svg'
+import ArrowWOLineWhiteIcon from '@/shared/assets/img/Arrow/ArrowWOLineWhite.svg'
 
 
 export const ARROW_ICON: IIcon = {
@@ -61,6 +63,13 @@ export const ARROW_TERTIARY_WO_FULL_ICON: IIcon = {
     defaultPressed: ArrowWOTertiaryPressedIcon,
     active: ArrowWOTertiaryPressedIcon
 } 
+
+
+export const ARROW_PRIMARY_WO_ICON: IIcon = {
+    default: ArrowWOLinePrimaryIcon,
+    defaultHovered: ArrowWOLineWhiteIcon,
+    defaultPressed: ArrowWOLineWhiteIcon
+}
 
 // ======{ WITH LINE }======
 

@@ -1,89 +1,95 @@
 .DetailedPageSupplier {
-    display: flex;
-    flex-direction: column;
+    width: 100%;
+    max-width: 820px;
     padding: 20px;
+    border-radius: 20px;
+
 
     @media (max-width: 768px) {
-        padding: 0px;
-        padding-left: 16px;
-        padding-right: 16px;
+        padding: 5px;
+    }
+
+    .innerContainer{
+        display: flex;
+        flex-direction: column;
+        gap: 21px;
+        background-color: var(--background-2);
+        border-radius: 20px;
+
     }
 
     .topContainer {
         display: flex;
-        margin-left: 70px;
-        padding: 20px;
-        padding-left: 0px;
-        align-items: center;
+        padding-right: 20px;
+        padding-left: 20px;
+
 
         @media (max-width: 768px) {
             margin-left: 0px;
         }
     }
 
-    .bottomContainer {
-        display: flex;
+    .infoContainer {
+        border: 1px solid var(--background-1);
+        border-right: none;
+        border-left: none;
 
-        @media (max-width: 768px) {
-            flex-direction: column-reverse;
-            align-items: center;
-            gap: 20px;
-        }
 
-        .bottomLeftContainer {
-            &::-webkit-scrollbar {
-                display: none;
-            }
+        .tableMainBlock{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
 
             @media (max-width: 768px) {
-                overflow-x: auto;
-                width: 100%;
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
             }
 
-            .navSupplier {
-                display: flex;
-                flex-direction: column;
-                padding-left: 20px;
-                padding-right: 20px;
-                gap: 10px;
-                & button {
-                    font-weight: var(--font-weight-reg);
-                    width: 200px;
-    
-                    @media (max-width: 768px) {
-                        width: 100%;
-                    }
-                }
+            .mainBlockRow {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    padding: 20px;
+                    border: 1px solid var(--background-1);
+                    border-top: none;
+                    border-bottom: none;
 
-                @media (max-width: 768px) {
-                    flex-direction: row;
-                }
+                    @media (max-width: 768px) {
+                        border-bottom: 1px solid var(--background-1);;
+                        border-left: none;
+                        border-right: none;
+                    }
+
+                    .headingItem{
+                        color: var(--font-caption);
+                    }
+                    .textItem{
+                        margin-left: 0px;
+                        font-weight: var(--font-weight-med);
+                    }
             }
         }
-
-       
-            .tableMainBlock {
-                flex-direction: column;
-                gap: 10px;
-
-                .mainBlockRow {
-                    display: block;
-                    padding: 8px 20px 8px 0px;
-                    border-bottom: 1px solid var(--background-1);
-
-                    & span {
-                        font-size: var(--font-size-reg);
-                        margin-left: 0px;
-
-                        @media (max-width: 768px) {
-                            font-size: var(--font-size-s);
-                        }
-                    }
-
-                }
-
-            }
-
-        
+                
     }
+}
+//BUTTON_MORE_INFO
+.buttonMoreInfo{
+    margin: 0px 20px 20px 20px;
+}
+.arrow, .arrowOpen{
+    transition: .3s;
+}
+
+.arrowOpen{
+    rotate: 180deg;
+}
+
+//ROLES
+.demo{
+    background: linear-gradient(90deg, #e6e9ec 0%, #e6e9ec 25%, #e6e9ec 75%, #e6e9ec 100%);
+}
+.business{
+    background: linear-gradient(90deg, #dfdede 0%, #ececeb 25%, #ececeb 75%, #dfdede 100%);
+}
+.premium{
+    background: linear-gradient(90deg, #eadbc1 0%, #f2ead2 25%, #f2ead2 75%, #eadbc1 100%);
 }
