@@ -47,7 +47,8 @@ export interface IGetDataTenderInfo{
 //SUPPLIER
 export enum IGetDataHeadingToTextSupplierTableVariant{
     PRODUCT_PAGE = 'product-page',
-    SUPPLIER_PAGE = 'supplier-page'
+    SUPPLIER_PAGE = 'supplier-page',
+    SUPPLIER_ITEM = 'supplier-item'
 }
 
 export interface IGetDataHeadingToTextSupplierTable {

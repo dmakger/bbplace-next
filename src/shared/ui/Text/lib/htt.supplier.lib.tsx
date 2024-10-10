@@ -11,13 +11,28 @@ export const getDataHeadingToTextSupplierTable = ({
     supplierReviews,
     isCountryNeeded = false
 }: IGetDataHeadingToTextSupplierTable) => {
+    
 
     //DEMO
-    const DEMO_BRAND_NAME_DATA = {heading: 'Бренд', body: supplier?.country ?? ''}
-    const DEMO_TYPE_OF_BUSINESS_DATA = {heading: 'Тип бизнеса', body: supplier?.country ?? ''}
-    const DEMO_ESTABLISHMENT_YEAR_DATA = {heading: 'Год основания', body: supplier?.country ?? ''}
-    const DEMO_TIN_DATA = {heading: 'ИНН', body: supplier?.country ?? ''}
-    const DEMO_ADDRESS_DATA = {heading: 'Адрес Общий', body: supplier?.country ?? ''}
+    const RESPONSE_VELOCITY_SUPPLIER_DATA = {heading: 'Скорость ответа', body: <>~ 3 дня</>};
+    const REGISTRATION_DATE_SUPPLIER_DATA = {heading: 'Дата регистрации', body: supplier?.shortDescription || supplier?.description || '22'};
+    const TYPE_OF_BUSINESS_DATA = {heading: 'Тип бизнеса', body: 'Не указан'}
+    const TIN_DATA = {heading: 'ИНН', body: supplier?.inn ?? ''}
+    const CATEGORIES_DATA = {heading: 'Категории', body: supplier?.category ?? 'Не указаны'}
+    const BRAND_NAME_DATA = {heading: 'Бренд', body: supplier?.country ?? ''}
+
+    const ADDRESS_DATA = {heading: 'Адрес Общий', body: supplier?.country ?? ''}
+    const DESCRIPTION_DATA = {heading: 'Описание', body: supplier?.description ?? supplier?.shortDescription ?? 'Не указано'}
+
+
+
+    //BUSINESS_PREMIUM
+    const ESTABLISHMENT_YEAR_DATA = {heading: 'Год основания', body: supplier?.country ?? ''}
+    const PRODUCTION_FACILITIES_DATA = {heading: 'Производственные мощности', body: supplier?.country ?? ''}
+
+    //PREMIUM
+    const PRESENСE_MARKETS_DATA =  {heading: 'Рынки присутствия', body: supplier?.country ?? ''}
+
 
 
 
@@ -25,9 +40,6 @@ export const getDataHeadingToTextSupplierTable = ({
     const RATING_SUPPLIER_DATA = {heading: 'Рейтинг', body: <Rating rating={supplierRating} numberOfReviews={supplierReviews} color={ERatingColor.DEFAULT}/>} ;
     const COUNTRY_SUPPLIER_DATA = {heading: 'Страна', body: supplier?.country ?? ''}
     const ABOUT_SUPPLIER_DATA = {heading: 'О поставщике', body: supplier?.shortDescription || supplier?.description || ''};
-    const REGISTRATION_DATE_SUPPLIER_DATA = {heading: 'Регистрация', body: supplier?.shortDescription || supplier?.description || ''};
-    const TYPE_OF_BUSINESS_SUPPLIER_DATA = {heading: 'Тип бизнеса', body: supplier?.shortDescription || supplier?.description || ''};
-    const RESPONSE_VELOCITY_SUPPLIER_DATA = {heading: 'Скорость ответа', body: <>3 дня</>};
 
     let processData: IHeadingToText[] = []
 
@@ -39,7 +51,7 @@ export const getDataHeadingToTextSupplierTable = ({
         RESPONSE_VELOCITY_SUPPLIER_DATA
     ]
 
-    if(variant === IGetDataHeadingToTextSupplierTableVariant.SUPPLIER_PAGE)
+    if(variant === IGetDataHeadingToTextSupplierTableVariant.SUPPLIER_ITEM)
         processData = [
         RATING_SUPPLIER_DATA ,
         ...(isCountryNeeded ? [COUNTRY_SUPPLIER_DATA] : []),

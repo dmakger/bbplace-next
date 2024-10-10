@@ -30,7 +30,7 @@ export const ChatParentChildrenPage:FC<ChatParentChildrenPageProps> = ({classNam
             <WrapperLKPT pageTitle={""} 
                 options={LK_CHATS_PAGE} optionsTab={CHAT__OPTIONS_TAB}
                 startPage={SWITCH_SELECTOR__CHAT__OPTION} 
-                buttonBackProps={{href: is1024 ? DASHBOARD_PAGES.CHATS(undefined).path : DASHBOARD_PAGES.HOME}}
+                buttonBackProps={{href: is1024 ? DASHBOARD_PAGES.CHATS(undefined).path : DASHBOARD_PAGES.HOME.path}}
                 isButtonRight={false}/>
             <HandleSize width={1024} set={setIs1024} />
         </Wrapper1280>

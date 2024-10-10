@@ -91,7 +91,7 @@ export const UpdateAuth: FC<UpdateAuthProps> = () => {
 
         initialRefresh();
         showCookieAgreementNotification();
-        if(is768) actionCreators.deleteNotification(notifications[0].id)
+        if(is768) actionCreators.deleteNotification(notifications[0]?.id)
     }, [refreshToken, is768]);
 
     // FUNC

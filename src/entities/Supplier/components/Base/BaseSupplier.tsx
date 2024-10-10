@@ -4,15 +4,14 @@ import { cls } from '@/shared/lib/classes.lib';
 import cl from './_BaseSupplier.module.scss'
 import { ISupplier } from "../../model/supplier.model";
 import { ImageAPI } from "@/shared/ui/Image/API/ImageAPI";
-import { BottomLineSupplier } from "../BottomBlock/BottomBlockSupplier";
 import { getNameSupplier } from "../../lib/getters.supplier.lib";
 import { ESupplierSubscribeViewItem } from "../../data/view.supplier.data";
 import { SubscribeAutoToSupplierButton } from "../Button/Subscribe/Auto/SubscribeAutoToSupplierButton";
 import Link from "next/link";
 import { MAIN_PAGES } from "@/config/pages-url.config";
 import { IImageSizes } from "@/shared/model/image.model";
-import { getSupplierImage } from "../../lib/image.supplier.lib";
 import { ImageAPIVariants } from "@/shared/data/image.data";
+import { BottomBlockSupplier } from "../BottomBlock/BottomBlockSupplier";
 
 interface BaseSupplierProps {
     supplier: ISupplier,
@@ -55,7 +54,7 @@ export const BaseSupplier: FC<BaseSupplierProps> = ({
             }
             <div className={cls(cl.content, isForDescPage ? cl.DescPageContent : '')}>
                 <span className={cls(cl.name, isForDescPage ? cl.bigName : '', classNameName)}>{getNameSupplier(supplier)}</span>
-                <BottomLineSupplier supplier={supplier}
+                <BottomBlockSupplier supplier={supplier}
                     hasVerifiedStatus={hasVerifiedStatus}
                     hasCountry={hasCountry}
                     supplierRating={supplierRating}

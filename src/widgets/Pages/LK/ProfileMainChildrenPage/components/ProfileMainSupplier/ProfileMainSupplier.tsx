@@ -1,7 +1,7 @@
 import { cls } from "@/shared/lib/classes.lib"
 import cl from './_ProfileMainSupplier.module.scss'
-import { BlockCabinetProfile } from "@/features/Block/CabinetProfile"
 import { IProfileMain } from "../../model/profileMain.model"
+import { BlockCabinetProfile } from "@/features/Block/Cabinet"
 
 interface IProfileMainSupplier extends IProfileMain {}
 

@@ -38,7 +38,7 @@ export const SupplierItem = ({
 	className,
 	classNameSupplierWNav,
 	classNameBaseSupplier
- }: ISupplierItem) => {
+}: ISupplierItem) => {
 
 	// STATE
 	const [supplierProducts, setSupplierProducts] = useState<IProduct[]>([])
@@ -51,8 +51,8 @@ export const SupplierItem = ({
 
 	//EFFECT
 	useEffect(() => {
-	if (supplierProductsAPI)
-		setSupplierProducts(productApiListToProductList(supplierProductsAPI))
+		if (supplierProductsAPI)
+			setSupplierProducts(productApiListToProductList(supplierProductsAPI))
 	}, [supplierProductsAPI])
 
 
@@ -77,7 +77,7 @@ export const SupplierItem = ({
 					<HeadingToTextTable
 						variant={EHeadingToTextVariants.COLUMN}
 						data={getDataHeadingToTextSupplierTable({
-							variant: IGetDataHeadingToTextSupplierTableVariant.SUPPLIER_PAGE,
+							variant: IGetDataHeadingToTextSupplierTableVariant.SUPPLIER_ITEM,
 							supplier,
 							supplierRating: supplierRating ?? 0,
 							supplierReviews: supplierReviews?.length ?? 0,
@@ -89,12 +89,12 @@ export const SupplierItem = ({
 						classNameColumn={cl.columnTable}
 					/>
 					<div className={cl.buttonsContainer}>
-						<Button variant={ButtonVariant.BORDER} title='Откликнуться' size={ButtonSize.Small} href={DASHBOARD_PAGES.CHATS(supplier.id).path}/>
+						<Button variant={ButtonVariant.BORDER} title='Откликнуться' size={ButtonSize.Small} href={DASHBOARD_PAGES.CHATS(supplier.id).path} />
 						<FavouriteAutoToSupplierButton supplierId={supplier.id} view={ESupplierFavouriteViewItem.SMALL_FILL} />
-						<NavSupplier supplierId={supplier.id} 
+						<NavSupplier supplierId={supplier.id}
 							views={[
 								is768 ? ESupplierToProfileViewItem.SMALL : ESupplierToProfileViewItem.NONE
-							]} 
+							]}
 						/>
 					</div>
 				</div>
@@ -102,9 +102,9 @@ export const SupplierItem = ({
 					<div className={cl.productCardsContainer}>
 						<ProductASC product={supplierProducts[0]} supplierId={supplier.id} supplierName={supplier.brandName} />
 						{supplierProducts[1] && (
-							<ProductASC product={supplierProducts[1]} 
-										variant={EAtSupplierCardVariant.SMALL} 
-										supplierId={supplier.id} supplierName={supplier.brandName} />
+							<ProductASC product={supplierProducts[1]}
+								variant={EAtSupplierCardVariant.SMALL}
+								supplierId={supplier.id} supplierName={supplier.brandName} />
 						)}
 					</div>
 				)}

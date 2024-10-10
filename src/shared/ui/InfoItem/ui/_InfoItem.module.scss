@@ -22,7 +22,7 @@
     }
 }
   
-  .InfoItem {
+.InfoItem {
     display: flex;
     align-items: center;
     border-radius: 5px;
@@ -65,8 +65,3 @@
     }
   }
   
-  @media (max-width: 768px) {
-    .InfoItem {
-      @include small;
-    }
-  }

@@ -1,8 +1,9 @@
 .isForDescPage {
     display: flex;
     align-items: center;
-    gap: 70px;
+    gap: 20px;
     width: 100%;
+
     @media (max-width: 768px) {
         flex-direction: column;
         gap: 20px;
@@ -12,7 +13,7 @@
     .DescPageContent {
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 5px;
 
         .bigName {
             color: var(--font);
