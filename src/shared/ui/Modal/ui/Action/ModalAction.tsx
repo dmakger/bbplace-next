@@ -1,6 +1,6 @@
 "use client"
 
-import { FC, useState } from "react"
+import { FC, ReactNode, useState } from "react"
 
 import { cls } from '@/shared/lib/classes.lib';
 import cl from './_ModalAction.module.scss'
@@ -17,7 +17,7 @@ import { Loader } from "@/shared/ui/Loader";
  
 export interface IModalActionProps extends IModal{
     title: string
-    text?: string[]
+    text?: string[] | ReactNode[]
     inputProps?: IModalActionInput
     buttonFirst?: IButton
     buttonSecond?: IButton

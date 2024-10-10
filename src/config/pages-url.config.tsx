@@ -2,7 +2,9 @@ import { EProductType } from "@/entities/Product/data/type.product.data"
 import { toProductType } from "@/entities/Product/lib/type.product.lib"
 import { IProduct } from "@/entities/Product/model/product.model"
 import { ISupplier } from "@/entities/Supplier/model/supplier.model"
-import { ETenderType, IBaseTender, ITender } from "@/entities/Tender/model/tender.model"
+import { ETenderType, ETenderTypeEn, IBaseTender, ITender } from "@/entities/Tender/model/tender.model"
+import { getCurrentLKToken } from "@/entities/User/lib/user-token.lib"
+import { ECurrentLK } from "@/entities/User/model/user.model"
 import { ProductsTypeLK } from "@/shared/ui/SwitchSelector/data/switchSelector.data"
 
 interface IRoot {
@@ -54,6 +56,8 @@ class MAIN extends Route {
 
     TARIFFS = this.createPath('/tariffs');
 
+    PAYMENT = this.createPath('/payment');
+
     CHECK_EMAIL = this.createPath('/checkEmail')
     LOGIN = this.createPath('/signIn', false, true)
     REGISTRATION = this.createPath('/signUp')
@@ -101,7 +105,11 @@ class DASHBOARD extends Route {
         true
     );
 
-    TENDERS = this.createPath('/tenders', true);
+    TENDERS = this.createDynamicPath(
+        (isPurchase:boolean = false) => `/tenders?type=${(isPurchase ? ETenderTypeEn.PURCHASE : ETenderTypeEn.SALE).toLocaleLowerCase()}`
+        , true
+    );
+    // TENDERS = this.createPath('/tenders', true);
     NEW_TENDER = this.createPath('/tenders/new', true);
     
     PRICES_N_DISCOUNTS = this.createPath('/pricesNDiscounts', true);

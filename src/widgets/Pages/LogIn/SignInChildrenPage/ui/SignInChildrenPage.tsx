@@ -83,7 +83,6 @@ export const SignInChildrenPage = () => {
                 isDescriptionTooltip
                 descriptionTooltipText="Введите адрес электронной почты, на которую был зарегистрирован профиль"
                 errorInputMessage={errorEmail}
-
             >
                 <Input.Text type={EInputTextType.Email} variant={EInputVariants.RECTANGULAR} required placeholder="Введите email" name="email" defaultValue={email} success={!!email} error={error && !!errorEmail} warning={error && !!errorEmail} />
             </WrapperRectangleInput>

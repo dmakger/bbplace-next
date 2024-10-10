@@ -1,1 +1,8 @@
-export {TariffsChildrenPage} from './ui/TariffsChildrenPage'
+export { TariffsChildrenPage } from './ui/TariffsChildrenPage'
+export {
+    BUSINESS_TYPE_TARIFFS_OPTION,
+    PREMIUM_TYPE_TARIFFS_OPTION,
+    TYPE_TARIFFS_OPTIONS_ARRAY,
+    BUSINESS_TARIFF_DURATION_OPTIONS_ARRAY,
+    PREMIUM_TARIFF_DURATION_OPTIONS_ARRAY
+} from './data/tariffs.data'

@@ -129,7 +129,7 @@ export const ProductLKSmartList: FC<ProductLKSmartListProps> = ({ type, products
             checkedProductsId.map(async it => {
                 const deleteProductFunc = type === ProductsTypeLK.Active ? deleteProduct : deleteDraft
                 await deleteProductFunc(it).catch(() => {
-                    console.log(e);
+                    console.error(e);
                 })
                 setProducts((prevProducts: IProduct[]) => prevProducts.filter(product => product.id !== it))
             })

@@ -62,7 +62,7 @@ export const LK_MENU_DATA: IMenuItem[] | IMenuButton[] = [
 
 //TENDER
 export const MY_TENDERS_ITEM_MENU_DATA: IMenuItem = {
-    link: DASHBOARD_PAGES.TENDERS.path,
+    link: DASHBOARD_PAGES.TENDERS(true).path,
     title: "Мои тендеры",
 }
 

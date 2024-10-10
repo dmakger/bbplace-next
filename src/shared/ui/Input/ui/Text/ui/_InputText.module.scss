@@ -116,17 +116,12 @@
 	border-radius: 5px;
 	color: var(--font-caption-sub);
 	font-weight: var(--font-weight-med);
-
 	&:hover {
-		border-color: var(--disabled);
-
-		.placeholder {
-			color: var(--disabled) !important;
+		& input{
+			&::placeholder{
+				color: var(--disabled) !important;
+			}
 		}
-	}
-
-	&::placeholder {
-		color: var(--disabled) !important;
 	}
 
 	.input {

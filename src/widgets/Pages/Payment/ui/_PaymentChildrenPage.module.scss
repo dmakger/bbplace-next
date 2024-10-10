@@ -1,0 +1,36 @@
+.lowWidth {
+    flex: 0.5;
+}
+
+.highWidth {
+    flex: 0.9;
+}
+
+.highWidth,
+.lowWidth {
+
+    @media (max-width: 768px) {
+        flex: 1;
+
+        & span {
+            padding-right: 0px !important;
+            display: --webkit-box;
+            max-width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+
+    @media (max-width: 425px) {
+        & span {
+            max-width: 100px;
+        }
+    }
+
+    @media (max-width: 350px) {
+        & span {
+            max-width: 80px;
+        }
+    }
+}
