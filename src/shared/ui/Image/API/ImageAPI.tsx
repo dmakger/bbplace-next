@@ -1,5 +1,3 @@
-"use client"
-
 import { FC, useEffect, useMemo, useState } from "react"
 import Image from 'next/image'
 import cl from './_ImageAPI.module.scss'
@@ -33,28 +31,30 @@ export const ImageAPI: FC<ImageAPIProps> = ({
     classNameWrapper, className, 
 }) => {
     // STATE
-    const [image, setImage] = useState<string>(getDefaultImageAPI(variantDefault));
+    // const [image, setImage] = useState<string>(getDefaultImageAPI(variantDefault));
 
-    // EFFECT
-    useEffect(() => {
-        const loadImage = async () => {
-            // const fetchedImage = src ? (toImage ? await getImageFetch(src) : src) : undefined;
-            const fetchedImage = src ? (toImage ? getImage(src) : src) : undefined;
-            setImage(prev => getImage(src) ?? prev);
-        };
-        loadImage();
-    }, [src, toImage, variantDefault]);
+    // // EFFECT
+    // useEffect(() => {
+    //     const loadImage = async () => {
+    //         // const fetchedImage = src ? (toImage ? await getImageFetch(src) : src) : undefined;
+    //         const fetchedImage = src ? (toImage ? getImage(src) : src) : undefined;
+    //         setImage(prev => getImage(src) ?? prev);
+    //     };
+    //     loadImage();
+    // }, [src, toImage, variantDefault]);
 
     // HANDLE
     const handleOnClickImage = () => {
         if (onClick) onClick()
     }
 
+    console.log('qwe image', getImage(src));
+
     const imageHTML = (
         <Image 
             // loader={() => src}
             onClick={handleOnClickImage}
-            src={image}
+            src={getImage(src)}
             // src={getImage(src)}
             priority={priority}
             alt={alt ? alt : src}
