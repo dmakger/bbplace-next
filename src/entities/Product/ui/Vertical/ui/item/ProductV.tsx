@@ -17,6 +17,7 @@ import { IListItem } from '@/shared/model/list.model';
 import { IProduct } from '@/entities/Product/model/product.model';
 import { ButtonFavourite } from '@/shared/ui/Button/data/Favourite/ButtonFavourite';
 import { FavouriteType } from '@/entities/Favourite/data/favourite.data';
+import { ImageAPIVariants } from '@/shared/data/image.data';
 
 interface ProductVProps extends IListItem<IProduct> {}
 
@@ -38,6 +39,7 @@ export const ProductV: FC<ProductVProps> = ({
         <div className={cl.top}>
           <div className={cl.wrapperImage}>
             <ImageAPI src={product.media.attachments[0]} 
+                      variantDefault={ImageAPIVariants.Product}
                       fill={true}
                       className={cl.image} />
           </div>

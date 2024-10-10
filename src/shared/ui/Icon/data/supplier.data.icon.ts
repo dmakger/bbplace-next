@@ -1,6 +1,7 @@
 import { IIcon } from '../model/icon.model'
 
 import SupplierZero from '@/shared/assets/img/Supplier/SupplierZero.svg'
+import DefaultUserGray from '@/shared/assets/img/defaultUserGray.svg'
 
 import OnlyForSuppliersIcon from '@/shared/assets/img/Supplier/OnlyForSuppliers.svg'
 
@@ -15,7 +16,6 @@ import SupplierGray5Icon from '@/shared/assets/img/Supplier/SupplierGray5Icon.sv
 export const SUPPLIER_ZERO__ICON: IIcon = {
     default: SupplierZero,
 }
-
 export const ONLY_FOR_SUPPLIERS_ICON: IIcon = {
     default: OnlyForSuppliersIcon
 }
@@ -32,4 +32,8 @@ export const SUPPLIER_DEFAULT_ICON: IIcon = {
 
 export const SUPPLIER_GRAY_5_ICON: IIcon = {
     default: SupplierGray5Icon
+}
+
+export const SUPPLIER_DEFAULT__ICON: IIcon = {
+    default: DefaultUserGray,
 }
