@@ -9,6 +9,7 @@ import { ESupplierFavouriteViewItem, ESupplierToChatViewItem } from "@/entities/
 import { getDiapason } from "@/entities/Metrics/lib/metrics/diapason.metrics.metrics.lib"
 import { QuantityMetrics } from "@/shared/ui/QuantityMetrics/QuantityMetrics"
 import { NavSupplier } from "@/entities/Supplier/components/Nav/NavSupplier"
+import { ImageAPIVariants } from "@/shared/data/image.data"
 
 interface IProductASP extends IProductProps { }
 
@@ -26,7 +27,10 @@ export const ProductASP = ({
         <section className={cls(cl.ProductASP, className)}>
             <Link className={cls(cl.block, className)} href={`${MAIN_PAGES.CURRENT_PRODUCT(product.id)}`}>
                 <div className={cl.top}>
-                    <ImageAPI src={media.attachments[0]} width={216} height={216} className={cl.image} />
+                    <ImageAPI src={media.attachments[0]} 
+                              width={216} height={216}
+                              variantDefault={ImageAPIVariants.Product} 
+                              className={cl.image} />
                 </div>
                 <div className={cl.middle}>
                     <h4 className={cl.name}>{product.name}</h4>

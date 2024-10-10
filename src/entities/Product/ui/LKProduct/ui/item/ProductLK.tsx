@@ -18,6 +18,7 @@ import Input from '@/shared/ui/Input/Input'
 import { IGroupProducts } from '@/entities/Product/model/group.product.model'
 import { ProductsTypeLK } from '@/shared/ui/SwitchSelector/data/switchSelector.data'
 import { getIdFromVariant } from '@/entities/Product/lib/product.lib'
+import { ImageAPIVariants } from '@/shared/data/image.data'
 
 interface IProductLK {
 	product: IGroupProducts | IProduct,
@@ -101,7 +102,7 @@ export const ProductLK = ({
 			<Input.Checkbox isChecked={isChecked} setIsChecked={setIsChecked} className={cl.checkbox} />
 			<div className={cl.imageContainer}>
 				{mediaProduct.attachments.length > 0 && (
-					<ImageAPI src={mediaProduct.attachments[0]} />
+					<ImageAPI src={mediaProduct.attachments[0]} variantDefault={ImageAPIVariants.Product} />
 				)}
 
 				<div className={cl.settings}>
